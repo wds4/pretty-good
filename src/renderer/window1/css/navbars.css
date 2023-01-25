@@ -1,0 +1,26 @@
+.leftNavButton {
+    width:80px;
+    height:80px;
+    display:inline-block;
+    color:black;
+    background-color:#EFEFEF;
+    margin:0px 0px 5px 0px;
+    border-radius:3px;
+    padding:5px;
+    font-size:12px;
+    text-decoration:none;
+}
+.leftNavButton:hover {
+    color:white;
+    background-color:#1B2631;
+}
+.leftNavPanel {
+    padding-top:5px;
+    display:inline-block;
+    background-color: #616A6B;
+    height:100%;
+    width:100px;
+    vertical-align:top;
+    text-align:center;
+    white-space: normal;
+}

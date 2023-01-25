@@ -1,0 +1,13 @@
+.mastheadMainAreaContainer {
+    overflow:hidden;
+    text-align:center;
+    border-bottom:2px solid #1B2631;
+    padding-bottom:5px;
+}
+.mastheadAppNameContainer {
+    font-size:28px;
+    text-align:center;
+    margin-top:10px;
+    margin-bottom:5px;
+    color:purple;
+}
