@@ -16,6 +16,13 @@ import sqlite from 'sqlite3';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 import webpackPaths from '../../.erb/configs/webpack.paths';
+import {
+  createNostrProfilesTableCommand,
+  createMyProfileTableCommand,
+  createMyFollowingNetworkTableCommand,
+  createRelaysTableCommand,
+  aDefaultRelayUrls,
+} from './const/nostr';
 
 const sqlite3 = sqlite.verbose();
 
@@ -31,23 +38,6 @@ class AppUpdater {
   }
 }
 
-ipcMain.on('ipc-example', async (event, arg) => {
-  const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
-  console.log(msgTemplate(arg));
-  event.reply('ipc-example', msgTemplate('pong'));
-});
-
-ipcMain.on('asynchronous-sql-command', async (event, sql) => {
-  db.all(sql, (err, result) => {
-    event.reply('asynchronous-sql-reply', result);
-  });
-});
-
-if (process.env.NODE_ENV === 'production') {
-  const sourceMapSupport = require('source-map-support');
-  sourceMapSupport.install();
-}
-
 const isDebug =
   process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true';
 
@@ -55,23 +45,79 @@ if (isDebug) {
   require('electron-debug')();
 }
 
-const databaseName = 'myCoolDatabase.sqlite3';
+const databaseName = 'prettyGoodDatabase.sqlite3';
 const sqlPathDev = path.join(webpackPaths.appPath, 'sql', databaseName);
 const sqlPathProd = path.join(app.getPath('userData'), databaseName);
 const sqlPath = isDebug ? sqlPathDev : sqlPathProd;
+
+const db = new sqlite3.Database(sqlPath, (err) => {
+  if (err) console.error('Database opening error: ', err);
+});
 
 const sqlPathsInfo = [sqlPath, sqlPathDev, sqlPathProd, isDebug];
 ipcMain.on('ipc-show-userDataPaths', async (event, arg) => {
   event.reply('ipc-show-userDataPaths', sqlPathsInfo);
 });
 
-const db = new sqlite3.Database(sqlPath, (err) => {
-  if (err) console.error('Database opening error: ', err);
+// fetch relays from sql to send to the renderer process.
+ipcMain.on('ipc-fetch-relays', async (event, arg) => {
+  let sql = '';
+  sql += 'SELECT * FROM relays ';
+  db.all(sql, (err, aRelaysData) => {
+    // console.log("ipc-fetch-relays result: "+JSON.stringify(aRelaysData,null,4))
+    const aActive = [];
+    for (let r = 0; r < aRelaysData.length; r += 1) {
+      const oNextRelayData = aRelaysData[r];
+      const { url, active } = oNextRelayData;
+      if (active) {
+        aActive.push(url);
+      }
+    }
+    event.reply('ipc-fetch-relays', aActive);
+  });
+});
+
+ipcMain.on('ipc-example', async (event, arg) => {
+  const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
+  console.log(msgTemplate(arg));
+  event.reply('ipc-example', msgTemplate('pong'));
+});
+
+ipcMain.on('asynchronous-sql-command', async (event, data) => {
+  const sql = data[0];
+  const nonce = data[1];
+  db.all(sql, (err, result) => {
+    event.reply(`asynchronous-sql-reply-${nonce}`, result);
+  });
 });
 
 db.serialize(() => {
-  db.run('CREATE TABLE IF NOT EXISTS myCoolTable (info TEXT NULL)');
+  // db.run('DROP TABLE IF EXISTS nostrProfiles');
+  // db.run('DROP TABLE IF EXISTS myCoolTable');
+  // db.run('DROP TABLE IF EXISTS myProfile');
+  // db.run('DROP TABLE IF EXISTS followingNetwork');
+  // db.run('DROP TABLE IF EXISTS relays');
+  db.run(
+    `CREATE TABLE IF NOT EXISTS nostrProfiles (${createNostrProfilesTableCommand})`
+  );
+  db.run(
+    `CREATE TABLE IF NOT EXISTS followingNetwork (${createMyFollowingNetworkTableCommand})`
+  );
+  db.run(
+    `CREATE TABLE IF NOT EXISTS myProfile (${createMyProfileTableCommand})`
+  );
+  db.run(`CREATE TABLE IF NOT EXISTS relays (${createRelaysTableCommand})`);
+  for (let r = 0; r < aDefaultRelayUrls.length; r += 1) {
+    const nextRelay = aDefaultRelayUrls[r];
+    const sql = ` INSERT OR IGNORE INTO relays (url,default_app,active) VALUES('${nextRelay}',true,true) `;
+    db.run(sql);
+  }
 });
+
+if (process.env.NODE_ENV === 'production') {
+  const sourceMapSupport = require('source-map-support');
+  sourceMapSupport.install();
+}
 
 const installExtensions = async () => {
   const installer = require('electron-devtools-installer');

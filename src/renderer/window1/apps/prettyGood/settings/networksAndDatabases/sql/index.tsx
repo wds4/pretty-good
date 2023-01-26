@@ -1,8 +1,12 @@
 import React from 'react';
-import Masthead from '../../../../mastheads/pgMasthead';
-import LeftNavbar1 from '../../../../navbars/leftNavbar1/pgNavbar';
-import LeftNavbar2 from '../../../../navbars/leftNavbar2/prettyGood/settings';
-import { updateMainColWidth, updateMastheadCenter } from '../../../../lib/pg/ui';
+import Masthead from '../../../../../mastheads/pgMasthead';
+import LeftNavbar1 from '../../../../../navbars/leftNavbar1/pgNavbar';
+import LeftNavbar2 from '../../../../../navbars/leftNavbar2/prettyGood/settings';
+import {
+  updateMainColWidth,
+  updateMastheadCenter,
+} from '../../../../../lib/pg/ui';
+import SqlBody from './sql';
 
 export default class PrettyGoodSettings extends React.Component {
   constructor(props) {
@@ -26,7 +30,7 @@ export default class PrettyGoodSettings extends React.Component {
         <div id="mainCol">
           <Masthead />
           <div id="mainPanel">
-            <div className="h4">SQL Settings</div>
+            <SqlBody />
           </div>
         </div>
       </>
