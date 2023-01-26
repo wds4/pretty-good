@@ -1,5 +1,5 @@
 {
-  "description": "A foundation for scalable desktop apps",
+  "description": "Pretty Good",
   "keywords": [
     "electron",
     "boilerplate",
@@ -9,21 +9,23 @@
     "sass",
     "webpack",
     "hot",
-    "reload"
+    "reload",
+    "nostr",
+    "sqlite3",
+    "conceptGraph",
+    "grapevine"
   ],
-  "homepage": "https://github.com/electron-react-boilerplate/electron-react-boilerplate#readme",
+  "homepage": "https://github.com/wds4/pretty-good#readme",
   "bugs": {
-    "url": "https://github.com/electron-react-boilerplate/electron-react-boilerplate/issues"
+    "url": "https://github.com/wds4/pretty-good/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/electron-react-boilerplate/electron-react-boilerplate.git"
+    "url": "git+https://github.com/wds4e/pretty-good.git"
   },
-  "license": "MIT",
+  "license": "GNU AGPLv3",
   "author": {
-    "name": "Electron React Boilerplate Maintainers",
-    "email": "electronreactboilerplate@gmail.com",
-    "url": "https://electron-react-boilerplate.js.org"
+    "name": "David Strayhorn"
   },
   "contributors": [
     {
@@ -109,15 +111,23 @@
     }
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.1",
     "electron-debug": "^3.2.0",
     "electron-log": "^4.4.8",
     "electron-updater": "^5.2.3",
+    "nostr-react": "github:wds4/nostr-react#autoReconnect",
+    "nostr-tools": "^1.2.0",
+    "nouislider-react": "^3.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.4.0"
+    "react-router-dom": "^6.4.0",
+    "redux": "^4.2.0",
+    "vis-data": "^7.1.4",
+    "vis-network": "^9.1.2"
   },
   "devDependencies": {
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.7",
+    "@redux-devtools/core": "^3.13.1",
     "@svgr/webpack": "^6.3.1",
     "@teamsupercell/typings-for-css-modules-loader": "^2.5.1",
     "@testing-library/jest-dom": "^5.16.5",

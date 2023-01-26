@@ -1,26 +1,118 @@
+/************************************************************
+*************************************************************
+LEFT NAV 1
+*************************************************************
+************************************************************/
+
+/******************************
+MAIN PANEL
+******************************/
+.leftNavPanel {
+  padding-top:5px;
+  display:inline-block;
+  background-color: #616A6B;
+  height:100%;
+  width:100px;
+  vertical-align:top;
+  text-align:center;
+  white-space: normal;
+}
+  /*
+  modifications
+  */
+.leftNavPanelNostr {
+  background-color: rgb(73, 0, 128);
+}
+.leftNavPanelConceptGraph {
+  background-color: #929F80;
+}
+.leftNavPanelPrettyGood {
+  background-color: #616A6B;
+}
+.leftNavPanelGrapevine {
+  background-color: purple;
+}
+
+/******************************
+LEFT NAV 1 BUTTONS
+******************************/
 .leftNavButton {
-    width:80px;
-    height:80px;
-    display:inline-block;
-    color:black;
-    background-color:#EFEFEF;
-    margin:0px 0px 5px 0px;
-    border-radius:3px;
-    padding:5px;
-    font-size:12px;
-    text-decoration:none;
+  width:80px;
+  height:80px;
+  display:inline-block;
+  color:black;
+  background-color:#EFEFEF;
+  margin:0px 0px 5px 0px;
+  border:1px solid black;
+  border-radius:3px;
+  padding:5px;
+  font-size:12px;
+  text-decoration:none;
+}
+.leftNavButtonActive {
+  color:black;
+  background-color:green;
 }
 .leftNavButton:hover {
-    color:white;
-    background-color:#1B2631;
+  color:white;
+  background-color:black;
 }
-.leftNavPanel {
-    padding-top:5px;
-    display:inline-block;
-    background-color: #616A6B;
-    height:100%;
-    width:100px;
-    vertical-align:top;
-    text-align:center;
-    white-space: normal;
+
+/************************************************************
+*************************************************************
+LEFT NAV 2
+*************************************************************
+************************************************************/
+
+/******************************
+MAIN PANEL
+******************************/
+.leftNav2Panel {
+  padding-top:5px;
+  display:inline-block;
+  height:100%;
+  width:70px;
+  vertical-align:top;
+  text-align:center;
+  white-space: normal;
 }
+  /*
+  modifications
+  */
+.leftNav2PanelNostr {
+  background-color: rgba(73, 0, 128, 0.5);
+}
+.leftNav2PanelConceptGraph {
+  background-color: #929f8083;
+}
+.leftNav2PanelPrettyGood {
+  background-color: #616a6b7a;
+}
+.leftNav2PanelGrapevine {
+  background-color: rgba(128, 0, 128, 0.5);
+}
+
+/******************************
+BUTTONS
+******************************/
+.leftNav2Button {
+  width:85%;
+  height:40px;
+  display:inline-block;
+  color:black;
+  background-color:#EFEFEF;
+  margin:0px 0px 2px 0px;
+  border:1px solid black;
+  border-radius:3px;
+  padding:1px;
+  font-size:10px;
+  text-decoration:none;
+}
+.leftNav2ButtonActive {
+  background-color: green;
+}
+.leftNav2Button:hover {
+  color:white;
+  background-color:black;
+}
+

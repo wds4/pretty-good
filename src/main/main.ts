@@ -20,8 +20,8 @@ import webpackPaths from '../../.erb/configs/webpack.paths';
 const sqlite3 = sqlite.verbose();
 
 const win1 = true;
-const win2 = true;
-const win3 = true;
+const win2 = false;
+const win3 = false;
 
 class AppUpdater {
   constructor() {
