@@ -3,11 +3,12 @@ import {
   updateMainColWidth,
   updateMastheadCenter,
 } from 'renderer/window1/lib/pg/ui';
-import Masthead from '../../../../mastheads/pgMasthead';
-import LeftNavbar1 from '../../../../navbars/leftNavbar1/pgNavbar';
-import LeftNavbar2 from '../../../../navbars/leftNavbar2/prettyGood/helloWorld';
+import Masthead from 'renderer/window1/mastheads/pgMasthead';
+import LeftNavbar1 from 'renderer/window1/navbars/leftNavbar1/pgNavbar';
+import LeftNavbar2 from 'renderer/window1/navbars/leftNavbar2/prettyGood/helloWorld';
+import Graphic from './graphic';
 
-export default class PrettyGoodSettings extends React.Component {
+export default class VisjsHelloWorld extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -15,7 +16,7 @@ export default class PrettyGoodSettings extends React.Component {
 
   async componentDidMount() {
     updateMainColWidth();
-    const mastheadDescriptor = 'Pretty Good: Hello World';
+    const mastheadDescriptor = 'Visjs: Hello World';
     updateMastheadCenter(mastheadDescriptor);
   }
 
@@ -29,7 +30,8 @@ export default class PrettyGoodSettings extends React.Component {
         <div id="mainCol">
           <Masthead />
           <div id="mainPanel">
-            <div className="h4">Pretty Good: Hello World</div>
+            <div className="h4">visjs Hello World</div>
+            <Graphic />
           </div>
         </div>
       </>
