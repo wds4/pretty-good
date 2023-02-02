@@ -10,7 +10,7 @@ Clone this repo and install dependencies:
 
 ```bash
 git clone --depth 1 --branch main https://github.com/wds4/pretty-good.git pretty-good
-cd your-project-name
+cd pretty-good
 npm install
 ```
 
