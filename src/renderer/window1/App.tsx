@@ -23,7 +23,8 @@ import PrettyGoodSql from './apps/prettyGood/settings/networksAndDatabases/sql';
 import PrettyGoodApps from './apps/prettyGood/apps';
 import PrettyGoodHelloWorld from './apps/prettyGood/settings/helloWorld';
 import HelloWorldRedux from './apps/prettyGood/settings/helloWorld/redux';
-import VisjsHelloWorld from './apps/prettyGood/settings/helloWorld/visJsHelloWorld';
+import VisjsHelloWorld from './apps/prettyGood/settings/helloWorld/visjs';
+import IpfsCoreHelloWorld from './apps/prettyGood/settings/helloWorld/ipfsCore';
 
 // import NostrHome from './apps/nostr';
 import NostrHome from './apps/nostr';
@@ -165,6 +166,10 @@ export default class App extends React.Component {
                     <Route
                       path="/PrettyGoodHome/VisjsHelloWorld"
                       element={<VisjsHelloWorld />}
+                    />
+                    <Route
+                      path="/PrettyGoodHome/IpfsCoreHelloWorld"
+                      element={<IpfsCoreHelloWorld />}
                     />
 
                     <Route path="/NostrHome" element={<NostrHome />} />

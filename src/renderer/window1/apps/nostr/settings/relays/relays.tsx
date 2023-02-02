@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { updateNostrRelayStoreAndSql } from 'renderer/window1/redux/features/nostrGlobalState/slice';
 import { addNewRelayToSql } from 'renderer/window1/lib/pg/sql';
+import EndorseRelayMessage from './endorseRelayMessage';
 
 const RelaysSettings = () => {
   const devMode = useSelector((state) => state.prettyGoodGlobalState.devMode);
@@ -42,36 +43,40 @@ const RelaysSettings = () => {
         }
       }
     }
-
   }
   const aRelayUrls = Object.keys(oRelaysData)
   return (
     <>
       <pre className={devModeClassName}>{JSON.stringify(oRelaysData,null,4)}</pre>
-      {aRelayUrls.map((url) => {
-        const oRelayData = oRelaysData[url];
-        let initState = oRelayData.active;
+      <div style={{border:"1px dashed orange"}}>
+        <div style={{display:"inline-block",border:"1px dashed grey"}}>
+          {aRelayUrls.map((url) => {
+            const oRelayData = oRelaysData[url];
+            let initState = oRelayData.active;
+            return (
+              <>
+                <div className="relayInfoContainer">
+                  <input
+                    className="relayCheckbox"
+                    style={{ display: 'inline-block' }}
+                    type="checkbox"
+                    checked={oRelayData.active}
+                    onChange={(e) => processStateChange(e.target.checked,url)}
+                  />
+                  <div className="relayUrlContainer">{oRelayData.url}</div>
+                  <div className="deleteRelayButton doSomethingButton">delete</div>
+                </div>
+              </>
+            );
+          })}
+        </div>
 
-        return (
-          <>
-            <div className="relayInfoContainer">
-              <input
-                className="relayCheckbox"
-                style={{ display: 'inline-block' }}
-                type="checkbox"
-                checked={oRelayData.active}
-                onChange={(e) => processStateChange(e.target.checked,url)}
-              />
-              <div className="relayUrlContainer">{oRelayData.url}</div>
-              <div className="deleteRelayButton doSomethingButton">delete</div>
-            </div>
-          </>
-        );
-      })}
+      </div>
       <div>
-        <div style={{display:"inline-block",fontSize:"18px"}}>wss://</div><textarea
+        <div style={{display:"inline-block",fontSize:"18px"}}>wss://</div>
+        <textarea
           id="newRelayTextarea"
-          style={{ height: '20px', width: '350px' }}
+          style={{ height: '20px', width: '200px' }}
         />
         <div id="addRelayButton" className="doSomethingButton" onClick={addNewRelay}>
           add a new relay
@@ -83,6 +88,7 @@ const RelaysSettings = () => {
           You will need to restart the app for any changes to take effect.
         </div>
       </div>
+      <EndorseRelayMessage />
     </>
   );
 };

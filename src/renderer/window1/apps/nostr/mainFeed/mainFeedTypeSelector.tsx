@@ -12,6 +12,7 @@ const MainFeedTypeSelector = () => {
   let followingSelected = false;
   let eFollowingSelected = false;
   let firehoseSelected = false;
+  let grapevineSelected = false;
   switch (mainNostrFeedFilter) {
     case 'following':
       followingSelected = true;
@@ -21,6 +22,9 @@ const MainFeedTypeSelector = () => {
       break;
     case 'firehose':
       firehoseSelected = true;
+      break;
+    case 'grapevine':
+      grapevineSelected = true;
       break;
     default:
       firehoseSelected = true;
@@ -56,6 +60,9 @@ const MainFeedTypeSelector = () => {
           </option>
           <option value="firehose" selected={firehoseSelected}>
             firehose
+          </option>
+          <option value="grapevine" selected={grapevineSelected}>
+            grapevine
           </option>
         </select>
       </div>

@@ -41,6 +41,8 @@ if (
 const configuration: webpack.Configuration = {
   devtool: 'inline-source-map',
 
+  experiments: { topLevelAwait: true },
+
   mode: 'development',
 
   target: ['web', 'electron-renderer'],

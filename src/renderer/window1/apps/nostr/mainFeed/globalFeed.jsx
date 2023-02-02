@@ -34,7 +34,14 @@ const GlobalFeed = () => {
       filter.since = currentTime - 2 * 24 * 60 * 60; // 2 * 24 * 60 * 60 = fetch messages as old as two days
       break;
     case 'firehose':
+      // all authors
       filter.since = currentTime - 30 * 60; // 60 * 60 = fetch messages as old as one hour
+      break;
+    case 'grapevine':
+      // all authors
+      filter.since = 0; // since forever ago
+      filter["#g"]=["grapevine"]
+      filter.kinds=[1971]
       break;
     default:
       filter.since = currentTime - 30 * 60; // 60 * 60 = fetch messages as old as one hour

@@ -21,6 +21,8 @@ deleteSourceMaps();
 const configuration: webpack.Configuration = {
   devtool: 'source-map',
 
+  experiments: { topLevelAwait: true },
+
   mode: 'production',
 
   target: ['web', 'electron-renderer'],

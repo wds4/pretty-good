@@ -20,6 +20,14 @@ const Post = ({ event, index }) => {
   );
   const dispatch = useDispatch();
 
+  let devModeData = "";
+  const devMode = useSelector((state) => state.prettyGoodGlobalState.devMode);
+  let devModeClassName = 'devModeOff';
+  if (devMode) {
+    devModeClassName = 'devModeOn';
+    devModeData = JSON.stringify(event,null,4)
+  }
+
   const displayTime = secsToTime(event.created_at);
   const rawContent = event.content;
   const extractedUrl = extractVideoUrl(rawContent);
@@ -116,6 +124,7 @@ const Post = ({ event, index }) => {
             }}
             className="eventContentContainer"
           >
+            <pre>{devModeData}</pre>
             {contentMinusVideoUrl}
             <YoutubeEmbed embedId={embedId2} extractedUrl={extractedUrl} />
           </NavLink>
