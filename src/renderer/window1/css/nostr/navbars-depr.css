@@ -1,0 +1,55 @@
+.leftNavButton {
+    width:80px;
+    height:80px;
+    border:1px solid #5f5f5f;
+    display:inline-block;
+    color:black;
+    background-color:#EFEFEF;
+    margin:0px 0px 5px 0px;
+    border-radius:3px;
+    padding:5px;
+    font-size:12px;
+    text-decoration:none;
+}
+.leftNavButton:hover {
+    color:white;
+    background-color:#1B2631;
+}
+.leftNavPanel {
+    padding-top:5px;
+    display:inline-block;
+    background-color: #616A6B;
+    height:100%;
+    width:100px;
+    vertical-align:top;
+    text-align:center;
+    white-space: normal;
+}
+
+.leftNav2Button {
+    width:40px;
+    height:40px;
+    border:1px solid #5f5f5f;
+    display:inline-block;
+    color:black;
+    background-color:#EFEFEF;
+    margin:0px 0px 2px 0px;
+    border-radius:2px;
+    padding:2px;
+    font-size:10px;
+    text-decoration:none;
+}
+.leftNav2Button:hover {
+    color:white;
+    background-color:#1B2631;
+}
+.leftNav2Panel {
+    padding-top:5px;
+    display:inline-block;
+    background-color: #BDC3C7;
+    height:100%;
+    width:52px;
+    vertical-align:top;
+    text-align:center;
+    white-space: normal;
+}

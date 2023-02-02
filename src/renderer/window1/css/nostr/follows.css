@@ -1,0 +1,40 @@
+.followsNavLink {
+    display:inline-block;
+    text-decoration:none;
+}
+.followButton {
+    border:1px solid black;
+    border-radius:15px;
+    font-size:12px;
+    display:inline-block;
+    padding:4px 20px 4px 20px;
+    margin:4px;
+    background-color:black;
+    color:white;
+}
+.followButton:before {
+  content:"Follow"
+}
+.unfollowButton {
+    border:1px solid black;
+    border-radius:15px;
+    font-size:12px;
+    display:inline-block;
+    padding:4px 14px 4px 14px;
+    margin:4px;
+    background-color:white;
+    color:black;
+}
+.unfollowButton:before {
+  content:"Unfollow"
+}
+.followButton:hover {
+    background-color:yellow;
+}
+.unfollowButton:hover {
+    background-color:#DFDFDF;
+}
+.followCountContainer {
+    margin-top:10px;
+    font-size:14px;
+}

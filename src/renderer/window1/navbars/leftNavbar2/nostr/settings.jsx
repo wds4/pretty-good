@@ -49,6 +49,18 @@ export default class LeftNavbar2 extends React.PureComponent {
                 : 'leftNav2Button'
             }
             end
+            to="/NostrHome/NostrSettingsGrapevine"
+          >
+            grapevine
+          </NavLink>
+
+          <NavLink
+            className={({ isActive }) =>
+              isActive
+                ? 'leftNav2Button leftNav2ButtonActive'
+                : 'leftNav2Button'
+            }
+            end
             to="/NostrHome/NostrSql"
           >
             sql

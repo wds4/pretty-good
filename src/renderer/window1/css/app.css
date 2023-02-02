@@ -83,3 +83,15 @@ div.h4 {
     width:100%;
     padding-top:20px;
 }
+.devModeOn {
+  display:block;
+}
+.devModeOff {
+  display:none;
+}
+.block_show {
+  display:block;
+}
+.block_hide {
+  display:none;
+}

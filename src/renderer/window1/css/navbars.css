@@ -51,7 +51,7 @@ LEFT NAV 1 BUTTONS
 }
 .leftNavButtonActive {
   color:black;
-  background-color:green;
+  background-color:#AFAFAF;
 }
 .leftNavButton:hover {
   color:white;
@@ -109,7 +109,7 @@ BUTTONS
   text-decoration:none;
 }
 .leftNav2ButtonActive {
-  background-color: green;
+  background-color: #AFAFAF;
 }
 .leftNav2Button:hover {
   color:white;

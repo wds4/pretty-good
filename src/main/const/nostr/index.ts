@@ -6,7 +6,6 @@ export const aDefaultRelayUrls: string[] = [
   'wss://nostr-pub.wellorder.net',
   'wss://nostr-relay.untethr.me',
   'wss://relay.damus.io',
-  'wss://nostr-relay.wlvs.space',
   'wss://nostr.fmt.wiz.biz',
   'wss://nostr.oxtr.dev',
 ];
@@ -42,8 +41,8 @@ createMyProfileTableCommand += 'about TEXT NULL, ';
 createMyProfileTableCommand += 'picture_url TEXT NULL, ';
 createMyProfileTableCommand += 'following TEXT NULL, ';
 createMyProfileTableCommand += 'followers TEXT NULL, ';
-createMyProfileTableCommand += 'ln_url TEXT NULL, ';
-createMyProfileTableCommand += 'nip05_verification TEXT NULL, ';
+createMyProfileTableCommand += 'nip05 TEXT NULL, ';
+createMyProfileTableCommand += 'lud06 TEXT NULL, ';
 createMyProfileTableCommand += 'lastUpdate INTEGER NULL, ';
 createMyProfileTableCommand += 'UNIQUE(pubkey, privkey) ';
 

@@ -6,6 +6,8 @@ import {
   updateMainColWidth,
   updateMastheadCenter,
 } from '../../../../lib/pg/ui';
+import RelaysSettings from './relays';
+import EndorseRelays from './endorseRelays';
 
 export default class NostrRelays extends React.Component {
   constructor(props) {
@@ -30,6 +32,8 @@ export default class NostrRelays extends React.Component {
           <Masthead />
           <div id="mainPanel">
             <div className="h4">Nostr: Relays</div>
+            <EndorseRelays />
+            <RelaysSettings />
           </div>
         </div>
       </>

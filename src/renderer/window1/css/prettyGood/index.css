@@ -1,0 +1,58 @@
+.pgAppSquareButton {
+  width:150px;
+  height:150px;
+  color:black;
+  border:1px solid black;
+  display:inline-block;
+  border-radius:5px;
+  margin:5px;
+  padding:2px;
+  vertical-align:bottom;
+  text-decoration:none;
+}
+.pgAppSquareButton:hover {
+  color:white;
+  background-color:black;
+}
+.plexAppSquareInactiveButton {
+  border:1px dashed grey;
+}
+.doSomethingButton {
+  font-size:12px;
+  display:inline-block;
+  border:1px solid black;
+  border-radius:3px;
+  padding:4px;
+  margin:4px;
+  background-color:#DFDFDF;
+  color:black;
+}
+.doSomethingButton:hover {
+  background-color:yellow;
+}
+.doSomethingButton_small {
+  font-size:10px;
+  display:inline-block;
+  border:1px solid black;
+  border-radius:3px;
+  padding:1px;
+  margin:1px;
+  background-color:#DFDFDF;
+  color:black;
+}
+.doSomethingButton_small:hover {
+  background-color:yellow;
+}
+.doSomethingButton_tiny {
+  font-size:9px;
+  display:inline-block;
+  border:1px solid black;
+  border-radius:2px;
+  padding:0px 1px 0px 1px;
+  margin:0px 1px 0px 1px;
+  background-color:#DFDFDF;
+  color:black;
+}
+.doSomethingButton_tiny:hover {
+  background-color:yellow;
+}

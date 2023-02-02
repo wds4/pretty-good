@@ -1,0 +1,62 @@
+.mainUserProfileBox {
+    width:100%;
+    margin-bottom:0px;
+}
+.largeAvatarContainer {
+    display:inline-block;
+    position:relative;
+    width:250px;
+    height:250px;
+}
+.mainProfilePageAvatarBox {
+  	display:inline-block;
+  	background-color:blue;
+  	border:5px solid black;
+  	border-radius:250px;
+  	width:95%;
+  	height:95%;
+  	margin: 0;
+  	position: absolute;
+  	top: 50%;
+  	left: 50%;
+  	transform: translate(-50%, -50%);
+}
+.mainUserProfileRightColumnContainer {
+    display:inline-block;
+    margin-left:10px;
+    position:relative;
+}
+.mainUserProfileLeftColumnContainer {
+    display:inline-block;
+    width:250px;
+    overflow:scroll;
+}
+.mainUserAboutContainer {
+    width:600px;
+    height:40px;
+    overflow:scroll;
+}
+.mainUserNameContainer {
+    font-size:18px;
+    width:100%;
+    overflow:scroll;
+    margin-bottom:5px;
+}
+.userProfilePubkeyContainer {
+    font-size:10px;
+    color:brown;
+    margin-bottom:5px;
+}
+.profilePageBarTab {
+  display:inline-block;
+  background-color:#DFDFDF;
+  width:20%;
+  height:30px;
+  padding:3px;
+  text-align:left;
+  color:grey;
+  text-decoration-thickness:3px;
+}
+.profilePageBarTab:hover {
+  color:black;
+}

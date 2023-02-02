@@ -1,0 +1,6 @@
+.nfgGraphicContainer {
+    border:1px dashed grey;
+    display:inline-block;
+    width:700px;
+    height:500px;
+}

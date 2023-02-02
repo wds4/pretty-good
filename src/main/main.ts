@@ -65,6 +65,12 @@ ipcMain.on('ipc-fetch-relays', async (event, arg) => {
   sql += 'SELECT * FROM relays ';
   db.all(sql, (err, aRelaysData) => {
     // console.log("ipc-fetch-relays result: "+JSON.stringify(aRelaysData,null,4))
+    if (aRelaysData) {
+      event.reply('ipc-fetch-relays', aRelaysData);
+    } else {
+      event.reply('ipc-fetch-relays', []);
+    }
+    /*
     const aActive = [];
     for (let r = 0; r < aRelaysData.length; r += 1) {
       const oNextRelayData = aRelaysData[r];
@@ -74,6 +80,7 @@ ipcMain.on('ipc-fetch-relays', async (event, arg) => {
       }
     }
     event.reply('ipc-fetch-relays', aActive);
+    */
   });
 });
 
@@ -93,8 +100,7 @@ ipcMain.on('asynchronous-sql-command', async (event, data) => {
 
 db.serialize(() => {
   // db.run('DROP TABLE IF EXISTS nostrProfiles');
-  // db.run('DROP TABLE IF EXISTS myCoolTable');
-  // db.run('DROP TABLE IF EXISTS myProfile');
+  // db.run('DROP TABLE IF EXISTS myNostrProfile');
   // db.run('DROP TABLE IF EXISTS followingNetwork');
   // db.run('DROP TABLE IF EXISTS relays');
   db.run(
@@ -104,7 +110,7 @@ db.serialize(() => {
     `CREATE TABLE IF NOT EXISTS followingNetwork (${createMyFollowingNetworkTableCommand})`
   );
   db.run(
-    `CREATE TABLE IF NOT EXISTS myProfile (${createMyProfileTableCommand})`
+    `CREATE TABLE IF NOT EXISTS myNostrProfile (${createMyProfileTableCommand})`
   );
   db.run(`CREATE TABLE IF NOT EXISTS relays (${createRelaysTableCommand})`);
   for (let r = 0; r < aDefaultRelayUrls.length; r += 1) {
@@ -150,8 +156,8 @@ const createWindows = async () => {
     let window1: BrowserWindow | null = null;
     window1 = new BrowserWindow({
       show: false,
-      width: 1024,
-      height: 728,
+      width: 1500,
+      height: 800,
       icon: getAssetPath('icon.png'),
       webPreferences: {
         preload: app.isPackaged

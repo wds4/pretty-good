@@ -1,7 +1,7 @@
 import React from 'react';
 import Masthead from '../../../../mastheads/pgMasthead';
 import LeftNavbar1 from '../../../../navbars/leftNavbar1/pgNavbar';
-import LeftNavbar2 from '../../../../navbars/leftNavbar2/prettyGood/settings';
+import LeftNavbar2 from '../../../../navbars/leftNavbar2/prettyGood/helloWorld';
 import { updateMainColWidth, updateMastheadCenter } from '../../../../lib/pg/ui';
 
 export default class PrettyGoodSettings extends React.Component {
