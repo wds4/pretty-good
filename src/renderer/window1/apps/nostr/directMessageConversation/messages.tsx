@@ -34,20 +34,10 @@ const DirectMessages = () => {
           if (event.pubkey == myPubkey && pk_receiver == pubkey) {
             showThisEvent = 2;
           }
-
-          if (showThisEvent == 1) {
-            directMessageContainerClassName +=
-              ' directMessageContainerFloatLeft';
-          }
-          if (showThisEvent == 2) {
-            directMessageContainerClassName +=
-              ' directMessageContainerFloatRight';
-          }
-          const displayTime = secsToTime(event.created_at);
           if (showThisEvent) {
             return (
               <>
-                =<Message event={event} />=
+                <Message event={event} />
               </>
             );
           }
