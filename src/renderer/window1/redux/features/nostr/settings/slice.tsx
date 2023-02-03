@@ -44,10 +44,8 @@ export const nostrSettingsSlice = createSlice({
       state.nostrGrapevineSettings = newSettings;
     },
     updateNostrGrapevineTopicalSettings: (state, action) => {
-      console.log("qwerty updateNostrGrapevineTopicalSettings; action.payload: ")
       const topic = action.payload.topic;
       const oUpdate = action.payload.oUpdate;
-      console.log("qwerty updateNostrGrapevineTopicalSettings; action.payload: "+JSON.stringify(action.payload,null,4))
       state.nostrGrapevineSettings[topic] = { ... state.nostrGrapevineSettings[topic], ... oUpdate[topic] };
     },
     updateMainNostrFeedFilter: (state, action) => {

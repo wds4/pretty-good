@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { useNostrEvents, dateToUnix } from 'nostr-react';
 import { nip19 } from 'nostr-tools';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { updateNostrProfileFocus } from '../../../redux/features/nostr/settings/slice';
 
 const SearchForUser = () => {
@@ -17,10 +17,8 @@ const SearchForUser = () => {
     const e2 = document.getElementById("userNpub")
     if (e2) {
       npub = e2.value;
-      console.log("qwerty npub: "+npub)
       try {
         const { type, data } = nip19.decode(npub);
-        console.log("qwerty type: "+type+"; data: "+data)
         if (type=="npub") {
           e1.value = data;
         }

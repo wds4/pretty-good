@@ -56,3 +56,9 @@
 .doSomethingButton_tiny:hover {
   background-color:yellow;
 }
+.reduxStoreOverviewContainer {
+  margin-bottom:20px;
+  width:80%;
+  padding:10px;
+  border:1px solid black;
+}

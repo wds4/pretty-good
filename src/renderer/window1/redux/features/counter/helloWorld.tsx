@@ -1,4 +1,3 @@
-import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { decrement, increment } from './slice';
 
@@ -7,8 +6,8 @@ export default function Counter() {
   const dispatch = useDispatch();
 
   return (
-    <div>
-      <div>basic counter</div>
+    <div className="reduxStoreOverviewContainer">
+      <div className="h4">basic counter</div>
       <div>
         <button
           type="button"
@@ -17,7 +16,7 @@ export default function Counter() {
         >
           Increment
         </button>
-        <span>{count}</span>
+        <span> {count} </span>
         <button
           type="button"
           aria-label="Decrement value"

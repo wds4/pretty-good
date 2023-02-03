@@ -1,12 +1,15 @@
 import React from 'react';
-import Masthead from '../../../../mastheads/pgMasthead';
-import LeftNavbar1 from '../../../../navbars/leftNavbar1/pgNavbar';
-import LeftNavbar2 from '../../../../navbars/leftNavbar2/prettyGood/helloWorld';
+import Masthead from 'renderer/window1/mastheads/pgMasthead';
+import LeftNavbar1 from 'renderer/window1/navbars/leftNavbar1/pgNavbar';
+import LeftNavbar2 from 'renderer/window1/navbars/leftNavbar2/prettyGood/helloWorld';
 import {
   updateMainColWidth,
   updateMastheadCenter,
-} from '../../../../lib/pg/ui';
-import Counter from '../../../../redux/features/counter/Counter';
+} from 'renderer/window1/lib/pg/ui';
+import Counter from 'renderer/window1/redux/features/counter/helloWorld';
+import NostrSettings from 'renderer/window1/redux/features/nostr/settings/helloWorld';
+import NostrDirectMessages from 'renderer/window1/redux/features/nostr/directMessages/helloWorld';
+import NostrProfiles from 'renderer/window1/redux/features/nostr/profiles/helloWorld';
 
 export default class PrettyGoodSettings extends React.Component {
   constructor(props) {
@@ -31,7 +34,11 @@ export default class PrettyGoodSettings extends React.Component {
           <Masthead />
           <div id="mainPanel">
             <div className="h4">Redux: Hello World</div>
+            <br />
             <Counter />
+            <NostrSettings />
+            <NostrDirectMessages />
+            <NostrProfiles />
           </div>
         </div>
       </>

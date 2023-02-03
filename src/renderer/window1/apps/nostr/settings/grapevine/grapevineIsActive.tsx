@@ -18,7 +18,6 @@ const ActiveGrapevine = () => {
       oUpdate[topic] = {};
       oUpdate[topic][subtopic] = newState;
       oData.oUpdate = oUpdate;
-      console.log("qwerty dispatch");
       dispatch(updateNostrGrapevineTopicalSettings(oData));
     }
   };
