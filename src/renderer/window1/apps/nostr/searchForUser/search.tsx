@@ -13,6 +13,8 @@ const SearchForUser = () => {
 
   let npub = null;
   const processNewNpub = () => {
+    const e1 = document.getElementById("userPubkey")
+    const e2 = document.getElementById("userNpub")
     if (e2) {
       npub = e2.value;
       console.log("qwerty npub: "+npub)
