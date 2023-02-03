@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
 import Post from '../components/post';
 import MainFeedTypeSelector from './mainFeedTypeSelector';
-import { updateNostrEvents } from '../../../redux/features/nostrGlobalState/slice';
+import { updateNostrEvents } from '../../../redux/features/nostr/settings/slice';
 
 const GlobalFeed = () => {
   const devMode = useSelector((state) => state.prettyGoodGlobalState.devMode);

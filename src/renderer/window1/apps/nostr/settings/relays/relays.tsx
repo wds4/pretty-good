@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { updateNostrRelayStoreAndSql } from 'renderer/window1/redux/features/nostrGlobalState/slice';
+import { updateNostrRelayStoreAndSql } from 'renderer/window1/redux/features/nostr/settings/slice';
 import { addNewRelayToSql } from 'renderer/window1/lib/pg/sql';
 import EndorseRelayMessage from './endorseRelayMessage';
 

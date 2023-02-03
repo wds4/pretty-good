@@ -1,6 +1,6 @@
 import ToggleSwitch from './grToggleSwitch';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateNostrGrapevineGeneralSettings, restoreDefaultNostrGrapevineSettings } from 'renderer/window1/redux/features/nostrGlobalState/slice';
+import { updateNostrGrapevineGeneralSettings, restoreDefaultNostrGrapevineSettings } from 'renderer/window1/redux/features/nostr/settings/slice';
 
 const TopPanel = ({  }) => {
   const nostrGrapevineActivationState = useSelector((state) => state.nostrGlobalState.nostrGrapevineSettings.active);

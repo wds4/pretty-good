@@ -2,8 +2,8 @@ import { configureStore } from '@reduxjs/toolkit';
 import myProfileReducer from '../features/myNostrProfile/slice';
 import counterReducer from '../features/counter/slice';
 import startupReducer from '../features/startup/slice';
-import nostrGlobalStateReducer from '../features/nostrGlobalState/slice';
-import prettyGoodGlobalStateReducer from '../features/prettyGoodGlobalState/slice';
+import nostrGlobalStateReducer from '../features/nostr/settings/slice';
+import prettyGoodGlobalStateReducer from '../features/prettyGood/settings/slice';
 
 /*
 export default configureStore({

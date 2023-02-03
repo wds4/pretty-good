@@ -1,15 +1,11 @@
 import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNostrEvents, useProfile } from 'nostr-react';
-import { returnMostRecentEvent } from 'renderer/window1/lib/nostr';
 import BlankAvatar from 'renderer/window1/assets/blankAvatar.png';
 import { noProfilePicUrl } from 'renderer/window1/const';
-import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
 import {
   updateNostrProfileFocus,
-  updateNostrProfiles,
   updateNostrPostFocusEvent,
-} from '../../../redux/features/nostrGlobalState/slice';
+} from '../../../redux/features/nostr/settings/slice';
 import { secsToTime } from '../../../lib/pg';
 import YoutubeEmbed, { extractVideoID, extractVideoUrl } from './youtubeEmbed';
 import ActionButtons from './actionButtons';

@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { updateNostrGrapevineGeneralSettings } from 'renderer/window1/redux/features/nostrGlobalState/slice';
+import { updateNostrGrapevineGeneralSettings } from 'renderer/window1/redux/features/nostr/settings/slice';
 /*
 export default class ToggleButtonOnOff extends React.Component {
   constructor(props) {

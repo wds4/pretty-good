@@ -1,6 +1,6 @@
 import ToggleSwitch from 'renderer/window1/components/toggleSwitch';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateMyRelayListEndorsementMode } from 'renderer/window1/redux/features/nostrGlobalState/slice';
+import { updateMyRelayListEndorsementMode } from 'renderer/window1/redux/features/nostr/settings/slice';
 
 const EndorseRelays = () => {
   const initState = useSelector((state) => state.nostrGlobalState.nostrRelayManagement.endorseMyNostrRelays);

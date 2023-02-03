@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { updateNostrGrapevineGeneralSettings, updateNostrGrapevineTopicalSettings } from 'renderer/window1/redux/features/nostrGlobalState/slice';
+import { updateNostrGrapevineGeneralSettings, updateNostrGrapevineTopicalSettings } from 'renderer/window1/redux/features/nostr/settings/slice';
 import ToggleSwitch from './grToggleSwitch';
 
 const ActiveGrapevine = () => {

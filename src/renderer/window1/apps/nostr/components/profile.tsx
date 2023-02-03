@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNostrEvents, useProfile } from 'nostr-react';
 import { nip19 } from 'nostr-tools';
-import { updateNostrProfiles } from 'renderer/window1/redux/features/nostrGlobalState/slice';
+import { updateNostrProfiles } from 'renderer/window1/redux/features/nostr/profiles/slice';
 import { returnMostRecentEvent } from 'renderer/window1/lib/nostr';
 import { noProfilePicUrl } from 'renderer/window1/const';
 import BlankAvatar from 'renderer/window1/assets/blankAvatar.png';

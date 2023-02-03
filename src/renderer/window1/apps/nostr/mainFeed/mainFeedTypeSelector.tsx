@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { updateMainNostrFeedFilter } from '../../../redux/features/nostrGlobalState/slice';
+import { updateMainNostrFeedFilter } from '../../../redux/features/nostr/settings/slice';
 
 const MainFeedTypeSelector = () => {
   const dispatch = useDispatch();

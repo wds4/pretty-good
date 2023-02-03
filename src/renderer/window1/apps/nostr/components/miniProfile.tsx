@@ -2,10 +2,8 @@ import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNostrEvents } from 'nostr-react';
 import BlankAvatar from 'renderer/window1/assets/blankAvatar.png';
-import {
-  updateNostrProfileFocus,
-  updateNostrProfiles,
-} from 'renderer/window1/redux/features/nostrGlobalState/slice';
+import { updateNostrProfileFocus } from 'renderer/window1/redux/features/nostr/settings/slice';
+import { updateNostrProfiles } from 'renderer/window1/redux/features/nostr/profiles/slice';
 import { returnMostRecentEvent } from 'renderer/window1/lib/nostr';
 import { noProfilePicUrl } from 'renderer/window1/const';
 import { doesEventValidate } from '../../../lib/nostr/eventValidation';

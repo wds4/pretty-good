@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 import { useNostrEvents, dateToUnix } from 'nostr-react';
 import { nip19 } from 'nostr-tools';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateNostrProfileFocus } from '../../../redux/features/nostrGlobalState/slice';
+import { updateNostrProfileFocus } from '../../../redux/features/nostr/settings/slice';
 
 const SearchForUser = () => {
   const dispatch = useDispatch();

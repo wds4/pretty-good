@@ -3,7 +3,7 @@ import { useNostrEvents } from 'nostr-react';
 import { useSelector, useDispatch } from 'react-redux';
 import Post from 'renderer/window1/apps/nostr/components/post';
 import { doesEventValidate } from '../../../lib/nostr/eventValidation';
-import { updateNostrEvents } from '../../../redux/features/nostrGlobalState/slice';
+import { updateNostrEvents } from '../../../redux/features/nostr/settings/slice';
 
 const UserPanel = () => {
   const pubkey = useSelector(

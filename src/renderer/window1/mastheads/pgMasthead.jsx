@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import BackButton from 'renderer/window1/components/backButton';
-import { updateNostrProfileFocus } from 'renderer/window1/redux/features/nostrGlobalState/slice';
+import { updateNostrProfileFocus } from 'renderer/window1/redux/features/nostr/settings/slice';
 import ToggleNostrGrapevineSwitch from 'renderer/window1/components/grToggleSwitchT2';
 import { noProfilePicUrl } from '../const';
 

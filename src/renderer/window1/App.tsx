@@ -2,7 +2,7 @@ import React, { StrictMode } from 'react';
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
 import { NostrProvider } from 'nostr-react';
 import { Provider, useDispatch } from 'react-redux';
-import { initNostrRelays } from 'renderer/window1/redux/features/nostrGlobalState/slice';
+import { initNostrRelays } from 'renderer/window1/redux/features/nostr/settings/slice';
 import ErrorBoundary from './errorBoundary';
 import store from './redux/store/store';
 import { updateMainColWidth } from './lib/pg/ui';

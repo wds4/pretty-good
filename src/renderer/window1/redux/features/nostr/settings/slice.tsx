@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { updateNostrRelayInSql } from 'renderer/window1/lib/pg/sql';
-import { doesEventValidate } from '../../../lib/nostr/eventValidation';
+import { doesEventValidate } from '../../../../lib/nostr/eventValidation';
 import { defaultNostrGrapevineSettings } from './defaultNostrGrapevineSettings';
 // which type of filter to use for main nostr feed
 type MainNostrFeedFilter = 'firehose' | 'following' | 'eFollowing';
@@ -17,7 +17,7 @@ export const nostrGlobalStateSlice = createSlice({
     mainNostrFeedFilter: iMNFF,
     mainNostrFeedOrderAlgo: iMNFOA,
     nostrProfileFocus: 'initial nostrProfileFocus', // pubkey
-    nostrProfiles: {}, // profile pubkey as id
+    nostrProfiles_movedToOtherStore: {}, // profile pubkey as id
     nostrPostFocusEvent: null, // event.id; which nostr post is being expanded
     nostrEvents: {}, // use event.id as key
     nostrMainFeed: [],
@@ -56,11 +56,11 @@ export const nostrGlobalStateSlice = createSlice({
     updateMainNostrFeedOrderAlgo: (state, action) => {
       state.mainNostrFeedOrderAlgo = action.payload;
     },
-    updateNostrProfiles: (state, action) => {
+    updateNostrProfiles_movedToOtherStore: (state, action) => {
       if (doesEventValidate(action.payload)) {
         // payload should be an event of kind 0 and should be the most uptodate version for that profile
         const { pubkey } = action.payload;
-        state.nostrProfiles[pubkey] = action.payload;
+        state.nostrProfiles_movedToOtherStore[pubkey] = action.payload;
       }
     },
     updateNostrProfileFocus: (state, action) => {
@@ -111,7 +111,7 @@ export const {
   updateNostrGrapevineTopicalSettings,
   updateMainNostrFeedFilter,
   updateMainNostrFeedOrderAlgo,
-  updateNostrProfiles,
+  updateNostrProfiles_movedToOtherStore,
   updateNostrProfileFocus,
   updateNostrEvents,
   updateNostrPostFocusEvent,

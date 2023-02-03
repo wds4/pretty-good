@@ -1,6 +1,6 @@
 import ToggleSwitch from 'renderer/window1/components/toggleSwitch';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateDevMode } from 'renderer/window1/redux/features/prettyGoodGlobalState/slice';
+import { updateDevMode } from 'renderer/window1/redux/features/prettyGood/settings/slice';
 
 const GeneralSettings = () => {
   const initState = useSelector((state) => state.prettyGoodGlobalState.devMode);
