@@ -30,6 +30,7 @@ export default class NostrViewMyProfile extends React.Component {
         <div id="mainCol">
           <Masthead />
           <div id="mainPanel" />
+            <DirectMessages />
         </div>
       </>
     );
