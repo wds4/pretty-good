@@ -60,6 +60,7 @@ ipcMain.on('ipc-show-userDataPaths', async (event, arg) => {
 });
 
 // fetch relays from sql to send to the renderer process.
+// more comments
 ipcMain.on('ipc-fetch-relays', async (event, arg) => {
   let sql = '';
   sql += 'SELECT * FROM relays ';
