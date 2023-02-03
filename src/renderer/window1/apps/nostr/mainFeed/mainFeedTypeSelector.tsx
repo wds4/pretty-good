@@ -6,7 +6,7 @@ const MainFeedTypeSelector = () => {
   const dispatch = useDispatch();
 
   const mainNostrFeedFilter = useSelector(
-    (state) => state.nostrGlobalState.mainNostrFeedFilter
+    (state) => state.nostrSettings.mainNostrFeedFilter
   );
 
   let followingSelected = false;

@@ -12,7 +12,7 @@ import ActionButtons from './actionButtons';
 
 const Post = ({ event, index }) => {
   const nostrProfiles = useSelector(
-    (state) => state.nostrGlobalState.nostrProfiles
+    (state) => state.nostrProfiles.nostrProfiles
   );
   const dispatch = useDispatch();
 
@@ -41,6 +41,7 @@ const Post = ({ event, index }) => {
   let displayName = '';
   let nameClass = 'nameUnknown';
 
+
   /// // STEP 2 ///// If already present in redux store, replace with that
   let profileContent = {};
   if (nostrProfiles.hasOwnProperty(event.pubkey)) {
@@ -54,6 +55,7 @@ const Post = ({ event, index }) => {
       avatarUrl = BlankAvatar;
     }
   }
+
   /*
   // Ought to create a stack of profiles and fetch them one or only a few at a time;
   // store info in redux store and in sql

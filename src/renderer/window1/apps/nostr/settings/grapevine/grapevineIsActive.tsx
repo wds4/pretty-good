@@ -3,7 +3,7 @@ import { updateNostrGrapevineGeneralSettings, updateNostrGrapevineTopicalSetting
 import ToggleSwitch from './grToggleSwitch';
 
 const ActiveGrapevine = () => {
-  const nostrGrapevineSettings = useSelector((state) => state.nostrGlobalState.nostrGrapevineSettings);
+  const nostrGrapevineSettings = useSelector((state) => state.nostrSettings.nostrGrapevineSettings);
   const dispatch = useDispatch();
   const processStateChangeX = (newState,topic,subtopic) => {
     console.log(`processStateChange callback; topic: ${topic} subtopic: ${subtopic} newState: ${newState}`);

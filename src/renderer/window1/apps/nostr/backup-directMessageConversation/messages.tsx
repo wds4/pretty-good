@@ -5,7 +5,7 @@ import Message from './message';
 
 const DirectMessages = () => {
   const pubkey = useSelector(
-    (state) => state.nostrGlobalState.nostrProfileFocus
+    (state) => state.nostrSettings.nostrProfileFocus
   );
   const myNostrProfile = useSelector((state) => state.myNostrProfile);
   const myPubkey = myNostrProfile.pubkey_hex;

@@ -11,8 +11,8 @@ type MainNostrFeedOrderAlgo = 'chrono'; // for now, chronological ordering is th
 const iMNFOA: MainNostrFeedOrderAlgo = 'chrono'; // initial choice
 type relayManagementStyle = 'manual' | 'grapevineAuto';
 
-export const nostrGlobalStateSlice = createSlice({
-  name: 'nostrGlobalState',
+export const nostrSettingsSlice = createSlice({
+  name: 'nostrSettings',
   initialState: {
     mainNostrFeedFilter: iMNFF,
     mainNostrFeedOrderAlgo: iMNFOA,
@@ -118,9 +118,9 @@ export const {
   addToNostrBackButtonStack,
   initNostrRelays,
   updateNostrRelay,
-} = nostrGlobalStateSlice.actions;
+} = nostrSettingsSlice.actions;
 
-export default nostrGlobalStateSlice.reducer;
+export default nostrSettingsSlice.reducer;
 
 export const updateNostrRelayStoreAndSql = (oNewState) => async (dispatch) => {
   dispatch(updateNostrRelay(oNewState));

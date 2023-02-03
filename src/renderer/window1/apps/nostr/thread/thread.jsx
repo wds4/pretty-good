@@ -8,7 +8,7 @@ import { timeout } from 'renderer/window1/lib/pg';
 
 const Thread = () => {
   const event_focus = useSelector(
-    (state) => state.nostrGlobalState.nostrPostFocusEvent
+    (state) => state.nostrSettings.nostrPostFocusEvent
   );
   const dispatch = useDispatch();
   const id_focus = event_focus.id

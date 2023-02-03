@@ -116,9 +116,9 @@ export default class App extends React.Component {
       <StrictMode>
         <ErrorBoundary>
           <Provider store={store}>
-            <NostrProvider relayUrls={this.props.relayUrls} debug autoReconnect>
+            <NostrProvider relayUrls={this.props.relayUrls} debug autoReconnect={true}>
               <InitRelayStore aRelaysData={this.props.aRelaysData} />
-
+              <DirectMessageController />
               <fieldset id="app">
                 <Router>
                   <Routes>

@@ -2,7 +2,9 @@ import { configureStore } from '@reduxjs/toolkit';
 import myProfileReducer from '../features/myNostrProfile/slice';
 import counterReducer from '../features/counter/slice';
 import startupReducer from '../features/startup/slice';
-import nostrGlobalStateReducer from '../features/nostr/settings/slice';
+import nostrSettingsReducer from '../features/nostr/settings/slice';
+import nostrProfilesReducer from '../features/nostr/profiles/slice';
+import nostrDirectMessagesReducer from '../features/nostr/directMessages/slice';
 import prettyGoodGlobalStateReducer from '../features/prettyGood/settings/slice';
 
 /*
@@ -20,7 +22,9 @@ const store = configureStore({
     counter: counterReducer,
     startup: startupReducer,
     myNostrProfile: myProfileReducer,
-    nostrGlobalState: nostrGlobalStateReducer,
+    nostrSettings: nostrSettingsReducer,
+    nostrProfiles: nostrProfilesReducer,
+    nostrDirectMessages: nostrDirectMessagesReducer,
     prettyGoodGlobalState: prettyGoodGlobalStateReducer,
   }
 });

@@ -7,7 +7,7 @@ import { updateNostrEvents } from '../../../redux/features/nostr/settings/slice'
 
 const UserPanel = () => {
   const pubkey = useSelector(
-    (state) => state.nostrGlobalState.nostrProfileFocus
+    (state) => state.nostrSettings.nostrProfileFocus
   );
   const dispatch = useDispatch();
 

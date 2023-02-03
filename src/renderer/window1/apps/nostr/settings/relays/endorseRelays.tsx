@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { updateMyRelayListEndorsementMode } from 'renderer/window1/redux/features/nostr/settings/slice';
 
 const EndorseRelays = () => {
-  const initState = useSelector((state) => state.nostrGlobalState.nostrRelayManagement.endorseMyNostrRelays);
+  const initState = useSelector((state) => state.nostrSettings.nostrRelayManagement.endorseMyNostrRelays);
   const dispatch = useDispatch();
   const processStateChange = (newState) => {
     console.log(`processStateChange callback; ${newState}`);

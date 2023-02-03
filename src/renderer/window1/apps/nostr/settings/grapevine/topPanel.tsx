@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { updateNostrGrapevineGeneralSettings, restoreDefaultNostrGrapevineSettings } from 'renderer/window1/redux/features/nostr/settings/slice';
 
 const TopPanel = ({  }) => {
-  const nostrGrapevineActivationState = useSelector((state) => state.nostrGlobalState.nostrGrapevineSettings.active);
+  const nostrGrapevineActivationState = useSelector((state) => state.nostrSettings.nostrGrapevineSettings.active);
   const dispatch = useDispatch();
   const processStateChange = (newState) => {
     // console.log(`processStateChange callback; ${newState}`);

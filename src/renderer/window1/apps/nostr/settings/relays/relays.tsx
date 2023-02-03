@@ -11,7 +11,7 @@ const RelaysSettings = () => {
   }
   const dispatch = useDispatch();
   const oRelaysData = useSelector(
-    (state) => state.nostrGlobalState.nostrRelays
+    (state) => state.nostrSettings.nostrRelays
   );
   const processStateChange = (newState,url) => {
     console.log("toggleRelayActiveState; newState: "+newState+"; url: "+url)

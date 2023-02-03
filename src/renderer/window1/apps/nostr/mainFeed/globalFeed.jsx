@@ -14,7 +14,7 @@ const GlobalFeed = () => {
   }
   const dispatch = useDispatch();
   const mainNostrFeedFilter = useSelector(
-    (state) => state.nostrGlobalState.mainNostrFeedFilter
+    (state) => state.nostrSettings.mainNostrFeedFilter
   );
   const myNostrProfile = useSelector((state) => state.myNostrProfile);
   let aFollowing = myNostrProfile.following;

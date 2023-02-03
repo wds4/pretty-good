@@ -13,12 +13,12 @@ import UserGrapevinePanel from './userGrapevinePanel';
 
 const NostrProfile = ({}) => {
   const nostrProfiles = useSelector(
-    (state) => state.nostrGlobalState.nostrProfiles
+    (state) => state.nostrProfiles.nostrProfiles
   );
   const pubkey = useSelector(
-    (state) => state.nostrGlobalState.nostrProfileFocus
+    (state) => state.nostrSettings.nostrProfileFocus
   );
-  const isNostrGrapevineOn = useSelector((state) => state.nostrGlobalState.nostrGrapevineSettings.active);
+  const isNostrGrapevineOn = useSelector((state) => state.nostrSettings.nostrGrapevineSettings.active);
   const dispatch = useDispatch();
   const devMode = useSelector((state) => state.prettyGoodGlobalState.devMode);
   let devModeClassName = 'devModeOff';

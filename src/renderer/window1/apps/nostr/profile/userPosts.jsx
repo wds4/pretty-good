@@ -8,7 +8,7 @@ import { timeout } from 'renderer/window1/lib/pg';
 
 const UserPosts = () => {
   const pubkey = useSelector(
-    (state) => state.nostrGlobalState.nostrProfileFocus
+    (state) => state.nostrSettings.nostrProfileFocus
   );
   const dispatch = useDispatch();
   const { events } = useNostrEvents({

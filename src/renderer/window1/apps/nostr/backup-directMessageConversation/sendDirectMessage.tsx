@@ -10,7 +10,7 @@ import {
 
 export default function SendDirectMessage() {
   const pubkey = useSelector(
-    (state) => state.nostrGlobalState.nostrProfileFocus
+    (state) => state.nostrSettings.nostrProfileFocus
   );
   const myNostrProfile = useSelector((state) => state.myNostrProfile);
   const myPrivkey = myNostrProfile.privkey;

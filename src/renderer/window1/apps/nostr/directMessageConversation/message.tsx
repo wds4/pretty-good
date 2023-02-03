@@ -22,7 +22,7 @@ const Message = ({ event, showThisEvent }) => {
   const displayTime = secsToTime(event.created_at);
   try {
     const pubkey = useSelector(
-      (state) => state.nostrGlobalState.nostrProfileFocus
+      (state) => state.nostrSettings.nostrProfileFocus
     );
     const myNostrProfile = useSelector((state) => state.myNostrProfile);
     const myPubkey = myNostrProfile.pubkey_hex;

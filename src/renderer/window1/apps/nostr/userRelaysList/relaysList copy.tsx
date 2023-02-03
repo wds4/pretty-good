@@ -8,10 +8,10 @@ import BlankAvatar from 'renderer/window1/assets/blankAvatar.png';
 
 export default function RelaysList() {
   const pubkey = useSelector(
-    (state) => state.nostrGlobalState.nostrProfileFocus
+    (state) => state.nostrSettings.nostrProfileFocus
   );
   const nostrProfiles = useSelector(
-    (state) => state.nostrGlobalState.nostrProfiles
+    (state) => state.nostrProfiles.nostrProfiles
   );
   let name = '?';
   let displayName = '?';

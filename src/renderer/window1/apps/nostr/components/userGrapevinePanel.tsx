@@ -44,7 +44,7 @@ import { useSelector } from 'react-redux';
     */
 
 const UserGrapevinePanel = ({}) => {
-  const nostrGrapevineSettings = useSelector((state) => state.nostrGlobalState.nostrGrapevineSettings);
+  const nostrGrapevineSettings = useSelector((state) => state.nostrSettings.nostrGrapevineSettings);
   let showGrapevineClassName = 'userProfileGrapevineContainer';
   if (!nostrGrapevineSettings.active) {
     showGrapevineClassName = 'userProfileGrapevineContainer_hidden';

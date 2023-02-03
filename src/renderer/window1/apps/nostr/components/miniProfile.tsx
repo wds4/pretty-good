@@ -12,7 +12,7 @@ import FollowButton from './followButton';
 const NostrMiniProfile = ({ pubkey }) => {
   const dispatch = useDispatch();
   const nostrProfiles = useSelector(
-    (state) => state.nostrGlobalState.nostrProfiles
+    (state) => state.nostrProfiles.nostrProfiles
   );
 
   /// // STEP 1 ///// First load default profile info

@@ -4,7 +4,7 @@ import GrapevineIsInactive from './grapevineIsInactive';
 import TopPanel from './topPanel';
 
 const GrapevineSettings = () => {
-  const nostrGrapevineActivationState = useSelector((state) => state.nostrGlobalState.nostrGrapevineSettings.active);
+  const nostrGrapevineActivationState = useSelector((state) => state.nostrSettings.nostrGrapevineSettings.active);
   const dispatch = useDispatch();
   let activeBlockClassName = 'block_show';
   let inactiveBlockClassName = 'block_hide';

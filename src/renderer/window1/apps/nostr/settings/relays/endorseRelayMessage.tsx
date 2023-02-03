@@ -12,7 +12,7 @@ const EndorseRelayMessage = () => {
   const myNostrProfile = useSelector((state) => state.myNostrProfile);
   const myPrivkey = myNostrProfile.privkey;
   const { publish } = useNostr();
-  const currentState = useSelector((state) => state.nostrGlobalState.nostrRelayManagement.endorseMyNostrRelays);
+  const currentState = useSelector((state) => state.nostrSettings.nostrRelayManagement.endorseMyNostrRelays);
 
   const e2 = document.getElementById('successMessageContainer');
   const e3 = document.getElementById('newEventContainer');
