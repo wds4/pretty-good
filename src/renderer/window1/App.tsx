@@ -6,7 +6,7 @@ import { initNostrRelays } from 'renderer/window1/redux/features/nostrGlobalStat
 import ErrorBoundary from './errorBoundary';
 import store from './redux/store/store';
 import { updateMainColWidth } from './lib/pg/ui';
-
+import DirectMessageController from 'renderer/window1/apps/nostr/dmController';
 // package dep:
 // "nostr-react": "github:wds4/nostr-react#autoReconnect",
 
@@ -118,6 +118,7 @@ export default class App extends React.Component {
           <Provider store={store}>
             <NostrProvider relayUrls={this.props.relayUrls} debug autoReconnect>
               <InitRelayStore aRelaysData={this.props.aRelaysData} />
+              <DirectMessageController />
               <fieldset id="app">
                 <Router>
                   <Routes>
