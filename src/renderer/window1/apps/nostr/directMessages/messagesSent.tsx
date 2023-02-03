@@ -14,7 +14,7 @@ const DirectMessagesSent = () => {
   });
   return (
     <>
-      <pre>numEvents:{events.length}</pre>
+      <pre>numEvents sent: {events.length}</pre>
       {events.reverse().map((event, index) => {
         if (doesEventValidate(event)) {
           return (

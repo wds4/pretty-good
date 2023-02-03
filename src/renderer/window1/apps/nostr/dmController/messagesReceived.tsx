@@ -7,15 +7,14 @@ const DirectMessagesReceived = () => {
   const myPubkey = myNostrProfile.pubkey_hex;
   const { events } = useNostrEvents({
     filter: {
-      authors: [],
       tags: [["p",myPubkey]],
       since: 0, // all new events from now
-      kinds: [4],
+      kind: 4,
     },
   });
   return (
     <>
-      <div>numMessages received: {events.length}</div>
+      <div>numMessages received: - {events.length}</div>
     </>
   );
 };
