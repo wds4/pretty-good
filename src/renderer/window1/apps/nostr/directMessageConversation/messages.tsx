@@ -1,9 +1,7 @@
 import { useNostrEvents } from 'nostr-react';
 import { useSelector } from 'react-redux';
 import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
-import MiniProfile from 'renderer/window1/apps/nostr/components/miniProfile';
-import { timeout, secsToTime } from 'renderer/window1/lib/pg';
-import DirectMessage from './message-deprecated';
+import { secsToTime } from 'renderer/window1/lib/pg';
 import Message from './message';
 
 const DirectMessages = () => {
@@ -24,11 +22,36 @@ const DirectMessages = () => {
     <>
       {events.reverse().map((event, index) => {
         if (doesEventValidate(event)) {
-          return (
-            <>
-              <Message event={event} />
-            </>
-          );
+          const pk_receiver = event.tags.find(
+            ([k, v]) => k === 'p' && v && v !== ''
+          )[1];
+          let showThisEvent = 0;
+          // IF THIS PROFILE IS SENDER && I AM RECEIVER
+          if (event.pubkey == pubkey && pk_receiver == myPubkey) {
+            showThisEvent = 1;
+          }
+          // IF I AM SENDER && THIS PROFILE IS RECEIVER
+          if (event.pubkey == myPubkey && pk_receiver == pubkey) {
+            showThisEvent = 2;
+          }
+
+          if (showThisEvent == 1) {
+            directMessageContainerClassName +=
+              ' directMessageContainerFloatLeft';
+          }
+          if (showThisEvent == 2) {
+            directMessageContainerClassName +=
+              ' directMessageContainerFloatRight';
+          }
+          const displayTime = secsToTime(event.created_at);
+          if (showThisEvent) {
+            return (
+              <>
+                =<Message event={event} />=
+              </>
+            );
+          }
+          <>= no need to send message =</>;
         }
       })}
     </>

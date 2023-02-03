@@ -5,7 +5,6 @@ import { updateNostrProfileFocus } from 'renderer/window1/redux/features/nostrGl
 import ToggleNostrGrapevineSwitch from 'renderer/window1/components/grToggleSwitchT2';
 import { noProfilePicUrl } from '../const';
 import RelaysStatus from './relaysStatus';
-import { truncate } from 'fs/promises';
 
 export default function Masthead() {
   const myNostrProfile = useSelector((state) => state.myNostrProfile);
@@ -58,6 +57,18 @@ export default function Masthead() {
           >
             <div style={{ fontSize: '20px' }}>✏️</div>
             <div style={{ fontSize: '10px' }}>post</div>
+          </NavLink>
+          <NavLink
+            className={({ isActive }) =>
+              isActive
+                ? 'mastheadNavButton mastheadNavButtonActive'
+                : 'mastheadNavButton'
+            }
+            end
+            to="/NostrHome/NostrDirectMessages"
+          >
+            <div style={{ fontSize: '20px' }}>&#x1F4AC;</div>
+            <div style={{ fontSize: '10px' }}>DM</div>
           </NavLink>
           <NavLink
             onClick={() => {

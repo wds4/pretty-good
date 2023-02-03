@@ -1,11 +1,13 @@
 import { useSelector } from 'react-redux';
 import { nip04 } from 'nostr-tools';
-import { secsToTime } from 'renderer/window1/lib/pg';
+import { timeout, secsToTime } from 'renderer/window1/lib/pg';
 
 const decodeAndSend = async (event, showThisEvent, myPubkey, myPrivKey, pubkey) => {
   try {
     const rawContent = event.content;
     const decodedMessage = await nip04.decrypt(myPrivKey, pubkey, rawContent);
+    // await timeout(50);
+    // console.log(event.id);
     const e = document.getElementById(event.id);
     e.innerHTML = `${showThisEvent} <br/> ${decodedMessage}`;
   } catch (err) {}

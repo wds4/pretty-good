@@ -1,84 +1,101 @@
-import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import BackButton from 'renderer/window1/components/backButton';
+import { updateNostrProfileFocus } from 'renderer/window1/redux/features/nostrGlobalState/slice';
 import ToggleNostrGrapevineSwitch from 'renderer/window1/components/grToggleSwitchT2';
-export default class Masthead extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
+import { noProfilePicUrl } from '../const';
+
+export default function Masthead() {
+  const myNostrProfile = useSelector((state) => state.myNostrProfile);
+  const dispatch = useDispatch();
+  let avatarUrl = noProfilePicUrl;
+  if (myNostrProfile.picture_url) {
+    avatarUrl = myNostrProfile.picture_url;
   }
+  return (
+    <>
+      <div className="mastheadContainer">
+        <div className="mastheadLeftContainer">
+          <div
+            style={{
+              fontSize: '48px',
+              display: 'inline-block',
+              marginRight: '10px',
+            }}
+          >
+            ✔
+          </div>
+        </div>
 
-  async componentDidMount() {}
+        <div id="mastheadCenterContainer" className="mastheadCenterContainer">
+          center
+        </div>
 
-  render() {
-    return (
-      <>
-        <div className="mastheadContainer">
-          <div className="mastheadLeftContainer">
+        <div className="mastheadRightContainer">
+          <BackButton />
+          <NavLink
+            className={({ isActive }) =>
+              isActive
+                ? 'mastheadNavButton mastheadNavButtonActive'
+                : 'mastheadNavButton'
+            }
+            end
+            to="/PrettyGoodHome/PrettyGoodApps"
+          >
+            <div style={{ fontSize: '20px' }}>
+              <span>&#8942;</span>
+              <span>&#8942;</span>
+              <span>&#8942;</span>
+            </div>
+            <div style={{ fontSize: '10px' }}>apps</div>
+          </NavLink>
+          <NavLink
+            onClick={() => {
+              dispatch(updateNostrProfileFocus(myNostrProfile.pubkey));
+            }}
+            className={({ isActive }) =>
+              isActive
+                ? 'mastheadNavButton mastheadNavButtonActive'
+                : 'mastheadNavButton'
+            }
+            end
+            to="/NostrHome/NostrViewMyProfile"
+            style={{
+              padding: '0px',
+              width: '50px',
+              height: '50px',
+              border: '0px',
+            }}
+          >
             <div
               style={{
-                fontSize: '48px',
                 display: 'inline-block',
-                marginRight: '10px',
+                width: '100%',
+                height: '100%',
+                position: 'relative',
               }}
             >
-              ✔
+              <img src={avatarUrl} className="myProfileAvatarImgSmall" alt="" />
             </div>
-          </div>
-
-          <div id="mastheadCenterContainer" className="mastheadCenterContainer">
-            center
-          </div>
-
-          <div className="mastheadRightContainer">
-            <BackButton />
-            <NavLink
-              className={({ isActive }) =>
-                isActive
-                  ? 'mastheadNavButton mastheadNavButtonActive'
-                  : 'mastheadNavButton'
-              }
-              end
-              to="/PrettyGoodHome/PrettyGoodApps"
-            >
-              <div style={{ fontSize: '20px' }}>
-                <span>&#8942;</span>
-                <span>&#8942;</span>
-                <span>&#8942;</span>
-              </div>
-              <div style={{ fontSize: '10px' }}>apps</div>
-            </NavLink>
-            <NavLink
-              className={({ isActive }) =>
-                isActive
-                  ? 'mastheadNavButton mastheadNavButtonActive'
-                  : 'mastheadNavButton'
-              }
-              end
-              to="/PrettyGoodHome/PrettyGoodProfile"
-            >
-              <div style={{ fontSize: '20px' }}>👤</div>
-              <div style={{ fontSize: '10px' }}>profile</div>
-            </NavLink>
-            <NavLink
-              className={({ isActive }) =>
-                isActive
-                  ? 'mastheadNavButton mastheadNavButtonActive'
-                  : 'mastheadNavButton'
-              }
-              end
-              to="/PrettyGoodHome/PrettyGoodSettings"
-            >
-              <div style={{ fontSize: '20px' }}>⚙️</div>
-              <div style={{ fontSize: '10px' }}>settings</div>
-            </NavLink>
-            <ToggleNostrGrapevineSwitch />
-          </div>
+          </NavLink>
+          <NavLink
+            className={({ isActive }) =>
+              isActive
+                ? 'mastheadNavButton mastheadNavButtonActive'
+                : 'mastheadNavButton'
+            }
+            end
+            to="/PrettyGoodHome/PrettyGoodSettings"
+          >
+            <div style={{ fontSize: '20px' }}>⚙️</div>
+            <div style={{ fontSize: '10px' }}>settings</div>
+          </NavLink>
+          <ToggleNostrGrapevineSwitch />
         </div>
-        <div className="mastheadSubBanner mastheadSubBannerPrettyGood">
-          <div>Pretty Good subheading</div>
-        </div>
-      </>
-    );
-  }
+      </div>
+      <div className="mastheadSubBanner mastheadSubBannerPrettyGood">
+        <div>Pretty Good subheading</div>
+      </div>
+    </>
+  );
 }

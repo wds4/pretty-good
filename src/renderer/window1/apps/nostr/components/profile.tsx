@@ -142,8 +142,8 @@ const NostrProfile = ({}) => {
               <FollowButton pubkey={pubkey} />
             </div>
             <div className={grapevineProfileControlPanelClassName}>
-                <UserGrapevinePanel />
-              </div>
+              <UserGrapevinePanel />
+            </div>
           </div>
 
           <div
