@@ -2,7 +2,7 @@ import { useNostrEvents } from 'nostr-react';
 import { useSelector } from 'react-redux';
 import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
 import { secsToTime } from 'renderer/window1/lib/pg';
-import Message from './message';
+import Message from '../directMessageConversation/message';
 
 const DirectMessages = () => {
   const myNostrProfile = useSelector((state) => state.myNostrProfile);

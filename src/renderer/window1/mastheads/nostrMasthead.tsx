@@ -68,7 +68,7 @@ export default function Masthead() {
             to="/NostrHome/NostrDirectMessages"
           >
             <div style={{ fontSize: '20px' }}>&#x1F4AC;</div>
-            <div style={{ fontSize: '10px' }}>DM</div>
+            <div style={{ fontSize: '10px' }}>DMs</div>
           </NavLink>
           <NavLink
             onClick={() => {

@@ -37,7 +37,7 @@ const DirectMessages = () => {
           if (showThisEvent) {
             return (
               <>
-                <Message event={event} />
+                <Message showThisEvent={showThisEvent} event={event} />
               </>
             );
           }
