@@ -6,6 +6,7 @@ import {
   updateMainColWidth,
   updateMastheadCenter,
 } from 'renderer/window1/lib/pg/ui';
+import DirectMessages from './messages';
 
 export default class NostrViewMyProfile extends React.Component {
   constructor(props) {

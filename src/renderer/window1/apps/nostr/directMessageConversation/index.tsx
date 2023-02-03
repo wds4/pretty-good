@@ -20,9 +20,11 @@ export default class NostrDirectMessageConvo extends React.Component {
     const mastheadDescriptor = 'nostr: DM Convo';
     updateMastheadCenter(mastheadDescriptor);
 
+    /*
     await timeout(1000);
     const foo = 'bar';
     this.setState({ foo });
+    */
   }
 
   render() {
