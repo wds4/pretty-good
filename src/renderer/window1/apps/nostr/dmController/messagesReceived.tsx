@@ -9,7 +9,7 @@ const DirectMessagesReceived = () => {
     filter: {
       tags: [["p",myPubkey]],
       since: 0, // all new events from now
-      kind: 4,
+      kinds: [4],
     },
   });
   return (
