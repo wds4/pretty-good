@@ -6,14 +6,12 @@ const decodeAndSend = async (event, showThisEvent, myPubkey, myPrivKey, pubkey) 
   try {
     const rawContent = event.content;
     const decodedMessage = await nip04.decrypt(myPrivKey, pubkey, rawContent);
-    // await timeout(50);
-    // console.log(event.id);
     const e = document.getElementById(event.id);
     e.innerHTML = `${showThisEvent} <br/> ${decodedMessage}`;
   } catch (err) {}
 };
 
-const Message = ({ event }) => {
+const Message = ({ event, showThisEvent }) => {
   const devMode = useSelector((state) => state.prettyGoodGlobalState.devMode);
   let devModeClassName = 'devModeOff';
   if (devMode) {
@@ -29,19 +27,6 @@ const Message = ({ event }) => {
     const myNostrProfile = useSelector((state) => state.myNostrProfile);
     const myPubkey = myNostrProfile.pubkey_hex;
     const myPrivKey = myNostrProfile.privkey;
-
-    const pk_receiver = event.tags.find(
-      ([k, v]) => k === 'p' && v && v !== ''
-    )[1];
-    let showThisEvent = 0;
-    // IF THIS PROFILE IS SENDER && I AM RECEIVER
-    if (event.pubkey == pubkey && pk_receiver == myPubkey) {
-      showThisEvent = 1;
-    }
-    // IF I AM SENDER && THIS PROFILE IS RECEIVER
-    if (event.pubkey == myPubkey && pk_receiver == pubkey) {
-      showThisEvent = 2;
-    }
 
     if (showThisEvent == 1) {
       directMessageContainerClassName += ' directMessageContainerFloatLeft';

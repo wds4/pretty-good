@@ -5,8 +5,8 @@ import { noProfilePicUrl } from 'renderer/window1/const';
 import {
   updateNostrProfileFocus,
   updateNostrPostFocusEvent,
-} from '../../../redux/features/nostr/settings/slice';
-import { secsToTime } from '../../../lib/pg';
+} from 'renderer/window1/redux/features/nostr/settings/slice';
+import { secsToTime } from 'renderer/window1/lib/pg';
 import YoutubeEmbed, { extractVideoID, extractVideoUrl } from './youtubeEmbed';
 import ActionButtons from './actionButtons';
 

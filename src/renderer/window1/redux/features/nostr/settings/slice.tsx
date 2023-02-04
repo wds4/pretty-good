@@ -97,6 +97,18 @@ export const nostrSettingsSlice = createSlice({
       console.log(`oNewState: ${JSON.stringify(oNewState, null, 4)}`);
       console.log(`oNewState; state: ${JSON.stringify(state, null, 4)}`);
     },
+    addNostrRelay: (state, action) => {
+      const newRelayUrl = action.payload;
+      const oRelayData = {};
+      oRelayData.url = newRelayUrl;
+      oRelayData.active = true;
+      oRelayData.default_app = false;
+      state.nostrRelays[newRelayUrl] = oRelayData;
+    },
+    removeNostrRelay: (state, action) => {
+      const relayUrl = action.payload;
+      delete state.nostrRelays[relayUrl];
+    },
   },
 });
 
@@ -116,6 +128,8 @@ export const {
   addToNostrBackButtonStack,
   initNostrRelays,
   updateNostrRelay,
+  addNostrRelay,
+  removeNostrRelay,
 } = nostrSettingsSlice.actions;
 
 export default nostrSettingsSlice.reducer;

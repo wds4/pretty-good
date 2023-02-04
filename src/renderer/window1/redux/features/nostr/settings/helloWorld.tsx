@@ -9,6 +9,7 @@ export default function NostrSettingsHelloWorld() {
       <div className="h4">Nostr Settings</div>
       <div>
         num relays: <span>{aRelayUrls.length}</span>
+        <div className="storeHelloWorldFullDataContainer"><pre>{JSON.stringify(oRelaysData,null,4)}</pre></div>
       </div>
     </div>
   );

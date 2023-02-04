@@ -22,7 +22,8 @@ export default class Home extends React.Component {
 
     // e.click() doesn't work (in production) without an await here - don't know why
     await timeout(10);
-    const e = document.getElementById('pgHomeButton');
+    // const e = document.getElementById('pgHomeButton');
+    const e = document.getElementById('nostrLandingPageButton');
     if (e) {
       e.click();
     }
@@ -40,6 +41,11 @@ export default class Home extends React.Component {
             <Masthead />
           </div>
           <div id="mainPanel">
+            <NavLink to="/NostrHome/NostrLandingPage" id="nostrLandingPageButton">
+              <div style={{ fontSize: '12px', lineHeight: '100%' }}>
+                nostr landing page
+              </div>
+            </NavLink>
             <NavLink to="/PrettyGoodHome" id="pgHomeButton">
               <div style={{ fontSize: '12px', lineHeight: '100%' }}>
                 pretty good home

@@ -2,12 +2,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import BackButton from 'renderer/window1/components/backButton';
 import { updateNostrProfileFocus } from 'renderer/window1/redux/features/nostr/settings/slice';
+import { setCurrentPage } from 'renderer/window1/redux/features/prettyGood/settings/slice';
 import ToggleNostrGrapevineSwitch from 'renderer/window1/components/grToggleSwitchT2';
+import RelaysStatus from './relaysStatus';
 import { noProfilePicUrl } from '../const';
 
 export default function Masthead() {
   const myNostrProfile = useSelector((state) => state.myNostrProfile);
   const dispatch = useDispatch();
+  dispatch(setCurrentPage('foo'));
   let avatarUrl = noProfilePicUrl;
   if (myNostrProfile.picture_url) {
     avatarUrl = myNostrProfile.picture_url;
@@ -48,6 +51,18 @@ export default function Masthead() {
               <span>&#8942;</span>
             </div>
             <div style={{ fontSize: '10px' }}>apps</div>
+          </NavLink>
+          <NavLink
+            className={({ isActive }) =>
+              isActive
+                ? 'mastheadNavButton mastheadNavButtonActive'
+                : 'mastheadNavButton'
+            }
+            end
+            to="/NostrHome/NostrDirectMessages"
+          >
+            <div style={{ fontSize: '20px' }}>&#x1F4AC;</div>
+            <div style={{ fontSize: '10px' }}>DMs</div>
           </NavLink>
           <NavLink
             onClick={() => {
@@ -94,7 +109,7 @@ export default function Masthead() {
         </div>
       </div>
       <div className="mastheadSubBanner mastheadSubBannerPrettyGood">
-        <div>Pretty Good subheading</div>
+        <RelaysStatus />
       </div>
     </>
   );

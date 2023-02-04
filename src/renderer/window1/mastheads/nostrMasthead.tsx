@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import BackButton from 'renderer/window1/components/backButton';
 import { updateNostrProfileFocus } from 'renderer/window1/redux/features/nostr/settings/slice';
+import { setCurrentPage } from 'renderer/window1/redux/features/prettyGood/settings/slice';
 import ToggleNostrGrapevineSwitch from 'renderer/window1/components/grToggleSwitchT2';
 import { noProfilePicUrl } from '../const';
 import RelaysStatus from './relaysStatus';
@@ -9,6 +10,7 @@ import RelaysStatus from './relaysStatus';
 export default function Masthead() {
   const myNostrProfile = useSelector((state) => state.myNostrProfile);
   const dispatch = useDispatch();
+  dispatch(setCurrentPage('foo'));
   let avatarUrl = noProfilePicUrl;
   if (myNostrProfile.picture_url) {
     avatarUrl = myNostrProfile.picture_url;
@@ -107,7 +109,6 @@ export default function Masthead() {
             }
             end
             to="/NostrHome/NostrSettings"
-
           >
             <div style={{ fontSize: '20px' }}>⚙️</div>
             <div style={{ fontSize: '10px' }}>settings</div>

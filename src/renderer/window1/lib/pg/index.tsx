@@ -74,6 +74,16 @@ export const addStringToArrayUniquely = (str, aIn) => {
   return aOut;
 }
 
+export const removeDuplicatesFromArrayOfStrings = (aIn) => {
+  const aOut = [];
+  aIn.forEach((element) => {
+    if (!aOut.includes(element)) {
+      aOut.push(element);
+    }
+  });
+  return aOut;
+}
+
 export const removeStringFromArray = (str, aIn) => {
   const aOut = [];
   aIn.forEach((element) => {

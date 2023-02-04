@@ -4,10 +4,21 @@ export const prettyGoodGlobalStateSlice = createSlice({
   name: 'prettyGoodGlobalState',
   initialState: {
     devMode: false,
+    numBackSteps: 1,
+    currentPage: null,
   },
   reducers: {
     updateDevMode: (state, action) => {
       state.devMode = action.payload;
+    },
+    resetNumBackSteps: (state) => {
+      state.numBackSteps = 1;
+    },
+    setTwoBackSteps: (state) => {
+      state.numBackSteps = 2;
+    },
+    setCurrentPage: (state, action) => {
+      state.currentPage = action.payload;
     },
   }
 })
@@ -16,6 +27,9 @@ export const prettyGoodGlobalStateSlice = createSlice({
 
 export const {
   updateDevMode,
+  resetNumBackSteps,
+  setTwoBackSteps,
+  setCurrentPage,
 } = prettyGoodGlobalStateSlice.actions;
 
 export default prettyGoodGlobalStateSlice.reducer;

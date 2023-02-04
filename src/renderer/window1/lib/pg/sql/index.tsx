@@ -57,6 +57,12 @@ export const deleteRowFromMyNostrProfiles = async (sqlId) => {
   return asyncSql(sql);
 };
 
+export const deleteRelayUrlFromSql = async (url) => {
+  const sql = ` DELETE FROM relays WHERE url='${url}' `;
+  console.log(`deleteUrlFromRelays; sql: ${sql}`);
+  return asyncSql(sql);
+};
+
 export const updateMyNostrProfileSetActiveInSql = async (sqlId) => {
   const sql1 = ' UPDATE myNostrProfile SET active=false ';
   const sql2 = ` UPDATE myNostrProfile SET active=true WHERE id=${sqlId} `;

@@ -19,7 +19,6 @@ const NostrMiniProfile = ({ pubkey }) => {
   let avatarUrl = noProfilePicUrl;
   let name = '';
   let displayName = '';
-  let about = '';
 
   /// // STEP 2 ///// If already present in redux store, replace with that
   let profileContent = {};
@@ -51,12 +50,17 @@ const NostrMiniProfile = ({ pubkey }) => {
     event_.content = content;
     name = `@${content.name}`;
     displayName = content.display_name;
-    about = content.about;
     avatarUrl = content.picture;
   }
   return (
     <>
-      <div className="singleUserContainer" style={{textAlign:"left"}}>
+      <div>
+        <div className="eventNameContainer">
+          <span style={{ color: 'black' }}>{displayName}</span>
+          <span style={{ color: 'grey', marginLeft: '10px' }}>{name}</span>
+        </div>
+      </div>
+      <div>
         <NavLink
           onClick={() => {
             dispatch(updateNostrProfileFocus(pubkey));
@@ -67,22 +71,14 @@ const NostrMiniProfile = ({ pubkey }) => {
           <div className="userListSmallAvatarContainer">
             <img src={avatarUrl} className="userListSmallAvatarBox" />
           </div>
-          <div className="singleUserMainBodyContainer">
-            <div className="eventNameAndTimeContainer">
-              <div className="eventNameContainer">
-                <span style={{ color: 'black' }}>{displayName}</span>
-                <span style={{ color: 'grey', marginLeft: '10px' }}>
-                  {name}
-                </span>
-              </div>
-              <div className="eventTimeContainer" style={{ color: 'grey' }}>
-                ... {pubkey.slice(-6)}
-              </div>
-            </div>
-            <div className="eventContentContainer">{about}</div>
-          </div>
         </NavLink>
-        <div className="singleUserFollowButtonContainer">
+        <div
+          style={{
+            display: 'inline-block',
+            marginLeft: '10px',
+            marginTop: '10px',
+          }}
+        >
           <FollowButton pubkey={pubkey} />
         </div>
       </div>

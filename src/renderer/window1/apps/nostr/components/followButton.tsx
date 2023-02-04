@@ -3,7 +3,7 @@ import {
   addToFollowingList,
   removeFromFollowingList,
   FullSyncMyActiveNostrProfileFromReduxStoreToSql,
-} from 'renderer/window1/redux/features/myNostrProfile/slice';
+} from 'renderer/window1/redux/features/nostr/myNostrProfile/slice';
 
 const FollowButton = ({ pubkey }) => {
   const myNostrProfile = useSelector((state) => state.myNostrProfile);

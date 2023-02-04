@@ -62,3 +62,7 @@
   padding:10px;
   border:1px solid black;
 }
+.storeHelloWorldFullDataContainer {
+  height:200px;
+  overflow:scroll;
+}

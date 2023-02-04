@@ -2,9 +2,10 @@ import { useRef } from 'react';
 import { useNostrEvents, dateToUnix } from 'nostr-react';
 import { useSelector, useDispatch } from 'react-redux';
 import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
+import { updateNostrEvents } from 'renderer/window1/redux/features/nostr/settings/slice';
+import { setTwoBackSteps, setCurrentPage } from 'renderer/window1/redux/features/prettyGood/settings/slice';
 import Post from '../components/post';
 import MainFeedTypeSelector from './mainFeedTypeSelector';
-import { updateNostrEvents } from '../../../redux/features/nostr/settings/slice';
 
 const GlobalFeed = () => {
   const devMode = useSelector((state) => state.prettyGoodGlobalState.devMode);
@@ -13,12 +14,14 @@ const GlobalFeed = () => {
     devModeClassName = 'devModeOn';
   }
   const dispatch = useDispatch();
+  dispatch(setTwoBackSteps());
+  dispatch(setCurrentPage("mainFeed"));
   const mainNostrFeedFilter = useSelector(
     (state) => state.nostrSettings.mainNostrFeedFilter
   );
   const myNostrProfile = useSelector((state) => state.myNostrProfile);
-  let aFollowing = myNostrProfile.following;
-  let aExtendedFollowing = [];
+  const aFollowing = myNostrProfile.following;
+  const aExtendedFollowing = [];
 
   const now = useRef(new Date()); // Make sure current time isn't re-rendered
   const currentTime = dateToUnix(now.current);
@@ -40,11 +43,11 @@ const GlobalFeed = () => {
     case 'grapevine':
       // all authors
       filter.since = 0; // since forever ago
-      filter["#g"]=["grapevine"]
-      filter.kinds=[1971]
+      filter['#g'] = ['grapevine'];
+      filter.kinds = [1971];
       break;
-    default:
-      filter.since = currentTime - 30 * 60; // 60 * 60 = fetch messages as old as one hour
+    default: // 60 * 60 = fetch messages as old as one hour
+      filter.since = currentTime - 30 * 60;
       break;
   }
 
@@ -54,7 +57,9 @@ const GlobalFeed = () => {
 
   return (
     <>
-      <pre className={devModeClassName}>filter: {JSON.stringify(filter,null,4)}</pre>
+      <pre className={devModeClassName}>
+        filter: {JSON.stringify(filter, null, 4)}
+      </pre>
       <div style={{ position: 'relative', height: '40px' }}>
         <div className="mainFeedTypeSelector">
           <MainFeedTypeSelector
@@ -63,7 +68,9 @@ const GlobalFeed = () => {
           />
         </div>
       </div>
-      <pre className={devModeClassName}>aFollowing: {JSON.stringify(aFollowing,null,4)}</pre>
+      <pre className={devModeClassName}>
+        aFollowing: {JSON.stringify(aFollowing, null, 4)}
+      </pre>
       <div>
         <div style={{ textAlign: 'right', marginRight: '20px' }}>
           {events.length} posts

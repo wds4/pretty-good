@@ -19,15 +19,17 @@ export default class LeftNavbar2 extends React.PureComponent {
             className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
             end to="/PrettyGoodHome/PrettyGoodProfile"
           >
-            Profile
+            Pretty Good Profile
           </NavLink>
 
           <NavLink
             className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
-            end to="/PrettyGoodHome/PrettyGoodHelloWorld"
+            end to="/PrettyGoodHome/PrettyGoodRedux"
           >
-            Hello World
+            Redux
           </NavLink>
+
+          <br /><br />
 
           <div style={{fontSize:"10px"}}>Networks & Databases</div>
 
@@ -59,6 +61,15 @@ export default class LeftNavbar2 extends React.PureComponent {
           >
             IPFS
             <div style={{fontSize:"8px"}}>(heavyweight)</div>
+          </NavLink>
+
+          <hr />
+
+          <NavLink
+            className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
+            end to="/PrettyGoodHome/PrettyGoodHelloWorld"
+          >
+            Hello World
           </NavLink>
         </div>
       </>

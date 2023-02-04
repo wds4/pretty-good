@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchMyActiveNostrProfileFromSql } from '../pg/sql';
 import { resetRunInitsCalledStatus } from '../../redux/features/startup/slice';
-import { fetchMyProfile } from '../../redux/features/myNostrProfile/slice';
+import { fetchMyProfile } from '../../redux/features/nostr/myNostrProfile/slice';
 
 /*
 export const fetchTodoById = todoId => async dispatch => {

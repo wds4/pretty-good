@@ -1,7 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { updateNostrRelayStoreAndSql } from 'renderer/window1/redux/features/nostr/settings/slice';
-import { addNewRelayToSql } from 'renderer/window1/lib/pg/sql';
+import { updateNostrRelayStoreAndSql, addNostrRelay, removeNostrRelay } from 'renderer/window1/redux/features/nostr/settings/slice';
+import { addNewRelayToSql, deleteRelayUrlFromSql } from 'renderer/window1/lib/pg/sql';
 import EndorseRelayMessage from './endorseRelayMessage';
+import { noteEncode } from 'nostr-tools/nip19';
 
 const RelaysSettings = () => {
   const devMode = useSelector((state) => state.prettyGoodGlobalState.devMode);
@@ -29,6 +30,7 @@ const RelaysSettings = () => {
       const newUrl = `wss://${e1.value}`;
       console.log(`newUrl: ${newUrl}`);
       const res = await addNewRelayToSql(newUrl);
+      dispatch(addNostrRelay(newUrl));
       if (res) {
         const e2 = document.getElementById('newRelayAddedSuccess');
         if (e2) {
@@ -42,6 +44,20 @@ const RelaysSettings = () => {
       }
     }
   };
+  const deleteRelay = (url) => {
+    console.log("deleteRelay; url: "+url)
+    const e = document.getElementById("delete_"+url)
+    if (e) { e.style.display="inline-block"; }
+  }
+  const deleteRelayForReal = (url) => {
+    console.log("deleteRelayForReal; url: "+url)
+    const res = deleteRelayUrlFromSql(url);
+    dispatch(removeNostrRelay(url));
+    console.log("deleteRelayForReal; res: "+JSON.stringify(res,null,4))
+    // const e = document.getElementById("relayInfoContainer_"+url)
+    // if (e) { e.style.backgroundColor="#9F9F9F"; }
+
+  }
   const aRelayUrls = Object.keys(oRelaysData);
   return (
     <>
@@ -53,9 +69,11 @@ const RelaysSettings = () => {
           {aRelayUrls.map((url) => {
             const oRelayData = oRelaysData[url];
             const initState = oRelayData.active;
+            const deleteButton2Id = "delete_"+url;
+            const relayInfoContainerId = "relayInfoContainer_"+url
             return (
               <>
-                <div className="relayInfoContainer">
+                <div className="relayInfoContainer" id={relayInfoContainerId}>
                   <input
                     className="relayCheckbox"
                     style={{ display: 'inline-block' }}
@@ -64,8 +82,19 @@ const RelaysSettings = () => {
                     onChange={(e) => processStateChange(e.target.checked, url)}
                   />
                   <div className="relayUrlContainer">{oRelayData.url}</div>
-                  <div className="deleteRelayButton doSomethingButton">
+                  <div
+                    className="deleteRelayButton doSomethingButton"
+                    onClick={() => deleteRelay(url)}
+                  >
                     delete
+                  </div>
+                  <div
+                    className="deleteRelayButton doSomethingButton"
+                    style={{display:"none"}}
+                    onClick={() => deleteRelayForReal(url)}
+                    id={deleteButton2Id}
+                  >
+                    delete completely from SQL; are your sure?
                   </div>
                 </div>
               </>

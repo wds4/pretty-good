@@ -4,7 +4,7 @@ import {
   deleteRowFromMyNostrProfiles,
   updateMyNostrProfileSetActiveInSql,
 } from '../../../../lib/pg/sql';
-import { fetchMyProfile } from '../../../../redux/features/myNostrProfile/slice';
+import { fetchMyProfile } from '../../../../redux/features/nostr/myNostrProfile/slice';
 import { noProfilePicUrl } from '../../../../const';
 
 export default function AllCurrentProfiles({

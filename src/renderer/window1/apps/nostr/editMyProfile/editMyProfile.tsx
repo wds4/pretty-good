@@ -9,7 +9,7 @@ import {
   updateAbout,
   updateNip05,
   updateLud06,
-} from 'renderer/window1/redux/features/myNostrProfile/slice';
+} from 'renderer/window1/redux/features/nostr/myNostrProfile/slice';
 import { updateMyActiveNostrProfileInSql } from '../../../lib/pg/sql';
 
 function PublishProfile() {

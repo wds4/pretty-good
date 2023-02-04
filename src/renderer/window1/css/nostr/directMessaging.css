@@ -54,3 +54,27 @@
 .directMessageTooltip:hover .directMessageTooltipText {
   visibility: visible;
 }
+
+.dmLeftPanel {
+  display:inline-block;
+  width:200px;
+  height:95%;
+  padding:5px;
+  border:1px solid black;
+}
+.dmMainPanel {
+  display:inline-block;
+  padding:5px;
+  width:calc(90% - 200px);
+  height:95%;
+  border:1px solid black;
+}
+.dmProfileButtonContainer {
+  border:1px solid black;
+  margin-bottom:3px;
+  padding:3px;
+  font-size:12px;
+}
+.dmProfileButtonContainer:hover {
+  background-color:yellow;
+}

@@ -6,7 +6,7 @@ import {
   removeStringFromArray,
 } from 'renderer/window1/lib/pg/index';
 import { fetchMyActiveNostrProfileFromSql, updateMyFullNostrProfileInSql } from 'renderer/window1/lib/pg/sql';
-import { noProfilePicUrl } from '../../../const';
+import { noProfilePicUrl } from '../../../../const';
 
 const initialState = {
   pubkey_hex: undefined,

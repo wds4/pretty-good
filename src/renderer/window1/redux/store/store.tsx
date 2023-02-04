@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import myProfileReducer from '../features/myNostrProfile/slice';
+import myProfileReducer from '../features/nostr/myNostrProfile/slice';
 import counterReducer from '../features/counter/slice';
 import startupReducer from '../features/startup/slice';
 import nostrSettingsReducer from '../features/nostr/settings/slice';

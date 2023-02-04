@@ -9,6 +9,7 @@ export default function NostrDirectMessagesHelloWorld() {
       <div className="h4">Nostr Direct Messages store</div>
       <div>
         num authors: <span>{aAuthors.length}</span>
+        <div className="storeHelloWorldFullDataContainer"><pre>{JSON.stringify(oDirectMessagesData,null,4)}</pre></div>
       </div>
     </div>
   );
