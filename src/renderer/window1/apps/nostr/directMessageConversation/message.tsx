@@ -7,7 +7,7 @@ const decodeAndSend = async (event, showThisEvent, myPubkey, myPrivKey, pubkey) 
     const rawContent = event.content;
     const decodedMessage = await nip04.decrypt(myPrivKey, pubkey, rawContent);
     const e = document.getElementById(event.id);
-    e.innerHTML = `${showThisEvent} <br/> ${decodedMessage}`;
+    e.innerHTML = `${decodedMessage}`;
   } catch (err) {}
 };
 

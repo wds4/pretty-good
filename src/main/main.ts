@@ -117,7 +117,7 @@ db.serialize(() => {
   for (let r = 0; r < aDefaultRelayUrls.length; r += 1) {
     const nextRelay = aDefaultRelayUrls[r];
     const sql = ` INSERT OR IGNORE INTO relays (url,default_app,active) VALUES('${nextRelay}',true,true) `;
-    db.run(sql);
+    // db.run(sql);
   }
 });
 

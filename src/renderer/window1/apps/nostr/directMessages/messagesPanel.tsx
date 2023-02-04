@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux';
 import { fetchDirectMessagesFromAliceToBob } from 'renderer/window1/redux/features/nostr/directMessages/slice';
 import Message from './message';
 
+// need to clean this code up
 const MessagesPanel = ({ pubkey }) => {
   const pubkey_focus = useSelector(
     (state) => state.nostrSettings.nostrProfileFocus
@@ -20,12 +21,29 @@ const MessagesPanel = ({ pubkey }) => {
   const aMessageIds = [ ...aMessagesFromMe, ...aMessagesToMe ];
   const oMessages = { ...oMessagesFromMe, ...oMessagesToMe }
 
+
+  const aMessages = [];
+  aMessageIds.forEach((id) => {
+    const oMessage = oMessages[id];
+    console.log("oMessage "+JSON.stringify(oMessage,null,4))
+    console.log("oMessage id: "+id)
+    const obj = {
+      created_at: oMessage.event.created_at,
+      id: id
+    }
+    aMessages.push(obj)
+  });
+  console.log("aMessages BEFORE "+JSON.stringify(aMessages,null,4))
+  aMessages.sort((a, b) => parseFloat(a.created_at) - parseFloat(b.created_at));
+  console.log("aMessages AFTER "+JSON.stringify(aMessages,null,4))
+
+  // events.sort((a, b) => parseFloat(b.created_at) - parseFloat(a.created_at));
+  // aMessages.sort((a, b) => parseFloat(b.created_at) - parseFloat(a.created_at));
+
   return (
     <>
-      pubkey: {pubkey} <br />
-      aMessagesFromMe: {aMessagesFromMe.length} <br />
-      aMessagesToMe: {aMessagesToMe.length} <br />
-      {aMessageIds.map((id) => {
+      {aMessages.map((obj) => {
+        const id = obj.id;
         let showThisEvent = 0;
         if (aMessagesFromMe.includes(id)) {
           showThisEvent = 1;

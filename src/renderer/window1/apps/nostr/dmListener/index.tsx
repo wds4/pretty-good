@@ -1,15 +1,20 @@
-import { useNostrEvents } from 'nostr-react';
 import { useSelector } from 'react-redux';
 import MessagesSent from './messagesSent';
 import MessagesReceived from './messagesReceived';
 
 const DirectMessages = () => {
-
+  const devMode = useSelector((state) => state.prettyGoodGlobalState.devMode);
+  let devModeClassName = 'devModeOff';
+  if (devMode) {
+    devModeClassName = 'devModeOn';
+  }
   return (
     <>
-      <div className="h4">all DMs</div>
-      <MessagesSent />
-      <MessagesReceived />
+      <div className={devModeClassName}>
+        <div className="h4">all DMs</div>
+        <MessagesSent />
+        <MessagesReceived />
+      </div>
     </>
   );
 };

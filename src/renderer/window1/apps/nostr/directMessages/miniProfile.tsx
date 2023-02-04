@@ -55,10 +55,8 @@ const NostrMiniProfile = ({ pubkey }) => {
   return (
     <>
       <div>
-        <div className="eventNameContainer">
-          <span style={{ color: 'black' }}>{displayName}</span>
-          <span style={{ color: 'grey', marginLeft: '10px' }}>{name}</span>
-        </div>
+        <span style={{ color: 'black' }}>{displayName}</span>
+        <span style={{ color: 'grey', marginLeft: '10px' }}>{name}</span>
       </div>
       <div>
         <NavLink

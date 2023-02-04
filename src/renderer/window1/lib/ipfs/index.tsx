@@ -1,3 +1,4 @@
+/*
 import * as IPFS from 'ipfs-core';
 
 // await IPFS.create({repo: 'ok' + Math.random()});
@@ -24,3 +25,4 @@ export const getIpfsNodeID = async () => {
   // await ipfs.stop();
   return nodeId;
 };
+*/

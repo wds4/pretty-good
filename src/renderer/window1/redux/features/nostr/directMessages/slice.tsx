@@ -70,7 +70,6 @@ export const fetchConvoProfiles = () => {
 };
 
 export const fetchDirectMessagesFromAliceToBob = (pk_alice,pk_bob) => {
-  console.log("qwerty fetchDirectMessagesFromAliceToBob; pk_alice: "+pk_alice+"; pk_bob: "+pk_bob)
   let oMessages = [];
   try {
     oMessages = useSelector((state) => state.nostrDirectMessages.directMessages[pk_alice][pk_bob]);

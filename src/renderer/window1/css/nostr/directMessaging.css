@@ -61,6 +61,7 @@
   height:95%;
   padding:5px;
   border:1px solid black;
+  background-color:#CFCFCF
 }
 .dmMainPanel {
   display:inline-block;
@@ -70,10 +71,14 @@
   border:1px solid black;
 }
 .dmProfileButtonContainer {
-  border:1px solid black;
+  border:2px solid grey;
   margin-bottom:3px;
   padding:3px;
   font-size:12px;
+}
+.dmProfileButtonActive {
+  border:2px solid purple;
+  background-color:white;
 }
 .dmProfileButtonContainer:hover {
   background-color:yellow;
