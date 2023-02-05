@@ -9,7 +9,7 @@ import BlankAvatar from 'renderer/window1/assets/blankAvatar.png';
 import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
 import FollowButton from 'renderer/window1/apps/nostr/components/followButton';
 import FollowCounts from 'renderer/window1/apps/nostr/components/followCounts';
-import UserGrapevinePanel from 'renderer/window1/apps/nostr/components/userGrapevinePanel';
+import UserGrapevinePanel from 'renderer/window1/apps/nostr/profile/userGrapevinePanel';
 
 const MainProfile = ({pubkey}) => {
   const nostrProfiles = useSelector(

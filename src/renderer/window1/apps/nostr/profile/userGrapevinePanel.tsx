@@ -1,50 +1,13 @@
 import { useSelector } from 'react-redux';
-
-    /*
-    nostrGrapevineSettingsX: {
-      active: false,
-      contexts: false,
-      worship: {
-        active: true,
-        up: true,
-        down: false,
-        contexts: false,
-      },
-      attention: {
-        active: false,
-        up: false,
-        down: false,
-        contexts: false,
-      },
-      believe: {
-        active: false,
-        up: false,
-        down: false,
-        contexts: false,
-      },
-      nostr: {
-        active: false,
-        up: false,
-        down: false,
-        contexts: false,
-      },
-      ontology: {
-        active: false,
-        up: false,
-        down: false,
-        contexts: false,
-      },
-      advice: {
-        active: false,
-        up: false,
-        down: false,
-        contexts: false,
-      },
-    }
-    */
+import ComposeRatingAndEvent from './composeRatingAndEvent';
+import { useState } from 'react';
 
 const UserGrapevinePanel = ({}) => {
-  const nostrGrapevineSettings = useSelector((state) => state.nostrSettings.nostrGrapevineSettings);
+  let [ratingPreset, setResponse] = useState("foo");
+
+  const nostrGrapevineSettings = useSelector(
+    (state) => state.nostrSettings.nostrGrapevineSettings
+  );
   let showGrapevineClassName = 'userProfileGrapevineContainer';
   if (!nostrGrapevineSettings.active) {
     showGrapevineClassName = 'userProfileGrapevineContainer_hidden';
@@ -161,9 +124,14 @@ const UserGrapevinePanel = ({}) => {
   if (!nostrGrapevineSettings.advice.contexts) {
     showAdvice_contexts_ClassName = 'grapevineSelector_hidden';
   }
+  const processRating = ({value}) => {
+    console.log("processRating; value: "+value)
+    setResponse(value);
+  }
+
   return (
     <>
-      <div >
+      <div>
         <div
           style={{
             display: 'inline-block',
@@ -229,8 +197,12 @@ const UserGrapevinePanel = ({}) => {
                 </span>
                 Every Purpose:
               </div>
-              <div className={showWorship_up_ClassName}>Yes</div>
-              <div className={showWorship_down_ClassName}>No</div>
+              <button value="worship_up" onClick={( { target: value} ) => processRating(value)} type="button" className={showWorship_up_ClassName}>
+                Yes
+              </button>
+              <button value="worship_down" onClick={( { target: value} ) => processRating(value)} type="button" className={showWorship_down_ClassName}>
+                No
+              </button>
               <select className={showWorship_contexts_ClassName}>
                 <option>all</option>
                 <option>bitcoin</option>
@@ -247,8 +219,12 @@ const UserGrapevinePanel = ({}) => {
                 </span>
                 Guide Attention:
               </div>
-              <div className={showAttention_up_ClassName}>Follow</div>
-              <div className={showAttention_down_ClassName}>Ignore</div>
+              <button value="attention_up" onClick={( { target: value} ) => processRating(value)} type="button" className={showAttention_up_ClassName}>
+                Follow
+              </button>
+              <button value="attention_down" onClick={( { target: value} ) => processRating(value)} type="button" className={showAttention_down_ClassName}>
+                Ignore
+              </button>
               <select className={showAttention_contexts_ClassName}>
                 <option>all</option>
                 <option>bitcoin</option>
@@ -265,8 +241,12 @@ const UserGrapevinePanel = ({}) => {
                 </span>
                 Believe:
               </div>
-              <div className={showBelief_up_ClassName}>Believe</div>
-              <div className={showBelief_down_ClassName}>Don't believe</div>
+              <button value="believe_up" onClick={( { target: value} ) => processRating(value)} type="button" className={showBelief_up_ClassName}>
+                Believe
+              </button>
+              <button value="believe_down" onClick={( { target: value} ) => processRating(value)} type="button" className={showBelief_down_ClassName}>
+                Don't believe
+              </button>
               <select className={showBelief_contexts_ClassName}>
                 <option>all</option>
                 <option>bitcoin</option>
@@ -285,8 +265,12 @@ const UserGrapevinePanel = ({}) => {
                 </span>
                 Ontology:
               </div>
-              <div className={showOntology_up_ClassName}>Trust</div>
-              <div className={showOntology_down_ClassName}>Don't trust</div>
+              <button value="ontology_up" onClick={( { target: value} ) => processRating(value)} type="button" className={showOntology_up_ClassName}>
+                Trust
+              </button>
+              <button value="ontology_down" onClick={( { target: value} ) => processRating(value)} type="button" className={showOntology_down_ClassName}>
+                Don't trust
+              </button>
               <select className={showOntology_contexts_ClassName}>
                 <option>all</option>
                 <option>nostr relays</option>
@@ -304,8 +288,12 @@ const UserGrapevinePanel = ({}) => {
                 </span>
                 Judgement / advice:
               </div>
-              <div className={showAdvice_up_ClassName}>Trust</div>
-              <div className={showAdvice_down_ClassName}>Don't trust</div>
+              <button value="advice_up" onClick={( { target: value} ) => processRating(value)} type="button" className={showAdvice_up_ClassName}>
+                Trust
+              </button>
+              <button value="advice_down" onClick={( { target: value} ) => processRating(value)} type="button" className={showAdvice_down_ClassName}>
+                Don't trust
+              </button>
               <select className={showAdvice_contexts_ClassName}>
                 <option>all topics</option>
                 <option>nostr relays</option>
@@ -323,8 +311,12 @@ const UserGrapevinePanel = ({}) => {
                 </span>
                 Manage Nostr relays:
               </div>
-              <div className={showNostr_up_ClassName}>Trust this user</div>
-              <div className={showNostr_down_ClassName}>Don't trust</div>
+              <button value="nostr_up" onClick={( { target: value} ) => processRating(value)} type="button" className={showNostr_up_ClassName}>
+                Trust this user
+              </button>
+              <button value="nostr_down" onClick={( { target: value} ) => processRating(value)} type="button" className={showNostr_down_ClassName}>
+                Don't trust
+              </button>
               <select className={showNostr_contexts_ClassName}>
                 <option>all relays</option>
                 <option>eCommerce relays</option>
@@ -335,6 +327,9 @@ const UserGrapevinePanel = ({}) => {
           </div>
         </div>
       </div>
+      <ComposeRatingAndEvent
+        ratingPreset = {ratingPreset}
+      />
     </>
   );
 };

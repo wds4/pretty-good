@@ -6,16 +6,7 @@ import nostrSettingsReducer from '../features/nostr/settings/slice';
 import nostrProfilesReducer from '../features/nostr/profiles/slice';
 import nostrDirectMessagesReducer from '../features/nostr/directMessages/slice';
 import prettyGoodGlobalStateReducer from '../features/prettyGood/settings/slice';
-
-/*
-export default configureStore({
-  reducer: {
-    counter: counterReducer,
-    startup: startupReducer,
-    myNostrProfile: myProfileReducer,
-  }
-});
-*/
+import nostrGrapevineTrustRatingPresetsReducer from '../features/nostr/grapevineTrustRatingPresets/slice';
 
 const store = configureStore({
   reducer: {
@@ -26,6 +17,9 @@ const store = configureStore({
     nostrProfiles: nostrProfilesReducer,
     nostrDirectMessages: nostrDirectMessagesReducer,
     prettyGoodGlobalState: prettyGoodGlobalStateReducer,
+    nostrGrapevineTrustRatingPresets: nostrGrapevineTrustRatingPresetsReducer,
   }
 });
 export default store;
+
+//

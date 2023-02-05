@@ -64,7 +64,7 @@ const EndorseRelayMessage = () => {
     // kind: may want to choose NIP-16 REPLACEABLE EVENT, with 10000 <= n < 20000
     const event: NostrEvent = {
       content: message,
-      kind: 1971,
+      kind: 11971,
       tags: [["g", "grapevine"]],
       created_at: dateToUnix(),
       pubkey: getPublicKey(myPrivkey),

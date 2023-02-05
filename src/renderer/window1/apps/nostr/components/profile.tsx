@@ -9,7 +9,7 @@ import BlankAvatar from 'renderer/window1/assets/blankAvatar.png';
 import { doesEventValidate } from '../../../lib/nostr/eventValidation';
 import FollowButton from './followButton';
 import FollowCounts from './followCounts';
-import UserGrapevinePanel from './userGrapevinePanel';
+import UserGrapevinePanel from '../profile/userGrapevinePanel';
 
 const NostrProfile = ({}) => {
   const nostrProfiles = useSelector(
