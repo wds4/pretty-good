@@ -101,6 +101,7 @@ export const myProfileSlice = createSlice({
         state.following = [];
       }
       state.following = removeStringFromArray(action.payload, state.following);
+      const res = updateMyFullNostrProfileInSql(state);
     },
   },
   /*

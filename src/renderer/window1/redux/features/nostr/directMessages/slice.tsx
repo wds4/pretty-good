@@ -70,11 +70,14 @@ export const fetchConvoProfiles = () => {
 };
 
 export const fetchDirectMessagesFromAliceToBob = (pk_alice,pk_bob) => {
-  let oMessages = [];
+  let oMessages = {};
   try {
     oMessages = useSelector((state) => state.nostrDirectMessages.directMessages[pk_alice][pk_bob]);
   } catch (err) {}
   if (!oMessages) { oMessages = {};}
+  const aMessages = Object.keys(oMessages);
+  console.log("fetchDirectMessagesFromAliceToBob; pk_alice: "+pk_alice+"; pk_bob: "+pk_bob)
+  console.log("fetchDirectMessagesFromAliceToBob; num messages: "+aMessages.length);
   return oMessages; // form: oMessages[eventId] = event;
 }
 

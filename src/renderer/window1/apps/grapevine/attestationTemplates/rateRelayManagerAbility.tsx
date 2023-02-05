@@ -1,4 +1,4 @@
-export const endorseMyRelayList = {
+export const rateUserAsNostrRelayOracle = {
   wordData: {
     wordTypes: [ "word", "rating" ],
   },

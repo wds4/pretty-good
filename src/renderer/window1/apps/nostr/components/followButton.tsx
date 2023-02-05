@@ -2,7 +2,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   addToFollowingList,
   removeFromFollowingList,
-  FullSyncMyActiveNostrProfileFromReduxStoreToSql,
 } from 'renderer/window1/redux/features/nostr/myNostrProfile/slice';
 
 const FollowButton = ({ pubkey }) => {
@@ -35,6 +34,7 @@ const FollowButton = ({ pubkey }) => {
     if (currentState == 'notFollowing') {
       newState = 'following';
       dispatch(addToFollowingList(pubkey));
+
     }
     // publish updated following list to nostr
     // const myUpdatedNostrProfile = useSelector((state) => state.myNostrProfile);
