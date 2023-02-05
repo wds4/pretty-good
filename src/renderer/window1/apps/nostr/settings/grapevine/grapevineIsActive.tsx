@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { updateNostrGrapevineGeneralSettings, updateNostrGrapevineTopicalSettings } from 'renderer/window1/redux/features/nostr/settings/slice';
 import ToggleSwitch from './grToggleSwitch';
+import ResetDefaultsButton from './resetDefaultsButton';
 
 const ActiveGrapevine = () => {
   const nostrGrapevineSettings = useSelector((state) => state.nostrSettings.nostrGrapevineSettings);
@@ -27,6 +28,7 @@ const ActiveGrapevine = () => {
         className="grapevineSettingsItemContainer"
         style={{ textAlign: 'center' }}
       >
+
         <div
           className="grapevineSettingsItemLeftCol"
           style={{ width: '200px' }}
@@ -42,6 +44,7 @@ const ActiveGrapevine = () => {
             />
           </>
         </div>
+        <ResetDefaultsButton />
       </div>
       <hr />
       <div

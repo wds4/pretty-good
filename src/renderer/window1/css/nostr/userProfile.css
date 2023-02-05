@@ -60,3 +60,8 @@
 .profilePageBarTab:hover {
   color:black;
 }
+.profilePageBarTabSelected {
+  text-decoration:underline;
+  color:white;
+  background-color: rgb(73, 0, 128);
+}

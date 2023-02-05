@@ -3,9 +3,7 @@ import Masthead from '../../../mastheads/nostrMasthead';
 import LeftNavbar1 from '../../../navbars/leftNavbar1/nostrNavbar';
 import LeftNavbar2 from '../../../navbars/leftNavbar2/emptyNavbar';
 import { updateMainColWidth, updateMastheadCenter } from '../../../lib/pg/ui';
-import NostrProfile from '../components/profile';
-import UserPosts from './userPosts';
-import UserPanel from './userPanel';
+import Profile from './profile';
 
 export default class NostrViewProfile extends React.Component {
   constructor(props) {
@@ -31,9 +29,7 @@ export default class NostrViewProfile extends React.Component {
             <Masthead />
           </div>
           <div id="mainPanel">
-            <NostrProfile />
-            <UserPanel />
-            <UserPosts />
+            <Profile />
           </div>
         </div>
       </>

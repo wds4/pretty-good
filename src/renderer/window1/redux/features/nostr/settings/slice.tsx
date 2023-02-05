@@ -17,6 +17,7 @@ export const nostrSettingsSlice = createSlice({
     mainNostrFeedFilter: iMNFF,
     mainNostrFeedOrderAlgo: iMNFOA,
     nostrProfileFocus: 'initial nostrProfileFocus', // pubkey
+    nostrProfilePanelSelector: 'about', // 'about' | 'posts' | 'grapevine' | 'ratings' | 'scores'
     nostrProfiles_movedToOtherStore: {}, // profile pubkey as id
     nostrPostFocusEvent: null, // event.id; which nostr post is being expanded
     nostrEvents: {}, // use event.id as key
@@ -30,6 +31,9 @@ export const nostrSettingsSlice = createSlice({
     nostrGrapevineSettings: defaultNostrGrapevineSettings,
   },
   reducers: {
+    updateNostrProfilePanelSelector: (state, action) => {
+      state.nostrProfilePanelSelector = action.payload;
+    },
     updateMyRelayListEndorsementMode: (state, action) => {
       state.nostrRelayManagement.endorseMyNostrRelays = action.payload;
     },
@@ -115,6 +119,7 @@ export const nostrSettingsSlice = createSlice({
 // Action creators are generated for each case reducer function
 
 export const {
+  updateNostrProfilePanelSelector,
   updateMyRelayListEndorsementMode,
   restoreDefaultNostrGrapevineSettings,
   updateNostrGrapevineGeneralSettings,

@@ -13,7 +13,7 @@ export default class NostrProfile extends React.Component {
 
   async componentDidMount() {
     updateMainColWidth();
-    const mastheadDescriptor = 'Nostr: Profile';
+    const mastheadDescriptor = 'nostr: my profile';
     updateMastheadCenter(mastheadDescriptor);
   }
 

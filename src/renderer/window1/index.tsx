@@ -1,14 +1,6 @@
 import { createRoot } from 'react-dom/client';
 import App from './App';
 
-/*
-const startApp = (relayUrls) => {
-  const container = document.getElementById('root')!;
-  const root = createRoot(container);
-  root.render(<App relayUrls={relayUrls} />);
-};
-*/
-
 const startApp = (aRelaysData) => {
   const aActive = [];
   for (let r = 0; r < aRelaysData.length; r += 1) {

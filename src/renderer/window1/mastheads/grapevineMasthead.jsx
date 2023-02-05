@@ -53,7 +53,7 @@ export default function Masthead() {
         </div>
       </div>
       <div className="mastheadSubBanner mastheadSubBannerGrapevine">
-        <div>grapevine subheading</div>
+        <div>"ASK NOT WHAT YOUR <span style={{color:"purple"}}>GRAPEVINE</span> CAN DO FOR YOU." -- JFK inaugural address, 1961</div>
       </div>
     </>
   );

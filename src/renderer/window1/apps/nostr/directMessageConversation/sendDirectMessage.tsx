@@ -9,6 +9,11 @@ import {
 } from 'nostr-tools';
 
 export default function SendDirectMessage() {
+  const devMode = useSelector((state) => state.prettyGoodGlobalState.devMode);
+  let devModeClassName = 'devModeOff';
+  if (devMode) {
+    devModeClassName = 'devModeOn';
+  }
   const pubkey = useSelector(
     (state) => state.nostrSettings.nostrProfileFocus
   );
@@ -57,10 +62,10 @@ export default function SendDirectMessage() {
 
     publish(event);
     e1.value = '';
-    // const e2 = document.getElementById('successMessageContainer');
-    e2.innerHTML = 'Your message has been submitted to the nostr network!';
-    // const e3 = document.getElementById('newEventContainer');
-    e3.innerHTML = `Here it is:<br/><br/>${JSON.stringify(event, null, 4)}`;
+    const e2 = document.getElementById('successMessageContainer');
+    if (e2) { e2.innerHTML = 'Your message has been submitted to the nostr network!'; }
+    const e3 = document.getElementById('newEventContainer');
+    if (e3) { e3.innerHTML = `Here it is:<br/><br/>${JSON.stringify(event, null, 4)}`; }
   };
 
   return (
@@ -85,7 +90,7 @@ export default function SendDirectMessage() {
           type="button"
           onClick={onPost}
           className="doSomethingButton"
-          style={{ position: 'absolute', right: '0px', bottom: '0px' }}
+          style={{ position: 'absolute', right: '10px', bottom: '0px' }}
         >
           Send this direct message!
         </button>
@@ -97,7 +102,7 @@ export default function SendDirectMessage() {
         />
         <div
           id="newEventContainer"
-          className="newEventContainer"
+          className={devModeClassName}
           style={{
             fontSize: '14px',
             marginTop: '20px',

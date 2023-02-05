@@ -1,6 +1,6 @@
 import ToggleSwitch from './grToggleSwitch';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateNostrGrapevineGeneralSettings, restoreDefaultNostrGrapevineSettings } from 'renderer/window1/redux/features/nostr/settings/slice';
+import { updateNostrGrapevineGeneralSettings } from 'renderer/window1/redux/features/nostr/settings/slice';
 
 const TopPanel = ({  }) => {
   const nostrGrapevineActivationState = useSelector((state) => state.nostrSettings.nostrGrapevineSettings.active);
@@ -10,16 +10,12 @@ const TopPanel = ({  }) => {
     const oUpdate = {active: newState }
     dispatch(updateNostrGrapevineGeneralSettings(oUpdate));
   };
-  const resetDefaults = () => {
-    console.log(`resetDefaults`);
-    dispatch(restoreDefaultNostrGrapevineSettings());
-  }
   return (
     <>
       <div
         style={{ textAlign: 'center', fontSize: '18px', marginBottom: '10px' }}
       >
-        The Grapevine is under construction and not yet functional.
+        "Let me see what my Grapevine has to say about that."
       </div>
       <div
         className="grapevineSettingsItemContainer"
@@ -33,14 +29,6 @@ const TopPanel = ({  }) => {
             initState={nostrGrapevineActivationState}
           />
         </div>
-        <button
-          type="button"
-          id="resetDefaultGrapevineSettingsButton"
-          className="doSomethingButton"
-          onClick={resetDefaults}
-        >
-          Reset Default Grapevine Settings
-        </button>
       </div>
     </>
   );

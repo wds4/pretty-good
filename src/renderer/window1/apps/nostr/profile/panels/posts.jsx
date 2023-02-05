@@ -2,11 +2,11 @@ import React from 'react';
 import { useNostrEvents } from 'nostr-react';
 import { useSelector, useDispatch } from 'react-redux';
 import Post from 'renderer/window1/apps/nostr/components/post';
-import { doesEventValidate } from '../../../lib/nostr/eventValidation';
-import { updateNostrEvents } from '../../../redux/features/nostr/settings/slice';
+import { doesEventValidate } from '../../../../lib/nostr/eventValidation';
+import { updateNostrEvents } from '../../../../redux/features/nostr/settings/slice';
 import { timeout } from 'renderer/window1/lib/pg';
 
-const UserPosts = () => {
+const Posts = () => {
   const pubkey = useSelector(
     (state) => state.nostrSettings.nostrProfileFocus
   );
@@ -37,4 +37,4 @@ const UserPosts = () => {
   );
 };
 
-export default UserPosts;
+export default Posts;
