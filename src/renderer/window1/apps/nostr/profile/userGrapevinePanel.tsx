@@ -5,6 +5,12 @@ import { useState } from 'react';
 const UserGrapevinePanel = ({}) => {
   let [ratingPreset, setResponse] = useState("foo");
 
+  const presets = useSelector(
+    (state) => state.nostrGrapevineTrustRatingPresets.presets
+  );
+  const oRatingPreset = presets[ratingPreset]
+  console.log("oRatingPreset: "+JSON.stringify(oRatingPreset,null,3))
+
   const nostrGrapevineSettings = useSelector(
     (state) => state.nostrSettings.nostrGrapevineSettings
   );

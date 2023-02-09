@@ -19,9 +19,9 @@ export const grapevineNostrUserTrustRatingTemplate = {
     title: null,
     description: null,
     ratingTemplateData: {
-      ratingTemplateName: null,
+      ratingTemplateName: 'grapevine nostr user trust',
       ratingTemplateIPNS: null,
-      ratingTemplateWordSlug: null,
+      ratingTemplateWordSlug: 'grapevineNostrUserTrus',
       ratingTemplateTitle: "Grapevine Nostr User Trust",
     },
     raterData: {
@@ -52,7 +52,7 @@ export const grapevineNostrUserTrustRatingTemplate = {
         comments: null
       },
       confidenceFieldsetData: {
-        confidence: null
+        confidence: '80'
       },
       trustFieldsetData: {
         trustRating: null,

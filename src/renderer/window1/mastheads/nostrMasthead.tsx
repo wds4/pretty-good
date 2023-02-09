@@ -26,7 +26,7 @@ export default function Masthead() {
               marginRight: '10px',
             }}
           >
-            🐦
+            🪶
           </div>
         </div>
 

@@ -115,7 +115,7 @@
     "electron-debug": "^3.2.0",
     "electron-log": "^4.4.8",
     "electron-updater": "^5.2.3",
-    "nostr-react": "github:wds4/nostr-react#manageRelays",
+    "nostr-react": "github:aussedatlo/nostr-react#dev/reconnect",
     "nostr-tools": "file:../nostr-tools",
     "nouislider-react": "^3.4.1",
     "react": "^18.2.0",

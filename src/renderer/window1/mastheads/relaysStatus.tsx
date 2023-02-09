@@ -5,6 +5,15 @@ import AnimateHeight from 'react-animate-height';
 const RelaysStatus = () => {
   const [height, setHeight] = useState(0);
   const { updateRelayList, connectedRelays } = useNostr();
+
+  /*
+  const { updateRelayList, connectedRelays, onDisconnect } = useNostr();
+
+  onDisconnect(() => {
+    console.log("qwerty onDisconnect, relaysStatus component")
+  });
+  */
+
   return (
     <div >
       <div>

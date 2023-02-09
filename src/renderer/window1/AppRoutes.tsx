@@ -48,7 +48,27 @@ import ConceptGraphHome from './apps/conceptGraph';
 import ConceptGraphProfile from './apps/conceptGraph/profile';
 import ConceptGraphSettings from './apps/conceptGraph/settings';
 
+import { useNostr } from 'nostr-react';
+
 const AppRoutes = () => {
+  const { onDisconnect } = useNostr();
+  const onDisconnectCallback = (relay) => {
+    console.log("qwerty onDisconnectCallback, AppRoutes component; relay.url: "+relay.url)
+    setTimeout(() => {
+      relay
+        .connect()
+        .then(() => console.log(`qwerty AppRoutes reconnected: ${relay.url}`))
+        .catch(() => console.log(`qwerty AppRoutes unable to reconnect: ${relay.url}`));
+    }, 30000);
+
+  };
+  onDisconnect(onDisconnectCallback);
+  /*
+  onDisconnect(() => {
+    console.log("qwerty onDisconnect, AppRoutes component")
+  });
+  */
+
   return (
     <>
       <DirectMessageController />

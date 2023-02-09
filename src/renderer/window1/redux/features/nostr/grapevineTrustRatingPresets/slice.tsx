@@ -6,26 +6,105 @@ export const nostrGrapevineTrustRatingPresetsSlice = createSlice({
   initialState: {
     presets: {
       nostr_up: {
-        trustRating: 100,
-        referenceTrustRating: 100,
-        confidence: 80,
-        // rating template dictates which ratingsFieldsets to use: trust, comments, confidence.
-        // but does it also dictate contexts within trustFieldsetData?
-        // Proposal: the generic Grapevine Trust Rating template does not dictate the contexts,
-        // but more specific rating templates can be made if desired.
         ratingTemplateData: {
-          ratingTemplateTitle: "Grapevine Trust Rating" // or "Trust to Manage Nostr Relays"?
+          ratingTemplateName: 'grapevine nostr user trust',
+          ratingTemplateIPNS: null,
+          ratingTemplateWordSlug: 'grapevineNostrUserTrust',
+          ratingTemplateTitle: 'Grapevine Nostr User Trust', // or "Trust to Manage Nostr Relays"?
         },
-        contextData: {
-          transivity: true
+        ratingFieldsetData: {
+          confidenceFieldsetData: {
+            confidence: '80'
+          },
+          trustFieldsetData: {
+            trustRating: 100,
+            referenceTrustRating: 100,
+            referenceData: {
+              referenceEntityType: 'nostrUser',
+              nostrUserData: {
+                pubkey_hex: null,
+                pubkey_bech32: null,
+                display_name: null,
+                name: null,
+              },
+            },
+            contextData: {
+              transitivity: true,
+              influenceCategoryData: {
+                influenceCategoryName: 'nostr relay management',
+                influenceCategoryIPNS: null,
+                influenceCategoryWordSlug:
+                  'influenceType_nostrRelayManagement_8teh9x',
+                influenceCategoryTitle: 'Nostr Relay Management',
+              },
+              topicData: {
+                topicName: 'all types of relays',
+                topicIPNS: null,
+                topicWordSlug:
+                  'contextStructuredData_context_allTypesOfRelays_sei24k',
+                topicTitle: 'All Relay Types',
+              },
+              contextGraphData: {
+                contextGraphName: 'nostr relay management',
+                contextGraphIPNS: null,
+                contextGraphWordSlug:
+                  'contextGraph_nostrRelayManagement_8xr5k8',
+                contextGraphWordTitle: 'Nostr Relay Management',
+              },
+            },
+          },
         },
-        topicData: {},
-        contextGraphData: {}
       },
       nostr_down: {
-        trustRating: 0,
-        referenceTrustRating: 100,
-      }
+        ratingTemplateData: {
+          ratingTemplateName: 'grapevine nostr user trust',
+          ratingTemplateIPNS: null,
+          ratingTemplateWordSlug: 'grapevineNostrUserTrust',
+          ratingTemplateTitle: 'Grapevine Nostr User Trust', // or "Trust to Manage Nostr Relays"?
+        },
+        ratingFieldsetData: {
+          confidenceFieldsetData: {
+            confidence: '80'
+          },
+          trustFieldsetData: {
+            trustRating: 0,
+            referenceTrustRating: 100,
+            referenceData: {
+              referenceEntityType: 'nostrUser',
+              nostrUserData: {
+                pubkey_hex: null,
+                pubkey_bech32: null,
+                display_name: null,
+                name: null,
+              },
+            },
+            contextData: {
+              transitivity: true,
+              influenceCategoryData: {
+                influenceCategoryName: 'nostr relay management',
+                influenceCategoryIPNS: null,
+                influenceCategoryWordSlug:
+                  'influenceType_nostrRelayManagement_8teh9x',
+                influenceCategoryTitle: 'Nostr Relay Management',
+              },
+              topicData: {
+                topicName: 'all types of relays',
+                topicIPNS: null,
+                topicWordSlug:
+                  'contextStructuredData_context_allTypesOfRelays_sei24k',
+                topicTitle: 'All Relay Types',
+              },
+              contextGraphData: {
+                contextGraphName: 'nostr relay management',
+                contextGraphIPNS: null,
+                contextGraphWordSlug:
+                  'contextGraph_nostrRelayManagement_8xr5k8',
+                contextGraphWordTitle: 'Nostr Relay Management',
+              },
+            },
+          },
+        },
+      },
     }, // profile pubkey as id
   },
   reducers: {
@@ -41,8 +120,6 @@ export const nostrGrapevineTrustRatingPresetsSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 
-export const {
-  updatePresets,
-} = nostrGrapevineTrustRatingPresetsSlice.actions;
+export const { updatePresets } = nostrGrapevineTrustRatingPresetsSlice.actions;
 
 export default nostrGrapevineTrustRatingPresetsSlice.reducer;

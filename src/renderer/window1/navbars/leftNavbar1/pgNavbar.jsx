@@ -19,7 +19,7 @@ export default class PrettyGoodLeftNavbar1 extends React.PureComponent {
             className={({ isActive }) => isActive ? "leftNavButton leftNavButtonActive" : "leftNavButton" }
             to="/NostrHome/NostrLandingPage"
           >
-            <div style={{ fontSize: '32px' }}>🐦</div>
+            <div style={{ fontSize: '32px' }}>🪶</div>
             <div style={{ fontSize: '12px' }}>pgnostr</div>
           </NavLink>
 
