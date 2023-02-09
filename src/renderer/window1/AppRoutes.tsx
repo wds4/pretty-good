@@ -4,6 +4,7 @@ import DirectMessageController from 'renderer/window1/apps/nostr/dmListener';
 // "nostr-react": "github:wds4/nostr-react#autoReconnect",
 
 // Routes
+import { useNostr } from 'nostr-react';
 import LandingPage from './landingPage';
 
 import PrettyGoodHome from './apps/prettyGood';
@@ -48,27 +49,22 @@ import ConceptGraphHome from './apps/conceptGraph';
 import ConceptGraphProfile from './apps/conceptGraph/profile';
 import ConceptGraphSettings from './apps/conceptGraph/settings';
 
-import { useNostr } from 'nostr-react';
-
 const AppRoutes = () => {
   const { onDisconnect } = useNostr();
   const onDisconnectCallback = (relay) => {
-    console.log("qwerty onDisconnectCallback, AppRoutes component; relay.url: "+relay.url)
+    console.log(
+      `onDisconnectCallback, AppRoutes component; relay.url: ${relay.url}`
+    );
     setTimeout(() => {
       relay
         .connect()
-        .then(() => console.log(`qwerty AppRoutes reconnected: ${relay.url}`))
-        .catch(() => console.log(`qwerty AppRoutes unable to reconnect: ${relay.url}`));
+        .then(() => console.log(`AppRoutes reconnected: ${relay.url}`))
+        .catch(() =>
+          console.log(`AppRoutes unable to reconnect: ${relay.url}`)
+        );
     }, 30000);
-
   };
   onDisconnect(onDisconnectCallback);
-  /*
-  onDisconnect(() => {
-    console.log("qwerty onDisconnect, AppRoutes component")
-  });
-  */
-
   return (
     <>
       <DirectMessageController />
@@ -77,10 +73,7 @@ const AppRoutes = () => {
           <Routes>
             <Route path="/" element={<LandingPage />} />
 
-            <Route
-              path="/PrettyGoodHome"
-              element={<PrettyGoodHome />}
-            />
+            <Route path="/PrettyGoodHome" element={<PrettyGoodHome />} />
             <Route
               path="/PrettyGoodHome/PrettyGoodProfile"
               element={<PrettyGoodProfile />}
@@ -171,10 +164,7 @@ const AppRoutes = () => {
               path="/NostrHome/NostrSearchForUser"
               element={<NostrSearchForUser />}
             />
-            <Route
-              path="/NostrHome/NostrThread"
-              element={<NostrThread />}
-            />
+            <Route path="/NostrHome/NostrThread" element={<NostrThread />} />
             <Route
               path="/NostrHome/NostrDirectMessages"
               element={<NostrDirectMessages />}
@@ -183,10 +173,7 @@ const AppRoutes = () => {
               path="/NostrHome/NostrProfiles"
               element={<NostrProfiles />}
             />
-            <Route
-              path="/NostrHome/NostrRelays"
-              element={<NostrRelays />}
-            />
+            <Route path="/NostrHome/NostrRelays" element={<NostrRelays />} />
             <Route path="/NostrHome/NostrSql" element={<NostrSql />} />
             <Route
               path="/NostrHome/NostrSettingsGrapevine"
@@ -203,10 +190,7 @@ const AppRoutes = () => {
               element={<GrapevineSettings />}
             />
 
-            <Route
-              path="/ConceptGraphHome"
-              element={<ConceptGraphHome />}
-            />
+            <Route path="/ConceptGraphHome" element={<ConceptGraphHome />} />
             <Route
               path="/ConceptGraphHome/ConceptGraphProfile"
               element={<ConceptGraphProfile />}
@@ -220,6 +204,6 @@ const AppRoutes = () => {
       </fieldset>
     </>
   );
-}
+};
 
 export default AppRoutes;
