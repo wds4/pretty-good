@@ -122,7 +122,7 @@ const EndorseRelayMessage = () => {
             marginTop: '20px',
             width: '80%',
             height: '250px',
-            overflow: 'scroll',
+            overflow: 'auto',
             padding: '5px',
           }}
         />

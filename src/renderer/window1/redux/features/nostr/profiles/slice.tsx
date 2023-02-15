@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { doesEventValidate } from '../../../../lib/nostr/eventValidation';
-
+import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
+import { updateThisProfileInSql } from 'renderer/window1/lib/pg/sql';
 export const nostrProfilesSlice = createSlice({
   name: 'nostrProfiles',
   initialState: {
@@ -12,6 +12,7 @@ export const nostrProfilesSlice = createSlice({
         // payload should be an event of kind 0 and should be the most uptodate version for that profile
         const { pubkey } = action.payload;
         state.nostrProfiles[pubkey] = action.payload;
+        updateThisProfileInSql(action.payload)
       }
     },
   },

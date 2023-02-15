@@ -45,11 +45,7 @@ export default function Masthead() {
             end
             to="/PrettyGoodHome/PrettyGoodApps"
           >
-            <div style={{ fontSize: '20px' }}>
-              <span>&#8942;</span>
-              <span>&#8942;</span>
-              <span>&#8942;</span>
-            </div>
+            <div style={{ fontSize: '14px' }}>𓃑</div>
             <div style={{ fontSize: '10px' }}>apps</div>
           </NavLink>
           <NavLink

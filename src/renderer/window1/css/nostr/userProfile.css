@@ -29,17 +29,17 @@
 .mainUserProfileLeftColumnContainer {
     display:inline-block;
     width:250px;
-    overflow:scroll;
+    overflow:auto;
 }
 .mainUserAboutContainer {
     width:600px;
     height:40px;
-    overflow:scroll;
+    overflow:auto;
 }
 .mainUserNameContainer {
     font-size:18px;
     width:100%;
-    overflow:scroll;
+    overflow:auto;
     margin-bottom:5px;
 }
 .userProfilePubkeyContainer {

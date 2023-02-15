@@ -9,6 +9,7 @@
  * `./src/main.js` using webpack. This gives us some performance wins.
  */
 import path from 'path';
+import fs from 'fs';
 import { app, BrowserWindow, shell, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
@@ -43,6 +44,20 @@ const isDebug =
 
 if (isDebug) {
   require('electron-debug')();
+}
+
+// need to create directory for sql database if in dev mode
+if (isDebug) {
+  fs.mkdir(
+    path.join(webpackPaths.appPath, 'sql'),
+    { recursive: true },
+    (err) => {
+      if (err) {
+        return console.error(err);
+      }
+      console.log('sqlTest directory created successfully!');
+    }
+  );
 }
 
 const databaseName = 'prettyGoodDatabase.sqlite3';
@@ -117,7 +132,7 @@ db.serialize(() => {
   for (let r = 0; r < aDefaultRelayUrls.length; r += 1) {
     const nextRelay = aDefaultRelayUrls[r];
     const sql = ` INSERT OR IGNORE INTO relays (url,default_app,active) VALUES('${nextRelay}',true,true) `;
-    // db.run(sql);
+    db.run(sql);
   }
 });
 

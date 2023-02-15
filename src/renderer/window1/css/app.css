@@ -33,7 +33,7 @@ div, pre {
     white-space: -pre-wrap;
     white-space: -o-pre-wrap;
     word-wrap: break-word;
-    overflow:scroll;
+    overflow:auto;
 }
 div.h1 {
     font-size:36px;

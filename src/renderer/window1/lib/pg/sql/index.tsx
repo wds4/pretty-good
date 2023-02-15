@@ -2,6 +2,23 @@ import { dateToUnix } from 'nostr-react';
 import { asyncSql } from '../asyncSql';
 import { generateNewNostrKeys } from '../../nostr';
 
+export const updateThisProfileInSql = (event) => {
+  console.log("updateThisProfileInSql; event: "+JSON.stringify(event,null,4))
+  const currentTime = dateToUnix(new Date());
+
+  const sql1 = ` INSERT OR IGNORE INTO nostrProfiles (pubkey,event,firstSeen) VALUES('${event.pubkey}','${JSON.stringify(event)}',${currentTime}) `;
+  // console.log("updateThisProfileInSql; sql1: "+sql1);
+  const res1 = asyncSql(sql1);
+
+  let sql2 = '';
+  sql2 += ' UPDATE nostrProfiles ';
+  sql2 += ` SET event = '${JSON.stringify(event)}' `;
+  sql2 += ` , lastUpdate = ${currentTime} `;
+  sql2 += ` WHERE pubkey = '${event.pubkey}' `;
+  // console.log("updateThisProfileInSql; sql2: "+sql2);
+  const res2 = asyncSql(sql2);
+}
+
 export const fetchMyActiveNostrProfileFromSql = async (initNewProfile) => {
   const sql = 'SELECT * FROM myNostrProfile WHERE active=true';
   let aMyProfileData = await asyncSql(sql);

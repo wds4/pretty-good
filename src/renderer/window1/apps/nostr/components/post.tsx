@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom';
+import { useNostrEvents } from 'nostr-react';
 import { useSelector, useDispatch } from 'react-redux';
 import BlankAvatar from 'renderer/window1/assets/blankAvatar.png';
 import { noProfilePicUrl } from 'renderer/window1/const';
@@ -7,7 +8,10 @@ import {
   updateNostrPostFocusEvent,
 } from 'renderer/window1/redux/features/nostr/settings/slice';
 import { secsToTime } from 'renderer/window1/lib/pg';
-import YoutubeEmbed, { extractVideoID, extractVideoUrl } from './youtubeEmbed';
+import { returnMostRecentEvent } from 'renderer/window1/lib/nostr';
+import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
+import { updateNostrProfiles } from 'renderer/window1/redux/features/nostr/profiles/slice';
+import YoutubeEmbed, { extractVideoID, extractVideoUrl } from './youTubeEmbed';
 import ActionButtons from './actionButtons';
 
 const Post = ({ event, index }) => {
@@ -16,12 +20,12 @@ const Post = ({ event, index }) => {
   );
   const dispatch = useDispatch();
 
-  let devModeData = "";
+  let devModeData = '';
   const devMode = useSelector((state) => state.prettyGoodGlobalState.devMode);
   let devModeClassName = 'devModeOff';
   if (devMode) {
     devModeClassName = 'devModeOn';
-    devModeData = JSON.stringify(event,null,4)
+    devModeData = JSON.stringify(event, null, 4);
   }
 
   const displayTime = secsToTime(event.created_at);
@@ -41,12 +45,11 @@ const Post = ({ event, index }) => {
   let displayName = '';
   let nameClass = 'nameUnknown';
 
-
   /// // STEP 2 ///// If already present in redux store, replace with that
   let profileContent = {};
   if (nostrProfiles.hasOwnProperty(event.pubkey)) {
     profileContent = JSON.parse(nostrProfiles[event.pubkey].content);
-    name = "@"+profileContent.name;
+    name = `@${profileContent.name}`;
     displayName = profileContent.display_name;
     nameClass = 'nameKnown';
     if (profileContent.picture) {
@@ -59,31 +62,32 @@ const Post = ({ event, index }) => {
   /*
   // Ought to create a stack of profiles and fetch them one or only a few at a time;
   // store info in redux store and in sql
-    ///// STEP 3 ///// Query network for updated profile information and if found, use that instead, and update redux
-    // currently this causes an error if too many called -- need to find a solution
-    const { events } = useNostrEvents({
-      filter: {
-        authors: [event.pubkey],
-        since: 0, // all new events from now
-        kinds: [0],
-      },
-    });
-    let event_ = {};
-    const event2 = returnMostRecentEvent(events);
-    if (event2 && doesEventValidate(event2)) {
-      dispatch(updateNostrProfiles(event2));
-      event_ = JSON.parse(JSON.stringify(event2));
-      const content = JSON.parse(event2.content);
-      event_.content = content;
-      name = content.name;
-      displayName = content.display_name;
-      if (content.picture) {
-        avatarUrl = content.picture;
-      } else {
-        avatarUrl = BlankAvatar;
-      }
+  /// // STEP 3 ///// Query network for updated profile information and if found, use that instead, and update redux
+  // currently this causes an error if too many called -- need to find a solution
+  const { events } = useNostrEvents({
+    filter: {
+      authors: [event.pubkey],
+      since: 0, // all new events from now
+      kinds: [0],
+    },
+  });
+  let event_ = {};
+  const event2 = returnMostRecentEvent(events);
+  if (event2 && doesEventValidate(event2)) {
+    dispatch(updateNostrProfiles(event2));
+    event_ = JSON.parse(JSON.stringify(event2));
+    const content = JSON.parse(event2.content);
+    event_.content = content;
+    name = content.name;
+    displayName = content.display_name;
+    if (content.picture) {
+      avatarUrl = content.picture;
+    } else {
+      avatarUrl = BlankAvatar;
     }
+  }
   */
+
   return (
     <>
       <div className="eventContainer">
@@ -118,7 +122,7 @@ const Post = ({ event, index }) => {
             }}
             to={{
               pathname: '/NostrHome/NostrThread',
-              state: { event: event },
+              state: { event },
             }}
             className="eventContentContainer"
           >

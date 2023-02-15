@@ -78,7 +78,7 @@ export default function RelaysList() {
                 style={{
                   display: 'inline-block',
                   width: '30%',
-                  overflow: 'scroll',
+                  overflow: 'auto',
                 }}
               >
                 url
@@ -128,7 +128,7 @@ export default function RelaysList() {
                       style={{
                         display: 'inline-block',
                         width: '30%',
-                        overflow: 'scroll',
+                        overflow: 'auto',
                       }}
                     >
                       {url}

@@ -70,7 +70,7 @@
     color:black;
     margin-right:10px;
     max-width:80%;
-    overflow:scroll;
+    overflow:auto;
     padding-left:3px;
 }
 .eventNameContainer:hover {

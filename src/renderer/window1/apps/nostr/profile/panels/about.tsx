@@ -49,7 +49,7 @@ const About = ({ pubkey }) => {
           style={{
             width: '80%',
             height: '200px',
-            overflow: 'scroll',
+            overflow: 'auto',
             padding: '10px',
 
             background: 'white',

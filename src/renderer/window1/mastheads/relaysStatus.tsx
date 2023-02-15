@@ -39,7 +39,7 @@ const RelaysStatus = () => {
           duration={500}
           height={height} // see props documentation below
         >
-          <div style={{ overflow: 'scroll' }}>
+          <div style={{ overflow: 'auto' }}>
             <div
               className="connectedRelaysVerboseContainer"
               id="connectedRelaysVerboseContainer"

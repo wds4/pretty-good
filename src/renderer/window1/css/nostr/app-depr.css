@@ -107,7 +107,7 @@ div.h4 {
     height:80%;
     padding-top:20px;
     font-size:12px;
-    overflow:scroll;
+    overflow:auto;
 }
 
 .doSomethingButton {

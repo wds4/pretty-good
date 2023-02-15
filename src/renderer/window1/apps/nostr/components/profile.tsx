@@ -15,10 +15,10 @@ const NostrProfile = ({}) => {
   const nostrProfiles = useSelector(
     (state) => state.nostrProfiles.nostrProfiles
   );
-  const pubkey = useSelector(
-    (state) => state.nostrSettings.nostrProfileFocus
+  const pubkey = useSelector((state) => state.nostrSettings.nostrProfileFocus);
+  const isNostrGrapevineOn = useSelector(
+    (state) => state.nostrSettings.nostrGrapevineSettings.active
   );
-  const isNostrGrapevineOn = useSelector((state) => state.nostrSettings.nostrGrapevineSettings.active);
   const dispatch = useDispatch();
   const devMode = useSelector((state) => state.prettyGoodGlobalState.devMode);
   let devModeClassName = 'devModeOff';
@@ -28,10 +28,10 @@ const NostrProfile = ({}) => {
   const npub = nip19.npubEncode(pubkey);
 
   const grapevineProfileControlPanelClassName = isNostrGrapevineOn
-    ? "grapevineProfileControlPanel"
-    : "block_hide";
+    ? 'grapevineProfileControlPanel'
+    : 'block_hide';
 
-  ///// STEP 1 ///// First load default profile info
+  /// // STEP 1 ///// First load default profile info
   let profilePicUrl = noProfilePicUrl;
   let displayName = '';
   let name = '';
@@ -54,12 +54,12 @@ const NostrProfile = ({}) => {
     }
   }
 
-  ///// alternate step 3
+  /// // alternate step 3
   const { data: userData } = useProfile({
     pubkey,
   });
 
-  ///// STEP 3 ///// Query network for updated profile information and if found, use that instead, and update redux
+  /// // STEP 3 ///// Query network for updated profile information and if found, use that instead, and update redux
   const { events } = useNostrEvents({
     filter: {
       authors: [pubkey],
@@ -84,14 +84,18 @@ const NostrProfile = ({}) => {
     <>
       <pre className={devModeClassName}>
         number events received: {events.length}
-        <br />userData:<br />
+        <br />
+        userData:
+        <br />
         <div>
           <p>Name: {userData?.name}</p>
           <p>Public key: {userData?.npub}</p>
           <p>Picture URL: {userData?.picture}</p>
         </div>
         {JSON.stringify(userData, null, 4)}
-        <br />event_:<br />
+        <br />
+        event_:
+        <br />
         {JSON.stringify(event_, null, 4)}
       </pre>
       <div className="mainUserProfileBox myProfileBox">

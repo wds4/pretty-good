@@ -192,7 +192,7 @@ const UserGrapevinePanel = ({}) => {
               </div>
             </div>
           </div>
-          <div style={{ maxHeight: '350px', overflow: 'scroll' }}>
+          <div style={{ maxHeight: '350px', overflow: 'auto' }}>
             <div className={showWorshipClassName}>
               <div className="grapevineContainerLeftCol">
                 <span className="tooltiptext">

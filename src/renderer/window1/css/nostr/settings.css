@@ -26,7 +26,7 @@ div.relays:before {
     margin-left:5px;
     width:250px;
     font-size:14px;
-    overflow:scroll;
+    overflow:auto;
 }
 .endorseMyRelaysContainer {
   padding:10px;
