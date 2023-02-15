@@ -116,7 +116,7 @@
     "electron-log": "^4.4.8",
     "electron-updater": "^5.2.3",
     "nostr-react": "github:aussedatlo/nostr-react#dev/reconnect",
-    "nostr-tools": "file:../nostr-tools",
+    "nostr-tools": "^1.4.1",
     "nouislider-react": "^3.4.1",
     "react": "^18.2.0",
     "react-animate-height": "^3.1.0",
