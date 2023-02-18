@@ -74,6 +74,7 @@ ipcMain.on('ipc-show-userDataPaths', async (event, arg) => {
   event.reply('ipc-show-userDataPaths', sqlPathsInfo);
 });
 
+/*
 // fetch relays from sql to send to the renderer process.
 // more comments
 ipcMain.on('ipc-fetch-relays', async (event, arg) => {
@@ -86,26 +87,18 @@ ipcMain.on('ipc-fetch-relays', async (event, arg) => {
     } else {
       event.reply('ipc-fetch-relays', []);
     }
-    /*
-    const aActive = [];
-    for (let r = 0; r < aRelaysData.length; r += 1) {
-      const oNextRelayData = aRelaysData[r];
-      const { url, active } = oNextRelayData;
-      if (active) {
-        aActive.push(url);
-      }
-    }
-    event.reply('ipc-fetch-relays', aActive);
-    */
   });
 });
-
+*/
+/*
 ipcMain.on('ipc-example', async (event, arg) => {
   const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
   console.log(msgTemplate(arg));
   event.reply('ipc-example', msgTemplate('pong'));
 });
-
+*/
+// Inclusion of a nonce (just a random number) prevents multiple simultaneous sql queries from colliding with one another (result of one query returned as the result of another)
+// There may be a preferred way to do this.
 ipcMain.on('asynchronous-sql-command', async (event, data) => {
   const sql = data[0];
   const nonce = data[1];

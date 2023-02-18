@@ -1,7 +1,13 @@
 import { createRoot } from 'react-dom/client';
 import App from './App';
+import { asyncSql } from './lib/pg/asyncSql';
 
-const startApp = (aRelaysData) => {
+// Initialize app with relevant sql data
+const startApp = async () => {
+  const sql1 = 'SELECT * from relays ';
+  const sql2 = 'SELECT * from nostrProfiles ';
+  const aRelaysData = await asyncSql(sql1);
+  const aProfilesData = await asyncSql(sql2);
   const aActive = [];
   for (let r = 0; r < aRelaysData.length; r += 1) {
     const oNextRelayData = aRelaysData[r];
@@ -12,22 +18,20 @@ const startApp = (aRelaysData) => {
   }
   const container = document.getElementById('root')!;
   const root = createRoot(container);
-  root.render(<App relayUrls={aActive} aRelaysData={aRelaysData} />);
+  root.render(
+    <App
+      relayUrls={aActive}
+      aRelaysData={aRelaysData}
+      aProfilesData={aProfilesData}
+    />
+  );
 };
-
-window.electron.ipcRenderer.once('ipc-fetch-relays', (relayUrls) => {
-  console.log(`ipc-fetch-relays;  relayUrls: ${relayUrls}`);
-  // ought to be able to get rid of window.relayUrls by:
-  // sending relayUrls to App where it is handed to NostrProvider (done)
-  // adding to redux store (where? able to add it here?) (not yet done)
-  // window.relayUrls = relayUrls;
-  startApp(relayUrls);
-});
-window.electron.ipcRenderer.sendMessage('ipc-fetch-relays', ['ping']);
-
+startApp();
+/*
 // calling IPC exposed from preload script
 window.electron.ipcRenderer.once('ipc-example', (arg) => {
   // eslint-disable-next-line no-console
   console.log(arg);
 });
 window.electron.ipcRenderer.sendMessage('ipc-example', ['ping']);
+*/

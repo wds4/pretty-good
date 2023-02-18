@@ -1,6 +1,7 @@
 import React, { StrictMode } from 'react';
 import { Provider, useDispatch } from 'react-redux';
 import { initNostrRelays } from 'renderer/window1/redux/features/nostr/settings/slice';
+import { initNostrProfiles } from 'renderer/window1/redux/features/nostr/profiles/slice';
 import ErrorBoundary from './errorBoundary';
 import store from './redux/store/store';
 import { updateMainColWidth } from './lib/pg/ui';
@@ -31,9 +32,10 @@ import './css/nostr/userList.css';
 import './css/nostr/youTubeEmbed.css';
 
 // an inelegant way to initialize the relay list into the redux store
-const InitRelayStore = ({ aRelaysData }) => {
+const InitReduxStore = ({ aRelaysData, aProfilesData }) => {
   const dispatch = useDispatch();
   dispatch(initNostrRelays(aRelaysData));
+  dispatch(initNostrProfiles(aProfilesData));
   return <></>;
 };
 
@@ -52,7 +54,10 @@ export default class App extends React.Component {
       <StrictMode>
         <ErrorBoundary>
           <Provider store={store}>
-            <InitRelayStore aRelaysData={this.props.aRelaysData} />
+            <InitReduxStore
+              aRelaysData={this.props.aRelaysData}
+              aProfilesData={this.props.aProfilesData}
+            />
             <AppNostr />
           </Provider>
         </ErrorBoundary>

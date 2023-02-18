@@ -15,6 +15,15 @@ export const nostrProfilesSlice = createSlice({
         updateThisProfileInSql(action.payload)
       }
     },
+    initNostrProfiles: (state, action) => {
+      const aProfilesData = action.payload;
+      const oProfileData = {};
+      for (let r = 0; r < aProfilesData.length; r += 1) {
+        const oProfileData = aProfilesData[r];
+        const { event, pubkey } = oProfileData;
+        state.nostrProfiles[pubkey] = JSON.parse(event);
+      }
+    },
   },
 });
 
@@ -22,6 +31,7 @@ export const nostrProfilesSlice = createSlice({
 
 export const {
   updateNostrProfiles,
+  initNostrProfiles,
 } = nostrProfilesSlice.actions;
 
 export default nostrProfilesSlice.reducer;
