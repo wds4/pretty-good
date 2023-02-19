@@ -10,14 +10,14 @@ export default class LeftNavbar2 extends React.PureComponent {
             className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
             end to="/NostrHome/NostrViewMyProfile"
           >
-            profile
+            my profile
           </NavLink>
 
           <NavLink
             className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
-            end to="/NostrHome"
+            end to="/NostrHome/NostrProfiles"
           >
-            profile 2
+            switch profile
           </NavLink>
         </div>
       </>
