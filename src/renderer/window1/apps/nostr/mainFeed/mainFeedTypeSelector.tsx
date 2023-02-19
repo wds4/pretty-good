@@ -81,14 +81,14 @@ const MainFeedTypeSelector = () => {
           <option value="following" selected={followingSelected}>
             following list
           </option>
-          <option value="eFollowing" selected={eFollowingSelected}>
+          <option value="eFollowing" selected={eFollowingSelected} style={{display:"none"}}>
             Extended following list
           </option>
           <option value="firehose" selected={firehoseSelected}>
             firehose
           </option>
           <option value="grapevine" selected={grapevineSelected}>
-            grapevine
+            grapevine (testnet)
           </option>
         </select>
       </div>

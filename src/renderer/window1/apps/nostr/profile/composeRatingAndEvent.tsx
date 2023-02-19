@@ -34,10 +34,24 @@ const ComposeRatingAndEvent = ({ ratingPreset }) => {
   const message = JSON.stringify(newRating);
 
   // kind: may want to choose NIP-16 REPLACEABLE EVENT, with 10000 <= n < 20000
+  // Grapevine: kind = 11000 to 12000 and tags: [['g', 'grapevine']],
+  // grapevine testnet: kind = 11900 to 11999 and tags: [['g', 'grapevine-testnet']],
+
+  // GRAPEVINE: LIVE
+  // kind: 11???
+  // tags: [['g', 'grapevine']],
+
+  // GRAPEVINE: TESTNET
+  // kind: 11971 (?)
+  // tags: [['g', 'grapevine-testnet']],
+
+  // first test: 1971, grapevine (Jan or Feb 2023)
+  // kind: 1971
+  // tags: [['g', 'grapevine']],
   const event: NostrEvent = {
     content: message,
     kind: 11971,
-    tags: [['g', 'grapevine']],
+    tags: [['g', 'grapevine-testnet']],
     created_at: dateToUnix(),
     pubkey: getPublicKey(myPrivkey),
   };
