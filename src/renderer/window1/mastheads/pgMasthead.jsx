@@ -26,7 +26,7 @@ export default function Masthead() {
               marginRight: '10px',
             }}
           >
-            ✔
+            🦉
           </div>
         </div>
 
@@ -47,18 +47,6 @@ export default function Masthead() {
           >
             <div style={{ fontSize: '14px' }}>𓃑</div>
             <div style={{ fontSize: '10px' }}>apps</div>
-          </NavLink>
-          <NavLink
-            className={({ isActive }) =>
-              isActive
-                ? 'mastheadNavButton mastheadNavButtonActive'
-                : 'mastheadNavButton'
-            }
-            end
-            to="/NostrHome/NostrDirectMessages"
-          >
-            <div style={{ fontSize: '20px' }}>&#x1F4AC;</div>
-            <div style={{ fontSize: '10px' }}>DMs</div>
           </NavLink>
           <NavLink
             onClick={() => {

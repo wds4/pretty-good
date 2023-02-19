@@ -27,6 +27,7 @@ export default class PrettyGoodHome extends React.Component {
           <Masthead />
           <div id="mainPanel">
             <div className="h2">Welcome to Pretty Good</div>
+            <p>Choose an app on the left.</p>
           </div>
         </div>
       </>

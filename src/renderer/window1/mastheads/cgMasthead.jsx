@@ -12,7 +12,7 @@ export default function Masthead() {
     <>
       <div className="mastheadContainer">
         <div className="mastheadLeftContainer">
-          <div style={{ fontSize: '48px', display: 'inline-block', marginRight: '10px' }}>🦉</div>
+          <div style={{ fontSize: '48px', display: 'inline-block', marginRight: '10px' }}>🧠</div>
         </div>
 
         <div id="mastheadCenterContainer" className="mastheadCenterContainer">

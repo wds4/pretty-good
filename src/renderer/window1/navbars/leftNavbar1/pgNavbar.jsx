@@ -11,7 +11,7 @@ export default class PrettyGoodLeftNavbar1 extends React.PureComponent {
             style={{ marginBottom: '20px' }}
             to="/PrettyGoodHome"
           >
-            <div style={{ fontSize: '32px' }}>✔</div>
+            <div style={{ fontSize: '32px' }}>🦉</div>
             <div style={{ fontSize: '12px' }}>Pretty Good</div>
           </NavLink>
 
@@ -35,7 +35,7 @@ export default class PrettyGoodLeftNavbar1 extends React.PureComponent {
             className={({ isActive }) => isActive ? "leftNavButton leftNavButtonActive" : "leftNavButton" }
             to="/ConceptGraphHome"
           >
-            <div style={{ fontSize: '32px' }}>🦉</div>
+            <div style={{ fontSize: '32px' }}>🧠</div>
             <div style={{ fontSize: '12px' }}>Concept Graph</div>
           </NavLink>
         </div>

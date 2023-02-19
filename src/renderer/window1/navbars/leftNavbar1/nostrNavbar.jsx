@@ -11,7 +11,7 @@ export default class NostrLeftNavbar1 extends React.PureComponent {
             style={{ marginBottom: '20px' }}
             to="/PrettyGoodHome"
           >
-            <div style={{ fontSize: '32px' }}>✔</div>
+            <div style={{ fontSize: '32px' }}>🦉</div>
             <div style={{ fontSize: '12px' }}>Pretty Good</div>
           </NavLink>
 
