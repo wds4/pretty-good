@@ -17,8 +17,10 @@ const WelcomeBox = () => {
   }
 
   const aSuggestedProfiles = [
+    "e5272de914bd301755c439b88e6959a43c9d2664831f093c51e9c799a16a102f", // me
     "82341f882b6eabcd2ba7f1ef90aad961cf074af15b9ef44a09f9d2a8fbfbe6a2", // jack
     "32e1827635450ebb3c5a7d12c1f8e7b2b514439ac10a67eef3d9fd9c5c68e245", // Will
+    "3bf0c63fcb93463407af97a5e5ee64fa883d107ef9e558472c4eb9aaaefa459d", // fiatjaf
   ];
 
   return (
