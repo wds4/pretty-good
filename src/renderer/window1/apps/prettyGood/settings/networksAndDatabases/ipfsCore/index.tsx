@@ -6,13 +6,11 @@ import {
 import Masthead from 'renderer/window1/mastheads/pgMasthead';
 import LeftNavbar1 from 'renderer/window1/navbars/leftNavbar1/pgNavbar';
 import LeftNavbar2 from 'renderer/window1/navbars/leftNavbar2/prettyGood/helloWorld';
-/*
 import {
   getMyPeerID,
   getVersion,
   getIpfsNodeID,
 } from 'renderer/window1/lib/ipfs';
-*/
 
 export default class IpfsCoreHelloWorld extends React.Component {
   constructor(props) {
@@ -25,7 +23,6 @@ export default class IpfsCoreHelloWorld extends React.Component {
     const mastheadDescriptor = 'IPFS Core: Hello World';
     updateMastheadCenter(mastheadDescriptor);
 
-    /*
     const myPeerID = await getMyPeerID();
     document.getElementById('myPeerIdContainer').innerHTML = myPeerID;
 
@@ -42,8 +39,6 @@ export default class IpfsCoreHelloWorld extends React.Component {
       null,
       4
     );
-
-    */
   }
 
   render() {
