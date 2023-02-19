@@ -45,9 +45,6 @@ const MainFeedTypeSelector = () => {
     }
   };
   let followingClassName = 'block_show';
-  if (aFollowing.length == 0) {
-    followingClassName = 'block_hide';
-  }
   if (!followingSelected) {
     followingClassName = 'block_hide';
   }
