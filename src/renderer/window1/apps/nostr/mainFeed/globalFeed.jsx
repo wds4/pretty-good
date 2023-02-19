@@ -6,6 +6,7 @@ import { updateNostrEvents } from 'renderer/window1/redux/features/nostr/setting
 import { setTwoBackSteps, setCurrentPage } from 'renderer/window1/redux/features/prettyGood/settings/slice';
 import Post from '../components/post';
 import MainFeedTypeSelector from './mainFeedTypeSelector';
+import WelcomeBox from './welcomeBox';
 
 const GlobalFeed = () => {
   const devMode = useSelector((state) => state.prettyGoodGlobalState.devMode);
@@ -68,6 +69,7 @@ const GlobalFeed = () => {
           />
         </div>
       </div>
+      <WelcomeBox />
       <pre className={devModeClassName}>
         aFollowing: {JSON.stringify(aFollowing, null, 4)}
       </pre>

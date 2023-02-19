@@ -8,6 +8,11 @@ const MainFeedTypeSelector = () => {
   const mainNostrFeedFilter = useSelector(
     (state) => state.nostrSettings.mainNostrFeedFilter
   );
+  const myNostrProfile = useSelector((state) => state.myNostrProfile);
+  let aFollowing = [];
+  if (myNostrProfile.following) {
+    aFollowing = myNostrProfile.following;
+  }
 
   let followingSelected = false;
   let eFollowingSelected = false;
@@ -34,10 +39,17 @@ const MainFeedTypeSelector = () => {
   const processMainNostrFeedTypeChange = (newType) => {
     console.log(`processMainNostrFeedTypeChange: ${newType}`);
     dispatch(updateMainNostrFeedFilter(newType));
-    const e = document.getElementById("landingPageButton");
+    const e = document.getElementById('landingPageButton');
     if (e) {
       e.click();
     }
+  };
+  let followingClassName = 'block_show';
+  if (aFollowing.length == 0) {
+    followingClassName = 'block_hide';
+  }
+  if (!followingSelected) {
+    followingClassName = 'block_hide';
   }
 
   return (
@@ -48,6 +60,23 @@ const MainFeedTypeSelector = () => {
         style={{ display: 'none' }}
       />
       <div>
+        <div
+          style={{
+            display: 'inline-block',
+            marginRight: '10px',
+            textDecoration: 'none',
+          }}
+        >
+          <NavLink
+            to="/NostrHome/NostrMyFollowingList"
+            id="landingPageButton"
+            className={followingClassName}
+            style={{textDecoration:"none"}}
+          >
+            following: {aFollowing.length} profiles
+          </NavLink>
+        </div>
+
         <select
           id="mainFeedTypeSelector"
           onChange={(e) => processMainNostrFeedTypeChange(e.target.value)}
