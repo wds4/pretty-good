@@ -8,31 +8,36 @@ import {
   signEvent,
 } from 'nostr-tools';
 
-const ComposeRatingAndEvent = ({ratingPreset}) => {
-  let sRating = "rating text";
-  let sEvent = "event text";
+const ComposeRatingAndEvent = ({ ratingPreset }) => {
+  const sRating = 'rating text';
+  const sEvent = 'event text';
 
   const myNostrProfile = useSelector((state) => state.myNostrProfile);
   const myPrivkey = myNostrProfile.privkey;
 
-  const presets = useSelector((state) => state.nostrGrapevineTrustRatingPresets.presets);
+  const presets = useSelector(
+    (state) => state.nostrGrapevineTrustRatingPresets.presets
+  );
 
-  let newRating = JSON.parse(JSON.stringify(grapevineNostrUserTrustRatingTemplate));
+  const newRating = JSON.parse(
+    JSON.stringify(grapevineNostrUserTrustRatingTemplate)
+  );
   // edit newRating
-  newRating.ratingData.raterData.nostrUserData.pubkey_hex = myNostrProfile.pubkey_hex;
-  newRating.ratingData.raterData.nostrUserData.pubkey_bech32 = myNostrProfile.pubkey_bech32;
+  newRating.ratingData.raterData.nostrUserData.pubkey_hex =
+    myNostrProfile.pubkey_hex;
+  newRating.ratingData.raterData.nostrUserData.pubkey_bech32 =
+    myNostrProfile.pubkey_bech32;
   newRating.ratingData.raterData.nostrUserData.name = myNostrProfile.name;
-  newRating.ratingData.raterData.nostrUserData.display_name = myNostrProfile.display_name;
+  newRating.ratingData.raterData.nostrUserData.display_name =
+    myNostrProfile.display_name;
   newRating.metaData.timestamp = Date.now();
   const message = JSON.stringify(newRating);
-
-
 
   // kind: may want to choose NIP-16 REPLACEABLE EVENT, with 10000 <= n < 20000
   const event: NostrEvent = {
     content: message,
     kind: 11971,
-    tags: [["g", "grapevine"]],
+    tags: [['g', 'grapevine']],
     created_at: dateToUnix(),
     pubkey: getPublicKey(myPrivkey),
   };
@@ -42,9 +47,48 @@ const ComposeRatingAndEvent = ({ratingPreset}) => {
 
   return (
     <>
-      ratingPreset: {ratingPreset}
-      <pre>{JSON.stringify(event,null,4)}</pre>
-      <pre>{JSON.stringify(newRating,null,4)}</pre>
+      <div>ratingPreset: {ratingPreset}</div>
+      <div
+        style={{
+          display: 'inline-block',
+          width: '45%',
+          fontSize: '10px',
+          border: '1px dashed grey',
+          overflow: 'auto',
+          padding: '2px',
+          margin: '2px',
+        }}
+      >
+        <div>nostr event:</div>
+        <pre
+          style={{
+            backgroundColor: 'white',
+          }}
+        >
+          {JSON.stringify(event, null, 4)}
+        </pre>
+      </div>
+
+      <div
+        style={{
+          display: 'inline-block',
+          width: '45%',
+          fontSize: '10px',
+          border: '1px dashed grey',
+          overflow: 'auto',
+          padding: '2px',
+          margin: '2px',
+        }}
+      >
+        <div>newRating:</div>
+        <pre
+          style={{
+            backgroundColor: 'white',
+          }}
+        >
+          {JSON.stringify(newRating, null, 4)}
+        </pre>
+      </div>
     </>
   );
 };

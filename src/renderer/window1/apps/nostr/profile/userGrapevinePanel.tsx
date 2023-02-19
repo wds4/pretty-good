@@ -1,15 +1,15 @@
 import { useSelector } from 'react-redux';
-import ComposeRatingAndEvent from './composeRatingAndEvent';
 import { useState } from 'react';
+import ComposeRatingAndEvent from './composeRatingAndEvent';
 
 const UserGrapevinePanel = ({}) => {
-  let [ratingPreset, setResponse] = useState("foo");
+  const [ratingPreset, setResponse] = useState('foo');
 
   const presets = useSelector(
     (state) => state.nostrGrapevineTrustRatingPresets.presets
   );
-  const oRatingPreset = presets[ratingPreset]
-  console.log("oRatingPreset: "+JSON.stringify(oRatingPreset,null,3))
+  const oRatingPreset = presets[ratingPreset];
+  console.log(`oRatingPreset: ${JSON.stringify(oRatingPreset, null, 3)}`);
 
   const nostrGrapevineSettings = useSelector(
     (state) => state.nostrSettings.nostrGrapevineSettings
@@ -17,6 +17,11 @@ const UserGrapevinePanel = ({}) => {
   let showGrapevineClassName = 'userProfileGrapevineContainer';
   if (!nostrGrapevineSettings.active) {
     showGrapevineClassName = 'userProfileGrapevineContainer_hidden';
+  }
+  const devMode = useSelector((state) => state.prettyGoodGlobalState.devMode);
+  let devModeClassName = 'devModeOff';
+  if (devMode) {
+    devModeClassName = 'devModeOn';
   }
 
   let showHeaderClassName = 'grapevineItemContainer';
@@ -130,10 +135,10 @@ const UserGrapevinePanel = ({}) => {
   if (!nostrGrapevineSettings.advice.contexts) {
     showAdvice_contexts_ClassName = 'grapevineSelector_hidden';
   }
-  const processRating = ({value}) => {
-    console.log("processRating; value: "+value)
+  const processRating = ({ value }) => {
+    console.log(`processRating; value: ${value}`);
     setResponse(value);
-  }
+  };
 
   return (
     <>
@@ -203,10 +208,20 @@ const UserGrapevinePanel = ({}) => {
                 </span>
                 Every Purpose:
               </div>
-              <button value="worship_up" onClick={( { target: value} ) => processRating(value)} type="button" className={showWorship_up_ClassName}>
+              <button
+                value="worship_up"
+                onClick={({ target: value }) => processRating(value)}
+                type="button"
+                className={showWorship_up_ClassName}
+              >
                 Yes
               </button>
-              <button value="worship_down" onClick={( { target: value} ) => processRating(value)} type="button" className={showWorship_down_ClassName}>
+              <button
+                value="worship_down"
+                onClick={({ target: value }) => processRating(value)}
+                type="button"
+                className={showWorship_down_ClassName}
+              >
                 No
               </button>
               <select className={showWorship_contexts_ClassName}>
@@ -225,10 +240,20 @@ const UserGrapevinePanel = ({}) => {
                 </span>
                 Guide Attention:
               </div>
-              <button value="attention_up" onClick={( { target: value} ) => processRating(value)} type="button" className={showAttention_up_ClassName}>
+              <button
+                value="attention_up"
+                onClick={({ target: value }) => processRating(value)}
+                type="button"
+                className={showAttention_up_ClassName}
+              >
                 Follow
               </button>
-              <button value="attention_down" onClick={( { target: value} ) => processRating(value)} type="button" className={showAttention_down_ClassName}>
+              <button
+                value="attention_down"
+                onClick={({ target: value }) => processRating(value)}
+                type="button"
+                className={showAttention_down_ClassName}
+              >
                 Ignore
               </button>
               <select className={showAttention_contexts_ClassName}>
@@ -247,10 +272,20 @@ const UserGrapevinePanel = ({}) => {
                 </span>
                 Believe:
               </div>
-              <button value="believe_up" onClick={( { target: value} ) => processRating(value)} type="button" className={showBelief_up_ClassName}>
+              <button
+                value="believe_up"
+                onClick={({ target: value }) => processRating(value)}
+                type="button"
+                className={showBelief_up_ClassName}
+              >
                 Believe
               </button>
-              <button value="believe_down" onClick={( { target: value} ) => processRating(value)} type="button" className={showBelief_down_ClassName}>
+              <button
+                value="believe_down"
+                onClick={({ target: value }) => processRating(value)}
+                type="button"
+                className={showBelief_down_ClassName}
+              >
                 Don't believe
               </button>
               <select className={showBelief_contexts_ClassName}>
@@ -271,10 +306,20 @@ const UserGrapevinePanel = ({}) => {
                 </span>
                 Ontology:
               </div>
-              <button value="ontology_up" onClick={( { target: value} ) => processRating(value)} type="button" className={showOntology_up_ClassName}>
+              <button
+                value="ontology_up"
+                onClick={({ target: value }) => processRating(value)}
+                type="button"
+                className={showOntology_up_ClassName}
+              >
                 Trust
               </button>
-              <button value="ontology_down" onClick={( { target: value} ) => processRating(value)} type="button" className={showOntology_down_ClassName}>
+              <button
+                value="ontology_down"
+                onClick={({ target: value }) => processRating(value)}
+                type="button"
+                className={showOntology_down_ClassName}
+              >
                 Don't trust
               </button>
               <select className={showOntology_contexts_ClassName}>
@@ -294,10 +339,20 @@ const UserGrapevinePanel = ({}) => {
                 </span>
                 Judgement / advice:
               </div>
-              <button value="advice_up" onClick={( { target: value} ) => processRating(value)} type="button" className={showAdvice_up_ClassName}>
+              <button
+                value="advice_up"
+                onClick={({ target: value }) => processRating(value)}
+                type="button"
+                className={showAdvice_up_ClassName}
+              >
                 Trust
               </button>
-              <button value="advice_down" onClick={( { target: value} ) => processRating(value)} type="button" className={showAdvice_down_ClassName}>
+              <button
+                value="advice_down"
+                onClick={({ target: value }) => processRating(value)}
+                type="button"
+                className={showAdvice_down_ClassName}
+              >
                 Don't trust
               </button>
               <select className={showAdvice_contexts_ClassName}>
@@ -317,10 +372,20 @@ const UserGrapevinePanel = ({}) => {
                 </span>
                 Manage Nostr relays:
               </div>
-              <button value="nostr_up" onClick={( { target: value} ) => processRating(value)} type="button" className={showNostr_up_ClassName}>
+              <button
+                value="nostr_up"
+                onClick={({ target: value }) => processRating(value)}
+                type="button"
+                className={showNostr_up_ClassName}
+              >
                 Trust this user
               </button>
-              <button value="nostr_down" onClick={( { target: value} ) => processRating(value)} type="button" className={showNostr_down_ClassName}>
+              <button
+                value="nostr_down"
+                onClick={({ target: value }) => processRating(value)}
+                type="button"
+                className={showNostr_down_ClassName}
+              >
                 Don't trust
               </button>
               <select className={showNostr_contexts_ClassName}>
@@ -332,10 +397,10 @@ const UserGrapevinePanel = ({}) => {
             </div>
           </div>
         </div>
+        <div style={{border:"1px solid red",maxHeight:"300px"}}>
+          <ComposeRatingAndEvent ratingPreset={ratingPreset} />
+        </div>
       </div>
-      <ComposeRatingAndEvent
-        ratingPreset = {ratingPreset}
-      />
     </>
   );
 };
