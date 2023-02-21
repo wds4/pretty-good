@@ -3,7 +3,8 @@ import { nip19 } from 'nostr-tools';
 import {
   deleteRowFromMyNostrProfiles,
   updateMyNostrProfileSetActiveInSql,
-} from '../../../../lib/pg/sql';
+} from 'renderer/window1/lib/pg/sql';
+import { checkPrivkeyHexValidity } from 'renderer/window1/lib/nostr';
 import { fetchMyProfile } from '../../../../redux/features/nostr/myNostrProfile/slice';
 import { noProfilePicUrl } from '../../../../const';
 
@@ -14,9 +15,18 @@ export default function AllCurrentProfiles({
   const myNostrProfile = useSelector((state) => state.myNostrProfile);
   const dispatch = useDispatch();
 
-  const showPrivkey = (id) => () => {
-    const e1 = document.getElementById(`privkeyContainer1_${id}`);
-    const e2 = document.getElementById(`privkeyContainer2_${id}`);
+  const showPrivkeyHex = (id) => () => {
+    const e1 = document.getElementById(`privkeyHexContainer1_${id}`);
+    const e2 = document.getElementById(`privkeyHexContainer2_${id}`);
+    if (e1 && e2) {
+      e1.style.display = 'none';
+      e2.style.display = 'block';
+    }
+  };
+
+  const showPrivkeyBech32 = (id) => () => {
+    const e1 = document.getElementById(`privkeyBech32Container1_${id}`);
+    const e2 = document.getElementById(`privkeyBech32Container2_${id}`);
     if (e1 && e2) {
       e1.style.display = 'none';
       e2.style.display = 'block';
@@ -65,142 +75,194 @@ export default function AllCurrentProfiles({
         }
         let avatarUrl = noProfilePicUrl;
         if (oNextProfile.picture_url) {
-          avatarUrl = oNextProfile.picture_url
+          avatarUrl = oNextProfile.picture_url;
         }
-        return (
-          <>
-            <div
-              id={containerId}
-              className={singleProfileDataContainerClassName}
-            >
+        const privkeyHex = oNextProfile.privkey;
+        const isPkValid = checkPrivkeyHexValidity(privkeyHex);
+        if (!isPkValid) {
+          deleteRowFromMyNostrProfiles(oNextProfile.id);
+          return (
+            <>
+              <div className={singleProfileDataContainerClassName}>
+                INVALID PRIVKEY ... BEING DELETED
+              </div>
+            </>
+          );
+        }
+        if (isPkValid) {
+          const privkeyBech32 = nip19.nsecEncode(privkeyHex);
+          return (
+            <>
               <div
-                style={{
-                  position: 'absolute',
-                  top: '5px',
-                  right: '5px',
-                  width: '20%',
-                }}
+                id={containerId}
+                className={singleProfileDataContainerClassName}
               >
-                <button
-                  type="button"
-                  onClick={processFirstDeleteButton(oNextProfile.id, index)}
-                  className="deleteFirstTryButton doSomethingButton_small"
-                >
-                  DELETE
-                </button>
-                <br />
-                Delete this profile, including keys, from local storage.
-                <br />
-                This cannot be undone!
-                <br />
-                <br />
                 <div
-                  style={{ display: 'none' }}
-                  id={finalChanceDeleteContainerId}
+                  style={{
+                    position: 'absolute',
+                    top: '5px',
+                    right: '5px',
+                    width: '20%',
+                  }}
                 >
-                  Are you sure???
-                  <br />
                   <button
                     type="button"
-                    onClick={processSecondDeleteButton(oNextProfile.id, index)}
-                    className="deleteLastChanceButton doSomethingButton_small"
+                    onClick={processFirstDeleteButton(oNextProfile.id, index)}
+                    className="deleteFirstTryButton doSomethingButton_small"
                   >
-                    YES, DELETE!
+                    DELETE
                   </button>
+                  <br />
+                  Delete this profile, including keys, from local storage.
+                  <br />
+                  This cannot be undone!
+                  <br />
+                  <br />
                   <div
-                    id={deletedNoticeContainerId}
                     style={{ display: 'none' }}
+                    id={finalChanceDeleteContainerId}
                   >
-                    DELETED
-                  </div>
-                </div>
-              </div>
-              <div style={{ width: '5%', display: 'inline-block' }}>
-                <input
-                  type="radio"
-                  checked={isChecked}
-                  className="activeProfileRadioButton"
-                  name="myActiveProfile"
-                  data-pubkey={oNextProfile.pubkey}
-                  onChange={updateSelectedProfile(oNextProfile.id, index)}
-                />
-              </div>
-              <div style={{ width: '80%', display: 'inline-block' }}>
-                <div
-                  style={{
-                    display: 'inline-block',
-                    width: '75px',
-                    height: '75px',
-                    position: 'relative',
-                  }}
-                >
-                  <img
-                    src={avatarUrl}
-                    className="myProfileAvatarImgSmall"
-                    alt=""
-                  />
-                </div>
-                <div style={{ display: 'inline-block', marginLeft: '10px' }}>
-                  <div style={{ marginBottom: '5px' }}>
-                    <div style={{ color: 'grey' }}>
-                      sql id: {oNextProfile.id}
+                    Are you sure???
+                    <br />
+                    <button
+                      type="button"
+                      onClick={processSecondDeleteButton(
+                        oNextProfile.id,
+                        index
+                      )}
+                      className="deleteLastChanceButton doSomethingButton_small"
+                    >
+                      YES, DELETE!
+                    </button>
+                    <div
+                      id={deletedNoticeContainerId}
+                      style={{ display: 'none' }}
+                    >
+                      DELETED
                     </div>
                   </div>
+                </div>
+                <div style={{ width: '5%', display: 'inline-block' }}>
+                  <input
+                    type="radio"
+                    checked={isChecked}
+                    className="activeProfileRadioButton"
+                    name="myActiveProfile"
+                    data-pubkey={oNextProfile.pubkey}
+                    onChange={updateSelectedProfile(oNextProfile.id, index)}
+                  />
+                </div>
+                <div style={{ width: '80%', display: 'inline-block' }}>
+                  <div
+                    style={{
+                      display: 'inline-block',
+                      width: '75px',
+                      height: '75px',
+                      position: 'relative',
+                    }}
+                  >
+                    <img
+                      src={avatarUrl}
+                      className="myProfileAvatarImgSmall"
+                      alt=""
+                    />
+                  </div>
+                  <div style={{ display: 'inline-block', marginLeft: '10px' }}>
+                    <div style={{ marginBottom: '5px' }}>
+                      <div style={{ color: 'grey' }}>
+                        sql id: {oNextProfile.id}
+                      </div>
+                    </div>
+                    <div style={{ marginBottom: '5px' }}>
+                      <div style={{ color: 'grey' }}>display name:</div>
+                      {oNextProfile.display_name}
+                    </div>
+                    <div style={{ marginBottom: '5px' }}>
+                      <div style={{ color: 'grey' }}>name:</div>
+                      {oNextProfile.name}
+                    </div>
+                  </div>
+
                   <div style={{ marginBottom: '5px' }}>
-                    <div style={{ color: 'grey' }}>display name:</div>
-                    {oNextProfile.display_name}
+                    <div style={{ color: 'grey' }}>pubkey (hex):</div>
+                    {oNextProfile.pubkey}
                   </div>
                   <div style={{ marginBottom: '5px' }}>
-                    <div style={{ color: 'grey' }}>name:</div>
-                    {oNextProfile.name}
+                    <div style={{ color: 'grey' }}>pubkey (bech32):</div>
+                    {nip19.npubEncode(oNextProfile.pubkey)}
                   </div>
-                </div>
 
-                <div style={{ marginBottom: '5px' }}>
-                  <div style={{ color: 'grey' }}>pubkey (hex):</div>
-                  {oNextProfile.pubkey}
-                </div>
-                <div style={{ marginBottom: '5px' }}>
-                  <div style={{ color: 'grey' }}>pubkey (bech32):</div>
-                  {nip19.npubEncode(oNextProfile.pubkey)}
-                </div>
+                  <button
+                    className="showPrivkeyButton doSomethingButton"
+                    type="button"
+                    onClick={showPrivkeyHex(oNextProfile.id)}
+                  >
+                    Show privkey (hex format) (caution!)
+                  </button>
+                  <div
+                    id={`privkeyHexContainer1_${oNextProfile.id}`}
+                    style={{
+                      border: '1px solid black',
+                      padding: '8px',
+                      marginBottom: '5px',
+                      height: '40px',
+                      fontSize: '18px',
+                    }}
+                  >
+                    privkey, hex format (hidden)
+                  </div>
+                  <div
+                    id={`privkeyHexContainer2_${oNextProfile.id}`}
+                    style={{
+                      border: '1px solid black',
+                      padding: '5px',
+                      marginBottom: '5px',
+                      height: '40px',
+                      display: 'none',
+                    }}
+                  >
+                    <div style={{ color: 'grey' }}>privkey (hex):</div>
+                    {oNextProfile.privkey}
+                  </div>
 
-                <button
-                  className="showPrivkeyButton doSomethingButton"
-                  type="button"
-                  onClick={showPrivkey(oNextProfile.id)}
-                >
-                  Show privkey (caution!)
-                </button>
-                <div
-                  id={`privkeyContainer1_${oNextProfile.id}`}
-                  style={{
-                    border: '1px solid black',
-                    padding: '8px',
-                    marginBottom: '5px',
-                    height: '40px',
-                    fontSize: '18px',
-                  }}
-                >
-                  privkey (hidden)
-                </div>
-                <div
-                  id={`privkeyContainer2_${oNextProfile.id}`}
-                  style={{
-                    border: '1px solid black',
-                    padding: '5px',
-                    marginBottom: '5px',
-                    height: '40px',
-                    display: 'none',
-                  }}
-                >
-                  <div style={{ color: 'grey' }}>privkey:</div>
-                  {oNextProfile.privkey}
+                  <button
+                    className="showPrivkeyButton doSomethingButton"
+                    type="button"
+                    onClick={showPrivkeyBech32(oNextProfile.id)}
+                  >
+                    Show privkey (bech32 format; should start with nsec)
+                    (caution!)
+                  </button>
+                  <div
+                    id={`privkeyBech32Container1_${oNextProfile.id}`}
+                    style={{
+                      border: '1px solid black',
+                      padding: '8px',
+                      marginBottom: '5px',
+                      height: '40px',
+                      fontSize: '18px',
+                    }}
+                  >
+                    privkey, bech32 format (hidden)
+                  </div>
+                  <div
+                    id={`privkeyBech32Container2_${oNextProfile.id}`}
+                    style={{
+                      border: '1px solid black',
+                      padding: '5px',
+                      marginBottom: '5px',
+                      height: '40px',
+                      display: 'none',
+                    }}
+                  >
+                    <div style={{ color: 'grey' }}>privkey (bech32):</div>
+                    {privkeyBech32}
+                  </div>
                 </div>
               </div>
-            </div>
-          </>
-        );
+            </>
+          );
+        }
       })}
     </div>
   );

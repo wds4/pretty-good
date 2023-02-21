@@ -1,4 +1,4 @@
-import { generatePrivateKey, getPublicKey } from 'nostr-tools';
+import { generatePrivateKey, getPublicKey, nip19 } from 'nostr-tools';
 import { dateToUnix } from 'nostr-react';
 import { asyncSql } from '../pg/asyncSql';
 import { doesEventValidate } from './eventValidation';
@@ -40,3 +40,12 @@ export const returnMostRecentEvent = (events) => {
     return false;
   }
 };
+
+export const checkPrivkeyHexValidity = (privkeyHex) => {
+  try {
+    const privkeyBech32 = nip19.nsecEncode(privkeyHex);
+    return true;
+  } catch (err) {
+    return false;
+  }
+}
