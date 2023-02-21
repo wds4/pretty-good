@@ -8,7 +8,8 @@ export default function EnterExternalKeys() {
 
   const e1 = document.getElementById('outsidePubkeyHex');
   const e2 = document.getElementById('outsidePubkeyBech32');
-  const e3 = document.getElementById('outsidePrivkey');
+  const e3 = document.getElementById('outsidePrivkeyHex');
+  const e4 = document.getElementById('outsidePrivkeyBech32');
 
   const saveKeysToSql = async () => {
     if (e1 && e3) {
@@ -25,36 +26,53 @@ export default function EnterExternalKeys() {
     }
   };
 
-  const processNewPubkeyHex = () => {
-    if (e1) {
-      const pubkeyHex = e1.value;
-      console.log(`processNewPubkeyHex changed; pubkeyHex: ${pubkeyHex}`);
-    }
-  };
-
-  const processNewPubkeyBech32 = () => {
-    if (e2) {
-      const pubkeyBech32 = e2.value;
-      console.log(
-        `processNewPubkeyBech32 changed; pubkeyBech32: ${pubkeyBech32}`
-      );
-    }
-  };
-
-  const processNewPrivkey = () => {
+  const processNewPrivkeyHex = () => {
     if (e3) {
-      const privkey = e3.value;
+      const privkeyHex = e3.value;
       try {
-        const derivedPubkeyHex = getPublicKey(privkey);
+        const privkeyBech32 = nip19.nsecEncode(privkeyHex);
+        const derivedPubkeyHex = getPublicKey(privkeyHex);
         const derivedPubkeyBech32 = nip19.npubEncode(derivedPubkeyHex);
         console.log(
-          `processNewPrivkey changed; privkey: ${privkey}; derivedPubkeyHex: ${derivedPubkeyHex}; derivedPubkeyBech32: ${derivedPubkeyBech32}`
+          `processNewPrivkeyHex changed; privkeyHex: ${privkeyHex}; privkeyBech32: ${privkeyBech32}; derivedPubkeyHex: ${derivedPubkeyHex}; derivedPubkeyBech32: ${derivedPubkeyBech32}`
         );
         if (e1) {
-          e1.value = derivedPubkeyHex;
+          e1.innerHTML = derivedPubkeyHex;
         }
         if (e2) {
-          e2.value = derivedPubkeyBech32;
+          e2.innerHTML = derivedPubkeyBech32;
+        }
+        if (e4) {
+          e4.innerHTML = privkeyBech32;
+        }
+      } catch (err) {}
+    }
+  };
+  const processNewPrivkeyBech32 = () => {
+    console.log(
+      `processNewPrivkeyBech32`
+    );
+    if (e4) {
+      const privkeyBech32 = e4.value;
+      console.log(
+        `processNewPrivkeyBech32; privkeyBech32: ${privkeyBech32};`
+      );
+      try {
+        const oPrivkeyHex = nip19.decode(privkeyBech32);
+        const privkeyHex = oPrivkeyHex.data;
+        const derivedPubkeyHex = getPublicKey(privkeyHex);
+        const derivedPubkeyBech32 = nip19.npubEncode(derivedPubkeyHex);
+        console.log(
+          `processNewPrivkeyBech32 changed; privkeyHex: ${privkeyHex}; privkeyBech32: ${privkeyBech32}; derivedPubkeyHex: ${derivedPubkeyHex}; derivedPubkeyBech32: ${derivedPubkeyBech32}`
+        );
+        if (e1) {
+          e1.innerHTML = derivedPubkeyHex;
+        }
+        if (e2) {
+          e2.innerHTML = derivedPubkeyBech32;
+        }
+        if (e3) {
+          e3.innerHTML = privkeyHex;
         }
       } catch (err) {}
     }
@@ -65,25 +83,27 @@ export default function EnterExternalKeys() {
       <br />
       <div id="newKeysContainer">
         <div style={{ marginBottom: '10px' }}>
-          <div style={{}}>privkey:</div>
+          <div style={{}}>privkey (hex):</div>
           <textarea
-            id="outsidePrivkey"
+            id="outsidePrivkeyHex"
             style={{ width: '90%', height: '40px' }}
-            onChange={processNewPrivkey}
+            onChange={processNewPrivkeyHex}
+          />
+          <div style={{}}>privkey (bech32):</div>
+          <textarea
+            id="outsidePrivkeyBech32"
+            style={{ width: '90%', height: '40px' }}
+            onChange={processNewPrivkeyBech32}
           />
           <div style={{}}>pubkey (hex, auto generated from private key):</div>
-          <textarea
+          <div
             id="outsidePubkeyHex"
-            style={{ width: '90%', height: '40px' }}
-            onChange={processNewPubkeyHex}
-            // disabled
+            style={{ width: '90%', height: '20px' }}
           />
           <div style={{}}>pubkey (bech32, auto generated from hex pubkey):</div>
-          <textarea
+          <div
             id="outsidePubkeyBech32"
-            style={{ width: '90%', height: '40px' }}
-            onChange={processNewPubkeyBech32}
-            // disabled
+            style={{ width: '90%', height: '20px' }}
           />
         </div>
         <button
