@@ -65,6 +65,7 @@ export const fetchExtendedFollowingListFromSql = async () => {
 export const addNewRowToMyNostrProfileInSql = async (pubkey, privkey) => {
   // pubkey is hex formatted
   const sql = ` INSERT OR IGNORE INTO myNostrProfile (pubkey,privkey,active) VALUES ('${pubkey}','${privkey}',false) `;
+  console.log("addNewRowToMyNostrProfileInSql; sql: "+sql)
   return asyncSql(sql);
 };
 

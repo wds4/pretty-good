@@ -14,7 +14,7 @@ export default function EnterExternalKeys() {
 
   const saveKeysToSql = async () => {
     if (e1 && e3) {
-      const pubkeyHex = e1.value;
+      const pubkeyHex = e1.innerHTML;
       const privkeyHex = e3.value;
       const isPkValid = checkPrivkeyHexValidity(privkeyHex);
       if (isPkValid) {

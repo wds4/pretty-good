@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { nip19 } from 'nostr-tools';
+import { nip19, getPublicKey } from 'nostr-tools';
 import {
   deleteRowFromMyNostrProfiles,
   updateMyNostrProfileSetActiveInSql,
@@ -91,6 +91,14 @@ export default function AllCurrentProfiles({
         }
         if (isPkValid) {
           const privkeyBech32 = nip19.nsecEncode(privkeyHex);
+          let pubkeyHex = oNextProfile.pubkey;
+          // console.log("pubkeyHex: "+pubkeyHex)
+
+          if (pubkeyHex == "undefined") {
+            pubkeyHex = getPublicKey(privkeyHex)
+          }
+          // console.log("pubkeyHex: "+pubkeyHex)
+          const pubkeyBech32 = nip19.npubEncode(pubkeyHex)
           return (
             <>
               <div
@@ -185,11 +193,11 @@ export default function AllCurrentProfiles({
 
                   <div style={{ marginBottom: '5px' }}>
                     <div style={{ color: 'grey' }}>pubkey (hex):</div>
-                    {oNextProfile.pubkey}
+                    {pubkeyHex}
                   </div>
                   <div style={{ marginBottom: '5px' }}>
                     <div style={{ color: 'grey' }}>pubkey (bech32):</div>
-                    {nip19.npubEncode(oNextProfile.pubkey)}
+                    {pubkeyBech32}
                   </div>
 
                   <button
