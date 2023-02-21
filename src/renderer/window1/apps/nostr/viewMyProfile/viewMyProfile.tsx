@@ -22,7 +22,9 @@ export default function MyProfile() {
   }
   return (
     <div>
-      <pre className={devModeClassName}>{JSON.stringify(myNostrProfile,null,4)}</pre>
+      <pre className={devModeClassName}>
+        {JSON.stringify(myNostrProfile, null, 4)}
+      </pre>
       <div className="mainUserProfileBox myProfileBox">
         <div className="mainUserProfileLeftColumnContainer">
           <div id="largeAvatarContainer" className="largeAvatarContainer">
@@ -65,12 +67,17 @@ export default function MyProfile() {
           </div>
         </div>
 
-        <NavLink
-          to="/NostrHome/NostrEditMyProfile"
+        <div
+          className="doSomethingButton"
           style={{ position: 'absolute', right: '5px', top: '5px' }}
         >
-          <div className="doSomethingButton">edit my profile</div>
-        </NavLink>
+          <NavLink
+            to="/NostrHome/NostrEditMyProfile"
+            style={{ textDecoration: 'none' }}
+          >
+            edit my profile
+          </NavLink>
+        </div>
 
         <div
           id="mainUserProfileRightColumnContainer"

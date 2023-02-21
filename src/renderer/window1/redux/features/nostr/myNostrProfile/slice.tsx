@@ -6,7 +6,7 @@ import {
   removeStringFromArray,
 } from 'renderer/window1/lib/pg/index';
 import { fetchMyActiveNostrProfileFromSql, updateMyFullNostrProfileInSql } from 'renderer/window1/lib/pg/sql';
-import { noProfilePicUrl } from '../../../../const';
+import { noProfilePicUrl, noBannerPicUrl } from 'renderer/window1/const';
 
 const initialState = {
   pubkey_hex: undefined,
@@ -55,6 +55,9 @@ export const myProfileSlice = createSlice({
     },
     updatePictureUrl: (state, action) => {
       state.picture_url = action.payload;
+    },
+    updateBannerUrl: (state, action) => {
+      state.banner_url = action.payload;
     },
     updateWebsite: (state, action) => {
       state.website = action.payload;
@@ -134,6 +137,11 @@ export const fetchMyProfile = () => async (dispatch) => {
   } else {
     dispatch(updatePictureUrl(oMyProfileData.picture_url));
   }
+  if (!oMyProfileData.banner_url) {
+    dispatch(updateBannerUrl(noBannerPicUrl));
+  } else {
+    dispatch(updateBannerUrl(oMyProfileData.banner_url));
+  }
 
   dispatch(updateNip05(oMyProfileData.nip05));
   dispatch(updateLud06(oMyProfileData.lud06));
@@ -147,6 +155,7 @@ export const {
   updateName,
   updateDisplayName,
   updatePictureUrl,
+  updateBannerUrl,
   updateWebsite,
   updateAbout,
   updateFollowing,
