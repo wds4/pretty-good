@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { useNostr, dateToUnix } from 'nostr-react';
+import { useNostr, dateToUnix, useNostrEvents, useProfile } from 'nostr-react';
 import { type Event as NostrEvent, getEventHash, signEvent } from 'nostr-tools';
 import {
   updateName,
@@ -119,34 +119,28 @@ function PublishProfile() {
   );
 }
 
+const retrieveProfileFromNetwork = async () => {
+  console.log("retrieveProfileFromNetwork")
+  const myNostrProfile = useSelector((state) => state.myNostrProfile);
+  const myPubkey = myNostrProfile.pubkey_hex;
+  const { data: userData } = useProfile({
+    myPubkey,
+  });
+  const name = userData?.name
+  const e1 = document.getElementById("nameContainer")
+  e1.value = name;
+}
+
 export default function EditMyProfile() {
   const myNostrProfile = useSelector((state) => state.myNostrProfile);
   const dispatch = useDispatch();
   return (
     <div>
+      <div id="downloadProfileButton" onClick={retrieveProfileFromNetwork} className="doSomethingButton">
+        retrieve profile from network
+      </div>
+      <br /><br/>
       <div id="dataFieldsContainer">
-        <div className="editProfileFieldContainer">
-          <div className="editProfileLeftColContainer">NAME (username)</div>
-          <textarea
-            id="nameContainer"
-            className="editProfileRightColContainer"
-            placeholder="Satoshi Nakamoto"
-          >
-            {myNostrProfile.name}
-          </textarea>
-        </div>
-
-        <div className="editProfileFieldContainer">
-          <div className="editProfileLeftColContainer">DISPLAY NAME</div>
-          <textarea
-            id="displayNameContainer"
-            className="editProfileRightColContainer"
-            placeholder="satoshi"
-          >
-            {myNostrProfile.display_name}
-          </textarea>
-        </div>
-
         <div className="editProfileFieldContainer">
           <div className="editProfileLeftColContainer">PROFILE PICTURE URL</div>
           <textarea
@@ -176,6 +170,28 @@ export default function EditMyProfile() {
               nostr.build
             </a>
           </div>
+        </div>
+
+        <div className="editProfileFieldContainer">
+          <div className="editProfileLeftColContainer">NAME (username)</div>
+          <textarea
+            id="nameContainer"
+            className="editProfileRightColContainer"
+            placeholder="Satoshi Nakamoto"
+          >
+            {myNostrProfile.name}
+          </textarea>
+        </div>
+
+        <div className="editProfileFieldContainer">
+          <div className="editProfileLeftColContainer">DISPLAY NAME</div>
+          <textarea
+            id="displayNameContainer"
+            className="editProfileRightColContainer"
+            placeholder="satoshi"
+          >
+            {myNostrProfile.display_name}
+          </textarea>
         </div>
 
         <div className="editProfileFieldContainer">
