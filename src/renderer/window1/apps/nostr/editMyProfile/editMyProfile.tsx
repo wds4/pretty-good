@@ -11,6 +11,8 @@ import {
   updateLud06,
 } from 'renderer/window1/redux/features/nostr/myNostrProfile/slice';
 import { updateMyActiveNostrProfileInSql } from '../../../lib/pg/sql';
+import { returnMostRecentEvent } from 'renderer/window1/lib/nostr';
+import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
 
 function PublishProfile() {
   const { publish } = useNostr();
@@ -119,21 +121,57 @@ function PublishProfile() {
   );
 }
 
-const retrieveProfileFromNetwork = async () => {
-  console.log("retrieveProfileFromNetwork")
-  const myNostrProfile = useSelector((state) => state.myNostrProfile);
-  const myPubkey = myNostrProfile.pubkey_hex;
-  const { data: userData } = useProfile({
-    myPubkey,
-  });
-  const name = userData?.name
-  const e1 = document.getElementById("nameContainer")
-  e1.value = name;
-}
-
-export default function EditMyProfile() {
+const EditMyProfile = () => {
   const myNostrProfile = useSelector((state) => state.myNostrProfile);
   const dispatch = useDispatch();
+  const myPubkey = myNostrProfile.pubkey_hex;
+
+  // const { data: userData } = useProfile({
+    // myPubkey,
+  // });
+  // const name = userData?.name
+  // const e1 = document.getElementById("nameContainer")
+  // e1.value = name;
+
+  const { events } = useNostrEvents({
+    filter: {
+      authors: [myPubkey],
+      since: 0, // all new events from now
+      kinds: [0],
+    },
+  });
+  const event = returnMostRecentEvent(events);
+  let _name = "?"
+  let _displayName = "?"
+  let _website = "?"
+  let _about = "?"
+  let _profilePicUrl = "?"
+  if (event && doesEventValidate(event)) {
+    // event_ = JSON.parse(JSON.stringify(event));
+    const content = JSON.parse(event.content);
+    // event.content = content;
+    _name = content.name;
+    _displayName = content.display_name;
+    _website = content.website;
+    _about = content.about;
+    _profilePicUrl = content.picture;
+    console.log("retrieveProfileFromNetwork; _profilePicUrl: "+_profilePicUrl)
+  }
+
+  const retrieveProfileFromNetwork = async () => {
+    console.log("retrieveProfileFromNetwork; myPubkey: "+myPubkey)
+    const e1 = document.getElementById("nameContainer")
+    const e2 = document.getElementById("displayNameContainer")
+    const e3 = document.getElementById("websiteContainer")
+    const e4 = document.getElementById("aboutMeContainer")
+    const e5 = document.getElementById("profilePictureUrlContainer")
+    e1.value = _name;
+    e2.value = _displayName;
+    e3.value = _website;
+    e4.value = _about;
+    e5.value = _profilePicUrl;
+  }
+
   return (
     <div>
       <div id="downloadProfileButton" onClick={retrieveProfileFromNetwork} className="doSomethingButton">
@@ -247,3 +285,5 @@ export default function EditMyProfile() {
     </div>
   );
 }
+
+export default EditMyProfile;
