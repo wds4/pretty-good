@@ -39,18 +39,18 @@ createMyProfileTableCommand += 'display_name TEXT NULL, ';
 createMyProfileTableCommand += 'website TEXT NULL, ';
 createMyProfileTableCommand += 'about TEXT NULL, ';
 createMyProfileTableCommand += 'picture_url TEXT NULL, ';
+createMyProfileTableCommand += 'banner_url TEXT NULL, ';
 createMyProfileTableCommand += 'following TEXT NULL, ';
 createMyProfileTableCommand += 'followers TEXT NULL, ';
 createMyProfileTableCommand += 'nip05 TEXT NULL, ';
 createMyProfileTableCommand += 'lud06 TEXT NULL, ';
+createMyProfileTableCommand += 'multiClientAccess BOOLEAN false, ';
 createMyProfileTableCommand += 'lastUpdate INTEGER NULL, ';
 createMyProfileTableCommand += 'UNIQUE(pubkey, privkey) ';
-
 
 createMyFollowingNetworkTableCommand += 'id INTEGER PRIMARY KEY, ';
 createMyFollowingNetworkTableCommand += 'seed TEXT NULL, ';
 createMyFollowingNetworkTableCommand += 'pubkeys TEXT NULL ';
-
 
 createRelaysTableCommand += 'id INTEGER PRIMARY KEY, ';
 createRelaysTableCommand += 'url TEXT NULL, ';

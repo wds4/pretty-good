@@ -1,15 +1,15 @@
 import React from 'react';
-import Masthead from '../../../../mastheads/nostrMasthead';
-import LeftNavbar1 from '../../../../navbars/leftNavbar1/nostrNavbar';
-import LeftNavbar2 from '../../../../navbars/leftNavbar2/nostr/settings';
+import Masthead from 'renderer/window1/mastheads/nostrMasthead';
+import LeftNavbar1 from 'renderer/window1/navbars/leftNavbar1/nostrNavbar';
+import LeftNavbar2 from 'renderer/window1/navbars/leftNavbar2/nostr/settings';
 import {
   updateMainColWidth,
   updateMastheadCenter,
-} from '../../../../lib/pg/ui';
+} from 'renderer/window1/lib/pg/ui';
+import { fetchAllMyNostrProfilesFromSql } from 'renderer/window1/lib/pg/sql';
 import AllCurrentProfiles from './allCurrentProfiles';
 import GenerateNewKeys from './generateNewKeys';
 import EnterExternalKeys from './enterExternalKeys';
-import { fetchAllMyNostrProfilesFromSql } from '../../../../lib/pg/sql';
 
 export default class NostrProfiles extends React.Component {
   constructor(props) {

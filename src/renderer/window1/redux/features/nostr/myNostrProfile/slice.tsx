@@ -15,6 +15,7 @@ const initialState = {
   name: 'Satoshi Nakamoto',
   display_name: 'satoshi',
   picture_url: noProfilePicUrl,
+  banner_url: noBannerPicUrl,
   website: 'https://www.bitcointalk.org',
   about: 'inventor of bitcoin',
   nip05: undefined,
@@ -29,6 +30,7 @@ const initialState = {
     'wss://nostr.fmt.wiz.biz',
     'wss://nostr.oxtr.dev',
   ],
+  multiProfilesMode: undefined,
   // notifications: [],
   // readNotifications: new Date().getTime(),
   // dms: [],
@@ -86,6 +88,9 @@ export const myProfileSlice = createSlice({
       }
       console.log("updateFollowing; action.payload: "+JSON.stringify(action.payload)+"; aFollowing: "+JSON.stringify(aFollowing))
       state.following = aFollowing;
+    },
+    updateMultiProfilesMode: (state, action) => {
+      state.multiProfilesMode = action.payload;
     },
     addToFollowingList: (state, action) => {
       // pass in pubkey; add to following list if not already there
@@ -162,6 +167,7 @@ export const {
   updateFollowers,
   updateNip05,
   updateLud06,
+  updateMultiProfilesMode,
   addToFollowingList,
   removeFromFollowingList,
 } = myProfileSlice.actions;

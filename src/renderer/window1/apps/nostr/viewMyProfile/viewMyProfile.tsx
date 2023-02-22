@@ -1,7 +1,9 @@
 import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateNostrProfileFocus } from 'renderer/window1/redux/features/nostr/settings/slice';
 
 export default function MyProfile() {
+  const dispatch = useDispatch();
   const devMode = useSelector((state) => state.prettyGoodGlobalState.devMode);
   let devModeClassName = 'devModeOff';
   if (devMode) {
@@ -68,18 +70,6 @@ export default function MyProfile() {
         </div>
 
         <div
-          className="doSomethingButton"
-          style={{ position: 'absolute', right: '5px', top: '5px' }}
-        >
-          <NavLink
-            to="/NostrHome/NostrEditMyProfile"
-            style={{ textDecoration: 'none' }}
-          >
-            edit my profile
-          </NavLink>
-        </div>
-
-        <div
           id="mainUserProfileRightColumnContainer"
           className="mainUserProfileRightColumnContainer"
         >
@@ -93,6 +83,31 @@ export default function MyProfile() {
             >
               @{myNostrProfile.name}
             </span>
+          </div>
+
+          <div style={{ marginBottom: '5px' }}>
+            <div className="doSomethingButton" style={{ margin: '0px' }}>
+              <NavLink
+                to="/NostrHome/NostrEditMyProfile"
+                style={{ textDecoration: 'none' }}
+              >
+                edit
+              </NavLink>
+            </div>
+            <div className="doSomethingButton" style={{ margin: '0px 0px 0px 10px' }}>
+              <NavLink
+                onClick={() => {
+                  dispatch(updateNostrProfileFocus(myNostrProfile.pubkey_hex));
+                }}
+                to={{
+                  pathname: '/NostrHome/NostrViewProfile',
+                  state: { pubkey: myNostrProfile.pubkey_hex },
+                }}
+                style={{ textDecoration: 'none' }}
+              >
+                nostr view
+              </NavLink>
+            </div>
           </div>
 
           <div className="userProfilePubkeyContainer">

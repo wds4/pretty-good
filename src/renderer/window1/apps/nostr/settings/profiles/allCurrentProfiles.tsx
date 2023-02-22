@@ -7,6 +7,7 @@ import {
 import { checkPrivkeyHexValidity } from 'renderer/window1/lib/nostr';
 import { fetchMyProfile } from '../../../../redux/features/nostr/myNostrProfile/slice';
 import { noProfilePicUrl } from '../../../../const';
+import ToggleMultiProfilesMode from './toggleMultiProfilesMode';
 
 export default function AllCurrentProfiles({
   aMyProfileData,
@@ -202,6 +203,7 @@ export default function AllCurrentProfiles({
 
                   <button
                     className="showPrivkeyButton doSomethingButton"
+                    style={{ marginLeft: '0px' }}
                     type="button"
                     onClick={showPrivkeyHex(oNextProfile.id)}
                   >
@@ -235,6 +237,7 @@ export default function AllCurrentProfiles({
 
                   <button
                     className="showPrivkeyButton doSomethingButton"
+                    style={{ marginLeft: '0px' }}
                     type="button"
                     onClick={showPrivkeyBech32(oNextProfile.id)}
                   >
@@ -266,6 +269,7 @@ export default function AllCurrentProfiles({
                     <div style={{ color: 'grey' }}>privkey (bech32):</div>
                     {privkeyBech32}
                   </div>
+                  <ToggleMultiProfilesMode />
                 </div>
               </div>
             </>
