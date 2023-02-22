@@ -33,3 +33,9 @@ div.relays:before {
   background-color:#CFCFCF;
   margin-bottom:20px;
 }
+.mcaDisabled {
+  color: orange;
+}
+.mcaEnabled {
+  color: green;
+}

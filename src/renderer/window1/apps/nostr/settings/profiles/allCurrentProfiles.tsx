@@ -7,7 +7,6 @@ import {
 import { checkPrivkeyHexValidity } from 'renderer/window1/lib/nostr';
 import { fetchMyProfile } from '../../../../redux/features/nostr/myNostrProfile/slice';
 import { noProfilePicUrl } from '../../../../const';
-import ToggleMultiProfilesMode from './toggleMultiProfilesMode';
 
 export default function AllCurrentProfiles({
   aMyProfileData,
@@ -80,6 +79,13 @@ export default function AllCurrentProfiles({
         }
         const privkeyHex = oNextProfile.privkey;
         const isPkValid = checkPrivkeyHexValidity(privkeyHex);
+
+        let sMultiClientAccess = "DISABLED";
+        let multiClientAccessClassName = "mcaDisabled";
+        if (oNextProfile.multiClientAccess) {
+          sMultiClientAccess = "ENABLED";
+          multiClientAccessClassName = "mcaEnabled";
+        }
         if (!isPkValid) {
           deleteRowFromMyNostrProfiles(oNextProfile.id);
           return (
@@ -192,6 +198,10 @@ export default function AllCurrentProfiles({
                     </div>
                   </div>
 
+                  <div style={{ marginBottom: '5px', color: 'grey' }}>
+                    multi client access: <span className={multiClientAccessClassName}>{sMultiClientAccess}</span>
+                  </div>
+
                   <div style={{ marginBottom: '5px' }}>
                     <div style={{ color: 'grey' }}>pubkey (hex):</div>
                     {pubkeyHex}
@@ -269,7 +279,6 @@ export default function AllCurrentProfiles({
                     <div style={{ color: 'grey' }}>privkey (bech32):</div>
                     {privkeyBech32}
                   </div>
-                  <ToggleMultiProfilesMode />
                 </div>
               </div>
             </>

@@ -20,6 +20,8 @@ const initialState = {
   about: 'inventor of bitcoin',
   nip05: undefined,
   lud06: undefined,
+  created_at: 0,
+  lastUpdate: 0,
   following: [],
   followers: [],
   relays: [
@@ -30,7 +32,7 @@ const initialState = {
     'wss://nostr.fmt.wiz.biz',
     'wss://nostr.oxtr.dev',
   ],
-  multiProfilesMode: undefined,
+  multiClientAccess: undefined, // whether this profile will be managed from multiple clients or not; if yes, updates are autoimported from the network
   // notifications: [],
   // readNotifications: new Date().getTime(),
   // dms: [],
@@ -73,6 +75,12 @@ export const myProfileSlice = createSlice({
     updateLud06: (state, action) => {
       state.lud06 = action.payload;
     },
+    updateCreatedAt: (state, action) => {
+      state.created_at = action.payload;
+    },
+    updateLastUpdate: (state, action) => {
+      state.lastUpdate = action.payload;
+    },
     updateFollowers: (state, action) => {
       let aFollowers = [];
       if (action.payload) {
@@ -89,8 +97,8 @@ export const myProfileSlice = createSlice({
       console.log("updateFollowing; action.payload: "+JSON.stringify(action.payload)+"; aFollowing: "+JSON.stringify(aFollowing))
       state.following = aFollowing;
     },
-    updateMultiProfilesMode: (state, action) => {
-      state.multiProfilesMode = action.payload;
+    updateMultiClientAccess: (state, action) => {
+      state.multiClientAccess = action.payload;
     },
     addToFollowingList: (state, action) => {
       // pass in pubkey; add to following list if not already there
@@ -150,6 +158,9 @@ export const fetchMyProfile = () => async (dispatch) => {
 
   dispatch(updateNip05(oMyProfileData.nip05));
   dispatch(updateLud06(oMyProfileData.lud06));
+  dispatch(updateCreatedAt(oMyProfileData.created_at));
+  dispatch(updateLastUpdate(oMyProfileData.lastUpdate));
+  dispatch(updateMultiClientAccess(oMyProfileData.multiClientAccess));
 };
 
 // Action creators are generated for each case reducer function
@@ -167,7 +178,9 @@ export const {
   updateFollowers,
   updateNip05,
   updateLud06,
-  updateMultiProfilesMode,
+  updateCreatedAt,
+  updateLastUpdate,
+  updateMultiClientAccess,
   addToFollowingList,
   removeFromFollowingList,
 } = myProfileSlice.actions;

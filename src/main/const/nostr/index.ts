@@ -46,6 +46,8 @@ createMyProfileTableCommand += 'nip05 TEXT NULL, ';
 createMyProfileTableCommand += 'lud06 TEXT NULL, ';
 createMyProfileTableCommand += 'multiClientAccess BOOLEAN false, ';
 createMyProfileTableCommand += 'lastUpdate INTEGER NULL, ';
+createMyProfileTableCommand += 'followingListLastUpdate INTEGER NULL, ';
+createMyProfileTableCommand += 'relaysListLastUpdate INTEGER NULL, ';
 createMyProfileTableCommand += 'UNIQUE(pubkey, privkey) ';
 
 createMyFollowingNetworkTableCommand += 'id INTEGER PRIMARY KEY, ';

@@ -103,6 +103,7 @@ export const updateMyFullNostrProfileInSql = async (oMyNostrProfileInfo) => {
     following,
     followers,
     relays,
+    multiClientAccess,
   } = oMyNostrProfileInfo;
   const currentTime = dateToUnix(new Date());
 
@@ -118,6 +119,7 @@ export const updateMyFullNostrProfileInSql = async (oMyNostrProfileInfo) => {
   sql += ` , following = '${JSON.stringify(following)}' `;
   sql += ` , followers = '${JSON.stringify(followers)}' `;
   sql += ` , lastUpdate = ${currentTime} `;
+  sql += ` , multiClientAccess = ${multiClientAccess} `;
   sql += ` WHERE pubkey = '${pubkey_hex}' `;
 
   console.log(`updateMyFullNostrProfileInSql sql: ${sql}`);
@@ -136,6 +138,7 @@ export const updateMyActiveNostrProfileInSql = async (oMyNostrProfileInfo) => {
   const { about } = oMyNostrProfileInfo;
   const btcLightningTips = oMyNostrProfileInfo.lud06;
   const nip05Verification = oMyNostrProfileInfo.nip05;
+  const multiClientAccess = oMyNostrProfileInfo.multiClientAccess;
   const currentTime = dateToUnix(new Date());
 
   let sql = '';
@@ -147,6 +150,7 @@ export const updateMyActiveNostrProfileInSql = async (oMyNostrProfileInfo) => {
   sql += ` , about = '${about}' `;
   sql += ` , lud06 = '${btcLightningTips}' `;
   sql += ` , nip05 = '${nip05Verification}' `;
+  if (multiClientAccess !== undefined) { sql += ` , multiClientAccess = ${multiClientAccess} `; }
   sql += ` , lastUpdate = ${currentTime} `;
   sql += ' WHERE active = true ';
 

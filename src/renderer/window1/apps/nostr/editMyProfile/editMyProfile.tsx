@@ -11,9 +11,10 @@ import {
   updateNip05,
   updateLud06,
 } from 'renderer/window1/redux/features/nostr/myNostrProfile/slice';
-import { updateMyActiveNostrProfileInSql } from '../../../lib/pg/sql';
 import { returnMostRecentEvent } from 'renderer/window1/lib/nostr';
 import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
+import { updateMyActiveNostrProfileInSql } from '../../../lib/pg/sql';
+import ToggleMultiClientAccess from './toggleMultiClientAccess';
 
 function PublishProfile() {
   const { publish } = useNostr();
@@ -111,19 +112,21 @@ function PublishProfile() {
     console.log(`sProfileInfo: ${sProfileInfo}; broadcast: ${broadcast}`);
     console.log(`event: ${JSON.stringify(event, null, 4)}`);
 
-    if (broadcast) { publish(event); }
+    if (broadcast) {
+      publish(event);
+    }
     await updateMyActiveNostrProfileInSql(oMyNostrProfileInfo);
   };
   return (
     <div style={{ marginBottom: '10px' }}>
       <div>
-        <div onClick={()=>onPost(true)} className="doSomethingButton">
+        <div onClick={() => onPost(true)} className="doSomethingButton">
           Save & Submit your profile!
         </div>
         * update in redux, and sql, and publish event to nostr relays
       </div>
       <div>
-        <div onClick={()=>onPost(false)} className="doSomethingButton">
+        <div onClick={() => onPost(false)} className="doSomethingButton">
           Save your profile! (local storage only)
         </div>
         * update in redux and sql, but do not publish event to nostr relays
@@ -145,7 +148,7 @@ const EditMyProfile = () => {
   const myPubkey = myNostrProfile.pubkey_hex;
 
   // const { data: userData } = useProfile({
-    // myPubkey,
+  // myPubkey,
   // });
   // const name = userData?.name
   // const e1 = document.getElementById("nameContainer")
@@ -159,14 +162,14 @@ const EditMyProfile = () => {
     },
   });
   const event = returnMostRecentEvent(events);
-  let _name = "?"
-  let _displayName = "?"
-  let _website = "?"
-  let _about = "?"
-  let _profilePicUrl = "?"
-  let _bannerUrl = "?"
-  let _btcLightningTips = "?"
-  let _nip05Verification = "?"
+  let _name = '?';
+  let _displayName = '?';
+  let _website = '?';
+  let _about = '?';
+  let _profilePicUrl = '?';
+  let _bannerUrl = '?';
+  let _btcLightningTips = '?';
+  let _nip05Verification = '?';
   if (event && doesEventValidate(event)) {
     const content = JSON.parse(event.content);
     _name = content.name;
@@ -178,17 +181,17 @@ const EditMyProfile = () => {
     _btcLightningTips = content.lud06;
     _nip05Verification = content.nip05;
   }
-  const e1 = document.getElementById("nameContainer")
-  const e2 = document.getElementById("displayNameContainer")
-  const e3 = document.getElementById("websiteContainer")
-  const e4 = document.getElementById("aboutMeContainer")
-  const e5 = document.getElementById("profilePictureUrlContainer")
-  const e6 = document.getElementById("btcLightningTipsContainer")
-  const e7 = document.getElementById("nip05VerificationContainer")
-  const e8 = document.getElementById("bannerUrlContainer")
+  const e1 = document.getElementById('nameContainer');
+  const e2 = document.getElementById('displayNameContainer');
+  const e3 = document.getElementById('websiteContainer');
+  const e4 = document.getElementById('aboutMeContainer');
+  const e5 = document.getElementById('profilePictureUrlContainer');
+  const e6 = document.getElementById('btcLightningTipsContainer');
+  const e7 = document.getElementById('nip05VerificationContainer');
+  const e8 = document.getElementById('bannerUrlContainer');
 
   const retrieveProfileFromNetwork = async () => {
-    console.log("retrieveProfileFromNetwork; myPubkey: "+myPubkey)
+    console.log(`retrieveProfileFromNetwork; myPubkey: ${myPubkey}`);
     e1.value = _name;
     e2.value = _displayName;
     e3.value = _website;
@@ -197,7 +200,7 @@ const EditMyProfile = () => {
     e6.value = _btcLightningTips;
     e7.value = _nip05Verification;
     e8.value = _bannerUrl;
-  }
+  };
 
   const clearFields = () => {
     e1.value = '';
@@ -208,17 +211,26 @@ const EditMyProfile = () => {
     e6.value = '';
     e7.value = '';
     e8.value = '';
-  }
+  };
 
   return (
     <div>
-      <div id="clearFieldsButton" onClick={clearFields} className="doSomethingButton">
+      <div
+        id="clearFieldsButton"
+        onClick={clearFields}
+        className="doSomethingButton"
+      >
         clear all fields
       </div>
-      <div id="downloadProfileButton" onClick={retrieveProfileFromNetwork} className="doSomethingButton">
+      <div
+        id="downloadProfileButton"
+        onClick={retrieveProfileFromNetwork}
+        className="doSomethingButton"
+      >
         retrieve profile from network
       </div>
-      <br /><br/>
+      <br />
+      <br />
       <div id="dataFieldsContainer">
         <div className="editProfileFieldContainer">
           <div className="editProfileLeftColContainer">PROFILE PICTURE URL</div>
@@ -241,8 +253,8 @@ const EditMyProfile = () => {
               fontSize: '12px',
             }}
           >
-            * Need a way to upload and host an image for your profile pic or your banner? Here is an
-            easy tool:
+            * Need a way to upload and host an image for your profile or
+            banner pics? Here is an easy tool:
             <a
               href="http://nostr.build"
               target="_blank"
@@ -335,6 +347,26 @@ const EditMyProfile = () => {
             {myNostrProfile.nip05}
           </textarea>
         </div>
+
+        <div className="editProfileFieldContainer">
+          <div className="editProfileLeftColContainer">MULTI CLIENT ACCESS</div>
+          <div style={{ display: 'inline-block', marginLeft: '10px' }}>
+            <ToggleMultiClientAccess />
+          </div>
+          <div
+            style={{
+              display: 'inline-block',
+              marginLeft: '10px',
+              maxWidth: '600px',
+              color: 'grey',
+              fontStyle: 'italic',
+              fontSize: '12px',
+            }}
+          >
+            If you plan to make use of this profile from multiple clients (but don't have nip05 set up), this mode will automatically import and
+            update your active profile settings, including following list, from the nostr network. Experimental; may result in loss of data.
+          </div>
+        </div>
       </div>
 
       <PublishProfile />
@@ -342,6 +374,6 @@ const EditMyProfile = () => {
       <div id="successMessageContainer" style={{ fontSize: '14px' }} />
     </div>
   );
-}
+};
 
 export default EditMyProfile;

@@ -20,12 +20,12 @@
 }
 .myProfileAboutContainer {
   width:100%;
-  height:70px;
+  max-height:70px;
 }
 .myProfileWebsiteContainer {
   font-size:12px;
   width:100%;
-  height:70px;
+  max-height:70px;
   color:grey;
 }
 .myProfileAvatarContainer {

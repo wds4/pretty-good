@@ -1,5 +1,6 @@
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
 import DirectMessageController from 'renderer/window1/apps/nostr/dmListener';
+import MyProfileController from 'renderer/window1/apps/nostr/myProfileListener';
 // package dep:
 // "nostr-react": "github:wds4/nostr-react#autoReconnect",
 
@@ -68,6 +69,7 @@ const AppRoutes = () => {
   return (
     <>
       <DirectMessageController />
+      <MyProfileController />
       <fieldset id="app">
         <Router>
           <Routes>

@@ -41,6 +41,28 @@ export const returnMostRecentEvent = (events) => {
   }
 };
 
+export const returnMostRecentProfileEvent = (events, pubkey) => {
+  try {
+    // filter out any events with pubkey that does not match
+    const events_ = [];
+    for (var x=0;x<events.length;x++) {
+      const ev = events[x];
+      if (pubkey === ev.pubkey) {
+        events_.push(ev)
+      }
+    }
+
+    // then get the newest of what's left
+    events_.sort((a, b) => parseFloat(b.created_at) - parseFloat(a.created_at)); // 1674867581
+    if (doesEventValidate(events_[0])) {
+      return events_[0];
+    }
+    return {};
+  } catch (err) {
+    return {};
+  }
+};
+
 export const checkPrivkeyHexValidity = (privkeyHex) => {
   try {
     const privkeyBech32 = nip19.nsecEncode(privkeyHex);

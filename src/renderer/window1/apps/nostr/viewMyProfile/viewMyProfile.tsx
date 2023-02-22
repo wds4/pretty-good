@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateNostrProfileFocus } from 'renderer/window1/redux/features/nostr/settings/slice';
+import ToggleMultiClientAccess from './toggleMultiClientAccess';
 
 export default function MyProfile() {
   const dispatch = useDispatch();
@@ -21,6 +22,12 @@ export default function MyProfile() {
   }
   if (myNostrProfile.relays) {
     aRelays = myNostrProfile.relays;
+  }
+  let sMultiClientAccess = "DISABLED";
+  let multiClientAccessClassName = "mcaDisabled";
+  if (myNostrProfile.multiClientAccess) {
+    sMultiClientAccess = "ENABLED";
+    multiClientAccessClassName = "mcaEnabled";
   }
   return (
     <div>
@@ -94,7 +101,10 @@ export default function MyProfile() {
                 edit
               </NavLink>
             </div>
-            <div className="doSomethingButton" style={{ margin: '0px 0px 0px 10px' }}>
+            <div
+              className="doSomethingButton"
+              style={{ margin: '0px 0px 0px 10px' }}
+            >
               <NavLink
                 onClick={() => {
                   dispatch(updateNostrProfileFocus(myNostrProfile.pubkey_hex));
@@ -108,6 +118,14 @@ export default function MyProfile() {
                 nostr view
               </NavLink>
             </div>
+            <div style={{ display: 'inline-block', marginLeft: '10px' }}>
+              <span style={{ color: 'grey' }}>multi client access: </span>
+              <ToggleMultiClientAccess />
+            </div>
+          </div>
+
+          <div style={{ width: '100%', maxHeight: '70px', color: 'grey', marginBottom: '5px' }}>
+            multi client access is <span className={multiClientAccessClassName} >{sMultiClientAccess}</span>
           </div>
 
           <div className="userProfilePubkeyContainer">

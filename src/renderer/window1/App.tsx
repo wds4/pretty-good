@@ -23,6 +23,7 @@ import './css/nostr/follows.css';
 import './css/nostr/grapevine.css';
 import './css/nostr/grapevineSettings.css';
 import './css/nostr/grapevineToggleSwitch.css';
+import './css/nostr/grapevineToggleSwitchSmall.css';
 import './css/nostr/misc.css';
 import './css/nostr/newPost.css';
 import './css/nostr/nfgGraphic.css';

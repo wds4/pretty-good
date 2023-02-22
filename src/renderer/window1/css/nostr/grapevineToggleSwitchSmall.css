@@ -1,0 +1,72 @@
+.grapevineSettingsToggleSwitchSmallContainer {
+  text-align: center;
+  display:inline-block;
+}
+.toggle-switch-small {
+  position: relative;
+  width: 60px;
+  display: inline-block;
+  text-align: left;
+  top: 0px;
+}
+.checkbox {
+  display: none;
+}
+.label-small {
+  display: block;
+  overflow: hidden;
+  cursor: pointer;
+  border: 0 solid #bbb;
+  border-radius: 20px;
+}
+.inner-small {
+  display: block;
+  width: 200%;
+  margin-left: -100%;
+  transition: margin 0.3s ease-in 0s;
+}
+.inner-small:before,
+.inner-small:after {
+  float: left;
+  width: 50%;
+  height: 24px;
+  padding: 0;
+  line-height: 24px;
+  color: #fff;
+  font-weight: bold;
+  box-sizing: border-box;
+}
+.inner-small:before {
+  content: "ON";
+  padding-left: 5px;
+  background-color: #060;
+  color: #fff;
+}
+
+.inner-small:after {
+  content: "OFF";
+  padding-right: 5px;
+  background-color: #bbb;
+  color: #fff;
+  text-align: right;
+}
+.switch-small {
+  display: block;
+  width: 16px;
+  height: 16px;
+  margin: 4px;
+  background: #fff;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 35px;
+  border: 0 solid #bbb;
+  border-radius: 20px;
+  transition: all 0.3s ease-in 0s;
+}
+.checkbox:checked + .label-small .inner-small {
+  margin-left: 0;
+}
+.checkbox:checked + .label-small .switch-small {
+  right: 0px;
+}
