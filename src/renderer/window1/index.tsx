@@ -43,7 +43,6 @@ const startApp = async () => {
   } else {
     console.log("isColPresent_b is truthy ")
   }
-  */
 
   const sql_a = 'SELECT relays FROM myNostrProfile LIMIT 1 ';
   const isColPresent_a = await asyncSql(sql_a);
@@ -54,6 +53,7 @@ const startApp = async () => {
   } else {
     console.log("isColPresent_a is truthy ")
   }
+  */
 
   const sql1 = 'SELECT * from relays ';
   const sql2 = 'SELECT * from nostrProfiles ';

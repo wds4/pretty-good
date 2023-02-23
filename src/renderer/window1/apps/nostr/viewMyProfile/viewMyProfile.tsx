@@ -118,14 +118,11 @@ export default function MyProfile() {
                 nostr view
               </NavLink>
             </div>
-            <div style={{ display: 'inline-block', marginLeft: '10px' }}>
+            <div style={{ display: 'inline-block', marginLeft: '5px' }}>
               <span style={{ color: 'grey' }}>multi client access: </span>
               <ToggleMultiClientAccess />
+              <span className={multiClientAccessClassName} style={{ marginLeft: '10px' }} >{sMultiClientAccess}</span>
             </div>
-          </div>
-
-          <div style={{ width: '100%', maxHeight: '70px', color: 'grey', marginBottom: '5px' }}>
-            multi client access is <span className={multiClientAccessClassName} >{sMultiClientAccess}</span>
           </div>
 
           <div className="userProfilePubkeyContainer">

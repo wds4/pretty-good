@@ -8,6 +8,7 @@ import {
   updateFollowing,
   updateFollowingListLastUpdate,
 } from 'renderer/window1/redux/features/nostr/myNostrProfile/slice';
+import { updateMyActiveNostrFollowingListInSql, updateMyActiveNostrRelaysListInSql } from 'renderer/window1/lib/pg/sql';
 
 const MyFollowingListReceived = () => {
   const myNostrProfile = useSelector((state) => state.myNostrProfile);
@@ -51,14 +52,37 @@ const MyFollowingListReceived = () => {
   let sRelaysListNeedToUpdate = "false";
   if (received_created_at > followingListLastUpdate) {
     sFollowingListNeedToUpdate = "true";
+    let createdAtReceivedList = event_?.created_at;
     if (myNostrProfile.multiClientAccess) {
       // UPDATE PROFILE IN SQL AND REDUX USING RECEIVED EVENT
+      const aReceivedFollowing = event_?.tags;
+      const aNewFollowingList = [];
+      if (!createdAtReceivedList) {
+        createdAtReceivedList = 0;
+      }
+      for (var t=0;t<aReceivedFollowing.length;t++) {
+        const aFollowingData = aReceivedFollowing[t];
+        if (aFollowingData[0] === 'p') {
+          aNewFollowingList.push(aFollowingData[1]);
+        }
+      }
+      dispatch(updateFollowing(aNewFollowingList));
+      dispatch(updateFollowingListLastUpdate(createdAtReceivedList));
+
+      updateMyActiveNostrFollowingListInSql(aNewFollowingList, createdAtReceivedList);
     }
   }
   if (received_created_at > relaysListLastUpdate) {
     sRelaysListNeedToUpdate = "true";
     if (myNostrProfile.multiClientAccess) {
       // UPDATE PROFILE IN SQL AND REDUX USING RECEIVED EVENT
+      const oReceivedRelays = event_?.content;
+      let createdAtReceivedList = event_?.created_at;
+
+      dispatch(updateRelays(oReceivedRelays));
+      dispatch(updateRelaysListLastUpdate(createdAtReceivedList));
+
+      updateMyActiveNostrRelaysListInSql(oReceivedRelays, createdAtReceivedList);
     }
   }
   return (
@@ -69,7 +93,7 @@ const MyFollowingListReceived = () => {
         <div>sFollowingListNeedToUpdate: {sFollowingListNeedToUpdate}</div>
         <div>sFollowingListNeedToUpdate: {sFollowingListNeedToUpdate}</div>
         <div style={{ border: '1px solid grey', padding: '10px', margin: '10px' }}>
-          <center>Local data (sql):</center>
+          <center>Local data (redux, sql):</center>
           <div>followingListLastUpdate: {followingListLastUpdate}</div>
           <div>relaysListLastUpdate: {relaysListLastUpdate}</div>
           <pre>{JSON.stringify(myNostrProfile,null,4)}</pre>

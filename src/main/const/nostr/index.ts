@@ -1,14 +1,26 @@
 export let createNostrProfilesTableCommand = '';
-export let createMyProfileTableCommand: string = '';
-export let createMyFollowingNetworkTableCommand: string = '';
-export let createRelaysTableCommand: string = '';
+export let createMyProfileTableCommand = '';
+export let createMyFollowingNetworkTableCommand = '';
+export let createRelaysTableCommand = '';
 export const aDefaultRelayUrls: string[] = [
   'wss://nostr-pub.wellorder.net',
   'wss://nostr-relay.untethr.me',
   'wss://relay.damus.io',
+  'wss://nostr-relay.wlvs.space',
   'wss://nostr.fmt.wiz.biz',
   'wss://nostr.oxtr.dev',
 ];
+export const oDefaultRelayUrls = {
+  'wss://nostr-pub.wellorder.net': {
+    write: true,
+    read: true
+  },
+  'wss://nostr-relay.untethr.me': { write: true, read: true },
+  'wss://relay.damus.io': { write: true, read: true },
+  'wss://nostr-relay.wlvs.space': { write: true, read: true },
+  'wss://nostr.fmt.wiz.biz': { write: true, read: true },
+  'wss://nostr.oxtr.dev': { write: true, read: true },
+};
 
 createNostrProfilesTableCommand += 'id INTEGER PRIMARY KEY, ';
 createNostrProfilesTableCommand += 'event TEXT NULL, ';

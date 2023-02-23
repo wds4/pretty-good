@@ -89,6 +89,20 @@ export const updateMyNostrProfileSetActiveInSql = async (sqlId) => {
   return true;
 };
 
+export const updateMyActiveNostrFollowingListInSql = async (aNewFollowingList, createdAt) => {
+  const sNewFollowingList = JSON.stringify(aNewFollowingList);
+  const sql = ` UPDATE myNostrProfile SET following = '${sNewFollowingList}', followingListLastUpdate = ${createdAt} WHERE active = true `;
+  console.log("updateMyActiveNostrFollowingListInSql; sql: "+sql)
+  const result = await asyncSql(sql);
+}
+
+export const updateMyActiveNostrRelaysListInSql = async (oNewRelaysList, createdAt) => {
+  const sNewRelaysList = JSON.stringify(oNewRelaysList);
+  const sql = ` UPDATE myNostrProfile SET relays = '${sNewRelaysList}', relaysListLastUpdate = ${createdAt} WHERE active = true `;
+  console.log("updateMyActiveNostrFollowingListInSql; sql: "+sql)
+  const result = await asyncSql(sql);
+}
+
 // input object formatted as state from myNostrProfile redux store
 export const updateMyFullNostrProfileInSql = async (oMyNostrProfileInfo) => {
   const {

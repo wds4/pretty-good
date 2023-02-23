@@ -7,6 +7,7 @@ import {
 } from 'renderer/window1/lib/pg/index';
 import { fetchMyActiveNostrProfileFromSql, updateMyFullNostrProfileInSql } from 'renderer/window1/lib/pg/sql';
 import { noProfilePicUrl, noBannerPicUrl } from 'renderer/window1/const';
+import { oDefaultRelayUrls } from 'main/const/nostr';
 
 const initialState = {
   pubkey_hex: undefined,
@@ -26,14 +27,7 @@ const initialState = {
   relaysListLastUpdate: 0, // when relays list was last updated (locally, in sql)
   following: [],
   followers: [],
-  relays: [
-    'wss://nostr-pub.wellorder.net',
-    'wss://nostr-relay.untethr.me',
-    'wss://relay.damus.io',
-    'wss://nostr-relay.wlvs.space',
-    'wss://nostr.fmt.wiz.biz',
-    'wss://nostr.oxtr.dev',
-  ],
+  relays: oDefaultRelayUrls,
   multiClientAccess: undefined, // whether this profile will be managed from multiple clients or not; if yes, updates are autoimported from the network
   // notifications: [],
   // readNotifications: new Date().getTime(),

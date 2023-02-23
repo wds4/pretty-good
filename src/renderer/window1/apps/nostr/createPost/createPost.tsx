@@ -52,7 +52,7 @@ export default function CreatePost() {
 
     publish(event);
     if (e1) {
-      e1.value = "";
+      e1.value = '';
     }
 
     const e2 = document.getElementById("successMessageContainer");
