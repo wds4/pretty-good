@@ -38,9 +38,6 @@
     text-align:left;
     color:purple;
 }
-.grapevineContainerLeftCol:hover {
-    background-color:yellow;
-}
 
 /* Tooltip text */
 .grapevineContainerLeftCol .tooltiptext {
@@ -51,7 +48,7 @@
     padding: 5px;
     border-radius: 6px;
     position: absolute;
-    z-index: 2;
+
     top:-5px;
     left:110px;
     font-size:16px;
@@ -70,4 +67,7 @@
     margin-bottom:5px;
     position:relative;
     display:none;
+}
+.reactTooltip {
+  z-index:2;
 }

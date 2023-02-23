@@ -1,5 +1,7 @@
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
+import { Tooltip } from 'react-tooltip';
+import { tooltipContent } from 'renderer/window1/const/tooltipContent';
 import ComposeRatingAndEvent from './composeRatingAndEvent';
 
 const UserGrapevinePanel = ({}) => {
@@ -142,6 +144,47 @@ const UserGrapevinePanel = ({}) => {
 
   return (
     <>
+      <Tooltip
+        anchorSelect="#worship"
+        html={tooltipContent.worship}
+        clickable
+      />
+      <Tooltip
+        anchorSelect="#attention"
+        html={tooltipContent.attention}
+        clickable
+        className="reactTooltip"
+      />
+      <Tooltip
+        anchorSelect="#believe"
+        html={tooltipContent.believe}
+        clickable
+        className="reactTooltip"
+      />
+      <Tooltip
+        anchorSelect="#ontology"
+        html={tooltipContent.ontology}
+        clickable
+        className="reactTooltip"
+      />
+      <Tooltip
+        anchorSelect="#advice"
+        html={tooltipContent.advice}
+        clickable
+        className="reactTooltip"
+      />
+      <Tooltip
+        anchorSelect="#manageNostrRelays"
+        html={tooltipContent.manageNostrRelays}
+        clickable
+        className="reactTooltip"
+      />
+      <Tooltip
+        anchorSelect="#grapevineIcon"
+        html={tooltipContent.grapevineIcon}
+        clickable
+        className="reactTooltip"
+      />
       <div>
         <div
           style={{
@@ -150,7 +193,7 @@ const UserGrapevinePanel = ({}) => {
             textAlign: 'center',
           }}
         >
-          <div style={{ marginTop: '5px' }}>&#x1F347;</div>
+          <a id="grapevineIcon">&#x1F347;</a>
         </div>
         <div
           style={{
@@ -199,15 +242,9 @@ const UserGrapevinePanel = ({}) => {
           </div>
           <div style={{ maxHeight: '350px', overflow: 'auto' }}>
             <div className={showWorshipClassName}>
-              <div className="grapevineContainerLeftCol">
-                <span className="tooltiptext">
-                  a.k.a. "Global Trust"
-                  <br />
-                  Do you trust (or mistrust) this user in all things and for all
-                  purposes?
-                </span>
+              <a id="worship" className="grapevineContainerLeftCol">
                 Every Purpose:
-              </div>
+              </a>
               <button
                 value="worship_up"
                 onClick={({ target: value }) => processRating(value)}
@@ -231,15 +268,9 @@ const UserGrapevinePanel = ({}) => {
             </div>
 
             <div className={showAttentionClassName}>
-              <div className="grapevineContainerLeftCol">
-                <span className="tooltiptext">
-                  Attention:
-                  <br />
-                  How much influence should this user have over things like your
-                  nostr content feed?
-                </span>
+              <a id="attention" className="grapevineContainerLeftCol">
                 Guide Attention:
-              </div>
+              </a>
               <button
                 value="attention_up"
                 onClick={({ target: value }) => processRating(value)}
@@ -263,15 +294,9 @@ const UserGrapevinePanel = ({}) => {
             </div>
 
             <div className={showBeliefClassName}>
-              <div className="grapevineContainerLeftCol">
-                <span className="tooltiptext">
-                  Believe:
-                  <br />
-                  How much influence should this user have over things like poll
-                  results or statements of fact?
-                </span>
+              <a id="believe" className="grapevineContainerLeftCol">
                 Believe:
-              </div>
+              </a>
               <button
                 value="believe_up"
                 onClick={({ target: value }) => processRating(value)}
@@ -296,16 +321,9 @@ const UserGrapevinePanel = ({}) => {
             </div>
 
             <div className={showOntologyClassName}>
-              <div className="grapevineContainerLeftCol">
-                <span className="tooltiptext">
-                  Ontology
-                  <br />
-                  How much influence should this user have over things like:
-                  categorizations of contexts, definitions of words, data
-                  structures and schemas, and other social constructs?
-                </span>
+              <a id="ontology" className="grapevineContainerLeftCol">
                 Ontology:
-              </div>
+              </a>
               <button
                 value="ontology_up"
                 onClick={({ target: value }) => processRating(value)}
@@ -330,15 +348,9 @@ const UserGrapevinePanel = ({}) => {
             </div>
 
             <div className={showAdviceClassName}>
-              <div className="grapevineContainerLeftCol">
-                <span className="tooltiptext">
-                  Judgement:
-                  <br />
-                  How much do you trust this user's advice or judgement over
-                  things like which nostr relays to trust?
-                </span>
+              <a id="advice" className="grapevineContainerLeftCol">
                 Judgement / advice:
-              </div>
+              </a>
               <button
                 value="advice_up"
                 onClick={({ target: value }) => processRating(value)}
@@ -363,15 +375,9 @@ const UserGrapevinePanel = ({}) => {
             </div>
 
             <div className={showNostrClassName}>
-              <div className="grapevineContainerLeftCol">
-                <span className="tooltiptext">
-                  Nostr relays:
-                  <br />
-                  How much influence should this user have over which nostr
-                  relays to use for various purposes?
-                </span>
+              <a className="grapevineContainerLeftCol" id="manageNostrRelays">
                 Manage Nostr relays:
-              </div>
+              </a>
               <button
                 value="nostr_up"
                 onClick={({ target: value }) => processRating(value)}
@@ -397,7 +403,7 @@ const UserGrapevinePanel = ({}) => {
             </div>
           </div>
         </div>
-        <div style={{border:"1px solid red",maxHeight:"300px"}}>
+        <div style={{ border: '1px solid red', maxHeight: '300px' }}>
           <ComposeRatingAndEvent ratingPreset={ratingPreset} />
         </div>
       </div>

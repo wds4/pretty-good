@@ -1,6 +1,6 @@
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
-import DirectMessageController from 'renderer/window1/apps/nostr/dmListener';
-import MyProfileController from 'renderer/window1/apps/nostr/myProfileListener';
+import DirectMessageController from 'renderer/window1/apps/nostr/listeners/dmListener';
+import MyProfileController from 'renderer/window1/apps/nostr/listeners/myProfileListener';
 // package dep:
 // "nostr-react": "github:wds4/nostr-react#autoReconnect",
 

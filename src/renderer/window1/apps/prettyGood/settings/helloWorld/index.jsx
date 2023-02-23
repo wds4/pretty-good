@@ -3,10 +3,10 @@ import {
   updateMainColWidth,
   updateMastheadCenter,
 } from 'renderer/window1/lib/pg/ui';
-import Masthead from '../../../../mastheads/pgMasthead';
-import LeftNavbar1 from '../../../../navbars/leftNavbar1/pgNavbar';
-import LeftNavbar2 from '../../../../navbars/leftNavbar2/prettyGood/helloWorld';
-
+import Masthead from 'renderer/window1/mastheads/pgMasthead';
+import LeftNavbar1 from 'renderer/window1/navbars/leftNavbar1/pgNavbar';
+import LeftNavbar2 from 'renderer/window1/navbars/leftNavbar2/prettyGood/helloWorld';
+import TooltipDemo from './tooltipDemo';
 export default class PrettyGoodSettings extends React.Component {
   constructor(props) {
     super(props);
@@ -30,6 +30,7 @@ export default class PrettyGoodSettings extends React.Component {
           <Masthead />
           <div id="mainPanel">
             <div className="h4">Pretty Good: Hello World</div>
+            <TooltipDemo />
           </div>
         </div>
       </>

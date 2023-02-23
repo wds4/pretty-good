@@ -7,6 +7,8 @@ import store from './redux/store/store';
 import { updateMainColWidth } from './lib/pg/ui';
 import AppNostr from './AppNostr';
 
+import 'react-tooltip/dist/react-tooltip.css';
+
 import './css/app.css';
 import './css/navbars.css';
 import './css/mastheads.css';

@@ -6,7 +6,7 @@ import { initNostrRelays } from 'renderer/window1/redux/features/nostr/settings/
 import ErrorBoundary from './errorBoundary';
 import store from './redux/store/store';
 import { updateMainColWidth } from './lib/pg/ui';
-import DirectMessageController from 'renderer/window1/apps/nostr/dmListener';
+import DirectMessageController from 'renderer/window1/apps/nostr/listeners/dmListener';
 // package dep:
 // "nostr-react": "github:wds4/nostr-react#autoReconnect",
 

@@ -122,6 +122,7 @@
     "react-animate-height": "^3.1.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.0",
+    "react-tooltip": "^5.8.2",
     "redux": "^4.2.0",
     "vis-data": "^7.1.4",
     "vis-network": "^9.1.2"

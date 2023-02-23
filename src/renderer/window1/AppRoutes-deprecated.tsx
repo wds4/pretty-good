@@ -1,7 +1,7 @@
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
 import { NostrProvider } from 'nostr-react';
 import { useSelector } from 'react-redux';
-import DirectMessageController from 'renderer/window1/apps/nostr/dmListener';
+import DirectMessageController from 'renderer/window1/apps/nostr/listeners/dmListener';
 // package dep:
 // "nostr-react": "github:wds4/nostr-react#autoReconnect",
 
