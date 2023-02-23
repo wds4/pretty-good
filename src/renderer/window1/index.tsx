@@ -23,7 +23,7 @@ const startApp = async () => {
   } else {
     console.log("isColPresent_b is truthy ")
   }
-  */
+
   const sql_a = 'SELECT followingListLastUpdate FROM myNostrProfile LIMIT 1 ';
   const isColPresent_a = await asyncSql(sql_a);
   if (!isColPresent_a) {
@@ -42,6 +42,17 @@ const startApp = async () => {
     const fooB = await asyncSql(sql_b0);
   } else {
     console.log("isColPresent_b is truthy ")
+  }
+  */
+
+  const sql_a = 'SELECT relays FROM myNostrProfile LIMIT 1 ';
+  const isColPresent_a = await asyncSql(sql_a);
+  if (!isColPresent_a) {
+    const sql_a0 = 'ALTER TABLE myNostrProfile ADD relays TEXT NULL ';
+    console.log("isColPresent_a is falsy; sql_a0: "+sql_a0)
+    const fooA = await asyncSql(sql_a0);
+  } else {
+    console.log("isColPresent_a is truthy ")
   }
 
   const sql1 = 'SELECT * from relays ';

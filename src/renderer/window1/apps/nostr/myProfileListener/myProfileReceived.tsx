@@ -53,13 +53,11 @@ const MyProfileReceived = () => {
   if (myNostrProfile.multiClientAccess) {
     sMultiClientAccess = "true";
   }
-  let needToUpdate = false;
   let sNeedToUpdate = "false";
   if (received_created_at > mNP_lastUpdate) {
-    needToUpdate = true;
     sNeedToUpdate = "true";
     if (myNostrProfile.multiClientAccess) {
-      // UPDATE PROFILE IN SQL AND REDUX
+      // UPDATE PROFILE IN SQL AND REDUX USING RECEIVED EVENT
 
       dispatch(updateName(content?.name));
       dispatch(updateDisplayName(content?.display_name));

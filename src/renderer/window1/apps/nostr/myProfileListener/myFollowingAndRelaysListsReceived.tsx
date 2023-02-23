@@ -1,8 +1,13 @@
 import { useNostrEvents } from 'nostr-react';
 import { useSelector, useDispatch } from 'react-redux';
 import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
-import { addDirectMessageToSqlAndReduxStore } from 'renderer/window1/redux/features/nostr/directMessages/slice';
 import { returnMostRecentProfileEvent } from 'renderer/window1/lib/nostr';
+import {
+  updateRelays,
+  updateRelaysListLastUpdate,
+  updateFollowing,
+  updateFollowingListLastUpdate,
+} from 'renderer/window1/redux/features/nostr/myNostrProfile/slice';
 
 const MyFollowingListReceived = () => {
   const myNostrProfile = useSelector((state) => state.myNostrProfile);
@@ -15,16 +20,26 @@ const MyFollowingListReceived = () => {
       kinds: [3],
     },
   });
-  let followingListLastUpdate = null;
-  let relaysListLastUpdate = null;
+  let followingListLastUpdate = myNostrProfile?.followingListLastUpdate;
+  if (!followingListLastUpdate) {
+    followingListLastUpdate = 0;
+  }
+  let relaysListLastUpdate = myNostrProfile?.relaysListLastUpdate;
+  if (!relaysListLastUpdate) {
+    relaysListLastUpdate = 0;
+  }
+  let content = {}; // content contains the relays list
+  let tags = []; // tags contains the following list
   let event = {};
   let event_ = {};
   event = returnMostRecentProfileEvent(events,myPubkey);
   if ( JSON.stringify(event) !== '{}' ) {
     // console.log("doesEventValidate, step 1; event: "+JSON.stringify(event,null,4))
     if (event && doesEventValidate(event)) {
+      content = JSON.parse(event.content);
       // console.log("doesEventValidate_yes; event: "+JSON.stringify(event,null,4))
       event_ = JSON.parse(JSON.stringify(event));
+      event_.content = content;
     }
   }
   let received_created_at = event?.created_at;
@@ -33,11 +48,25 @@ const MyFollowingListReceived = () => {
   }
   let needToUpdate = false;
   let sFollowingListNeedToUpdate = "false";
+  let sRelaysListNeedToUpdate = "false";
+  if (received_created_at > followingListLastUpdate) {
+    sFollowingListNeedToUpdate = "true";
+    if (myNostrProfile.multiClientAccess) {
+      // UPDATE PROFILE IN SQL AND REDUX USING RECEIVED EVENT
+    }
+  }
+  if (received_created_at > relaysListLastUpdate) {
+    sRelaysListNeedToUpdate = "true";
+    if (myNostrProfile.multiClientAccess) {
+      // UPDATE PROFILE IN SQL AND REDUX USING RECEIVED EVENT
+    }
+  }
   return (
     <>
       <div style={{ border: '1px solid grey', padding: '10px', margin: '10px' }}>
         <center>listening for my following list and relays list</center>
         <div>myPubkey: {myPubkey}</div>
+        <div>sFollowingListNeedToUpdate: {sFollowingListNeedToUpdate}</div>
         <div>sFollowingListNeedToUpdate: {sFollowingListNeedToUpdate}</div>
         <div style={{ border: '1px solid grey', padding: '10px', margin: '10px' }}>
           <center>Local data (sql):</center>

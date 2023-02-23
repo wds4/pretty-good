@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import MyFollowingListReceived from './myFollowingListReceived';
+import MyFollowingAndRelaysListsReceived from './myFollowingAndRelaysListsReceived';
 import MyProfileReceived from './myProfileReceived';
 
 const MyNostrProfileListener = () => {
@@ -12,7 +12,7 @@ const MyNostrProfileListener = () => {
     <>
       <div className={devModeClassName}>
         <div className="h4">listening for my nostr profile info </div>
-        <MyFollowingListReceived />
+        <MyFollowingAndRelaysListsReceived />
         <MyProfileReceived />
       </div>
     </>

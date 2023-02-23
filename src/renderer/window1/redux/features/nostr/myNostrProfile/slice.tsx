@@ -21,7 +21,9 @@ const initialState = {
   nip05: undefined,
   lud06: undefined,
   created_at: 0,
-  lastUpdate: 0,
+  lastUpdate: 0, // when nostr profile data was last updated locally (in sql), not including relays list or following list
+  followingListLastUpdate: 0, // when following list was last updated (locally, in sql)
+  relaysListLastUpdate: 0, // when relays list was last updated (locally, in sql)
   following: [],
   followers: [],
   relays: [
@@ -81,6 +83,19 @@ export const myProfileSlice = createSlice({
     updateLastUpdate: (state, action) => {
       state.lastUpdate = action.payload;
     },
+    updateFollowingListLastUpdate: (state, action) => {
+      state.followingListLastUpdate = action.payload;
+    },
+    updateRelaysListLastUpdate: (state, action) => {
+      state.relaysListLastUpdate = action.payload;
+    },
+    updateRelays: (state, action) => {
+      let aRelays = [];
+      if (action.payload) {
+        aRelays = action.payload;
+      }
+      state.relays = aRelays;
+    },
     updateFollowers: (state, action) => {
       let aFollowers = [];
       if (action.payload) {
@@ -138,6 +153,7 @@ export const fetchMyProfile = () => async (dispatch) => {
   dispatch(updateName(oMyProfileData.name));
   dispatch(updateFollowing(JSON.parse(oMyProfileData.following)));
   dispatch(updateFollowers(JSON.parse(oMyProfileData.followers)));
+  // dispatch(updateRelays(JSON.parse(oMyProfileData.relays))); // UNCOMMENT THIS ONCE FULL SUPPORT ADDED: sql relays col exists, etc.
   dispatch(updateDisplayName(oMyProfileData.display_name));
   dispatch(updatePubkeyHex(oMyProfileData.pubkey));
   dispatch(updatePubkeyBech32(nip19.npubEncode(oMyProfileData.pubkey)));
@@ -160,6 +176,8 @@ export const fetchMyProfile = () => async (dispatch) => {
   dispatch(updateLud06(oMyProfileData.lud06));
   dispatch(updateCreatedAt(oMyProfileData.created_at));
   dispatch(updateLastUpdate(oMyProfileData.lastUpdate));
+  dispatch(updateFollowingListLastUpdate(oMyProfileData.followingListLastUpdate));
+  dispatch(updateRelaysListLastUpdate(oMyProfileData.relaysListLastUpdate));
   dispatch(updateMultiClientAccess(oMyProfileData.multiClientAccess));
 };
 
@@ -176,10 +194,13 @@ export const {
   updateAbout,
   updateFollowing,
   updateFollowers,
+  updateRelays,
   updateNip05,
   updateLud06,
   updateCreatedAt,
   updateLastUpdate,
+  updateFollowingListLastUpdate,
+  updateRelaysListLastUpdate,
   updateMultiClientAccess,
   addToFollowingList,
   removeFromFollowingList,
