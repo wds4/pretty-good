@@ -1,0 +1,66 @@
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  updateNostrRelayStoreAndSql,
+  addNostrRelay,
+  removeNostrRelay,
+} from 'renderer/window1/redux/features/nostr/settings/slice';
+import {
+  addNewRelayToSql,
+} from 'renderer/window1/lib/pg/sql';
+
+const AddNewRelay = () => {
+  const dispatch = useDispatch();
+  const addNew = async () => {
+    const e1 = document.getElementById('newRelayTextarea');
+    if (e1) {
+      const newUrl = `wss://${e1.value}`;
+      console.log(`newUrl: ${newUrl}`);
+      const res = await addNewRelayToSql(newUrl);
+      dispatch(addNostrRelay(newUrl));
+      if (res) {
+        const e2 = document.getElementById('newRelayAddedSuccess');
+        if (e2) {
+          const successMessage = `${newUrl} successfully added to the database.`;
+          e2.innerHTML = successMessage;
+          const e3 = document.getElementById('needToRestartMessage');
+          if (e3) {
+            e3.style.display = 'block';
+          }
+        }
+      }
+    }
+  };
+  return (
+    <>
+      <div>
+        <div style={{ display: 'inline-block', fontSize: '18px' }}>wss://</div>
+        <textarea
+          id="newRelayTextarea"
+          style={{ height: '20px', width: '200px' }}
+        />
+        <div
+          id="addRelayButton"
+          className="doSomethingButton"
+          onClick={addNew}
+        >
+          add a new relay
+        </div>
+        <div id="newRelayAddedSuccess" />
+        <div id="updateStatusSuccess" />
+        <div id="deleteRelaySuccess" />
+        <div
+          id="needToRestartMessage"
+          style={{
+            backgroundColor: 'yellow',
+            padding: '5px',
+            border: '1px solid black',
+            display: 'none',
+          }}
+        >
+          You will need to restart the app for any changes to take effect.
+        </div>
+      </div>
+    </>
+  );
+};
+export default AddNewRelay;

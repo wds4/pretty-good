@@ -1,13 +1,13 @@
 import React from 'react';
-import Masthead from '../../../../mastheads/nostrMasthead';
-import LeftNavbar1 from '../../../../navbars/leftNavbar1/nostrNavbar';
-import LeftNavbar2 from '../../../../navbars/leftNavbar2/nostr/settings';
+import Masthead from 'renderer/window1/mastheads/nostrMasthead';
+import LeftNavbar1 from 'renderer/window1/navbars/leftNavbar1/nostrNavbar';
+import LeftNavbar2 from 'renderer/window1/navbars/leftNavbar2/nostr/settings';
 import {
   updateMainColWidth,
   updateMastheadCenter,
-} from '../../../../lib/pg/ui';
+} from 'renderer/window1/lib/pg/ui';
 import EndorseRelays from './endorseRelays';
-
+import Relays from './relays';
 export default class NostrRelays extends React.Component {
   constructor(props) {
     super(props);
@@ -32,6 +32,7 @@ export default class NostrRelays extends React.Component {
           <div id="mainPanel">
             <div className="h4">Nostr: Relays</div>
             <EndorseRelays />
+            <Relays />
           </div>
         </div>
       </>

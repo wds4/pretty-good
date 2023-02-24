@@ -1,8 +1,15 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { updateNostrRelayStoreAndSql, addNostrRelay, removeNostrRelay } from 'renderer/window1/redux/features/nostr/settings/slice';
-import { addNewRelayToSql, deleteRelayUrlFromSql } from 'renderer/window1/lib/pg/sql';
-import EndorseRelayMessage from './endorseRelayMessage';
+import {
+  updateNostrRelayStoreAndSql,
+  addNostrRelay,
+  removeNostrRelay,
+} from 'renderer/window1/redux/features/nostr/settings/slice';
+import {
+  addNewRelayToSql,
+  deleteRelayUrlFromSql,
+} from 'renderer/window1/lib/pg/sql';
 import { noteEncode } from 'nostr-tools/nip19';
+import EndorseRelayMessage from './endorseRelayMessage';
 
 const RelaysSettings = () => {
   const devMode = useSelector((state) => state.prettyGoodGlobalState.devMode);
@@ -45,19 +52,20 @@ const RelaysSettings = () => {
     }
   };
   const deleteRelay = (url) => {
-    console.log("deleteRelay; url: "+url)
-    const e = document.getElementById("delete_"+url)
-    if (e) { e.style.display="inline-block"; }
-  }
+    console.log(`deleteRelay; url: ${url}`);
+    const e = document.getElementById(`delete_${url}`);
+    if (e) {
+      e.style.display = 'inline-block';
+    }
+  };
   const deleteRelayForReal = (url) => {
-    console.log("deleteRelayForReal; url: "+url)
+    console.log(`deleteRelayForReal; url: ${url}`);
     const res = deleteRelayUrlFromSql(url);
     dispatch(removeNostrRelay(url));
-    console.log("deleteRelayForReal; res: "+JSON.stringify(res,null,4))
+    console.log(`deleteRelayForReal; res: ${JSON.stringify(res, null, 4)}`);
     // const e = document.getElementById("relayInfoContainer_"+url)
     // if (e) { e.style.backgroundColor="#9F9F9F"; }
-
-  }
+  };
   const aRelayUrls = Object.keys(oRelaysData);
   return (
     <>
@@ -69,8 +77,8 @@ const RelaysSettings = () => {
           {aRelayUrls.map((url) => {
             const oRelayData = oRelaysData[url];
             const initState = oRelayData.active;
-            const deleteButton2Id = "delete_"+url;
-            const relayInfoContainerId = "relayInfoContainer_"+url
+            const deleteButton2Id = `delete_${url}`;
+            const relayInfoContainerId = `relayInfoContainer_${url}`;
             return (
               <>
                 <div className="relayInfoContainer" id={relayInfoContainerId}>
@@ -90,7 +98,7 @@ const RelaysSettings = () => {
                   </div>
                   <div
                     className="deleteRelayButton doSomethingButton"
-                    style={{display:"none"}}
+                    style={{ display: 'none' }}
                     onClick={() => deleteRelayForReal(url)}
                     id={deleteButton2Id}
                   >

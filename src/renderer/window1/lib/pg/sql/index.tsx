@@ -132,6 +132,7 @@ export const updateMyFullNostrProfileInSql = async (oMyNostrProfileInfo) => {
   sql += ` , nip05 = '${nip05}' `;
   sql += ` , following = '${JSON.stringify(following)}' `;
   sql += ` , followers = '${JSON.stringify(followers)}' `;
+  sql += ` , relays = '${JSON.stringify(relays)}' `;
   sql += ` , lastUpdate = ${currentTime} `;
   sql += ` , multiClientAccess = ${multiClientAccess} `;
   sql += ` WHERE pubkey = '${pubkey_hex}' `;

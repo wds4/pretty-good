@@ -84,11 +84,12 @@ export const myProfileSlice = createSlice({
       state.relaysListLastUpdate = action.payload;
     },
     updateRelays: (state, action) => {
-      let aRelays = [];
+      let oRelays = [];
       if (action.payload) {
-        aRelays = action.payload;
+        oRelays = action.payload;
       }
-      state.relays = aRelays;
+      state.relays = oRelays;
+      const res = updateMyFullNostrProfileInSql(state);
     },
     updateFollowers: (state, action) => {
       let aFollowers = [];
@@ -148,6 +149,7 @@ export const fetchMyProfile = () => async (dispatch) => {
   dispatch(updateFollowing(JSON.parse(oMyProfileData.following)));
   dispatch(updateFollowers(JSON.parse(oMyProfileData.followers)));
   if (oMyProfileData.relays !== null) {
+    console.log("qwerty oMyProfileData.relays: "+oMyProfileData.relays)
     dispatch(updateRelays(JSON.parse(oMyProfileData.relays))); // UNCOMMENT THIS ONCE FULL SUPPORT ADDED: sql relays col exists, etc.
   } else {
     dispatch(updateRelays(oDefaultRelayUrls));
@@ -205,3 +207,11 @@ export const {
 } = myProfileSlice.actions;
 
 export default myProfileSlice.reducer;
+
+export const updateNostrRelaysForActiveUserInSqlReduxAndNostr =
+  (oRelaysUpdated) => async (dispatch) => {
+    console.log("updateNostrRelaysForActiveUserInSqlReduxAndNostr; oRelaysUpdated: "+JSON.stringify(oRelaysUpdated))
+    // update in store: myNostrProfile for current user; this also updates in sql for current (active) user
+    dispatch(updateRelays(oRelaysUpdated));
+    // broadcast to nostr
+  };
