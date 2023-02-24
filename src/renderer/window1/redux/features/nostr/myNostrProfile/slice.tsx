@@ -147,7 +147,11 @@ export const fetchMyProfile = () => async (dispatch) => {
   dispatch(updateName(oMyProfileData.name));
   dispatch(updateFollowing(JSON.parse(oMyProfileData.following)));
   dispatch(updateFollowers(JSON.parse(oMyProfileData.followers)));
-  // dispatch(updateRelays(JSON.parse(oMyProfileData.relays))); // UNCOMMENT THIS ONCE FULL SUPPORT ADDED: sql relays col exists, etc.
+  if (oMyProfileData.relays !== null) {
+    dispatch(updateRelays(JSON.parse(oMyProfileData.relays))); // UNCOMMENT THIS ONCE FULL SUPPORT ADDED: sql relays col exists, etc.
+  } else {
+    dispatch(updateRelays(oDefaultRelayUrls));
+  }
   dispatch(updateDisplayName(oMyProfileData.display_name));
   dispatch(updatePubkeyHex(oMyProfileData.pubkey));
   dispatch(updatePubkeyBech32(nip19.npubEncode(oMyProfileData.pubkey)));

@@ -1,10 +1,14 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useNostr } from 'nostr-react';
 import AnimateHeight from 'react-animate-height';
 
 const RelaysStatus = () => {
   const [height, setHeight] = useState(0);
   const { connectedRelays } = useNostr();
+
+  const myNostrProfile = useSelector((state) => state.myNostrProfile);
+  const nostrSettings = useSelector((state) => state.nostrSettings);
 
   return (
     <div >
@@ -45,6 +49,16 @@ const RelaysStatus = () => {
                   </div>
                 );
               })}
+              <pre style={{ display: 'inline-block', width: '250px', fontSize: '8px', border: '1px solid black', padding: '5px' }}>
+                <center>redux: nostrSettings.nostrRelays</center>
+                <center>(fed into NostrProvider)</center>
+                {JSON.stringify(nostrSettings.nostrRelays,null,4)}
+              </pre>
+              <pre style={{ display: 'inline-block', width: '250px', fontSize: '8px', border: '1px solid black', padding: '5px' }}>
+                <center>redux: myNostrProfile.relays</center>
+                <center>(current user)</center>
+                {JSON.stringify(myNostrProfile.relays,null,4)}
+              </pre>
             </div>
           </div>
         </AnimateHeight>

@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { useSelector } from 'react-redux';
 import { updateNostrRelayInSql } from 'renderer/window1/lib/pg/sql';
 import { doesEventValidate } from '../../../../lib/nostr/eventValidation';
 import { defaultNostrGrapevineSettings } from './defaultNostrGrapevineSettings';
@@ -113,6 +114,10 @@ export const nostrSettingsSlice = createSlice({
       const relayUrl = action.payload;
       delete state.nostrRelays[relayUrl];
     },
+    resetNostrSettingsNostrRelays: (state, action) => {
+      state.nostrRelays = action.payload;
+    },
+
   },
 });
 
@@ -135,9 +140,23 @@ export const {
   updateNostrRelay,
   addNostrRelay,
   removeNostrRelay,
+  resetNostrSettingsNostrRelays
 } = nostrSettingsSlice.actions;
 
 export default nostrSettingsSlice.reducer;
+
+export const ActivateNostrRelaysOfCurrentUser = () => {
+  // fetch relays from the currently active nostr user
+  // const myNostrProfile = useSelector((state) => state.myNostrProfile);
+  // const oRelays = myNostrProfile.relays;
+  // then transfer those settings to the nostr settings store, which makes them the active relay list
+  // dispatch(resetNostrSettingsNostrRelays(oRelays));
+  return (
+    <>
+      <div>ActivateNostrRelaysOfCurrentUser</div>
+    </>
+  )
+}
 
 export const updateNostrRelayStoreAndSql = (oNewState) => async (dispatch) => {
   dispatch(updateNostrRelay(oNewState));

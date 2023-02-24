@@ -1,5 +1,7 @@
 export const tooltipContent = {
   sampleContent: 'Hello World!',
+  purpose: "Purpose:<br />What will these ratings be used for?",
+  context: "category",
   grapevineIcon: 'The Grapvine has been activated!',
   worship: 'a.k.a. Global Trust<br />Do you trust (or mistrust) this user in all things and for all purposes?',
   attention: 'Attention:<br />How much influence should this user have over things like your nostr content feed?',

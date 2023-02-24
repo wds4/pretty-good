@@ -5,8 +5,26 @@ import {
   updateMyNostrProfileSetActiveInSql,
 } from 'renderer/window1/lib/pg/sql';
 import { checkPrivkeyHexValidity } from 'renderer/window1/lib/nostr';
-import { fetchMyProfile } from '../../../../redux/features/nostr/myNostrProfile/slice';
+import { fetchMyProfile } from 'renderer/window1/redux/features/nostr/myNostrProfile/slice';
+import { resetNostrSettingsNostrRelays } from 'renderer/window1/redux/features/nostr/settings/slice';
+// import ActivateNostrRelaysOfCurrentUser from 'renderer/window1/redux/features/nostr/settings/slice';
+
 import { noProfilePicUrl } from '../../../../const';
+
+const ActivateNostrRelaysOfCurrentUser = () => {
+  const dispatch = useDispatch();
+  // fetch relays from the currently active nostr user
+  const myNostrProfile = useSelector((state) => state.myNostrProfile);
+  const oRelays = myNostrProfile.relays;
+  // then transfer those settings to the nostr settings store, which makes them the active relay list
+  dispatch(resetNostrSettingsNostrRelays(oRelays));
+  return (
+    <>
+      <div>ActivateNostrRelaysOfCurrentUser</div>
+      <div>{myNostrProfile.name}</div>
+    </>
+  )
+}
 
 export default function AllCurrentProfiles({
   aMyProfileData,
@@ -37,6 +55,9 @@ export default function AllCurrentProfiles({
     updateMyProfile(index);
     const result = await updateMyNostrProfileSetActiveInSql(sqlId);
     dispatch(fetchMyProfile());
+    // activateNostrRelaysOfCurrentUser();
+    // dispatch(resetNostrSettingsNostrRelays(myNostrProfile.relays));
+
   };
 
   const processFirstDeleteButton = (sqlId, index) => () => {
@@ -47,7 +68,6 @@ export default function AllCurrentProfiles({
   };
 
   const processSecondDeleteButton = (sqlId, index) => async () => {
-    console.log('processSecondDeleteButton');
     await deleteRowFromMyNostrProfiles(sqlId);
     const e = document.getElementById(`deletedNoticeContainer_${sqlId}`);
     if (e) {
@@ -61,6 +81,7 @@ export default function AllCurrentProfiles({
   return (
     <div className="infoBox">
       <div className="h4">All of my Nostr Profiles</div>
+      <ActivateNostrRelaysOfCurrentUser />
       {aMyProfileData.map((oNextProfile: Object, index) => {
         const containerId = `containerId_${oNextProfile.id}`;
         const finalChanceDeleteContainerId = `finalChanceDeleteContainerId_${oNextProfile.id}`;
@@ -80,11 +101,11 @@ export default function AllCurrentProfiles({
         const privkeyHex = oNextProfile.privkey;
         const isPkValid = checkPrivkeyHexValidity(privkeyHex);
 
-        let sMultiClientAccess = "DISABLED";
-        let multiClientAccessClassName = "mcaDisabled";
+        let sMultiClientAccess = 'DISABLED';
+        let multiClientAccessClassName = 'mcaDisabled';
         if (oNextProfile.multiClientAccess) {
-          sMultiClientAccess = "ENABLED";
-          multiClientAccessClassName = "mcaEnabled";
+          sMultiClientAccess = 'ENABLED';
+          multiClientAccessClassName = 'mcaEnabled';
         }
         if (!isPkValid) {
           deleteRowFromMyNostrProfiles(oNextProfile.id);
@@ -101,11 +122,11 @@ export default function AllCurrentProfiles({
           let pubkeyHex = oNextProfile.pubkey;
           // console.log("pubkeyHex: "+pubkeyHex)
 
-          if (pubkeyHex == "undefined") {
-            pubkeyHex = getPublicKey(privkeyHex)
+          if (pubkeyHex == 'undefined') {
+            pubkeyHex = getPublicKey(privkeyHex);
           }
           // console.log("pubkeyHex: "+pubkeyHex)
-          const pubkeyBech32 = nip19.npubEncode(pubkeyHex)
+          const pubkeyBech32 = nip19.npubEncode(pubkeyHex);
           return (
             <>
               <div
@@ -199,7 +220,10 @@ export default function AllCurrentProfiles({
                   </div>
 
                   <div style={{ marginBottom: '5px', color: 'grey' }}>
-                    multi client access: <span className={multiClientAccessClassName}>{sMultiClientAccess}</span>
+                    multi client access:{' '}
+                    <span className={multiClientAccessClassName}>
+                      {sMultiClientAccess}
+                    </span>
                   </div>
 
                   <div style={{ marginBottom: '5px' }}>

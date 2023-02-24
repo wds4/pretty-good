@@ -145,9 +145,22 @@ const UserGrapevinePanel = ({}) => {
   return (
     <>
       <Tooltip
+        anchorSelect="#purpose"
+        html={tooltipContent.purpose}
+        clickable
+        className="reactTooltip"
+      />
+      <Tooltip
+        anchorSelect="#context"
+        html={tooltipContent.context}
+        clickable
+        className="reactTooltip"
+      />
+      <Tooltip
         anchorSelect="#worship"
         html={tooltipContent.worship}
         clickable
+        className="reactTooltip"
       />
       <Tooltip
         anchorSelect="#attention"
@@ -216,18 +229,15 @@ const UserGrapevinePanel = ({}) => {
                 paddingBottom: '5px',
               }}
             >
-              <div
+              <a
+                id="purpose"
                 className="grapevineContainerLeftCol"
                 style={{ fontSize: '18px' }}
               >
-                <span className="tooltiptext">
-                  Purpose:
-                  <br />
-                  What will these ratings be used for?
-                </span>
                 Purpose
-              </div>
-              <div
+              </a>
+              <a
+                id="context"
                 className="grapevineContainerLeftCol"
                 style={{
                   position: 'absolute',
@@ -235,9 +245,8 @@ const UserGrapevinePanel = ({}) => {
                   fontSize: '18px',
                 }}
               >
-                <span className="tooltiptext">category</span>
                 Context
-              </div>
+              </a>
             </div>
           </div>
           <div style={{ maxHeight: '350px', overflow: 'auto' }}>
