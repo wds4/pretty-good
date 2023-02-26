@@ -79,9 +79,9 @@ const startApp = async () => {
   const sql3 = 'SELECT * from nostrNotes ';
   const aNostrNotesData = await asyncSql(sql3);
 
-    // LOAD nostrDirectMessages
-    const sql4 = 'SELECT * from nostrDirectMessages ';
-    const aNostrDirectMessagesData = await asyncSql(sql4);
+  // LOAD nostrDirectMessages
+  const sql4 = 'SELECT * from nostrDirectMessages ';
+  const aNostrDirectMessagesData = await asyncSql(sql4);
 
   const container = document.getElementById('root')!;
   const root = createRoot(container);
