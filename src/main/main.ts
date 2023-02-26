@@ -110,7 +110,7 @@ ipcMain.on('asynchronous-sql-command', async (event, data) => {
 });
 
 db.serialize(() => {
-  db.run('DROP TABLE IF EXISTS nostrDirectMessages');
+  // db.run('DROP TABLE IF EXISTS nostrDirectMessages');
   // db.run('DROP TABLE IF EXISTS nostrNotes');
   // db.run('DROP TABLE IF EXISTS nostrProfiles');
   // db.run('DROP TABLE IF EXISTS myNostrProfile');

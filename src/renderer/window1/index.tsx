@@ -58,13 +58,16 @@ const startApp = async () => {
   // LOAD myNostrProfile
   const sql1 = 'SELECT relays FROM myNostrProfile WHERE active = true ';
   const aRelaysData = await asyncSql(sql1);
-  const oRelaysData = JSON.parse(aRelaysData[0].relays);
   const aActive = [];
-  for (let r = 0; r < aRelaysData.length; r += 1) {
-    const oNextRelayData = aRelaysData[r];
-    const { url, active } = oNextRelayData;
-    if (active) {
-      aActive.push(url);
+  let oRelaysData = {};
+  if (aRelaysData) {
+    oRelaysData = JSON.parse(aRelaysData[0].relays);
+    for (let r = 0; r < aRelaysData.length; r += 1) {
+      const oNextRelayData = aRelaysData[r];
+      const { url, active } = oNextRelayData;
+      if (active) {
+        aActive.push(url);
+      }
     }
   }
 
