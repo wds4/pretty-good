@@ -29,9 +29,9 @@
   },
   "contributors": [
     {
-      "name": "Amila Welihinda",
-      "email": "amilajack@gmail.com",
-      "url": "https://github.com/amilajack"
+      "name": "David Strayhorn",
+      "email": "",
+      "url": "https://github.com/wds4"
     }
   ],
   "main": "./src/main/main.ts",
@@ -257,8 +257,8 @@
     ],
     "publish": {
       "provider": "github",
-      "owner": "electron-react-boilerplate",
-      "repo": "electron-react-boilerplate"
+      "owner": "wds4",
+      "repo": "pretty-good"
     }
   },
   "collective": {
