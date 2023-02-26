@@ -55,10 +55,10 @@ const startApp = async () => {
   }
   */
 
-  const sql1 = 'SELECT * from relays ';
-  const sql2 = 'SELECT * from nostrProfiles ';
+  // LOAD myNostrProfile
+  const sql1 = 'SELECT relays FROM myNostrProfile WHERE active = true ';
   const aRelaysData = await asyncSql(sql1);
-  const aProfilesData = await asyncSql(sql2);
+  const oRelaysData = JSON.parse(aRelaysData[0].relays);
   const aActive = [];
   for (let r = 0; r < aRelaysData.length; r += 1) {
     const oNextRelayData = aRelaysData[r];
@@ -67,13 +67,28 @@ const startApp = async () => {
       aActive.push(url);
     }
   }
+
+  // LOAD nostrProfiles
+  const sql2 = 'SELECT * from nostrProfiles ';
+  const aProfilesData = await asyncSql(sql2);
+
+  // LOAD nostrNotes
+  const sql3 = 'SELECT * from nostrNotes ';
+  const aNostrNotesData = await asyncSql(sql3);
+
+    // LOAD nostrDirectMessages
+    const sql4 = 'SELECT * from nostrDirectMessages ';
+    const aNostrDirectMessagesData = await asyncSql(sql4);
+
   const container = document.getElementById('root')!;
   const root = createRoot(container);
   root.render(
     <App
       relayUrls={aActive}
-      aRelaysData={aRelaysData}
+      oRelaysData={oRelaysData}
       aProfilesData={aProfilesData}
+      aNostrNotesData={aNostrNotesData}
+      aNostrDirectMessagesData={aNostrDirectMessagesData}
     />
   );
 };

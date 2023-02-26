@@ -1,15 +1,26 @@
 import { useSelector } from 'react-redux';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { nip19 } from 'nostr-tools';
 import {
   addStringToArrayUniquely,
   removeStringFromArray,
 } from 'renderer/window1/lib/pg/index';
-import { fetchMyActiveNostrProfileFromSql, updateMyFullNostrProfileInSql } from 'renderer/window1/lib/pg/sql';
+import {
+  fetchMyActiveNostrProfileFromSql,
+  updateMyFullNostrProfileInSql,
+} from 'renderer/window1/lib/pg/sql';
 import { noProfilePicUrl, noBannerPicUrl } from 'renderer/window1/const';
 import { oDefaultRelayUrls } from 'main/const/nostr';
+import { useNostr, dateToUnix } from 'nostr-react';
+import {
+  nip19,
+  type Event as NostrEvent,
+  getEventHash,
+  getPublicKey,
+  signEvent,
+} from 'nostr-tools';
 
 const initialState = {
+  showWelcomeBox: false,
   pubkey_hex: undefined,
   pubkey_bech32: undefined,
   privkey: undefined,
@@ -89,7 +100,36 @@ export const myProfileSlice = createSlice({
         oRelays = action.payload;
       }
       state.relays = oRelays;
-      const res = updateMyFullNostrProfileInSql(state);
+      /*
+      console.log("updateRelays; state: "+JSON.stringify(state))
+      let newState = JSON.parse(JSON.stringify(state));
+      console.log("updateRelays; newState: "+JSON.stringify(newState))
+      newState.relays = oRelays;
+      console.log("updateRelays; newState 2: "+JSON.stringify(newState))
+      // const res = updateMyFullNostrProfileInSql(newState);
+      */
+    },
+    // updateRelaysB deprecated
+    updateRelaysB: (state, action) => {
+      let oRelays = [];
+      if (action.payload) {
+        oRelays = action.payload;
+      }
+      state.relays = oRelays;
+      console.log("updateRelays; state: "+JSON.stringify(state))
+      let newState = JSON.parse(JSON.stringify(state));
+      console.log("updateRelays; newState: "+JSON.stringify(newState))
+      newState.relays = oRelays;
+      // console.log("updateRelays; newState 2: "+JSON.stringify(newState))
+      // const res = updateMyFullNostrProfileInSql(newState);
+    },
+    addNewRelay: (state, action) => {
+      const url = action.payload;
+      state.relays[url] = { read: true, write: true}
+    },
+    removeRelay: (state, action) => {
+      const url = action.payload;
+      delete state.relays[url];
     },
     updateFollowers: (state, action) => {
       let aFollowers = [];
@@ -104,7 +144,7 @@ export const myProfileSlice = createSlice({
       if (action.payload) {
         aFollowing = action.payload;
       }
-      console.log("updateFollowing; action.payload: "+JSON.stringify(action.payload)+"; aFollowing: "+JSON.stringify(aFollowing))
+      console.log(`updateFollowing; action.payload: ${JSON.stringify(action.payload)}; aFollowing: ${JSON.stringify(aFollowing)}`)
       state.following = aFollowing;
     },
     updateMultiClientAccess: (state, action) => {
@@ -129,6 +169,9 @@ export const myProfileSlice = createSlice({
       state.following = removeStringFromArray(action.payload, state.following);
       const res = updateMyFullNostrProfileInSql(state);
     },
+    updateShowWelcomeBox: (state, action) => {
+      state.showWelcomeBox = action.payload;
+    },
   },
   /*
   extraReducers(builder) {
@@ -139,17 +182,16 @@ export const myProfileSlice = createSlice({
   */
 });
 
-
 export const fetchMyProfile = () => async (dispatch) => {
   const oMyProfileData = await fetchMyActiveNostrProfileFromSql(false);
   console.log(
     `fetchMyProfile; oMyProfileData: ${JSON.stringify(oMyProfileData, null, 4)}`
   );
+
   dispatch(updateName(oMyProfileData.name));
   dispatch(updateFollowing(JSON.parse(oMyProfileData.following)));
   dispatch(updateFollowers(JSON.parse(oMyProfileData.followers)));
   if (oMyProfileData.relays !== null) {
-    console.log("qwerty oMyProfileData.relays: "+oMyProfileData.relays)
     dispatch(updateRelays(JSON.parse(oMyProfileData.relays))); // UNCOMMENT THIS ONCE FULL SUPPORT ADDED: sql relays col exists, etc.
   } else {
     dispatch(updateRelays(oDefaultRelayUrls));
@@ -176,7 +218,9 @@ export const fetchMyProfile = () => async (dispatch) => {
   dispatch(updateLud06(oMyProfileData.lud06));
   dispatch(updateCreatedAt(oMyProfileData.created_at));
   dispatch(updateLastUpdate(oMyProfileData.lastUpdate));
-  dispatch(updateFollowingListLastUpdate(oMyProfileData.followingListLastUpdate));
+  dispatch(
+    updateFollowingListLastUpdate(oMyProfileData.followingListLastUpdate)
+  );
   dispatch(updateRelaysListLastUpdate(oMyProfileData.relaysListLastUpdate));
   dispatch(updateMultiClientAccess(oMyProfileData.multiClientAccess));
 };
@@ -195,6 +239,7 @@ export const {
   updateFollowing,
   updateFollowers,
   updateRelays,
+  updateRelaysB,
   updateNip05,
   updateLud06,
   updateCreatedAt,
@@ -204,14 +249,56 @@ export const {
   updateMultiClientAccess,
   addToFollowingList,
   removeFromFollowingList,
+  addNewRelay,
+  removeRelay,
+  updateShowWelcomeBox,
 } = myProfileSlice.actions;
 
 export default myProfileSlice.reducer;
 
-export const updateNostrRelaysForActiveUserInSqlReduxAndNostr =
-  (oRelaysUpdated) => async (dispatch) => {
-    console.log("updateNostrRelaysForActiveUserInSqlReduxAndNostr; oRelaysUpdated: "+JSON.stringify(oRelaysUpdated))
+// used to update in sql but now does not
+export const updateNostrRelaysForActiveUserInReduxAndNostr =
+  (oRelaysUpdated,myNostrProfile,publish) => async (dispatch) => {
+    // const { publish } = useNostr();
+    // access following list and relays list from redux store and publish an event with current lists to nostr
+    console.log(
+      'updateNostrRelaysForActiveUserInReduxAndNostr; myNostrProfile B: ' +
+        JSON.stringify(myNostrProfile)
+    );
+    console.log(
+      'updateNostrRelaysForActiveUserInReduxAndNostr; oRelaysUpdated: ' +
+        JSON.stringify(oRelaysUpdated)
+    );
     // update in store: myNostrProfile for current user; this also updates in sql for current (active) user
+    // NO LONGER UPDATES IN SQL
     dispatch(updateRelays(oRelaysUpdated));
     // broadcast to nostr
+    const myPrivkey = myNostrProfile.privkey;
+    const aCurrentFollowingList = myNostrProfile.following;
+    console.log(
+      'updateFollowingAndRelaysListsInNostr; oRelaysUpdated: ' +
+        JSON.stringify(oRelaysUpdated) +
+        '; aCurrentFollowingList: ' +
+        JSON.stringify(aCurrentFollowingList)
+    );
+    const aFollowing = [];
+    for (let x = 0; x < aCurrentFollowingList.length; x++) {
+      const nextFollowing = aCurrentFollowingList[x];
+      const aNext = [ 'p', nextFollowing ]
+      aFollowing.push(aNext);
+    }
+    const event: NostrEvent = {
+      created_at: dateToUnix(),
+      kind: 3,
+      tags: aFollowing,
+      content: JSON.stringify(oRelaysUpdated),
+      pubkey: getPublicKey(myPrivkey),
+    };
+
+    event.id = getEventHash(event);
+    event.sig = signEvent(event, myPrivkey);
+
+    console.log(`updateFollowingAndRelaysListsInNostr; event: ${JSON.stringify(event)}`);
+
+    publish(event);
   };

@@ -20,14 +20,12 @@ const ActivateNostrRelaysOfCurrentUser = () => {
   dispatch(resetNostrSettingsNostrRelays(oRelays));
   return (
     <>
-      <div>ActivateNostrRelaysOfCurrentUser</div>
-      <div>{myNostrProfile.name}</div>
     </>
   )
 }
 
 export default function AllCurrentProfiles({
-  aMyProfileData,
+  aMyProfilesData,
   updateMyProfile,
 }) {
   const myNostrProfile = useSelector((state) => state.myNostrProfile);
@@ -52,9 +50,12 @@ export default function AllCurrentProfiles({
   };
 
   const updateSelectedProfile = (sqlId, index) => async () => {
-    updateMyProfile(index);
-    const result = await updateMyNostrProfileSetActiveInSql(sqlId);
+    console.log("updateSelectedProfile; sqlId: "+sqlId+"; index: "+index)
+    updateMyProfile(index); // updates which profile has active=true in state; that's it
+    const result = await updateMyNostrProfileSetActiveInSql(sqlId); // updates which profile has active=true in sql; that's it
     dispatch(fetchMyProfile());
+
+
     // activateNostrRelaysOfCurrentUser();
     // dispatch(resetNostrSettingsNostrRelays(myNostrProfile.relays));
 
@@ -82,7 +83,7 @@ export default function AllCurrentProfiles({
     <div className="infoBox">
       <div className="h4">All of my Nostr Profiles</div>
       <ActivateNostrRelaysOfCurrentUser />
-      {aMyProfileData.map((oNextProfile: Object, index) => {
+      {aMyProfilesData.map((oNextProfile: Object, index) => {
         const containerId = `containerId_${oNextProfile.id}`;
         const finalChanceDeleteContainerId = `finalChanceDeleteContainerId_${oNextProfile.id}`;
         const deletedNoticeContainerId = `deletedNoticeContainer_${oNextProfile.id}`;
@@ -107,6 +108,16 @@ export default function AllCurrentProfiles({
           sMultiClientAccess = 'ENABLED';
           multiClientAccessClassName = 'mcaEnabled';
         }
+
+        const oRelays = JSON.parse(oNextProfile.relays)
+        let numRelaysRead = 0;
+        let numRelaysWrite = 0;
+        for (let x=0;x<Object.keys(oRelays).length;x++) {
+          const url = Object.keys(oRelays)[x];
+          if (oRelays[url].read) { numRelaysRead += 1 }
+          if (oRelays[url].write) { numRelaysWrite += 1 }
+        }
+
         if (!isPkValid) {
           deleteRowFromMyNostrProfiles(oNextProfile.id);
           return (
@@ -224,6 +235,13 @@ export default function AllCurrentProfiles({
                     <span className={multiClientAccessClassName}>
                       {sMultiClientAccess}
                     </span>
+                  </div>
+
+                  <div style={{ marginBottom: '5px', color: 'grey' }}>
+                    <span style={{color: 'blue'}}>
+                      {Object.keys(JSON.parse(oNextProfile.relays)).length}
+                    </span>
+                    {' '} relays ({numRelaysRead} read, {numRelaysWrite} write)
                   </div>
 
                   <div style={{ marginBottom: '5px' }}>

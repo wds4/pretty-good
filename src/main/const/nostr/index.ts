@@ -1,3 +1,5 @@
+export let createNostrDirectMessagesTableCommand = '';
+export let createNostrNotesTableCommand = '';
 export let createNostrProfilesTableCommand = '';
 export let createMyProfileTableCommand = '';
 export let createMyFollowingNetworkTableCommand = '';
@@ -21,6 +23,23 @@ export const oDefaultRelayUrls = {
   'wss://nostr.fmt.wiz.biz': { write: true, read: true },
   'wss://nostr.oxtr.dev': { write: true, read: true },
 };
+
+createNostrDirectMessagesTableCommand += 'id INTEGER PRIMARY KEY, ';
+createNostrDirectMessagesTableCommand += 'event TEXT NULL, ';
+createNostrDirectMessagesTableCommand += 'event_id TEXT NULL UNIQUE, ';
+createNostrDirectMessagesTableCommand += 'created_at TEXT NULL UNIQUE, ';
+createNostrDirectMessagesTableCommand += 'pubkey_author TEXT NULL , ';
+createNostrDirectMessagesTableCommand += 'pubkey_recipient TEXT NULL , ';
+createNostrDirectMessagesTableCommand += 'viewed BOOLEAN false , ';
+createNostrDirectMessagesTableCommand += 'UNIQUE(event_id) ';
+
+createNostrNotesTableCommand += 'id INTEGER PRIMARY KEY, ';
+createNostrNotesTableCommand += 'event TEXT NULL, ';
+createNostrNotesTableCommand += 'event_id TEXT NULL UNIQUE, ';
+createNostrNotesTableCommand += 'created_at INTEGER NULL, ';
+createNostrNotesTableCommand += 'pubkey TEXT NULL , ';
+createNostrNotesTableCommand += 'viewed BOOLEAN FALSE , ';
+createNostrNotesTableCommand += 'UNIQUE(event_id) ';
 
 createNostrProfilesTableCommand += 'id INTEGER PRIMARY KEY, ';
 createNostrProfilesTableCommand += 'event TEXT NULL, ';

@@ -1,18 +1,54 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { useNostrEvents } from 'nostr-react';
+import { useNostr, useNostrEvents } from 'nostr-react';
 import { returnMostRecentEvent } from 'renderer/window1/lib/nostr';
 import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
 import { noProfilePicUrl } from 'renderer/window1/const';
 import BlankAvatar from 'renderer/window1/assets/blankAvatar.png';
+import ToggleSwitch from 'renderer/window1/components/toggleSwitchSmall';
+import { updateNostrRelaysForActiveUserInReduxAndNostr } from 'renderer/window1/redux/features/nostr/myNostrProfile/slice';
+import { resetNostrSettingsNostrRelays } from 'renderer/window1/redux/features/nostr/settings/slice';
+import { updateNostrRelaysForActiveUserInSql } from 'renderer/window1/lib/pg/sql';
 
 export default function RelaysList() {
-  const pubkey = useSelector(
-    (state) => state.nostrSettings.nostrProfileFocus
-  );
+  const { publish } = useNostr();
+  const myNostrProfile = useSelector((state) => state.myNostrProfile);
+  const oMyRelays = myNostrProfile.relays;
+  const aMyRelays = Object.keys(oMyRelays);
+  const pubkey = useSelector((state) => state.nostrSettings.nostrProfileFocus);
   const nostrProfiles = useSelector(
     (state) => state.nostrProfiles.nostrProfiles
   );
+  const dispatch = useDispatch();
+  const processStateChange = async (newState, url) => {
+    console.log(`processStateChange; url: ${url}; newState: ${newState}`)
+    const oRelaysUpdated = JSON.parse(JSON.stringify(myNostrProfile.relays));
+
+    /*
+    if (newState) {
+      dispatch(addNewRelay(url))
+    } else {
+      dispatch(removeRelay(url))
+    }
+    */
+    if (newState) {
+      oRelaysUpdated[url] = { read: true, write: true };
+    } else {
+      delete oRelaysUpdated[url];
+    }
+    // update relays list for active user in redux store and broadcast to the nostr network
+    dispatch(
+      updateNostrRelaysForActiveUserInReduxAndNostr(
+        oRelaysUpdated,
+        myNostrProfile,
+        publish
+      )
+    );
+    // then transfer updated settings to the nostr settings store, which makes them the active relay list
+    updateNostrRelaysForActiveUserInSql(oRelaysUpdated);
+    dispatch(resetNostrSettingsNostrRelays(oRelaysUpdated));
+  };
+
   let name = '?';
   let displayName = '?';
   let avatarUrl = noProfilePicUrl;
@@ -33,20 +69,20 @@ export default function RelaysList() {
       kinds: [3],
     },
   });
-  let aRelayUrls = [];
-  let content = {};
+  let oRelays = {};
   if (events.length > 0) {
     const event = returnMostRecentEvent(events);
-    if (doesEventValidate(event)) {
+    if (event && doesEventValidate(event)) {
       if (event.hasOwnProperty('content')) {
-        content = JSON.parse(event.content);
-        aRelayUrls = Object.keys(content);
+        const sRelays = event.content;
+        oRelays = JSON.parse(sRelays);
       }
     }
   }
+  const aRelays = Object.keys(oRelays);
+
   return (
     <>
-      <pre style={{ display: 'none' }}>{JSON.stringify(content, null, 4)}</pre>
       <NavLink
         to="/NostrHome/NostrViewProfile"
         className="goToUserProfileButton"
@@ -95,9 +131,21 @@ export default function RelaysList() {
         >
           Write
         </div>
+        <div
+          className="singleRelayUrlRWContainer"
+          style={{ display: 'inline-block', width: '100px' }}
+        >
+          included in my relay list
+        </div>
       </div>
-      {aRelayUrls.map((url) => {
-        const oRelayInfo = content[url];
+      {aRelays.map((url) => {
+        const toggleSwitchLabel = url;
+        let initState = false;
+        if (aMyRelays.includes(url)) {
+          initState = true;
+        }
+        const oRelayInfo = oRelays[url];
+
         let readHTML = '?';
         if (oRelayInfo.read) {
           readHTML = 'yes';
@@ -112,9 +160,6 @@ export default function RelaysList() {
         }
         return (
           <>
-            <pre style={{ display: 'none' }}>
-              {JSON.stringify(oRelayInfo, null, 4)}
-            </pre>
             <div
               clasName="singleRelayUrlContainer"
               style={{
@@ -144,37 +189,22 @@ export default function RelaysList() {
               >
                 {writeHTML}
               </div>
+              <div
+                className="singleRelayUrlRWContainer"
+                style={{ display: 'inline-block', width: '100px' }}
+              >
+                <ToggleSwitch
+                  label={toggleSwitchLabel}
+                  processStateChange={(newState) =>
+                    processStateChange(newState, url)
+                  }
+                  initState={initState}
+                />
+              </div>
             </div>
           </>
         );
       })}
     </>
   );
-  /*
-  return (
-    <>
-      <div className="h4">relays</div>
-      {events.map((event) => {
-        return (
-          <>
-            <pre>{JSON.stringify(event, null, 4)}</pre>
-          </>
-        );
-      })}
-    </>
-  );
-  */
-
-  /*
-  const event = returnMostRecentEvent(events);
-  if (doesEventValidate(event)) {
-    if (event.hasOwnProperty('content')) {
-      return (
-        <>
-          <pre>{JSON.stringify(event,null,4)}</pre>
-        </>
-      );
-    }
-  }
-  */
 }

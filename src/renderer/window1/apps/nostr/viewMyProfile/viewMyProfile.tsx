@@ -13,7 +13,7 @@ export default function MyProfile() {
   const myNostrProfile = useSelector((state) => state.myNostrProfile);
   let aFollowing = [];
   let aFollowers = [];
-  let aRelays = [];
+  let oRelays = {};
   if (myNostrProfile.following) {
     aFollowing = myNostrProfile.following;
   }
@@ -21,7 +21,14 @@ export default function MyProfile() {
     aFollowers = myNostrProfile.followers;
   }
   if (myNostrProfile.relays) {
-    aRelays = myNostrProfile.relays;
+    oRelays = myNostrProfile.relays;
+  }
+  let numRelaysRead = 0;
+  let numRelaysWrite = 0;
+  for (let x=0;x<Object.keys(oRelays).length;x++) {
+    const url = Object.keys(oRelays)[x];
+    if (oRelays[url].read) { numRelaysRead += 1 }
+    if (oRelays[url].write) { numRelaysWrite += 1 }
   }
   let sMultiClientAccess = "DISABLED";
   let multiClientAccessClassName = "mcaDisabled";
@@ -69,7 +76,7 @@ export default function MyProfile() {
               style={{ marginLeft: '10px' }}
             >
               <div style={{ display: 'inline-block', marginRight: '5px' }}>
-                {aRelays.length}
+                {Object.keys(oRelays).length}/{numRelaysRead}/{numRelaysWrite}
               </div>
               relays
             </NavLink>

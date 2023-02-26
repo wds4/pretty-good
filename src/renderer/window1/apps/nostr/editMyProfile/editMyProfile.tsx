@@ -285,7 +285,7 @@ const EditMyProfile = () => {
           <textarea
             id="nameContainer"
             className="editProfileRightColContainer"
-            placeholder="Satoshi Nakamoto"
+            placeholder="satoshi"
           >
             {myNostrProfile.name}
           </textarea>
@@ -296,7 +296,7 @@ const EditMyProfile = () => {
           <textarea
             id="displayNameContainer"
             className="editProfileRightColContainer"
-            placeholder="satoshi"
+            placeholder="Satoshi Nakamoto"
           >
             {myNostrProfile.display_name}
           </textarea>

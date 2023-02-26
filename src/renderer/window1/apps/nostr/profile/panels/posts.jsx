@@ -1,38 +1,38 @@
 import React from 'react';
-import { useNostrEvents } from 'nostr-react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Post from 'renderer/window1/apps/nostr/components/post';
-import { doesEventValidate } from '../../../../lib/nostr/eventValidation';
-import { updateNostrEvents } from '../../../../redux/features/nostr/settings/slice';
-import { timeout } from 'renderer/window1/lib/pg';
+import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
+import FetchPostsInBackground from './fetchPostsInBackground';
 
 const Posts = () => {
-  const pubkey = useSelector(
-    (state) => state.nostrSettings.nostrProfileFocus
-  );
-  const dispatch = useDispatch();
-  const { events } = useNostrEvents({
-    filter: {
-      authors: [pubkey],
-      since: 0, // all new events from now
-      kinds: [1],
-    },
-  });
+  const pubkey = useSelector((state) => state.nostrSettings.nostrProfileFocus);
+  const nostrNotesByAuthor = useSelector((state) => state.nostrNotes.notes);
+  let oNostrNotesThisAuthor = nostrNotesByAuthor[pubkey];
+  if (!oNostrNotesThisAuthor) { oNostrNotesThisAuthor = {} }
+  let aNostrNotesThisAuthor = Object.keys(oNostrNotesThisAuthor);
+  if (!aNostrNotesThisAuthor) { aNostrNotesThisAuthor = [] }
+  const aEvents = [];
+  for (let x = 0; x < aNostrNotesThisAuthor.length; x++) {
+    const nextId = aNostrNotesThisAuthor[x];
+    aEvents.push(oNostrNotesThisAuthor[nextId].event);
+  }
+  aEvents.sort((a, b) => parseFloat(b.created_at) - parseFloat(a.created_at));
+
   return (
     <>
+      <FetchPostsInBackground />
       <div style={{ textAlign: 'right', marginRight: '20px' }}>
-        {events.length} posts
+        {aNostrNotesThisAuthor.length} posts
       </div>
-      {events.map((event) => {
-        if (doesEventValidate(event)) {
-          dispatch(updateNostrEvents(event));
-          return (
-            <>
-              <Post event={event} />
-            </>
-          );
-        }
-      })}
+        {aEvents.map((event) => {
+          if (doesEventValidate(event)) {
+            return (
+              <>
+                <Post event={event} />
+              </>
+            );
+          }
+        })}
     </>
   );
 };

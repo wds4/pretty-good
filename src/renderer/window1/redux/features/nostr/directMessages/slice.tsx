@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
 import { removeDuplicatesFromArrayOfStrings } from 'renderer/window1/lib/pg/index';
-import { doesEventValidate } from '../../../../lib/nostr/eventValidation';
+import { addDirectMessageToSql } from 'renderer/window1/lib/pg/sql';
+import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
 
 /*
 directMessages: {
@@ -22,6 +23,29 @@ export const nostrDirectMessagesSlice = createSlice({
     directMessages: {}, // arrange by id ?
   },
   reducers: {
+    initNostrDirectMessages: (state, action) => {
+      const aNostrDirectMessagesData = action.payload;
+      for (let x=0;x<aNostrDirectMessagesData.length;x++) {
+        const oDirectMessageData = aNostrDirectMessagesData[x];
+        const event = JSON.parse(oDirectMessageData.event);
+        if (doesEventValidate(event)) {
+          const { id } = event;
+          const pk_author = event.pubkey;
+          const pk_recipient = event.tags.find(
+            ([k, v]) => k === 'p' && v && v !== ''
+          )[1];
+          if (!state.directMessages.hasOwnProperty(pk_author)) {
+            state.directMessages[pk_author] = {};
+          }
+          if (!state.directMessages[pk_author].hasOwnProperty(pk_recipient)) {
+            state.directMessages[pk_author][pk_recipient] = {};
+          }
+          state.directMessages[pk_author][pk_recipient][id] = {};
+          state.directMessages[pk_author][pk_recipient][id].event = event;
+          state.directMessages[pk_author][pk_recipient][id].viewed = false;
+        }
+      }
+    },
     addDirectMessage: (state, action) => {
       const { myPubkey } = action.payload;
       const { event } = action.payload;
@@ -45,7 +69,7 @@ export const nostrDirectMessagesSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 
-export const { addDirectMessage } = nostrDirectMessagesSlice.actions;
+export const { addDirectMessage, initNostrDirectMessages } = nostrDirectMessagesSlice.actions;
 
 export default nostrDirectMessagesSlice.reducer;
 
@@ -86,6 +110,7 @@ export const addDirectMessageToSqlAndReduxStore =
     // maybe add check that event has not already been added
     if (doesEventValidate(event)) {
       dispatch(addDirectMessage({ event, myPubkey }));
+      addDirectMessageToSql(event)
       // const result = await addDirectMessageToSql(event)
     }
   };

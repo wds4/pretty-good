@@ -2,9 +2,9 @@ import React from 'react';
 import { useNostrEvents } from 'nostr-react';
 import { useSelector, useDispatch } from 'react-redux';
 import Post from 'renderer/window1/apps/nostr/components/post';
-import { doesEventValidate } from '../../../lib/nostr/eventValidation';
-import { updateNostrEvents } from '../../../redux/features/nostr/settings/slice';
-import { timeout } from 'renderer/window1/lib/pg';
+import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
+import { addNostrNoteToSql } from 'renderer/window1/lib/pg/sql';
+import { addNote } from 'renderer/window1/redux/features/nostr/notes/slice';
 
 const Thread = () => {
   const event_focus = useSelector(
@@ -12,6 +12,8 @@ const Thread = () => {
   );
   const dispatch = useDispatch();
   const id_focus = event_focus.id
+
+  const nostrNotesByAuthor = useSelector((state) => state.nostrNotes.notes);
 
   const { events } = useNostrEvents({
     filter: {
@@ -21,6 +23,13 @@ const Thread = () => {
     },
   });
 
+  events.map( async (event) => {
+    if (doesEventValidate(event)) {
+      dispatch(addNote(event));
+      const res = await addNostrNoteToSql(event);
+    }
+  })
+
   return (
     <>
       <Post event={event_focus} />
@@ -29,7 +38,6 @@ const Thread = () => {
       </div>
       {events.map((event) => {
         if (doesEventValidate(event)) {
-          dispatch(updateNostrEvents(event));
           return (
             <>
               <Post event={event} />

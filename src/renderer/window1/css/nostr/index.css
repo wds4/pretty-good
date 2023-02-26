@@ -1,0 +1,15 @@
+.singleRelayStatusDisconnected {
+  color: red;
+}
+.singleRelayStatusConnected {
+  color: green;
+}
+.zapButton:hover {
+  cursor:pointer;
+}
+.xButton {
+
+}
+.xButton:hover {
+  cursor:pointer;
+}

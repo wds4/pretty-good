@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
+import { useNostr } from 'nostr-react';
 import {
   updateNostrRelayStoreAndSql,
   addNostrRelay,
@@ -7,14 +8,40 @@ import {
 import {
   addNewRelayToSql,
 } from 'renderer/window1/lib/pg/sql';
+import { updateNostrRelaysForActiveUserInReduxAndNostr } from 'renderer/window1/redux/features/nostr/myNostrProfile/slice';
+import { resetNostrSettingsNostrRelays } from 'renderer/window1/redux/features/nostr/settings/slice';
+import { updateNostrRelaysForActiveUserInSql } from 'renderer/window1/lib/pg/sql';
 
 const AddNewRelay = () => {
+  const { publish } = useNostr();
   const dispatch = useDispatch();
+  const myNostrProfile = useSelector((state) => state.myNostrProfile);
+  const oRelaysUpdated = JSON.parse(JSON.stringify(myNostrProfile.relays));
   const addNew = async () => {
     const e1 = document.getElementById('newRelayTextarea');
     if (e1) {
       const newUrl = `wss://${e1.value}`;
       console.log(`newUrl: ${newUrl}`);
+      oRelaysUpdated[newUrl] = { read: true, write: true };
+      // update relays list for active user in redux store and broadcast to the nostr network
+
+      dispatch(
+        updateNostrRelaysForActiveUserInReduxAndNostr(
+          oRelaysUpdated,
+          myNostrProfile,
+          publish
+        )
+      );
+      // then transfer updated settings to the nostr settings store, which makes them the active relay list
+      updateNostrRelaysForActiveUserInSql(oRelaysUpdated);
+      dispatch(resetNostrSettingsNostrRelays(oRelaysUpdated));
+      const e2 = document.getElementById('newRelayAddedSuccess');
+      if (e2) {
+        const successMessage = `${newUrl} successfully added to the database.`;
+        e2.innerHTML = successMessage;
+        e1.value = "";
+      }
+      /*
       const res = await addNewRelayToSql(newUrl);
       dispatch(addNostrRelay(newUrl));
       if (res) {
@@ -28,6 +55,7 @@ const AddNewRelay = () => {
           }
         }
       }
+      */
     }
   };
   return (

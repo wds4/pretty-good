@@ -9,6 +9,18 @@ const RelaysStatus = () => {
 
   const myNostrProfile = useSelector((state) => state.myNostrProfile);
   const nostrSettings = useSelector((state) => state.nostrSettings);
+  const oRelays = nostrSettings.nostrRelays;
+  const aRelays = Object.keys(oRelays)
+  const aActiveRelayUrls = [];
+  for (let x=0;x<aRelays.length;x++) {
+    if (oRelays[aRelays[x]].read) {
+      aActiveRelayUrls.push(aRelays[x])
+    }
+  }
+  const aConnectedRelays = [];
+  for (let x=0;x<connectedRelays.length;x++) {
+    aConnectedRelays.push(connectedRelays[x].url)
+  }
 
   return (
     <div >
@@ -41,14 +53,27 @@ const RelaysStatus = () => {
               id="connectedRelaysVerboseContainer"
               style={{ textAlign: 'left', display: 'block', height: 'auto', marginBottom: '10px' }}
             >
-              {connectedRelays.map((oRelay, item) => {
-                const { url } = oRelay;
+              {aActiveRelayUrls.map((url, item) => {
+                let isConnected = "false";
+                let singleRelayStatusClassName = "singleRelayStatusDisconnected";
+                if (aConnectedRelays.includes(url)) {
+                  isConnected = "true";
+                  singleRelayStatusClassName = "singleRelayStatusConnected";
+                }
                 return (
-                  <div>
+                  <div className={singleRelayStatusClassName} >
                     {item + 1}: {url}
                   </div>
                 );
               })}
+              <pre style={{ display: 'inline-block', width: '250px', fontSize: '8px', border: '1px solid black', padding: '5px' }}>
+                <center>connectedRelays</center>
+                {JSON.stringify(connectedRelays,null,4)}
+              </pre>
+              <pre style={{ display: 'inline-block', width: '250px', fontSize: '8px', border: '1px solid black', padding: '5px' }}>
+                <center>nostr relay stats</center>
+                {JSON.stringify(nostrSettings.nostrRelayStats,null,4)}
+              </pre>
               <pre style={{ display: 'inline-block', width: '250px', fontSize: '8px', border: '1px solid black', padding: '5px' }}>
                 <center>redux: nostrSettings.nostrRelays</center>
                 <center>(fed into NostrProvider)</center>

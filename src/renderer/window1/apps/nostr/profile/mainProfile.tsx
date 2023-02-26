@@ -66,17 +66,29 @@ const MainProfile = ({pubkey}) => {
   });
 
   const event = returnMostRecentEvent(events);
+  let lnurl = 'LUNRL';
+  let content = {};
+  let zapButtonClassName = 'block_hide';
   if (event && doesEventValidate(event)) {
     dispatch(updateNostrProfiles(event));
     event_ = JSON.parse(JSON.stringify(event));
-    const content = JSON.parse(event.content);
+    content = JSON.parse(event.content);
     event_.content = content;
     name = content.name;
     displayName = content.display_name;
     website = content.website;
     about = content.about;
     profilePicUrl = content.picture;
+    lnurl = content?.lud06;
+    if (lnurl) {
+      zapButtonClassName = 'zapButton';
+    }
   }
+  const toggleLnurl = () => {
+    let e = document.getElementById("lud06Container");
+    e.style.display = 'inline-block';
+  }
+
   return (
     <>
       <pre className={devModeClassName}>
@@ -120,6 +132,9 @@ const MainProfile = ({pubkey}) => {
           </div>
 
           <div>
+            <div onClick={()=>toggleLnurl()} style={{ display: 'inline-block', marginRight: '10px' }}>
+              <div className={zapButtonClassName} style={{ fontSize: '28px' }}>⚡</div>
+            </div>
             <div style={{ display: 'inline-block' }}>
               <NavLink
                 end
@@ -132,6 +147,11 @@ const MainProfile = ({pubkey}) => {
             <div style={{ display: 'inline-block', marginLeft: '10px' }}>
               <FollowButton pubkey={pubkey} />
             </div>
+            <div id='lud06Container' style={{display:'none',marginLeft:'10px',fontSize:'12px',padding:'2px',border:'1px solid grey',width:'70%'}}>
+              {lnurl}
+            </div>
+          </div>
+          <div>
             <div className={grapevineProfileControlPanelClassName}>
               <UserGrapevinePanel />
             </div>

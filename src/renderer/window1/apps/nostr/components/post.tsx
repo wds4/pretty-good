@@ -91,29 +91,29 @@ const Post = ({ event, index }) => {
   return (
     <>
       <div className="eventContainer">
-        <div className="smallAvatarContainer">
-          <img src={avatarUrl} className="smallAvatarBox_show" />
-        </div>
+        <NavLink
+          onClick={() => {
+            dispatch(updateNostrProfileFocus(event.pubkey));
+          }}
+          to={{
+            pathname: '/NostrHome/NostrViewProfile',
+            state: { pubkey: event.pubkey },
+          }}
+        >
+          <div className="smallAvatarContainer">
+            <img src={avatarUrl} className="smallAvatarBox_show" />
+          </div>
+        </NavLink>
         <div className="eventMainBodyContainer">
           <div className="eventNameAndTimeContainer">
-            <NavLink
-              onClick={() => {
-                dispatch(updateNostrProfileFocus(event.pubkey));
-              }}
-              to={{
-                pathname: '/NostrHome/NostrViewProfile',
-                state: { pubkey: event.pubkey },
-              }}
-            >
-              <div className="eventNameContainer">
-                <span className={nameClass} style={{ marginRight: '10px' }}>
-                  {displayName}
-                  <span style={{ color: 'grey', marginLeft: '10px' }}>
-                    {name}
-                  </span>
+            <div className="eventNameContainer">
+              <span className={nameClass} style={{ marginRight: '10px' }}>
+                {displayName}
+                <span style={{ color: 'grey', marginLeft: '10px' }}>
+                  {name}
                 </span>
-              </div>
-            </NavLink>
+              </span>
+            </div>
             <div className="eventTimeContainer">{displayTime}</div>
           </div>
           <NavLink

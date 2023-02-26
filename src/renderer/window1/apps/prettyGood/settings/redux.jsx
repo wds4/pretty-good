@@ -10,6 +10,7 @@ import Counter from 'renderer/window1/redux/features/counter/helloWorld';
 import NostrSettings from 'renderer/window1/redux/features/nostr/settings/helloWorld';
 import NostrDirectMessages from 'renderer/window1/redux/features/nostr/directMessages/helloWorld';
 import NostrProfiles from 'renderer/window1/redux/features/nostr/profiles/helloWorld';
+import NostrNotes from 'renderer/window1/redux/features/nostr/notes/helloWorld';
 
 export default class PrettyGoodSettings extends React.Component {
   constructor(props) {
@@ -36,6 +37,7 @@ export default class PrettyGoodSettings extends React.Component {
             <div className="h4">Redux: Hello World</div>
             <br />
             <Counter />
+            <NostrNotes />
             <NostrSettings />
             <NostrDirectMessages />
             <NostrProfiles />

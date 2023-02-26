@@ -1,8 +1,15 @@
-import { useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { updateShowWelcomeBox } from 'renderer/window1/redux/features/nostr/myNostrProfile/slice';
 import NostrMiniProfile from '../components/miniProfile';
 
 const WelcomeBox = () => {
+  const dispatch = useDispatch();
+  // const [welcomeBoxClassName, setWelcomeBoxClassName] = useState('block_hide');
+  const showWelcomeBox = useSelector(
+    (state) => state.myNostrProfile.showWelcomeBox
+  );
   const mainNostrFeedFilter = useSelector(
     (state) => state.nostrSettings.mainNostrFeedFilter
   );
@@ -11,9 +18,22 @@ const WelcomeBox = () => {
   if (myNostrProfile.following) {
     aFollowing = myNostrProfile.following;
   }
-  let followingClassName = 'block_hide';
+  let hideWelcomeBoxButtonClassName = 'block_show';
   if (mainNostrFeedFilter === 'following' && aFollowing.length === 0) {
-    followingClassName = 'block_show';
+    // setWelcomeBoxClassName('block_show')
+    console.log("aFollowing.length: "+aFollowing.length)
+    dispatch(updateShowWelcomeBox(true));
+    hideWelcomeBoxButtonClassName = 'block_hide';
+  }
+  let welcomeBoxClassName = 'block_hide';
+
+  if (showWelcomeBox) {
+    welcomeBoxClassName = 'block_show';
+
+  }
+
+  const hideWelcomeBox = () => {
+    dispatch(updateShowWelcomeBox(false));
   }
 
   const aSuggestedProfiles = [
@@ -25,8 +45,12 @@ const WelcomeBox = () => {
 
   return (
     <>
-      <div className={followingClassName}>
+      <div className={welcomeBoxClassName}>
         <div className="h2">Welcome to Pretty Good nostr!</div>
+        <div className={hideWelcomeBoxButtonClassName} style={{float:'right',marginRight:'20px'}}>
+          hide welcome box:
+          <span onClick={()=>hideWelcomeBox()} className="xButton" style={{marginLeft:'5px',border:'1px solid black',padding:'2px'}}>X</span>
+        </div>
         <p>
           If you have a private key from another client, you can add it
           <NavLink to="/NostrHome/NostrProfiles" style={{ marginLeft: '5px' }}>

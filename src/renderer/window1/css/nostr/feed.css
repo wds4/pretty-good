@@ -73,12 +73,6 @@
     overflow:auto;
     padding-left:3px;
 }
-.eventNameContainer:hover {
-    border-radius:5px;
-    padding-left:3px;
-    background-color:grey;
-    color:white;
-}
 .eventTimeContainer {
     display:inline-block;
     color:grey;

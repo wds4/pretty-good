@@ -25,6 +25,7 @@ export const nostrSettingsSlice = createSlice({
     nostrMainFeed: [],
     nostrBackButtonStack: [], // keeps track of back button actions
     nostrRelays: {},
+    nostrRelayStats: {},
     nostrRelayManagement: {
       endorseMyNostrRelays: false,
       relayManagementStyle: 'manual',
@@ -73,6 +74,7 @@ export const nostrSettingsSlice = createSlice({
     updateNostrPostFocusEvent: (state, action) => {
       state.nostrPostFocusEvent = action.payload;
     },
+    // deprecating nostrSettings.nostrEvents and updateNostrEvents; replace with nostrNotes.notes and addNote
     updateNostrEvents: (state, action) => {
       if (doesEventValidate(action.payload)) {
         // payload should be an event of kind 0 and should be the most uptodate version for that profile
@@ -84,6 +86,8 @@ export const nostrSettingsSlice = createSlice({
       state.nostrBackButtonStack += action.payload;
     },
     initNostrRelays: (state, action) => {
+      state.nostrRelays = action.payload;
+      /*
       const aRelaysData = action.payload;
       const oRelaysData = {};
       for (let r = 0; r < aRelaysData.length; r += 1) {
@@ -91,6 +95,7 @@ export const nostrSettingsSlice = createSlice({
         oRelaysData[oRelayData.url] = oRelayData;
       }
       state.nostrRelays = oRelaysData;
+      */
     },
     updateNostrRelay: (state, action) => {
       const oNewState = action.payload;
@@ -117,7 +122,26 @@ export const nostrSettingsSlice = createSlice({
     resetNostrSettingsNostrRelays: (state, action) => {
       state.nostrRelays = action.payload;
     },
-
+    incrementRelayDisconnectCount: (state, action) => {
+      const url = action.payload;
+      // state.nostrRelays.foo = "bar"
+      if (!state.nostrRelayStats[url]) {
+        state.nostrRelayStats[url] = {};
+        state.nostrRelayStats[url].disconnects = 0;
+      }
+      state.nostrRelayStats[url].disconnects += 1;
+      console.log(`incrementRelayDisconnectCount; url: ${url}`)
+      /*
+      // state.nostrRelays = action.payload;
+      state.nostrRelays[url].foo = "bar";
+      if (!state.nostrRelayDisconnects[url]) {
+        state.nostrRelayDisconnects[url] = 1;
+      } else {
+        state.nostrRelayDisconnects[url] += 1;
+      }
+      state.nostrRelays[url].disconnects = 10;
+      */
+    },
   },
 });
 
@@ -140,7 +164,8 @@ export const {
   updateNostrRelay,
   addNostrRelay,
   removeNostrRelay,
-  resetNostrSettingsNostrRelays
+  resetNostrSettingsNostrRelays,
+  incrementRelayDisconnectCount
 } = nostrSettingsSlice.actions;
 
 export default nostrSettingsSlice.reducer;

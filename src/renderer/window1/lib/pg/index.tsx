@@ -10,7 +10,7 @@ export const isValidObj = (x) => {
   // test if the input is a string that converts into JSON
   try {
     const obj1 = JSON.parse(x);
-    return true;
+    // return true;
   } catch (e1) {}
 
   // test if the input is already an object

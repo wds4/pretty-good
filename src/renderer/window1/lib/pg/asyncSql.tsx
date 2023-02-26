@@ -4,7 +4,7 @@ between the main process and the renderer process.
 */
 export const asyncSql = async (sql: string) => {
   const nonce = Math.floor(Math.random() * 100000);
-  console.log(`asyncSql; nonce: ${nonce}`);
+  // console.log(`asyncSql; nonce: ${nonce}`);
   return new Promise((resolve) => {
     window.electron.ipcRenderer.once(
       `asynchronous-sql-reply-${nonce}`,

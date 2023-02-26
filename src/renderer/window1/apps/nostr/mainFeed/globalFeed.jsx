@@ -3,10 +3,104 @@ import { useNostrEvents, dateToUnix } from 'nostr-react';
 import { useSelector, useDispatch } from 'react-redux';
 import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
 import { updateNostrEvents } from 'renderer/window1/redux/features/nostr/settings/slice';
-import { setTwoBackSteps, setCurrentPage } from 'renderer/window1/redux/features/prettyGood/settings/slice';
-import Post from '../components/post';
+import { addNote } from 'renderer/window1/redux/features/nostr/notes/slice';
+import {
+  setTwoBackSteps,
+  setCurrentPage,
+} from 'renderer/window1/redux/features/prettyGood/settings/slice';
+import { addNostrNoteToSql } from 'renderer/window1/lib/pg/sql';
+import Post from 'renderer/window1/apps/nostr/components/post';
 import MainFeedTypeSelector from './mainFeedTypeSelector';
 import WelcomeBox from './welcomeBox';
+
+const GlobalFeedFetchRecentPostsInBackground = ({ filter }) => {
+  const dispatch = useDispatch();
+  const now = useRef(new Date()); // Make sure current time isn't re-rendered
+  const currentTime = dateToUnix(now.current);
+  let filter2 = JSON.parse(JSON.stringify(filter))
+  filter2.since = currentTime - 30 * 60; // 60 * 60 = fetch messages as old as one hour
+
+  const { events } = useNostrEvents({
+    filter: filter2,
+  });
+
+  events.map(async (event, index) => {
+    if (doesEventValidate(event)) {
+      dispatch(addNote(event));
+      const res = await addNostrNoteToSql(event);
+    }
+  });
+  return (
+    <>
+      <div style={{ textAlign: 'right', marginRight: '20px', display: 'none' }}>
+        currently downloading (w/in past hour): {events.length} posts;
+      </div>
+    </>
+  );
+};
+
+const GlobalFeedFetchPostsInBackground = ({ filter }) => {
+  const dispatch = useDispatch();
+
+  const { events } = useNostrEvents({
+    filter,
+  });
+
+  events.map(async (event, index) => {
+    if (doesEventValidate(event)) {
+      dispatch(addNote(event));
+      const res = await addNostrNoteToSql(event);
+    }
+  });
+  return (
+    <>
+      <div style={{ textAlign: 'right', marginRight: '20px', display: 'none' }}>
+        currently downloading (w/in past 2 days): {events.length} posts;
+      </div>
+    </>
+  );
+};
+
+const GlobalFeedDisplayFromRedux = ({ filter }) => {
+  let oNotesAllAuthors = {};
+  const oNostrNotesByAuthor = useSelector((state) => state.nostrNotes.notes);
+  const aNostrNoteAuthors = Object.keys(oNostrNotesByAuthor);
+  for (let a = 0; a < aNostrNoteAuthors.length; a++) {
+    const pk = aNostrNoteAuthors[a];
+    if (filter.authors.includes(pk)) {
+      const oNotesThisAuthor = oNostrNotesByAuthor[pk];
+      oNotesAllAuthors = Object.assign(oNotesAllAuthors, oNotesThisAuthor);
+    }
+  }
+  const aNotesAllAuthors = Object.keys(oNotesAllAuthors);
+  const aEvents = [];
+  for (let x = 0; x < aNotesAllAuthors.length; x++) {
+    const nextId = aNotesAllAuthors[x];
+    aEvents.push(oNotesAllAuthors[nextId].event);
+  }
+  // aEvents.filter(a => parseFloat(a.created_at) > filter.since).sort((a, b) => parseFloat(b.created_at) - parseFloat(a.created_at));
+  aEvents.sort((a, b) => parseFloat(b.created_at) - parseFloat(a.created_at));
+  const now = useRef(new Date()); // Make sure current time isn't re-rendered
+  const currentTime = dateToUnix(now.current);
+  return (
+    <>
+      <div>
+        <div style={{ textAlign: 'right', marginRight: '20px', display: 'none' }}>
+          currently showing: {aEvents.length} posts
+        </div>
+        {aEvents.map((event) => {
+          if (doesEventValidate(event)) {
+            return (
+              <>
+                <Post event={event} />
+              </>
+            );
+          }
+        })}
+      </div>
+    </>
+  );
+};
 
 const GlobalFeed = () => {
   const devMode = useSelector((state) => state.prettyGoodGlobalState.devMode);
@@ -16,17 +110,18 @@ const GlobalFeed = () => {
   }
   const dispatch = useDispatch();
   dispatch(setTwoBackSteps());
-  dispatch(setCurrentPage("mainFeed"));
-  const mainNostrFeedFilter = useSelector(
-    (state) => state.nostrSettings.mainNostrFeedFilter
-  );
+  dispatch(setCurrentPage('mainFeed'));
+
   const myNostrProfile = useSelector((state) => state.myNostrProfile);
   const aFollowing = myNostrProfile.following;
   const aExtendedFollowing = [];
 
+  const mainNostrFeedFilter = useSelector(
+    (state) => state.nostrSettings.mainNostrFeedFilter
+  );
+
   const now = useRef(new Date()); // Make sure current time isn't re-rendered
   const currentTime = dateToUnix(now.current);
-
   const filter = { kinds: [1] };
   switch (mainNostrFeedFilter) {
     case 'following':
@@ -51,11 +146,7 @@ const GlobalFeed = () => {
       filter.since = currentTime - 30 * 60;
       break;
   }
-
-  const { events } = useNostrEvents({
-    filter,
-  });
-
+  // <GlobalFeedFetchRecentPostsInBackground filter={filter} />
   return (
     <>
       <pre className={devModeClassName}>
@@ -73,21 +164,9 @@ const GlobalFeed = () => {
       <pre className={devModeClassName}>
         aFollowing: {JSON.stringify(aFollowing, null, 4)}
       </pre>
-      <div>
-        <div style={{ textAlign: 'right', marginRight: '20px' }}>
-          {events.length} posts
-        </div>
-        {events.map((event, index) => {
-          if (doesEventValidate(event)) {
-            dispatch(updateNostrEvents(event));
-            return (
-              <>
-                <Post event={event} index={index} />
-              </>
-            );
-          }
-        })}
-      </div>
+      <GlobalFeedFetchPostsInBackground filter={filter} />
+
+      <GlobalFeedDisplayFromRedux filter={filter} />
     </>
   );
 };

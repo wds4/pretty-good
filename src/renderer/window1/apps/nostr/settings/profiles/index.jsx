@@ -15,7 +15,7 @@ export default class NostrProfiles extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      aMyProfileData: [],
+      aMyProfilesData: [],
     };
   }
 
@@ -24,20 +24,21 @@ export default class NostrProfiles extends React.Component {
     const mastheadDescriptor = 'Nostr: My Profiles';
     updateMastheadCenter(mastheadDescriptor);
 
-    const aMyProfileData = await fetchAllMyNostrProfilesFromSql();
-    this.setState({ aMyProfileData });
+    const aMyProfilesData = await fetchAllMyNostrProfilesFromSql();
+    this.setState({ aMyProfilesData });
   }
 
   updateMyProfile = (index) => {
     console.log(`updateMyProfile reached; index: ${index}`);
-    const aMyProfileDataUpdated = JSON.parse(
-      JSON.stringify(this.state.aMyProfileData)
+    const aMyProfilesDataUpdated = JSON.parse(
+      JSON.stringify(this.state.aMyProfilesData)
     );
-    for (let i = 0; i < aMyProfileDataUpdated.length; i += 1) {
-      aMyProfileDataUpdated[i].active = false;
+    for (let i = 0; i < aMyProfilesDataUpdated.length; i += 1) {
+      aMyProfilesDataUpdated[i].active = false;
     }
-    aMyProfileDataUpdated[index].active = true;
-    this.setState({ aMyProfileData: aMyProfileDataUpdated });
+    aMyProfilesDataUpdated[index].active = true;
+
+    this.setState({ aMyProfilesData: aMyProfilesDataUpdated });
   };
 
   render() {
@@ -51,7 +52,7 @@ export default class NostrProfiles extends React.Component {
           <Masthead />
           <div id="mainPanel">
             <AllCurrentProfiles
-              aMyProfileData={this.state.aMyProfileData}
+              aMyProfilesData={this.state.aMyProfilesData}
               updateMyProfile={this.updateMyProfile}
             />
             <GenerateNewKeys />

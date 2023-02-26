@@ -1,4 +1,6 @@
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { incrementRelayDisconnectCount } from 'renderer/window1/redux/features/nostr/settings/slice';
 import DirectMessageController from 'renderer/window1/apps/nostr/listeners/dmListener';
 import MyProfileController from 'renderer/window1/apps/nostr/listeners/myProfileListener';
 // package dep:
@@ -52,10 +54,12 @@ import ConceptGraphSettings from './apps/conceptGraph/settings';
 
 const AppRoutes = () => {
   const { onDisconnect } = useNostr();
+  const dispatch = useDispatch();
   const onDisconnectCallback = (relay) => {
     console.log(
       `onDisconnectCallback, AppRoutes component; relay.url: ${relay.url}`
     );
+    dispatch(incrementRelayDisconnectCount(relay.url))
     setTimeout(() => {
       relay
         .connect()

@@ -37,11 +37,11 @@ const FollowButton = ({ pubkey }) => {
   // access following list and relays list from redux store and publish an event with current lists to nostr
   const updateFollowingAndRelaysListsInNostr = () => {
     const oCurrentRelaysList = myNostrProfile.relays;
-    const aCurrentRelaysList = myNostrProfile.following;
-    console.log("updateFollowingAndRelaysListsInNostr; oCurrentRelaysList: "+JSON.stringify(oCurrentRelaysList)+"; aCurrentRelaysList: "+JSON.stringify(aCurrentRelaysList));
+    const aCurrentFollowingList = myNostrProfile.following;
+    console.log("updateFollowingAndRelaysListsInNostr; oCurrentRelaysList: "+JSON.stringify(oCurrentRelaysList)+"; aCurrentFollowingList: "+JSON.stringify(aCurrentFollowingList));
     const aFollowing = [];
-    for (let x=0;x<aCurrentRelaysList.length;x++) {
-      let nextFollowing = aCurrentRelaysList[x];
+    for (let x=0;x<aCurrentFollowingList.length;x++) {
+      let nextFollowing = aCurrentFollowingList[x];
       let aNext = [ 'p', nextFollowing ]
       aFollowing.push(aNext)
     }

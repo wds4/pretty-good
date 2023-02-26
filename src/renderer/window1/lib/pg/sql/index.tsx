@@ -2,11 +2,31 @@ import { dateToUnix } from 'nostr-react';
 import { asyncSql } from '../asyncSql';
 import { generateNewNostrKeys } from '../../nostr';
 
+export const addDirectMessageToSql = async (event) => {
+  const pk_recipient = event.tags.find(
+    ([k, v]) => k === 'p' && v && v !== ''
+  )[1];
+  const sql = ` INSERT OR IGNORE INTO nostrDirectMessages (event, event_id, created_at, pubkey_author, pubkey_recipient) VALUES('${JSON.stringify(event)}', '${event.id}', '${event.created_at}', '${event.pubkey}', '${pk_recipient}' ) `;
+  const res = await asyncSql(sql);
+  return res;
+};
+export const addNostrNoteToSql = async (event) => {
+  const sql = ` INSERT OR IGNORE INTO nostrNotes (event, event_id, created_at, pubkey) VALUES('${JSON.stringify(
+    event
+  )}', '${event.id}', '${event.created_at}', '${event.pubkey}' ) `;
+  const res = await asyncSql(sql);
+  return res;
+};
+
 export const updateThisProfileInSql = (event) => {
-  console.log("updateThisProfileInSql; event: "+JSON.stringify(event,null,4))
+  console.log(
+    `updateThisProfileInSql; event: ${JSON.stringify(event, null, 4)}`
+  );
   const currentTime = dateToUnix(new Date());
 
-  const sql1 = ` INSERT OR IGNORE INTO nostrProfiles (pubkey,event,firstSeen) VALUES('${event.pubkey}','${JSON.stringify(event)}',${currentTime}) `;
+  const sql1 = ` INSERT OR IGNORE INTO nostrProfiles (pubkey,event,firstSeen) VALUES('${
+    event.pubkey
+  }','${JSON.stringify(event)}',${currentTime}) `;
   // console.log("updateThisProfileInSql; sql1: "+sql1);
   const res1 = asyncSql(sql1);
 
@@ -17,7 +37,7 @@ export const updateThisProfileInSql = (event) => {
   sql2 += ` WHERE pubkey = '${event.pubkey}' `;
   // console.log("updateThisProfileInSql; sql2: "+sql2);
   const res2 = asyncSql(sql2);
-}
+};
 
 export const fetchMyActiveNostrProfileFromSql = async (initNewProfile) => {
   const sql = 'SELECT * FROM myNostrProfile WHERE active=true';
@@ -51,7 +71,9 @@ export const fetchMyActiveNostrProfileFromSql = async (initNewProfile) => {
 export const fetchAllMyNostrProfilesFromSql = async () => {
   const sql = 'SELECT * FROM myNostrProfile ';
   const aMyProfileData = await asyncSql(sql);
-
+  console.log(
+    `fetchAllMyNostrProfilesFromSql: ${JSON.stringify(aMyProfileData[0])}`
+  );
   return aMyProfileData;
 };
 
@@ -65,7 +87,7 @@ export const fetchExtendedFollowingListFromSql = async () => {
 export const addNewRowToMyNostrProfileInSql = async (pubkey, privkey) => {
   // pubkey is hex formatted
   const sql = ` INSERT OR IGNORE INTO myNostrProfile (pubkey,privkey,active) VALUES ('${pubkey}','${privkey}',false) `;
-  console.log("addNewRowToMyNostrProfileInSql; sql: "+sql)
+  console.log(`addNewRowToMyNostrProfileInSql; sql: ${sql}`);
   return asyncSql(sql);
 };
 
@@ -89,19 +111,37 @@ export const updateMyNostrProfileSetActiveInSql = async (sqlId) => {
   return true;
 };
 
-export const updateMyActiveNostrFollowingListInSql = async (aNewFollowingList, createdAt) => {
+export const updateMyActiveNostrFollowingListInSql = async (
+  aNewFollowingList,
+  createdAt
+) => {
   const sNewFollowingList = JSON.stringify(aNewFollowingList);
   const sql = ` UPDATE myNostrProfile SET following = '${sNewFollowingList}', followingListLastUpdate = ${createdAt} WHERE active = true `;
-  console.log("updateMyActiveNostrFollowingListInSql; sql: "+sql)
+  console.log(`updateMyActiveNostrFollowingListInSql; sql: ${sql}`);
   const result = await asyncSql(sql);
-}
+};
 
-export const updateMyActiveNostrRelaysListInSql = async (oNewRelaysList, createdAt) => {
+export const updateMyActiveNostrRelaysListInSql = async (
+  oNewRelaysList,
+  createdAt
+) => {
   const sNewRelaysList = JSON.stringify(oNewRelaysList);
   const sql = ` UPDATE myNostrProfile SET relays = '${sNewRelaysList}', relaysListLastUpdate = ${createdAt} WHERE active = true `;
-  console.log("updateMyActiveNostrFollowingListInSql; sql: "+sql)
+  console.log(`updateMyActiveNostrFollowingListInSql; sql: ${sql}`);
   const result = await asyncSql(sql);
-}
+};
+
+export const updateNostrRelaysForActiveUserInSql = async (oRelays) => {
+  let sql = '';
+  sql += ' UPDATE myNostrProfile ';
+  sql += ` SET relays = '${JSON.stringify(oRelays)}' `;
+  sql += ` WHERE active = true `;
+
+  console.log(`updateMyFullNostrProfileInSql sql: ${sql}`);
+
+  const result = await asyncSql(sql);
+  return result;
+};
 
 // input object formatted as state from myNostrProfile redux store
 export const updateMyFullNostrProfileInSql = async (oMyNostrProfileInfo) => {
@@ -153,7 +193,7 @@ export const updateMyActiveNostrProfileInSql = async (oMyNostrProfileInfo) => {
   const { about } = oMyNostrProfileInfo;
   const btcLightningTips = oMyNostrProfileInfo.lud06;
   const nip05Verification = oMyNostrProfileInfo.nip05;
-  const multiClientAccess = oMyNostrProfileInfo.multiClientAccess;
+  const { multiClientAccess } = oMyNostrProfileInfo;
   const currentTime = dateToUnix(new Date());
 
   let sql = '';
@@ -165,7 +205,9 @@ export const updateMyActiveNostrProfileInSql = async (oMyNostrProfileInfo) => {
   sql += ` , about = '${about}' `;
   sql += ` , lud06 = '${btcLightningTips}' `;
   sql += ` , nip05 = '${nip05Verification}' `;
-  if (multiClientAccess !== undefined) { sql += ` , multiClientAccess = ${multiClientAccess} `; }
+  if (multiClientAccess !== undefined) {
+    sql += ` , multiClientAccess = ${multiClientAccess} `;
+  }
   sql += ` , lastUpdate = ${currentTime} `;
   sql += ' WHERE active = true ';
 
