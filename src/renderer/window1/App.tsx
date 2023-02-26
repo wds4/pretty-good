@@ -40,7 +40,7 @@ import './css/nostr/youTubeEmbed.css';
 // an inelegant way to initialize the redux store
 const InitReduxStore = ({ oRelaysData, aProfilesData, aNostrNotesData, aNostrDirectMessagesData }) => {
   const dispatch = useDispatch();
-  dispatch(initNostrRelays(oRelaysData));
+  if (oRelaysData) { dispatch(initNostrRelays(oRelaysData)); }
   dispatch(initNostrProfiles(aProfilesData));
   dispatch(initNostrNotes(aNostrNotesData));
   dispatch(initNostrDirectMessages(aNostrDirectMessagesData))
