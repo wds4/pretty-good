@@ -25,7 +25,7 @@ export default class NostrProfiles extends React.Component {
     updateMastheadCenter(mastheadDescriptor);
 
     const aMyProfilesData = await fetchAllMyNostrProfilesFromSql();
-    this.setState({ aMyProfilesData });
+    if (aMyProfilesData) { this.setState({ aMyProfilesData }); }
   }
 
   updateMyProfile = (index) => {
