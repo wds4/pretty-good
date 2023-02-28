@@ -9,6 +9,10 @@ import {
 // import EndorseRelays from './endorseRelays';
 import Relays from './relays';
 import AddNewRelay from './addNewRelay';
+import FollowingForRelays from './followingForRelays';
+import ToggleRelaysAutoUpdate from './toggleRelaysAutoUpdateMode';
+// import ToggleRelaysAutoUpdate from 'renderer/window1/components/toggleSwitch';
+
 export default class NostrRelays extends React.Component {
   constructor(props) {
     super(props);
@@ -32,8 +36,10 @@ export default class NostrRelays extends React.Component {
           <Masthead />
           <div id="mainPanel">
             <div className="h4">Nostr: Relays</div>
+            <ToggleRelaysAutoUpdate />
             <Relays />
             <AddNewRelay />
+            <FollowingForRelays />
           </div>
         </div>
       </>

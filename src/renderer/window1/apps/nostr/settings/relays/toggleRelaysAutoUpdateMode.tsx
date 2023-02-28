@@ -1,24 +1,24 @@
 import ToggleSwitch from 'renderer/window1/components/toggleSwitch';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateMultiClientAccess } from 'renderer/window1/redux/features/nostr/myNostrProfile/slice';
+import { updateRelaysAutoUpdate } from 'renderer/window1/redux/features/nostr/myNostrProfile/slice';
 import { asyncSql } from 'renderer/window1/lib/pg/asyncSql';
 
-const ToggleMultiProfilesMode = () => {
+const ToggleRelaysAutoUpdateMode = () => {
   const initState = useSelector(
-    (state) => state.myNostrProfile.multiClientAccess
+    (state) => state.myNostrProfile.relaysAutoUpdate
   );
   const dispatch = useDispatch();
   const processStateChange = async (newState) => {
-    dispatch(updateMultiClientAccess(newState));
-    const sql = ` UPDATE myNostrProfile SET multiClientAccess = ${newState} WHERE active = true `;
+    dispatch(updateRelaysAutoUpdate(newState));
+    const sql = ` UPDATE myNostrProfile SET relaysAutoUpdate = ${newState} WHERE active = true `;
     console.log(`processStateChange callback; ${newState}; sql: ${sql}`);
-    const res = await asyncSql(sql);
+    // const res = await asyncSql(sql);
   };
   return (
     <>
-      <div style={{ display: 'inline-block' }}>
+      <div >
         <ToggleSwitch
-          label="multiProfilesMode"
+          label="relaysAutoUpdateMode"
           processStateChange={(newState) => processStateChange(newState)}
           initState={initState}
         />
@@ -26,4 +26,4 @@ const ToggleMultiProfilesMode = () => {
     </>
   );
 };
-export default ToggleMultiProfilesMode;
+export default ToggleRelaysAutoUpdateMode;

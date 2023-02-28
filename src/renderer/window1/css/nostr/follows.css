@@ -1,40 +1,160 @@
 .followsNavLink {
-    display:inline-block;
-    text-decoration:none;
+  display:inline-block;
+  text-decoration:none;
 }
 .followButton {
-    border:1px solid black;
-    border-radius:15px;
-    font-size:12px;
-    display:inline-block;
-    padding:4px 20px 4px 20px;
-    margin:4px;
-    background-color:black;
-    color:white;
+  border:1px solid black;
+  border-radius:15px;
+  font-size:12px;
+  display:inline-block;
+  padding:4px 20px 4px 20px;
+  margin:4px;
+  background-color:black;
+  color:white;
 }
 .followButton:before {
   content:"Follow"
 }
 .unfollowButton {
-    border:1px solid black;
-    border-radius:15px;
-    font-size:12px;
-    display:inline-block;
-    padding:4px 14px 4px 14px;
-    margin:4px;
-    background-color:white;
-    color:black;
+  border:1px solid black;
+  border-radius:15px;
+  font-size:12px;
+  display:inline-block;
+  padding:4px 14px 4px 14px;
+  margin:4px;
+  background-color:white;
+  color:black;
 }
 .unfollowButton:before {
   content:"Unfollow"
 }
 .followButton:hover {
-    background-color:yellow;
+  background-color:yellow;
 }
 .unfollowButton:hover {
-    background-color:#DFDFDF;
+  background-color:#DFDFDF;
 }
 .followCountContainer {
-    margin-top:10px;
-    font-size:14px;
+  margin-top:10px;
+  font-size:14px;
+}
+
+/*
+followRelays
+*/
+.followRelaysButton {
+  border:1px solid black;
+  border-radius:15px;
+  font-size:12px;
+  display:inline-block;
+  padding:4px 20px 4px 20px;
+  margin:4px;
+  background-color:black;
+  color:white;
+}
+.followRelaysButton:before {
+  content:"Follow Relays"
+}
+.unfollowRelaysButton {
+  border:1px solid black;
+  border-radius:15px;
+  font-size:12px;
+  display:inline-block;
+  padding:4px 14px 4px 14px;
+  margin:4px;
+  background-color:white;
+  color:black;
+}
+.unfollowRelaysButton:before {
+  content:"Unfollow Relays"
+}
+.followRelaysButton:hover {
+  background-color:yellow;
+}
+.unfollowRelaysButton:hover {
+  background-color:#DFDFDF;
+}
+.followRelaysCountContainer {
+  margin-top:10px;
+  font-size:14px;
+}
+
+/*
+endorseAsRelaysPicker
+*/
+.endorseAsRelaysPickerButton {
+  border:1px solid black;
+  border-radius:15px;
+  font-size:12px;
+  display:inline-block;
+  padding:4px 20px 4px 20px;
+  margin:4px;
+  background-color:black;
+  color:white;
+}
+.endorseAsRelaysPickerButton:before {
+  content:"Endorse as Relays Picker"
+}
+.unEndorseAsRelaysPickerButton {
+  border:1px solid black;
+  border-radius:15px;
+  font-size:12px;
+  display:inline-block;
+  padding:4px 14px 4px 14px;
+  margin:4px;
+  background-color:white;
+  color:black;
+}
+.unEndorseAsRelaysPickerButton:before {
+  content:"Unendorse os Relays Picker"
+}
+.endorseAsRelaysPickerButton:hover {
+  background-color:yellow;
+}
+.unEndorseAsRelaysPickerButton:hover {
+  background-color:#DFDFDF;
+}
+.endorseAsRelaysPickerCountContainer {
+  margin-top:10px;
+  font-size:14px;
+}
+
+/*
+endorseAsRelaysPickerHunter
+*/
+.endorseAsRelaysPickerHunterButton {
+  border:1px solid black;
+  border-radius:15px;
+  font-size:12px;
+  display:inline-block;
+  padding:4px 20px 4px 20px;
+  margin:4px;
+  background-color:black;
+  color:white;
+}
+.endorseAsRelaysPickerHunterButton:before {
+  content:"Endorse as Relays Picker Hunter"
+}
+.unEndorseAsRelaysPickerHunterButton {
+  border:1px solid black;
+  border-radius:15px;
+  font-size:12px;
+  display:inline-block;
+  padding:4px 14px 4px 14px;
+  margin:4px;
+  background-color:white;
+  color:black;
+}
+.unEndorseAsRelaysPickerHunterButton:before {
+  content:"Unendorse as Relays Picker Hunter"
+}
+.endorseAsRelaysPickerHunterButton:hover {
+  background-color:yellow;
+}
+.unEndorseAsRelaysPickerHunterButton:hover {
+  background-color:#DFDFDF;
+}
+.endorseAsRelaysPickerHunterCountContainer {
+  margin-top:10px;
+  font-size:14px;
 }

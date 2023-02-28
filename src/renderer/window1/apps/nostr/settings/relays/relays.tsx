@@ -37,40 +37,41 @@ const RelaysSettings = () => {
   const aRelays = Object.keys(oRelaysData);
   return (
     <>
-      <div style={{ border: '1px dashed orange' }}>
-        <div style={{ display: 'inline-block', border: '1px dashed grey' }}>
-          {aRelays.map((url) => {
-            const oRelayData = oRelaysData[url];
-            const relayInfoContainerId = `relayInfoContainer_${url}`;
-            return (
-              <>
-                <div className="relayInfoContainer" id={relayInfoContainerId}>
-                  <div className="relayUrlContainer">{url}</div>
-                  <div style={{display:'inline-block',width: '150px'}}>
-                    <input
-                      className="relayCheckbox"
-                      style={{ display: 'inline-block' }}
-                      type="checkbox"
-                      checked={oRelayData.read}
-                      onChange={(e) => processStateChange(e.target.checked, url, 'read')}
-                    />
-                    read
-                  </div>
-                  <div style={{display:'inline-block',width: '150px'}}>
-                    <input
-                      className="relayCheckbox"
-                      style={{ display: 'inline-block' }}
-                      type="checkbox"
-                      checked={oRelayData.write}
-                      onChange={(e) => processStateChange(e.target.checked, url, 'write')}
-                    />
-                    write
-                  </div>
+      <div style={{ display: 'inline-block', border: '1px dashed grey' }}>
+        <center>My Relays</center>
+        <br/>
+        {aRelays.map((url) => {
+          const oRelayData = oRelaysData[url];
+          const relayInfoContainerId = `relayInfoContainer_${url}`;
+          return (
+            <>
+
+              <div className="relayInfoContainer" id={relayInfoContainerId}>
+                <div className="relayUrlContainer">{url}</div>
+                <div style={{display:'inline-block',width: '150px'}}>
+                  <input
+                    className="relayCheckbox"
+                    style={{ display: 'inline-block' }}
+                    type="checkbox"
+                    checked={oRelayData.read}
+                    onChange={(e) => processStateChange(e.target.checked, url, 'read')}
+                  />
+                  read
                 </div>
-              </>
-            );
-          })}
-        </div>
+                <div style={{display:'inline-block',width: '150px'}}>
+                  <input
+                    className="relayCheckbox"
+                    style={{ display: 'inline-block' }}
+                    type="checkbox"
+                    checked={oRelayData.write}
+                    onChange={(e) => processStateChange(e.target.checked, url, 'write')}
+                  />
+                  write
+                </div>
+              </div>
+            </>
+          );
+        })}
       </div>
     </>
   );

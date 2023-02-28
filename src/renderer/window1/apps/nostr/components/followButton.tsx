@@ -61,23 +61,17 @@ const FollowButton = ({ pubkey }) => {
     publish(event);
   }
 
-
   const toggleFollow = (currentState) => {
     let newState = 'following';
     if (currentState == 'following') {
       newState = 'notFollowing';
       dispatch(removeFromFollowingList(pubkey));
-      updateFollowingAndRelaysListsInNostr();
     }
     if (currentState == 'notFollowing') {
       newState = 'following';
       dispatch(addToFollowingList(pubkey));
-      updateFollowingAndRelaysListsInNostr();
     }
-    // publish updated following list to nostr
-    // const myUpdatedNostrProfile = useSelector((state) => state.myNostrProfile);
-    // dispatch(FullSyncMyActiveNostrProfileFromReduxStoreToSql());
-    // update in sql
+    updateFollowingAndRelaysListsInNostr();
   };
 
   return (

@@ -8,6 +8,10 @@ import { noProfilePicUrl } from 'renderer/window1/const';
 import BlankAvatar from 'renderer/window1/assets/blankAvatar.png';
 import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
 import FollowButton from 'renderer/window1/apps/nostr/components/followButton';
+import RelaysCurationBox from './relaysGrapevine';
+import FollowRelaysButton from 'renderer/window1/apps/nostr/profile/relaysGrapevine/followRelaysButton';
+import EndorseAsRelaysPickerButton from 'renderer/window1/apps/nostr/profile/relaysGrapevine/endorseAsRelaysPickerButton';
+import EndorseAsRelaysPickerHunterButton from 'renderer/window1/apps/nostr/profile/relaysGrapevine/endorseAsRelaysPickerHunterButton';
 import FollowCounts from 'renderer/window1/apps/nostr/components/followCounts';
 import UserGrapevinePanel from 'renderer/window1/apps/nostr/profile/userGrapevinePanel';
 
@@ -147,13 +151,17 @@ const MainProfile = ({pubkey}) => {
             <div style={{ display: 'inline-block', marginLeft: '10px' }}>
               <FollowButton pubkey={pubkey} />
             </div>
+            <br/>
+
+
             <div id='lud06Container' style={{display:'none',marginLeft:'10px',fontSize:'12px',padding:'2px',border:'1px solid grey',width:'70%'}}>
               {lnurl}
             </div>
           </div>
           <div>
             <div className={grapevineProfileControlPanelClassName}>
-              <UserGrapevinePanel />
+              <RelaysCurationBox pubkey={pubkey} />
+              <div style={{display:'none'}}><UserGrapevinePanel /></div>
             </div>
           </div>
         </div>

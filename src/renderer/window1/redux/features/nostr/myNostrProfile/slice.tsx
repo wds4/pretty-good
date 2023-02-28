@@ -19,7 +19,12 @@ import {
 } from 'nostr-tools';
 
 const initialState = {
+  // booleans
   showWelcomeBox: false,
+  relaysAutoUpdate: false,
+  multiClientAccess: false, // whether this profile will be managed from multiple clients or not; if yes, updates are autoimported from the network
+
+  // strings
   pubkey_hex: undefined,
   pubkey_bech32: undefined,
   privkey: undefined,
@@ -31,14 +36,23 @@ const initialState = {
   about: 'inventor of bitcoin',
   nip05: undefined,
   lud06: undefined,
+
+  // unix timestamps
   created_at: 0,
   lastUpdate: 0, // when nostr profile data was last updated locally (in sql), not including relays list or following list
   followingListLastUpdate: 0, // when following list was last updated (locally, in sql)
   relaysListLastUpdate: 0, // when relays list was last updated (locally, in sql)
-  following: [],
-  followers: [],
+
+  // arrays of pubkeys
+  following: [], // array of pubkeys
+  followers: [], // array of pubkeys
+  followingForRelays: [], // array of pubkeys
+  endorseAsRelaysPicker: [], // array of pubkeys
+  endorseAsRelaysPickerHunter: [], // array of pubkeys
+
+  // objects
   relays: oDefaultRelayUrls,
-  multiClientAccess: undefined, // whether this profile will be managed from multiple clients or not; if yes, updates are autoimported from the network
+
   // notifications: [],
   // readNotifications: new Date().getTime(),
   // dms: [],
@@ -69,6 +83,7 @@ export const myProfileSlice = createSlice({
       state.relaysListLastUpdate = oMyProfileData?.relaysListLastUpdate;
       state.followingListLastUpdate = oMyProfileData?.followingListLastUpdate;
       state.multiClientAccess = oMyProfileData?.multiClientAccess;
+      state.relaysAutoUpdate = oMyProfileData?.relaysAutoUpdate;
 
       if (oMyProfileData?.followers) { state.followers = JSON.parse(oMyProfileData?.followers); }
       if (oMyProfileData?.following) { state.following = JSON.parse(oMyProfileData?.following); }
@@ -152,20 +167,7 @@ export const myProfileSlice = createSlice({
       // const res = updateMyFullNostrProfileInSql(newState);
       */
     },
-    // updateRelaysB deprecated
-    updateRelaysB: (state, action) => {
-      let oRelays = [];
-      if (action.payload) {
-        oRelays = action.payload;
-      }
-      state.relays = oRelays;
-      console.log("updateRelays; state: "+JSON.stringify(state))
-      let newState = JSON.parse(JSON.stringify(state));
-      console.log("updateRelays; newState: "+JSON.stringify(newState))
-      newState.relays = oRelays;
-      // console.log("updateRelays; newState 2: "+JSON.stringify(newState))
-      // const res = updateMyFullNostrProfileInSql(newState);
-    },
+    // MANAGE RELAYS
     addNewRelay: (state, action) => {
       const url = action.payload;
       state.relays[url] = { read: true, write: true}
@@ -174,6 +176,7 @@ export const myProfileSlice = createSlice({
       const url = action.payload;
       delete state.relays[url];
     },
+
     updateFollowers: (state, action) => {
       let aFollowers = [];
       if (action.payload) {
@@ -181,18 +184,40 @@ export const myProfileSlice = createSlice({
       }
       state.followers = aFollowers;
     },
-    updateFollowing: (state, action) => {
-      // pass in a complete array of following by pubkey
-      let aFollowing = [];
-      if (action.payload) {
-        aFollowing = action.payload;
-      }
-      console.log(`updateFollowing; action.payload: ${JSON.stringify(action.payload)}; aFollowing: ${JSON.stringify(aFollowing)}`)
-      state.following = aFollowing;
-    },
+
+    // UPDATE BOOLEAN VARS
     updateMultiClientAccess: (state, action) => {
       state.multiClientAccess = action.payload;
     },
+    updateRelaysAutoUpdate: (state, action) => {
+      state.relaysAutoUpdate = action.payload;
+    },
+
+    // MANAGE followingForRelays
+    addToFollowingForRelaysList: (state, action) => {
+      // pass in pubkey; add to followingForRelays list if not already there
+      if (!state.followingForRelays) {
+        state.followingForRelays = [];
+      }
+      state.followingForRelays = addStringToArrayUniquely(
+        action.payload,
+        state.followingForRelays
+      );
+      const res = updateMyFullNostrProfileInSql(state);
+    },
+    removeFromFollowingForRelaysList: (state, action) => {
+      // pass in pubkey; remove from followingForRelays list if it is currently there
+      if (!state.followingForRelays) {
+        state.followingForRelays = [];
+      }
+      state.followingForRelays = removeStringFromArray(action.payload, state.followingForRelays);
+      const res = updateMyFullNostrProfileInSql(state);
+    },
+
+    // MANAGE endorseAsRelaysPicker
+    // MANAGE endorseAsRelaysPickerHunter
+
+    // MANAGE FOLLOWING
     addToFollowingList: (state, action) => {
       // pass in pubkey; add to following list if not already there
       if (!state.following) {
@@ -212,6 +237,16 @@ export const myProfileSlice = createSlice({
       state.following = removeStringFromArray(action.payload, state.following);
       const res = updateMyFullNostrProfileInSql(state);
     },
+    updateFollowing: (state, action) => {
+      // pass in a complete array of following by pubkey
+      let aFollowing = [];
+      if (action.payload) {
+        aFollowing = action.payload;
+      }
+      console.log(`updateFollowing; action.payload: ${JSON.stringify(action.payload)}; aFollowing: ${JSON.stringify(aFollowing)}`)
+      state.following = aFollowing;
+    },
+
     updateShowWelcomeBox: (state, action) => {
       state.showWelcomeBox = action.payload;
     },
@@ -274,19 +309,25 @@ export const {
   updateBannerUrl,
   updateWebsite,
   updateAbout,
-  updateFollowing,
   updateFollowers,
   updateRelays,
-  updateRelaysB,
   updateNip05,
   updateLud06,
   updateCreatedAt,
   updateLastUpdate,
   updateFollowingListLastUpdate,
   updateRelaysListLastUpdate,
+
   updateMultiClientAccess,
+  updateRelaysAutoUpdate,
+
   addToFollowingList,
   removeFromFollowingList,
+  updateFollowing,
+
+  addToFollowingForRelaysList,
+  removeFromFollowingForRelaysList,
+
   addNewRelay,
   removeRelay,
   updateShowWelcomeBox,

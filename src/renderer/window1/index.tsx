@@ -6,6 +6,16 @@ import { generateNewNostrKeys } from './lib/nostr';
 // Initialize redux store from sql
 const startApp = async () => {
 
+  const sql_a = ' SELECT relaysAutoUpdate FROM myNostrProfile LIMIT 1 ';
+  const isColPresent = await asyncSql(sql_a);
+  if (isColPresent) {
+    console.log("isColPresent is truthy")
+  } else {
+    const sql_b = ' ALTER TABLE myNostrProfile ADD relaysAutoUpdate BOOLEAN false ';
+    console.log("isColPresent is NOT truthy; sql_b: "+sql_b)
+    const fooB = await asyncSql(sql_b);
+  }
+
   // LOAD myNostrProfiles - loads all of my profiles; currently I do not load all of them into redux so this query may be unnecessary
   const sql0 = 'SELECT * FROM myNostrProfile ';
   let aMyNostrProfilesData = await asyncSql(sql0);
