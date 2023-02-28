@@ -86,7 +86,11 @@ export const nostrSettingsSlice = createSlice({
       state.nostrBackButtonStack += action.payload;
     },
     initNostrRelays: (state, action) => {
-      state.nostrRelays = action.payload;
+      const nostrRelays = action.payload;
+      console.log("initNostrRelays; nostrRelays: "+JSON.stringify(nostrRelays))
+      if (action.payload !== null && action.payload !== undefined) {
+        state.nostrRelays = action.payload;
+      }
       /*
       const aRelaysData = action.payload;
       const oRelaysData = {};

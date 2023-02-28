@@ -105,6 +105,9 @@ export const myProfileSlice = createSlice({
       } else {
         state.relays = oDefaultRelayUrls;
       }
+      if ( oMyProfileData?.relays === null || oMyProfileData?.relays === undefined) {
+        // state.relays = {};
+      }
 
     },
     updatePubkeyHex: (state, action) => {

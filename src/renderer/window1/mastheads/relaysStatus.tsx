@@ -9,12 +9,14 @@ const RelaysStatus = () => {
 
   const myNostrProfile = useSelector((state) => state.myNostrProfile);
   const nostrSettings = useSelector((state) => state.nostrSettings);
-  const oRelays = nostrSettings.nostrRelays;
-  const aRelays = Object.keys(oRelays)
   const aActiveRelayUrls = [];
-  for (let x=0;x<aRelays.length;x++) {
-    if (oRelays[aRelays[x]].read) {
-      aActiveRelayUrls.push(aRelays[x])
+  if (nostrSettings.nostrRelays) {
+  const oRelays = nostrSettings.nostrRelays;
+    const aRelays = Object.keys(oRelays)
+    for (let x=0;x<aRelays.length;x++) {
+      if (oRelays[aRelays[x]].read) {
+        aActiveRelayUrls.push(aRelays[x])
+      }
     }
   }
   const aConnectedRelays = [];

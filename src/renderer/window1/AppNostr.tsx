@@ -4,12 +4,14 @@ import AppRoutes from './AppRoutes';
 import { aDefaultRelayUrls } from 'main/const/nostr';
 
 const AppNostr = () => {
+  let aActiveRelayUrls = [];
   const relays = useSelector((state) => state.nostrSettings.nostrRelays);
-  const aRelays = Object.keys(relays);
-  const aActiveRelayUrls = [];
-  for (let x=0;x<aRelays.length;x++) {
-    if (relays[aRelays[x]].read) {
-      aActiveRelayUrls.push(aRelays[x])
+  if (relays) {
+    const aRelays = Object.keys(relays);
+    for (let x=0;x<aRelays.length;x++) {
+      if (relays[aRelays[x]].read) {
+        aActiveRelayUrls.push(aRelays[x])
+      }
     }
   }
   return (
