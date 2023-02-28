@@ -7,7 +7,6 @@ import {
 import { checkPrivkeyHexValidity } from 'renderer/window1/lib/nostr';
 import { refreshMyActiveNostrProfile } from 'renderer/window1/redux/features/nostr/myNostrProfile/slice';
 import { resetNostrSettingsNostrRelays } from 'renderer/window1/redux/features/nostr/settings/slice';
-// import ActivateNostrRelaysOfCurrentUser from 'renderer/window1/redux/features/nostr/settings/slice';
 
 import { noProfilePicUrl } from '../../../../const';
 
@@ -104,14 +103,19 @@ export default function AllCurrentProfiles({
           multiClientAccessClassName = 'mcaEnabled';
         }
 
-        const oRelays = JSON.parse(oNextProfile.relays)
         let numRelaysRead = 0;
         let numRelaysWrite = 0;
-        for (let x=0;x<Object.keys(oRelays).length;x++) {
-          const url = Object.keys(oRelays)[x];
-          if (oRelays[url].read) { numRelaysRead += 1 }
-          if (oRelays[url].write) { numRelaysWrite += 1 }
+        let numRelaysTotal = 0;
+        if (oNextProfile.relays !== null && oNextProfile.relays !== undefined) {
+          const oRelays = JSON.parse(oNextProfile.relays);
+          numRelaysTotal = Object.keys(oRelays).length;
+          for (let x=0;x<numRelaysTotal;x++) {
+            const url = Object.keys(oRelays)[x];
+            if (oRelays[url].read) { numRelaysRead += 1 }
+            if (oRelays[url].write) { numRelaysWrite += 1 }
+          }
         }
+
 
         if (!isPkValid) {
           deleteRowFromMyNostrProfiles(oNextProfile.id);
@@ -234,7 +238,7 @@ export default function AllCurrentProfiles({
 
                   <div style={{ marginBottom: '5px', color: 'grey' }}>
                     <span style={{color: 'blue'}}>
-                      {Object.keys(JSON.parse(oNextProfile.relays)).length}
+                      {numRelaysTotal}
                     </span>
                     {' '} relays ({numRelaysRead} read, {numRelaysWrite} write)
                   </div>
