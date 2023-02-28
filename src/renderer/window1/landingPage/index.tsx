@@ -5,7 +5,11 @@ import LeftNavbar1 from '../navbars/leftNavbar1/pgNavbar';
 import LeftNavbar2 from '../navbars/leftNavbar2/emptyNavbar';
 import { updateMainColWidth, updateMastheadCenter } from '../lib/pg/ui';
 import { timeout } from '../lib/pg';
-import RunAllInitFxns from '../lib/startup';
+
+/*
+This page was initially used as a temporary stop while startup functions were created, but those have been deprecated
+Therefore probably can deprecate this page
+*/
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -51,7 +55,7 @@ export default class Home extends React.Component {
                 pretty good home
               </div>
             </NavLink>
-            <RunAllInitFxns />
+
           </div>
         </div>
       </>

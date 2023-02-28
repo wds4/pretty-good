@@ -4,6 +4,7 @@ import { initNostrRelays } from 'renderer/window1/redux/features/nostr/settings/
 import { initNostrProfiles } from 'renderer/window1/redux/features/nostr/profiles/slice';
 import { initNostrNotes } from 'renderer/window1/redux/features/nostr/notes/slice';
 import { initNostrDirectMessages } from 'renderer/window1/redux/features/nostr/directMessages/slice';
+import { initMyActiveNostrProfile } from 'renderer/window1/redux/features/nostr/myNostrProfile/slice';
 import ErrorBoundary from './errorBoundary';
 import store from './redux/store/store';
 import { updateMainColWidth } from './lib/pg/ui';
@@ -38,10 +39,16 @@ import './css/nostr/userList.css';
 import './css/nostr/youTubeEmbed.css';
 
 // an inelegant way to initialize the redux store
-const InitReduxStore = ({ oRelaysData, aProfilesData, aNostrNotesData, aNostrDirectMessagesData }) => {
+const InitReduxStore = ({ oMyActiveNostrProfileData, aMyNostrProfilesData, aNostrProfilesData, aNostrNotesData, aNostrDirectMessagesData }) => {
   const dispatch = useDispatch();
+
+  dispatch(initMyActiveNostrProfile(oMyActiveNostrProfileData));
+  let oRelaysData = {};
+  if (aMyNostrProfilesData) {
+    oRelaysData = JSON.parse(aMyNostrProfilesData[0].relays);
+  }
   if (oRelaysData) { dispatch(initNostrRelays(oRelaysData)); }
-  dispatch(initNostrProfiles(aProfilesData));
+  dispatch(initNostrProfiles(aNostrProfilesData));
   dispatch(initNostrNotes(aNostrNotesData));
   dispatch(initNostrDirectMessages(aNostrDirectMessagesData))
   return <></>;
@@ -56,15 +63,16 @@ export default class App extends React.Component {
   async componentDidMount() {
     window.addEventListener('resize', updateMainColWidth);
   }
-
+  // oRelaysData={this.props.oRelaysData}
   render() {
     return (
       <StrictMode>
         <ErrorBoundary>
           <Provider store={store}>
             <InitReduxStore
-              oRelaysData={this.props.oRelaysData}
-              aProfilesData={this.props.aProfilesData}
+              oMyActiveNostrProfileData={this.props.oMyActiveNostrProfileData}
+              aMyNostrProfilesData={this.props.aMyNostrProfilesData}
+              aNostrProfilesData={this.props.aNostrProfilesData}
               aNostrNotesData={this.props.aNostrNotesData}
               aNostrDirectMessagesData={this.props.aNostrDirectMessagesData}
             />

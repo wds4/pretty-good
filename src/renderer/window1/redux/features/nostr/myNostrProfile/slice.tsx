@@ -49,6 +49,50 @@ export const myProfileSlice = createSlice({
   name: 'myNostrProfile',
   initialState,
   reducers: {
+    initMyActiveNostrProfile: (state, action) => {
+      const oMyProfileData = action.payload;
+      console.log("initMyActiveNostrProfile; oMyProfileData: "+JSON.stringify(oMyProfileData))
+      state.name = oMyProfileData?.name;
+      // console.log("initMyActiveNostrProfile; oMyProfileData?.name: "+oMyProfileData?.name)
+      state.display_name = oMyProfileData?.display_name;
+      state.pubkey_hex = oMyProfileData?.pubkey;
+
+      state.pubkey_bech32 = nip19.npubEncode(oMyProfileData?.pubkey);
+
+      state.privkey = oMyProfileData?.privkey;
+
+      state.website = oMyProfileData?.website;
+      state.about = oMyProfileData?.about;
+      state.nip05 = oMyProfileData?.nip05;
+      state.lud06 = oMyProfileData?.lud06;
+      state.created_at = oMyProfileData?.created_at;
+      state.lastUpdate = oMyProfileData?.lastUpdate;
+      state.relaysListLastUpdate = oMyProfileData?.relaysListLastUpdate;
+      state.followingListLastUpdate = oMyProfileData?.followingListLastUpdate;
+      state.multiClientAccess = oMyProfileData?.multiClientAccess;
+
+      if (oMyProfileData?.followers) { state.followers = JSON.parse(oMyProfileData?.followers); }
+      if (oMyProfileData?.following) { state.following = JSON.parse(oMyProfileData?.following); }
+
+      if (oMyProfileData?.picture_url) {
+        state.picture_url = oMyProfileData?.picture_url
+      } else {
+        state.picture_url = noProfilePicUrl;
+      }
+
+      if (oMyProfileData?.banner_url) {
+        state.banner_url = oMyProfileData?.banner_url
+      } else {
+        state.banner_url = noBannerPicUrl;
+      }
+
+      if (oMyProfileData?.relays) {
+        state.relays = JSON.parse(oMyProfileData?.relays)
+      } else {
+        state.relays = oDefaultRelayUrls;
+      }
+
+    },
     updatePubkeyHex: (state, action) => {
       state.pubkey_hex = action.payload;
     },
@@ -173,22 +217,15 @@ export const myProfileSlice = createSlice({
       state.showWelcomeBox = action.payload;
     },
   },
-  /*
-  extraReducers(builder) {
-    builder.addCase(fetchMyProfile.fulfilled, (state, action) => {
-      return action.payload
-    })
-  },
-  */
 });
 
-export const fetchMyProfile = () => async (dispatch) => {
-  const oMyProfileData = await fetchMyActiveNostrProfileFromSql(false);
-  console.log(
-    `fetchMyProfile; oMyProfileData: ${JSON.stringify(oMyProfileData, null, 4)}`
-  );
+export const refreshMyActiveNostrProfile = () => async (dispatch) => {
+  const oMyActiveNostrProfileData = await fetchMyActiveNostrProfileFromSql(false);
+  // console.log(`refreshMyActiveNostrProfile; oMyProfileData: ${JSON.stringify(oMyProfileData, null, 4)}`);
+  dispatch(initMyActiveNostrProfile(oMyActiveNostrProfileData));
 
-  dispatch(updateName(oMyProfileData.name));
+  /*
+  // dispatch(updateName(oMyProfileData.name));
   dispatch(updateFollowing(JSON.parse(oMyProfileData.following)));
   dispatch(updateFollowers(JSON.parse(oMyProfileData.followers)));
   if (oMyProfileData.relays !== null) {
@@ -223,10 +260,12 @@ export const fetchMyProfile = () => async (dispatch) => {
   );
   dispatch(updateRelaysListLastUpdate(oMyProfileData.relaysListLastUpdate));
   dispatch(updateMultiClientAccess(oMyProfileData.multiClientAccess));
+  */
 };
 
 // Action creators are generated for each case reducer function
 export const {
+  initMyActiveNostrProfile,
   updatePubkeyHex,
   updatePubkeyBech32,
   updatePrivkey,

@@ -43,9 +43,7 @@ export const fetchMyActiveNostrProfileFromSql = async (initNewProfile) => {
   const sql = 'SELECT * FROM myNostrProfile WHERE active=true';
   let aMyProfileData = await asyncSql(sql);
 
-  console.log(
-    `fetchMyActiveNostrProfileFromSql aMyProfileData.length: ${aMyProfileData.length}; initNewProfile: ${initNewProfile}`
-  );
+  console.log(`fetchMyActiveNostrProfileFromSql aMyProfileData.length: ${aMyProfileData.length}; initNewProfile: ${initNewProfile}`);
 
   if (initNewProfile && aMyProfileData.length == 0) {
     const [sk, pk] = await generateNewNostrKeys(true);

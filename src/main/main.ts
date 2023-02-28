@@ -104,9 +104,22 @@ ipcMain.on('ipc-example', async (event, arg) => {
 ipcMain.on('asynchronous-sql-command', async (event, data) => {
   const sql = data[0];
   const nonce = data[1];
-  db.all(sql, (err, result) => {
-    event.reply(`asynchronous-sql-reply-${nonce}`, result);
-  });
+  const queryType = data[2]; // all (default - returns array of rows), get (returns object: first row in the result set), each
+  if (!queryType || queryType === 'all' ) {
+    db.all(sql, (err, rows) => {
+      event.reply(`asynchronous-sql-reply-${nonce}`, rows);
+    });
+  }
+  if (queryType === 'get') {
+    db.get(sql, (err, result) => {
+      event.reply(`asynchronous-sql-reply-${nonce}`, result);
+    });
+  }
+  if (queryType === 'each') {
+    db.each(sql, (err, result) => {
+      event.reply(`asynchronous-sql-reply-${nonce}`, result);
+    });
+  }
 });
 
 db.serialize(() => {
@@ -128,9 +141,11 @@ db.serialize(() => {
   db.run(
     `CREATE TABLE IF NOT EXISTS followingNetwork (${createMyFollowingNetworkTableCommand})`
   );
+  // MAY CHANGE TABLE NAME from myNostrProfile to myNostrProfiles
   db.run(
     `CREATE TABLE IF NOT EXISTS myNostrProfile (${createMyProfileTableCommand})`
   );
+  // MAY BE DEPRECATING TABLE relays; relays info is stored individually for each row in myNostrProfiles
   db.run(`CREATE TABLE IF NOT EXISTS relays (${createRelaysTableCommand})`);
   for (let r = 0; r < aDefaultRelayUrls.length; r += 1) {
     const nextRelay = aDefaultRelayUrls[r];

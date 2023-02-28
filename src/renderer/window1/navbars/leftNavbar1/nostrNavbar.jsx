@@ -17,7 +17,7 @@ export default class NostrLeftNavbar1 extends React.PureComponent {
 
           <NavLink
             className={({ isActive }) => isActive ? "leftNavButton leftNavButtonActive" : "leftNavButton" }
-            to="/NostrHome/NostrLandingPage"
+            to="/NostrHome/NostrMainFeed"
           >
             <div style={{ fontSize: '32px' }}>🪶</div>
             <div style={{ fontSize: '12px' }}>pgnostr</div>

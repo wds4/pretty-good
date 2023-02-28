@@ -7,6 +7,10 @@ import MyProfileController from 'renderer/window1/apps/nostr/listeners/myProfile
 // "nostr-react": "github:wds4/nostr-react#autoReconnect",
 
 // Routes
+/*
+LandingPage redirects to NostrLandingPage which redirects to NostrMainFeed
+Previously these landing pages were used for startup functions
+*/
 import { useNostr } from 'nostr-react';
 import LandingPage from './landingPage';
 
@@ -77,7 +81,7 @@ const AppRoutes = () => {
       <fieldset id="app">
         <Router>
           <Routes>
-            <Route path="/" element={<LandingPage />} />
+            <Route path="/" element={<NostrMainFeed />} />
 
             <Route path="/PrettyGoodHome" element={<PrettyGoodHome />} />
             <Route

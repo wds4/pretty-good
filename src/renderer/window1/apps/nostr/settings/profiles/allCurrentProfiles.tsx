@@ -5,7 +5,7 @@ import {
   updateMyNostrProfileSetActiveInSql,
 } from 'renderer/window1/lib/pg/sql';
 import { checkPrivkeyHexValidity } from 'renderer/window1/lib/nostr';
-import { fetchMyProfile } from 'renderer/window1/redux/features/nostr/myNostrProfile/slice';
+import { refreshMyActiveNostrProfile } from 'renderer/window1/redux/features/nostr/myNostrProfile/slice';
 import { resetNostrSettingsNostrRelays } from 'renderer/window1/redux/features/nostr/settings/slice';
 // import ActivateNostrRelaysOfCurrentUser from 'renderer/window1/redux/features/nostr/settings/slice';
 
@@ -53,12 +53,7 @@ export default function AllCurrentProfiles({
     console.log("updateSelectedProfile; sqlId: "+sqlId+"; index: "+index)
     updateMyProfile(index); // updates which profile has active=true in state; that's it
     const result = await updateMyNostrProfileSetActiveInSql(sqlId); // updates which profile has active=true in sql; that's it
-    dispatch(fetchMyProfile());
-
-
-    // activateNostrRelaysOfCurrentUser();
-    // dispatch(resetNostrSettingsNostrRelays(myNostrProfile.relays));
-
+    dispatch(refreshMyActiveNostrProfile());
   };
 
   const processFirstDeleteButton = (sqlId, index) => () => {
