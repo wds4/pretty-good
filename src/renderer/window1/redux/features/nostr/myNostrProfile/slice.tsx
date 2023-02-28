@@ -1,5 +1,4 @@
-import { useSelector } from 'react-redux';
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import {
   addStringToArrayUniquely,
   removeStringFromArray,
@@ -10,7 +9,7 @@ import {
 } from 'renderer/window1/lib/pg/sql';
 import { noProfilePicUrl, noBannerPicUrl } from 'renderer/window1/const';
 import { oDefaultRelayUrls } from 'main/const/nostr';
-import { useNostr, dateToUnix } from 'nostr-react';
+import { dateToUnix } from 'nostr-react';
 import {
   nip19,
   type Event as NostrEvent,

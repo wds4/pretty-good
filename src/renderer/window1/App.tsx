@@ -5,6 +5,7 @@ import { initNostrProfiles } from 'renderer/window1/redux/features/nostr/profile
 import { initNostrNotes } from 'renderer/window1/redux/features/nostr/notes/slice';
 import { initNostrDirectMessages } from 'renderer/window1/redux/features/nostr/directMessages/slice';
 import { initMyActiveNostrProfile } from 'renderer/window1/redux/features/nostr/myNostrProfile/slice';
+import { oDefaultRelayUrls } from 'main/const/nostr';
 import ErrorBoundary from './errorBoundary';
 import store from './redux/store/store';
 import { updateMainColWidth } from './lib/pg/ui';
@@ -47,7 +48,10 @@ const InitReduxStore = ({ oMyActiveNostrProfileData, aMyNostrProfilesData, aNost
   if (oMyActiveNostrProfileData.relays) {
     oRelaysData = JSON.parse(aMyNostrProfilesData[0].relays);
   }
-  if (oRelaysData) { dispatch(initNostrRelays(oRelaysData)); }
+  if (oMyActiveNostrProfileData.relays === null) {
+    oRelaysData = oDefaultRelayUrls;
+  }
+  dispatch(initNostrRelays(oRelaysData));
   dispatch(initNostrProfiles(aNostrProfilesData));
   dispatch(initNostrNotes(aNostrNotesData));
   dispatch(initNostrDirectMessages(aNostrDirectMessagesData))
