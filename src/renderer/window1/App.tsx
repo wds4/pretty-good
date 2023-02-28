@@ -20,7 +20,6 @@ import './css/prettyGood/index.css';
 import './css/nostr/index.css';
 import './css/grapevine/index.css';
 import './css/conceptGraph/index.css';
-import './css/nostr/index.css';
 import './css/nostr/myProfile.css';
 import './css/nostr/userProfile.css';
 import './css/nostr/directMessaging.css';
@@ -40,7 +39,13 @@ import './css/nostr/userList.css';
 import './css/nostr/youTubeEmbed.css';
 
 // an inelegant way to initialize the redux store
-const InitReduxStore = ({ oMyActiveNostrProfileData, aMyNostrProfilesData, aNostrProfilesData, aNostrNotesData, aNostrDirectMessagesData }) => {
+const InitReduxStore = ({
+  oMyActiveNostrProfileData,
+  aMyNostrProfilesData,
+  aNostrProfilesData,
+  aNostrNotesData,
+  aNostrDirectMessagesData,
+}) => {
   const dispatch = useDispatch();
 
   dispatch(initMyActiveNostrProfile(oMyActiveNostrProfileData));
@@ -54,7 +59,7 @@ const InitReduxStore = ({ oMyActiveNostrProfileData, aMyNostrProfilesData, aNost
   dispatch(initNostrRelays(oRelaysData));
   dispatch(initNostrProfiles(aNostrProfilesData));
   dispatch(initNostrNotes(aNostrNotesData));
-  dispatch(initNostrDirectMessages(aNostrDirectMessagesData))
+  dispatch(initNostrDirectMessages(aNostrDirectMessagesData));
   return <></>;
 };
 
@@ -67,6 +72,7 @@ export default class App extends React.Component {
   async componentDidMount() {
     window.addEventListener('resize', updateMainColWidth);
   }
+
   // oRelaysData={this.props.oRelaysData}
   render() {
     return (

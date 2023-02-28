@@ -1,17 +1,25 @@
 import { createRoot } from 'react-dom/client';
 import App from './App';
 import { asyncSql } from './lib/pg/asyncSql';
+import { generateNewNostrKeys } from './lib/nostr';
 
 // Initialize redux store from sql
 const startApp = async () => {
 
-  // LOAD myActiveNostrProfile
-  const sql0 = 'SELECT * FROM myNostrProfile WHERE active = true ';
-  const oMyActiveNostrProfileData = await asyncSql(sql0, 'get');
-
   // LOAD myNostrProfiles - loads all of my profiles; currently I do not load all of them into redux so this query may be unnecessary
-  const sql1 = 'SELECT * FROM myNostrProfile ';
-  const aMyNostrProfilesData = await asyncSql(sql1);
+  const sql0 = 'SELECT * FROM myNostrProfile ';
+  let aMyNostrProfilesData = await asyncSql(sql0);
+  if (aMyNostrProfilesData.length == 0) {
+    // make new profile
+    const [sk, pk] = await generateNewNostrKeys(true)
+
+    // now requery the database for aMyNostrProfilesData
+    aMyNostrProfilesData = await asyncSql(sql0);
+  }
+
+  // LOAD myActiveNostrProfile
+  const sql1 = 'SELECT * FROM myNostrProfile WHERE active = true ';
+  const oMyActiveNostrProfileData = await asyncSql(sql1, 'get');
 
   // LOAD nostrProfiles
   const sql2 = 'SELECT * from nostrProfiles ';
