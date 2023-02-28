@@ -44,7 +44,7 @@ const InitReduxStore = ({ oMyActiveNostrProfileData, aMyNostrProfilesData, aNost
 
   dispatch(initMyActiveNostrProfile(oMyActiveNostrProfileData));
   let oRelaysData = {};
-  if (aMyNostrProfilesData) {
+  if (oMyActiveNostrProfileData.relays) {
     oRelaysData = JSON.parse(aMyNostrProfilesData[0].relays);
   }
   if (oRelaysData) { dispatch(initNostrRelays(oRelaysData)); }
