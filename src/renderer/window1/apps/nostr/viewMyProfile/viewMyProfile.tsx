@@ -72,8 +72,9 @@ export default function MyProfile() {
             </div>
             <NavLink
               className="followsNavLink"
-              to="/NostrHome/NostrUserRelaysList"
+              to="/NostrHome/NostrRelays"
               style={{ marginLeft: '10px' }}
+
             >
               <div style={{ display: 'inline-block', marginRight: '5px' }}>
                 {Object.keys(oRelays).length}/{numRelaysRead}/{numRelaysWrite}
