@@ -44,8 +44,8 @@ const initialState = {
   relaysListLastUpdate: 0, // when relays list was last updated (locally, in sql)
 
   // arrays of pubkeys
-  following: [], // array of pubkeys
   followers: [], // array of pubkeys
+  following: [], // array of pubkeys
   followingForRelays: [], // array of pubkeys
   endorseAsRelaysPicker: [], // array of pubkeys
   endorseAsRelaysPickerHunter: [], // array of pubkeys
@@ -191,21 +191,26 @@ export const myProfileSlice = createSlice({
     // UPDATE BOOLEAN VARS
     updateMultiClientAccess: (state, action) => {
       state.multiClientAccess = action.payload;
+      const res = updateMyFullNostrProfileInSql(state);
     },
     updateRelaysAutoUpdate: (state, action) => {
       state.relaysAutoUpdate = action.payload;
+      const res = updateMyFullNostrProfileInSql(state);
     },
 
     // MANAGE followingForRelays
     addToFollowingForRelaysList: (state, action) => {
       // pass in pubkey; add to followingForRelays list if not already there
+      console.log("qwerty addToFollowingForRelaysList; action.payload: "+action.payload);
       if (!state.followingForRelays) {
         state.followingForRelays = [];
       }
+      console.log("qwerty addToFollowingForRelaysList; state.followingForRelays A: "+JSON.stringify(state.followingForRelays));
       state.followingForRelays = addStringToArrayUniquely(
         action.payload,
         state.followingForRelays
       );
+      console.log("qwerty addToFollowingForRelaysList; state.followingForRelays B: "+JSON.stringify(state.followingForRelays));
       const res = updateMyFullNostrProfileInSql(state);
     },
     removeFromFollowingForRelaysList: (state, action) => {

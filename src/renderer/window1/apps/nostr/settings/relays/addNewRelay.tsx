@@ -60,7 +60,7 @@ const AddNewRelay = () => {
   };
   return (
     <>
-      <div>
+      <div style={{marginBottom: '5px'}}>
         <div style={{ display: 'inline-block', fontSize: '18px' }}>wss://</div>
         <textarea
           id="newRelayTextarea"

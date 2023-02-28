@@ -6,14 +6,34 @@ import { generateNewNostrKeys } from './lib/nostr';
 // Initialize redux store from sql
 const startApp = async () => {
 
-  const sql_a = ' SELECT relaysAutoUpdate FROM myNostrProfile LIMIT 1 ';
-  const isColPresent = await asyncSql(sql_a);
-  if (isColPresent) {
-    console.log("isColPresent is truthy")
+  const sql0_a = ' SELECT followingForRelays FROM myNostrProfile LIMIT 1 ';
+  const isColPresent0 = await asyncSql(sql0_a);
+  if (isColPresent0) {
+    console.log("isColPresent0 followingForRelays is truthy")
   } else {
-    const sql_b = ' ALTER TABLE myNostrProfile ADD relaysAutoUpdate BOOLEAN false ';
-    console.log("isColPresent is NOT truthy; sql_b: "+sql_b)
-    const fooB = await asyncSql(sql_b);
+    const sql0_b = ' ALTER TABLE myNostrProfile ADD followingForRelays TEXT null ';
+    console.log("isColPresent0 followingForRelays is NOT truthy; sql0_b: "+sql0_b)
+    const fooB = await asyncSql(sql0_b);
+  }
+
+  const sql1_a = ' SELECT endorseAsRelaysPicker FROM myNostrProfile LIMIT 1 ';
+  const isColPresent1 = await asyncSql(sql1_a);
+  if (isColPresent1) {
+    console.log("isColPresent1 endorseAsRelaysPicker is truthy")
+  } else {
+    const sql1_b = ' ALTER TABLE myNostrProfile ADD endorseAsRelaysPicker TEXT null ';
+    console.log("isColPresent1 endorseAsRelaysPicker is NOT truthy; sql1_b: "+sql1_b)
+    const fooB = await asyncSql(sql1_b);
+  }
+
+  const sql2_a = ' SELECT endorseAsRelaysPickerHunter FROM myNostrProfile LIMIT 1 ';
+  const isColPresent2 = await asyncSql(sql2_a);
+  if (isColPresent2) {
+    console.log("isColPresent2 endorseAsRelaysPickerHunter is truthy")
+  } else {
+    const sql2_b = ' ALTER TABLE myNostrProfile ADD endorseAsRelaysPickerHunter TEXT null ';
+    console.log("isColPresent2 endorseAsRelaysPickerHunter is NOT truthy; sql2_b: "+sql2_b)
+    const fooB = await asyncSql(sql2_b);
   }
 
   // LOAD myNostrProfiles - loads all of my profiles; currently I do not load all of them into redux so this query may be unnecessary

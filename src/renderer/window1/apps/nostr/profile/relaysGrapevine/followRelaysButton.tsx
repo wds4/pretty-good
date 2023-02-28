@@ -23,8 +23,8 @@ const FollowRelaysButton = ({ pubkey }) => {
   let currentState = 'notFollowing';
 
   let aFollowingRelays = [];
-  if (myNostrProfile.followingRelays) {
-    aFollowingRelays = myNostrProfile.followingRelays;
+  if (myNostrProfile.followingForRelays) {
+    aFollowingRelays = myNostrProfile.followingForRelays;
   }
   if (aFollowingRelays.includes(pubkey)) {
     // I am already following this user.
@@ -33,6 +33,7 @@ const FollowRelaysButton = ({ pubkey }) => {
   }
 
   const processToggleButtonClick = (currentState) => {
+    console.log("qwerty processToggleButtonClick; currentState: "+currentState);
     let newState = 'following';
     if (currentState == 'following') {
       newState = 'notFollowing';

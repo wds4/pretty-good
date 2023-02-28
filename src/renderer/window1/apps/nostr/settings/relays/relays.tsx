@@ -37,7 +37,7 @@ const RelaysSettings = () => {
   const aRelays = Object.keys(oRelaysData);
   return (
     <>
-      <div style={{ display: 'inline-block', border: '1px dashed grey' }}>
+      <div style={{ display: 'inline-block', border: '1px dashed grey', marginBottom: '5px' }}>
         <center>My Relays</center>
         <br/>
         {aRelays.map((url) => {

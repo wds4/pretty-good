@@ -16,7 +16,8 @@ const ToggleRelaysAutoUpdateMode = () => {
   };
   return (
     <>
-      <div >
+      <div style={{marginBottom: '5px'}} >
+        <div>relays auto update:</div>
         <ToggleSwitch
           label="relaysAutoUpdateMode"
           processStateChange={(newState) => processStateChange(newState)}

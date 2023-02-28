@@ -135,7 +135,7 @@ export const updateNostrRelaysForActiveUserInSql = async (oRelays) => {
   sql += ` SET relays = '${JSON.stringify(oRelays)}' `;
   sql += ` WHERE active = true `;
 
-  console.log(`updateMyFullNostrProfileInSql sql: ${sql}`);
+  console.log(`updateNostrRelaysForActiveUserInSql sql: ${sql}`);
 
   const result = await asyncSql(sql);
   return result;
@@ -156,6 +156,10 @@ export const updateMyFullNostrProfileInSql = async (oMyNostrProfileInfo) => {
     followers,
     relays,
     multiClientAccess,
+    relaysAutoUpdate,
+    followingForRelays,
+    endorseAsRelaysPicker,
+    endorseAsRelaysPickerHunter,
   } = oMyNostrProfileInfo;
   const currentTime = dateToUnix(new Date());
 
@@ -173,13 +177,14 @@ export const updateMyFullNostrProfileInSql = async (oMyNostrProfileInfo) => {
   sql += ` , relays = '${JSON.stringify(relays)}' `;
   sql += ` , lastUpdate = ${currentTime} `;
   sql += ` , multiClientAccess = ${multiClientAccess} `;
+  sql += ` , relaysAutoUpdate = ${relaysAutoUpdate} `;
   sql += ` WHERE pubkey = '${pubkey_hex}' `;
 
-  console.log(`updateMyFullNostrProfileInSql sql: ${sql}`);
+  console.log(`qwerty updateMyFullNostrProfileInSql sql: ${sql}`);
 
   const result = await asyncSql(sql);
   console.log(
-    `updateMyFullNostrProfileInSql result: ${JSON.stringify(result, null, 4)}`
+    `qwerty updateMyFullNostrProfileInSql result: ${JSON.stringify(result, null, 4)}`
   );
 };
 
