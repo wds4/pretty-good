@@ -58,6 +58,7 @@ createNostrProfilesTableCommand += 'following TEXT NULL, ';
 // createNostrProfilesTableCommand += "degreesOfSeparation INTEGER NULL, ";
 createNostrProfilesTableCommand += 'firstSeen INTEGER NULL, ';
 createNostrProfilesTableCommand += 'lastUpdate INTEGER NULL, ';
+createNostrProfilesTableCommand += 'kind3Event TEXT NULL, ';
 createNostrProfilesTableCommand += 'UNIQUE(event_id, pubkey) ';
 
 createMyProfileTableCommand += 'id INTEGER PRIMARY KEY, ';

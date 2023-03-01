@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   addStringToArrayUniquely,
   removeStringFromArray,
@@ -88,6 +89,7 @@ export const myProfileSlice = createSlice({
 
       if (oMyProfileData?.followers) { state.followers = JSON.parse(oMyProfileData?.followers); }
       if (oMyProfileData?.following) { state.following = JSON.parse(oMyProfileData?.following); }
+      if (oMyProfileData?.extendedFollowing) { state.following = JSON.parse(oMyProfileData?.extendedFollowing); }
       if (oMyProfileData?.followingForRelays) { state.followingForRelays = JSON.parse(oMyProfileData?.followingForRelays); }
       if (oMyProfileData?.endorseAsRelaysPicker) { state.endorseAsRelaysPicker = JSON.parse(oMyProfileData?.endorseAsRelaysPicker); }
       if (oMyProfileData?.endorseAsRelaysPickerHunter) { state.endorseAsRelaysPickerHunter = JSON.parse(oMyProfileData?.endorseAsRelaysPickerHunter); }
@@ -177,6 +179,14 @@ export const myProfileSlice = createSlice({
     },
     ///////////////////////////
 
+    updateExtendedFollowing: (state, action) => {
+      let aExtendedFollowing = [];
+      if (action.payload) {
+        aExtendedFollowing = action.payload;
+      }
+      state.followers = aExtendedFollowing;
+    },
+
     // MANAGE FOLLOWERS
     updateFollowers: (state, action) => {
       let aFollowers = [];
@@ -265,6 +275,12 @@ export const myProfileSlice = createSlice({
     ///////////////////////////
   },
 });
+
+export const recalculateExtendedFollowing = async () => {
+  const nostrProfiles = useSelector(
+    (state) => state.nostrProfiles.nostrProfiles
+  );
+}
 
 export const refreshMyActiveNostrProfile = () => async (dispatch) => {
   const oMyActiveNostrProfileData = await fetchMyActiveNostrProfileFromSql(false);

@@ -6,13 +6,13 @@ import { generateNewNostrKeys } from './lib/nostr';
 // Initialize redux store from sql
 const startApp = async () => {
 
-  const sql0_a = ' SELECT extendedFollowing FROM myNostrProfile LIMIT 1 ';
+  const sql0_a = ' SELECT kind3Event FROM nostrProfiles LIMIT 1 ';
   const isColPresent0 = await asyncSql(sql0_a);
   if (isColPresent0) {
-    console.log("isColPresent0 extendedFollowing is truthy")
+    console.log("isColPresent0 kind3Event is truthy")
   } else {
-    const sql0_b = ' ALTER TABLE myNostrProfile ADD extendedFollowing TEXT null ';
-    console.log("isColPresent0 extendedFollowing is NOT truthy; sql0_b: "+sql0_b)
+    const sql0_b = ' ALTER TABLE nostrProfiles ADD kind3Event TEXT null ';
+    console.log("isColPresent0 kind3Event is NOT truthy; sql0_b: "+sql0_b)
     const fooB = await asyncSql(sql0_b);
   }
   /*

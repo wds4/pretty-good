@@ -37,7 +37,7 @@ export default function FollowingList() {
   const { events } = useNostrEvents({
     filter: {
       authors: [pubkey],
-      since: 0, // all new events from now
+      since: 0,
       kinds: [3],
     },
   });
