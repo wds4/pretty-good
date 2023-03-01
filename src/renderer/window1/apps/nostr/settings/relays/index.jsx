@@ -10,7 +10,7 @@ import {
 import Relays from './relays';
 import AddNewRelay from './addNewRelay';
 import FollowingForRelays from './followingForRelays';
-import ToggleRelaysAutoUpdate from './toggleRelaysAutoUpdateMode';
+import RelaysAutoUpdateControls from './relaysAutoUpdateControls';
 // import ToggleRelaysAutoUpdate from 'renderer/window1/components/toggleSwitch';
 
 export default class NostrRelays extends React.Component {
@@ -35,11 +35,15 @@ export default class NostrRelays extends React.Component {
         <div id="mainCol">
           <Masthead />
           <div id="mainPanel">
-            <div className="h4">Nostr: Relays</div>
-            <ToggleRelaysAutoUpdate />
-            <Relays />
-            <AddNewRelay />
-            <FollowingForRelays />
+            <div className="h3" style={{marginBottom: '5px' }}>Nostr: Relays</div>
+            <div style={{ display: 'inline-block',  width:'48%', border: '1px dashed grey' }}>
+              <RelaysAutoUpdateControls />
+              <Relays />
+              <AddNewRelay />
+            </div>
+            <div style={{ display: 'inline-block', width:'48%', border: '1px dashed grey' }}>
+              <FollowingForRelays />
+            </div>
           </div>
         </div>
       </>

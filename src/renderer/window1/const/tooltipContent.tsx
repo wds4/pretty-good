@@ -1,16 +1,24 @@
 let followRelaysButtonContent = '';
 followRelaysButtonContent += 'Follow Relays:';
-followRelaysButtonContent += '<br/>This button will allow you to add the relays from this profile to your relays list.';
-followRelaysButtonContent += '<br/>Relays are either added automatically or will await manual confirmation on the nostr relays settings page.';
+followRelaysButtonContent += '<br/><br/>This button adds relays from this profile to your recommended relays list.';
+followRelaysButtonContent += '<br/>If desired, recommended relays will be added automatically to your active relays list.';
+followRelaysButtonContent += '<br/>Alternatively, you can review the recommended list and add them by hand individually.';
+followRelaysButtonContent += '<br/>See nostr relays settings page.';
 followRelaysButtonContent += '<br/>You can follow relays from as many profiles as you would like.';
 followRelaysButtonContent += '<br/>This setting is not published to your nostr profile.';
 
 let endorseAsRelaysPickerButtonContent = '';
 endorseAsRelaysPickerButtonContent += 'Endorse as Relays Picker';
+endorseAsRelaysPickerButtonContent += '<br/>Check if you trust this user to select profiles to feed into you Recommended Relays list.';
 
 let endorseAsRelaysPickerHunterButtonContent = '';
 endorseAsRelaysPickerHunterButtonContent += 'Endorse as Relays Picker Hunter';
+endorseAsRelaysPickerHunterButtonContent += '<br/>Check if you trust this user to designate other user profiles as Recommended Relays Selector.';
 endorseAsRelaysPickerHunterButtonContent += '<br/>This is transitive.';
+
+let mergeRelayAutoUpdateRecsContent = '';
+mergeRelayAutoUpdateRecsContent += 'merge recommended relays with my official nostr relays list as broadcast to the network.';
+mergeRelayAutoUpdateRecsContent += '<br/>(If no, then just listen to relays without broadcasting them.)';
 
 export const tooltipContent = {
   sampleContent: 'Hello World!',
@@ -32,6 +40,8 @@ export const tooltipContent = {
   followRelaysButton: followRelaysButtonContent,
   endorseAsRelaysPickerButton: endorseAsRelaysPickerButtonContent,
   endorseAsRelaysPickerHunterButton: endorseAsRelaysPickerHunterButtonContent,
+  relaysSettingsMyRelays: 'The list of relays associated with my nostr profile, as broadcast to the network.',
+  relaysAutoUpdateButton: 'add relays automatically or manually',
+  mergeRelayAutoUpdateRecs: mergeRelayAutoUpdateRecsContent,
 };
-
 

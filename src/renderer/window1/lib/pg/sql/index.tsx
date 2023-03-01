@@ -172,8 +172,11 @@ export const updateMyFullNostrProfileInSql = async (oMyNostrProfileInfo) => {
   sql += ` , about = '${about}' `;
   sql += ` , lud06 = '${lud06}' `;
   sql += ` , nip05 = '${nip05}' `;
-  sql += ` , following = '${JSON.stringify(following)}' `;
   sql += ` , followers = '${JSON.stringify(followers)}' `;
+  sql += ` , following = '${JSON.stringify(following)}' `;
+  sql += ` , followingForRelays = '${JSON.stringify(followingForRelays)}' `;
+  sql += ` , endorseAsRelaysPicker = '${JSON.stringify(endorseAsRelaysPicker)}' `;
+  sql += ` , endorseAsRelaysPickerHunter = '${JSON.stringify(endorseAsRelaysPickerHunter)}' `;
   sql += ` , relays = '${JSON.stringify(relays)}' `;
   sql += ` , lastUpdate = ${currentTime} `;
   sql += ` , multiClientAccess = ${multiClientAccess} `;

@@ -114,7 +114,7 @@ const GlobalFeed = () => {
 
   const myNostrProfile = useSelector((state) => state.myNostrProfile);
   const aFollowing = myNostrProfile.following;
-  const aExtendedFollowing = [];
+  const aExtendedFollowing = myNostrProfile.extendedFollowing;
 
   const mainNostrFeedFilter = useSelector(
     (state) => state.nostrSettings.mainNostrFeedFilter

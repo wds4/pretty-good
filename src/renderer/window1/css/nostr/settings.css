@@ -24,8 +24,8 @@ div.relays:before {
 .relayUrlContainer {
     display:inline-block;
     margin-left:5px;
-    width:300px;
-    font-size:16px;
+    width:250px;
+    font-size:14px;
     overflow:auto;
 }
 .endorseMyRelaysContainer {

@@ -73,6 +73,7 @@ createMyProfileTableCommand += 'picture_url TEXT NULL, ';
 createMyProfileTableCommand += 'banner_url TEXT NULL, ';
 createMyProfileTableCommand += 'followers TEXT NULL, ';
 createMyProfileTableCommand += 'following TEXT NULL, ';
+createMyProfileTableCommand += 'extendedFollowing TEXT NULL, ';
 createMyProfileTableCommand += 'followingForRelays TEXT NULL, ';
 createMyProfileTableCommand += 'endorseAsRelaysPicker TEXT NULL, ';
 createMyProfileTableCommand += 'endorseAsRelaysPickerHunter TEXT NULL, ';

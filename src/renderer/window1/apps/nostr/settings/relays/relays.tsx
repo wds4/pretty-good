@@ -14,6 +14,8 @@ import { noteEncode } from 'nostr-tools/nip19';
 import EndorseRelayMessage from './endorseRelayMessage';
 import { resetNostrSettingsNostrRelays } from 'renderer/window1/redux/features/nostr/settings/slice';
 import { updateNostrRelaysForActiveUserInReduxAndNostr } from 'renderer/window1/redux/features/nostr/myNostrProfile/slice';
+import { Tooltip } from 'react-tooltip';
+import { tooltipContent } from 'renderer/window1/const/tooltipContent';
 
 const RelaysSettings = () => {
   const myNostrProfile = useSelector((state) => state.myNostrProfile);
@@ -37,18 +39,23 @@ const RelaysSettings = () => {
   const aRelays = Object.keys(oRelaysData);
   return (
     <>
-      <div style={{ display: 'inline-block', border: '1px dashed grey', marginBottom: '5px' }}>
-        <center>My Relays</center>
+      <div style={{ width: '100%', border: '1px dashed grey', marginBottom: '5px' }}>
+        <div className="h3"><a id="relaysSettingsMyRelays">My Relays</a></div>
+        <Tooltip
+          anchorSelect="#relaysSettingsMyRelays"
+          html={tooltipContent.relaysSettingsMyRelays}
+          clickable
+          className="reactTooltip"
+        />
         <br/>
         {aRelays.map((url) => {
           const oRelayData = oRelaysData[url];
           const relayInfoContainerId = `relayInfoContainer_${url}`;
           return (
             <>
-
               <div className="relayInfoContainer" id={relayInfoContainerId}>
                 <div className="relayUrlContainer">{url}</div>
-                <div style={{display:'inline-block',width: '150px'}}>
+                <div style={{display:'inline-block',width: '70px', fontSize: '12px'}}>
                   <input
                     className="relayCheckbox"
                     style={{ display: 'inline-block' }}
@@ -58,7 +65,7 @@ const RelaysSettings = () => {
                   />
                   read
                 </div>
-                <div style={{display:'inline-block',width: '150px'}}>
+                <div style={{display:'inline-block',width: '100px', fontSize: '12px' }}>
                   <input
                     className="relayCheckbox"
                     style={{ display: 'inline-block' }}

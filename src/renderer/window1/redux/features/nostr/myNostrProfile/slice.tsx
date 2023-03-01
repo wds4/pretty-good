@@ -46,6 +46,7 @@ const initialState = {
   // arrays of pubkeys
   followers: [], // array of pubkeys
   following: [], // array of pubkeys
+  extendedFollowing: [], // array of pubkeys
   followingForRelays: [], // array of pubkeys
   endorseAsRelaysPicker: [], // array of pubkeys
   endorseAsRelaysPickerHunter: [], // array of pubkeys
@@ -87,6 +88,9 @@ export const myProfileSlice = createSlice({
 
       if (oMyProfileData?.followers) { state.followers = JSON.parse(oMyProfileData?.followers); }
       if (oMyProfileData?.following) { state.following = JSON.parse(oMyProfileData?.following); }
+      if (oMyProfileData?.followingForRelays) { state.followingForRelays = JSON.parse(oMyProfileData?.followingForRelays); }
+      if (oMyProfileData?.endorseAsRelaysPicker) { state.endorseAsRelaysPicker = JSON.parse(oMyProfileData?.endorseAsRelaysPicker); }
+      if (oMyProfileData?.endorseAsRelaysPickerHunter) { state.endorseAsRelaysPickerHunter = JSON.parse(oMyProfileData?.endorseAsRelaysPickerHunter); }
 
       if (oMyProfileData?.picture_url) {
         state.picture_url = oMyProfileData?.picture_url
@@ -143,6 +147,8 @@ export const myProfileSlice = createSlice({
     updateLud06: (state, action) => {
       state.lud06 = action.payload;
     },
+
+    // MANAGE TIMESTAMPS
     updateCreatedAt: (state, action) => {
       state.created_at = action.payload;
     },
@@ -155,38 +161,7 @@ export const myProfileSlice = createSlice({
     updateRelaysListLastUpdate: (state, action) => {
       state.relaysListLastUpdate = action.payload;
     },
-    updateRelays: (state, action) => {
-      let oRelays = [];
-      if (action.payload) {
-        oRelays = action.payload;
-      }
-      state.relays = oRelays;
-      /*
-      console.log("updateRelays; state: "+JSON.stringify(state))
-      let newState = JSON.parse(JSON.stringify(state));
-      console.log("updateRelays; newState: "+JSON.stringify(newState))
-      newState.relays = oRelays;
-      console.log("updateRelays; newState 2: "+JSON.stringify(newState))
-      // const res = updateMyFullNostrProfileInSql(newState);
-      */
-    },
-    // MANAGE RELAYS
-    addNewRelay: (state, action) => {
-      const url = action.payload;
-      state.relays[url] = { read: true, write: true}
-    },
-    removeRelay: (state, action) => {
-      const url = action.payload;
-      delete state.relays[url];
-    },
-
-    updateFollowers: (state, action) => {
-      let aFollowers = [];
-      if (action.payload) {
-        aFollowers = action.payload;
-      }
-      state.followers = aFollowers;
-    },
+    ///////////////////////////
 
     // UPDATE BOOLEAN VARS
     updateMultiClientAccess: (state, action) => {
@@ -197,33 +172,20 @@ export const myProfileSlice = createSlice({
       state.relaysAutoUpdate = action.payload;
       const res = updateMyFullNostrProfileInSql(state);
     },
-
-    // MANAGE followingForRelays
-    addToFollowingForRelaysList: (state, action) => {
-      // pass in pubkey; add to followingForRelays list if not already there
-      console.log("qwerty addToFollowingForRelaysList; action.payload: "+action.payload);
-      if (!state.followingForRelays) {
-        state.followingForRelays = [];
-      }
-      console.log("qwerty addToFollowingForRelaysList; state.followingForRelays A: "+JSON.stringify(state.followingForRelays));
-      state.followingForRelays = addStringToArrayUniquely(
-        action.payload,
-        state.followingForRelays
-      );
-      console.log("qwerty addToFollowingForRelaysList; state.followingForRelays B: "+JSON.stringify(state.followingForRelays));
-      const res = updateMyFullNostrProfileInSql(state);
+    updateShowWelcomeBox: (state, action) => {
+      state.showWelcomeBox = action.payload;
     },
-    removeFromFollowingForRelaysList: (state, action) => {
-      // pass in pubkey; remove from followingForRelays list if it is currently there
-      if (!state.followingForRelays) {
-        state.followingForRelays = [];
-      }
-      state.followingForRelays = removeStringFromArray(action.payload, state.followingForRelays);
-      const res = updateMyFullNostrProfileInSql(state);
-    },
+    ///////////////////////////
 
-    // MANAGE endorseAsRelaysPicker
-    // MANAGE endorseAsRelaysPickerHunter
+    // MANAGE FOLLOWERS
+    updateFollowers: (state, action) => {
+      let aFollowers = [];
+      if (action.payload) {
+        aFollowers = action.payload;
+      }
+      state.followers = aFollowers;
+    },
+    ///////////////////////////
 
     // MANAGE FOLLOWING
     addToFollowingList: (state, action) => {
@@ -254,10 +216,53 @@ export const myProfileSlice = createSlice({
       console.log(`updateFollowing; action.payload: ${JSON.stringify(action.payload)}; aFollowing: ${JSON.stringify(aFollowing)}`)
       state.following = aFollowing;
     },
+    ///////////////////////////
 
-    updateShowWelcomeBox: (state, action) => {
-      state.showWelcomeBox = action.payload;
+    // MANAGE followingForRelays
+    addToFollowingForRelaysList: (state, action) => {
+      // pass in pubkey; add to followingForRelays list if not already there
+      console.log("qwerty addToFollowingForRelaysList; action.payload: "+action.payload);
+      if (!state.followingForRelays) {
+        state.followingForRelays = [];
+      }
+      console.log("qwerty addToFollowingForRelaysList; state.followingForRelays A: "+JSON.stringify(state.followingForRelays));
+      state.followingForRelays = addStringToArrayUniquely(
+        action.payload,
+        state.followingForRelays
+      );
+      console.log("qwerty addToFollowingForRelaysList; state.followingForRelays B: "+JSON.stringify(state.followingForRelays));
+      const res = updateMyFullNostrProfileInSql(state);
     },
+    removeFromFollowingForRelaysList: (state, action) => {
+      // pass in pubkey; remove from followingForRelays list if it is currently there
+      if (!state.followingForRelays) {
+        state.followingForRelays = [];
+      }
+      state.followingForRelays = removeStringFromArray(action.payload, state.followingForRelays);
+      const res = updateMyFullNostrProfileInSql(state);
+    },
+    ///////////////////////////
+
+    // MANAGE endorseAsRelaysPicker
+    // MANAGE endorseAsRelaysPickerHunter
+
+    // MANAGE RELAYS
+    addNewRelay: (state, action) => {
+      const url = action.payload;
+      state.relays[url] = { read: true, write: true}
+    },
+    removeRelay: (state, action) => {
+      const url = action.payload;
+      delete state.relays[url];
+    },
+    updateRelays: (state, action) => {
+      let oRelays = [];
+      if (action.payload) {
+        oRelays = action.payload;
+      }
+      state.relays = oRelays;
+    },
+    ///////////////////////////
   },
 });
 

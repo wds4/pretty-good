@@ -6,16 +6,16 @@ import { generateNewNostrKeys } from './lib/nostr';
 // Initialize redux store from sql
 const startApp = async () => {
 
-  const sql0_a = ' SELECT followingForRelays FROM myNostrProfile LIMIT 1 ';
+  const sql0_a = ' SELECT extendedFollowing FROM myNostrProfile LIMIT 1 ';
   const isColPresent0 = await asyncSql(sql0_a);
   if (isColPresent0) {
-    console.log("isColPresent0 followingForRelays is truthy")
+    console.log("isColPresent0 extendedFollowing is truthy")
   } else {
-    const sql0_b = ' ALTER TABLE myNostrProfile ADD followingForRelays TEXT null ';
-    console.log("isColPresent0 followingForRelays is NOT truthy; sql0_b: "+sql0_b)
+    const sql0_b = ' ALTER TABLE myNostrProfile ADD extendedFollowing TEXT null ';
+    console.log("isColPresent0 extendedFollowing is NOT truthy; sql0_b: "+sql0_b)
     const fooB = await asyncSql(sql0_b);
   }
-
+  /*
   const sql1_a = ' SELECT endorseAsRelaysPicker FROM myNostrProfile LIMIT 1 ';
   const isColPresent1 = await asyncSql(sql1_a);
   if (isColPresent1) {
@@ -35,7 +35,7 @@ const startApp = async () => {
     console.log("isColPresent2 endorseAsRelaysPickerHunter is NOT truthy; sql2_b: "+sql2_b)
     const fooB = await asyncSql(sql2_b);
   }
-
+  */
   // LOAD myNostrProfiles - loads all of my profiles; currently I do not load all of them into redux so this query may be unnecessary
   const sql0 = 'SELECT * FROM myNostrProfile ';
   let aMyNostrProfilesData = await asyncSql(sql0);
