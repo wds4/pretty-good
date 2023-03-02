@@ -7,6 +7,7 @@ import { generateNewNostrKeys } from './lib/nostr';
 const startApp = async () => {
   // need to remove relaysAutoMerge from nostrProfiles
 
+  /*
   const sql0_a = ' SELECT relaysAutoMerge FROM myNostrProfile LIMIT 1 ';
   const isColPresent0 = await asyncSql(sql0_a);
   if (isColPresent0) {
@@ -17,7 +18,6 @@ const startApp = async () => {
     const fooB = await asyncSql(sql0_b);
   }
 
-  /*
   const sql1_a = ' SELECT endorseAsRelaysPicker FROM myNostrProfile LIMIT 1 ';
   const isColPresent1 = await asyncSql(sql1_a);
   if (isColPresent1) {

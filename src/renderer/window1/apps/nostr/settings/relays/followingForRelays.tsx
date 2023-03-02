@@ -3,6 +3,7 @@ import { useNostr } from 'nostr-react';
 import MiniProfile from './miniProfile';
 
 const FollowingForRelays = () => {
+  const oKind3ProfilesData = useSelector((state) => state.nostrProfiles.kind3NostrProfiles);
   const myNostrProfile = useSelector((state) => state.myNostrProfile);
   const { publish } = useNostr();
   const dispatch = useDispatch();
@@ -14,6 +15,13 @@ const FollowingForRelays = () => {
         list of the relays lists I am following; number: {aFollowingForRelays.length}
         <div>
           {aFollowingForRelays.map((pk) => {
+            let oRelays = {};
+            if (oKind3ProfilesData.hasOwnProperty(pk)) {
+              const oKind3Event = oKind3ProfilesData[pk];
+              if (oKind3Event.hasOwnProperty('content') && oKind3Event.content) {
+                oRelays = JSON.parse(oKind3Event.content);
+              }
+            }
             return (
               <>
               <div>
@@ -21,6 +29,7 @@ const FollowingForRelays = () => {
                   pubkey={pk}
                 />
               </div>
+              {JSON.stringify(oRelays)}
               </>
             )
           })}
