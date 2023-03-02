@@ -173,10 +173,12 @@ export const updateMyFullNostrProfileInSql = async (oMyNostrProfileInfo) => {
     nip05,
     lud06,
     following,
+    extendedFollowing,
     followers,
     relays,
     multiClientAccess,
     relaysAutoUpdate,
+    relaysAutoMerge,
     followingForRelays,
     endorseAsRelaysPicker,
     endorseAsRelaysPickerHunter,
@@ -194,6 +196,7 @@ export const updateMyFullNostrProfileInSql = async (oMyNostrProfileInfo) => {
   sql += ` , nip05 = '${nip05}' `;
   sql += ` , followers = '${JSON.stringify(followers)}' `;
   sql += ` , following = '${JSON.stringify(following)}' `;
+  sql += ` , extendedFollowing = '${JSON.stringify(extendedFollowing)}' `;
   sql += ` , followingForRelays = '${JSON.stringify(followingForRelays)}' `;
   sql += ` , endorseAsRelaysPicker = '${JSON.stringify(endorseAsRelaysPicker)}' `;
   sql += ` , endorseAsRelaysPickerHunter = '${JSON.stringify(endorseAsRelaysPickerHunter)}' `;
@@ -201,6 +204,7 @@ export const updateMyFullNostrProfileInSql = async (oMyNostrProfileInfo) => {
   sql += ` , lastUpdate = ${currentTime} `;
   sql += ` , multiClientAccess = ${multiClientAccess} `;
   sql += ` , relaysAutoUpdate = ${relaysAutoUpdate} `;
+  sql += ` , relaysAutoMerge = ${relaysAutoMerge} `;
   sql += ` WHERE pubkey = '${pubkey_hex}' `;
 
   console.log(`qwerty updateMyFullNostrProfileInSql sql: ${sql}`);

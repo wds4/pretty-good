@@ -178,6 +178,7 @@ export const updateMyFullNostrProfileInSql = async (oMyNostrProfileInfo) => {
     relays,
     multiClientAccess,
     relaysAutoUpdate,
+    relaysAutoMerge,
     followingForRelays,
     endorseAsRelaysPicker,
     endorseAsRelaysPickerHunter,
@@ -203,6 +204,7 @@ export const updateMyFullNostrProfileInSql = async (oMyNostrProfileInfo) => {
   sql += ` , lastUpdate = ${currentTime} `;
   sql += ` , multiClientAccess = ${multiClientAccess} `;
   sql += ` , relaysAutoUpdate = ${relaysAutoUpdate} `;
+  sql += ` , relaysAutoMerge = ${relaysAutoMerge} `;
   sql += ` WHERE pubkey = '${pubkey_hex}' `;
 
   console.log(`qwerty updateMyFullNostrProfileInSql sql: ${sql}`);

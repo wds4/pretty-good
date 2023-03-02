@@ -200,7 +200,6 @@ const GlobalFeed = () => {
           />
         </div>
       </div>
-      aExtendedFollowing: {aExtendedFollowing.length}
       <WelcomeBox />
       <pre className={devModeClassName}>
         aFollowing: {JSON.stringify(aFollowing, null, 4)}

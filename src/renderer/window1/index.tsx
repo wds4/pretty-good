@@ -5,16 +5,18 @@ import { generateNewNostrKeys } from './lib/nostr';
 
 // Initialize redux store from sql
 const startApp = async () => {
+  // need to remove relaysAutoMerge from nostrProfiles
 
-  const sql0_a = ' SELECT relaysAutoMerge FROM nostrProfiles LIMIT 1 ';
+  const sql0_a = ' SELECT relaysAutoMerge FROM myNostrProfile LIMIT 1 ';
   const isColPresent0 = await asyncSql(sql0_a);
   if (isColPresent0) {
     console.log("isColPresent0 relaysAutoMerge is truthy")
   } else {
-    const sql0_b = ' ALTER TABLE nostrProfiles ADD relaysAutoMerge BOOLEAN false ';
+    const sql0_b = ' ALTER TABLE myNostrProfile ADD relaysAutoMerge BOOLEAN false ';
     console.log("isColPresent0 relaysAutoMerge is NOT truthy; sql0_b: "+sql0_b)
     const fooB = await asyncSql(sql0_b);
   }
+
   /*
   const sql1_a = ' SELECT endorseAsRelaysPicker FROM myNostrProfile LIMIT 1 ';
   const isColPresent1 = await asyncSql(sql1_a);

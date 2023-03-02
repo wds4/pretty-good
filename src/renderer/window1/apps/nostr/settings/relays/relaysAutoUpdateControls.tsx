@@ -28,6 +28,7 @@ const ToggleRelaysAutoUpdateMode = () => {
   return (
     <>
       <div style={{border: '1px dashed grey', marginBottom: '5px', padding: '5px'}} >
+
         <div style={{ marginBottom: '5px' }}>
           <div style={{display: 'inline-block', width: '200px'}} >
             <a id="relaysAutoUpdateButton">relays auto update:</a>
@@ -47,12 +48,13 @@ const ToggleRelaysAutoUpdateMode = () => {
           </div>
         </div>
 
+
         <div style={{ marginBottom: '5px' }}>
           <div style={{display: 'inline-block', width: '200px'}} >
-            <a id="mergeRelayAutoUpdateRecs">merge recommended relays to my list:</a>
+            <a id="mergeRelayAutoUpdateButton">merge recommended relays to my list:</a>
             <Tooltip
-              anchorSelect="#mergeRelayAutoUpdateRecs"
-              html={tooltipContent.mergeRelayAutoUpdateRecs}
+              anchorSelect="#mergeRelayAutoUpdateButton"
+              html={tooltipContent.mergeRelayAutoUpdateButton}
               clickable
               className="reactTooltip"
             />
