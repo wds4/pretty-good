@@ -1,0 +1,156 @@
+.mainFeedContainer {
+    margin:0px 5px 0px 5px;
+}
+.eventContainer {
+    margin-bottom:10px;
+}
+.smallAvatarContainer {
+    display:inline-block;
+    position:relative;
+    width:50px;
+    height:50px;
+}
+.smallAvatarBox {
+  	display:inline-block;
+  	background-color:white;
+  	border:1px solid black;
+  	border-radius:250px;
+  	width:95%;
+  	height:95%;
+  	margin: 0;
+  	position: absolute;
+  	top: 50%;
+  	left: 50%;
+  	transform: translate(-50%, -50%);
+}
+.smallAvatarBox_show {
+  	display:inline-block;
+  	background-color:white;
+  	border:1px solid black;
+  	border-radius:250px;
+  	width:95%;
+  	height:95%;
+  	margin: 0;
+  	position: absolute;
+  	top: 50%;
+  	left: 50%;
+  	transform: translate(-50%, -50%);
+}
+.smallAvatarBox_hide {
+  	display:none;
+  	background-color:white;
+  	border:1px solid black;
+  	border-radius:250px;
+  	width:95%;
+  	height:95%;
+  	margin: 0;
+  	position: absolute;
+  	top: 50%;
+  	left: 50%;
+  	transform: translate(-50%, -50%);
+}
+.eventMainBodyContainer {
+    display:inline-block;
+    width:calc(100% - 70px);
+    min-height:50px;
+    background-color:white;
+    border-radius:10px;
+    margin-left:5px;
+    border:1px solid grey;
+    padding:3px;
+}
+.eventNameAndTimeContainer {
+    height:20px;
+    padding:2px;
+    font-size:12px;
+    padding:2px;
+}
+.eventNameContainer {
+    display:inline-block;
+    color:black;
+    margin-right:10px;
+    max-width:80%;
+    overflow:auto;
+    padding-left:3px;
+}
+.eventTimeContainer {
+    display:inline-block;
+    color:grey;
+    float:right;
+}
+.eventContentContainer {
+    padding:5px;
+    text-decoration:none;
+    font-size:16px;
+    color:black;
+    display:block;
+    border-radius:5px;
+}
+.eventContentContainer:hover {
+    background-color:grey;
+}
+.nameKnown {
+    color:black;
+}
+.nameUnknown {
+    color:grey;
+}
+.mainFeedTypeSelector {
+    margin-bottom:30px;
+    position:absolute;
+    right:5px;
+}
+.numFollowingContainer_show {
+    display:inline-block;
+    margin-right:10px;
+}
+.numFollowingContainer_hide {
+    display:none;
+    margin-right:10px;
+}
+.numFFollowingContainer_show {
+    display:inline-block;
+    margin-right:10px;
+}
+.numFFollowingContainer_hide {
+    display:none;
+    margin-right:10px;
+}
+.eventActionButtonsContainer {
+    padding:2px;
+}
+.singleActionButtonContainer {
+    margin:0px 10px 0px 10px;
+    padding:2px 10px 2px 10px;
+    border-radius:5px;
+    display:inline-block;
+}
+.singleActionButtonContainer:hover {
+    background-color:grey;
+}
+.rootEventContainer {
+    border-top:20px;
+    border-bottom:20px;
+    border-color:brown;
+    border-style: solid;
+    background-color:brown;
+    border-radius:10px;
+}
+.expandedEventContainer {
+    border-top:20px;
+    border-bottom:20px;
+    border-color:green;
+    border-style: solid;
+    background-color:green;
+    border-radius:10px;
+}
+.replyContainer_show {
+    border-radius:10px;
+    margin-left:55px;
+    margin-right:15px;
+    margin-top:5px;
+    vertical-align:bottom;
+}
+.replyContainer_hide {
+    display:none;
+}

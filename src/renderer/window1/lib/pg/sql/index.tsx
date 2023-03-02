@@ -18,6 +18,26 @@ export const addNostrNoteToSql = async (event) => {
   return res;
 };
 
+export const updateThisKind3EventProfileInSql = (event) => {
+  console.log(
+    `updateThisKind3EventProfileInSql; event: ${JSON.stringify(event, null, 4)}`
+  );
+  const currentTime = dateToUnix(new Date());
+
+  const sql1 = ` INSERT OR IGNORE INTO nostrProfiles (pubkey,kind3Event,firstSeen) VALUES('${
+    event.pubkey
+  }','${JSON.stringify(event)}',${currentTime}) `;
+  // console.log("updateThisKind3EventProfileInSql; sql1: "+sql1);
+  const res1 = asyncSql(sql1);
+
+  let sql2 = '';
+  sql2 += ' UPDATE nostrProfiles ';
+  sql2 += ` SET kind3Event = '${JSON.stringify(event)}' `;
+  sql2 += ` WHERE pubkey = '${event.pubkey}' `;
+  // console.log("updateThisKind3EventProfileInSql; sql2: "+sql2);
+  const res2 = asyncSql(sql2);
+};
+
 export const updateThisProfileInSql = (event) => {
   console.log(
     `updateThisProfileInSql; event: ${JSON.stringify(event, null, 4)}`
@@ -153,6 +173,7 @@ export const updateMyFullNostrProfileInSql = async (oMyNostrProfileInfo) => {
     nip05,
     lud06,
     following,
+    extendedFollowing,
     followers,
     relays,
     multiClientAccess,
@@ -174,6 +195,7 @@ export const updateMyFullNostrProfileInSql = async (oMyNostrProfileInfo) => {
   sql += ` , nip05 = '${nip05}' `;
   sql += ` , followers = '${JSON.stringify(followers)}' `;
   sql += ` , following = '${JSON.stringify(following)}' `;
+  sql += ` , extendedFollowing = '${JSON.stringify(extendedFollowing)}' `;
   sql += ` , followingForRelays = '${JSON.stringify(followingForRelays)}' `;
   sql += ` , endorseAsRelaysPicker = '${JSON.stringify(endorseAsRelaysPicker)}' `;
   sql += ` , endorseAsRelaysPickerHunter = '${JSON.stringify(endorseAsRelaysPickerHunter)}' `;

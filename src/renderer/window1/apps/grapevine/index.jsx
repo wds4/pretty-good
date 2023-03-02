@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import Masthead from '../../mastheads/grapevineMasthead';
 import LeftNavbar1 from '../../navbars/leftNavbar1/grapevineNavbar';
-import LeftNavbar2 from '../../navbars/leftNavbar2/emptyNavbar';
+import LeftNavbar2 from '../../navbars/leftNavbar2/grapevine/home';
 import { updateMainColWidth, updateMastheadCenter } from '../../lib/pg/ui';
 
 export default class GrapevineHome extends React.Component {

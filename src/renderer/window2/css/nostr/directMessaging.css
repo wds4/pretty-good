@@ -1,0 +1,84 @@
+.directMessageContainer {
+    margin-bottom:10px;
+    width:100%;
+}
+.directMessageContainerFloatLeft {
+    float:left;
+    text-align:left;
+}
+.directMessageContainerFloatRight {
+  float:right;
+  text-align:right;
+}
+.directMessageContainerFloatRight div {
+  background-color:blue;
+  color:white;
+  border:0px solid blue;
+}
+.directMessageContentContainer {
+    display:inline-block;
+    font-size:16px;
+    max-width:80%;
+    background-color:white;
+    border-radius:5px;
+    margin-left:5px;
+    border:1px solid grey;
+    padding:5px 10px 5px 10px;
+    color:black;
+}
+.directMessageTimeContainer {
+    display:inline-block;
+}
+
+/* Tooltip container */
+.directMessageTooltip {
+    position: relative;
+}
+
+/* Tooltip text */
+.directMessageTooltip .directMessageTooltipText {
+    visibility: hidden;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 10px 5px 10px;
+    border-radius: 6px;
+
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    top:0px;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.directMessageTooltip:hover .directMessageTooltipText {
+  visibility: visible;
+}
+
+.dmLeftPanel {
+  display:inline-block;
+  width:200px;
+  height:95%;
+  padding:5px;
+  border:1px solid black;
+  background-color:#CFCFCF
+}
+.dmMainPanel {
+  display:inline-block;
+  padding:5px;
+  width:calc(90% - 200px);
+  height:95%;
+  border:1px solid black;
+}
+.dmProfileButtonContainer {
+  border:2px solid grey;
+  margin-bottom:3px;
+  padding:3px;
+  font-size:12px;
+}
+.dmProfileButtonActive {
+  border:2px solid purple;
+  background-color:white;
+}
+.dmProfileButtonContainer:hover {
+  background-color:yellow;
+}

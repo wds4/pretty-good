@@ -45,11 +45,13 @@ export const options = {
     },
   },
   edges: {
+    width: 1,
+    color: 'black',
     physics: false,
     arrows: {
       to: {
         enabled: true,
-        scaleFactor: 4,
+        scaleFactor: 1,
       },
     },
   },

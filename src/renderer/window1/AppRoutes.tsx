@@ -1,8 +1,9 @@
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { incrementRelayDisconnectCount } from 'renderer/window1/redux/features/nostr/settings/slice';
-import DirectMessageController from 'renderer/window1/apps/nostr/listeners/dmListener';
-import MyProfileController from 'renderer/window1/apps/nostr/listeners/myProfileListener';
+import DirectMessageListener from 'renderer/window1/apps/nostr/listeners/dmListener';
+import MyProfileListener from 'renderer/window1/apps/nostr/listeners/myProfileListener';
+import NostrProfilesListener from 'renderer/window1/apps/nostr/listeners/profilesListener';
 // package dep:
 // "nostr-react": "github:wds4/nostr-react#autoReconnect",
 
@@ -32,7 +33,6 @@ import NostrLandingPage from './apps/nostr/landingPage';
 import NostrMainFeed from './apps/nostr/mainFeed';
 import NostrViewMyProfile from './apps/nostr/viewMyProfile';
 import NostrEditMyProfile from './apps/nostr/editMyProfile';
-import NostrSettings from './apps/nostr/settings';
 import NostrCreatePost from './apps/nostr/createPost';
 import NostrDirectMessageConvo from './apps/nostr/directMessageConversation';
 import NostrViewProfile from './apps/nostr/profile';
@@ -43,14 +43,18 @@ import NostrSearchForUser from './apps/nostr/searchForUser';
 import NostrThread from './apps/nostr/thread';
 import NostrDirectMessages from './apps/nostr/directMessages';
 
+import NostrSettings from './apps/nostr/settings';
 import NostrProfiles from './apps/nostr/settings/profiles';
 import NostrRelays from './apps/nostr/settings/relays';
 import NostrSql from './apps/nostr/settings/sql';
 import NostrSettingsGrapevine from './apps/nostr/settings/grapevine';
+import NostrSettingsExtendedFollowing from './apps/nostr/settings/extendedFollowing';
 
 import GrapevineHome from './apps/grapevine';
 import GrapevineProfile from './apps/grapevine/profile';
 import GrapevineSettings from './apps/grapevine/settings';
+import GrapevineGraphViewFollowing from './apps/grapevine/graphViews/following';
+import GrapevineGraphViewExtendedFollowing from './apps/grapevine/graphViews/extendedFollowing';
 
 import ConceptGraphHome from './apps/conceptGraph';
 import ConceptGraphProfile from './apps/conceptGraph/profile';
@@ -74,10 +78,14 @@ const AppRoutes = () => {
     }, 30000);
   };
   onDisconnect(onDisconnectCallback);
+  /*
+  <NostrProfilesListener />
+  <DirectMessageListener />
+  <MyProfileListener />
+  */
   return (
     <>
-      <DirectMessageController />
-      <MyProfileController />
+
       <fieldset id="app">
         <Router>
           <Routes>
@@ -189,6 +197,10 @@ const AppRoutes = () => {
               path="/NostrHome/NostrSettingsGrapevine"
               element={<NostrSettingsGrapevine />}
             />
+            <Route
+              path="/NostrHome/NostrSettingsExtendedFollowing"
+              element={<NostrSettingsExtendedFollowing />}
+            />
 
             <Route path="/GrapevineHome" element={<GrapevineHome />} />
             <Route
@@ -198,6 +210,14 @@ const AppRoutes = () => {
             <Route
               path="/GrapevineHome/GrapevineSettings"
               element={<GrapevineSettings />}
+            />
+            <Route
+              path="/GrapevineHome/GrapevineGraphViewFollowing"
+              element={<GrapevineGraphViewFollowing />}
+            />
+            <Route
+              path="/GrapevineHome/GrapevineGraphViewExtendedFollowing"
+              element={<GrapevineGraphViewExtendedFollowing />}
             />
 
             <Route path="/ConceptGraphHome" element={<ConceptGraphHome />} />

@@ -1,0 +1,29 @@
+.grapevineToggleButton {
+  display:inline-block;
+  padding: 5px;
+  width: 50px;
+  height: 52px;
+  border: 1px solid black;
+  border-radius:3px;
+  margin-left:15px;
+  bottom:3px;
+  right:5px;
+  position:relative;
+}
+.grapevineToggleButton:hover {
+  background-color:purple;
+  hover:white;
+}
+.grapevineToggleButtonOff {
+  background-color:white;
+  color:black;
+}
+.grapevineToggleButtonOn {
+  background-color:green;
+  color:white;
+}
+.grapevineProfileControlPanel {
+  padding:5px;
+  display:block;
+  text-align:left;
+}

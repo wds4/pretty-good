@@ -23,6 +23,7 @@ export default class PrettyGoodSettings extends React.Component {
     const mastheadDescriptor = 'IPFS-core (lightweight) Settings';
     updateMastheadCenter(mastheadDescriptor);
 
+    /*
     const myPeerID = await getMyPeerID();
     document.getElementById('myPeerIdContainer').innerHTML = myPeerID;
 
@@ -39,6 +40,7 @@ export default class PrettyGoodSettings extends React.Component {
       null,
       4
     );
+    */
   }
 
   render() {

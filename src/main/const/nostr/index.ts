@@ -83,6 +83,7 @@ createMyProfileTableCommand += 'lud06 TEXT NULL, ';
 createMyProfileTableCommand += 'relays TEXT NULL, ';
 createMyProfileTableCommand += 'multiClientAccess BOOLEAN false, ';
 createMyProfileTableCommand += 'relaysAutoUpdate BOOLEAN false, ';
+createMyProfileTableCommand += 'relaysAutoMerge BOOLEAN false, ';
 createMyProfileTableCommand += 'lastUpdate INTEGER NULL, ';
 createMyProfileTableCommand += 'followingListLastUpdate INTEGER NULL, ';
 createMyProfileTableCommand += 'relaysListLastUpdate INTEGER NULL, ';

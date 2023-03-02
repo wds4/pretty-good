@@ -41,6 +41,7 @@ export default function MyProfile() {
       <pre className={devModeClassName}>
         {JSON.stringify(myNostrProfile, null, 4)}
       </pre>
+
       <div className="mainUserProfileBox myProfileBox">
         <div className="mainUserProfileLeftColumnContainer">
           <div id="largeAvatarContainer" className="largeAvatarContainer">

@@ -17,7 +17,7 @@ const GlobalFeedFetchRecentPostsInBackground = ({ filter }) => {
   const dispatch = useDispatch();
   const now = useRef(new Date()); // Make sure current time isn't re-rendered
   const currentTime = dateToUnix(now.current);
-  let filter2 = JSON.parse(JSON.stringify(filter))
+  const filter2 = JSON.parse(JSON.stringify(filter));
   filter2.since = currentTime - 30 * 60; // 60 * 60 = fetch messages as old as one hour
 
   const { events } = useNostrEvents({
@@ -39,29 +39,32 @@ const GlobalFeedFetchRecentPostsInBackground = ({ filter }) => {
   );
 };
 
-const GlobalFeedFetchPostsInBackground = ({ filter }) => {
+const GlobalFeedFetchPostsInBackground = ({ filter, mainNostrFeedFilter }) => {
   const dispatch = useDispatch();
 
   const { events } = useNostrEvents({
     filter,
   });
 
-  events.map(async (event, index) => {
-    if (doesEventValidate(event)) {
-      dispatch(addNote(event));
-      const res = await addNostrNoteToSql(event);
-    }
-  });
+  if (mainNostrFeedFilter == 'following') {
+    events.map(async (event, index) => {
+      if (doesEventValidate(event)) {
+        dispatch(addNote(event));
+        const res = await addNostrNoteToSql(event);
+      }
+    });
+  }
+
   return (
     <>
-      <div style={{ textAlign: 'right', marginRight: '20px', display: 'none' }}>
+      <div style={{ textAlign: 'right', marginRight: '20px' }}>
         currently downloading (w/in past 2 days): {events.length} posts;
       </div>
     </>
   );
 };
 
-const GlobalFeedDisplayFromRedux = ({ filter }) => {
+const GlobalFeedDisplayFromRedux = ({ filter, mainNostrFeedFilter }) => {
   let oNotesAllAuthors = {};
   const oNostrNotesByAuthor = useSelector((state) => state.nostrNotes.notes);
   const aNostrNoteAuthors = Object.keys(oNostrNotesByAuthor);
@@ -85,7 +88,9 @@ const GlobalFeedDisplayFromRedux = ({ filter }) => {
   return (
     <>
       <div>
-        <div style={{ textAlign: 'right', marginRight: '20px', display: 'none' }}>
+        <div
+          style={{ textAlign: 'right', marginRight: '20px', display: 'none' }}
+        >
           currently showing: {aEvents.length} posts
         </div>
         {aEvents.map((event) => {
@@ -147,6 +152,41 @@ const GlobalFeed = () => {
       break;
   }
   // <GlobalFeedFetchRecentPostsInBackground filter={filter} />
+  if (mainNostrFeedFilter == 'following') {
+    // show notes from redux
+    return (
+      <>
+        <pre className={devModeClassName}>
+          filter: {JSON.stringify(filter, null, 4)}
+        </pre>
+        <div style={{ position: 'relative', height: '40px' }}>
+          <div className="mainFeedTypeSelector">
+            <MainFeedTypeSelector
+              following={aFollowing}
+              extendedFollowing={aExtendedFollowing}
+            />
+          </div>
+        </div>
+        <WelcomeBox />
+        <pre className={devModeClassName}>
+          aFollowing: {JSON.stringify(aFollowing, null, 4)}
+        </pre>
+        <GlobalFeedFetchPostsInBackground
+          mainNostrFeedFilter={mainNostrFeedFilter}
+          filter={filter}
+        />
+        <GlobalFeedDisplayFromRedux
+          mainNostrFeedFilter={mainNostrFeedFilter}
+          filter={filter}
+        />
+      </>
+    );
+  }
+  // if extendedFollowing or firehose, show notes as they arrive
+  const { events } = useNostrEvents({
+    filter,
+  });
+  events.sort((a, b) => parseFloat(b.created_at) - parseFloat(a.created_at));
   return (
     <>
       <pre className={devModeClassName}>
@@ -160,13 +200,18 @@ const GlobalFeed = () => {
           />
         </div>
       </div>
+      aExtendedFollowing: {aExtendedFollowing.length}
       <WelcomeBox />
       <pre className={devModeClassName}>
         aFollowing: {JSON.stringify(aFollowing, null, 4)}
       </pre>
-      <GlobalFeedFetchPostsInBackground filter={filter} />
-
-      <GlobalFeedDisplayFromRedux filter={filter} />
+      {events.map((event, index) => {
+        if (doesEventValidate(event)) {
+          return (
+            <><Post event={event} /></>
+          );
+        }
+      })}
     </>
   );
 };

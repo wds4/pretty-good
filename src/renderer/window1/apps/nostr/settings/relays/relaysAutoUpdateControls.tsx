@@ -1,18 +1,27 @@
 import ToggleSwitch from 'renderer/window1/components/toggleSwitch';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateRelaysAutoUpdate } from 'renderer/window1/redux/features/nostr/myNostrProfile/slice';
+import { updateRelaysAutoUpdate, updateRelaysAutoMerge } from 'renderer/window1/redux/features/nostr/myNostrProfile/slice';
 import { asyncSql } from 'renderer/window1/lib/pg/asyncSql';
 import { Tooltip } from 'react-tooltip';
 import { tooltipContent } from 'renderer/window1/const/tooltipContent';
 
 const ToggleRelaysAutoUpdateMode = () => {
-  const initState = useSelector(
+  const initStateA = useSelector(
     (state) => state.myNostrProfile.relaysAutoUpdate
   );
+  const initStateB = useSelector(
+    (state) => state.myNostrProfile.relaysAutoMerge
+  );
   const dispatch = useDispatch();
-  const processStateChange = async (newState) => {
+  const processStateChangeA = async (newState) => {
     dispatch(updateRelaysAutoUpdate(newState));
     const sql = ` UPDATE myNostrProfile SET relaysAutoUpdate = ${newState} WHERE active = true `;
+    console.log(`processStateChange callback; ${newState}; sql: ${sql}`);
+    // const res = await asyncSql(sql);
+  };
+  const processStateChangeB = async (newState) => {
+    dispatch(updateRelaysAutoMerge(newState));
+    const sql = ` UPDATE myNostrProfile SET relaysAutoMerge = ${newState} WHERE active = true `;
     console.log(`processStateChange callback; ${newState}; sql: ${sql}`);
     // const res = await asyncSql(sql);
   };
@@ -32,8 +41,8 @@ const ToggleRelaysAutoUpdateMode = () => {
           <div style={{display: 'inline-block', width: '200px'}} >
             <ToggleSwitch
               label="relaysAutoUpdateMode"
-              processStateChange={(newState) => processStateChange(newState)}
-              initState={initState}
+              processStateChange={(newState) => processStateChangeA(newState)}
+              initState={initStateA}
             />
           </div>
         </div>
@@ -51,8 +60,8 @@ const ToggleRelaysAutoUpdateMode = () => {
           <div style={{display: 'inline-block', width: '200px'}} >
             <ToggleSwitch
               label="mergeRelayAutoUpdateRecs"
-              processStateChange={(newState) => processStateChange(newState)}
-              initState={initState}
+              processStateChange={(newState) => processStateChangeB(newState)}
+              initState={initStateB}
             />
           </div>
         </div>

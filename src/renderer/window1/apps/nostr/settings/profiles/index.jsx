@@ -10,6 +10,7 @@ import { fetchAllMyNostrProfilesFromSql } from 'renderer/window1/lib/pg/sql';
 import AllCurrentProfiles from './allCurrentProfiles';
 import GenerateNewKeys from './generateNewKeys';
 import EnterExternalKeys from './enterExternalKeys';
+import { asyncSql } from 'renderer/window1/lib/pg/asyncSql';
 
 export default class NostrProfiles extends React.Component {
   constructor(props) {

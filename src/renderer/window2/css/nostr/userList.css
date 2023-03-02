@@ -1,0 +1,39 @@
+.singleUserContainer {
+    border:1px solid black;
+    border-radius:5px;
+    margin-bottom:5px;
+    padding:5px;
+    position:relative;
+    background-color:#c6c6ff;
+}
+.userListSmallAvatarContainer {
+    display:inline-block;
+    position:relative;
+    width:50px;
+    height:50px;
+}
+.userListSmallAvatarBox {
+  	display:inline-block;
+  	background-color:white;
+  	border:1px solid black;
+  	border-radius:250px;
+  	width:95%;
+  	height:95%;
+  	margin: 0;
+  	position: absolute;
+  	top: 50%;
+  	left: 50%;
+  	transform: translate(-50%, -50%);
+}
+.singleUserMainBodyContainer {
+    display:inline-block;
+    width:calc(86% - 70px);
+    background-color:white;
+    border-radius:5px;
+    margin-left:5px;
+}
+.singleUserFollowButtonContainer {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+}

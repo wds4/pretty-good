@@ -22,8 +22,9 @@ import {
 const initialState = {
   // booleans
   showWelcomeBox: false,
-  relaysAutoUpdate: false,
   multiClientAccess: false, // whether this profile will be managed from multiple clients or not; if yes, updates are autoimported from the network
+  relaysAutoUpdate: false,
+  relaysAutoMerge: false,
 
   // strings
   pubkey_hex: undefined,
@@ -66,16 +67,13 @@ export const myProfileSlice = createSlice({
   reducers: {
     initMyActiveNostrProfile: (state, action) => {
       const oMyProfileData = action.payload;
-      console.log("initMyActiveNostrProfile; oMyProfileData: "+JSON.stringify(oMyProfileData))
+      // console.log("initMyActiveNostrProfile; oMyProfileData: "+JSON.stringify(oMyProfileData))
       state.name = oMyProfileData?.name;
       // console.log("initMyActiveNostrProfile; oMyProfileData?.name: "+oMyProfileData?.name)
       state.display_name = oMyProfileData?.display_name;
       state.pubkey_hex = oMyProfileData?.pubkey;
-
       state.pubkey_bech32 = nip19.npubEncode(oMyProfileData?.pubkey);
-
       state.privkey = oMyProfileData?.privkey;
-
       state.website = oMyProfileData?.website;
       state.about = oMyProfileData?.about;
       state.nip05 = oMyProfileData?.nip05;
@@ -84,12 +82,16 @@ export const myProfileSlice = createSlice({
       state.lastUpdate = oMyProfileData?.lastUpdate;
       state.relaysListLastUpdate = oMyProfileData?.relaysListLastUpdate;
       state.followingListLastUpdate = oMyProfileData?.followingListLastUpdate;
+
+      // booleans
       state.multiClientAccess = oMyProfileData?.multiClientAccess;
       state.relaysAutoUpdate = oMyProfileData?.relaysAutoUpdate;
+      state.relaysAutoMerge = oMyProfileData?.relaysAutoMerge;
 
+      // arrays of pubkeys
       if (oMyProfileData?.followers) { state.followers = JSON.parse(oMyProfileData?.followers); }
       if (oMyProfileData?.following) { state.following = JSON.parse(oMyProfileData?.following); }
-      if (oMyProfileData?.extendedFollowing) { state.following = JSON.parse(oMyProfileData?.extendedFollowing); }
+      if (oMyProfileData?.extendedFollowing) { state.extendedFollowing = JSON.parse(oMyProfileData?.extendedFollowing); }
       if (oMyProfileData?.followingForRelays) { state.followingForRelays = JSON.parse(oMyProfileData?.followingForRelays); }
       if (oMyProfileData?.endorseAsRelaysPicker) { state.endorseAsRelaysPicker = JSON.parse(oMyProfileData?.endorseAsRelaysPicker); }
       if (oMyProfileData?.endorseAsRelaysPickerHunter) { state.endorseAsRelaysPickerHunter = JSON.parse(oMyProfileData?.endorseAsRelaysPickerHunter); }
@@ -174,6 +176,10 @@ export const myProfileSlice = createSlice({
       state.relaysAutoUpdate = action.payload;
       const res = updateMyFullNostrProfileInSql(state);
     },
+    updateRelaysAutoMerge: (state, action) => {
+      state.relaysAutoMerge = action.payload;
+      const res = updateMyFullNostrProfileInSql(state);
+    },
     updateShowWelcomeBox: (state, action) => {
       state.showWelcomeBox = action.payload;
     },
@@ -184,7 +190,9 @@ export const myProfileSlice = createSlice({
       if (action.payload) {
         aExtendedFollowing = action.payload;
       }
-      state.followers = aExtendedFollowing;
+      console.log("updateExtendedFollowing; aExtendedFollowing: "+JSON.stringify(aExtendedFollowing))
+      state.extendedFollowing = aExtendedFollowing;
+      const res = updateMyFullNostrProfileInSql(state);
     },
 
     // MANAGE FOLLOWERS
@@ -276,11 +284,46 @@ export const myProfileSlice = createSlice({
   },
 });
 
-export const recalculateExtendedFollowing = async () => {
-  const nostrProfiles = useSelector(
-    (state) => state.nostrProfiles.nostrProfiles
-  );
-}
+// Action creators are generated for each case reducer function
+export const {
+  initMyActiveNostrProfile,
+  updatePubkeyHex,
+  updatePubkeyBech32,
+  updatePrivkey,
+  updateName,
+  updateDisplayName,
+  updatePictureUrl,
+  updateBannerUrl,
+  updateWebsite,
+  updateAbout,
+  updateFollowers,
+  updateRelays,
+  updateNip05,
+  updateLud06,
+  updateCreatedAt,
+  updateLastUpdate,
+  updateFollowingListLastUpdate,
+  updateRelaysListLastUpdate,
+
+  updateMultiClientAccess,
+  updateRelaysAutoUpdate,
+  updateRelaysAutoMerge,
+
+  addToFollowingList,
+  removeFromFollowingList,
+  updateFollowing,
+
+  updateExtendedFollowing,
+
+  addToFollowingForRelaysList,
+  removeFromFollowingForRelaysList,
+
+  addNewRelay,
+  removeRelay,
+  updateShowWelcomeBox,
+} = myProfileSlice.actions;
+
+export default myProfileSlice.reducer;
 
 export const refreshMyActiveNostrProfile = () => async (dispatch) => {
   const oMyActiveNostrProfileData = await fetchMyActiveNostrProfileFromSql(false);
@@ -325,44 +368,6 @@ export const refreshMyActiveNostrProfile = () => async (dispatch) => {
   dispatch(updateMultiClientAccess(oMyProfileData.multiClientAccess));
   */
 };
-
-// Action creators are generated for each case reducer function
-export const {
-  initMyActiveNostrProfile,
-  updatePubkeyHex,
-  updatePubkeyBech32,
-  updatePrivkey,
-  updateName,
-  updateDisplayName,
-  updatePictureUrl,
-  updateBannerUrl,
-  updateWebsite,
-  updateAbout,
-  updateFollowers,
-  updateRelays,
-  updateNip05,
-  updateLud06,
-  updateCreatedAt,
-  updateLastUpdate,
-  updateFollowingListLastUpdate,
-  updateRelaysListLastUpdate,
-
-  updateMultiClientAccess,
-  updateRelaysAutoUpdate,
-
-  addToFollowingList,
-  removeFromFollowingList,
-  updateFollowing,
-
-  addToFollowingForRelaysList,
-  removeFromFollowingForRelaysList,
-
-  addNewRelay,
-  removeRelay,
-  updateShowWelcomeBox,
-} = myProfileSlice.actions;
-
-export default myProfileSlice.reducer;
 
 // used to update in sql but now does not
 export const updateNostrRelaysForActiveUserInReduxAndNostr =

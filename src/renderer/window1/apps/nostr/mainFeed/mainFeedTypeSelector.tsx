@@ -13,6 +13,10 @@ const MainFeedTypeSelector = () => {
   if (myNostrProfile.following) {
     aFollowing = myNostrProfile.following;
   }
+  let aExtendedFollowing = [];
+  if (myNostrProfile.extendedFollowing) {
+    aExtendedFollowing = myNostrProfile.extendedFollowing;
+  }
 
   let followingSelected = false;
   let eFollowingSelected = false;
@@ -44,9 +48,15 @@ const MainFeedTypeSelector = () => {
       e.click();
     }
   };
+
   let followingClassName = 'block_show';
   if (!followingSelected) {
     followingClassName = 'block_hide';
+  }
+
+  let extendedFollowingClassName = 'block_show';
+  if (!eFollowingSelected) {
+    extendedFollowingClassName = 'block_hide';
   }
 
   return (
@@ -72,6 +82,14 @@ const MainFeedTypeSelector = () => {
           >
             following: {aFollowing.length} profiles
           </NavLink>
+          <NavLink
+            to="/GrapevineHome/GrapevineGraphViewExtendedFollowing"
+            id="landingPageButton"
+            className={extendedFollowingClassName}
+            style={{textDecoration:"none"}}
+          >
+            extended following: {aExtendedFollowing.length} profiles
+          </NavLink>
         </div>
 
         <select
@@ -81,7 +99,7 @@ const MainFeedTypeSelector = () => {
           <option value="following" selected={followingSelected}>
             following list
           </option>
-          <option value="eFollowing" selected={eFollowingSelected} style={{display:"none"}}>
+          <option value="eFollowing" selected={eFollowingSelected}>
             Extended following list
           </option>
           <option value="firehose" selected={firehoseSelected}>

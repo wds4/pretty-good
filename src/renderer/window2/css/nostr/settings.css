@@ -1,0 +1,41 @@
+div.relays:before {
+   content: attr(data-currentstate);
+}
+.singleProfileDataContainer {
+    width:100%;
+    margin-bottom:5px;
+    position:relative;
+}
+.singleProfileDataContainer_inactive {
+    border:1px dashed grey;
+    padding:3px;
+    background-color:#EFEFEF;
+}
+.singleProfileDataContainer_active {
+    border:2px solid purple;
+    padding:2px;
+    background-color:white;
+}
+.relayInfoContainer {
+    margin-bottom:2px;
+    font-size:18px;
+    padding:2px;
+}
+.relayUrlContainer {
+    display:inline-block;
+    margin-left:5px;
+    width:250px;
+    font-size:14px;
+    overflow:auto;
+}
+.endorseMyRelaysContainer {
+  padding:10px;
+  background-color:#CFCFCF;
+  margin-bottom:20px;
+}
+.mcaDisabled {
+  color: orange;
+}
+.mcaEnabled {
+  color: green;
+}

@@ -1,0 +1,157 @@
+body {
+    margin: 0;
+    font-family: 'Helvetica';
+    position: relative;
+    color: white;
+    height: 100%;
+    width:100%;
+    overflow-y: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+html, body, body>div, #app {
+    color:black;
+    box-sizing: border-box;
+    height:100%;
+    width:100%;
+}
+
+fieldset#app {
+    box-sizing: border-box;
+    height:100%;
+    width:100%;
+}
+
+div, pre {
+    box-sizing: border-box;
+    vertical-align:top;
+
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
+
+}
+
+:root {
+  --select-border: ;
+  --select-focus: #101484;
+  --select-arrow: var(--select-border);
+}
+
+select {
+    min-width: 5ch;
+    max-width: 30ch;
+    border: 1px solid #393939;
+    border-radius: 0.25em;
+    padding: 3px;
+    font-size: 1.0rem;
+    cursor: pointer;
+    background: linear-gradient(to bottom, #ffffff 0%, #e5e5e5 100%);
+}
+
+
+div.h1 {
+    font-size:36px;
+    text-align:center;
+}
+div.h2 {
+    font-size:28px;
+    text-align:center;
+}
+div.h3 {
+    font-size:22px;
+    text-align:center;
+}
+div.h4 {
+    font-size:18px;
+    text-align:center;
+}
+.leftCol {
+    display:inline-block;
+    width:200px;
+}
+.rightCol {
+    display:inline-block;
+    width:700px;
+}
+#root {
+    padding:0px;
+    margin:0px;
+    height:100%;
+    width:100%;
+}
+#app {
+    padding:0px;
+    margin:0px;
+    height:100%;
+    width:100%;
+    white-space: nowrap;
+}
+#menuCol {
+    display:inline-block;
+    height:100%;
+}
+#mainCol {
+    padding:0px 5px 0px 5px;
+    margin:0px;
+    display:inline-block;
+    height:100%;
+    background-color:#EFEFEF;
+}
+#mainPanel {
+    width:100%;
+    height:80%;
+    padding-top:20px;
+    font-size:12px;
+    overflow:auto;
+}
+
+.doSomethingButton {
+    font-size:12px;
+    display:inline-block;
+    border:1px solid black;
+    border-radius:3px;
+    padding:4px;
+    margin:4px;
+    background-color:#DFDFDF;
+    color:black;
+}
+.doSomethingButton:hover {
+    background-color:yellow;
+}
+.doSomethingButton_small {
+    font-size:10px;
+    display:inline-block;
+    border:1px solid black;
+    border-radius:3px;
+    padding:1px;
+    margin:1px;
+    background-color:#DFDFDF;
+    color:black;
+}
+.doSomethingButton_small:hover {
+    background-color:yellow;
+}
+.doSomethingButton_tiny {
+    font-size:9px;
+    display:inline-block;
+    border:1px solid black;
+    border-radius:2px;
+    padding:0px 1px 0px 1px;
+    margin:0px 1px 0px 1px;
+    background-color:#DFDFDF;
+    color:black;
+}
+.doSomethingButton_tiny:hover {
+    background-color:yellow;
+}
+.block_show {
+  display:block;
+}
+.block_hide {
+  display:none;
+}
