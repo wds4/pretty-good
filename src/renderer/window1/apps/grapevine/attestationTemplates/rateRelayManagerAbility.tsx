@@ -40,8 +40,8 @@ export const rateUserAsNostrRelayOracle = {
     nostrRelayFilter: {
       kind: 1971,
       tags: ["#g","grapevine"]
-    }
-  }
-}
+    },
+  },
+};
 
 export const foo = 'bar';

@@ -64,6 +64,24 @@ const GlobalFeedFetchPostsInBackground = ({ filter, mainNostrFeedFilter }) => {
   );
 };
 
+const Posts = ({aEvents}) => {
+  return (
+    <>
+      <div>
+        {aEvents.map((event) => {
+          if (doesEventValidate(event)) {
+            return (
+              <>
+                <Post event={event} />
+              </>
+            );
+          }
+        })}
+      </div>
+    </>
+  );
+}
+
 const GlobalFeedDisplayFromRedux = ({ filter, mainNostrFeedFilter }) => {
   let oNotesAllAuthors = {};
   const oNostrNotesByAuthor = useSelector((state) => state.nostrNotes.notes);
@@ -93,15 +111,7 @@ const GlobalFeedDisplayFromRedux = ({ filter, mainNostrFeedFilter }) => {
         >
           currently showing: {aEvents.length} posts
         </div>
-        {aEvents.map((event) => {
-          if (doesEventValidate(event)) {
-            return (
-              <>
-                <Post event={event} />
-              </>
-            );
-          }
-        })}
+        <Posts aEvents={aEvents} />
       </div>
     </>
   );

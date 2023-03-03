@@ -53,7 +53,7 @@ const NostrMiniProfile = ({ pubkey }) => {
   }
   return (
     <>
-      <input type="checkbox" checked="checked" />
+
       <div style={{ display: 'inline-block', border: '1px solid black', width: '60%',marginBottom: '5px', padding: '5px', marginLeft: '5px' }}>
         <div style={{ display: 'inline-block' }}>
           <NavLink

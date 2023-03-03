@@ -4,6 +4,7 @@ import { incrementRelayDisconnectCount } from 'renderer/window1/redux/features/n
 import DirectMessageListener from 'renderer/window1/apps/nostr/listeners/dmListener';
 import MyProfileListener from 'renderer/window1/apps/nostr/listeners/myProfileListener';
 import NostrProfilesListener from 'renderer/window1/apps/nostr/listeners/profilesListener';
+import GrapevineListener from 'renderer/window1/apps/nostr/listeners/grapevineListener';
 // package dep:
 // "nostr-react": "github:wds4/nostr-react#autoReconnect",
 
@@ -82,6 +83,7 @@ const AppRoutes = () => {
   <NostrProfilesListener />
   <DirectMessageListener />
   <MyProfileListener />
+  <GrapevineListener />
   */
   return (
     <>

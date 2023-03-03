@@ -9,6 +9,7 @@ import ToggleSwitch from 'renderer/window1/components/toggleSwitchSmall';
 import { updateNostrRelaysForActiveUserInReduxAndNostr } from 'renderer/window1/redux/features/nostr/myNostrProfile/slice';
 import { resetNostrSettingsNostrRelays } from 'renderer/window1/redux/features/nostr/settings/slice';
 import { updateNostrRelaysForActiveUserInSql } from 'renderer/window1/lib/pg/sql';
+import { isValidObjString } from 'renderer/window1/lib/pg/';
 
 export default function RelaysList() {
   const { publish } = useNostr();
@@ -75,7 +76,9 @@ export default function RelaysList() {
     if (event && doesEventValidate(event)) {
       if (event.hasOwnProperty('content')) {
         const sRelays = event.content;
-        oRelays = JSON.parse(sRelays);
+        if (isValidObjString(event.content)) {
+          oRelays = JSON.parse(sRelays);
+        }
       }
     }
   }

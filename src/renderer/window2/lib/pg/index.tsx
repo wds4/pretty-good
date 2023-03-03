@@ -6,13 +6,19 @@ export const cloneObj = (obj: object) => {
   return JSON.parse(JSON.stringify(obj));
 };
 
-export const isValidObj = (x) => {
+export const isValidObjString = (x) => {
   // test if the input is a string that converts into JSON
   try {
     const obj1 = JSON.parse(x);
-    // return true;
-  } catch (e1) {}
+    return true;
+  } catch (e1) {
+    return false;
+  }
 
+  return false;
+};
+
+export const isValidObj = (x) => {
   // test if the input is already an object
   try {
     const obj2 = JSON.parse(JSON.stringify(x));

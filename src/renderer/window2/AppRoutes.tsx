@@ -84,7 +84,7 @@ const AppRoutes = () => {
       <fieldset id="app">
         <Router>
           <Routes>
-            <Route path="/" element={<NostrMainFeed />} />
+            <Route path="/" element={<PrettyGoodHome />} />
 
             <Route path="/PrettyGoodHome" element={<PrettyGoodHome />} />
             <Route

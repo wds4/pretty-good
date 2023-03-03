@@ -1,4 +1,5 @@
 import React from 'react';
+import GrapevineListener from 'renderer/window1/apps/nostr/listeners/grapevineListener';
 import Masthead from '../../../mastheads/grapevineMasthead';
 import LeftNavbar1 from '../../../navbars/leftNavbar1/grapevineNavbar';
 import LeftNavbar2 from '../../../navbars/leftNavbar2/grapevine/settings';
@@ -27,6 +28,7 @@ export default class GrapevineSettings extends React.Component {
           <Masthead />
           <div id="mainPanel">
             <div className="h4">Grapevine: Settings</div>
+            <GrapevineListener />
           </div>
         </div>
       </>

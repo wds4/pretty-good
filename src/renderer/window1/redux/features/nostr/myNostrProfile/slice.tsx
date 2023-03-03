@@ -262,7 +262,46 @@ export const myProfileSlice = createSlice({
     ///////////////////////////
 
     // MANAGE endorseAsRelaysPicker
+    addToEndorseAsRelaysPickerList: (state, action) => {
+      // pass in pubkey; add to following list if not already there
+      if (!state.endorseAsRelaysPicker) {
+        state.endorseAsRelaysPicker = [];
+      }
+      state.endorseAsRelaysPicker = addStringToArrayUniquely(
+        action.payload,
+        state.endorseAsRelaysPicker
+      );
+      const res = updateMyFullNostrProfileInSql(state);
+    },
+    removeFromEndorseAsRelaysPickerList: (state, action) => {
+      // pass in pubkey; remove from following list if it is currently there
+      if (!state.endorseAsRelaysPicker) {
+        state.endorseAsRelaysPicker = [];
+      }
+      state.endorseAsRelaysPicker = removeStringFromArray(action.payload, state.endorseAsRelaysPicker);
+      const res = updateMyFullNostrProfileInSql(state);
+    },
+
     // MANAGE endorseAsRelaysPickerHunter
+    addToEndorseAsRelaysPickerHunterList: (state, action) => {
+      // pass in pubkey; add to following list if not already there
+      if (!state.endorseAsRelaysPickerHunter) {
+        state.endorseAsRelaysPickerHunter = [];
+      }
+      state.endorseAsRelaysPickerHunter = addStringToArrayUniquely(
+        action.payload,
+        state.endorseAsRelaysPickerHunter
+      );
+      const res = updateMyFullNostrProfileInSql(state);
+    },
+    removeFromEndorseAsRelaysPickerHunterList: (state, action) => {
+      // pass in pubkey; remove from following list if it is currently there
+      if (!state.endorseAsRelaysPickerHunter) {
+        state.endorseAsRelaysPickerHunter = [];
+      }
+      state.endorseAsRelaysPickerHunter = removeStringFromArray(action.payload, state.endorseAsRelaysPickerHunter);
+      const res = updateMyFullNostrProfileInSql(state);
+    },
 
     // MANAGE RELAYS
     addNewRelay: (state, action) => {
@@ -312,6 +351,12 @@ export const {
   addToFollowingList,
   removeFromFollowingList,
   updateFollowing,
+
+  addToEndorseAsRelaysPickerList,
+  removeFromEndorseAsRelaysPickerList,
+
+  addToEndorseAsRelaysPickerHunterList,
+  removeFromEndorseAsRelaysPickerHunterList,
 
   updateExtendedFollowing,
 
