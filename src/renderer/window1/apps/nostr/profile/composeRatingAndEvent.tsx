@@ -56,6 +56,25 @@ const ComposeRatingAndEvent = ({ ratingPreset }) => {
     pubkey: getPublicKey(myPrivkey),
   };
 
+  // UPDATE 3 March 2023: will be switching from NIP-16 to NIP-33
+  // kind: choose NIP-33 REPLACEABLE EVENT, with 30000 <= n < 40000, and a d tag:
+  // tags: [["d", uniqueID]]
+  // where uniqueID = <author pubkey>-<ratingTemplateSlug (or ipfs or ipns)>, e.g.:
+  // uniqueID = "e5272de914bd301755c439b88e6959a43c9d2664831f093c51e9c799a16a102f-endorseAsRelaysPicker"
+
+  // GRAPEVINE: TESTNET 39900 <= n < 40000
+  // kind: 39901 (?)
+  // tags: [['d', uniqueID], ['g', 'grapevine-testnet']], then p-tags to reference rated pubkeys
+  /*
+  const event: NostrEvent = {
+    content: message,
+    kind: 39901,
+    tags: [['d', uniqueID], ['g', 'grapevine-testnet']],
+    created_at: dateToUnix(),
+    pubkey: getPublicKey(myPrivkey),
+  };
+  */
+
   event.id = getEventHash(event);
   event.sig = signEvent(event, myPrivkey);
 

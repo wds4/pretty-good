@@ -34,7 +34,6 @@ const RelaysPanel = ({ aRecRelays, oRecRelays, aFollowingForRelays }) => {
     // then transfer updated settings to the nostr settings store, which makes them the active relay list
     updateNostrRelaysForActiveUserInSql(oRelaysUpdated);
     dispatch(resetNostrSettingsNostrRelays(oRelaysUpdated));
-
   };
   return (
     <>
@@ -82,14 +81,16 @@ const RelaysPanel = ({ aRecRelays, oRecRelays, aFollowingForRelays }) => {
 };
 
 const FollowingForRelays = () => {
-  const [recRelays, setRecRelays] = useState(['a', 'b', 'c']);
   const oKind3ProfilesData = useSelector(
     (state) => state.nostrProfiles.kind3NostrProfiles
   );
   const myNostrProfile = useSelector((state) => state.myNostrProfile);
   const { publish } = useNostr();
   const dispatch = useDispatch();
-  const aFollowingForRelays = myNostrProfile.followingForRelays;
+  let aFollowingForRelays = [];
+  if (myNostrProfile.followingForRelays) {
+    aFollowingForRelays = myNostrProfile.followingForRelays;
+  }
   const oRecRelays = {};
   const aRecRelays = [];
   for (let r = 0; r < aFollowingForRelays.length; r++) {
@@ -99,7 +100,10 @@ const FollowingForRelays = () => {
       if (oKind3Event.hasOwnProperty('content') && oKind3Event.content) {
         const oRelays = JSON.parse(oKind3Event.content);
         oRecRelays[pk] = oRelays;
-        const aRelays = Object.keys(oRelays);
+        let aRelays = [];
+        if (oRelays) {
+          aRelays = Object.keys(oRelays);
+        }
         for (let x = 0; x < aRelays.length; x++) {
           const url = aRelays[x];
           if (!aRecRelays.includes(url)) {

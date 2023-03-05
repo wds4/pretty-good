@@ -93,7 +93,7 @@ endorseAsRelaysPicker
   color:white;
 }
 .endorseAsRelaysPickerButton:before {
-  content:"Endorse as Relays Picker"
+  content:"Endorse this profile's Relays List"
 }
 .unEndorseAsRelaysPickerButton {
   border:1px solid black;
@@ -106,7 +106,7 @@ endorseAsRelaysPicker
   color:black;
 }
 .unEndorseAsRelaysPickerButton:before {
-  content:"Unendorse os Relays Picker"
+  content:"Unendorse this profile's Relays List"
 }
 .endorseAsRelaysPickerButton:hover {
   background-color:yellow;

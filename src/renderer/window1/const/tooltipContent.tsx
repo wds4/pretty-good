@@ -8,12 +8,15 @@ followRelaysButtonContent += '<br/>You can follow relays from as many profiles a
 followRelaysButtonContent += '<br/>This setting is not published to your nostr profile.';
 
 let endorseAsRelaysPickerButtonContent = '';
-endorseAsRelaysPickerButtonContent += 'Endorse as Relays Picker';
+endorseAsRelaysPickerButtonContent += 'Endorse this Relays List';
 endorseAsRelaysPickerButtonContent += '<br/>Check if you trust this user to select profiles to feed into you Recommended Relays list.';
+endorseAsRelaysPickerButtonContent += `<br/>'I trust this person to select relays.'`;
+endorseAsRelaysPickerButtonContent += '<br/>This is NOT transitive.';
 
 let endorseAsRelaysPickerHunterButtonContent = '';
 endorseAsRelaysPickerHunterButtonContent += 'Endorse as Relays Picker Hunter';
 endorseAsRelaysPickerHunterButtonContent += '<br/>Check if you trust this user to designate other user profiles as Recommended Relays Selector.';
+endorseAsRelaysPickerHunterButtonContent += `<br/>'I trust this person (profile) to select other profiles.'`;
 endorseAsRelaysPickerHunterButtonContent += '<br/>This is transitive.';
 
 let mergeRelayAutoUpdateRecsContent = '';

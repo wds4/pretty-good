@@ -65,16 +65,21 @@ const GlobalFeedFetchPostsInBackground = ({ filter, mainNostrFeedFilter }) => {
 };
 
 const Posts = ({aEvents}) => {
+  const now = useRef(new Date()); // Make sure current time isn't re-rendered
+  const currentTime = dateToUnix(now.current);
+  const cutoffTime = currentTime - 2 * 24 * 60 * 60; // 2 * 24 * 60 * 60 = show messages as old as two days
   return (
     <>
       <div>
         {aEvents.map((event) => {
           if (doesEventValidate(event)) {
-            return (
-              <>
-                <Post event={event} />
-              </>
-            );
+            if (event.created_at >cutoffTime) {
+              return (
+                <>
+                  <Post event={event} />
+                </>
+              );
+            }
           }
         })}
       </div>

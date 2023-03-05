@@ -3,7 +3,6 @@ import Masthead from '../../../mastheads/nostrMasthead';
 import LeftNavbar1 from '../../../navbars/leftNavbar1/nostrNavbar';
 import LeftNavbar2 from '../../../navbars/leftNavbar2/nostr/settings';
 import { updateMainColWidth, updateMastheadCenter } from '../../../lib/pg/ui';
-
 export default class NostrSettings extends React.Component {
   constructor(props) {
     super(props);

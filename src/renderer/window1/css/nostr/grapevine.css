@@ -73,5 +73,6 @@
     display:none;
 }
 .reactTooltip {
-  z-index:2;
+  z-index:20;
+  font-size:10px;
 }

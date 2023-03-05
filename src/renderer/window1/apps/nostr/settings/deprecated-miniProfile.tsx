@@ -32,28 +32,7 @@ const NostrMiniProfile = ({ pubkey }) => {
     }
   }
 
-  /*
-  // Need to omit step 3; if same profile is called more than once in same page (present on 2 lists), filter breaks something and cannot click through to profile page
-  /// // STEP 3 ///// Query network for updated profile information and if found, use that instead, and update redux
-  const { events } = useNostrEvents({
-    filter: {
-      authors: [pubkey],
-      since: 0, // all new events from now
-      kinds: [0],
-    },
-  });
-  let event_ = {};
-  const event = returnMostRecentEvent(events);
-  if (event && doesEventValidate(event)) {
-    dispatch(updateNostrProfiles(event));
-    event_ = JSON.parse(JSON.stringify(event));
-    const content = JSON.parse(event.content);
-    event_.content = content;
-    name = `@${content.name}`;
-    displayName = content.display_name;
-    avatarUrl = content.picture;
-  }
-  */
+
   return (
     <>
       <div style={{ display: 'inline-block', border: '1px solid black', width: '60%',marginBottom: '5px', padding: '5px', marginLeft: '5px' }}>

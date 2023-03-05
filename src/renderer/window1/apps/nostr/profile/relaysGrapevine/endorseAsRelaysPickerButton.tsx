@@ -12,12 +12,17 @@ import {
 } from 'nostr-tools';
 import { Tooltip } from 'react-tooltip';
 import { tooltipContent } from 'renderer/window1/const/tooltipContent';
+import {
+  addStringToArrayUniquely,
+  removeStringFromArray,
+} from 'renderer/window1/lib/pg/index';
 
 const EndorseAsRelaysPickerButton = ({ pubkey }) => {
+  const { publish } = useNostr();
   const myNostrProfile = useSelector((state) => state.myNostrProfile);
   const dispatch = useDispatch();
+  const myPubkey = myNostrProfile.pubkey_hex;
   const myPrivkey = myNostrProfile.privkey;
-  const { publish } = useNostr();
 
   let buttonClass = 'endorseAsRelaysPickerButton';
   let currentState = 'notFollowing';
@@ -35,24 +40,26 @@ const EndorseAsRelaysPickerButton = ({ pubkey }) => {
   const oConceptGraphWord = {
     concept: 'relayListCuration',
     type: 'endorseAsRelaysPicker',
-  }
+  };
+
   // access following list and relays list from redux store and publish an event with current lists to nostr
-  const updateFollowingAndRelaysListsInNostr = () => {
-    const aTags = [["g", "grapevine-testnet"],["r","endorseAsRelaysPicker"]];
-    for (var x=0;x<aEndorsedProfiles.length;x++) {
-      aTags.push(["p",aEndorsedProfiles[x]])
+  const updateFollowingAndRelaysListsInNostr = (aEndorsedProfilesUpdated) => {
+    const uniqueID = `${myPubkey}-endorseAsRelaysPicker`;
+    const aTags = [
+      ['d', uniqueID],
+      ['g', 'grapevine-testnet'],
+      ['r', 'endorseAsRelaysPicker'],
+    ];
+    for (let x = 0; x < aEndorsedProfilesUpdated.length; x++) {
+      aTags.push(['p', aEndorsedProfilesUpdated[x]]);
     }
     const event: NostrEvent = {
       created_at: dateToUnix(),
-      kind: 11901,
+      kind: 39901,
       tags: aTags,
       content: '',
-      pubkey: getPublicKey(myPrivkey),
+      pubkey: myPubkey,
     };
-
-    console.log(
-      `updateFollowingAndRelaysListsInNostr; event: ${JSON.stringify(event)}`
-    );
 
     event.id = getEventHash(event);
     event.sig = signEvent(event, myPrivkey);
@@ -68,13 +75,23 @@ const EndorseAsRelaysPickerButton = ({ pubkey }) => {
     let newState = 'following';
     if (currentState == 'following') {
       newState = 'notFollowing';
+      const aEndorsedProfilesUpdated = removeStringFromArray(
+        pubkey,
+        aEndorsedProfiles
+      );
       dispatch(removeFromEndorseAsRelaysPickerList(pubkey));
+      updateFollowingAndRelaysListsInNostr(aEndorsedProfilesUpdated);
     }
     if (currentState == 'notFollowing') {
       newState = 'following';
+      const aEndorsedProfilesUpdated = addStringToArrayUniquely(
+        pubkey,
+        aEndorsedProfiles
+      );
       dispatch(addToEndorseAsRelaysPickerList(pubkey));
+      updateFollowingAndRelaysListsInNostr(aEndorsedProfilesUpdated);
     }
-    updateFollowingAndRelaysListsInNostr();
+
     // publish updated following list to nostr
     // const myUpdatedNostrProfile = useSelector((state) => state.myNostrProfile);
     // dispatch(FullSyncMyActiveNostrProfileFromReduxStoreToSql());

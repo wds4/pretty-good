@@ -25,14 +25,13 @@ export default class GraphViewMyFollowing extends React.Component {
 
     const sql0 = ' SELECT * FROM myNostrProfile WHERE active = true ';
     const oMyNostrProfileData = await asyncSql(sql0,'get');
-    console.log("oMyNostrProfileData: "+JSON.stringify(oMyNostrProfileData))
+    // console.log("oMyNostrProfileData: "+JSON.stringify(oMyNostrProfileData))
     this.setState({oMyNostrProfileData: oMyNostrProfileData})
 
     const sql1 = ' SELECT * FROM nostrProfiles ';
     const aNostrProfilesData = await asyncSql(sql1);
-    console.log("qwerty aNostrProfilesData; number: "+aNostrProfilesData.length)
+    // console.log("qwerty aNostrProfilesData; number: "+aNostrProfilesData.length)
     this.setState({aNostrProfilesData: aNostrProfilesData})
-
   }
 
   render() {

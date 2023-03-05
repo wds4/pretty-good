@@ -61,7 +61,7 @@ const EndorseRelayMessage = () => {
       return;
     }
 
-    // kind: may want to choose NIP-16 REPLACEABLE EVENT, with 10000 <= n < 20000
+    // kind: may want to choose NIP-33 REPLACEABLE EVENT, with 10000 <= n < 20000
     const event: NostrEvent = {
       content: message,
       kind: 11971,

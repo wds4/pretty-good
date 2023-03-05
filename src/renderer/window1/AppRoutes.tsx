@@ -56,6 +56,8 @@ import GrapevineProfile from './apps/grapevine/profile';
 import GrapevineSettings from './apps/grapevine/settings';
 import GrapevineGraphViewFollowing from './apps/grapevine/graphViews/following';
 import GrapevineGraphViewExtendedFollowing from './apps/grapevine/graphViews/extendedFollowing';
+import GrapevineListCuration from './apps/grapevine/listCuration';
+import GrapevineRecommendedRelays from './apps/grapevine/listCuration/relaysCuration';
 
 import ConceptGraphHome from './apps/conceptGraph';
 import ConceptGraphProfile from './apps/conceptGraph/profile';
@@ -91,7 +93,7 @@ const AppRoutes = () => {
       <fieldset id="app">
         <Router>
           <Routes>
-            <Route path="/" element={<NostrMainFeed />} />
+            <Route path="/" element={<PrettyGoodHome />} />
 
             <Route path="/PrettyGoodHome" element={<PrettyGoodHome />} />
             <Route
@@ -220,6 +222,14 @@ const AppRoutes = () => {
             <Route
               path="/GrapevineHome/GrapevineGraphViewExtendedFollowing"
               element={<GrapevineGraphViewExtendedFollowing />}
+            />
+            <Route
+              path="/GrapevineHome/GrapevineListCuration"
+              element={<GrapevineListCuration />}
+            />
+            <Route
+              path="/GrapevineHome/GrapevineRecommendedRelays"
+              element={<GrapevineRecommendedRelays />}
             />
 
             <Route path="/ConceptGraphHome" element={<ConceptGraphHome />} />

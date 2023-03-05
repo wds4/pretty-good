@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
-import GrapevineRelaysListCuration from './grapevineRelaysListCuration';
+import EndorseAsRelaysPickerListener from './endorseAsRelaysPickerListener';
+import EndorseAsRelaysPickerHunterListener from './endorseAsRelaysPickerHunterListener';
 
 const Grapevine = () => {
   const devMode = useSelector((state) => state.prettyGoodGlobalState.devMode);
@@ -7,12 +8,12 @@ const Grapevine = () => {
   if (devMode) {
     devModeClassName = 'devModeOn';
   }
-  devModeClassName = 'devModeOn';
   return (
     <>
       <div className={devModeClassName}>
-        <div className="h4">Grapevine Events</div>
-        <GrapevineRelaysListCuration />
+        <div className="h3">Relays Recommendation via the Grapevine; kind 39901 Listeners</div>
+        <EndorseAsRelaysPickerListener />
+        <EndorseAsRelaysPickerHunterListener />
       </div>
     </>
   );
