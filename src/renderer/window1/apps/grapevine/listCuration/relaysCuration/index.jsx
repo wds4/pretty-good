@@ -20,6 +20,7 @@ export default class RelaysCuration extends React.Component {
     this.state = {
       oMyNostrProfileData: {},
       oNostrProfilesData: {},
+      aRatingsData: [],
     };
   }
 
@@ -43,6 +44,11 @@ export default class RelaysCuration extends React.Component {
       oNostrProfilesData[oNostrProfileData.pubkey] = oNostrProfileData;
     }
     this.setState({oNostrProfilesData: oNostrProfilesData})
+
+    const sql2 = ' SELECT * FROM testnetListCurationRatings ';
+    const aRatingsData = await asyncSql(sql2);
+    // console.log("oMyNostrProfileData: "+JSON.stringify(oMyNostrProfileData))
+    this.setState({aRatingsData: aRatingsData})
   }
 
   render() {
@@ -64,6 +70,7 @@ export default class RelaysCuration extends React.Component {
                 <GraphView
                   oMyNostrProfileData={this.state.oMyNostrProfileData}
                   oNostrProfilesData={this.state.oNostrProfilesData}
+                  aRatingsData={this.state.aRatingsData}
                 />
               </div>
               <div style={{ display:'inline-block', width:'50%', height:'500px' }}>

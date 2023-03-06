@@ -89,10 +89,6 @@ const AppRoutes = () => {
   */
   return (
     <>
-    <NostrProfilesListener />
-    <DirectMessageListener />
-    <MyProfileListener />
-    <GrapevineListener />
       <fieldset id="app">
         <Router>
           <Routes>

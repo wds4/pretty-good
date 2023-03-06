@@ -65,6 +65,10 @@ const startApp = async () => {
   const sql4 = 'SELECT * from nostrDirectMessages ';
   const aNostrDirectMessagesData = await asyncSql(sql4);
 
+    // LOAD nostrDirectMessages
+    const sql5 = 'SELECT * from testnetListCurationRatings ';
+    const aNostrTestnetListCurationRatings = await asyncSql(sql5);
+
   const container = document.getElementById('root')!;
   const root = createRoot(container);
   root.render(
@@ -74,6 +78,7 @@ const startApp = async () => {
       aNostrProfilesData={aNostrProfilesData}
       aNostrNotesData={aNostrNotesData}
       aNostrDirectMessagesData={aNostrDirectMessagesData}
+      aNostrTestnetListCurationRatings={aNostrTestnetListCurationRatings}
     />
   );
 };

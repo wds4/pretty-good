@@ -5,6 +5,7 @@ import { initNostrProfiles } from 'renderer/window1/redux/features/nostr/profile
 import { initNostrNotes } from 'renderer/window1/redux/features/nostr/notes/slice';
 import { initNostrDirectMessages } from 'renderer/window1/redux/features/nostr/directMessages/slice';
 import { initMyActiveNostrProfile } from 'renderer/window1/redux/features/nostr/myNostrProfile/slice';
+import { initNostrTestnetListCurationRatings } from 'renderer/window1/redux/features/grapevine/listCuration/slice';
 import { oDefaultRelayUrls } from 'main/const/nostr';
 import ErrorBoundary from './errorBoundary';
 import store from './redux/store/store';
@@ -47,6 +48,7 @@ const InitReduxStore = ({
   aNostrProfilesData,
   aNostrNotesData,
   aNostrDirectMessagesData,
+  aNostrTestnetListCurationRatings,
 }) => {
   const dispatch = useDispatch();
 
@@ -62,6 +64,7 @@ const InitReduxStore = ({
   dispatch(initNostrProfiles(aNostrProfilesData));
   dispatch(initNostrNotes(aNostrNotesData));
   dispatch(initNostrDirectMessages(aNostrDirectMessagesData));
+  dispatch(initNostrTestnetListCurationRatings(aNostrTestnetListCurationRatings));
   return <></>;
 };
 
@@ -87,6 +90,7 @@ export default class App extends React.Component {
               aNostrProfilesData={this.props.aNostrProfilesData}
               aNostrNotesData={this.props.aNostrNotesData}
               aNostrDirectMessagesData={this.props.aNostrDirectMessagesData}
+              aNostrTestnetListCurationRatings={this.props.aNostrTestnetListCurationRatings}
             />
             <AppNostr />
           </Provider>

@@ -3,6 +3,54 @@ import { oDefaultRelayUrls } from 'renderer/window1/const';
 import { asyncSql } from '../asyncSql';
 import { generateNewNostrKeys } from '../../nostr';
 
+export const updateListCurationNoteInSql = async (event, slug) => {
+  const pk = event.pubkey;
+  const uniqueID = pk + "-" + slug;
+  const sql1 = ` INSERT OR IGNORE INTO testnetListCurationRatings (uniqueID, ratingSlug, pk_rater, event) VALUES('${uniqueID}', '${slug}', '${pk}', '${JSON.stringify(event)}' ) `;
+
+  const res1 = await asyncSql(sql1);
+
+  let sql2 = '';
+  sql2 += ' UPDATE testnetListCurationRatings ';
+  sql2 += ` SET ratingSlug = '${slug}' `;
+  sql2 += ` , pk_rater = '${pk}' `;
+  sql2 += ` , event = '${JSON.stringify(event)}' `;
+  sql2 += ` WHERE uniqueID = '${uniqueID}' `;
+  const res2 = await asyncSql(sql2);
+
+  // console.log("updateListCurationNoteInSql; sql1: "+sql1)
+}
+
+/*
+export const updateListCurationNotesInSql = async (oNotes) => {
+  const aRatingTemplateSlugs = Object.keys(oNotes);
+  console.log("updateListCurationNotesInSql; aRatingTemplateSlugs: "+JSON.stringify(aRatingTemplateSlugs)+"; oNotes: "+JSON.stringify(oNotes));
+
+  for (let z=0; z<aRatingTemplateSlugs.length; z++) {
+    const slug = aRatingTemplateSlugs[z];
+    const aAuthorPubkeys = Object.keys(oNotes[slug]);
+    for (let x=0; x<aAuthorPubkeys.length; x++) {
+      const pk = aAuthorPubkeys[x]
+      const oEvent = oNotes[slug][pk];
+      const uniqueID = pk + "-" + slug;
+
+      const sql1 = ` INSERT OR IGNORE INTO testnetListCurationRatings (uniqueID, ratingSlug, pk_rater, event) VALUES('${uniqueID}', '${slug}', '${pk}', '${JSON.stringify(oEvent)}' ) `;
+
+      const res1 = await asyncSql(sql1);
+
+
+      let sql2 = '';
+      sql2 += ' UPDATE testnetListCurationRatings ';
+      sql2 += ` SET ratingSlug = '${slug}' `;
+      sql2 += ` , pk_rater = '${pk}' `;
+      sql2 += ` , event = '${JSON.stringify(oEvent)}' `;
+      sql2 += ` WHERE uniqueID = '${uniqueID}' `;
+      // const res2 = await asyncSql(sql2);
+    }
+  }
+}
+*/
+
 export const addDirectMessageToSql = async (event) => {
   const pk_recipient = event.tags.find(
     ([k, v]) => k === 'p' && v && v !== ''

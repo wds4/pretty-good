@@ -117,7 +117,7 @@ const GraphInit = ({
   );
 };
 
-const GraphView = ({ oMyNostrProfileData, oNostrProfilesData }) => {
+const GraphView = ({ oMyNostrProfileData, oNostrProfilesData, aRatingsData }) => {
   const myNostrProfile = useSelector((state) => state.myNostrProfile);
   const listCuration = useSelector((state) => state.listCuration);
   const oPicker = listCuration.relays.ratings.notes.endorseAsRelaysPicker;
@@ -125,6 +125,7 @@ const GraphView = ({ oMyNostrProfileData, oNostrProfilesData }) => {
     listCuration.relays.ratings.notes.endorseAsRelaysPickerHunter;
   const aPicker = Object.keys(oPicker);
   const aPickerHunter = Object.keys(oPickerHunter);
+  console.log("qwerty_GraphViewA; aPicker: "+aPicker.length+"; aPickerHunter: "+aPickerHunter.length);
 
   const aNodes = [...aPicker, ...aPickerHunter]; // array of all pubkeys to use as nodes in the graph
   const aEndorseAsRelaysPicker = []; // 2 arrays of all ratings to use as edges in the graph
@@ -154,6 +155,8 @@ const GraphView = ({ oMyNostrProfileData, oNostrProfilesData }) => {
       }
     }
   }
+  console.log("qwerty_GraphViewB; aEndorseAsRelaysPicker.length: "+aEndorseAsRelaysPicker.length+"; aEndorseAsRelaysPickerHunter: "+aEndorseAsRelaysPickerHunter.length)
+
   const aNodes2 = removeDuplicatesFromArrayOfStrings(aNodes);
   return (
     <>

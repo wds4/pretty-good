@@ -2,6 +2,7 @@ import { useNostrEvents } from 'nostr-react';
 import { useSelector, useDispatch } from 'react-redux';
 import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
 import { addEndorseAsRelaysPickerNoteToReduxStore } from 'renderer/window1/redux/features/grapevine/listCuration/slice';
+import { updateListCurationNoteInSql } from 'renderer/window1/lib/pg/sql';
 
 const EndorseAsRelaysPickerListener = () => {
   const devMode = useSelector((state) => state.prettyGoodGlobalState.devMode);
@@ -21,9 +22,10 @@ const EndorseAsRelaysPickerListener = () => {
       "#r": ["endorseAsRelaysPicker"]
     },
   });
-  events.forEach((event, item) => {
+  events.forEach(async (event, item) => {
     if (doesEventValidate(event)) {
       dispatch(addEndorseAsRelaysPickerNoteToReduxStore(event, myPubkey));
+      await updateListCurationNoteInSql(event, "endorseAsRelaysPicker");
     }
   });
   return (

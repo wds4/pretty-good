@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
 import { removeDuplicatesFromArrayOfStrings } from 'renderer/window1/lib/pg/index';
 import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
-
+import { updateNotesInSql } from 'renderer/window2/redux/features/nostr/notes/slice';
 /*
 <list being curated, e.g. relays>: {},
 relays: {
@@ -53,22 +53,31 @@ export const listCurationSlice = createSlice({
     },
   },
   reducers: {
-    initNotesFromSql: (state, action) => {
-      // not yet implemented; will populate relays.ratings.notes upon startup from sql
+    initNostrTestnetListCurationRatings: (state, action) => {
+      const aRatingsData = action.payload;
+      for (let r = 0; r < aRatingsData.length; r += 1) {
+        const oRatingData = aRatingsData[r];
+        const { uniqueID, ratingSlug, pk_rater, event } = oRatingData;
+        state.relays.ratings.notes[ratingSlug][pk_rater] = JSON.parse(event);
+      }
     },
     addEndorseAsRelaysPickerNoteToReduxStore: (state, action) => {
       const event = action.payload;
-      state.relays.ratings.notes.endorseAsRelaysPicker[event.pubkey] = event;
+      if (doesEventValidate(event)) {
+        state.relays.ratings.notes.endorseAsRelaysPicker[event.pubkey] = event;
+      }
     },
     addEndorseAsRelaysPickerHunterNoteToReduxStore: (state, action) => {
       const event = action.payload;
-      state.relays.ratings.notes.endorseAsRelaysPickerHunter[event.pubkey] = event;
+      if (doesEventValidate(event)) {
+        state.relays.ratings.notes.endorseAsRelaysPickerHunter[event.pubkey] = event;
+      }
     },
   },
 });
 
 export const {
-  initNotesFromSql,
+  initNostrTestnetListCurationRatings,
   addEndorseAsRelaysPickerNoteToReduxStore,
   addEndorseAsRelaysPickerHunterNoteToReduxStore,
 } = listCurationSlice.actions;
