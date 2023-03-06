@@ -1,59 +1,52 @@
-export const groupOptions = {
-  user: {
-    shape: 'circle',
-    borderWidth: '3',
-    color: {
-      background: 'white',
-      border: 'black',
-    },
-  },
-};
-
-export const edgeOptions = {
-  follows: {
-    polarity: 'forward',
-    color: 'blue',
-    width: '5',
-    dashes: false,
-    physics: true,
-  },
-};
-
-function editEdgeFunction() {}
-function deleteEdgeFunction() {}
-function deleteNodeFunction() {}
+export const foo = null;
 
 export const options = {
-  clickToUse: false,
-  layout: {
-    improvedLayout: false,
-  },
+  clickToUse: true,
   interaction: { hover: true },
-  manipulation: {
-    enabled: false,
-  },
   physics: {
     enabled: true,
   },
   nodes: {
     margin: 10,
     borderWidth: 1,
-    color: { background: 'white', border: 'black' },
+    color: { background: '#FFFFFF', border: '#000000' },
     widthConstraint: {
       minimum: 0,
       maximum: 100,
     },
   },
   edges: {
-    width: 1,
-    color: 'black',
-    physics: false,
+    hoverWidth: 5,
+    selectionWidth: 5,
+    scaling: {
+      min: 1,
+      max: 10,
+      label: {
+        enabled: false,
+        min: 14,
+        max: 30,
+      },
+      customScalingFunction(min, max, total, value) {
+        if (max === min) {
+          return 0.5;
+        }
+        const scale = 1 / (max - min);
+        return Math.max(0, (value - min) * scale);
+      },
+    },
     arrows: {
       to: {
         enabled: true,
-        scaleFactor: 1,
+        type: 'arrow',
+      },
+      middle: {
+        enabled: false,
+        type: 'arrow',
+      },
+      from: {
+        enabled: false,
+        type: 'circle', // or could do bar; however, it looks odd with arrowStrikethrough false
       },
     },
   },
-  groups: groupOptions,
 };

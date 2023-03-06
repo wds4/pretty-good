@@ -12,8 +12,8 @@ import GrapevineListener from 'renderer/window1/apps/nostr/listeners/grapevineLi
 import RelaysCalcAndVis from './calculationAndVisualization';
 import GraphView from './graphView';
 import TopControlPanel from './controlPanels/topControlPanel';
-import RightControlPanel from './controlPanels/rightControlPanel';
-
+import RightPanel from './controlPanels/rightPanel';
+import TrustScoreCalculations from './trustScoreCalculations';
 export default class RelaysCuration extends React.Component {
   constructor(props) {
     super(props);
@@ -55,8 +55,8 @@ export default class RelaysCuration extends React.Component {
         <div id="mainCol">
           <Masthead />
           <div id="mainPanel">
-            <div className="h4">Curation of your Recommended Relays List by your Grapevine</div>
-            <div style={{border:'1px dashed grey'}}>
+            <div className="h4" style={{marginBottom:'10px'}}>Curation of Recommended Relays List by the Grapevine</div>
+            <div style={{}}>
               <TopControlPanel />
             </div>
             <div style={{width:'100%',height:'500px'}}>
@@ -66,13 +66,14 @@ export default class RelaysCuration extends React.Component {
                   oNostrProfilesData={this.state.oNostrProfilesData}
                 />
               </div>
-              <div style={{ display:'inline-block', width:'50%', height:'500px', border:'1px dashed grey'}}>
-                <RightControlPanel />
+              <div style={{ display:'inline-block', width:'50%', height:'500px' }}>
+                <RightPanel />
               </div>
             </div>
             <GrapevineListener />
             <RelaysCalcAndVis />
           </div>
+          <TrustScoreCalculations />
         </div>
       </>
     );

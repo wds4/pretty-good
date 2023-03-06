@@ -18,6 +18,7 @@ import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 import webpackPaths from '../../.erb/configs/webpack.paths';
 import {
+  createTestnetListCurationRatingsTableCommand,
   createNostrDirectMessagesTableCommand,
   createNostrNotesTableCommand,
   createNostrProfilesTableCommand,
@@ -123,12 +124,16 @@ ipcMain.on('asynchronous-sql-command', async (event, data) => {
 });
 
 db.serialize(() => {
+  // db.run('DROP TABLE IF EXISTS testnetListCurationRatings');
   // db.run('DROP TABLE IF EXISTS nostrDirectMessages');
   // db.run('DROP TABLE IF EXISTS nostrNotes');
   // db.run('DROP TABLE IF EXISTS nostrProfiles');
   // db.run('DROP TABLE IF EXISTS myNostrProfile');
   // db.run('DROP TABLE IF EXISTS followingNetwork');
   // db.run('DROP TABLE IF EXISTS relays');
+  db.run(
+    `CREATE TABLE IF NOT EXISTS testnetListCurationRatings (${createTestnetListCurationRatingsTableCommand})`
+  );
   db.run(
     `CREATE TABLE IF NOT EXISTS nostrDirectMessages (${createNostrDirectMessagesTableCommand})`
   );

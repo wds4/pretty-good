@@ -11,9 +11,9 @@ const FollowingForRelays = () => {
   const aRecRelays = [];
   for (let r = 0; r < aProfiles.length; r++) {
     const pk = aProfiles[r];
-    if (oKind3ProfilesData.hasOwnProperty(pk)) {
+    if (oKind3ProfilesData && oKind3ProfilesData.hasOwnProperty(pk)) {
       const oKind3Event = oKind3ProfilesData[pk];
-      if (oKind3Event.hasOwnProperty('content') && oKind3Event.content) {
+      if (oKind3Event && oKind3Event.hasOwnProperty('content') && oKind3Event.content) {
         const oRelays = JSON.parse(oKind3Event.content);
         oRecRelays[pk] = oRelays;
         const aRelays = Object.keys(oRelays);

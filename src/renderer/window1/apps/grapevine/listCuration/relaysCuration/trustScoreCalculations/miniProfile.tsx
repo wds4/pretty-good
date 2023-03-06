@@ -21,7 +21,7 @@ const NostrMiniProfile = ({ pubkey }) => {
 
   /// // STEP 2 ///// If already present in redux store, replace with that
   let profileContent = {};
-  if (nostrProfiles && nostrProfiles.hasOwnProperty(pubkey)) {
+  if (nostrProfiles.hasOwnProperty(pubkey)) {
     profileContent = JSON.parse(nostrProfiles[pubkey].content);
     name = `@${profileContent.name}`;
     displayName = profileContent.display_name;
@@ -32,7 +32,6 @@ const NostrMiniProfile = ({ pubkey }) => {
     }
   }
 
-  /*
   // Need to omit step 3; if same profile is called more than once in same page (present on 2 lists), filter breaks something and cannot click through to profile page
   /// // STEP 3 ///// Query network for updated profile information and if found, use that instead, and update redux
   const { events } = useNostrEvents({
@@ -53,10 +52,19 @@ const NostrMiniProfile = ({ pubkey }) => {
     displayName = content.display_name;
     avatarUrl = content.picture;
   }
-  */
   return (
     <>
-      <div style={{ display: 'inline-block', border: '1px solid black', width: '60%',marginBottom: '5px', padding: '5px', marginLeft: '5px' }}>
+      <div
+        style={{
+          display: 'inline-block',
+          border: '1px solid black',
+          width: '500px',
+          marginBottom: '5px',
+          padding: '5px',
+          marginLeft: '5px',
+          textAlign: 'left'
+        }}
+      >
         <div style={{ display: 'inline-block' }}>
           <NavLink
             onClick={() => {
@@ -75,15 +83,8 @@ const NostrMiniProfile = ({ pubkey }) => {
             <span style={{ color: 'black' }}>{displayName}</span>
             <span style={{ color: 'grey', marginLeft: '10px' }}>{name}</span>
           </div>
-          <div>
-            <div
-              style={{
-                display: 'inline-block',
-                marginLeft: '10px',
-                marginTop: '1px',
-              }}
-            >
-            </div>
+          <div style={{fontSize: '10px' }}>
+            {pubkey}
           </div>
         </div>
       </div>

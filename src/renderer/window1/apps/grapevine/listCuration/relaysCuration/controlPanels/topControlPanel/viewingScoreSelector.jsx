@@ -1,26 +1,26 @@
 import { Tooltip } from 'react-tooltip';
 import { tooltipContent } from 'renderer/window1/const/tooltipContent';
 
-const SeedUserSelector = () => {
+const ViewingScoreSelector = () => {
   return (
     <>
       <Tooltip
-        anchorSelect="#seedUser"
-        html={tooltipContent.seedUser}
+        anchorSelect="#scoreSelector"
+        html={tooltipContent.scoreSelector}
         clickable
         className="reactTooltip"
         place="right"
       />
       <div>
-        <a id="seedUser" style={{display:'inline-block'}}>seed user:</a>
+        <a id="scoreSelector" style={{display:'inline-block'}}>score:</a>
         <div style={{display:'inline-block', marginLeft: '5px'}}>
           <select>
-            <option>me</option>
-            <option selected>wds4</option>
+            <option>relay list curator</option>
+            <option>relay list curator hunter</option>
           </select>
         </div>
       </div>
     </>
   );
 };
-export default SeedUserSelector;
+export default ViewingScoreSelector;

@@ -1,26 +1,26 @@
 import { Tooltip } from 'react-tooltip';
 import { tooltipContent } from 'renderer/window1/const/tooltipContent';
 
-const SeedUserSelector = () => {
+const TestnetSelector = () => {
   return (
     <>
       <Tooltip
-        anchorSelect="#seedUser"
-        html={tooltipContent.seedUser}
+        anchorSelect="#testnetSelector"
+        html={tooltipContent.testnetSelector}
         clickable
         className="reactTooltip"
         place="right"
       />
       <div>
-        <a id="seedUser" style={{display:'inline-block'}}>seed user:</a>
+        <a id="testnetSelector" style={{display:'inline-block'}}>testnet?:</a>
         <div style={{display:'inline-block', marginLeft: '5px'}}>
           <select>
-            <option>me</option>
-            <option selected>wds4</option>
+            <option selected>testnet (kind: 39901)</option>
+            <option disabled>production (kind: ?)</option>
           </select>
         </div>
       </div>
     </>
   );
 };
-export default SeedUserSelector;
+export default TestnetSelector;

@@ -4,6 +4,9 @@ export let createNostrProfilesTableCommand = '';
 export let createMyProfileTableCommand = '';
 export let createMyFollowingNetworkTableCommand = '';
 export let createRelaysTableCommand = '';
+export let createTestnetListCurationRatingsTableCommand = '';
+
+// duplication from renderer/window1/const - may deprecate the lists here in favor of the one over there
 export const aDefaultRelayUrls: string[] = [
   'wss://nostr-pub.wellorder.net',
   'wss://nostr-relay.untethr.me',
@@ -23,6 +26,15 @@ export const oDefaultRelayUrls = {
   'wss://nostr.fmt.wiz.biz': { write: true, read: true },
   'wss://nostr.oxtr.dev': { write: true, read: true },
 };
+
+// each event contains an array of all ratees that are rated by the author for that ratingSlug; event is event type 39901 (for grapevine-testnet)
+// In the future, more complex tables will have to exist, one for each ratee
+createTestnetListCurationRatingsTableCommand += 'id INTEGER PRIMARY KEY, ';
+createTestnetListCurationRatingsTableCommand += 'uniqueID TEXT NULL UNIQUE, '; // uniqueID = pk_rater + "-" + ratingSlug
+createTestnetListCurationRatingsTableCommand += 'ratingSlug TEXT NULL, '; // ratingSlug: endorseAsRelaysPicker, endorseAsRelaysPickerHunter, etc
+createTestnetListCurationRatingsTableCommand += 'pk_rater TEXT NULL, ';
+createTestnetListCurationRatingsTableCommand += 'event TEXT NULL, ';
+createTestnetListCurationRatingsTableCommand += 'UNIQUE(uniqueID) ';
 
 createNostrDirectMessagesTableCommand += 'id INTEGER PRIMARY KEY, ';
 createNostrDirectMessagesTableCommand += 'event TEXT NULL, ';

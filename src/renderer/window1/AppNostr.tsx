@@ -1,7 +1,6 @@
 import { NostrProvider } from 'nostr-react';
 import { useSelector } from 'react-redux';
 import AppRoutes from './AppRoutes';
-import { aDefaultRelayUrls } from 'main/const/nostr';
 
 const AppNostr = () => {
   let aActiveRelayUrls = [];

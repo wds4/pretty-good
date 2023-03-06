@@ -16,6 +16,7 @@ import 'react-tooltip/dist/react-tooltip.css';
 import './css/app.css';
 import './css/navbars.css';
 import './css/mastheads.css';
+import './css/rangeSliders.css';
 import './css/prettyGood/index.css';
 import './css/nostr/index.css';
 import './css/grapevine/index.css';
@@ -37,6 +38,7 @@ import './css/nostr/profileKeys.css';
 import './css/nostr/settings.css';
 import './css/nostr/userList.css';
 import './css/nostr/youTubeEmbed.css';
+import 'react-tabs/style/react-tabs.css';
 
 // an inelegant way to initialize the redux store
 const InitReduxStore = ({

@@ -46,5 +46,11 @@ export const tooltipContent = {
   relaysSettingsMyRelays: 'The list of relays associated with my nostr profile, as broadcast to the network.',
   relaysAutoUpdateButton: 'add relays automatically or manually',
   mergeRelayAutoUpdateRecs: mergeRelayAutoUpdateRecsContent,
+  attenuationFactor: 'adjust how much influence attenuates with each hop away from the seed user',
+  seedUser: 'Seed user (a.k.a. anchor user): the center of the grapevine',
+  contextSelector: 'choose a context',
+  scoreSelector: 'which score to view in the graph',
+  purposeSelector: 'To what purpose will these ratings and score calculations be put?',
+  testnetSelector: 'Currently only testnet is available.',
 };
 

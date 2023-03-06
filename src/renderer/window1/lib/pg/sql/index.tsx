@@ -1,4 +1,5 @@
 import { dateToUnix } from 'nostr-react';
+import { oDefaultRelayUrls } from 'renderer/window1/const';
 import { asyncSql } from '../asyncSql';
 import { generateNewNostrKeys } from '../../nostr';
 
@@ -6,7 +7,11 @@ export const addDirectMessageToSql = async (event) => {
   const pk_recipient = event.tags.find(
     ([k, v]) => k === 'p' && v && v !== ''
   )[1];
-  const sql = ` INSERT OR IGNORE INTO nostrDirectMessages (event, event_id, created_at, pubkey_author, pubkey_recipient) VALUES('${JSON.stringify(event)}', '${event.id}', '${event.created_at}', '${event.pubkey}', '${pk_recipient}' ) `;
+  const sql = ` INSERT OR IGNORE INTO nostrDirectMessages (event, event_id, created_at, pubkey_author, pubkey_recipient) VALUES('${JSON.stringify(
+    event
+  )}', '${event.id}', '${event.created_at}', '${
+    event.pubkey
+  }', '${pk_recipient}' ) `;
   const res = await asyncSql(sql);
   return res;
 };
@@ -63,7 +68,9 @@ export const fetchMyActiveNostrProfileFromSql = async (initNewProfile) => {
   const sql = 'SELECT * FROM myNostrProfile WHERE active=true';
   let aMyProfileData = await asyncSql(sql);
 
-  console.log(`fetchMyActiveNostrProfileFromSql aMyProfileData.length: ${aMyProfileData.length}; initNewProfile: ${initNewProfile}`);
+  console.log(
+    `fetchMyActiveNostrProfileFromSql aMyProfileData.length: ${aMyProfileData.length}; initNewProfile: ${initNewProfile}`
+  );
 
   if (initNewProfile && aMyProfileData.length == 0) {
     const [sk, pk] = await generateNewNostrKeys(true);
@@ -104,7 +111,7 @@ export const fetchExtendedFollowingListFromSql = async () => {
 
 export const addNewRowToMyNostrProfileInSql = async (pubkey, privkey) => {
   // pubkey is hex formatted
-  const sql = ` INSERT OR IGNORE INTO myNostrProfile (pubkey,privkey,active) VALUES ('${pubkey}','${privkey}',false) `;
+  const sql = ` INSERT OR IGNORE INTO myNostrProfile (pubkey,privkey,following,relays,active) VALUES ('${pubkey}','${privkey}','[]','${JSON.stringify(oDefaultRelayUrls)}',false) `;
   console.log(`addNewRowToMyNostrProfileInSql; sql: ${sql}`);
   return asyncSql(sql);
 };
@@ -198,8 +205,12 @@ export const updateMyFullNostrProfileInSql = async (oMyNostrProfileInfo) => {
   sql += ` , following = '${JSON.stringify(following)}' `;
   sql += ` , extendedFollowing = '${JSON.stringify(extendedFollowing)}' `;
   sql += ` , followingForRelays = '${JSON.stringify(followingForRelays)}' `;
-  sql += ` , endorseAsRelaysPicker = '${JSON.stringify(endorseAsRelaysPicker)}' `;
-  sql += ` , endorseAsRelaysPickerHunter = '${JSON.stringify(endorseAsRelaysPickerHunter)}' `;
+  sql += ` , endorseAsRelaysPicker = '${JSON.stringify(
+    endorseAsRelaysPicker
+  )}' `;
+  sql += ` , endorseAsRelaysPickerHunter = '${JSON.stringify(
+    endorseAsRelaysPickerHunter
+  )}' `;
   sql += ` , relays = '${JSON.stringify(relays)}' `;
   sql += ` , lastUpdate = ${currentTime} `;
   sql += ` , multiClientAccess = ${multiClientAccess} `;
@@ -211,7 +222,11 @@ export const updateMyFullNostrProfileInSql = async (oMyNostrProfileInfo) => {
 
   const result = await asyncSql(sql);
   console.log(
-    `qwerty updateMyFullNostrProfileInSql result: ${JSON.stringify(result, null, 4)}`
+    `qwerty updateMyFullNostrProfileInSql result: ${JSON.stringify(
+      result,
+      null,
+      4
+    )}`
   );
 };
 
