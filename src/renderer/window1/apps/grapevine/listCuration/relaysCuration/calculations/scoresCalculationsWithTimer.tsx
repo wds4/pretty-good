@@ -127,9 +127,9 @@ const populateEachNodeAfferentEdgeIDs = (nodes, edges) => {
     const pk_to = oEdge.to;
     // add edgeID to node[pk_to].afferentEdgeIDs
     const oNode = nodes.get(pk_to);
-    const { afferentEdgeIDs } = oNode;
-    afferentEdgeIDs.push(pk_to);
-    nodes.update({ id: pk_to, afferentEdgeIDs });
+    const afferentEdgeIDs = oNode.afferentEdgeIDs;
+    // afferentEdgeIDs.push(pk_to);
+    // nodes.update({ id: pk_to, afferentEdgeIDs });
   }
 };
 

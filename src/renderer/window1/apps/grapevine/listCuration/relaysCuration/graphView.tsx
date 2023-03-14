@@ -109,6 +109,7 @@ const GraphInit = ({
       from: aRating[0],
       to: aRating[1],
       color: 'green',
+      width: 5,
       title: 'Endorse Relays',
     };
     edges_arr.push(oEdge);
@@ -120,6 +121,7 @@ const GraphInit = ({
       from: aRating[0],
       to: aRating[1],
       color: 'black',
+      width: 5,
       title: 'Endorse as Relays Curator Hunter',
     };
     edges_arr.push(oEdge);
