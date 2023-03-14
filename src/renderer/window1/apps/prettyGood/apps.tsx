@@ -46,7 +46,7 @@ export default class PrettyGoodApps extends React.Component {
                       to="/PrettyGoodHome"
                     >
                       <center>Pretty Good</center>
-                      <center>(umbrella app)</center>
+                      <div className="appsLargeIconEmoji">🦉</div>
                     </NavLink>
 
                     <NavLink
@@ -56,6 +56,7 @@ export default class PrettyGoodApps extends React.Component {
                       to="/ConceptGraphHome"
                     >
                       <center>Concept Graph</center>
+                      <div className="appsLargeIconEmoji">🧠</div>
                     </NavLink>
 
                     <NavLink
@@ -74,6 +75,7 @@ export default class PrettyGoodApps extends React.Component {
                       to="/GrapevineHome"
                     >
                       <center>The Grapevine</center>
+                      <div className="appsLargeIconEmoji">🍇</div>
                     </NavLink>
                   </div>
                 </center>
@@ -102,12 +104,13 @@ export default class PrettyGoodApps extends React.Component {
                     </NavLink>
 
                     <NavLink
-                      className="pgAppSquareButton plexAppSquareInactiveButton"
+                      className="pgAppSquareButton plexAppSquareActiveButton"
                       exact
                       activeClassName="active"
-                      to="/"
+                      to="/CuratedListsHome"
                     >
-                      <center>List Curation</center>
+                      <center>Curated Lists</center>
+                      <div className="appsLargeIconEmoji">📃</div>
                     </NavLink>
                   </div>
                 </center>
@@ -123,6 +126,7 @@ export default class PrettyGoodApps extends React.Component {
                     to="/NostrHome"
                   >
                     <center>nostr</center>
+                    <div className="appsLargeIconEmoji">🪶</div>
                   </NavLink>
 
                   <NavLink

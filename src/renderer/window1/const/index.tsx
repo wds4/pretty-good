@@ -31,7 +31,7 @@ export const oDefaultRelayUrls = {
 
 export const oGrapevineDefaults = {
   attenuationFactor: 80,
-  rigorr: 25,
+  rigor: 25,
   defaultUserTrustAverageScore: 0,
   defaultUserTrustConfidence: 40,
   strat1Coeff: 15,

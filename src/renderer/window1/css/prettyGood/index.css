@@ -2,6 +2,7 @@
   width:150px;
   height:150px;
   color:black;
+  background-color: white;
   border:1px solid black;
   display:inline-block;
   border-radius:5px;
@@ -16,6 +17,12 @@
 }
 .plexAppSquareInactiveButton {
   border:1px dashed grey;
+  background-color:#DFDFDF;
+}
+.appsLargeIconEmoji {
+  font-size:64px;
+  text-align:center;
+  margin-top:15px;
 }
 .doSomethingButton {
   font-size:12px;
