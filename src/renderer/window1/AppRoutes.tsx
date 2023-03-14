@@ -63,6 +63,13 @@ import ConceptGraphHome from './apps/conceptGraph';
 import ConceptGraphProfile from './apps/conceptGraph/profile';
 import ConceptGraphSettings from './apps/conceptGraph/settings';
 
+import CuratedListsHome from './apps/curatedLists';
+import ViewListOfCuratedLists from './apps/curatedLists/viewListOfCuratedLists';
+import CreateNewCuratedList from './apps/curatedLists/createNewCuratedList';
+import ViewIndividualCuratedList from './apps/curatedLists/viewIndividualCuratedList';
+import CreateNewCuratedListInstance from './apps/curatedLists/createNewCuratedListInstance';
+import CuratedListsSettings from './apps/curatedLists/settings';
+
 const AppRoutes = () => {
   const { onDisconnect } = useNostr();
   const dispatch = useDispatch();
@@ -82,13 +89,14 @@ const AppRoutes = () => {
   };
   onDisconnect(onDisconnectCallback);
   /*
-  <NostrProfilesListener />
-  <DirectMessageListener />
-  <MyProfileListener />
-  <GrapevineListener />
+      <NostrProfilesListener />
+      <DirectMessageListener />
+      <MyProfileListener />
+      <GrapevineListener />
   */
   return (
     <>
+
       <fieldset id="app">
         <Router>
           <Routes>
@@ -239,6 +247,28 @@ const AppRoutes = () => {
             <Route
               path="/ConceptGraphHome/ConceptGraphSettings"
               element={<ConceptGraphSettings />}
+            />
+
+            <Route path="/CuratedListsHome" element={<CuratedListsHome />} />
+            <Route
+              path="/CuratedListsHome/ViewListOfCuratedLists"
+              element={<ViewListOfCuratedLists />}
+            />
+            <Route
+              path="/CuratedListsHome/CreateNewCuratedList"
+              element={<CreateNewCuratedList />}
+            />
+            <Route
+              path="/CuratedListsHome/ViewIndividualCuratedList"
+              element={<ViewIndividualCuratedList />}
+            />
+            <Route
+              path="/CuratedListsHome/CreateNewCuratedListInstance"
+              element={<CreateNewCuratedListInstance />}
+            />
+            <Route
+              path="/CuratedListsHome/CuratedListsSettings"
+              element={<CuratedListsSettings />}
             />
           </Routes>
         </Router>

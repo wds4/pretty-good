@@ -9,6 +9,8 @@ import prettyGoodGlobalStateReducer from '../features/prettyGood/settings/slice'
 import nostrGrapevineTrustRatingPresetsReducer from '../features/grapevine/grapevineTrustRatingPresets/slice';
 import nostrNotesReducer from '../features/nostr/notes/slice';
 import listCurationReducer from '../features/grapevine/listCuration/slice';
+import controlPanelSettingsReducer from '../features/grapevine/controlPanelSettings/slice';
+import compositeTrustScoresReducer from '../features/grapevine/compositeTrustScores/slice';
 
 const store = configureStore({
   reducer: {
@@ -22,6 +24,8 @@ const store = configureStore({
     nostrGrapevineTrustRatingPresets: nostrGrapevineTrustRatingPresetsReducer,
     nostrNotes: nostrNotesReducer,
     listCuration: listCurationReducer,
+    controlPanelSettings: controlPanelSettingsReducer,
+    compositeTrustScores: compositeTrustScoresReducer,
   }
 });
 export default store;

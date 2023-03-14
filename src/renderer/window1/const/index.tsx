@@ -28,3 +28,15 @@ export const oDefaultRelayUrls = {
   'wss://nostr.wine': {read: true, write: true},
   'wss://nos.lol': {read: true, write: true},
 };
+
+export const oGrapevineDefaults = {
+  attenuationFactor: 80,
+  rigorr: 25,
+  defaultUserTrustAverageScore: 0,
+  defaultUserTrustConfidence: 40,
+  strat1Coeff: 15,
+  strat2Coeff: 10,
+  strat3Coeff: 100,
+  strat4Coeff: 200,
+  strat5Coeff: 500,
+}

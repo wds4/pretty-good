@@ -32,6 +32,9 @@ MAIN PANEL
 .leftNavPanelGrapevine {
   background-color: purple;
 }
+.leftNavPanelCuratedLists {
+  background-color: #2D32F3;
+}
 
 /******************************
 LEFT NAV 1 BUTTONS
@@ -90,6 +93,9 @@ MAIN PANEL
 }
 .leftNav2PanelGrapevine {
   background-color: rgba(128, 0, 128, 0.5);
+}
+.leftNav2PanelCuratedLists {
+  background-color: #B8BFF1;
 }
 
 /******************************

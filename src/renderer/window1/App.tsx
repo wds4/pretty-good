@@ -6,6 +6,7 @@ import { initNostrNotes } from 'renderer/window1/redux/features/nostr/notes/slic
 import { initNostrDirectMessages } from 'renderer/window1/redux/features/nostr/directMessages/slice';
 import { initMyActiveNostrProfile } from 'renderer/window1/redux/features/nostr/myNostrProfile/slice';
 import { initNostrTestnetListCurationRatings } from 'renderer/window1/redux/features/grapevine/listCuration/slice';
+import { initCompositeTrustScores } from 'renderer/window1/redux/features/grapevine/compositeTrustScores/slice';
 import { oDefaultRelayUrls } from 'main/const/nostr';
 import ErrorBoundary from './errorBoundary';
 import store from './redux/store/store';
@@ -65,6 +66,7 @@ const InitReduxStore = ({
   dispatch(initNostrNotes(aNostrNotesData));
   dispatch(initNostrDirectMessages(aNostrDirectMessagesData));
   dispatch(initNostrTestnetListCurationRatings(aNostrTestnetListCurationRatings));
+  dispatch(initCompositeTrustScores({oMyActiveNostrProfileData,aNostrProfilesData}));
   return <></>;
 };
 

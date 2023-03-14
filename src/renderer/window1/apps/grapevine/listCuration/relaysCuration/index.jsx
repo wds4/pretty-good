@@ -13,7 +13,7 @@ import RelaysCalcAndVis from './calculationAndVisualization';
 import GraphView from './graphView';
 import TopControlPanel from './controlPanels/topControlPanel';
 import RightPanel from './controlPanels/rightPanel';
-import TrustScoreCalculations from './trustScoreCalculations';
+import ShowSingleUserTrustScoreCalculations from './showSingleUserTrustScoreCalculations';
 export default class RelaysCuration extends React.Component {
   constructor(props) {
     super(props);
@@ -49,6 +49,7 @@ export default class RelaysCuration extends React.Component {
     const aRatingsData = await asyncSql(sql2);
     // console.log("oMyNostrProfileData: "+JSON.stringify(oMyNostrProfileData))
     this.setState({aRatingsData: aRatingsData})
+
   }
 
   render() {
@@ -80,7 +81,7 @@ export default class RelaysCuration extends React.Component {
             <GrapevineListener />
             <RelaysCalcAndVis />
           </div>
-          <TrustScoreCalculations />
+          <ShowSingleUserTrustScoreCalculations />
         </div>
       </>
     );

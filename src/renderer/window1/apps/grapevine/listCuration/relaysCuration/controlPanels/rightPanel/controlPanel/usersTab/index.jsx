@@ -1,17 +1,32 @@
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateDefaultUserTrustAverageScore, updateDefaultUserTrustConfidence } from 'renderer/window1/redux/features/grapevine/controlPanelSettings/slice';
+
 const UsersTab = () => {
-  const e1 = document.getElementById('usersDefaultAverageScoreSliderElem');
-  const e2 = document.getElementById('usersDefaultAverageScoreValueContainer');
+  const dispatch = useDispatch();
+  const { defaultUserTrustAverageScore, defaultUserTrustConfidence } = useSelector(
+    (state) => state.controlPanelSettings
+  );
+  const [defAvg, setDefAvg] = useState(defaultUserTrustAverageScore);
+  const [defCon, setDefCon] = useState(defaultUserTrustConfidence);
+
   const updateDefaultUserAverageSliderValue = () => {
+    const e1 = document.getElementById('usersDefaultAverageScoreSliderElem');
+    const e2 = document.getElementById('usersDefaultAverageScoreValueContainer');
     if (e1 && e2) {
       e2.innerHTML = e1.value / 100;
+      setDefAvg(e1.value);
+      dispatch(updateDefaultUserTrustAverageScore(e1.value))
     }
   };
 
-  const e3 = document.getElementById('usersDefaultConfidenceSliderElem');
-  const e4 = document.getElementById('usersDefaultConfidenceValueContainer');
   const updateDefaultUserConfidenceSliderValue = () => {
+    const e3 = document.getElementById('usersDefaultConfidenceSliderElem');
+    const e4 = document.getElementById('usersDefaultConfidenceValueContainer');
     if (e3 && e4) {
-      e3.innerHTML = e4.value / 100;
+      e4.innerHTML = e3.value / 100;
+      setDefCon(e3.value);
+      dispatch(updateDefaultUserTrustConfidence(e3.value))
     }
   };
   return (
@@ -39,7 +54,7 @@ const UsersTab = () => {
                   marginLeft: '10px',
                 }}
               >
-                0.1
+                {defAvg / 100}
               </div>
               <div
                 id="usersDefaultAverageScoreSlider"
@@ -56,7 +71,7 @@ const UsersTab = () => {
                   min="0"
                   max="100"
                   className="pgslider"
-                  defaultValue={10}
+                  defaultValue={defAvg}
                 />
               </div>
             </div>
@@ -83,7 +98,7 @@ const UsersTab = () => {
                   width: '30px',
                   marginLeft: '10px',
                 }}
-              >0.20</div>
+              >{defCon / 100}</div>
               <div
                 id="usersDefaultConfidenceSlider"
                 style={{
@@ -99,7 +114,7 @@ const UsersTab = () => {
                   min="0"
                   max="100"
                   className="pgslider"
-                  defaultValue={20}
+                  defaultValue={defCon}
                 />
               </div>
             </div>

@@ -6,8 +6,8 @@ import { removeDuplicatesFromArrayOfStrings } from 'renderer/window1/lib/pg';
 
 const { options } = VisStyleConstants;
 
-let nodes = new DataSet([]);
-let edges = new DataSet([]);
+export let nodes = new DataSet([]);
+export let edges = new DataSet([]);
 let network = {};
 let data = {
   nodes,
@@ -24,15 +24,23 @@ const GraphInit = ({
   const nodes_arr = [];
   const edges_arr = [];
 
+  // console.log("GraphInit: "+ JSON.stringify(oMyNostrProfileData))
+  const myPubKey = oMyNostrProfileData.pubkey;
+
   const defaultImageUrl = 'https://nostr.build/i/2282.png';
 
   // ADD NODES
   const oKind0ProfilesData = {};
   for (let n = 0; n < aNodes.length; n++) {
     const pk = aNodes[n];
+    let size = 10;
+    if (myPubKey == pk) {
+      size = 50;
+    }
     const oNode = {
       id: pk,
       pubkey: pk,
+      size,
       shape: 'circularImage',
       image: defaultImageUrl,
       brokenImage: defaultImageUrl,
@@ -103,6 +111,9 @@ const GraphInit = ({
       const nodeID = params.node;
       const aAllNodes = nodes.getIds();
     });
+
+    // initializeCompositeScores(myPubKey,nodes)
+    calculateCompositeScoresSingleIteration(myPubKey, nodes, edges);
   }, [domNode, network, data, options]);
 
   return (
@@ -117,7 +128,43 @@ const GraphInit = ({
   );
 };
 
-const GraphView = ({ oMyNostrProfileData, oNostrProfilesData, aRatingsData }) => {
+const calculateCompositeScoresSingleIteration = (myPubKey, nodes, edges) => {
+  const aAllNodes = nodes.getIds();
+};
+
+const initializeCompositeScores = (myPubKey, nodes) => {
+  const aAllNodes = nodes.getIds();
+  console.log(`initializeCompositeScores; myPubKey: ${myPubKey}`);
+  for (let n = 0; n < aAllNodes.length; n++) {
+    const pk = aAllNodes[n];
+    if (pk == myPubKey) {
+      nodes.update({ id: pk, size: 50 });
+      console.log(`initializeCompositeScores; MINE pk: ${pk}`);
+    } else {
+      nodes.update({ id: pk, size: 5 });
+      console.log(`initializeCompositeScores; NOT MINE pk: ${pk}`);
+    }
+  }
+};
+
+const ScoresCalculationTimer = () => {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    setTimeout(() => {
+      calculateCompositeScoresSingleIteration();
+      setCount((count) => count + 1);
+    }, 200);
+  }, [count]); // <- add empty brackets here
+
+  return <div>I've rendered {count} times!</div>;
+}
+
+const GraphView = ({
+  oMyNostrProfileData,
+  oNostrProfilesData,
+  aRatingsData,
+}) => {
   const myNostrProfile = useSelector((state) => state.myNostrProfile);
   const listCuration = useSelector((state) => state.listCuration);
   const oPicker = listCuration.relays.ratings.notes.endorseAsRelaysPicker;
@@ -125,7 +172,9 @@ const GraphView = ({ oMyNostrProfileData, oNostrProfilesData, aRatingsData }) =>
     listCuration.relays.ratings.notes.endorseAsRelaysPickerHunter;
   const aPicker = Object.keys(oPicker);
   const aPickerHunter = Object.keys(oPickerHunter);
-  console.log("qwerty_GraphViewA; aPicker: "+aPicker.length+"; aPickerHunter: "+aPickerHunter.length);
+  console.log(
+    `qwerty_GraphViewA; aPicker: ${aPicker.length}; aPickerHunter: ${aPickerHunter.length}`
+  );
 
   const aNodes = [...aPicker, ...aPickerHunter]; // array of all pubkeys to use as nodes in the graph
   const aEndorseAsRelaysPicker = []; // 2 arrays of all ratings to use as edges in the graph
@@ -155,9 +204,14 @@ const GraphView = ({ oMyNostrProfileData, oNostrProfilesData, aRatingsData }) =>
       }
     }
   }
-  console.log("qwerty_GraphViewB; aEndorseAsRelaysPicker.length: "+aEndorseAsRelaysPicker.length+"; aEndorseAsRelaysPickerHunter: "+aEndorseAsRelaysPickerHunter.length)
+  console.log(
+    `qwerty_GraphViewB; aEndorseAsRelaysPicker.length: ${aEndorseAsRelaysPicker.length}; aEndorseAsRelaysPickerHunter: ${aEndorseAsRelaysPickerHunter.length}`
+  );
 
   const aNodes2 = removeDuplicatesFromArrayOfStrings(aNodes);
+
+  /// ////////// INITIALIZE TRUST SCORE RATINGS: relaysCuration_allRelayTypes
+  // initializeCompositeScores(nodes)
   return (
     <>
       <GraphInit
