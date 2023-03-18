@@ -58,19 +58,27 @@ const List = ({curatedListFocusID, oListData}) => {
 
   return (
     <>
-      <div>sqlID: {sqlID}</div>
-      <div>event_id: {event_id}</div>
-      <div>author: {pubkey}</div>
-      <div>name: {name_singular}, {name_plural}</div>
-      <div>title: {title_singular}, {title_plural}</div>
-      <div>slug: {slug_singular}, {slug_plural}</div>
-      <div>description: {description}</div>
-      <AllInstances
-        parentConceptNostrEventID={event_id}
-        parentConceptSlug={slug_singular}
-        parentConceptPropertyPath={propertyPath}
-        oParentEvent={oEvent}
-      />
+      <br />
+
+      <div className="overPageItemContainer">
+        <div className="overviewPageLeftCol">list name:</div>
+        <div className="overviewPageRightCol">{name_plural}</div>
+      </div>
+
+      <div className="overPageItemContainer">
+        <div className="overviewPageLeftCol">single instance:</div>
+        <div className="overviewPageRightCol">{name_singular}</div>
+      </div>
+
+      <div className="overPageItemContainer">
+        <div className="overviewPageLeftCol">description:</div>
+        <div className="overviewPageRightCol">{description}</div>
+      </div>
+
+      <div className="overPageItemContainer">
+        <div className="overviewPageLeftCol">author:</div>
+        <div className="overviewPageRightCol" style={{ fontSize: '12px' }}>{pubkey}</div>
+      </div>
     </>
   );
 }

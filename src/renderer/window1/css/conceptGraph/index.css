@@ -1,0 +1,26 @@
+.techOverviewJSON {
+  font-size: 12px;
+  padding: 5px;
+  border: 1px solid black;
+  margin: 0px 5px 10px 5px;
+  background-color: white;
+}
+.techOverviewTitle {
+  margin-left: 10px;
+}
+.overPageItemContainer {
+  margin-bottom: 20px;
+}
+.overviewPageLeftCol {
+  display:inline-block;
+  width: 15%;
+  margin-left: 5%;
+  text-align: right;
+  color: #5F5F5F;
+}
+.overviewPageRightCol {
+  display:inline-block;
+  width: 70%;
+  margin-left: 20px;
+  font-size: 20px;
+}

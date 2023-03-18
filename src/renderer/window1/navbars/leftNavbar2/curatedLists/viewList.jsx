@@ -13,20 +13,20 @@ export default class LeftNavbar2 extends React.PureComponent {
             lists home
           </NavLink>
 
-          <hr/>
+          <div style={{fontSize: "12px",marginTop: '3px',marginBottom: '3px'}}>Single List</div>
 
           <NavLink
             className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
-            end to="/CuratedListsHome/ViewAllLists"
+            end to="/CuratedListsHome/ViewIndividualCuratedList"
           >
-            view lists
+            overview
           </NavLink>
 
           <NavLink
             className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
-            end to="/CuratedListsHome/CreateNewCuratedList"
+            end to="/CuratedListsHome/CuratedListAllInstances"
           >
-            create a new list
+            all instances
           </NavLink>
 
           <NavLink
@@ -35,6 +35,17 @@ export default class LeftNavbar2 extends React.PureComponent {
           >
             create a new instance
           </NavLink>
+
+          <hr />
+
+          <NavLink
+            className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
+            end to="/CuratedListsHome/ViewIndividualCuratedListTechOverview"
+          >
+            technical overview
+          </NavLink>
+
+
         </div>
       </>
     );

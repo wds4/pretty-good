@@ -69,7 +69,9 @@ import ViewListOfCuratedLists from './apps/curatedLists/viewListOfCuratedLists';
 import ViewAllLists from './apps/curatedLists/viewListOfCuratedLists/allLists';
 import ViewMyLists from './apps/curatedLists/viewListOfCuratedLists/myLists';
 import CreateNewCuratedList from './apps/curatedLists/createNewCuratedList';
-import ViewIndividualCuratedList from './apps/curatedLists/viewIndividualCuratedList';
+import ViewIndividualCuratedList from './apps/curatedLists/viewIndividualCuratedList/overview';
+import ViewIndividualCuratedListTechOverview from './apps/curatedLists/viewIndividualCuratedList/techOverview';
+import CuratedListAllInstances from './apps/curatedLists/viewIndividualCuratedList/viewInstances';
 import CreateNewCuratedListInstance from './apps/curatedLists/createNewCuratedListInstance';
 import CuratedListsSettings from './apps/curatedLists/settings';
 import CuratedListSpecificInstance from './apps/curatedLists/viewInstance';
@@ -277,6 +279,14 @@ const AppRoutes = () => {
             <Route
               path="/CuratedListsHome/ViewIndividualCuratedList"
               element={<ViewIndividualCuratedList />}
+            />
+            <Route
+              path="/CuratedListsHome/ViewIndividualCuratedListTechOverview"
+              element={<ViewIndividualCuratedListTechOverview />}
+            />
+            <Route
+              path="/CuratedListsHome/CuratedListAllInstances"
+              element={<CuratedListAllInstances />}
             />
             <Route
               path="/CuratedListsHome/CreateNewCuratedListInstance"

@@ -17,25 +17,16 @@ export default class LeftNavbar2 extends React.PureComponent {
 
           <NavLink
             className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
-            end to="/CuratedListsHome/ViewListOfCuratedLists"
+            end to="/CuratedListsHome/ViewAllLists"
           >
-            view lists
+            view all lists
           </NavLink>
-
-          <hr />
 
           <NavLink
             className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
             end to="/CuratedListsHome/ViewMyLists"
           >
             view my lists
-          </NavLink>
-
-          <NavLink
-            className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
-            end to="/CuratedListsHome/ViewAllLists"
-          >
-            view all lists
           </NavLink>
         </div>
       </>
