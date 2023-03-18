@@ -58,6 +58,7 @@ import GrapevineGraphViewFollowing from './apps/grapevine/graphViews/following';
 import GrapevineGraphViewExtendedFollowing from './apps/grapevine/graphViews/extendedFollowing';
 import GrapevineListCuration from './apps/grapevine/listCuration';
 import GrapevineRecommendedRelays from './apps/grapevine/listCuration/relaysCuration';
+import GrapevineVisualizationMainPage from './apps/grapevine/visualization';
 
 import ConceptGraphHome from './apps/conceptGraph';
 import ConceptGraphProfile from './apps/conceptGraph/profile';
@@ -65,10 +66,13 @@ import ConceptGraphSettings from './apps/conceptGraph/settings';
 
 import CuratedListsHome from './apps/curatedLists';
 import ViewListOfCuratedLists from './apps/curatedLists/viewListOfCuratedLists';
+import ViewAllLists from './apps/curatedLists/viewListOfCuratedLists/allLists';
+import ViewMyLists from './apps/curatedLists/viewListOfCuratedLists/myLists';
 import CreateNewCuratedList from './apps/curatedLists/createNewCuratedList';
 import ViewIndividualCuratedList from './apps/curatedLists/viewIndividualCuratedList';
 import CreateNewCuratedListInstance from './apps/curatedLists/createNewCuratedListInstance';
 import CuratedListsSettings from './apps/curatedLists/settings';
+import CuratedListSpecificInstance from './apps/curatedLists/viewInstance';
 
 const AppRoutes = () => {
   const { onDisconnect } = useNostr();
@@ -238,6 +242,10 @@ const AppRoutes = () => {
               path="/GrapevineHome/GrapevineRecommendedRelays"
               element={<GrapevineRecommendedRelays />}
             />
+            <Route
+              path="/GrapevineHome/GrapevineVisualizationMainPage"
+              element={<GrapevineVisualizationMainPage />}
+            />
 
             <Route path="/ConceptGraphHome" element={<ConceptGraphHome />} />
             <Route
@@ -255,6 +263,14 @@ const AppRoutes = () => {
               element={<ViewListOfCuratedLists />}
             />
             <Route
+              path="/CuratedListsHome/ViewAllLists"
+              element={<ViewAllLists />}
+            />
+             <Route
+              path="/CuratedListsHome/ViewMyLists"
+              element={<ViewMyLists />}
+            />
+            <Route
               path="/CuratedListsHome/CreateNewCuratedList"
               element={<CreateNewCuratedList />}
             />
@@ -270,6 +286,11 @@ const AppRoutes = () => {
               path="/CuratedListsHome/CuratedListsSettings"
               element={<CuratedListsSettings />}
             />
+            <Route
+              path="/CuratedListsHome/CuratedListSpecificInstance"
+              element={<CuratedListSpecificInstance />}
+            />
+
           </Routes>
         </Router>
       </fieldset>

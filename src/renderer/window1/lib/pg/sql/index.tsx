@@ -5,8 +5,10 @@ import { generateNewNostrKeys } from '../../nostr';
 
 export const updateListCurationNoteInSql = async (event, slug) => {
   const pk = event.pubkey;
-  const uniqueID = pk + "-" + slug;
-  const sql1 = ` INSERT OR IGNORE INTO testnetListCurationRatings (uniqueID, ratingSlug, pk_rater, event) VALUES('${uniqueID}', '${slug}', '${pk}', '${JSON.stringify(event)}' ) `;
+  const uniqueID = `${pk}-${slug}`;
+  const sql1 = ` INSERT OR IGNORE INTO testnetListCurationRatings (uniqueID, ratingSlug, pk_rater, event) VALUES('${uniqueID}', '${slug}', '${pk}', '${JSON.stringify(
+    event
+  )}' ) `;
 
   const res1 = await asyncSql(sql1);
 
@@ -19,7 +21,7 @@ export const updateListCurationNoteInSql = async (event, slug) => {
   const res2 = await asyncSql(sql2);
 
   // console.log("updateListCurationNoteInSql; sql1: "+sql1)
-}
+};
 
 /*
 export const updateListCurationNotesInSql = async (oNotes) => {
@@ -51,6 +53,28 @@ export const updateListCurationNotesInSql = async (oNotes) => {
 }
 */
 
+export const addInstanceEventToSql = async (
+  event,
+  parentConceptSlug,
+  parentConceptNostrEventID
+) => {
+  const sql = ` INSERT OR IGNORE INTO curatedListInstances (event, event_id, created_at, pubkey, parentConceptSlug, parentConceptNostrEventID) VALUES('${JSON.stringify(
+    event
+  )}', '${event.id}', '${event.created_at}', '${
+    event.pubkey
+  }', '${parentConceptSlug}', '${parentConceptNostrEventID}' ) `;
+  const res = await asyncSql(sql);
+  return res;
+};
+
+export const addCuratedListEventToSql = async (event) => {
+  const sql = ` INSERT OR IGNORE INTO curatedLists (event, event_id, created_at, pubkey) VALUES('${JSON.stringify(
+    event
+  )}', '${event.id}', '${event.created_at}', '${event.pubkey}' ) `;
+  const res = await asyncSql(sql);
+  return res;
+};
+
 export const addDirectMessageToSql = async (event) => {
   const pk_recipient = event.tags.find(
     ([k, v]) => k === 'p' && v && v !== ''
@@ -63,6 +87,7 @@ export const addDirectMessageToSql = async (event) => {
   const res = await asyncSql(sql);
   return res;
 };
+
 export const addNostrNoteToSql = async (event) => {
   const sql = ` INSERT OR IGNORE INTO nostrNotes (event, event_id, created_at, pubkey) VALUES('${JSON.stringify(
     event
@@ -159,7 +184,9 @@ export const fetchExtendedFollowingListFromSql = async () => {
 
 export const addNewRowToMyNostrProfileInSql = async (pubkey, privkey) => {
   // pubkey is hex formatted
-  const sql = ` INSERT OR IGNORE INTO myNostrProfile (pubkey,privkey,following,relays,active) VALUES ('${pubkey}','${privkey}','[]','${JSON.stringify(oDefaultRelayUrls)}',false) `;
+  const sql = ` INSERT OR IGNORE INTO myNostrProfile (pubkey,privkey,following,relays,active) VALUES ('${pubkey}','${privkey}','[]','${JSON.stringify(
+    oDefaultRelayUrls
+  )}',false) `;
   console.log(`addNewRowToMyNostrProfileInSql; sql: ${sql}`);
   return asyncSql(sql);
 };

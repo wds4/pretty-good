@@ -27,3 +27,33 @@
   display:block;
   text-align:left;
 }
+
+.grapevinePageColA {
+  display:inline-block;
+  width:15%;
+  vertical-align:bottom;
+}
+.grapevinePageSpacer1Col {
+  display:inline-block;
+  width:2%;
+  vertical-align:bottom;
+}
+.grapevinePageSpacer2Col {
+  display:inline-block;
+  width:5%;
+  vertical-align:bottom;
+}
+.grapevinePageColB {
+  display:inline-block;
+  width:5%;
+  vertical-align:bottom;
+}
+.calculationRowsHeaderContainer {
+  background-color:#4f4f4f;
+  color:white;
+
+  font-size:10px;
+}
+.calculationRowContainer {
+  font-size:10px;
+}

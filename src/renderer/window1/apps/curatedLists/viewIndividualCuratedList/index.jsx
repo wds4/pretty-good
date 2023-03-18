@@ -3,6 +3,7 @@ import Masthead from '../../../mastheads/curatedListsMasthead';
 import LeftNavbar1 from '../../../navbars/leftNavbar1/curatedListsNavbar';
 import LeftNavbar2 from '../../../navbars/leftNavbar2/curatedLists/home';
 import { updateMainColWidth, updateMastheadCenter } from '../../../lib/pg/ui';
+import QueryReduxForListFocus from './queryReduxForListFocus';
 
 export default class ConceptGraphSettings extends React.Component {
   constructor(props) {
@@ -27,6 +28,7 @@ export default class ConceptGraphSettings extends React.Component {
           <Masthead />
           <div id="mainPanel">
             <div className="h4">View Individual Curated List</div>
+            <QueryReduxForListFocus />
           </div>
         </div>
       </>

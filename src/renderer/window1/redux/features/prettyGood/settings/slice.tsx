@@ -6,6 +6,10 @@ export const prettyGoodGlobalStateSlice = createSlice({
     devMode: false,
     numBackSteps: 1,
     currentPage: null,
+    curatedListFocus: null, // the (nostr event) id of the curated list that is being viewed on the view list page
+    // NOTE: nostrProfileFocus is currently found in the nostr/settings store;
+    // may consider moving all focus variables to this store (pretty good settings)
+    curatedListInstanceFocus: null,
   },
   reducers: {
     updateDevMode: (state, action) => {
@@ -20,6 +24,12 @@ export const prettyGoodGlobalStateSlice = createSlice({
     setCurrentPage: (state, action) => {
       state.currentPage = action.payload;
     },
+    updateCuratedListFocus: (state, action) => {
+      state.curatedListFocus = action.payload;
+    },
+    updateCuratedListInstanceFocus: (state, action) => {
+      state.curatedListInstanceFocus = action.payload;
+    },
   }
 })
 
@@ -30,6 +40,8 @@ export const {
   resetNumBackSteps,
   setTwoBackSteps,
   setCurrentPage,
+  updateCuratedListFocus,
+  updateCuratedListInstanceFocus,
 } = prettyGoodGlobalStateSlice.actions;
 
 export default prettyGoodGlobalStateSlice.reducer;

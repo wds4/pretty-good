@@ -5,6 +5,8 @@ export let createMyProfileTableCommand = '';
 export let createMyFollowingNetworkTableCommand = '';
 export let createRelaysTableCommand = '';
 export let createTestnetListCurationRatingsTableCommand = '';
+export let createCuratedListsTableCommand = '';
+export let createCuratedListInstancesTableCommand = '';
 
 // duplication from renderer/window1/const - may deprecate the lists here in favor of the one over there
 export const aDefaultRelayUrls: string[] = [
@@ -27,6 +29,24 @@ export const oDefaultRelayUrls = {
   'wss://nostr.oxtr.dev': { write: true, read: true },
 };
 
+createCuratedListInstancesTableCommand += 'id INTEGER PRIMARY KEY, ';
+createCuratedListInstancesTableCommand += 'event TEXT NULL, ';
+createCuratedListInstancesTableCommand += 'event_id TEXT NULL UNIQUE, ';
+createCuratedListInstancesTableCommand += 'created_at INTEGER null, ';
+createCuratedListInstancesTableCommand += 'pubkey TEXT NULL, ';
+createCuratedListInstancesTableCommand += 'parentConceptSlug TEXT NULL, ';
+createCuratedListInstancesTableCommand += 'parentConceptNostrEventID TEXT NULL, ';
+createCuratedListInstancesTableCommand += 'deprecated BOOLEAN false, ';
+createCuratedListInstancesTableCommand += 'UNIQUE(event_id) ';
+
+createCuratedListsTableCommand += 'id INTEGER PRIMARY KEY, ';
+createCuratedListsTableCommand += 'event TEXT NULL, ';
+createCuratedListsTableCommand += 'event_id TEXT NULL UNIQUE, ';
+createCuratedListsTableCommand += 'created_at INTEGER null, ';
+createCuratedListsTableCommand += 'pubkey TEXT NULL, ';
+createCuratedListsTableCommand += 'deprecated BOOLEAN false, ';
+createCuratedListsTableCommand += 'UNIQUE(event_id) ';
+
 // each event contains an array of all ratees that are rated by the author for that ratingSlug; event is event type 39901 (for grapevine-testnet)
 // In the future, more complex tables will have to exist, one for each ratee
 createTestnetListCurationRatingsTableCommand += 'id INTEGER PRIMARY KEY, ';
@@ -39,7 +59,7 @@ createTestnetListCurationRatingsTableCommand += 'UNIQUE(uniqueID) ';
 createNostrDirectMessagesTableCommand += 'id INTEGER PRIMARY KEY, ';
 createNostrDirectMessagesTableCommand += 'event TEXT NULL, ';
 createNostrDirectMessagesTableCommand += 'event_id TEXT NULL UNIQUE, ';
-createNostrDirectMessagesTableCommand += 'created_at TEXT NULL UNIQUE, ';
+createNostrDirectMessagesTableCommand += 'created_at INTEGER NULL, ';
 createNostrDirectMessagesTableCommand += 'pubkey_author TEXT NULL , ';
 createNostrDirectMessagesTableCommand += 'pubkey_recipient TEXT NULL , ';
 createNostrDirectMessagesTableCommand += 'viewed BOOLEAN false , ';

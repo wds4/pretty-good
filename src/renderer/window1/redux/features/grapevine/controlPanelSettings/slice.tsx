@@ -16,6 +16,7 @@ export const controlPanelSettingsSlice = createSlice({
     strat3Coeff: oGrapevineDefaults.strat3Coeff,
     strat4Coeff: oGrapevineDefaults.strat4Coeff,
     strat5Coeff: oGrapevineDefaults.strat5Coeff,
+    selectedPubkeyForShowingTrustCalculations: "e5272de914bd301755c439b88e6959a43c9d2664831f093c51e9c799a16a102f",
   },
   reducers: {
     updateControlPanelSettings: (state, action) => {
@@ -48,6 +49,9 @@ export const controlPanelSettingsSlice = createSlice({
     updateStrat5Coeff: (state, action) => {
       state.strat5Coeff = action.payload;
     },
+    updateSelectedPubkeyForShowingTrustCalculations: (state, action) => {
+      state.selectedPubkeyForShowingTrustCalculations = action.payload;
+    },
   },
 });
 
@@ -62,6 +66,7 @@ export const {
   updateStrat3Coeff,
   updateStrat4Coeff,
   updateStrat5Coeff,
+  updateSelectedPubkeyForShowingTrustCalculations,
 } = controlPanelSettingsSlice.actions;
 
 export default controlPanelSettingsSlice.reducer;

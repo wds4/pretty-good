@@ -43,6 +43,18 @@ export default function Masthead() {
                 : 'mastheadNavButton'
             }
             end
+            to="/NostrHome/NostrSearchForUser"
+          >
+            <div style={{ fontSize: '20px' }}>&#x1F50D;</div>
+            <div style={{ fontSize: '10px' }}>search</div>
+          </NavLink>
+          <NavLink
+            className={({ isActive }) =>
+              isActive
+                ? 'mastheadNavButton mastheadNavButtonActive'
+                : 'mastheadNavButton'
+            }
+            end
             to="/PrettyGoodHome/PrettyGoodApps"
           >
             <div style={{ fontSize: '14px' }}>𓃑</div>

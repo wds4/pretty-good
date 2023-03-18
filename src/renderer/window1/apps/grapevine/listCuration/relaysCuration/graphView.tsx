@@ -3,7 +3,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { DataSet, Network } from 'vis-network/standalone/esm/vis-network';
 import * as VisStyleConstants from 'renderer/window1/lib/visjs/visjs-style';
 import { removeDuplicatesFromArrayOfStrings } from 'renderer/window1/lib/pg';
-import ScoresCalculationsWithTimer from './calculations/scoresCalculationsWithTimer';
+import ScoresCalculationsWithTimer, {
+  populateEachNodeAfferentEdgeIDs,
+} from './calculations/scoresCalculationsWithTimer';
+import { updateSelectedPubkeyForShowingTrustCalculations } from 'renderer/window1/redux/features/grapevine/controlPanelSettings/slice';
 
 const { options } = VisStyleConstants;
 
@@ -19,26 +22,26 @@ const allPurposeTypes_allContexts_starter = {
   influence: 0,
   average: 0,
   input: 0,
-  confidence: 0,
-}
+  certainty: 0,
+};
 const allPurposeTypes_allContexts_seed = {
   influence: 1,
   average: 1,
   input: 10000,
-  confidence: 100,
-}
+  certainty: 100,
+};
 const relaysCuration_allRelayTypes_starter = {
   influence: 0,
   average: 0,
   input: 0,
-  confidence: 0,
-}
+  certainty: 0,
+};
 const relaysCuration_allRelayTypes_seed = {
   influence: 1,
   average: 1,
   input: 10000,
-  confidence: 100,
-}
+  certainty: 100,
+};
 
 const GraphInit = ({
   aNodes,
@@ -47,7 +50,8 @@ const GraphInit = ({
   aEndorseAsRelaysPicker,
   aEndorseAsRelaysPickerHunter,
 }) => {
-  const [count, setCount] = useState(0);
+  const dispatch = useDispatch();
+  // const [count, setCount] = useState(0);
   const nodes_arr = [];
   const edges_arr = [];
 
@@ -60,12 +64,12 @@ const GraphInit = ({
   for (let n = 0; n < aNodes.length; n++) {
     const pk = aNodes[n];
     let size = 10;
-    let scoresA = allPurposeTypes_allContexts_starter;
-    let scoresB = relaysCuration_allRelayTypes_starter;
+    const scoresA = allPurposeTypes_allContexts_starter;
+    const scoresB = relaysCuration_allRelayTypes_starter;
     if (myPubKey == pk) {
       size = 50;
-      let scoresA = allPurposeTypes_allContexts_seed;
-      let scoresB = relaysCuration_allRelayTypes_seed;
+      const scoresA = allPurposeTypes_allContexts_seed;
+      const scoresB = relaysCuration_allRelayTypes_seed;
     }
     const oNode = {
       id: pk,
@@ -74,6 +78,9 @@ const GraphInit = ({
       image: defaultImageUrl,
       brokenImage: defaultImageUrl,
       title: pk,
+      label: null,
+      name: null,
+      display_name: null,
       afferentEdgeIDs: [],
       seed: false,
       scores: {
@@ -94,6 +101,8 @@ const GraphInit = ({
         oKind0ProfilesData[pk] = oProfileData;
         oNode.label = oProfileData?.name;
         oNode.title = oProfileData?.display_name;
+        oNode.name = oProfileData?.name;
+        oNode.display_name = oProfileData?.display_name;
         if (oProfileData.picture) {
           oNode.image = oProfileData?.picture;
         }
@@ -147,6 +156,21 @@ const GraphInit = ({
       const nodeID = params.node;
       const aAllNodes = nodes.getIds();
     });
+
+    network.current.on('selectNode', function (params) {
+      const aN = params.nodes;
+      const numNodes = aN.length;
+      if (numNodes == 1) {
+        const nodeID = aN[0];
+        const node = nodes.get(nodeID);
+        const { name } = node;
+        console.log('selectNode event triggered; name: '+name);
+        dispatch(updateSelectedPubkeyForShowingTrustCalculations(nodeID))
+        // drawScoreCalculationPanel(nodeID)
+      }
+    });
+
+    populateEachNodeAfferentEdgeIDs(nodes, edges);
   }, [domNode, network, data, options]);
 
   return (

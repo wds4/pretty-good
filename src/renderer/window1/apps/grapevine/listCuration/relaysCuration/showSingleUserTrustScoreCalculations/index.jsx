@@ -1,10 +1,13 @@
+import { useSelector } from 'react-redux';
 import MiniProfile from './miniProfile';
 import RatingsRows from './ratingsRows';
 import TrustScoresSummary from './scoresSummary';
 import TrustScoresSummations from './scoresSummations';
 
 const ShowSingleUserTrustScoreCalculations = () => {
-  const pk_selected = "e5272de914bd301755c439b88e6959a43c9d2664831f093c51e9c799a16a102f";
+  const pk_selected = useSelector(
+    (state) => state.controlPanelSettings.selectedPubkeyForShowingTrustCalculations
+  );
   return (
     <>
       <div style={{width:'100%',padding:'5px',border:'1px solid purple',backgroundColor:'#CFCFCF'}}>
@@ -14,7 +17,7 @@ const ShowSingleUserTrustScoreCalculations = () => {
             <MiniProfile pubkey={pk_selected} />
           </div>
           <div style={{display:'inline-block'}}>
-            <TrustScoresSummary />
+            <TrustScoresSummary pubkey={pk_selected} />
           </div>
           <div >
             <RatingsRows />

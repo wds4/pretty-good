@@ -25,6 +25,8 @@ import {
   createMyProfileTableCommand,
   createMyFollowingNetworkTableCommand,
   createRelaysTableCommand,
+  createCuratedListsTableCommand,
+  createCuratedListInstancesTableCommand,
   aDefaultRelayUrls,
 } from './const/nostr';
 
@@ -131,6 +133,14 @@ db.serialize(() => {
   // db.run('DROP TABLE IF EXISTS myNostrProfile');
   // db.run('DROP TABLE IF EXISTS followingNetwork');
   // db.run('DROP TABLE IF EXISTS relays');
+  // db.run('DROP TABLE IF EXISTS curatedLists');
+  // db.run('DROP TABLE IF EXISTS curatedListInstances');
+  db.run(
+    `CREATE TABLE IF NOT EXISTS curatedListInstances (${createCuratedListInstancesTableCommand})`
+  );
+  db.run(
+    `CREATE TABLE IF NOT EXISTS curatedLists (${createCuratedListsTableCommand})`
+  );
   db.run(
     `CREATE TABLE IF NOT EXISTS testnetListCurationRatings (${createTestnetListCurationRatingsTableCommand})`
   );

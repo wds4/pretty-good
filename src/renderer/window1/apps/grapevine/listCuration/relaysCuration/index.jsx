@@ -14,6 +14,7 @@ import GraphView from './graphView';
 import TopControlPanel from './controlPanels/topControlPanel';
 import RightPanel from './controlPanels/rightPanel';
 import ShowSingleUserTrustScoreCalculations from './showSingleUserTrustScoreCalculations';
+
 export default class RelaysCuration extends React.Component {
   constructor(props) {
     super(props);

@@ -3,6 +3,7 @@ import Masthead from '../../../mastheads/curatedListsMasthead';
 import LeftNavbar1 from '../../../navbars/leftNavbar1/curatedListsNavbar';
 import LeftNavbar2 from '../../../navbars/leftNavbar2/curatedLists/home';
 import { updateMainColWidth, updateMastheadCenter } from '../../../lib/pg/ui';
+import CreateNewList from './createNewList';
 
 export default class ConceptGraphSettings extends React.Component {
   constructor(props) {
@@ -26,7 +27,7 @@ export default class ConceptGraphSettings extends React.Component {
         <div id="mainCol">
           <Masthead />
           <div id="mainPanel">
-            <div className="h4">Curated Lists: Create New List</div>
+            <CreateNewList />
           </div>
         </div>
       </>

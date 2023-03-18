@@ -29,6 +29,18 @@ export default function Masthead() {
         <div className="mastheadRightContainer">
           <BackButton />
           <NavLink
+            className={({ isActive }) =>
+              isActive
+                ? 'mastheadNavButton mastheadNavButtonActive'
+                : 'mastheadNavButton'
+            }
+            end
+            to="/NostrHome/NostrSearchForUser"
+          >
+            <div style={{ fontSize: '20px' }}>&#x1F50D;</div>
+            <div style={{ fontSize: '10px' }}>search</div>
+          </NavLink>
+          <NavLink
             onClick={() => {
               dispatch(updateNostrProfileFocus(myNostrProfile.pubkey));
             }}

@@ -15,6 +15,13 @@ export default class LeftNavbar2 extends React.PureComponent {
 
           <NavLink
             className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
+            end to="/GrapevineHome/GrapevineVisualizationMainPage"
+          >
+            Vis Main Page
+          </NavLink>
+
+          <NavLink
+            className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
             end to="/GrapevineHome/GrapevineGraphViewFollowing"
           >
             vWoT: following

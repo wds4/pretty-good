@@ -73,3 +73,20 @@
   height:200px;
   overflow:auto;
 }
+.makeNewLeftPanel {
+  display:inline-block;
+  text-align:right;
+  width:20%;
+  font-size:20px;
+}
+.makeNewRightPanel {
+  display:inline-block;
+  text-align:left;
+  width:60%;
+  height:30px;
+  margin-left:20px;
+  margin-right:5px;
+  background-color:white;
+  padding-left:5px;
+  font-size:20px;
+}
