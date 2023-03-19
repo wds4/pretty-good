@@ -8,6 +8,7 @@ export let createTestnetListCurationRatingsTableCommand = '';
 export let createCuratedListsTableCommand = '';
 export let createCuratedListInstancesTableCommand = '';
 export let createRatingsOfCuratedListInstancesTableCommand = '';
+export let createEndorsementsOfCuratorsTableCommand = '';
 
 // duplication from renderer/window1/const - may deprecate the lists here in favor of the one over there
 export const aDefaultRelayUrls: string[] = [
@@ -29,6 +30,9 @@ export const oDefaultRelayUrls = {
   'wss://nostr.fmt.wiz.biz': { write: true, read: true },
   'wss://nostr.oxtr.dev': { write: true, read: true },
 };
+
+createEndorsementsOfCuratorsTableCommand += 'id INTEGER PRIMARY KEY, ';
+// table: endorsementsOfCurators
 
 // GENERATION 2 RATINGS TABLE (March 2023)
 // each rating is its own independent word wrapping in its own event
