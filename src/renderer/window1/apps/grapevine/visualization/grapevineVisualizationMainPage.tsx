@@ -1,16 +1,16 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { asyncSql } from 'renderer/window1/lib/pg/asyncSql';
 import { DataSet, Network } from 'vis-network/standalone/esm/vis-network';
 import * as VisStyleConstants from 'renderer/window1/lib/visjs/visjs-style';
 import { removeDuplicatesFromArrayOfStrings } from 'renderer/window1/lib/pg';
+import { updateSelectedPubkeyForShowingTrustCalculations } from 'renderer/window1/redux/features/grapevine/controlPanelSettings/slice';
 import TopControlPanel from './controlPanels/topControlPanel';
 import GraphView from './graphView';
 import RightPanel from './controlPanels/rightPanel';
 import ShowSingleUserTrustScoreCalculations from './showSingleUserTrustScoreCalculations';
-import { singleIterationCompositeScoreCalculations } from './calculations/singleIterationCompositeScoreCalculations'
-import { updateSelectedPubkeyForShowingTrustCalculations } from 'renderer/window1/redux/features/grapevine/controlPanelSettings/slice';
+import { singleIterationCompositeScoreCalculations } from './calculations/singleIterationCompositeScoreCalculations';
 
 import {
   allPurposeTypes_allContexts_starter,
@@ -63,13 +63,11 @@ export const VisNetwork_Grapevine = () => {
       const numNodes = nodes_arr.length;
       if (numNodes == 1) {
         const nodeID = nodes_arr[0];
-        document.getElementById("selectedUserElem").value = nodeID;
-        document.getElementById("selectedUserElem")?.click();
+        document.getElementById('selectedUserElem').value = nodeID;
+        document.getElementById('selectedUserElem')?.click();
       }
     });
-    network.current.on('deselectNode', function (params) {
-
-    });
+    network.current.on('deselectNode', function (params) {});
   }, [domNode, network, data, options]);
 
   return <div style={{ height: '100%', width: '100%' }} ref={domNode} />;
@@ -79,7 +77,7 @@ const makeVisGraph_Grapevine = async (
   oMyNostrProfileData,
   oNostrProfilesData,
   aRatingsData,
-  controlPanelSettings,
+  controlPanelSettings
 ) => {
   const nodes_arr = [];
   const edges_arr = [];
@@ -104,11 +102,11 @@ const makeVisGraph_Grapevine = async (
     average: ave,
     certainty: cer,
     input: 0,
-  }
+  };
 
   const myPubKey = oMyNostrProfileData.pubkey;
 
-  let listCuration = {
+  const listCuration = {
     relays: {
       ratings: {
         notes: {
@@ -184,7 +182,7 @@ const makeVisGraph_Grapevine = async (
       shape: 'circularImage',
       image: defaultImageUrl,
       brokenImage: defaultImageUrl,
-      size: size,
+      size,
       title: pk,
       label: null,
       name: null,
@@ -271,27 +269,38 @@ export const populateEachNodeAfferentEdgeIDs = (nodes, edges) => {
     const pk_to = oEdge.to;
     // add edgeID to node[pk_to].afferentEdgeIDs
     const oNode = nodes.get(pk_to);
-    const afferentEdgeIDs = oNode.afferentEdgeIDs;
+    const { afferentEdgeIDs } = oNode;
     // console.log("afferentEdgeIDs: "+JSON.stringify(afferentEdgeIDs));
     if (!afferentEdgeIDs.includes(edgeID)) {
       afferentEdgeIDs.push(edgeID);
     }
-    nodes.update({ id: pk_to, afferentEdgeIDs: afferentEdgeIDs });
+    nodes.update({ id: pk_to, afferentEdgeIDs });
   }
 };
 
 const UpdateSelectedNode = () => {
   const dispatch = useDispatch();
   const updateSelectedNode = () => {
-    const newSelectedPubkey = document.getElementById("selectedUserElem")?.value;
-    dispatch(updateSelectedPubkeyForShowingTrustCalculations(newSelectedPubkey))
-  }
+    const newSelectedPubkey =
+      document.getElementById('selectedUserElem')?.value;
+    dispatch(
+      updateSelectedPubkeyForShowingTrustCalculations(newSelectedPubkey)
+    );
+  };
   return (
     <>
-      <textarea id="selectedUserElem" onClick={() => {updateSelectedNode()}}  style={{display:"none"}}>selectedUserElem</textarea>
+      <textarea
+        id="selectedUserElem"
+        onClick={() => {
+          updateSelectedNode();
+        }}
+        style={{ display: 'none' }}
+      >
+        selectedUserElem
+      </textarea>
     </>
-  )
-}
+  );
+};
 
 export default class GrapevineVisualizationMainPage extends React.Component {
   constructor(props) {
@@ -329,17 +338,21 @@ export default class GrapevineVisualizationMainPage extends React.Component {
       oMyNostrProfileData,
       oNostrProfilesData,
       aRatingsData,
-      this.props.controlPanelSettings,
+      this.props.controlPanelSettings
     );
 
-    populateEachNodeAfferentEdgeIDs(nodes,edges)
+    populateEachNodeAfferentEdgeIDs(nodes, edges);
 
-     // an array of contextDAG nodes; assumed to contain at least one node, although if empty, just assume the apex of the contextDAG
-     // any nodes past the first one specify nodes through which the inheritance pathway is assumed to traverse
-    const aContextDAG = ["relaysCuration_allRelayTypes"];
+    // an array of contextDAG nodes; assumed to contain at least one node, although if empty, just assume the apex of the contextDAG
+    // any nodes past the first one specify nodes through which the inheritance pathway is assumed to traverse
+    const aContextDAG = ['relaysCuration_allRelayTypes'];
 
     setInterval(() => {
-      singleIterationCompositeScoreCalculations(myPubKey,this.props.controlPanelSettings,aContextDAG);
+      singleIterationCompositeScoreCalculations(
+        myPubKey,
+        this.props.controlPanelSettings,
+        aContextDAG
+      );
     }, 200);
   }
 
@@ -347,7 +360,7 @@ export default class GrapevineVisualizationMainPage extends React.Component {
     return (
       <>
         <div className="h3">Grapevine Visualization Main Page</div>
-        aF: {this.props.controlPanelSettings.attenuationFactor} {' '}
+        aF: {this.props.controlPanelSettings.attenuationFactor}{' '}
         <UpdateSelectedNode />
         <TopControlPanel />
         <div style={{ width: '100%', height: '500px' }}>

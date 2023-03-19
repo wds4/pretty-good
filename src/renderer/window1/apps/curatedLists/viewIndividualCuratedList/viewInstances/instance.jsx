@@ -4,7 +4,7 @@ import { updateCuratedListInstanceFocus } from 'renderer/window1/redux/features/
 
 const Instance = ({parentConceptPropertyPath,event}) => {
   const dispatch = useDispatch();
-  let name_singular = "";
+  let instance_name = "";
   let description = "";
 
   let pubkey = "";
@@ -19,7 +19,7 @@ const Instance = ({parentConceptPropertyPath,event}) => {
     // NEED TO VALIDATE AGAINST JSON SCHEMA OF THE PARENT CONCEPT
     if (oWord) {
       if (oWord.hasOwnProperty(parentConceptPropertyPath)) {
-        name_singular = oWord[parentConceptPropertyPath]?.name;
+        instance_name = oWord[parentConceptPropertyPath]?.name;
         description = oWord[parentConceptPropertyPath]?.description;
         return (
           <>
@@ -31,13 +31,18 @@ const Instance = ({parentConceptPropertyPath,event}) => {
                 }}
                 end to="/CuratedListsHome/CuratedListSpecificInstance"
               >
-                {name_singular}
+                {instance_name}
               </NavLink>
-              <div>parentConceptPropertyPath: {parentConceptPropertyPath}</div>
-              <div>name: {name_singular}</div>
-              <div>description: {description}</div>
-              <div>event_id: {event_id}</div>
-              <div>author: {pubkey}</div>
+
+              <div style={{fontSize:"12px",marginTop:"10px"}}>{description}</div>
+
+              <div style={{display:"none"}}>
+                <div>parentConceptPropertyPath: {parentConceptPropertyPath}</div>
+                <div>name: {instance_name}</div>
+                <div>description: {description}</div>
+                <div>event_id: {event_id}</div>
+                <div>author: {pubkey}</div>
+              </div>
             </div>
 
           </>

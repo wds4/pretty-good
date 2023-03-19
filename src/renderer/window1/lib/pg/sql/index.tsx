@@ -53,6 +53,53 @@ export const updateListCurationNotesInSql = async (oNotes) => {
 }
 */
 
+export const addRatingOfCuratedListInstanceEventToSql = async (
+  event,
+  parentConceptSlug,
+  parentConceptNostrEventID,
+) => {
+  let instanceSlug = "";
+  let instanceNostrEventID = "";
+  let ratingTemplateSlug = "";
+  let uniqueID = "";
+  let contextDAGSlug = "";
+  const oWord = JSON.parse(event.content);
+  ratingTemplateSlug = oWord.ratingData.ratingTemplateData?.ratingTemplateSlug;
+  instanceSlug = oWord.ratingData.rateeData?.nostrCuratedListInstanceData.slug;
+  instanceNostrEventID = oWord.ratingData.rateeData?.nostrCuratedListInstanceData.eventID;
+  contextDAGSlug = oWord.ratingData.ratingFieldsetData.nostrCuratedListInstanceRatingFieldsetData.contextData.contextDAG.slug;
+  const ratingTemplateUniqueID = `${parentConceptNostrEventID}-${contextDAGSlug}`;
+  uniqueID = `${event.pubkey}-${instanceNostrEventID}-${ratingTemplateUniqueID}`;
+
+  // Ought to check for existing entries with the same uniqueID; if one or more is found, keep the most recent and delete the rest
+  // INCOMPLETE
+  /*
+  let sql0 = '';
+  sql0 += ` SELECT * FROM ratingsOfCuratedListInstances WHERE uniqueID = '${uniqueID}' `;
+  const aMatchingUniqueIDs = await asyncSql(sql0);
+  console.log("aMatchingUniqueIDs: "+(aMatchingUniqueIDs.length))
+  */
+
+  // NEED TO REMOVE RATING IF AN OLDER ONE ALREADY EXISTS, i.e. if uniqueID is present but event_id is nonidentical
+  let sql2 = '';
+  sql2 += ' DELETE FROM ratingsOfCuratedListInstances ';
+  sql2 += ` WHERE (uniqueID = '${uniqueID}' `;
+  // need to compare created_at to see which one is older
+  sql2 += ` AND created_at < '${event.created_at}' `;
+  sql2 += ` AND event_id != '${event.id}') `;
+  const res2 = await asyncSql(sql2);
+
+  const sql1 = ` INSERT OR IGNORE INTO ratingsOfCuratedListInstances (event, event_id, created_at, pubkey, parentConceptSlug, parentConceptNostrEventID, instanceSlug, instanceNostrEventID, ratingTemplateSlug, uniqueID) VALUES('${JSON.stringify(
+    event
+  )}', '${event.id}', '${event.created_at}', '${
+    event.pubkey
+  }', '${parentConceptSlug}', '${parentConceptNostrEventID}', '${instanceSlug}', '${instanceNostrEventID}', '${ratingTemplateSlug}', '${uniqueID}' ) `;
+  console.log("addRatingOfCuratedListInstanceEventToSql; sql: "+sql1);
+  const res1 = await asyncSql(sql1);
+
+  return res1;
+};
+
 export const addInstanceEventToSql = async (
   event,
   parentConceptSlug,

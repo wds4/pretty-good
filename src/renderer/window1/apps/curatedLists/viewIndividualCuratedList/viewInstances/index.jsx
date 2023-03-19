@@ -13,7 +13,7 @@ export default class ConceptGraphSettings extends React.Component {
 
   async componentDidMount() {
     updateMainColWidth();
-    const mastheadDescriptor = 'View Individual Curated List';
+    const mastheadDescriptor = 'list instances';
     updateMastheadCenter(mastheadDescriptor);
   }
 

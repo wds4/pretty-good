@@ -18,6 +18,7 @@ import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 import webpackPaths from '../../.erb/configs/webpack.paths';
 import {
+  createRatingsOfCuratedListInstancesTableCommand,
   createTestnetListCurationRatingsTableCommand,
   createNostrDirectMessagesTableCommand,
   createNostrNotesTableCommand,
@@ -135,6 +136,10 @@ db.serialize(() => {
   // db.run('DROP TABLE IF EXISTS relays');
   // db.run('DROP TABLE IF EXISTS curatedLists');
   // db.run('DROP TABLE IF EXISTS curatedListInstances');
+  // db.run('DROP TABLE IF EXISTS ratingsOfCuratedListInstances');
+  db.run(
+    `CREATE TABLE IF NOT EXISTS ratingsOfCuratedListInstances (${createRatingsOfCuratedListInstancesTableCommand})`
+  );
   db.run(
     `CREATE TABLE IF NOT EXISTS curatedListInstances (${createCuratedListInstancesTableCommand})`
   );

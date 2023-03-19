@@ -1,4 +1,20 @@
-export const foo = null;
+import {
+  noProfilePicUrl,
+} from 'renderer/window1/const';
+
+export const groups = {
+  user: {
+    shape: 'circularImage',
+    image: noProfilePicUrl,
+    brokenImage: noProfilePicUrl,
+  },
+  instance: {
+    shape: 'box',
+  },
+  ratingOfInstance: {
+    color: 'blue'
+  }
+}
 
 export const options = {
   clickToUse: true,
@@ -49,4 +65,5 @@ export const options = {
       },
     },
   },
+  groups: groups,
 };

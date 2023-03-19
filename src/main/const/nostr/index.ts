@@ -7,6 +7,7 @@ export let createRelaysTableCommand = '';
 export let createTestnetListCurationRatingsTableCommand = '';
 export let createCuratedListsTableCommand = '';
 export let createCuratedListInstancesTableCommand = '';
+export let createRatingsOfCuratedListInstancesTableCommand = '';
 
 // duplication from renderer/window1/const - may deprecate the lists here in favor of the one over there
 export const aDefaultRelayUrls: string[] = [
@@ -29,6 +30,38 @@ export const oDefaultRelayUrls = {
   'wss://nostr.oxtr.dev': { write: true, read: true },
 };
 
+// GENERATION 2 RATINGS TABLE (March 2023)
+// each rating is its own independent word wrapping in its own event
+// See renderer/window1/apps/curatedLists/viewInstance/leaveRating where these ratings are created
+// Ratings of curated list INSTANCE
+// (parent concept = parent list, since list is a simplified version of a concept)
+createRatingsOfCuratedListInstancesTableCommand += 'id INTEGER PRIMARY KEY, ';
+createRatingsOfCuratedListInstancesTableCommand += 'event TEXT NULL, ';
+createRatingsOfCuratedListInstancesTableCommand += 'event_id TEXT NULL, ';
+createRatingsOfCuratedListInstancesTableCommand += 'uniqueID TEXT NULL, ';
+createRatingsOfCuratedListInstancesTableCommand += 'created_at TEXT NULL, ';
+createRatingsOfCuratedListInstancesTableCommand += 'pubkey TEXT NULL, ';
+createRatingsOfCuratedListInstancesTableCommand += 'ratingTemplateSlug TEXT NULL, ';
+createRatingsOfCuratedListInstancesTableCommand += 'parentConceptSlug TEXT NULL, ';
+createRatingsOfCuratedListInstancesTableCommand += 'parentConceptNostrEventID TEXT NULL, ';
+createRatingsOfCuratedListInstancesTableCommand += 'instanceSlug TEXT NULL, ';
+createRatingsOfCuratedListInstancesTableCommand += 'instanceNostrEventID TEXT NULL, ';
+createRatingsOfCuratedListInstancesTableCommand += 'deprecated BOOLEAN false, ';
+createRatingsOfCuratedListInstancesTableCommand += 'UNIQUE(event_id) ';
+// table: ratingsOfCuratedListInstances
+
+// GENERATION 1 RATINGS TABLE (? Feb 2023)
+// Multiple ratings stored in a single event
+// Each event contains an array of all ratees that are rated by the author for that ratingSlug; event is event type 39901 (for grapevine-testnet)
+// In the future, more complex tables will have to exist, one for each ratee
+createTestnetListCurationRatingsTableCommand += 'id INTEGER PRIMARY KEY, ';
+createTestnetListCurationRatingsTableCommand += 'uniqueID TEXT NULL UNIQUE, '; // uniqueID = pk_rater + "-" + ratingSlug
+createTestnetListCurationRatingsTableCommand += 'ratingSlug TEXT NULL, '; // ratingSlug: endorseAsRelaysPicker, endorseAsRelaysPickerHunter, etc
+createTestnetListCurationRatingsTableCommand += 'pk_rater TEXT NULL, ';
+createTestnetListCurationRatingsTableCommand += 'event TEXT NULL, ';
+createTestnetListCurationRatingsTableCommand += 'UNIQUE(uniqueID) ';
+// table: testnetListCurationRatings
+
 createCuratedListInstancesTableCommand += 'id INTEGER PRIMARY KEY, ';
 createCuratedListInstancesTableCommand += 'event TEXT NULL, ';
 createCuratedListInstancesTableCommand += 'event_id TEXT NULL UNIQUE, ';
@@ -47,14 +80,7 @@ createCuratedListsTableCommand += 'pubkey TEXT NULL, ';
 createCuratedListsTableCommand += 'deprecated BOOLEAN false, ';
 createCuratedListsTableCommand += 'UNIQUE(event_id) ';
 
-// each event contains an array of all ratees that are rated by the author for that ratingSlug; event is event type 39901 (for grapevine-testnet)
-// In the future, more complex tables will have to exist, one for each ratee
-createTestnetListCurationRatingsTableCommand += 'id INTEGER PRIMARY KEY, ';
-createTestnetListCurationRatingsTableCommand += 'uniqueID TEXT NULL UNIQUE, '; // uniqueID = pk_rater + "-" + ratingSlug
-createTestnetListCurationRatingsTableCommand += 'ratingSlug TEXT NULL, '; // ratingSlug: endorseAsRelaysPicker, endorseAsRelaysPickerHunter, etc
-createTestnetListCurationRatingsTableCommand += 'pk_rater TEXT NULL, ';
-createTestnetListCurationRatingsTableCommand += 'event TEXT NULL, ';
-createTestnetListCurationRatingsTableCommand += 'UNIQUE(uniqueID) ';
+
 
 createNostrDirectMessagesTableCommand += 'id INTEGER PRIMARY KEY, ';
 createNostrDirectMessagesTableCommand += 'event TEXT NULL, ';

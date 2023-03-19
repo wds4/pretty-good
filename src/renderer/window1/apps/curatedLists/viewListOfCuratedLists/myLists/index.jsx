@@ -27,6 +27,7 @@ export default class ConceptGraphSettings extends React.Component {
           <Masthead />
           <div id="mainPanel">
             <div className="h4">My Lists</div>
+            <div>under construction</div>
           </div>
         </div>
       </>

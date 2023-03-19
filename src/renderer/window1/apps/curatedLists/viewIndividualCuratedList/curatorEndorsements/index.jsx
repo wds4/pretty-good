@@ -1,8 +1,8 @@
 import React from 'react';
-import Masthead from '../../../mastheads/curatedListsMasthead';
-import LeftNavbar1 from '../../../navbars/leftNavbar1/curatedListsNavbar';
-import LeftNavbar2 from '../../../navbars/leftNavbar2/curatedLists/viewList';
-import { updateMainColWidth, updateMastheadCenter } from '../../../lib/pg/ui';
+import Masthead from 'renderer/window1/mastheads/curatedListsMasthead';
+import LeftNavbar1 from 'renderer/window1/navbars/leftNavbar1/curatedListsNavbar';
+import LeftNavbar2 from 'renderer/window1/navbars/leftNavbar2/curatedLists/viewList';
+import { updateMainColWidth, updateMastheadCenter } from 'renderer/window1/lib/pg/ui';
 import QueryReduxForListFocus from './queryReduxForListFocus';
 
 export default class ConceptGraphSettings extends React.Component {
@@ -13,7 +13,7 @@ export default class ConceptGraphSettings extends React.Component {
 
   async componentDidMount() {
     updateMainColWidth();
-    const mastheadDescriptor = 'Create New Instance';
+    const mastheadDescriptor = 'endorsements of curators';
     updateMastheadCenter(mastheadDescriptor);
   }
 

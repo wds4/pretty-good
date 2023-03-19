@@ -5,9 +5,15 @@ const QueryReduxForListFocus = () => {
   const curatedListFocusID = useSelector(
     (state) => state.prettyGoodGlobalState.curatedListFocus
   );
+  const curatedListProfileFocusID = useSelector(
+    (state) => state.prettyGoodGlobalState.curatedListProfileFocus
+  );
   return (
     <>
-      <QueryDbForList curatedListFocusID={curatedListFocusID} />
+      <QueryDbForList
+        curatedListFocusID={curatedListFocusID}
+        curatedListProfileFocusID={curatedListProfileFocusID}
+      />
     </>
   );
 }

@@ -8,6 +8,7 @@ import AllInstances from './allInstances';
 const List = ({ curatedListFocusID, oListData }) => {
   let oWord = {};
   let oEvent = {};
+  let listNamePlural = "";
 
   let sEvent = '';
 
@@ -18,15 +19,24 @@ const List = ({ curatedListFocusID, oListData }) => {
       const sWord = oEvent.content;
 
       oWord = JSON.parse(sWord);
+      listNamePlural = oWord.nostrCuratedListData.name.plural;
     }
   }
 
   return (
     <>
-      <div className="techOverviewTitle">representation as a word in the concept graph:</div>
+
+      <div className="techOverviewTitle">
+        representation of the list of{' '}
+        <div style={{ display: 'inline-block', color: 'blue' }}>
+          {listNamePlural}
+        </div>{' '}
+        as a word in the concept graph:
+      </div>
+
       <div className="techOverviewJSON">{JSON.stringify(oWord, null, 4)}</div>
 
-      <div className="techOverviewTitle">nostr event:</div>
+      <div className="techOverviewTitle">the above object packaged into a nostr event:</div>
       <div className="techOverviewJSON">{JSON.stringify(oEvent, null, 4)}</div>
 
       <div className="techOverviewTitle">sql:</div>

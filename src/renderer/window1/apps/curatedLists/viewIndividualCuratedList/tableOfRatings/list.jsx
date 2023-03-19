@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useNostrEvents, dateToUnix } from 'nostr-react';
 import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
 import { updateCuratedListFocus } from 'renderer/window1/redux/features/prettyGood/settings/slice';
-import CreateNewInstance from './createNewInstance';
+import AllRatings from './allRatings';
 
 const List = ({curatedListFocusID, oListData}) => {
   let name_singular = "";
@@ -15,20 +15,21 @@ const List = ({curatedListFocusID, oListData}) => {
   let description = "";
   let oWord = {};
   let sqlID = "";
-  let propertyPath = "";
+  let oEvent = {};
 
   let pubkey = "";
   let event_id = "";
+  let propertyPath = "";
+  let sEvent = "";
 
   if (oListData) {
-
     pubkey = oListData.pubkey;
     event_id = oListData.event_id;
     sqlID = oListData.id;
 
-    const sEvent = oListData.event;
+    sEvent = oListData.event;
     if (sEvent) {
-      const oEvent = JSON.parse(sEvent);
+      oEvent = JSON.parse(sEvent);
       const sWord = oEvent.content;
 
       oWord = JSON.parse(sWord);
@@ -44,10 +45,12 @@ const List = ({curatedListFocusID, oListData}) => {
         if (oWord.nostrCuratedListData.slug) {
           slug_singular = oWord.nostrCuratedListData.slug?.singular;
           slug_plural = oWord.nostrCuratedListData.slug?.plural;
-          propertyPath = slug_singular + "Data";
         }
         if (oWord.nostrCuratedListData.description) {
-          description = oWord.nostrCuratedListData.description;
+          description = oWord.nostrCuratedListData?.description;
+        }
+        if (oWord.nostrCuratedListData.propertyPath) {
+          propertyPath = oWord.nostrCuratedListData?.propertyPath;
         }
       }
     }
@@ -55,11 +58,12 @@ const List = ({curatedListFocusID, oListData}) => {
 
   return (
     <>
-      <div className="h3">{name_plural}</div>
-      <CreateNewInstance
-        parentConceptPropertyPath={propertyPath}
+      <div className="h3" >{name_plural}</div>
+      <AllRatings
+        parentConceptNostrEventID={event_id}
         parentConceptSlug={slug_singular}
-        parentConceptNostrID={event_id}
+        parentConceptPropertyPath={propertyPath}
+        oParentEvent={oEvent}
       />
     </>
   );

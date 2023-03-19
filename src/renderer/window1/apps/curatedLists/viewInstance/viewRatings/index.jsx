@@ -1,10 +1,14 @@
 import React from 'react';
 import Masthead from 'renderer/window1/mastheads/curatedListsMasthead';
 import LeftNavbar1 from 'renderer/window1/navbars/leftNavbar1/curatedListsNavbar';
-import LeftNavbar2 from 'renderer/window1/navbars/leftNavbar2/curatedLists/viewList';
-import { updateMainColWidth, updateMastheadCenter } from 'renderer/window1/lib/pg/ui';
+import LeftNavbar2 from 'renderer/window1/navbars/leftNavbar2/curatedLists/instance';
+import {
+  updateMainColWidth,
+  updateMastheadCenter,
+} from 'renderer/window1/lib/pg/ui';
+import QueryReduxForInstance from './queryReduxForInstance';
 
-export default class ConceptGraphSettings extends React.Component {
+export default class CuratedListSpecificInstance extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -12,7 +16,7 @@ export default class ConceptGraphSettings extends React.Component {
 
   async componentDidMount() {
     updateMainColWidth();
-    const mastheadDescriptor = 'Graph for Individual List';
+    const mastheadDescriptor = 'View Ratings';
     updateMastheadCenter(mastheadDescriptor);
   }
 
@@ -26,7 +30,7 @@ export default class ConceptGraphSettings extends React.Component {
         <div id="mainCol">
           <Masthead />
           <div id="mainPanel">
-            <div className="h4">Graph for Individual Curated List</div>
+            <QueryReduxForInstance />
           </div>
         </div>
       </>

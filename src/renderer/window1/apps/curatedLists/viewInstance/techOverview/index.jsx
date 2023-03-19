@@ -1,8 +1,11 @@
 import React from 'react';
-import Masthead from '../../../mastheads/curatedListsMasthead';
-import LeftNavbar1 from '../../../navbars/leftNavbar1/curatedListsNavbar';
-import LeftNavbar2 from '../../../navbars/leftNavbar2/curatedLists/viewList';
-import { updateMainColWidth, updateMastheadCenter } from '../../../lib/pg/ui';
+import Masthead from 'renderer/window1/mastheads/curatedListsMasthead';
+import LeftNavbar1 from 'renderer/window1/navbars/leftNavbar1/curatedListsNavbar';
+import LeftNavbar2 from 'renderer/window1/navbars/leftNavbar2/curatedLists/instance';
+import {
+  updateMainColWidth,
+  updateMastheadCenter,
+} from 'renderer/window1/lib/pg/ui';
 import QueryReduxForInstance from './queryReduxForInstance';
 
 export default class CuratedListSpecificInstance extends React.Component {
@@ -13,7 +16,7 @@ export default class CuratedListSpecificInstance extends React.Component {
 
   async componentDidMount() {
     updateMainColWidth();
-    const mastheadDescriptor = 'Specific Instance';
+    const mastheadDescriptor = 'tech overview';
     updateMastheadCenter(mastheadDescriptor);
   }
 
@@ -27,7 +30,6 @@ export default class CuratedListSpecificInstance extends React.Component {
         <div id="mainCol">
           <Masthead />
           <div id="mainPanel">
-            <div className="h4">View Single Instance of a Curated List</div>
             <QueryReduxForInstance />
           </div>
         </div>

@@ -71,10 +71,17 @@ import ViewMyLists from './apps/curatedLists/viewListOfCuratedLists/myLists';
 import CreateNewCuratedList from './apps/curatedLists/createNewCuratedList';
 import ViewIndividualCuratedList from './apps/curatedLists/viewIndividualCuratedList/overview';
 import ViewIndividualCuratedListTechOverview from './apps/curatedLists/viewIndividualCuratedList/techOverview';
+import SingleListGraphOfInstances from './apps/curatedLists/viewIndividualCuratedList/graph';
 import CuratedListAllInstances from './apps/curatedLists/viewIndividualCuratedList/viewInstances';
+import CuratedListAllRatings from './apps/curatedLists/viewIndividualCuratedList/tableOfRatings';
+import CuratedListEndorsementsOfCurators from './apps/curatedLists/viewIndividualCuratedList/curatorEndorsements';
+import SelectListCurators from './apps/curatedLists/viewIndividualCuratedList/selectCurators';
 import CreateNewCuratedListInstance from './apps/curatedLists/createNewCuratedListInstance';
 import CuratedListsSettings from './apps/curatedLists/settings';
-import CuratedListSpecificInstance from './apps/curatedLists/viewInstance';
+import CuratedListSpecificInstance from './apps/curatedLists/viewInstance/overview';
+import SpecificInstanceTechOverview from './apps/curatedLists/viewInstance/techOverview';
+import SpecificInstanceViewRatings from './apps/curatedLists/viewInstance/viewRatings';
+import SpecificInstanceLeaveRating from './apps/curatedLists/viewInstance/leaveRating';
 
 const AppRoutes = () => {
   const { onDisconnect } = useNostr();
@@ -285,8 +292,24 @@ const AppRoutes = () => {
               element={<ViewIndividualCuratedListTechOverview />}
             />
             <Route
+              path="/CuratedListsHome/SingleListGraphOfInstances"
+              element={<SingleListGraphOfInstances />}
+            />
+            <Route
               path="/CuratedListsHome/CuratedListAllInstances"
               element={<CuratedListAllInstances />}
+            />
+            <Route
+              path="/CuratedListsHome/CuratedListAllRatings"
+              element={<CuratedListAllRatings />}
+            />
+            <Route
+              path="/CuratedListsHome/CuratedListEndorsementsOfCurators"
+              element={<CuratedListEndorsementsOfCurators />}
+            />
+            <Route
+              path="/CuratedListsHome/SelectListCurators"
+              element={<SelectListCurators />}
             />
             <Route
               path="/CuratedListsHome/CreateNewCuratedListInstance"
@@ -300,7 +323,18 @@ const AppRoutes = () => {
               path="/CuratedListsHome/CuratedListSpecificInstance"
               element={<CuratedListSpecificInstance />}
             />
-
+            <Route
+              path="/CuratedListsHome/SpecificInstanceTechOverview"
+              element={<SpecificInstanceTechOverview />}
+            />
+            <Route
+              path="/CuratedListsHome/SpecificInstanceViewRatings"
+              element={<SpecificInstanceViewRatings />}
+            />
+            <Route
+              path="/CuratedListsHome/SpecificInstanceLeaveRating"
+              element={<SpecificInstanceLeaveRating />}
+            />
           </Routes>
         </Router>
       </fieldset>
