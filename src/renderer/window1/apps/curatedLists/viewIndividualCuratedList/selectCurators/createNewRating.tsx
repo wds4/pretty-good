@@ -7,8 +7,8 @@ import {
   signEvent,
 } from 'nostr-tools';
 
-const ratingTemplateSlug = "nostrCuratedListsCuratorEndorsement";
-const ratingTemplateTitle = "Nostr Curated Lists Curator Endorsement";
+const ratingTemplateSlug = 'nostrCuratedListsCuratorEndorsement';
+const ratingTemplateTitle = 'Nostr Curated Lists Curator Endorsement';
 /*
 // RATING OF A SPECIFIC INSTANCE
 const contextDAGSlug = 'genericContext'; // future: slug or eventID of user-created ratingTemplate e.g. "easeOfUse" for btc wallets
@@ -92,8 +92,8 @@ const createRatingWord = (
         },
       },
       ratingTemplateData: {
-        ratingTemplateSlug: ratingTemplateSlug,
-        ratingTemplateTitle: ratingTemplateTitle,
+        ratingTemplateSlug,
+        ratingTemplateTitle,
       },
       ratingFieldsetData: {
         ratingFieldsetSlugs: [
@@ -225,6 +225,7 @@ const CreateNewRating = ({
     <>
       <div className="h4">Create New Rating</div>
       <button
+        type="button"
         onClick={() => createThumbsUpEvent()}
         className="doSomethingButton"
       >
@@ -232,6 +233,7 @@ const CreateNewRating = ({
       </button>
 
       <button
+        type="button"
         onClick={() => creatThumbsDownEvent()}
         className="doSomethingButton"
       >
@@ -241,10 +243,18 @@ const CreateNewRating = ({
       <div>
         <div>
           rawFile
-          <button onClick={() => createEvent()} className="doSomethingButton">
+          <button
+            type="button"
+            onClick={() => createEvent()}
+            className="doSomethingButton"
+          >
             create event
           </button>
-          <button onClick={() => submitEvent()} className="doSomethingButton">
+          <button
+            type="button"
+            onClick={() => submitEvent()}
+            className="doSomethingButton"
+          >
             submit event
           </button>
         </div>
@@ -253,8 +263,8 @@ const CreateNewRating = ({
           style={{
             display: 'inline-block',
             height: '400px',
-            width: '40%',
-            fontSize: '10px',
+            width: '58%',
+            fontSize: '12px',
           }}
         />
         <textarea

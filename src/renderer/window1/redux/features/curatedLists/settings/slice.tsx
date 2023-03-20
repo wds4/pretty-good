@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 export const curatedListsSettingsSlice = createSlice({
   name: 'curatedListsSettings',
   initialState: {
-    viewListsLoadStoredData: true,
+    viewListsLoadStoredData: false,
   },
   reducers: {
     updateViewListsLoadStoredData: (state, action) => {

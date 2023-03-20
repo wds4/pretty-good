@@ -53,21 +53,65 @@ export const updateListCurationNotesInSql = async (oNotes) => {
 }
 */
 
+export const addEndorsementOfListCuratorEventToSql = async (
+  event,
+  parentConceptSlug,
+  parentConceptNostrEventID
+) => {
+  const instanceNostrEventID = '';
+  let ratingTemplateSlug = '';
+  let rater_pubkey = '';
+  let ratee_pubkey = '';
+  let uniqueID = '';
+  let contextDAGSlug = '';
+  const oWord = JSON.parse(event.content);
+  ratingTemplateSlug = oWord.ratingData.ratingTemplateData?.ratingTemplateSlug;
+  rater_pubkey = oWord.ratingData.raterData?.nostrProfileData.pubkey;
+  ratee_pubkey = oWord.ratingData.rateeData?.nostrProfileData.pubkey;
+  contextDAGSlug =
+    oWord.ratingData.ratingFieldsetData
+      .nostrCuratedListsCuratorEndorsementFieldsetData.contextData.contextDAG
+      .slug;
+  uniqueID = `${rater_pubkey}-${ratee_pubkey}-${parentConceptNostrEventID}-${ratingTemplateSlug}-${contextDAGSlug}`;
+
+    // NEED TO REMOVE RATING IF AN OLDER ONE ALREADY EXISTS, i.e. if uniqueID is present but event_id is nonidentical
+    let sql2 = '';
+    sql2 += ' DELETE FROM endorsementsOfCurators ';
+    sql2 += ` WHERE (uniqueID = '${uniqueID}' `;
+    // need to compare created_at to see which one is older
+    sql2 += ` AND created_at < '${event.created_at}' `;
+    sql2 += ` AND event_id != '${event.id}') `;
+    const res2 = await asyncSql(sql2);
+
+  const sql1 = ` INSERT OR IGNORE INTO endorsementsOfCurators (event, event_id, created_at, rater_pubkey, parentConceptSlug, parentConceptNostrEventID, ratee_pubkey, ratingTemplateSlug, contextDAGSlug, uniqueID) VALUES('${JSON.stringify(
+    event
+  )}', '${event.id}', '${event.created_at}', '${
+    event.pubkey
+  }', '${parentConceptSlug}', '${parentConceptNostrEventID}', '${ratee_pubkey}', '${ratingTemplateSlug}', '${contextDAGSlug}',  '${uniqueID}' ) `;
+  console.log(`addEndorsementOfListCuratorEventToSql; sql: ${sql1}`);
+  const res1 = await asyncSql(sql1);
+
+  return res1;
+};
+
 export const addRatingOfCuratedListInstanceEventToSql = async (
   event,
   parentConceptSlug,
-  parentConceptNostrEventID,
+  parentConceptNostrEventID
 ) => {
-  let instanceSlug = "";
-  let instanceNostrEventID = "";
-  let ratingTemplateSlug = "";
-  let uniqueID = "";
-  let contextDAGSlug = "";
+  let instanceSlug = '';
+  let instanceNostrEventID = '';
+  let ratingTemplateSlug = '';
+  let uniqueID = '';
+  let contextDAGSlug = '';
   const oWord = JSON.parse(event.content);
   ratingTemplateSlug = oWord.ratingData.ratingTemplateData?.ratingTemplateSlug;
   instanceSlug = oWord.ratingData.rateeData?.nostrCuratedListInstanceData.slug;
-  instanceNostrEventID = oWord.ratingData.rateeData?.nostrCuratedListInstanceData.eventID;
-  contextDAGSlug = oWord.ratingData.ratingFieldsetData.nostrCuratedListInstanceRatingFieldsetData.contextData.contextDAG.slug;
+  instanceNostrEventID =
+    oWord.ratingData.rateeData?.nostrCuratedListInstanceData.eventID;
+  contextDAGSlug =
+    oWord.ratingData.ratingFieldsetData
+      .nostrCuratedListInstanceRatingFieldsetData.contextData.contextDAG.slug;
   const ratingTemplateUniqueID = `${parentConceptNostrEventID}-${contextDAGSlug}`;
   uniqueID = `${event.pubkey}-${instanceNostrEventID}-${ratingTemplateUniqueID}`;
 
@@ -94,7 +138,7 @@ export const addRatingOfCuratedListInstanceEventToSql = async (
   )}', '${event.id}', '${event.created_at}', '${
     event.pubkey
   }', '${parentConceptSlug}', '${parentConceptNostrEventID}', '${instanceSlug}', '${instanceNostrEventID}', '${ratingTemplateSlug}', '${uniqueID}' ) `;
-  console.log("addRatingOfCuratedListInstanceEventToSql; sql: "+sql1);
+  console.log(`addRatingOfCuratedListInstanceEventToSql; sql: ${sql1}`);
   const res1 = await asyncSql(sql1);
 
   return res1;

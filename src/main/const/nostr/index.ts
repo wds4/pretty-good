@@ -32,6 +32,18 @@ export const oDefaultRelayUrls = {
 };
 
 createEndorsementsOfCuratorsTableCommand += 'id INTEGER PRIMARY KEY, ';
+createEndorsementsOfCuratorsTableCommand += 'event TEXT NULL, ';
+createEndorsementsOfCuratorsTableCommand += 'event_id TEXT NULL UNIQUE, ';
+createEndorsementsOfCuratorsTableCommand += 'uniqueID TEXT NULL UNIQUE, ';
+createEndorsementsOfCuratorsTableCommand += 'created_at TEXT NULL, ';
+createEndorsementsOfCuratorsTableCommand += 'rater_pubkey TEXT NULL, ';
+createEndorsementsOfCuratorsTableCommand += 'ratee_pubkey TEXT NULL, ';
+createEndorsementsOfCuratorsTableCommand += 'ratingTemplateSlug TEXT NULL, ';
+createEndorsementsOfCuratorsTableCommand += 'parentConceptSlug TEXT NULL, ';
+createEndorsementsOfCuratorsTableCommand += 'parentConceptNostrEventID TEXT NULL, ';
+createEndorsementsOfCuratorsTableCommand += 'contextDAGSlug TEXT NULL, ';
+createEndorsementsOfCuratorsTableCommand += 'deprecated BOOLEAN false, ';
+createEndorsementsOfCuratorsTableCommand += 'UNIQUE(uniqueID,event_id) ';
 // table: endorsementsOfCurators
 
 // GENERATION 2 RATINGS TABLE (March 2023)
@@ -41,8 +53,8 @@ createEndorsementsOfCuratorsTableCommand += 'id INTEGER PRIMARY KEY, ';
 // (parent concept = parent list, since list is a simplified version of a concept)
 createRatingsOfCuratedListInstancesTableCommand += 'id INTEGER PRIMARY KEY, ';
 createRatingsOfCuratedListInstancesTableCommand += 'event TEXT NULL, ';
-createRatingsOfCuratedListInstancesTableCommand += 'event_id TEXT NULL, ';
-createRatingsOfCuratedListInstancesTableCommand += 'uniqueID TEXT NULL, ';
+createRatingsOfCuratedListInstancesTableCommand += 'event_id TEXT NULL UNIQUE, ';
+createRatingsOfCuratedListInstancesTableCommand += 'uniqueID TEXT NULL UNIQUE, ';
 createRatingsOfCuratedListInstancesTableCommand += 'created_at TEXT NULL, ';
 createRatingsOfCuratedListInstancesTableCommand += 'pubkey TEXT NULL, ';
 createRatingsOfCuratedListInstancesTableCommand += 'ratingTemplateSlug TEXT NULL, ';
@@ -51,7 +63,7 @@ createRatingsOfCuratedListInstancesTableCommand += 'parentConceptNostrEventID TE
 createRatingsOfCuratedListInstancesTableCommand += 'instanceSlug TEXT NULL, ';
 createRatingsOfCuratedListInstancesTableCommand += 'instanceNostrEventID TEXT NULL, ';
 createRatingsOfCuratedListInstancesTableCommand += 'deprecated BOOLEAN false, ';
-createRatingsOfCuratedListInstancesTableCommand += 'UNIQUE(event_id) ';
+createRatingsOfCuratedListInstancesTableCommand += 'UNIQUE(uniqueID,event_id) ';
 // table: ratingsOfCuratedListInstances
 
 // GENERATION 1 RATINGS TABLE (? Feb 2023)

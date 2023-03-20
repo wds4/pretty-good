@@ -1,6 +1,6 @@
 import { useNostrEvents, dateToUnix } from 'nostr-react';
 import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
-import { addRatingOfCuratedListInstanceEventToSql } from 'renderer/window1/lib/pg/sql';
+import { addEndorsementOfListCuratorEventToSql } from 'renderer/window1/lib/pg/sql';
 import { doesEventInstanceValidateAgainstEventParent } from 'renderer/window1/lib/conceptGraph';
 import Endorsement from './endorsement';
 
@@ -59,7 +59,7 @@ const AllEndorsements = ({parentConceptPropertyPath, parentConceptNostrEventID, 
           }
           // ALSO NEED TO VALIDATE AGAINST JSON SCHEMA FOR RATINGS
           // Need to create this function and the corresponding table in sql
-          // addEndorsementOfListCuratorEventToSql(event,parentConceptSlug,parentConceptNostrEventID);
+          addEndorsementOfListCuratorEventToSql(event,parentConceptSlug,parentConceptNostrEventID);
           //
           return (
             <>

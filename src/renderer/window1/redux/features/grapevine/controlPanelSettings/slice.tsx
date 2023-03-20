@@ -11,6 +11,8 @@ export const controlPanelSettingsSlice = createSlice({
     rigor: oGrapevineDefaults.rigor,
     defaultUserTrustAverageScore: oGrapevineDefaults.defaultUserTrustAverageScore,
     defaultUserTrustConfidence: oGrapevineDefaults.defaultUserTrustConfidence,
+    defaultInstanceBaselineAverageScore: oGrapevineDefaults.defaultInstanceBaselineAverageScore,
+    defaultInstanceBaselineConfidence: oGrapevineDefaults.defaultInstanceBaselineConfidence,
     strat1Coeff: oGrapevineDefaults.strat1Coeff,
     strat2Coeff: oGrapevineDefaults.strat2Coeff,
     strat3Coeff: oGrapevineDefaults.strat3Coeff,
@@ -30,6 +32,12 @@ export const controlPanelSettingsSlice = createSlice({
     },
     updateDefaultUserTrustConfidence: (state, action) => {
       state.defaultUserTrustConfidence = action.payload;
+    },
+    updateDefaultInstanceBaselineAverageScore: (state, action) => {
+      state.defaultInstanceBaselineAverageScore = action.payload;
+    },
+    updateDefaultInstanceBaselineConfidence: (state, action) => {
+      state.defaultInstanceBaselineConfidence = action.payload;
     },
     updateRigor: (state, action) => {
       state.rigor = action.payload;
@@ -60,6 +68,8 @@ export const {
   updateAttenuationFactor,
   updateDefaultUserTrustAverageScore,
   updateDefaultUserTrustConfidence,
+  updateDefaultInstanceBaselineAverageScore,
+  updateDefaultInstanceBaselineConfidence,
   updateRigor,
   updateStrat1Coeff,
   updateStrat2Coeff,

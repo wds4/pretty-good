@@ -77,8 +77,11 @@ const Rating = ({ event }) => {
             end
             to="/CuratedListsHome/ViewIndividualCuratedList"
           >
-            {list_name} ({contextDAGSlug})
+            {list_name}
           </NavLink>
+        </div>
+        <div>
+          contextDAGSlug: {contextDAGSlug}
         </div>
         <div>
           rating / reference rating: {rating} / {rating_reference}

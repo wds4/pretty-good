@@ -6,6 +6,8 @@ import * as VisStyleConstants from 'renderer/window1/lib/visjs/visjs-style';
 import {
   noProfilePicUrl,
 } from 'renderer/window1/const';
+import TopControlPanel from './controlPanels/topControlPanel';
+import RightPanel from './controlPanels/rightPanel';
 
 const { options } = VisStyleConstants;
 
@@ -63,6 +65,7 @@ const makeVisGraph_Grapevine = async (
   oMyNostrProfileData,
   oNostrProfilesData,
   aRatingsOfInstancesData,
+  aEndorsementsOfCuratorsData,
   controlPanelSettings,
 ) => {
   // console.log("oNostrProfilesData: "+JSON.stringify(oNostrProfilesData,null,4))
@@ -114,6 +117,99 @@ const makeVisGraph_Grapevine = async (
   nodes_arr.push(oNode)
   aNodesIDs.push(myPubKey);
 
+
+  for (let r=0;r<aEndorsementsOfCuratorsData.length;r++) {
+    const oEndorsementSql = aEndorsementsOfCuratorsData[r];
+    const oEndorsementEvent = JSON.parse(oEndorsementSql.event);
+    const oEndorsementWord = JSON.parse(oEndorsementEvent.content);
+    const endorsement_event_id = oEndorsementEvent.id;
+    console.log("oEndorsementWord: "+JSON.stringify(oEndorsementWord))
+    const ratingTemplateSlug = oEndorsementWord.ratingData.ratingTemplateData.ratingTemplateSlug;
+    if (ratingTemplateSlug=="nostrCuratedListsCuratorEndorsement") {
+      // rater data
+      const pk_rater = oEndorsementWord.ratingData.raterData.nostrProfileData.pubkey;
+      const name_rater = oEndorsementWord.ratingData.raterData.nostrProfileData?.name;
+      const display_name_rater = oEndorsementWord.ratingData.raterData.nostrProfileData?.display_name;
+      // ratee data
+      const pk_ratee = oEndorsementWord.ratingData.rateeData.nostrProfileData.pubkey;
+      const name_ratee = oEndorsementWord.ratingData.rateeData.nostrProfileData?.name;
+      const display_name_ratee = oEndorsementWord.ratingData.rateeData.nostrProfileData?.display_name;
+      // rating data
+      const regularSliderRating = oEndorsementWord.ratingData.ratingFieldsetData.nostrCuratedListsCuratorEndorsementFieldsetData.regularSliderRating;
+      const referenceRegularSliderRating = oEndorsementWord.ratingData.ratingFieldsetData.nostrCuratedListsCuratorEndorsementFieldsetData.referenceRegularSliderRating;
+      const confidence = oEndorsementWord.ratingData.ratingFieldsetData.confidenceFieldsetData.confidence;
+
+      let rater_profilePicUrl = noProfilePicUrl;
+      if (oNostrProfilesData[pk_rater]) {
+        const oEventProfile = JSON.parse(oNostrProfilesData[pk_rater].event);
+        const oProfileContent = JSON.parse(oEventProfile.content);
+        if (oProfileContent.picture) {
+          rater_profilePicUrl = oProfileContent.picture;
+        }
+      }
+
+      let ratee_profilePicUrl = noProfilePicUrl;
+      if (oNostrProfilesData[pk_ratee]) {
+        const oEventProfile = JSON.parse(oNostrProfilesData[pk_ratee].event);
+        const oProfileContent = JSON.parse(oEventProfile.content);
+        if (oProfileContent.picture) {
+          ratee_profilePicUrl = oProfileContent.picture;
+        }
+      }
+
+      if (!aEdgesIDs.includes(endorsement_event_id)) {
+        // add endorsement as another edge
+        let title = '';
+        const rating = (regularSliderRating / referenceRegularSliderRating).toPrecision(4);
+        title += 'rating: '+ rating;
+        title += '\n confidence: '+confidence;
+        const width = 5 * Math.log(rating * 10);
+        if (!rater_profilePicUrl) {
+          rater_profilePicUrl = noProfilePicUrl;
+        }
+        const oEdge = {
+          id: endorsement_event_id,
+          // group: 'ratingOfInstance', // no group styling for edges (I think ???)
+          from: pk_rater,
+          to: pk_ratee,
+          color: 'blue',
+          title: title,
+          width: width,
+        }
+        edges_arr.push(oEdge);
+        aEdgesIDs.push(endorsement_event_id);
+      }
+
+      if (!aNodesIDs.includes(pk_rater)) {
+        // add rater as another rater node
+        const oNode = {
+          id: pk_rater,
+          shape: 'circularImage',
+          image: rater_profilePicUrl,
+          brokenImage: noProfilePicUrl,
+          title: display_name_rater,
+          label: name_rater,
+        }
+        nodes_arr.push(oNode);
+        aNodesIDs.push(pk_rater);
+      }
+
+      if (!aNodesIDs.includes(pk_ratee)) {
+        // add ratee as another ratee node
+        const oNode = {
+          id: pk_ratee,
+          shape: 'circularImage',
+          image: ratee_profilePicUrl,
+          brokenImage: noProfilePicUrl,
+          title: display_name_ratee,
+          label: name_ratee,
+        }
+        nodes_arr.push(oNode);
+        aNodesIDs.push(pk_ratee);
+      }
+    }
+  }
+
   for (let r=0;r<aRatingsOfInstancesData.length;r++) {
     const oRatingSql = aRatingsOfInstancesData[r];
     const oRatingEvent = JSON.parse(oRatingSql.event);
@@ -142,14 +238,16 @@ const makeVisGraph_Grapevine = async (
         }
       }
       if (!aEdgesIDs.includes(rating_event_id)) {
-        // add rater as another rater node
+        // add rating as another edge
         let title = '';
         title += 'rating: '+regularSliderRating;
         title += '\n confidence: '+confidence;
         const width = 5 * Math.log(regularSliderRating / 10);
+        /*
         if (!rater_profilePicUrl) {
           rater_profilePicUrl = noProfilePicUrl
         }
+        */
         const oEdge = {
           id: rating_event_id,
           // group: 'ratingOfInstance', // no group styling for edges (I think ???)
@@ -170,6 +268,9 @@ const makeVisGraph_Grapevine = async (
           group: 'instance',
           title: instance_name,
           label: instance_name,
+          physics: false,
+          x: 500,
+          y: 100 * aNodesIDs.length - 500,
         }
         nodes_arr.push(oNode);
         aNodesIDs.push(instance_event_id);
@@ -236,10 +337,14 @@ export default class GrapevineVisualization extends React.Component {
     const sql2 = ` SELECT * FROM ratingsOfCuratedListInstances WHERE parentConceptNostrEventID = '${this.props.curatedListFocusID}' `;
     const aRatingsOfInstancesData2 = await asyncSql(sql2);
 
+    const sql3 = ` SELECT * FROM endorsementsOfCurators WHERE parentConceptNostrEventID = '${this.props.curatedListFocusID}' `;
+    const aEndorsementsOfCuratorsData = await asyncSql(sql3);
+
     await makeVisGraph_Grapevine(
       oMyNostrProfileData,
       oNostrProfilesData,
       aRatingsOfInstancesData2,
+      aEndorsementsOfCuratorsData,
       this.props.oListData,
     );
   }
@@ -248,6 +353,7 @@ export default class GrapevineVisualization extends React.Component {
     return (
       <>
         <div style={{display:'none'}}>{JSON.stringify(this.props.aRatingsOfInstancesData,null,4)}</div>
+        <TopControlPanel />
         <div style={{ width: '100%', height: '500px' }}>
           <div
             id="grapevineContainerElem"
@@ -256,7 +362,7 @@ export default class GrapevineVisualization extends React.Component {
           <div
             style={{ display: 'inline-block', width: '50%', height: '100%' }}
           >
-            Right panel
+            <RightPanel />
           </div>
         </div>
       </>

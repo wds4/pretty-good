@@ -34,6 +34,8 @@ export const oGrapevineDefaults = {
   rigor: 25,
   defaultUserTrustAverageScore: 0,
   defaultUserTrustConfidence: 40,
+  defaultInstanceBaselineAverageScore: 0,
+  defaultInstanceBaselineConfidence: 20,
   strat1Coeff: 15,
   strat2Coeff: 10,
   strat3Coeff: 100,

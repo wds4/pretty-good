@@ -1,14 +1,14 @@
-import { useSelector, useDispatch } from 'react-redux';
-import { useNostrEvents, dateToUnix } from 'nostr-react';
+import { useSelector } from 'react-redux';
+import { useNostrEvents } from 'nostr-react';
 import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
 import { addCuratedListEventToSql } from 'renderer/window1/lib/pg/sql';
-import SourceToggleSwitch from 'renderer/window1/components/toggleSwitchSmall';
-import { updateViewListsLoadStoredData } from 'renderer/window1/redux/features/curatedLists/settings/slice';
+import SourceToggleSwitch from 'renderer/window1/apps/curatedLists/components/sourceToggleSwitch';
 import List from './list';
 
 const AllLists = () => {
-  const viewListsLoadStoredData = useSelector((state) => state.curatedListsSettings.viewListsLoadStoredData);
-  const dispatch = useDispatch();
+  const viewListsLoadStoredData = useSelector(
+    (state) => state.curatedListsSettings.viewListsLoadStoredData
+  );
   if (viewListsLoadStoredData) {
     // LOAD DATA FROM SQL
   }
@@ -31,24 +31,13 @@ const AllLists = () => {
       '#s': ['nostrCuratedList'],
     },
   });
-  let toggleSwitchLabel = "viewListsLoadStoredData";
-  let initState = viewListsLoadStoredData;
-  const processStateChange = (newState) => {
-    console.log("processStateChange; newState: "+newState);
-    dispatch(updateViewListsLoadStoredData(newState))
-  }
   events.sort((a, b) => parseFloat(b.created_at) - parseFloat(a.created_at));
   return (
     <>
-    <div style={{float:"right"}}>
-      load stored data:{' '}
-      <SourceToggleSwitch
-        label={toggleSwitchLabel}
-        processStateChange={(newState) => processStateChange(newState)}
-        initState={initState}
-      />
-    </div>
-
+      <div style={{ marginBottom: '5px' }}>
+        <SourceToggleSwitch />
+      </div>
+      <div>Live streaming from nostr:</div>
       {events.map((event, index) => {
         if (doesEventValidate(event)) {
           addCuratedListEventToSql(event);

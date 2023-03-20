@@ -28,6 +28,7 @@ import {
   createRelaysTableCommand,
   createCuratedListsTableCommand,
   createCuratedListInstancesTableCommand,
+  createEndorsementsOfCuratorsTableCommand,
   aDefaultRelayUrls,
 } from './const/nostr';
 
@@ -137,6 +138,10 @@ db.serialize(() => {
   // db.run('DROP TABLE IF EXISTS curatedLists');
   // db.run('DROP TABLE IF EXISTS curatedListInstances');
   // db.run('DROP TABLE IF EXISTS ratingsOfCuratedListInstances');
+  // db.run('DROP TABLE IF EXISTS endorsementsOfCurators');
+  db.run(
+    `CREATE TABLE IF NOT EXISTS endorsementsOfCurators (${createEndorsementsOfCuratorsTableCommand})`
+  );
   db.run(
     `CREATE TABLE IF NOT EXISTS ratingsOfCuratedListInstances (${createRatingsOfCuratedListInstancesTableCommand})`
   );
