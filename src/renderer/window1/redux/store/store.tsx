@@ -11,6 +11,7 @@ import nostrNotesReducer from '../features/nostr/notes/slice';
 import listCurationReducer from '../features/grapevine/listCuration/slice';
 import controlPanelSettingsReducer from '../features/grapevine/controlPanelSettings/slice';
 import compositeTrustScoresReducer from '../features/grapevine/compositeTrustScores/slice';
+import curatedListsSettingsReducer from '../features/curatedLists/settings/slice';
 
 const store = configureStore({
   reducer: {
@@ -26,6 +27,7 @@ const store = configureStore({
     listCuration: listCurationReducer,
     controlPanelSettings: controlPanelSettingsReducer,
     compositeTrustScores: compositeTrustScoresReducer,
+    curatedListsSettings: curatedListsSettingsReducer,
   }
 });
 export default store;

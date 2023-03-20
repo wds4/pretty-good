@@ -9,12 +9,6 @@ import List from './list';
 const AllLists = () => {
   const viewListsLoadStoredData = useSelector((state) => state.curatedListsSettings.viewListsLoadStoredData);
   const dispatch = useDispatch();
-  if (viewListsLoadStoredData) {
-    // LOAD DATA FROM SQL
-  }
-  if (!viewListsLoadStoredData) {
-    // LOAD DATA FROM NOSTR
-  }
   const kind0 = 9901;
   /*
   // tags used to create lists, and used to filter them
