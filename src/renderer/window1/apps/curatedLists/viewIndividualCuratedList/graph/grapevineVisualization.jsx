@@ -1,13 +1,29 @@
 import React, { useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import { asyncSql } from 'renderer/window1/lib/pg/asyncSql';
 import { DataSet, Network } from 'vis-network/standalone/esm/vis-network';
 import * as VisStyleConstants from 'renderer/window1/lib/visjs/visjs-style';
+import { updateSelectedPubkeyForShowingTrustCalculations } from 'renderer/window1/redux/features/grapevine/controlPanelSettings/slice';
 import {
   noProfilePicUrl,
 } from 'renderer/window1/const';
 import TopControlPanel from './controlPanels/topControlPanel';
 import RightPanel from './controlPanels/rightPanel';
+import ShowSingleUserTrustScoreCalculations from './showSingleUserTrustScoreCalculations';
+import { singleIterationCompositeScoreCalculations } from './calculations/singleIterationCompositeScoreCalculations';
+
+import {
+  uDefaultScores,
+  uDefaultScores_seed,
+  iDefaultScores,
+} from './const';
+
+const uScoresDefault_seed = {
+  allPurposeTypes_allContexts: JSON.parse(JSON.stringify(uDefaultScores_seed)),
+  allListCuration_allContexts: JSON.parse(JSON.stringify(uDefaultScores_seed)),
+  thisListCuration_allContexts: JSON.parse(JSON.stringify(uDefaultScores_seed)),
+},
 
 const { options } = VisStyleConstants;
 
@@ -52,7 +68,8 @@ export const VisNetwork_Grapevine = () => {
       const numNodes = nodes_arr.length;
       if (numNodes == 1) {
         const nodeID = nodes_arr[0];
-        // do stuff with nodeID
+        document.getElementById('selectedUserElem').value = nodeID;
+        document.getElementById('selectedUserElem')?.click();
       }
     });
     network.current.on('deselectNode', function (params) {});
@@ -80,6 +97,8 @@ const makeVisGraph_Grapevine = async (
     rigor,
     defaultUserTrustAverageScore,
     defaultUserTrustConfidence,
+    defaultInstanceBaselineAverageScore,
+    defaultInstanceBaselineConfidence,
     strat1Coeff,
     strat2Coeff,
     strat3Coeff,
@@ -96,8 +115,26 @@ const makeVisGraph_Grapevine = async (
     certainty: cer,
     input: 0,
   }
+  const uScoresDefault = {
+    allPurposeTypes_allContexts: JSON.parse(JSON.stringify(defaultScores)),
+    allListCuration_allContexts: JSON.parse(JSON.stringify(defaultScores)),
+    thisListCuration_allContexts: JSON.parse(JSON.stringify(defaultScores)),
+  };
+  console.log("defaultScores: "+JSON.stringify(defaultScores))
+
+  const iAve = defaultInstanceBaselineAverageScore / 100;
+  const iCer = defaultInstanceBaselineConfidence / 100;
+  const iInf = iAve * iCer;
+  const iDefaultScores = {
+    influence: inf,
+    average: ave,
+    certainty: cer,
+    input: 0,
+  }
 
   const myPubKey = oMyNostrProfileData.pubkey;
+  const myName = oMyNostrProfileData.name;
+  const myDisplayName = oMyNostrProfileData.display_name;
   let myImageUrl = oMyNostrProfileData.picture_url;
   if (!myImageUrl) {
     myImageUrl = noProfilePicUrl
@@ -105,14 +142,21 @@ const makeVisGraph_Grapevine = async (
 
   const oNode = {
     id: myPubKey,
+    group: "user",
     image: myImageUrl,
     brokenImage: noProfilePicUrl,
     shape: 'circularImage',
-    title: "me",
-    label: "me",
-    physics: false,
-    x: 0,
-    y: 0,
+    title: myDisplayName,
+    label: myName,
+    name: myName,
+    display_name: myDisplayName,
+    afferentEdgeIDs: [],
+    seed: true,
+    scores: uScoresDefault_seed,
+    size: 50,
+    // physics: true,
+    // x: 0,
+    // y: 0,
   }
   nodes_arr.push(oNode)
   aNodesIDs.push(myPubKey);
@@ -175,6 +219,7 @@ const makeVisGraph_Grapevine = async (
           color: 'blue',
           title: title,
           width: width,
+          rating: rating,
         }
         edges_arr.push(oEdge);
         aEdgesIDs.push(endorsement_event_id);
@@ -182,13 +227,24 @@ const makeVisGraph_Grapevine = async (
 
       if (!aNodesIDs.includes(pk_rater)) {
         // add rater as another rater node
-        const oNode = {
+        let oNode = {
           id: pk_rater,
+          group: "user",
           shape: 'circularImage',
           image: rater_profilePicUrl,
           brokenImage: noProfilePicUrl,
           title: display_name_rater,
           label: name_rater,
+          name: name_rater,
+          display_name: display_name_rater,
+          afferentEdgeIDs: [],
+          seed: false,
+          scores: uScoresDefault,
+          size: 50 * defaultScores.influence,
+        }
+        if (pk_rater == myPubKey) {
+          oNode.scores = uScoresDefault_seed;
+          oNode.seed = true;
         }
         nodes_arr.push(oNode);
         aNodesIDs.push(pk_rater);
@@ -196,13 +252,25 @@ const makeVisGraph_Grapevine = async (
 
       if (!aNodesIDs.includes(pk_ratee)) {
         // add ratee as another ratee node
-        const oNode = {
+        let oNode = {
           id: pk_ratee,
+          group: "user",
           shape: 'circularImage',
           image: ratee_profilePicUrl,
           brokenImage: noProfilePicUrl,
           title: display_name_ratee,
           label: name_ratee,
+          name: name_ratee,
+          display_name: display_name_ratee,
+          afferentEdgeIDs: [],
+          seed: false,
+          scores: uScoresDefault,
+          size: 50 * defaultScores.influence,
+        }
+        if (pk_ratee == myPubKey) {
+          oNode.scores = uScoresDefault_seed;
+          oNode.seed = true;
+          oNode.size = 50;
         }
         nodes_arr.push(oNode);
         aNodesIDs.push(pk_ratee);
@@ -256,6 +324,7 @@ const makeVisGraph_Grapevine = async (
           color: 'red',
           title: title,
           width: width,
+          rating: regularSliderRating / 100,
         }
         edges_arr.push(oEdge);
         aEdgesIDs.push(rating_event_id);
@@ -266,9 +335,13 @@ const makeVisGraph_Grapevine = async (
         const oNode = {
           id: instance_event_id,
           group: 'instance',
+          foo: 'bar',
           title: instance_name,
           label: instance_name,
-          physics: false,
+          scores: iDefaultScores,
+          size: 50,
+          afferentEdgeIDs: [],
+          physics: true,
           x: 500,
           y: 100 * aNodesIDs.length - 500,
         }
@@ -278,13 +351,25 @@ const makeVisGraph_Grapevine = async (
 
       if (!aNodesIDs.includes(pk_rater)) {
         // add rater as another rater node
-        const oNode = {
+        let oNode = {
           id: pk_rater,
+          group: "user",
           shape: 'circularImage',
           image: rater_profilePicUrl,
           brokenImage: noProfilePicUrl,
           title: display_name_rater,
           label: name_rater,
+          name: name_rater,
+          display_name: display_name_rater,
+          afferentEdgeIDs: [],
+          seed: false,
+          scores: uScoresDefault,
+          size: 50 * defaultScores.influence,
+        }
+        if (pk_rater == myPubKey) {
+          oNode.scores = uScoresDefault_seed;
+          oNode.seed = true;
+          oNode.size = 50;
         }
         nodes_arr.push(oNode);
         aNodesIDs.push(pk_rater);
@@ -307,6 +392,49 @@ const makeVisGraph_Grapevine = async (
   );
 };
 
+export const populateEachNodeAfferentEdgeIDs = (nodes, edges) => {
+  // console.log("populateEachNodeAfferentEdgeIDs ");
+  const aAllEdges = edges.getIds();
+  for (let e = 0; e < aAllEdges.length; e++) {
+    const edgeID = aAllEdges[e];
+    const oEdge = edges.get(edgeID);
+    const pk_from = oEdge.from;
+    const pk_to = oEdge.to;
+    // add edgeID to node[pk_to].afferentEdgeIDs
+    const oNode = nodes.get(pk_to);
+    const { afferentEdgeIDs } = oNode;
+    // console.log("afferentEdgeIDs: "+JSON.stringify(afferentEdgeIDs));
+    if (!afferentEdgeIDs.includes(edgeID)) {
+      afferentEdgeIDs.push(edgeID);
+    }
+    nodes.update({ id: pk_to, afferentEdgeIDs });
+  }
+};
+
+const UpdateSelectedNode = () => {
+  const dispatch = useDispatch();
+  const updateSelectedNode = () => {
+    const newSelectedPubkey =
+      document.getElementById('selectedUserElem')?.value;
+    dispatch(
+      updateSelectedPubkeyForShowingTrustCalculations(newSelectedPubkey)
+    );
+  };
+  return (
+    <>
+      <textarea
+        id="selectedUserElem"
+        onClick={() => {
+          updateSelectedNode();
+        }}
+        style={{ display: 'none' }}
+      >
+        selectedUserElem
+      </textarea>
+    </>
+  );
+};
+
 export default class GrapevineVisualization extends React.Component {
   constructor(props) {
     super(props);
@@ -314,6 +442,7 @@ export default class GrapevineVisualization extends React.Component {
       oMyNostrProfileData: {},
       oNostrProfilesData: {},
       aRatingsOfInstancesData: [],
+      contextDAG: "thisListCuration_allContexts",
     };
   }
 
@@ -345,14 +474,30 @@ export default class GrapevineVisualization extends React.Component {
       oNostrProfilesData,
       aRatingsOfInstancesData2,
       aEndorsementsOfCuratorsData,
-      this.props.oListData,
+      this.props.controlPanelSettings,
     );
+
+    populateEachNodeAfferentEdgeIDs(nodes, edges);
+
+    // an array of contextDAG nodes; assumed to contain at least one node, although if empty, just assume the apex of the contextDAG
+    // any nodes past the first one specify nodes through which the inheritance pathway is assumed to traverse
+    const aContextDAG = ['thisListCuration_allContexts'];
+
+    setInterval(() => {
+      singleIterationCompositeScoreCalculations(
+        myPubKey,
+        this.props.controlPanelSettings,
+        aContextDAG
+      );
+    }, 200);
+
   }
 
   render() {
     return (
       <>
         <div style={{display:'none'}}>{JSON.stringify(this.props.aRatingsOfInstancesData,null,4)}</div>
+        <UpdateSelectedNode />
         <TopControlPanel />
         <div style={{ width: '100%', height: '500px' }}>
           <div
@@ -365,6 +510,10 @@ export default class GrapevineVisualization extends React.Component {
             <RightPanel />
           </div>
         </div>
+        <ShowSingleUserTrustScoreCalculations
+          controlPanelSettings={this.props.controlPanelSettings}
+          contextDAG={this.state.contextDAG}
+        />
       </>
     );
   }
