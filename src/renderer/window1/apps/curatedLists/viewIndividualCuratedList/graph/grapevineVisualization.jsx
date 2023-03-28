@@ -4,17 +4,21 @@ import { useSelector, useDispatch } from 'react-redux';
 import { asyncSql } from 'renderer/window1/lib/pg/asyncSql';
 import { DataSet, Network } from 'vis-network/standalone/esm/vis-network';
 import * as VisStyleConstants from 'renderer/window1/lib/visjs/visjs-style';
-import { updateSelectedPubkeyForShowingTrustCalculations } from 'renderer/window1/redux/features/grapevine/controlPanelSettings/slice';
+import {
+  updateSelectedPubkeyForShowingTrustCalculations,
+  updateSelectedInstanceIDForShowingCompScoreCalculations,
+  updateEntityTypeForShowingCalculations,
+} from 'renderer/window1/redux/features/grapevine/controlPanelSettings/slice';
 import {
   noProfilePicUrl,
 } from 'renderer/window1/const';
 import TopControlPanel from './controlPanels/topControlPanel';
 import RightPanel from './controlPanels/rightPanel';
-import ShowSingleUserTrustScoreCalculations from './showSingleUserTrustScoreCalculations';
-import { singleIterationCompositeScoreCalculations } from './calculations/singleIterationCompositeScoreCalculations';
-
+import ShowSingleEntityCompScoreCalculations from './showSingleEntityCompScoreCalculations';
+// import ShowSingleEntityCompScoreCalculations from 'renderer/window1/apps/grapevine/components/showSingleEntityCompScoreCalculations';
+import { singleIterationCompositeUserScoreCalculations } from './calculations/singleIterationCompositeUserScoreCalculations';
+import { singleIterationInstanceScoreCalculations } from './calculations/singleIterationInstanceScoreCalculations';
 import {
-  uDefaultScores,
   uDefaultScores_seed,
   iDefaultScores,
 } from './const';
@@ -34,8 +38,25 @@ let data = {
   nodes,
   edges,
 };
+export const aAllUserNodes = [];
+export const aAllInstanceNodes = [];
 
 export const VisNetwork_Grapevine = () => {
+  // moved from singleIterationCompositeUserScoreCalculations
+  // might want to move this to makeVisGraph_Grapevine
+  const aAllNodes = nodes.getIds();
+  for (let n = 0; n < aAllNodes.length; n++) {
+    const pk = aAllNodes[n];
+    const oNode = nodes.get(pk);
+    if (oNode.group == "user") {
+      aAllUserNodes.push(pk);
+    }
+    if (oNode.group == "instance") {
+      aAllInstanceNodes.push(pk);
+    }
+  }
+  //end moved from singleIterationCompositeUserScoreCalculations
+
   // A reference to the div rendered by this component
   const domNode = useRef(null);
 
@@ -86,6 +107,7 @@ const makeVisGraph_Grapevine = async (
   controlPanelSettings,
 ) => {
   // console.log("oNostrProfilesData: "+JSON.stringify(oNostrProfilesData,null,4))
+
   const nodes_arr = [];
   const edges_arr = [];
 
@@ -109,28 +131,34 @@ const makeVisGraph_Grapevine = async (
   const ave = defaultUserTrustAverageScore / 100;
   const cer = defaultUserTrustConfidence / 100;
   const inf = ave * cer;
-  const defaultScores = {
+  const uDefaultScores = {
     influence: inf,
     average: ave,
     certainty: cer,
     input: 0,
   }
   const uScoresDefault = {
-    allPurposeTypes_allContexts: JSON.parse(JSON.stringify(defaultScores)),
-    allListCuration_allContexts: JSON.parse(JSON.stringify(defaultScores)),
-    thisListCuration_allContexts: JSON.parse(JSON.stringify(defaultScores)),
+    allPurposeTypes_allContexts: JSON.parse(JSON.stringify(uDefaultScores)),
+    allListCuration_allContexts: JSON.parse(JSON.stringify(uDefaultScores)),
+    thisListCuration_allContexts: JSON.parse(JSON.stringify(uDefaultScores)),
   };
-  console.log("defaultScores: "+JSON.stringify(defaultScores))
 
   const iAve = defaultInstanceBaselineAverageScore / 100;
   const iCer = defaultInstanceBaselineConfidence / 100;
   const iInf = iAve * iCer;
   const iDefaultScores = {
-    influence: inf,
-    average: ave,
-    certainty: cer,
+    influence: iInf,
+    average: iAve,
+    certainty: iCer,
     input: 0,
   }
+  const iScoresDefault = {
+    allPurposeTypes_allContexts: JSON.parse(JSON.stringify(iDefaultScores)),
+    allListCuration_allContexts: JSON.parse(JSON.stringify(iDefaultScores)),
+    thisListCuration_allContexts: JSON.parse(JSON.stringify(iDefaultScores)),
+  };
+
+  // console.log("qwerty uScoresDefault: "+JSON.stringify(uScoresDefault)+"; iScoresDefault: "+JSON.stringify(iScoresDefault))
 
   const myPubKey = oMyNostrProfileData.pubkey;
   const myName = oMyNostrProfileData.name;
@@ -139,6 +167,42 @@ const makeVisGraph_Grapevine = async (
   if (!myImageUrl) {
     myImageUrl = noProfilePicUrl
   }
+
+  const oNodeN = {
+    id: -1,
+    group: 'legend',
+    physics: false,
+    x: 250,
+    y: 100,
+    label: '-1',
+    shape: 'circle',
+    size: 15,
+  }
+  // nodes_arr.push(oNodeN)
+
+  const oNode0 = {
+    id: 0,
+    group: 'legend',
+    physics: false,
+    x: 250,
+    y: 0,
+    label: '0',
+    shape: 'circle',
+    size: 15,
+  }
+  nodes_arr.push(oNode0)
+
+  const oNode1 = {
+    id: 1,
+    group: 'legend',
+    physics: false,
+    x: 250,
+    y: -100,
+    label: '1',
+    shape: 'circle',
+    size: 15,
+  }
+  nodes_arr.push(oNode1)
 
   const oNode = {
     id: myPubKey,
@@ -152,22 +216,21 @@ const makeVisGraph_Grapevine = async (
     display_name: myDisplayName,
     afferentEdgeIDs: [],
     seed: true,
-    scores: uScoresDefault_seed,
+    scores: JSON.parse(JSON.stringify(uScoresDefault)),
     size: 50,
-    // physics: true,
-    // x: 0,
-    // y: 0,
+    physics: false,
+    x: -200,
+    y: 0,
   }
   nodes_arr.push(oNode)
   aNodesIDs.push(myPubKey);
-
 
   for (let r=0;r<aEndorsementsOfCuratorsData.length;r++) {
     const oEndorsementSql = aEndorsementsOfCuratorsData[r];
     const oEndorsementEvent = JSON.parse(oEndorsementSql.event);
     const oEndorsementWord = JSON.parse(oEndorsementEvent.content);
     const endorsement_event_id = oEndorsementEvent.id;
-    console.log("oEndorsementWord: "+JSON.stringify(oEndorsementWord))
+    // console.log("oEndorsementWord: "+JSON.stringify(oEndorsementWord))
     const ratingTemplateSlug = oEndorsementWord.ratingData.ratingTemplateData.ratingTemplateSlug;
     if (ratingTemplateSlug=="nostrCuratedListsCuratorEndorsement") {
       // rater data
@@ -239,11 +302,11 @@ const makeVisGraph_Grapevine = async (
           display_name: display_name_rater,
           afferentEdgeIDs: [],
           seed: false,
-          scores: uScoresDefault,
-          size: 50 * defaultScores.influence,
+          scores: JSON.parse(JSON.stringify(uScoresDefault)),
+          size: 50 * uDefaultScores.influence,
         }
         if (pk_rater == myPubKey) {
-          oNode.scores = uScoresDefault_seed;
+          oNode.scores = JSON.parse(JSON.stringify(uScoresDefault_seed));
           oNode.seed = true;
         }
         nodes_arr.push(oNode);
@@ -264,13 +327,16 @@ const makeVisGraph_Grapevine = async (
           display_name: display_name_ratee,
           afferentEdgeIDs: [],
           seed: false,
-          scores: uScoresDefault,
-          size: 50 * defaultScores.influence,
+          scores: JSON.parse(JSON.stringify(uScoresDefault)),
+          size: 50 * uDefaultScores.influence,
         }
         if (pk_ratee == myPubKey) {
-          oNode.scores = uScoresDefault_seed;
+          oNode.scores = JSON.parse(JSON.stringify(uScoresDefault_seed));
           oNode.seed = true;
           oNode.size = 50;
+          oNode.physics = false;
+          oNode.x = -200;
+          oNode.y = 0;
         }
         nodes_arr.push(oNode);
         aNodesIDs.push(pk_ratee);
@@ -331,19 +397,19 @@ const makeVisGraph_Grapevine = async (
       }
 
       if (!aNodesIDs.includes(instance_event_id)) {
-        // add rater as another rater node
         const oNode = {
           id: instance_event_id,
           group: 'instance',
-          foo: 'bar',
           title: instance_name,
           label: instance_name,
-          scores: iDefaultScores,
-          size: 50,
+          name: instance_name,
+          scores: JSON.parse(JSON.stringify(iScoresDefault)),
+          size: 15,
           afferentEdgeIDs: [],
-          physics: true,
-          x: 500,
-          y: 100 * aNodesIDs.length - 500,
+          physics: false,
+          shape: 'diamond',
+          // x: 500,
+          // y: 100 * aNodesIDs.length - 500,
         }
         nodes_arr.push(oNode);
         aNodesIDs.push(instance_event_id);
@@ -363,13 +429,16 @@ const makeVisGraph_Grapevine = async (
           display_name: display_name_rater,
           afferentEdgeIDs: [],
           seed: false,
-          scores: uScoresDefault,
-          size: 50 * defaultScores.influence,
+          scores: JSON.parse(JSON.stringify(uScoresDefault)),
+          size: 50 * uDefaultScores.influence,
         }
         if (pk_rater == myPubKey) {
-          oNode.scores = uScoresDefault_seed;
+          oNode.scores = JSON.parse(JSON.stringify(uScoresDefault_seed));
           oNode.seed = true;
           oNode.size = 50;
+          oNode.physics = false;
+          oNode.x= -200;
+          oNode.y = 0;
         }
         nodes_arr.push(oNode);
         aNodesIDs.push(pk_rater);
@@ -414,11 +483,18 @@ export const populateEachNodeAfferentEdgeIDs = (nodes, edges) => {
 const UpdateSelectedNode = () => {
   const dispatch = useDispatch();
   const updateSelectedNode = () => {
-    const newSelectedPubkey =
+    const newSelectedPubkeyOrInstanceID =
       document.getElementById('selectedUserElem')?.value;
-    dispatch(
-      updateSelectedPubkeyForShowingTrustCalculations(newSelectedPubkey)
-    );
+    if (aAllUserNodes.includes(newSelectedPubkeyOrInstanceID)) {
+      // console.log("aAllUserNodes newSelectedPubkeyOrInstanceID: "+newSelectedPubkeyOrInstanceID+"; aAllUserNodes: "+JSON.stringify(aAllUserNodes));
+      dispatch(updateSelectedPubkeyForShowingTrustCalculations(newSelectedPubkeyOrInstanceID));
+      dispatch(updateEntityTypeForShowingCalculations("nostrProfile"));
+    }
+    if (aAllInstanceNodes.includes(newSelectedPubkeyOrInstanceID)) {
+      // console.log("aAllInstanceNodes newSelectedPubkeyOrInstanceID: "+newSelectedPubkeyOrInstanceID+"; aAllInstanceNodes: "+JSON.stringify(aAllInstanceNodes));
+      dispatch(updateSelectedInstanceIDForShowingCompScoreCalculations(newSelectedPubkeyOrInstanceID));
+      dispatch(updateEntityTypeForShowingCalculations("curatedListInstance"));
+    }
   };
   return (
     <>
@@ -484,7 +560,12 @@ export default class GrapevineVisualization extends React.Component {
     const aContextDAG = ['thisListCuration_allContexts'];
 
     setInterval(() => {
-      singleIterationCompositeScoreCalculations(
+      singleIterationCompositeUserScoreCalculations(
+        myPubKey,
+        this.props.controlPanelSettings,
+        aContextDAG
+      );
+      singleIterationInstanceScoreCalculations(
         myPubKey,
         this.props.controlPanelSettings,
         aContextDAG
@@ -499,18 +580,18 @@ export default class GrapevineVisualization extends React.Component {
         <div style={{display:'none'}}>{JSON.stringify(this.props.aRatingsOfInstancesData,null,4)}</div>
         <UpdateSelectedNode />
         <TopControlPanel />
-        <div style={{ width: '100%', height: '500px' }}>
+        <div style={{ width: '100%', height: '500px', marginTop: '5px' }}>
           <div
             id="grapevineContainerElem"
-            style={{ display: 'inline-block', width: '50%', height: '100%' }}
+            style={{ display: 'inline-block', width: '50%', height: '100%', border: '1px solid purple', marginRight: '5px' }}
           />
           <div
-            style={{ display: 'inline-block', width: '50%', height: '100%' }}
+            style={{ display: 'inline-block', width: '48%', height: '100%' }}
           >
             <RightPanel />
           </div>
         </div>
-        <ShowSingleUserTrustScoreCalculations
+        <ShowSingleEntityCompScoreCalculations
           controlPanelSettings={this.props.controlPanelSettings}
           contextDAG={this.state.contextDAG}
         />

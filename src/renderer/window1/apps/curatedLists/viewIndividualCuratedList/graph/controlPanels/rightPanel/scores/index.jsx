@@ -1,4 +1,6 @@
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import NostrProfileScores from './nostrProfileScores';
+import CuratedListInstanceScores from './instanceScores';
 
 const CalculationResults = () => {
   return (
@@ -6,14 +8,15 @@ const CalculationResults = () => {
       <div style={{ textAlign: 'center' }}>
         <Tabs>
           <TabList>
-            <Tab>Recommended Relays</Tab>
-            <Tab>Relay Lists</Tab>
-            <Tab>RL-Curator Hunters</Tab>
+            <Tab>profiles</Tab>
+            <Tab>instances</Tab>
           </TabList>
-
-          <TabPanel>Recommended Relays</TabPanel>
-          <TabPanel>Relay List Curator Scores</TabPanel>
-          <TabPanel>Relay List Curator Hunter Scores</TabPanel>
+          <TabPanel>
+            <NostrProfileScores />
+          </TabPanel>
+          <TabPanel>
+            <CuratedListInstanceScores />
+          </TabPanel>
         </Tabs>
       </div>
     </>

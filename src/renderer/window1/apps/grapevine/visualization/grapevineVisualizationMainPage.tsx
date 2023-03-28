@@ -9,8 +9,8 @@ import { updateSelectedPubkeyForShowingTrustCalculations } from 'renderer/window
 import TopControlPanel from './controlPanels/topControlPanel';
 import GraphView from './graphView';
 import RightPanel from './controlPanels/rightPanel';
-import ShowSingleUserTrustScoreCalculations from './showSingleUserTrustScoreCalculations';
-import { singleIterationCompositeScoreCalculations } from './calculations/singleIterationCompositeScoreCalculations';
+import ShowSingleEntityCompScoreCalculations from './showSingleEntityCompScoreCalculations';
+import { singleIterationCompositeUserScoreCalculations } from './calculations/singleIterationCompositeUserScoreCalculations';
 
 import {
   allPurposeTypes_allContexts_starter,
@@ -348,7 +348,7 @@ export default class GrapevineVisualizationMainPage extends React.Component {
     const aContextDAG = ['relaysCuration_allRelayTypes'];
 
     setInterval(() => {
-      singleIterationCompositeScoreCalculations(
+      singleIterationCompositeUserScoreCalculations(
         myPubKey,
         this.props.controlPanelSettings,
         aContextDAG
@@ -374,7 +374,7 @@ export default class GrapevineVisualizationMainPage extends React.Component {
             <RightPanel />
           </div>
         </div>
-        <ShowSingleUserTrustScoreCalculations
+        <ShowSingleEntityCompScoreCalculations
           controlPanelSettings={this.props.controlPanelSettings}
         />
       </>

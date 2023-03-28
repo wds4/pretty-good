@@ -1,5 +1,7 @@
-import { nodes, edges } from '../grapevineVisualization';
+import { nodes, edges, aAllUserNodes } from '../grapevineVisualization';
+import { convertInputToCertainty, convertRatingToMod3Coeff } from 'renderer/window1/lib/grapevine';
 
+/*
 export const convertInputToCertainty = (input, rigor) => {
   const rigority = -Math.log(rigor);
   const fooB = -input * rigority;
@@ -29,24 +31,11 @@ export const convertRatingToMod3Coeff = (r, s3, s4, s5) => {
 
   return mod3Coeff;
 };
+*/
 
-export const singleIterationCompositeScoreCalculations = (myPubKey,controlPanelSettings,aContextDAG) => {
+export const singleIterationCompositeUserScoreCalculations = (myPubKey,controlPanelSettings,aContextDAG) => {
   // for now, aContextDAG = ["thisListCuration_allContexts"]; bc those are the ratings I currently have to work with.
   // Future: will accomodate any generic aContextDAG
-  const aAllNodes = nodes.getIds();
-  const aAllUserNodes = [];
-  const aAllInstanceNodes = [];
-  // Ought to define these outside of this function, just once, so no need to repeat
-  for (let n = 0; n < aAllNodes.length; n++) {
-    const pk = aAllNodes[n];
-    const oNode = nodes.get(pk);
-    if (oNode.group == "user") {
-      aAllUserNodes.push(pk);
-    }
-    if (oNode.group == "instance") {
-      aAllInstanceNodes.push(pk);
-    }
-  }
   const aAllEdges = edges.getIds();
   const {
     attenuationFactor,
@@ -95,33 +84,6 @@ export const singleIterationCompositeScoreCalculations = (myPubKey,controlPanelS
   const ratingConfidence_default = defaultUserTrustConfidence / 100;
   const rigor_defaultScore = rigor / 100;
 
-  // CYCLE THROUGH EACH INSTANCE NODE AND CALC SCORES
-  for (let n = 0; n < aAllInstanceNodes.length; n++) {
-    const eId = aAllInstanceNodes[n];
-    const oNode = nodes.get(eId);
-
-    let sumOfProducts = 0;
-    let sumOfWeights = 0;
-
-    // STEP 1: ADD DIRECT-RATING SCORE
-    // * not yet completed *
-    const { afferentEdgeIDs } = oNode;
-    for (let e = 0; e < afferentEdgeIDs.length; e++) {
-      const edgeID = afferentEdgeIDs[e];
-      const oEdge = edges.get(edgeID);
-      // console.log("afferentEdgeIDs; edgeID: "+edgeID)
-      const pk_from = oEdge.from;
-      const eId_to = oEdge.to;
-      // make sure this edge is from a user to an instance;
-      // alternatively, could check the ratingTemplateSlug
-      if ( (aAllUserNodes.includes(pk_from)) && (aAllInstanceNodes.includes(eId_to)) ) {
-        const oNode_from = nodes.get(pk_from);
-        const oNode_to = nodes.get(eId_to);
-      }
-
-    }
-  }
-
   // CYCLE THROUGH EACH USER NODE AND CALC SCORES
   for (let n = 0; n < aAllUserNodes.length; n++) {
     const pk = aAllUserNodes[n];
@@ -129,9 +91,9 @@ export const singleIterationCompositeScoreCalculations = (myPubKey,controlPanelS
 
     let sumOfProducts = 0;
     let sumOfWeights = 0;
+    let sumOfWeights_directRatings = 0;
 
     // STEP 1: ADD DIRECT-RATING SCORE
-    // * not yet completed *
     const { afferentEdgeIDs } = oNode;
 
     for (let e = 0; e < afferentEdgeIDs.length; e++) {
@@ -142,6 +104,7 @@ export const singleIterationCompositeScoreCalculations = (myPubKey,controlPanelS
       const pk_to = oEdge.to;
       // make sure this edge is from a user to a user;
       // alternatively, could check the ratingTemplateSlug
+      // better: make arrays: aAfferentEdgeIDsUserToUser and aAfferentEdgeIDsUserToInstance
       if ( (aAllUserNodes.includes(pk_from)) && (aAllUserNodes.includes(pk_to)) ) {
         const oNode_from = nodes.get(pk_from);
         const oNode_to = nodes.get(pk_to);
@@ -172,7 +135,7 @@ export const singleIterationCompositeScoreCalculations = (myPubKey,controlPanelS
           raterCurrentInfluence);
 
         const weightAdjusted = weight;
-        sumOfWeights += weightAdjusted;
+        sumOfWeights_directRatings += weightAdjusted;
         const product = (weightAdjusted * rating * mod1Coeff);
         sumOfProducts += product;
         oEdge.mod1Coeff = mod1Coeff.toPrecision(4);
@@ -191,10 +154,11 @@ export const singleIterationCompositeScoreCalculations = (myPubKey,controlPanelS
     // * not yet implemented *
 
     // STEP 3: ADD DEFAULT SCORE
-
-    var weight_default = (attenuationFactor_default * mod3Coeff_default * strat2Coeff_default * strat1Coeff_default * ratingConfidence_default * raterCurrentInfluence_default);
-    var weightAdjusted_default = weight_default - sumOfWeights;
+    let weight_default = (attenuationFactor_default * mod3Coeff_default * strat2Coeff_default * strat1Coeff_default * ratingConfidence_default * raterCurrentInfluence_default);
+    let weightAdjusted_default = weight_default - sumOfWeights_directRatings;
+    // console.log("qwerty; "+weightAdjusted_default + " = " + weight_default + " - " + sumOfWeights_directRatings)
     if (weightAdjusted_default < 0) { weightAdjusted_default = 0} // should not neet this
+    sumOfWeights += sumOfWeights_directRatings;
     sumOfWeights += weightAdjusted_default;
     var product_default = (weightAdjusted_default * rating_default);
     sumOfProducts += product_default;
@@ -211,6 +175,21 @@ export const singleIterationCompositeScoreCalculations = (myPubKey,controlPanelS
       input = 10000;
     };
 
+    if (!oNode.scores.thisListCuration_allContexts) {
+      oNode.scores.thisListCuration_allContexts = {};
+    }
+    if (!oNode.scores.thisListCuration_allContexts.defaultScore) {
+      oNode.scores.thisListCuration_allContexts.defaultScore = {};
+    }
+
+    oNode.scores.thisListCuration_allContexts.defaultScore.product = parseFloat(product_default.toPrecision(4));
+    oNode.scores.thisListCuration_allContexts.defaultScore.weight = parseFloat(weight_default.toPrecision(4));
+    oNode.scores.thisListCuration_allContexts.defaultScore.weightAdjusted = parseFloat(weightAdjusted_default.toPrecision(4));
+    // oNode.scores.thisListCuration_allContexts.defaultScore.weightAdjusted = weight_default - sumOfWeights_directRatings;
+
+    oNode.scores.thisListCuration_allContexts.sumOfProducts = sumOfProducts.toPrecision(4);
+    // oNode.scores.thisListCuration_allContexts.sumOfWeights = oNode.name;
+    oNode.scores.thisListCuration_allContexts.sumOfWeights = sumOfWeights.toPrecision(4);
     oNode.scores.thisListCuration_allContexts.influence = influence;
     oNode.scores.thisListCuration_allContexts.average = average;
     oNode.scores.thisListCuration_allContexts.certainty = certainty;
@@ -219,7 +198,7 @@ export const singleIterationCompositeScoreCalculations = (myPubKey,controlPanelS
     oNode.size = 50 * influence;
     oNode.title = oNode.name;
     oNode.title += "\n influence: "+influence;
+    oNode.title += "\n weightAdjusted_default: "+weightAdjusted_default;
     nodes.update(oNode);
-
   }
 }

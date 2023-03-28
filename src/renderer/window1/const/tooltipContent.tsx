@@ -47,7 +47,7 @@ export const tooltipContent = {
   relaysAutoUpdateButton: 'add relays automatically or manually',
   mergeRelayAutoUpdateRecs: mergeRelayAutoUpdateRecsContent,
   attenuationFactor: 'adjust how much influence attenuates with each hop away from the seed user',
-  seedUser: 'Seed user (a.k.a. anchor user): the center of the grapevine',
+  seedUser: 'seed user (a.k.a. anchor user): the root (center) of the grapevine. The seed user influence is fixed at 1 by definition.',
   contextSelector: 'choose a context',
   scoreSelector: 'which score to view in the graph',
   purposeSelector: 'To what purpose will these ratings and score calculations be put?',

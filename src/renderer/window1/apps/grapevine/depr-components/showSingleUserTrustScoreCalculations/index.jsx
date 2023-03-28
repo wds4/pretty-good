@@ -4,7 +4,7 @@ import RatingsRows from './ratingsRows';
 import TrustScoresSummary from './scoresSummary';
 import TrustScoresSummations from './scoresSummations';
 
-const ShowSingleUserTrustScoreCalculations = ({contextDAG, controlPanelSettings}) => {
+const ShowSingleEntityCompScoreCalculations = ({contextDAG, controlPanelSettings}) => {
   /*
   const pk_selected = useSelector(
     (state) => state.controlPanelSettings.selectedPubkeyForShowingTrustCalculations
@@ -34,4 +34,4 @@ const ShowSingleUserTrustScoreCalculations = ({contextDAG, controlPanelSettings}
     </>
   );
 };
-export default ShowSingleUserTrustScoreCalculations;
+export default ShowSingleEntityCompScoreCalculations;

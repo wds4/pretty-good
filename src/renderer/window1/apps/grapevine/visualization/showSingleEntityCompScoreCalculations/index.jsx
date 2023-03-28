@@ -4,7 +4,7 @@ import RatingsRows from './ratingsRows';
 import TrustScoresSummary from './scoresSummary';
 import TrustScoresSummations from './scoresSummations';
 
-const ShowSingleUserTrustScoreCalculations = ({controlPanelSettings}) => {
+const ShowSingleEntityCompScoreCalculations = ({controlPanelSettings}) => {
   /*
   const pk_selected = useSelector(
     (state) => state.controlPanelSettings.selectedPubkeyForShowingTrustCalculations
@@ -34,4 +34,4 @@ const ShowSingleUserTrustScoreCalculations = ({controlPanelSettings}) => {
     </>
   );
 };
-export default ShowSingleUserTrustScoreCalculations;
+export default ShowSingleEntityCompScoreCalculations;

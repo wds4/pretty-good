@@ -19,6 +19,10 @@ export const controlPanelSettingsSlice = createSlice({
     strat4Coeff: oGrapevineDefaults.strat4Coeff,
     strat5Coeff: oGrapevineDefaults.strat5Coeff,
     selectedPubkeyForShowingTrustCalculations: "e5272de914bd301755c439b88e6959a43c9d2664831f093c51e9c799a16a102f",
+    selectedInstanceIDForShowingCompScoreCalculations: null,
+    entityTypeForShowingCalculations: "nostrProfile", // options: nostrProfile, curatedListInstance
+    nostrProfileDisplaySize: 'influence', // influence, average, or nothing
+    curatedListInstanceYAxis: 'average', // influence, average, or nothing
   },
   reducers: {
     updateControlPanelSettings: (state, action) => {
@@ -60,6 +64,12 @@ export const controlPanelSettingsSlice = createSlice({
     updateSelectedPubkeyForShowingTrustCalculations: (state, action) => {
       state.selectedPubkeyForShowingTrustCalculations = action.payload;
     },
+    updateSelectedInstanceIDForShowingCompScoreCalculations: (state, action) => {
+      state.selectedInstanceIDForShowingCompScoreCalculations = action.payload;
+    },
+    updateEntityTypeForShowingCalculations: (state, action) => {
+      state.entityTypeForShowingCalculations = action.payload;
+    },
   },
 });
 
@@ -77,6 +87,8 @@ export const {
   updateStrat4Coeff,
   updateStrat5Coeff,
   updateSelectedPubkeyForShowingTrustCalculations,
+  updateSelectedInstanceIDForShowingCompScoreCalculations,
+  updateEntityTypeForShowingCalculations,
 } = controlPanelSettingsSlice.actions;
 
 export default controlPanelSettingsSlice.reducer;

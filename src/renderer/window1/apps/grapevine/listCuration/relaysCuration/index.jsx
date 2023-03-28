@@ -13,7 +13,7 @@ import RelaysCalcAndVis from './calculationAndVisualization';
 import GraphView from './graphView';
 import TopControlPanel from './controlPanels/topControlPanel';
 import RightPanel from './controlPanels/rightPanel';
-import ShowSingleUserTrustScoreCalculations from './showSingleUserTrustScoreCalculations';
+import ShowSingleEntityCompScoreCalculations from './showSingleEntityCompScoreCalculations';
 
 export default class RelaysCuration extends React.Component {
   constructor(props) {
@@ -82,7 +82,7 @@ export default class RelaysCuration extends React.Component {
             <GrapevineListener />
             <RelaysCalcAndVis />
           </div>
-          <ShowSingleUserTrustScoreCalculations />
+          <ShowSingleEntityCompScoreCalculations />
         </div>
       </>
     );

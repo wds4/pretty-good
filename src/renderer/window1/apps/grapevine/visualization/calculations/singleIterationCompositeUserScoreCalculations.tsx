@@ -30,7 +30,7 @@ export const convertRatingToMod3Coeff = (r, s3, s4, s5) => {
   return mod3Coeff;
 };
 
-export const singleIterationCompositeScoreCalculations = (myPubKey,controlPanelSettings,aContextDAG) => {
+export const singleIterationCompositeUserScoreCalculations = (myPubKey,controlPanelSettings,aContextDAG) => {
   // for now, aContextDAG = ["relaysCuration_allRelayTypes"]; bc those are the ratings I currently have to work with.
   // Future: will accomodate any generic aContextDAG
   const aAllNodes = nodes.getIds();
