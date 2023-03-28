@@ -9,14 +9,6 @@ const QueryReduxForListFocus = () => {
   const controlPanelSettings = useSelector(
     (state) => state.controlPanelSettings
   );
-  /*
-      <QueryDbForList
-        curatedListFocusID={curatedListFocusID}
-        controlPanelSettings={controlPanelSettings}
-      />
-
-
-  */
   return (
     <>
       <GrapevineVisualization

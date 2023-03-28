@@ -22,6 +22,7 @@ import {
   uDefaultScores_seed,
   iDefaultScores,
 } from './const';
+import Header from './header';
 
 const uScoresDefault_seed = {
   allPurposeTypes_allContexts: JSON.parse(JSON.stringify(uDefaultScores_seed)),
@@ -519,10 +520,16 @@ export default class GrapevineVisualization extends React.Component {
       oNostrProfilesData: {},
       aRatingsOfInstancesData: [],
       contextDAG: "thisListCuration_allContexts",
+      oListData: {},
     };
   }
 
   async componentDidMount() {
+    const { curatedListFocusID } = this.props;
+    const sql = ` SELECT * FROM curatedLists WHERE event_id = '${curatedListFocusID}' `;
+    const oListData = await asyncSql(sql, 'get');
+    this.setState({ oListData });
+
     const sql0 = ' SELECT * FROM myNostrProfile WHERE active = true ';
     const oMyNostrProfileData = await asyncSql(sql0, 'get');
     // console.log("oMyNostrProfileData: "+JSON.stringify(oMyNostrProfileData))
@@ -578,6 +585,9 @@ export default class GrapevineVisualization extends React.Component {
     return (
       <>
         <div style={{display:'none'}}>{JSON.stringify(this.props.aRatingsOfInstancesData,null,4)}</div>
+        <Header
+          oListData={this.state.oListData}
+        />
         <UpdateSelectedNode />
         <TopControlPanel />
         <div style={{ width: '100%', height: '500px', marginTop: '5px' }}>

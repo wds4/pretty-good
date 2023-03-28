@@ -13,7 +13,7 @@ export default class ConceptGraphSettings extends React.Component {
 
   async componentDidMount() {
     updateMainColWidth();
-    const mastheadDescriptor = 'Graph for Individual List';
+    const mastheadDescriptor = 'List Curation';
     updateMastheadCenter(mastheadDescriptor);
   }
 
@@ -27,7 +27,6 @@ export default class ConceptGraphSettings extends React.Component {
         <div id="mainCol">
           <Masthead />
           <div id="mainPanel">
-            <div className="h4">Graph for Individual Curated List</div>
             <QueryReduxForListFocus />
           </div>
         </div>

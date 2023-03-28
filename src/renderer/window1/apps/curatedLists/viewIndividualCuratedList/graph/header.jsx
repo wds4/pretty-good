@@ -1,19 +1,19 @@
-const Overview = ({curatedListFocusID, oListData}) => {
-  let name_singular = "";
-  let name_plural = "";
-  let title_singular = "";
-  let title_plural = "";
-  let slug_singular = "";
-  let slug_plural = "";
-  let description = "";
+const Header = ({ curatedListFocusID, oListData }) => {
+  let name_singular = '';
+  let name_plural = '';
+  let title_singular = '';
+  let title_plural = '';
+  let slug_singular = '';
+  let slug_plural = '';
+  let description = '';
   let oWord = {};
-  let sqlID = "";
+  let sqlID = '';
   let oEvent = {};
 
-  let pubkey = "";
-  let event_id = "";
-  let propertyPath = "";
-  let sEvent = "";
+  let pubkey = '';
+  let event_id = '';
+  let propertyPath = '';
+  let sEvent = '';
 
   if (oListData) {
     pubkey = oListData.pubkey;
@@ -51,29 +51,12 @@ const Overview = ({curatedListFocusID, oListData}) => {
 
   return (
     <>
-      <br />
-
-      <div className="overPageItemContainer">
-        <div className="overviewPageLeftCol">list name:</div>
-        <div className="overviewPageRightCol">{name_plural}</div>
-      </div>
-
-      <div className="overPageItemContainer">
-        <div className="overviewPageLeftCol">single instance:</div>
-        <div className="overviewPageRightCol">{name_singular}</div>
-      </div>
-
-      <div className="overPageItemContainer">
-        <div className="overviewPageLeftCol">description:</div>
-        <div className="overviewPageRightCol">{description}</div>
-      </div>
-
-      <div className="overPageItemContainer">
-        <div className="overviewPageLeftCol">author:</div>
-        <div className="overviewPageRightCol" style={{ fontSize: '12px' }}>{pubkey}</div>
+      <div className="h4" style={{marginBottom: '10px'}}>
+        Curation of the list of{' '}
+        <span style={{ color: 'purple', fontSize: '24px' }}>{name_plural}</span> by the Grapevine
       </div>
     </>
   );
-}
+};
 
-export default Overview;
+export default Header;
