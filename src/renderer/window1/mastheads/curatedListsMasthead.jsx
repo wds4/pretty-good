@@ -86,7 +86,12 @@ export default function Masthead() {
         </div>
       </div>
       <div className="mastheadSubBanner mastheadSubBannerConceptGraph">
-        <div>Curated Lists subheading</div>
+        CURATED LISTS:{' '}
+        <select>
+          <option>testnet-1 (kinds: 9901, 39901)</option>
+          <option disabled>testnet-2 (kinds: 9902, 39902)</option>
+          <option disabled>mainnet</option>
+        </select>
       </div>
     </>
   );

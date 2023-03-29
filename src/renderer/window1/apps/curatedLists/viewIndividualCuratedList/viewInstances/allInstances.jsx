@@ -1,4 +1,4 @@
-import { useNostrEvents, dateToUnix } from 'nostr-react';
+import { useNostrEvents } from 'nostr-react';
 import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
 import { addInstanceEventToSql } from 'renderer/window1/lib/pg/sql';
 import { doesEventInstanceValidateAgainstEventParent } from 'renderer/window1/lib/conceptGraph';

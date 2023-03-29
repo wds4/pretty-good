@@ -1,0 +1,108 @@
+td.details-control {
+    background: url('renderer/window1/assets/plus.png') no-repeat center center;
+    background-size: 25px;
+    cursor: pointer;
+}
+tr.shown td.details-control {
+    background: url('renderer/window1/assets/minus.png') no-repeat center center;
+    background-size: 25px;
+}
+.toggle-vis-dictionary {
+    color:blue;
+}
+.expansionPanel_left {
+    display:inline-block;
+    width:200px;
+}
+.expansionPanel_right {
+    display:inline-block;
+    width:600px;
+}
+.expansionPanel_right_fixed {
+    background-color:#EFEFEF;
+}
+.expansionPanel_right_editable {
+    background-color:white;
+}
+.tableSelectButton_hiddenPanels {
+  	display:inline-block;
+  	border:solid;
+  	border-color:black;
+  	border-width:1px;
+  	border-top-left-radius:4px;
+  	border-top-right-radius:4px;
+  	margin-right:3px;
+  	margin-bottom:2px;
+  	padding:2px;
+  	position:relative;
+  	top:3px;
+  	background-color:#EEEEEE;
+  	height:18px;
+  	font-size:12px;
+}
+.hidenPanel_contentBox {
+  	background-color:#EEEEEE;
+  	overflow:scroll;
+  	border-top:1px solid black;
+}
+.pull-left{float:left!important;}
+.pull-right{float:right!important;}
+.updateEntryButton {
+    border:1px solid black;
+    border-radius:2px;
+    padding:5px;
+    display:inline-block;
+    margin:10px;
+    background-color:#EFEFEF;
+}
+.updateEntryButtonGreen {
+    border:1px solid black;
+    border-radius:2px;
+    padding:5px;
+    display:inline-block;
+    margin:10px;
+    background-color:#AAFFAA;
+}
+.updateEntryButtonYellow {
+    border:1px solid black;
+    border-radius:2px;
+    padding:5px;
+    display:inline-block;
+    margin:10px;
+    background-color:yellow;
+}
+.updateEntryButtonBlue {
+    border:1px solid black;
+    border-radius:2px;
+    padding:5px;
+    display:inline-block;
+    margin:10px;
+    background-color:#AAAAFF;
+}
+.updateEntryButtonRed {
+    border:1px solid black;
+    border-radius:2px;
+    padding:5px;
+    display:inline-block;
+    margin:10px;
+    background-color:#FFAAAA;
+}
+.tableContainer {
+  	padding:10px;
+  	background-color:#EFEFEF;
+  	color:black;
+  	border-radius:10px;
+    width:90%;
+    border:1px solid black;
+}
+.smallDictionaryDoSomethingButton {
+    border:1px solid black;
+    border-radius:2px;
+    padding:0px 3px 0px 3px;
+    display:inline-block;
+    margin-left:20px;
+    font-size:10px;
+}
+.smallDictionaryDoSomethingButton:hover {
+    background-color:yellow;
+}

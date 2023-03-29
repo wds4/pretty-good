@@ -70,6 +70,12 @@ export const controlPanelSettingsSlice = createSlice({
     updateEntityTypeForShowingCalculations: (state, action) => {
       state.entityTypeForShowingCalculations = action.payload;
     },
+    updateNostrProfileDisplaySize: (state, action) => {
+      state.nostrProfileDisplaySize = action.payload;
+    },
+    updateCuratedListInstanceYAxis: (state, action) => {
+      state.curatedListInstanceYAxis = action.payload;
+    },
   },
 });
 
@@ -89,6 +95,8 @@ export const {
   updateSelectedPubkeyForShowingTrustCalculations,
   updateSelectedInstanceIDForShowingCompScoreCalculations,
   updateEntityTypeForShowingCalculations,
+  updateNostrProfileDisplaySize,
+  updateCuratedListInstanceYAxis,
 } = controlPanelSettingsSlice.actions;
 
 export default controlPanelSettingsSlice.reducer;

@@ -2,20 +2,30 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import NostrProfileScores from './nostrProfileScores';
 import CuratedListInstanceScores from './instanceScores';
 
-const CalculationResults = () => {
+const CalculationResults = ({
+  curatedListFocusID,
+  oListData,
+  aCuratedListInstances,
+  aInstanceCompScoreData,
+}) => {
   return (
     <>
       <div style={{ textAlign: 'center' }}>
         <Tabs>
           <TabList>
-            <Tab>profiles</Tab>
             <Tab>instances</Tab>
+            <Tab>profiles</Tab>
           </TabList>
           <TabPanel>
-            <NostrProfileScores />
+            <CuratedListInstanceScores
+              curatedListFocusID={curatedListFocusID}
+              oListData={oListData}
+              aCuratedListInstances={aCuratedListInstances}
+              aInstanceCompScoreData={aInstanceCompScoreData}
+            />
           </TabPanel>
           <TabPanel>
-            <CuratedListInstanceScores />
+            <NostrProfileScores />
           </TabPanel>
         </Tabs>
       </div>

@@ -1,22 +1,26 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateDefaultUserTrustAverageScore, updateDefaultUserTrustConfidence } from 'renderer/window1/redux/features/grapevine/controlPanelSettings/slice';
+import {
+  updateDefaultUserTrustAverageScore,
+  updateDefaultUserTrustConfidence,
+} from 'renderer/window1/redux/features/grapevine/controlPanelSettings/slice';
 
 const UsersTab = () => {
   const dispatch = useDispatch();
-  const { defaultUserTrustAverageScore, defaultUserTrustConfidence } = useSelector(
-    (state) => state.controlPanelSettings
-  );
+  const { defaultUserTrustAverageScore, defaultUserTrustConfidence } =
+    useSelector((state) => state.controlPanelSettings);
   const [defAvg, setDefAvg] = useState(defaultUserTrustAverageScore);
   const [defCon, setDefCon] = useState(defaultUserTrustConfidence);
 
   const updateDefaultUserAverageSliderValue = () => {
     const e1 = document.getElementById('usersDefaultAverageScoreSliderElem');
-    const e2 = document.getElementById('usersDefaultAverageScoreValueContainer');
+    const e2 = document.getElementById(
+      'usersDefaultAverageScoreValueContainer'
+    );
     if (e1 && e2) {
       e2.innerHTML = e1.value / 100;
       setDefAvg(e1.value);
-      dispatch(updateDefaultUserTrustAverageScore(e1.value))
+      dispatch(updateDefaultUserTrustAverageScore(e1.value));
     }
   };
 
@@ -26,11 +30,19 @@ const UsersTab = () => {
     if (e3 && e4) {
       e4.innerHTML = e3.value / 100;
       setDefCon(e3.value);
-      dispatch(updateDefaultUserTrustConfidence(e3.value))
+      dispatch(updateDefaultUserTrustConfidence(e3.value));
     }
   };
   return (
     <>
+      <div style={{ textAlign: 'left', margin: '0px 10px 10px 10px' }}>
+        An 'unvetted' user is one who has received no ratings by anyone in your
+        Grapevine (or at least no one with any influence). For unvetted users, a
+        default score is used. Adjust this default score (left) and the amount
+        of weight you want to give to this score (right). Once a user has
+        received sufficient attention by your Grapevine, the default score will
+        be ignored completely.
+      </div>
       <div style={{ textAlign: 'left' }}>
         <div style={{ textAlign: 'center' }}>
           <div
@@ -98,7 +110,9 @@ const UsersTab = () => {
                   width: '30px',
                   marginLeft: '10px',
                 }}
-              >{defCon / 100}</div>
+              >
+                {defCon / 100}
+              </div>
               <div
                 id="usersDefaultConfidenceSlider"
                 style={{

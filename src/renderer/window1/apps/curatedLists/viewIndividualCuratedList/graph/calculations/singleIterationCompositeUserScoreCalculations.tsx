@@ -1,4 +1,5 @@
-import { nodes, edges, aAllUserNodes } from '../grapevineVisualization';
+import { useSelector, useDispatch } from 'react-redux';
+import { nodes, edges, aAllUserNodes, } from '../grapevineVisualization';
 import { convertInputToCertainty, convertRatingToMod3Coeff } from 'renderer/window1/lib/grapevine';
 
 /*
@@ -33,6 +34,8 @@ export const convertRatingToMod3Coeff = (r, s3, s4, s5) => {
 };
 */
 
+export const foo = () => {}
+
 export const singleIterationCompositeUserScoreCalculations = (myPubKey,controlPanelSettings,aContextDAG) => {
   // for now, aContextDAG = ["thisListCuration_allContexts"]; bc those are the ratings I currently have to work with.
   // Future: will accomodate any generic aContextDAG
@@ -47,6 +50,8 @@ export const singleIterationCompositeUserScoreCalculations = (myPubKey,controlPa
     strat3Coeff,
     strat4Coeff,
     strat5Coeff,
+    nostrProfileDisplaySize,
+    curatedListInstanceYAxis,
   } = controlPanelSettings;
 
   // CYCLE THROUGH EACH NODE; THEN:
@@ -57,7 +62,7 @@ export const singleIterationCompositeUserScoreCalculations = (myPubKey,controlPa
   // directRating constants
   const strat1Coeff_directRating = strat1Coeff / 100;
   const strat1Coeff_directRating_inverse = strat1Coeff / 100;
-  const attenuationFactor_directRating = attenuationFactor / 100;
+  let attenuationFactor_directRating = attenuationFactor / 100;
   const rigor_directRating = rigor / 100;
 
   const strat2Coeff_directRating_regular = 1 // strat1Coeff only applies to inverseRatings, so is set to unity for (regular) ratings
@@ -108,6 +113,13 @@ export const singleIterationCompositeUserScoreCalculations = (myPubKey,controlPa
       if ( (aAllUserNodes.includes(pk_from)) && (aAllUserNodes.includes(pk_to)) ) {
         const oNode_from = nodes.get(pk_from);
         const oNode_to = nodes.get(pk_to);
+
+        if (oNode_from.seed == true) {
+          attenuationFactor_directRating = 1;
+        }
+        else {
+          attenuationFactor_directRating = attenuationFactor / 100;
+        }
 
         // compositeScore: thisListCuration_allContexts
         const compScoreType = 'thisListCuration_allContexts';
@@ -195,10 +207,21 @@ export const singleIterationCompositeUserScoreCalculations = (myPubKey,controlPa
     oNode.scores.thisListCuration_allContexts.certainty = certainty;
     oNode.scores.thisListCuration_allContexts.input = input;
 
-    oNode.size = 50 * influence;
+    oNode.size = 50;
+    if (nostrProfileDisplaySize === "influence") {
+      oNode.size = 50 * influence;
+      // console.log("nostrProfileDisplaySize === influence");
+    }
+    if (nostrProfileDisplaySize === "average") {
+      oNode.size = 50 * average;
+      // console.log("nostrProfileDisplaySize === average");
+    }
+
     oNode.title = oNode.name;
+    oNode.title += "\n average: "+average;
     oNode.title += "\n influence: "+influence;
-    oNode.title += "\n weightAdjusted_default: "+weightAdjusted_default;
+    oNode.title += "\n input: "+input;
+    oNode.title += "\n certainty: " + (certainty * 100) +" %";
     nodes.update(oNode);
   }
 }

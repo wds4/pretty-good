@@ -32,6 +32,9 @@ const uScoresDefault_seed = {
 
 const { options } = VisStyleConstants;
 
+export const yAxisConst = 400;
+export const yAxisDisplacement = 200;
+
 export let nodes = new DataSet([]);
 export let edges = new DataSet([]);
 let network = {};
@@ -47,13 +50,18 @@ export const VisNetwork_Grapevine = () => {
   // might want to move this to makeVisGraph_Grapevine
   const aAllNodes = nodes.getIds();
   for (let n = 0; n < aAllNodes.length; n++) {
-    const pk = aAllNodes[n];
-    const oNode = nodes.get(pk);
+    const nodeID = aAllNodes[n];
+    const oNode = nodes.get(nodeID);
     if (oNode.group == "user") {
-      aAllUserNodes.push(pk);
+      if (!aAllUserNodes.includes(nodeID)) {
+        aAllUserNodes.push(nodeID);
+      }
+
     }
     if (oNode.group == "instance") {
-      aAllInstanceNodes.push(pk);
+      if (!aAllInstanceNodes.includes(nodeID)) {
+        aAllInstanceNodes.push(nodeID);
+      }
     }
   }
   //end moved from singleIterationCompositeUserScoreCalculations
@@ -95,6 +103,22 @@ export const VisNetwork_Grapevine = () => {
       }
     });
     network.current.on('deselectNode', function (params) {});
+    network.current.on('doubleClick', function (params) {
+      // console.log("doubleClick ")
+      const nodes_arr = params.nodes;
+      const numNodes = nodes_arr.length;
+      if (numNodes == 1) {
+        const nodeID = nodes_arr[0];
+        let oNode = nodes.get(nodeID);
+        if (oNode.physics) {
+          oNode.physics = false;
+        } else {
+          oNode.physics = true;
+        }
+        // console.log("doubleClick; oNode: "+JSON.stringify(oNode,null,4))
+        nodes.update(oNode);
+      }
+    });
   }, [domNode, network, data, options]);
 
   return <div style={{ height: '100%', width: '100%' }} ref={domNode} />;
@@ -521,11 +545,18 @@ export default class GrapevineVisualization extends React.Component {
       aRatingsOfInstancesData: [],
       contextDAG: "thisListCuration_allContexts",
       oListData: {},
+      aCuratedListInstances: [],
+      aInstanceCompScoreData: [],
     };
   }
 
   async componentDidMount() {
     const { curatedListFocusID } = this.props;
+
+    const sql4 = ` SELECT * FROM curatedListInstances WHERE parentConceptNostrEventID = '${this.props.curatedListFocusID}' `;
+    const aCuratedListInstancesData = await asyncSql(sql4);
+    this.setState({ aCuratedListInstances: aCuratedListInstancesData });
+
     const sql = ` SELECT * FROM curatedLists WHERE event_id = '${curatedListFocusID}' `;
     const oListData = await asyncSql(sql, 'get');
     this.setState({ oListData });
@@ -552,6 +583,8 @@ export default class GrapevineVisualization extends React.Component {
     const sql3 = ` SELECT * FROM endorsementsOfCurators WHERE parentConceptNostrEventID = '${this.props.curatedListFocusID}' `;
     const aEndorsementsOfCuratorsData = await asyncSql(sql3);
 
+    console.log("this.state: "+JSON.stringify(this.state,null,4))
+    console.log("aCuratedListInstancesData: "+JSON.stringify(aCuratedListInstancesData,null,4))
     await makeVisGraph_Grapevine(
       oMyNostrProfileData,
       oNostrProfilesData,
@@ -572,19 +605,20 @@ export default class GrapevineVisualization extends React.Component {
         this.props.controlPanelSettings,
         aContextDAG
       );
-      singleIterationInstanceScoreCalculations(
+      let aInstanceCompScoreData = singleIterationInstanceScoreCalculations(
         myPubKey,
         this.props.controlPanelSettings,
         aContextDAG
       );
+      this.setState( {aInstanceCompScoreData} )
     }, 200);
-
   }
 
   render() {
     return (
       <>
-        <div style={{display:'none'}}>{JSON.stringify(this.props.aRatingsOfInstancesData,null,4)}</div>
+        <div style={{display: 'none', fontSize: '10px', border: '1px solid red', padding: '5px' }}>{JSON.stringify(this.state.aInstanceCompScoreData,null,4)}</div>
+
         <Header
           oListData={this.state.oListData}
         />
@@ -598,7 +632,12 @@ export default class GrapevineVisualization extends React.Component {
           <div
             style={{ display: 'inline-block', width: '48%', height: '100%' }}
           >
-            <RightPanel />
+            <RightPanel
+              curatedListFocusID={this.props.curatedListFocusID}
+              oListData={this.state.oListData}
+              aCuratedListInstances={this.state.aCuratedListInstances}
+              aInstanceCompScoreData={this.state.aInstanceCompScoreData}
+            />
           </div>
         </div>
         <ShowSingleEntityCompScoreCalculations

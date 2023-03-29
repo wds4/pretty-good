@@ -2,7 +2,12 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import CalculationResults from './scores';
 import ControlPanel from './controlPanel';
 
-const RightPanel = () => {
+const RightPanel = ({
+  curatedListFocusID,
+  oListData,
+  aCuratedListInstances,
+  aInstanceCompScoreData,
+}) => {
   return (
     <>
       <div style={{ textAlign: 'center' }}>
@@ -13,7 +18,12 @@ const RightPanel = () => {
           </TabList>
           <div style={{ fontSize: '12px' }}>
             <TabPanel>
-              <CalculationResults />
+              <CalculationResults
+                curatedListFocusID={curatedListFocusID}
+                oListData={oListData}
+                aCuratedListInstances={aCuratedListInstances}
+                aInstanceCompScoreData={aInstanceCompScoreData}
+              />
             </TabPanel>
             <TabPanel>
               <ControlPanel />

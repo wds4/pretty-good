@@ -13,8 +13,11 @@ import store from './redux/store/store';
 import { updateMainColWidth } from './lib/pg/ui';
 import AppNostr from './AppNostr';
 
-import 'react-tooltip/dist/react-tooltip.css';
+import './css/customDataTables.css';
+import './css/dataTables/dataTables.css';
+// import './css/dataTables/bulma.css';
 
+import 'react-tooltip/dist/react-tooltip.css';
 import './css/app.css';
 import './css/navbars.css';
 import './css/mastheads.css';
@@ -41,6 +44,8 @@ import './css/nostr/settings.css';
 import './css/nostr/userList.css';
 import './css/nostr/youTubeEmbed.css';
 import 'react-tabs/style/react-tabs.css';
+
+
 
 // an inelegant way to initialize the redux store
 const InitReduxStore = ({

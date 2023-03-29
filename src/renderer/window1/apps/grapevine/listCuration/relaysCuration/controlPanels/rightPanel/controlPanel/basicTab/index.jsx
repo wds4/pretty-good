@@ -23,9 +23,9 @@ const BasicTab = () => {
     <>
       <div style={{ backgroundColor: '#CFCFCF', marginTop: '10px' }}>
         <div style={{ textAlign: 'left', marginTop: '10px', fontSize: '12px' }}>
-          Currently if either the Rigor of the Default Confidence is changed,
+          Currently if either the Rigor or the Default Confidence is changed,
           then the other variable is also changed in a manner so that for an
-          unvetted user, eht Confidence (set by the user) and the Certainty
+          unvetted user, the Confidence (set by the user) and the Certainty
           (calculated using the Rigor Equation) are equal. If Confidence goes
           up, Rigor goes down, and vice versa.
         </div>

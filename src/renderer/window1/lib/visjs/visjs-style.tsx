@@ -17,7 +17,7 @@ export const groups = {
 }
 
 export const options = {
-  clickToUse: true,
+  clickToUse: false,
   interaction: { hover: true },
   physics: {
     enabled: true,

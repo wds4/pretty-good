@@ -1,9 +1,8 @@
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import UsersTab from './usersTab';
 import InstancesTab from './instancesTab';
-import DefenseTab from './defenseTab';
-import BasicTab from './basicTab';
 import DisplayTab from './displayTab';
+import GrapevineTweaksTab from './grapevineTweaksTab';
 
 const ControlPanel = () => {
   return (
@@ -13,8 +12,7 @@ const ControlPanel = () => {
           <Tab>Users</Tab>
           <Tab>Instances</Tab>
           <Tab>Display</Tab>
-          <Tab>Basic</Tab>
-          <Tab>Defense</Tab>
+          <Tab>Tweak Calculations</Tab>
         </TabList>
 
         <TabPanel>
@@ -27,10 +25,7 @@ const ControlPanel = () => {
           <DisplayTab />
         </TabPanel>
         <TabPanel>
-          <BasicTab />
-        </TabPanel>
-        <TabPanel>
-          <DefenseTab />
+          <GrapevineTweaksTab />
         </TabPanel>
       </Tabs>
     </>

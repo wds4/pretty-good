@@ -1,8 +1,11 @@
+import { useSelector, useDispatch } from 'react-redux';
 import {
   nodes,
   edges,
   aAllUserNodes,
   aAllInstanceNodes,
+  yAxisConst,
+  yAxisDisplacement,
 } from '../grapevineVisualization';
 import { convertInputToCertainty, convertRatingToMod3Coeff } from 'renderer/window1/lib/grapevine';
 
@@ -13,6 +16,7 @@ export const singleIterationInstanceScoreCalculations = (
   controlPanelSettings,
   aContextDAG
 ) => {
+
   // for now, aContextDAG = ["thisListCuration_allContexts"]; bc those are the ratings I currently have to work with.
   // Future: will accomodate any generic aContextDAG
   const aAllEdges = edges.getIds();
@@ -27,6 +31,8 @@ export const singleIterationInstanceScoreCalculations = (
     strat3Coeff,
     strat4Coeff,
     strat5Coeff,
+    nostrProfileDisplaySize,
+    curatedListInstanceYAxis,
   } = controlPanelSettings;
 
   const attenuationFactor = 100; // aF always 1 for non-transitive rating / comp score systems
@@ -69,6 +75,7 @@ export const singleIterationInstanceScoreCalculations = (
   const rigor_defaultScore = rigor / 100;
 
   // CYCLE THROUGH EACH INSTANCE NODE AND CALC SCORES
+  let aInstanceCompScoreData = [];
   for (let n = 0; n < aAllInstanceNodes.length; n++) {
     const eId = aAllInstanceNodes[n];
     const oNode = nodes.get(eId);
@@ -158,7 +165,6 @@ export const singleIterationInstanceScoreCalculations = (
     let certainty = (convertInputToCertainty(input,rigor_defaultScore)).toPrecision(4);
     let influence = (average * certainty).toPrecision(4);
 
-
     if (!oNode.scores.thisListCuration_allContexts) {
       oNode.scores.thisListCuration_allContexts = {};
     }
@@ -180,27 +186,35 @@ export const singleIterationInstanceScoreCalculations = (
     oNode.scores.thisListCuration_allContexts.input = input;
 
     oNode.x = 200;
-    let yNew = null;
-    if (1) {
-      // yNew = - (influence * 100).toPrecision(4);
+    let yNew = 0;
+    if (curatedListInstanceYAxis === "influence") {
+      yNew = influence;
       // oNode.y = yNew;
     }
-    if (1) {
-      yNew = - (average * 100).toPrecision(4);
-      oNode.y = yNew;
+    if (curatedListInstanceYAxis === "average") {
+      yNew = average;
+      // oNode.y = yNew;
     }
+    oNode.y = yAxisDisplacement - yNew * yAxisConst;
+    oNode.opacity = certainty;
+    oNode.color = '#000000';
     // oNode.size = 50 * influence;
     oNode.title = oNode.name;
     oNode.title += "\n average: "+average;
     oNode.title += "\n influence: "+influence;
     nodes.update(oNode);
 
+    const yVal0 = 0;
+    const yConverted0 = yAxisDisplacement - yVal0 * yAxisConst;
+    const yVal1 = 1;
+    const yConverted1 = yAxisDisplacement - yVal1 * yAxisConst;
+
     const oNode0 = {
       id: 0,
       group: 'legend',
       physics: false,
       x: 250,
-      y: 0,
+      y: yConverted0,
       label: '0',
       shape: 'circle',
       size: 15,
@@ -211,11 +225,22 @@ export const singleIterationInstanceScoreCalculations = (
       group: 'legend',
       physics: false,
       x: 250,
-      y: -100,
+      y: yConverted1,
       label: '1',
       shape: 'circle',
       size: 15,
     }
     nodes.update(oNode1);
+    const oNextTableRow = {
+      id: oNode.id,
+      name: oNode.name,
+      description: 'foo',
+      average: average,
+      input: input,
+      influence: influence,
+      nodeID: oNode.id,
+    }
+    aInstanceCompScoreData.push(oNextTableRow)
   }
+  return aInstanceCompScoreData;
 };
