@@ -67,6 +67,7 @@ import ConceptGraphProfile from './apps/conceptGraph/profile';
 import ConceptGraphSettings from './apps/conceptGraph/settings';
 
 import CuratedListsHome from './apps/curatedLists';
+import AboutCuratedLists from './apps/curatedLists/about';
 import ViewListOfCuratedLists from './apps/curatedLists/viewListOfCuratedLists';
 import ViewAllLists from './apps/curatedLists/viewListOfCuratedLists/allLists';
 import ViewMyLists from './apps/curatedLists/viewListOfCuratedLists/myLists';
@@ -76,6 +77,8 @@ import ViewIndividualCuratedListTechOverview from './apps/curatedLists/viewIndiv
 import SingleListGraphOfInstances from './apps/curatedLists/viewIndividualCuratedList/graph';
 import CuratedListAllInstances from './apps/curatedLists/viewIndividualCuratedList/viewInstances';
 import CuratedListAllRatings from './apps/curatedLists/viewIndividualCuratedList/tableOfRatings';
+import CuratorsOfIndividualList from './apps/curatedLists/viewIndividualCuratedList/curators';
+import InstancesOfIndividualList from './apps/curatedLists/viewIndividualCuratedList/instances';
 import CuratedListEndorsementsOfCurators from './apps/curatedLists/viewIndividualCuratedList/curatorEndorsements';
 import SelectListCurators from './apps/curatedLists/viewIndividualCuratedList/selectCurators';
 import CreateNewCuratedListInstance from './apps/curatedLists/createNewCuratedListInstance';
@@ -92,7 +95,7 @@ const AppRoutes = () => {
     console.log(
       `onDisconnectCallback, AppRoutes component; relay.url: ${relay.url}`
     );
-    dispatch(incrementRelayDisconnectCount(relay.url))
+    dispatch(incrementRelayDisconnectCount(relay.url));
     setTimeout(() => {
       relay
         .connect()
@@ -111,7 +114,6 @@ const AppRoutes = () => {
   */
   return (
     <>
-
       <fieldset id="app">
         <Router>
           <Routes>
@@ -278,6 +280,10 @@ const AppRoutes = () => {
 
             <Route path="/CuratedListsHome" element={<CuratedListsHome />} />
             <Route
+              path="/CuratedListsHome/AboutCuratedLists"
+              element={<AboutCuratedLists />}
+            />
+            <Route
               path="/CuratedListsHome/ViewListOfCuratedLists"
               element={<ViewListOfCuratedLists />}
             />
@@ -285,7 +291,7 @@ const AppRoutes = () => {
               path="/CuratedListsHome/ViewAllLists"
               element={<ViewAllLists />}
             />
-             <Route
+            <Route
               path="/CuratedListsHome/ViewMyLists"
               element={<ViewMyLists />}
             />
@@ -312,6 +318,15 @@ const AppRoutes = () => {
             <Route
               path="/CuratedListsHome/CuratedListAllRatings"
               element={<CuratedListAllRatings />}
+            />
+
+            <Route
+              path="/CuratedListsHome/CuratorsOfIndividualList"
+              element={<CuratorsOfIndividualList />}
+            />
+            <Route
+              path="/CuratedListsHome/InstancesOfIndividualList"
+              element={<InstancesOfIndividualList />}
             />
             <Route
               path="/CuratedListsHome/CuratedListEndorsementsOfCurators"

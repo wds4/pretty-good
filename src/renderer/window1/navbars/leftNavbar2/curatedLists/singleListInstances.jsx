@@ -24,36 +24,35 @@ export default class LeftNavbar2 extends React.PureComponent {
             home
           </NavLink>
 
-          <NavLink
-            className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
-            end to="/CuratedListsHome/CuratorsOfIndividualList"
-          >
-            curators
-          </NavLink>
-          <NavLink
+          <div style={{fontSize: "12px",marginTop: '3px',marginBottom: '3px'}}>Instances</div>
 
+          <NavLink
             className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
             end to="/CuratedListsHome/InstancesOfIndividualList"
           >
-            instances
+            home
           </NavLink>
 
           <NavLink
             className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
-            end to="/CuratedListsHome/SingleListGraphOfInstances"
+            end to="/CuratedListsHome/CuratedListAllInstances"
           >
-            graph
+            view all instances
           </NavLink>
-
-          <hr />
 
           <NavLink
             className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
-            end to="/CuratedListsHome/ViewIndividualCuratedListTechOverview"
+            end to="/CuratedListsHome/CuratedListAllRatings"
           >
-            technical overview
+            ratings of instances
           </NavLink>
 
+          <NavLink
+            className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
+            end to="/CuratedListsHome/CreateNewCuratedListInstance"
+          >
+            create a new instance
+          </NavLink>
 
         </div>
       </>

@@ -13,7 +13,7 @@ const RightPanel = ({
       <div style={{ textAlign: 'center' }}>
         <Tabs>
           <TabList>
-            <Tab>Scores</Tab>
+            <Tab>Results</Tab>
             <Tab>Control Panel</Tab>
           </TabList>
           <div style={{ fontSize: '12px' }}>

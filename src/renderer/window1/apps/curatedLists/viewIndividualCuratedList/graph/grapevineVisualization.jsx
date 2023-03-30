@@ -42,8 +42,8 @@ let data = {
   nodes,
   edges,
 };
-export const aAllUserNodes = [];
-export const aAllInstanceNodes = [];
+export let aAllUserNodes = [];
+export let aAllInstanceNodes = [];
 
 export const VisNetwork_Grapevine = () => {
   // moved from singleIterationCompositeUserScoreCalculations
@@ -193,6 +193,7 @@ const makeVisGraph_Grapevine = async (
     myImageUrl = noProfilePicUrl
   }
 
+  /*
   const oNodeN = {
     id: -1,
     group: 'legend',
@@ -228,6 +229,7 @@ const makeVisGraph_Grapevine = async (
     size: 15,
   }
   nodes_arr.push(oNode1)
+  */
 
   const oNode = {
     id: myPubKey,
@@ -243,7 +245,8 @@ const makeVisGraph_Grapevine = async (
     seed: true,
     scores: JSON.parse(JSON.stringify(uScoresDefault)),
     size: 50,
-    physics: false,
+    physics: true,
+    fixed: true,
     x: -200,
     y: 0,
   }
@@ -412,7 +415,7 @@ const makeVisGraph_Grapevine = async (
           // group: 'ratingOfInstance', // no group styling for edges (I think ???)
           from: pk_rater,
           to: instance_event_id,
-          color: 'red',
+          color: 'green',
           title: title,
           width: width,
           rating: regularSliderRating / 100,
@@ -551,6 +554,9 @@ export default class GrapevineVisualization extends React.Component {
   }
 
   async componentDidMount() {
+    aAllUserNodes = [];
+    aAllInstanceNodes = [];
+
     const { curatedListFocusID } = this.props;
 
     const sql4 = ` SELECT * FROM curatedListInstances WHERE parentConceptNostrEventID = '${this.props.curatedListFocusID}' `;
@@ -611,7 +617,7 @@ export default class GrapevineVisualization extends React.Component {
         aContextDAG
       );
       this.setState( {aInstanceCompScoreData} )
-    }, 200);
+    }, 300);
   }
 
   render() {

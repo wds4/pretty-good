@@ -14,6 +14,7 @@ import EndorseAsRelaysPickerButton from 'renderer/window1/apps/nostr/profile/rel
 import EndorseAsRelaysPickerHunterButton from 'renderer/window1/apps/nostr/profile/relaysGrapevine/endorseAsRelaysPickerHunterButton';
 import FollowCounts from 'renderer/window1/apps/nostr/components/followCounts';
 import UserGrapevinePanel from 'renderer/window1/apps/nostr/profile/userGrapevinePanel';
+import CuratedListBox from './curatedListBox';
 
 const MainProfile = ({pubkey}) => {
   const nostrProfiles = useSelector(
@@ -151,16 +152,18 @@ const MainProfile = ({pubkey}) => {
             <div style={{ display: 'inline-block', marginLeft: '10px' }}>
               <FollowButton pubkey={pubkey} />
             </div>
-            <br/>
-
-
+            <br />
             <div id='lud06Container' style={{display:'none',marginLeft:'10px',fontSize:'12px',padding:'2px',border:'1px solid grey',width:'70%'}}>
               {lnurl}
             </div>
           </div>
+
           <div>
             <div className={grapevineProfileControlPanelClassName}>
-              <RelaysCurationBox pubkey={pubkey} />
+              <div style={{marginLeft: '5px'}}>
+                <CuratedListBox />
+              </div>
+              <div style={{display:'none'}}><RelaysCurationBox pubkey={pubkey} /></div>
               <div style={{display:'none'}}><UserGrapevinePanel /></div>
             </div>
           </div>

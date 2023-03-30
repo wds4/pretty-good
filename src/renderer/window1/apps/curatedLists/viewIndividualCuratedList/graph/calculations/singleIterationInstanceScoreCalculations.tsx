@@ -111,7 +111,7 @@ export const singleIterationInstanceScoreCalculations = (
         const raterCurrentInfluence = oScores_from.influence;
         const raterCurrentAverage = oScores_from.average;
         // const rating = 1; // assume this for now
-        const rating = oEdge.rating; // assume this for now
+        const rating = oEdge.rating;
         const ratingConfidence = 0.8; // assume this for now
 
         const mod1Coeff =
@@ -204,33 +204,100 @@ export const singleIterationInstanceScoreCalculations = (
     oNode.title += "\n influence: "+influence;
     nodes.update(oNode);
 
+
+    ///////////////////////////////////////////////////////////////////////
+    //////////////////// START CREATE Y-AXIS //////////////////////////////
+    // Labels for the y-axis. For some reason if I set these once during setup, the axis is misaligned.
+    // Future: see if I can make this its own function and call this only once, or less frequently, rather than
+    // with every calculation iteration
+    const xPosition = 300;
+
     const yVal0 = 0;
     const yConverted0 = yAxisDisplacement - yVal0 * yAxisConst;
-    const yVal1 = 1;
-    const yConverted1 = yAxisDisplacement - yVal1 * yAxisConst;
-
     const oNode0 = {
       id: 0,
       group: 'legend',
       physics: false,
-      x: 250,
+      x: xPosition,
       y: yConverted0,
       label: '0',
       shape: 'circle',
       size: 15,
     }
     nodes.update(oNode0);
-    const oNode1 = {
-      id: 1,
+
+    const yVal02 = 0.2;
+    const yConverted02 = yAxisDisplacement - yVal02 * yAxisConst;
+    const oNode02 = {
+      id: 2,
       group: 'legend',
       physics: false,
-      x: 250,
+      x: xPosition,
+      y: yConverted02,
+      label: '0.2',
+      shape: 'circle',
+      size: 5,
+    }
+    nodes.update(oNode02);
+
+    const yVal04 = 0.4;
+    const yConverted04 = yAxisDisplacement - yVal04 * yAxisConst;
+    const oNode04 = {
+      id: 4,
+      group: 'legend',
+      physics: false,
+      x: xPosition,
+      y: yConverted04,
+      label: '0.4',
+      shape: 'circle',
+      size: 5,
+    }
+    nodes.update(oNode04);
+
+    const yVal06 = 0.6;
+    const yConverted06 = yAxisDisplacement - yVal06 * yAxisConst;
+    const oNode06 = {
+      id: 6,
+      group: 'legend',
+      physics: false,
+      x: xPosition,
+      y: yConverted06,
+      label: '0.6',
+      shape: 'circle',
+      size: 5,
+    }
+    nodes.update(oNode06);
+
+    const yVal08 = 0.8;
+    const yConverted08 = yAxisDisplacement - yVal08 * yAxisConst;
+    const oNode08 = {
+      id: 8,
+      group: 'legend',
+      physics: false,
+      x: xPosition,
+      y: yConverted08,
+      label: '0.8',
+      shape: 'circle',
+      size: 5,
+    }
+    nodes.update(oNode08);
+
+    const yVal1 = 1;
+    const yConverted1 = yAxisDisplacement - yVal1 * yAxisConst;
+    const oNode1 = {
+      id: 10,
+      group: 'legend',
+      physics: false,
+      x: xPosition,
       y: yConverted1,
       label: '1',
       shape: 'circle',
       size: 15,
     }
     nodes.update(oNode1);
+    ////////////////////  END CREATE Y-AXIS ///////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+
     const oNextTableRow = {
       id: oNode.id,
       name: oNode.name,

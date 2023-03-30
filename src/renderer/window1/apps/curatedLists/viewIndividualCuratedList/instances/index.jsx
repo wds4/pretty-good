@@ -1,11 +1,10 @@
 import React from 'react';
 import Masthead from 'renderer/window1/mastheads/curatedListsMasthead';
 import LeftNavbar1 from 'renderer/window1/navbars/leftNavbar1/curatedListsNavbar';
-import LeftNavbar2 from 'renderer/window1/navbars/leftNavbar2/curatedLists/singleListCurators';
+import LeftNavbar2 from 'renderer/window1/navbars/leftNavbar2/curatedLists/singleListInstances';
 import { updateMainColWidth, updateMastheadCenter } from 'renderer/window1/lib/pg/ui';
-import QueryReduxForListFocus from './queryReduxForListFocus';
 
-export default class ConceptGraphSettings extends React.Component {
+export default class CuratorsOfIndividualList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -13,7 +12,7 @@ export default class ConceptGraphSettings extends React.Component {
 
   async componentDidMount() {
     updateMainColWidth();
-    const mastheadDescriptor = 'endorsements of curators';
+    const mastheadDescriptor = 'list instances';
     updateMastheadCenter(mastheadDescriptor);
   }
 
@@ -27,7 +26,7 @@ export default class ConceptGraphSettings extends React.Component {
         <div id="mainCol">
           <Masthead />
           <div id="mainPanel">
-            <QueryReduxForListFocus />
+            List Instances
           </div>
         </div>
       </>

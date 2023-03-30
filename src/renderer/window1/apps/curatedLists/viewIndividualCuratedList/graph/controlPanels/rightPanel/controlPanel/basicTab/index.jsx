@@ -21,22 +21,7 @@ const BasicTab = () => {
 
   return (
     <>
-      <div style={{ backgroundColor: '#CFCFCF', marginTop: '10px' }}>
-        <div style={{ textAlign: 'left', marginTop: '10px', fontSize: '12px' }}>
-          Currently if either the Rigor or the Default Confidence is changed,
-          then the other variable is also changed in a manner so that for an
-          unvetted user, the Confidence (set by the user) and the Certainty
-          (calculated using the Rigor Equation) are equal. If Confidence goes
-          up, Rigor goes down, and vice versa.
-        </div>
-        Decouple Rigor
-        <select id="decoupleRigorFromConfidenceForDefaultsSelector">
-          <option value="couple">no, leave coupled</option>
-          <option value="uncouple">yes, uncouple</option>
-        </select>
-      </div>
-
-      <div style={{ backgroundColor: '#CFCFCF', marginTop: '10px' }}>
+      <div style={{ backgroundColor: '#CFCFCF', marginTop: '10px', padding: '5px' }}>
         <div style={{ textAlign: 'left', marginTop: '10px', fontSize: '12px' }}>
           Rigor is a parameter in the equation that controls the relationship
           between the Input (a.k.a. "Work") and the Certainty of any composite
@@ -90,11 +75,27 @@ const BasicTab = () => {
           id="rigorChartContainer"
           style={{
             width: '600px',
-            height: '200px',
+            height: 'auto',
             backgroundColor: '#CFCFCF',
             marginTop: '10px',
           }}
         />
+      </div>
+
+      <div style={{ backgroundColor: '#CFCFCF', marginTop: '10px', padding: '5px' }}>
+        * THIS BOX IS NOT YET IMPLEMENTED
+        <div style={{ textAlign: 'left', marginTop: '10px', fontSize: '12px' }}>
+          Currently if either the Rigor or the Default Confidence is changed,
+          then the other variable is also changed in a manner so that for an
+          unvetted user, the Confidence (set by the user) and the Certainty
+          (calculated using the Rigor Equation) are equal. If Confidence goes
+          up, Rigor goes down, and vice versa.
+        </div>
+        Decouple Rigor
+        <select id="decoupleRigorFromConfidenceForDefaultsSelector">
+          <option value="couple">no, leave coupled</option>
+          <option value="uncouple">yes, uncouple</option>
+        </select>
       </div>
     </>
   );

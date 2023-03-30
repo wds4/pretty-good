@@ -127,7 +127,8 @@ export const singleIterationCompositeUserScoreCalculations = (myPubKey,controlPa
         const oScores_to = oNode_to.scores[compScoreType];
         const raterCurrentInfluence = oScores_from.influence;
         const raterCurrentAverage = oScores_from.average;
-        const rating = 1; // assume this for now
+        // const rating = 1; // assume this for now
+        const rating = oEdge.rating;
         const ratingConfidence = 0.8; // assume this for now
 
         const mod1Coeff =

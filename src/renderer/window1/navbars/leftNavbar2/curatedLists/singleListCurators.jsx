@@ -24,37 +24,28 @@ export default class LeftNavbar2 extends React.PureComponent {
             home
           </NavLink>
 
+          <div style={{fontSize: "12px",marginTop: '3px',marginBottom: '3px'}}>Curators</div>
+
           <NavLink
             className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
             end to="/CuratedListsHome/CuratorsOfIndividualList"
           >
-            curators
-          </NavLink>
-          <NavLink
-
-            className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
-            end to="/CuratedListsHome/InstancesOfIndividualList"
-          >
-            instances
+            home
           </NavLink>
 
           <NavLink
             className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
-            end to="/CuratedListsHome/SingleListGraphOfInstances"
+            end to="/CuratedListsHome/SelectListCurators"
           >
-            graph
+            endorse a curator
           </NavLink>
-
-          <hr />
 
           <NavLink
             className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
-            end to="/CuratedListsHome/ViewIndividualCuratedListTechOverview"
+            end to="/CuratedListsHome/CuratedListEndorsementsOfCurators"
           >
-            technical overview
+            view endorsements
           </NavLink>
-
-
         </div>
       </>
     );

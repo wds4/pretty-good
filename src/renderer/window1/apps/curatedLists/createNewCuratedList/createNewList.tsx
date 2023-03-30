@@ -129,11 +129,20 @@ const CreateNewCuratedList = () => {
   const myPrivkey = myNostrProfile.privkey;
   const { publish } = useNostr();
 
+  const toggleViewDetails = () => {
+    console.log(`toggleViewDetails`);
+
+  };
+
   const submitEvent = () => {
     const sEvent = document.getElementById('newConceptEventField').value;
-    const oEvent = JSON.parse(sEvent);
-    console.log(`oEvent: ${JSON.stringify(oEvent)}`);
-    publish(oEvent);
+    if (sEvent) {
+      const oEvent = JSON.parse(sEvent);
+      // console.log(`oEvent: ${JSON.stringify(oEvent)}`);
+      // publish(oEvent);
+    }
+    const e1 = document.getElementById("successMessageContainer");
+    e1.innerHTML = "message successfully sent!"
   };
 
   const createEvent = () => {
@@ -247,12 +256,19 @@ const CreateNewCuratedList = () => {
         </div>
 
         <div>
-          rawFile
           <button onClick={() => createEvent()} className="doSomethingButton">
             create event
           </button>
           <button onClick={() => submitEvent()} className="doSomethingButton">
             submit event
+          </button>
+          {' '}
+          <div id="successMessageContainer" style={{display:'inline-block'}}></div>
+        </div>
+        <div>
+          <span style={{fontSize: '10px'}}>View technical details for nostr nerds</span>
+          <button onClick={() => toggleViewDetails()} className="doSomethingButton">
+            +
           </button>
         </div>
         <textarea

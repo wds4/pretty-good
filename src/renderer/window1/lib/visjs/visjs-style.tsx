@@ -13,7 +13,11 @@ export const groups = {
   },
   ratingOfInstance: {
     color: 'blue'
-  }
+  },
+  legend: {
+    color: '#EFEFEF',
+    borderWidth: 0,
+  },
 }
 
 export const options = {

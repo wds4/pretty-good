@@ -6,11 +6,31 @@ export default class LeftNavbar2 extends React.PureComponent {
     return (
       <>
         <div className="leftNav2Panel leftNav2PanelCuratedLists">
+          <div style={{fontSize: "12px",marginTop: '3px',marginBottom: '3px'}}>Lists</div>
+
           <NavLink
             className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
             end to="/CuratedListsHome"
           >
-            lists home
+            home
+          </NavLink>
+
+          <div style={{fontSize: "12px",marginTop: '3px',marginBottom: '3px'}}>Single List</div>
+
+          <NavLink
+            className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
+            end to="/CuratedListsHome/ViewIndividualCuratedList"
+          >
+            home
+          </NavLink>
+
+          <div style={{fontSize: "12px",marginTop: '3px',marginBottom: '3px'}}>Instances</div>
+
+          <NavLink
+            className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
+            end to="/CuratedListsHome/InstancesOfIndividualList"
+          >
+            home
           </NavLink>
 
           <div style={{fontSize: "12px",marginTop: '3px',marginBottom: '3px'}}>Single Instance</div>

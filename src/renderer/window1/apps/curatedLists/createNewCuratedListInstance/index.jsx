@@ -1,7 +1,7 @@
 import React from 'react';
 import Masthead from '../../../mastheads/curatedListsMasthead';
 import LeftNavbar1 from '../../../navbars/leftNavbar1/curatedListsNavbar';
-import LeftNavbar2 from '../../../navbars/leftNavbar2/curatedLists/viewList';
+import LeftNavbar2 from '../../../navbars/leftNavbar2/curatedLists/singleListInstances';
 import { updateMainColWidth, updateMastheadCenter } from '../../../lib/pg/ui';
 import QueryReduxForListFocus from './queryReduxForListFocus';
 

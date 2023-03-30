@@ -6,35 +6,77 @@ export default class LeftNavbar2 extends React.PureComponent {
     return (
       <>
         <div className="leftNav2Panel leftNav2PanelCuratedLists">
-          <NavLink
-            className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
-            end to="/CuratedListsHome"
+          <div
+            style={{ fontSize: '12px', marginTop: '3px', marginBottom: '3px' }}
           >
-            lists home
+            Lists
+          </div>
+
+          <NavLink
+            className={({ isActive }) =>
+              isActive
+                ? 'leftNav2Button leftNav2ButtonActive'
+                : 'leftNav2Button'
+            }
+            end
+            to="/CuratedListsHome"
+          >
+            home
           </NavLink>
 
-          <hr/>
+          <hr />
 
           <NavLink
-            className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
-            end to="/CuratedListsHome/ViewAllLists"
+            className={({ isActive }) =>
+              isActive
+                ? 'leftNav2Button leftNav2ButtonActive'
+                : 'leftNav2Button'
+            }
+            end
+            to="/CuratedListsHome/ViewAllLists"
           >
-            view all lists
+            lists
           </NavLink>
 
           <NavLink
-            className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
-            end to="/CuratedListsHome/ViewMyLists"
+          style={{display:"none"}}
+            className={({ isActive }) =>
+              isActive
+                ? 'leftNav2Button leftNav2ButtonActive'
+                : 'leftNav2Button'
+            }
+            end
+            to="/CuratedListsHome/ViewMyLists"
           >
             view my lists
           </NavLink>
 
           <NavLink
-            className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
-            end to="/CuratedListsHome/CreateNewCuratedList"
+            className={({ isActive }) =>
+              isActive
+                ? 'leftNav2Button leftNav2ButtonActive'
+                : 'leftNav2Button'
+            }
+            end
+            to="/CuratedListsHome/CreateNewCuratedList"
           >
             create a new list
           </NavLink>
+
+          <hr />
+
+          <NavLink
+            className={({ isActive }) =>
+              isActive
+                ? 'leftNav2Button leftNav2ButtonActive'
+                : 'leftNav2Button'
+            }
+            end
+            to="/CuratedListsHome/AboutCuratedLists"
+          >
+            about
+          </NavLink>
+
         </div>
       </>
     );
