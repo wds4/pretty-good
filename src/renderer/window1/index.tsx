@@ -37,7 +37,6 @@ const startApp = async () => {
     console.log("isColPresent2 endorseAsRelaysPickerHunter is NOT truthy; sql2_b: "+sql2_b)
     const fooB = await asyncSql(sql2_b);
   }
-  */
 
   const sql3_a = ' SELECT endorseAsNostCuratedListCurator FROM myNostrProfile LIMIT 1 ';
   const isColPresent3 = await asyncSql(sql3_a);
@@ -48,6 +47,8 @@ const startApp = async () => {
     console.log("isColPresent3 endorseAsNostCuratedListCurator is NOT truthy; sql3_b: "+sql3_b)
     const fooB = await asyncSql(sql3_b);
   }
+
+  */
 
   // LOAD myNostrProfiles - loads all of my profiles; currently I do not load all of them into redux so this query may be unnecessary
   const sql0 = 'SELECT * FROM myNostrProfile ';
