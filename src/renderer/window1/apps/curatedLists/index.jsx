@@ -6,6 +6,7 @@ import {
   updateMainColWidth,
   updateMastheadCenter,
 } from 'renderer/window1/lib/pg/ui';
+import CuratedListsListeners from 'renderer/window1/apps/nostr/listeners/curatedListsListeners';
 
 export default class ConceptGraphHome extends React.Component {
   constructor(props) {
@@ -32,6 +33,7 @@ export default class ConceptGraphHome extends React.Component {
             <div style={{margin: '20px 50px 0px 50px'}}>
               Nostr list curation is in alpha, and all ratings are submitted
               to the grapevine testnet. You are encouraged to play around!
+              <CuratedListsListeners />
             </div>
           </div>
         </div>

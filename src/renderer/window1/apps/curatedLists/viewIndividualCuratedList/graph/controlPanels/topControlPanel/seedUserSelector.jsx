@@ -1,7 +1,7 @@
 import { Tooltip } from 'react-tooltip';
 import { tooltipContent } from 'renderer/window1/const/tooltipContent';
 
-const SeedUserSelector = () => {
+const SeedUserSelector = ({oMyNostrProfileData}) => {
   return (
     <>
       <Tooltip
@@ -15,8 +15,7 @@ const SeedUserSelector = () => {
         <a id="seedUser" style={{display:'inline-block'}}>seed user:</a>
         <div style={{display:'inline-block', marginLeft: '5px'}}>
           <select>
-            <option>me</option>
-            <option selected>wds4</option>
+            <option selected>{oMyNostrProfileData?.name}</option>
           </select>
         </div>
       </div>

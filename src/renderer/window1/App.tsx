@@ -26,6 +26,7 @@ import './css/prettyGood/index.css';
 import './css/nostr/index.css';
 import './css/grapevine/index.css';
 import './css/conceptGraph/index.css';
+
 import './css/nostr/myProfile.css';
 import './css/nostr/userProfile.css';
 import './css/nostr/directMessaging.css';
@@ -44,6 +45,9 @@ import './css/nostr/settings.css';
 import './css/nostr/userList.css';
 import './css/nostr/youTubeEmbed.css';
 import 'react-tabs/style/react-tabs.css';
+
+import './css/curatedLists/index.css';
+import './css/curatedLists/endorsements.css';
 
 
 

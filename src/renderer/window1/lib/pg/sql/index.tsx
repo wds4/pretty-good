@@ -355,6 +355,7 @@ export const updateMyFullNostrProfileInSql = async (oMyNostrProfileInfo) => {
     followingForRelays,
     endorseAsRelaysPicker,
     endorseAsRelaysPickerHunter,
+    endorseAsNostCuratedListCurator,
   } = oMyNostrProfileInfo;
   const currentTime = dateToUnix(new Date());
 
@@ -382,9 +383,12 @@ export const updateMyFullNostrProfileInSql = async (oMyNostrProfileInfo) => {
   sql += ` , multiClientAccess = ${multiClientAccess} `;
   sql += ` , relaysAutoUpdate = ${relaysAutoUpdate} `;
   sql += ` , relaysAutoMerge = ${relaysAutoMerge} `;
+  sql += ` , endorseAsNostCuratedListCurator = '${JSON.stringify(
+    endorseAsNostCuratedListCurator
+  )}' `;
   sql += ` WHERE pubkey = '${pubkey_hex}' `;
 
-  console.log(`qwerty updateMyFullNostrProfileInSql sql: ${sql}`);
+  // console.log(`qwerty updateMyFullNostrProfileInSql sql: ${sql}`);
 
   const result = await asyncSql(sql);
   console.log(

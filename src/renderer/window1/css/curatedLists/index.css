@@ -1,0 +1,17 @@
+.listenerBox {
+  border: 1px solid orange;
+  height: 300px;
+  overflow: auto;
+  margin-bottom: 20px;
+  padding: 5px;
+}
+.listenerEventBox {
+  border: 1px dashed grey;
+  font-size: 8px;
+  padding: 2px;
+  margin-bottom: 5px;
+  height: 100px;
+  width: 45%;
+  margin-left: 10px;
+  overflow: auto;
+}

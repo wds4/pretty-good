@@ -629,7 +629,9 @@ export default class GrapevineVisualization extends React.Component {
           oListData={this.state.oListData}
         />
         <UpdateSelectedNode />
-        <TopControlPanel />
+        <TopControlPanel
+          oMyNostrProfileData={this.state.oMyNostrProfileData}
+        />
         <div style={{ width: '100%', height: '500px', marginTop: '5px' }}>
           <div
             id="grapevineContainerElem"

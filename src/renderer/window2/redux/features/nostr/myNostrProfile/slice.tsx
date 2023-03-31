@@ -55,6 +55,16 @@ const initialState = {
   // objects
   relays: oDefaultRelayUrls,
 
+  /*
+  endorseAsNostCuratedListCurator: {
+    <eventID of curated list>: {
+      thumbsUp: [], // array of nostr user pubkeys
+      thumbsDown: [], // array of nostr user pubkeys
+    }
+  }
+  */
+  endorseAsNostCuratedListCurator: {},
+
   // notifications: [],
   // readNotifications: new Date().getTime(),
   // dms: [],
@@ -64,9 +74,57 @@ export const myProfileSlice = createSlice({
   name: 'myNostrProfile',
   initialState,
   reducers: {
+    // use this when (making or) discovering a new curated list
+    // maybe absorb into initMyActiveNostrProfile? or duplicate there?
+    initCuratedListToEndorseAsNostCuratedListCurator: (state, action) => {
+      const curatedListEventID = action.payload;
+      state.endorseAsNostCuratedListCurator[curatedListEventID] = {
+        thumbsUp: [],
+        thumbsDown: [],
+      };
+    },
+    // move this to end of list once complete
+    /*
+    oEndorsementData: {
+      pubkey = <pubkey of endorsee>,
+      listID = <event ID of the curated list>,
+      rating: {
+        thumb: "up" | "down", // required (as of 31 March 2023)
+        // possible future additions:
+        eventID: <the event id of the endorsement>
+        rating: // from 0 to 100
+        confidence // from 0 to 100
+      }
+    }
+    */
+    addCuratorEndorsement: (state, action) => {
+      const oEndorsementData = action.payload;
+      if (oEndorsementData) {
+        const pubkey = oEndorsementData.pubkey;
+        const curatedListEventID = oEndorsementData.listID; // the event id of the curated list
+        const thumbs = oEndorsementData.rating.thumbs; // "up" or "down" (future: event id of the entire rating)
+        if (!state.endorseAsNostCuratedListCurator.hasOwnProperty(curatedListEventID)) {
+          state.endorseAsNostCuratedListCurator[curatedListEventID] = {
+            thumbsUp: [],
+            thumbsDown: [],
+          };
+        }
+        if (thumbs == "up") {
+          if (!state.endorseAsNostCuratedListCurator[curatedListEventID].thumbsUp.includes(pubkey)) {
+            state.endorseAsNostCuratedListCurator[curatedListEventID].thumbsUp.push(pubkey)
+          }
+        }
+        if (thumbs == "down") {
+          if (!state.endorseAsNostCuratedListCurator[curatedListEventID].thumbsDown.includes(pubkey)) {
+            state.endorseAsNostCuratedListCurator[curatedListEventID].thumbsDown.push(pubkey)
+          }
+        }
+        const res = updateMyFullNostrProfileInSql(state);
+      }
+    },
     initMyActiveNostrProfile: (state, action) => {
       const oMyProfileData = action.payload;
-      console.log("initMyActiveNostrProfile; oMyProfileData: "+JSON.stringify(oMyProfileData))
+      // console.log("initMyActiveNostrProfile; oMyProfileData: "+JSON.stringify(oMyProfileData))
       state.name = oMyProfileData?.name;
       // console.log("initMyActiveNostrProfile; oMyProfileData?.name: "+oMyProfileData?.name)
       state.display_name = oMyProfileData?.display_name;
@@ -93,6 +151,7 @@ export const myProfileSlice = createSlice({
       if (oMyProfileData?.followingForRelays) { state.followingForRelays = JSON.parse(oMyProfileData?.followingForRelays); }
       if (oMyProfileData?.endorseAsRelaysPicker) { state.endorseAsRelaysPicker = JSON.parse(oMyProfileData?.endorseAsRelaysPicker); }
       if (oMyProfileData?.endorseAsRelaysPickerHunter) { state.endorseAsRelaysPickerHunter = JSON.parse(oMyProfileData?.endorseAsRelaysPickerHunter); }
+      if (oMyProfileData?.endorseAsNostCuratedListCurator) { state.endorseAsNostCuratedListCurator = JSON.parse(oMyProfileData?.endorseAsNostCuratedListCurator); }
 
       if (oMyProfileData?.picture_url) {
         state.picture_url = oMyProfileData?.picture_url
@@ -114,7 +173,6 @@ export const myProfileSlice = createSlice({
       if ( oMyProfileData?.relays === null || oMyProfileData?.relays === undefined) {
         // state.relays = {};
       }
-
     },
     updatePubkeyHex: (state, action) => {
       state.pubkey_hex = action.payload;
@@ -356,6 +414,9 @@ export const {
   addNewRelay,
   removeRelay,
   updateShowWelcomeBox,
+
+  initCuratedListToEndorseAsNostCuratedListCurator,
+  addCuratorEndorsement,
 } = myProfileSlice.actions;
 
 export default myProfileSlice.reducer;

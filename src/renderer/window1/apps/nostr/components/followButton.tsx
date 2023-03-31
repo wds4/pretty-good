@@ -38,7 +38,7 @@ const FollowButton = ({ pubkey }) => {
   const updateFollowingAndRelaysListsInNostr = () => {
     const oCurrentRelaysList = myNostrProfile.relays;
     const aCurrentFollowingList = myNostrProfile.following;
-    console.log("updateFollowingAndRelaysListsInNostr; oCurrentRelaysList: "+JSON.stringify(oCurrentRelaysList)+"; aCurrentFollowingList: "+JSON.stringify(aCurrentFollowingList));
+    // console.log("updateFollowingAndRelaysListsInNostr; oCurrentRelaysList: "+JSON.stringify(oCurrentRelaysList)+"; aCurrentFollowingList: "+JSON.stringify(aCurrentFollowingList));
     const aFollowing = [];
     for (let x=0;x<aCurrentFollowingList.length;x++) {
       let nextFollowing = aCurrentFollowingList[x];

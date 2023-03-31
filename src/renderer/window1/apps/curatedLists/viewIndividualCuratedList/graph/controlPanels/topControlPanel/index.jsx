@@ -5,7 +5,7 @@ import ContextSelector from './contextSelector';
 // import ViewingScoreSelector from './viewingScoreSelector';
 import TestnetSelector from "./testnetSelector";
 
-const TopControlPanel = () => {
+const TopControlPanel = ({oMyNostrProfileData}) => {
   return (
     <>
       <div style={{textAlign:'center'}}>
@@ -13,7 +13,9 @@ const TopControlPanel = () => {
           <AttenuationFactorSelector />
         </div>
         <div style={{display: 'inline-block', width:'30%'}}>
-          <SeedUserSelector />
+          <SeedUserSelector
+            oMyNostrProfileData={oMyNostrProfileData}
+          />
         </div>
       </div>
     </>

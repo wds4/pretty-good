@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import ToggleSwitchSmall from 'renderer/window1/components/toggleSwitchSmall';
+import ToggleSwitchSmall from './toggleSwitchSourceSmall';
 import { updateViewListsLoadStoredData } from 'renderer/window1/redux/features/curatedLists/settings/slice';
 
 const SourceToggleSwitch = ({ }) => {
@@ -17,7 +17,7 @@ const SourceToggleSwitch = ({ }) => {
   return (
     <>
       <div style={{ float: 'right' }}>
-        load stored data (vs load live from nostr; under construction):{' '}
+        data source (live from nostr vs. local sql storage):{' '}
         <ToggleSwitchSmall
           label={toggleSwitchLabel}
           processStateChange={(newState) => processStateChange(newState)}

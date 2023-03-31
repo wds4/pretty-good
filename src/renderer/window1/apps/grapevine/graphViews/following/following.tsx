@@ -121,11 +121,11 @@ const GraphInit = ({oMyNostrProfileData, aNostrProfilesData}) => {
       for (var n=0; n<aAllNodes.length;n++) {
         const nxtPk = aAllNodes[n];
         if (aMasterFollowingList.hasOwnProperty(nxtPk) && aMasterFollowingList[nxtPk].includes(nodeID)) {
-          var oNxtEdge = {from:nxtPk, to:nodeID, color: 'red' }
+          var oNxtEdge = {from:nxtPk, to:nodeID, color: 'red', physics: false }
           edges.update(oNxtEdge)
         }
         if (aMasterFollowingList.hasOwnProperty(nodeID) && aMasterFollowingList[nodeID].includes(nxtPk)) {
-          var oNxtEdge = {from:nodeID, to:nxtPk, color: 'black' }
+          var oNxtEdge = {from:nodeID, to:nxtPk, color: 'black', physics: false }
           edges.update(oNxtEdge)
         }
       }
@@ -138,9 +138,11 @@ const GraphInit = ({oMyNostrProfileData, aNostrProfilesData}) => {
 
   return (
     <>
-      <div style={{ height: '500px', width: '500px', border: '1px solid purple' }} ref={domNode}>
-        Hello
-      </div>
+      <center>
+        <div style={{ height: '500px', width: '90%', border: '1px solid purple' }} ref={domNode}>
+          Hello
+        </div>
+      </center>
     </>
   );
 };

@@ -96,8 +96,6 @@ createCuratedListsTableCommand += 'pubkey TEXT NULL, ';
 createCuratedListsTableCommand += 'deprecated BOOLEAN false, ';
 createCuratedListsTableCommand += 'UNIQUE(event_id) ';
 
-
-
 createNostrDirectMessagesTableCommand += 'id INTEGER PRIMARY KEY, ';
 createNostrDirectMessagesTableCommand += 'event TEXT NULL, ';
 createNostrDirectMessagesTableCommand += 'event_id TEXT NULL UNIQUE, ';
@@ -161,6 +159,7 @@ createMyProfileTableCommand += 'relaysAutoMerge BOOLEAN false, ';
 createMyProfileTableCommand += 'lastUpdate INTEGER NULL, ';
 createMyProfileTableCommand += 'followingListLastUpdate INTEGER NULL, ';
 createMyProfileTableCommand += 'relaysListLastUpdate INTEGER NULL, ';
+createMyProfileTableCommand += 'endorseAsNostCuratedListCurator TEXT NULL, ';
 createMyProfileTableCommand += 'UNIQUE(pubkey, privkey) ';
 
 createMyFollowingNetworkTableCommand += 'id INTEGER PRIMARY KEY, ';

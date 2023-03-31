@@ -73,7 +73,7 @@ const DisplayTab = () => {
         <div style={{ marginTop: '20px' }}>
           <div className="h4">Ratings</div>
           <div>Blue arrows: ratings of one user by another user. These ratings are transitive.</div>
-          <div>Red arrows: rating of an instance by a user. These are not transitive.</div>
+          <div>Green arrows: rating of an instance by a user. These are not transitive.</div>
           <div>
             The thickness of an arrow is proportional to the rating itself. A thick arrow
             is a favorable rating, while a thin arrow is an unfavorable one.

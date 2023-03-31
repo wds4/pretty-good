@@ -1,0 +1,68 @@
+.endorseThumbsUpButton {
+  border:1px solid black;
+  border-radius:15px;
+  font-size:12px;
+  display:inline-block;
+  padding:4px 20px 4px 20px;
+  margin:4px;
+  background-color:black;
+  color:white;
+}
+.endorseThumbsUpButton:before {
+  content:"👍"
+}
+.unendorseThumbsUpButton {
+  border:1px solid black;
+  border-radius:15px;
+  font-size:12px;
+  display:inline-block;
+  padding:4px 14px 4px 14px;
+  margin:4px;
+  background-color:white;
+  color:black;
+}
+.unendorseThumbsUpButton:before {
+  content:"Un👍"
+}
+.endorseThumbsUpButton:hover {
+  background-color:yellow;
+}
+.unendorseThumbsUpButton:hover {
+  background-color:#DFDFDF;
+}
+
+/*
+endorse: Thumbs Down button (rating: 100, certainty: 80 %)
+*/
+.endorseThumbsDownButton {
+  border:1px solid black;
+  border-radius:15px;
+  font-size:12px;
+  display:inline-block;
+  padding:4px 20px 4px 20px;
+  margin:4px;
+  background-color:black;
+  color:white;
+}
+.endorseThumbsDownButton:before {
+  content:"👎"
+}
+.unendorseThumbsDownButton {
+  border:1px solid black;
+  border-radius:15px;
+  font-size:12px;
+  display:inline-block;
+  padding:4px 14px 4px 14px;
+  margin:4px;
+  background-color:white;
+  color:black;
+}
+.unendorseThumbsDownButton:before {
+  content:"Un👎"
+}
+.endorseThumbsDownButton:hover {
+  background-color:yellow;
+}
+.unendorseThumbsDownButton:hover {
+  background-color:#DFDFDF;
+}

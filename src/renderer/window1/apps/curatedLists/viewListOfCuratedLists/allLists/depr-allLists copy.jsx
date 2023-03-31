@@ -2,23 +2,17 @@ import { useSelector } from 'react-redux';
 import { useNostrEvents } from 'nostr-react';
 import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
 import { addCuratedListEventToSql } from 'renderer/window1/lib/pg/sql';
+import SourceToggleSwitch from 'renderer/window1/apps/curatedLists/components/sourceToggleSwitch';
 import List from './list';
 
-const AllListsLoadSql = ({aListData}) => {
-  return (
-    <>
-      <div style={{marginBottom: '10px'}}>Loading data from SQL:</div>
-      {aListData.map((oListData)=>{
-        const oEvent = JSON.parse(oListData.event);
-        return (
-          <><List event={oEvent} /></>
-        );
-      })}
-    </>
-  );
-};
-
 const AllListsLoadLive = () => {
+
+}
+
+const AllLists = () => {
+  const viewListsLoadStoredData = useSelector(
+    (state) => state.curatedListsSettings.viewListsLoadStoredData
+  );
   const kind0 = 9901;
   /*
   // tags used to create lists, and used to filter them
@@ -36,40 +30,37 @@ const AllListsLoadLive = () => {
     },
   });
   events.sort((a, b) => parseFloat(b.created_at) - parseFloat(a.created_at));
-  return (
-    <>
-      <div style={{marginBottom: '10px'}}>Live streaming from nostr:</div>
-      {events.map((event, index) => {
-        if (doesEventValidate(event)) {
-          addCuratedListEventToSql(event);
-          return (
-            <>
-              <List event={event} />
-            </>
-          );
-        }
-      })}
-    </>
-  );
-};
-
-const AllLists = ({ aListData }) => {
-  const viewListsLoadStoredData = useSelector(
-    (state) => state.curatedListsSettings.viewListsLoadStoredData
-  );
   if (viewListsLoadStoredData) {
     // LOAD DATA FROM SQL
+    console.log('A');
     return (
       <>
-        <AllListsLoadSql aListData={aListData} />
+        <div style={{ marginBottom: '5px' }}>
+          <SourceToggleSwitch />
+        </div>
+        <div>Loading data from sql:</div>
       </>
     );
   }
   if (!viewListsLoadStoredData) {
     // LOAD DATA FROM NOSTR
+
     return (
       <>
-        <AllListsLoadLive />
+        <div style={{ marginBottom: '5px' }}>
+          <SourceToggleSwitch />
+        </div>
+        <div>Live streaming from nostr:</div>
+        {events.map((event, index) => {
+          if (doesEventValidate(event)) {
+            addCuratedListEventToSql(event);
+            return (
+              <>
+                <List event={event} />
+              </>
+            );
+          }
+        })}
       </>
     );
   }

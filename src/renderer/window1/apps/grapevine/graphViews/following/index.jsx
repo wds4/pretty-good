@@ -44,7 +44,10 @@ export default class GraphViewMyFollowing extends React.Component {
         <div id="mainCol">
           <Masthead />
           <div id="mainPanel">
-            <div className="h4">Graphical View: My Following List</div>
+            <div className="h4">Nostr profiles I am following</div>
+            <div style={{margin: '20px'}}>
+              Hover the mouse over a profile to see that profile's following (black arrows) and followers (red arrows).
+            </div>
             <GraphViewFollowing
               oMyNostrProfileData={this.state.oMyNostrProfileData}
               aNostrProfilesData={this.state.aNostrProfilesData}

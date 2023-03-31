@@ -161,7 +161,10 @@ const MainProfile = ({pubkey}) => {
           <div>
             <div className={grapevineProfileControlPanelClassName}>
               <div style={{marginLeft: '5px'}}>
-                <CuratedListBox />
+                <CuratedListBox
+                  pubkey={pubkey}
+                  userData={userData}
+                />
               </div>
               <div style={{display:'none'}}><RelaysCurationBox pubkey={pubkey} /></div>
               <div style={{display:'none'}}><UserGrapevinePanel /></div>
