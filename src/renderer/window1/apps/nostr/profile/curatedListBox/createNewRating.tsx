@@ -51,11 +51,16 @@ const createRatingWord = (
   userData
 ) => {
   let rsR = 0;
+  let defaultConfidence = 80;
   if (which == 'up') {
     rsR = 100;
   }
   if (which == 'down') {
     rsR = 0;
+  }
+  if (which == 'abstain') {
+    rsR = 100;
+    defaultConfidence = 0;
   }
   // console.log("aListData top: "+JSON.stringify(aListData))
   let oListSqlData = {};
@@ -111,7 +116,7 @@ const createRatingWord = (
             'confidenceFieldset',
           ],
           confidenceFieldsetData: {
-            confidence: 80,
+            confidence: defaultConfidence,
           },
           nostrCuratedListsCuratorEndorsementFieldsetData: {
             regularSliderRating: rsR,
@@ -209,81 +214,167 @@ const CreateNewRating = ({ aListData, pubkeyFocusID, userData }) => {
     e2.value = JSON.stringify(event, null, 4);
   };
 
-  const createThumbsUpEvent = () => {
+  const createThumbsUpEvent = (currentState) => {
+    let which = 'up';
+    if (currentState == "notEndorsed") {
+      which = 'up';
+    }
+    if (currentState == "endorsed") {
+      which = "abstain";
+    }
     createRatingWord(
-      'up',
+      which,
       myNostrProfile,
       curatedListFocusID,
       aListData,
       pubkeyFocusID,
       userData
     );
+    createEvent();
+    submitEvent();
   };
-  const creatThumbsDownEvent = () => {
+  const creatThumbsDownEvent = (currentState) => {
+    let which = 'down';
+    if (currentState == "notEndorsed") {
+      which = 'down';
+    }
+    if (currentState == "endorsed") {
+      which = "abstain";
+    }
     createRatingWord(
-      'down',
+      which,
       myNostrProfile,
       curatedListFocusID,
       aListData,
       pubkeyFocusID,
       userData
     );
+    createEvent();
+    submitEvent();
   };
-  let thumbsUpButtonClass = 'unendorseThumbsUpButton';
+  let thumbsUpButtonClass = 'endorseThumbsUpButton';
   let thumbsDownButtonClass = 'endorseThumbsDownButton';
-  let thumbsUpCurrentState = 'endorsed';
+  let thumbsUpCurrentState = 'notEndorsed';
   let thumbsDownCurrentState = 'notEndorsed';
+  let myCurrentRating = "not rated";
+  const z = document.getElementById("myCurrentRatingContainer");
+  if (z) {
+    z.style.color = "grey";
+  }
+  // lookup whether this user is already rated by me
+  const curatedLists = useSelector((state) => state.curatedLists.curatedLists);
+  if (curatedLists.hasOwnProperty(curatedListFocusID)) {
+    if (curatedLists[curatedListFocusID].curators.hasOwnProperty(pubkeyFocusID)) {
+      if (curatedLists[curatedListFocusID].curators[pubkeyFocusID].thumbsUp.includes(myPubkey)) {
+        // I have rated this user thumbs up
+        thumbsUpCurrentState = 'endorsed';
+        thumbsUpButtonClass = 'unendorseThumbsUpButton';
+        myCurrentRating = "👍 ENDORSED";
+        const z = document.getElementById("myCurrentRatingContainer");
+        if (z) {
+          z.style.color = "green";
+        }
+      }
+      if (curatedLists[curatedListFocusID].curators[pubkeyFocusID].thumbsDown.includes(myPubkey)) {
+        // I have rated this user thumbs down
+        thumbsDownCurrentState = 'endorsed';
+        thumbsDownButtonClass = 'unendorseThumbsDownButton';
+        myCurrentRating = "👎 BLOCKED";
+        const z = document.getElementById("myCurrentRatingContainer");
+        if (z) {
+          z.style.color = "red";
+        }
+      }
+    }
+  }
+  const toggleViewDetails = () => {
+    const e = document.getElementById('technicalDetailsForNostrDevsContainer');
+    const currentState = e.style.display;
+    // console.log(`toggleViewDetails; currentState: ${currentState}`);
+    if (currentState == 'none') {
+      e.style.display = 'block';
+    }
+    if (currentState == 'block') {
+      e.style.display = 'none';
+    }
+  }
+
   return (
     <>
+    <div style={{display: 'none', fontSize:'10px'}}>{curatedListFocusID}<br/>{JSON.stringify(curatedLists[curatedListFocusID],null,4)}</div>
       <button
         type="button"
-        onClick={() => createThumbsUpEvent()}
+        value={thumbsUpCurrentState}
+        onClick={({ target: { value } }) => createThumbsUpEvent(value)}
         className={thumbsUpButtonClass}
       />
 
       <button
         type="button"
-        onClick={() => creatThumbsDownEvent()}
+        value={thumbsDownCurrentState}
+        // onClick={() => creatThumbsDownEvent()}
+        onClick={({ target: { value } }) => creatThumbsDownEvent(value)}
         className={thumbsDownButtonClass}
-      >
+      />
 
-      </button>
+      {' '}<div style={{display:'inline-block',color:'grey'}} id="myCurrentRatingContainer">{myCurrentRating}</div>
 
       <div>
+        <span style={{ fontSize: '10px' }}>
+          View technical details for nostr nerds
+        </span>
+        <button
+          type="button"
+          onClick={() => toggleViewDetails()}
+          className="doSomethingButton"
+        >
+          toggle
+        </button>
+      </div>
+      <div
+          id="technicalDetailsForNostrDevsContainer"
+          style={{ display: 'none' }}
+        >
         <div>
           <button
             type="button"
             onClick={() => createEvent()}
             className="doSomethingButton"
           >
-            create event
+            step 1: package word as a nostr event
           </button>
           <button
             type="button"
             onClick={() => submitEvent()}
             className="doSomethingButton"
           >
-            submit event
+            step 2: submit nostr event to network
           </button>
         </div>
-        <textarea
-          id="newConceptRawFileField"
-          style={{
-            display: 'inline-block',
-            height: '400px',
-            width: '58%',
-            fontSize: '12px',
-          }}
-        />
-        <textarea
-          id="newConceptEventField"
-          style={{
-            display: 'inline-block',
-            height: '400px',
-            width: '40%',
-            fontSize: '10px',
-          }}
-        />
+        <div style={{ display: 'inline-block', width: '45%' }}>
+        <div style={{textAlign: 'center', fontSize:'10px'}}>word (concept graph)</div>
+          <textarea
+            id="newConceptRawFileField"
+            style={{
+              display: 'inline-block',
+              height: '400px',
+              width: '100%',
+              fontSize: '12px',
+            }}
+          />
+        </div>
+        <div style={{ display: 'inline-block', width: '45%' }}>
+          <div style={{textAlign: 'center', fontSize:'10px'}}>word submitted as an event (a nostr note)</div>
+          <textarea
+            id="newConceptEventField"
+            style={{
+              display: 'inline-block',
+              height: '400px',
+              width: '100%',
+              fontSize: '10px',
+            }}
+          />
+        </div>
       </div>
     </>
   );

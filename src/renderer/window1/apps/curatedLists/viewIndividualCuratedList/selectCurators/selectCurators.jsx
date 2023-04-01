@@ -34,6 +34,11 @@ const SelectCurators = ({curatedListFocusID, oListData, curatedListProfileFocusI
         select curators for the list of{' '}
         <div style={{ display:"inline-block", color:"blue" }}>{name_plural}</div>
       </div>
+      <div style={{ margin: '50px' }}>
+        This page is being deprecated. To endorse a nostr profile as a curator,
+        navigate to that user's profile page. (If not visible, make sure
+        Grapevine is toggled to ON in the upper right masthead.)
+      </div>
       <RateProfile
         curatedListFocusID={curatedListFocusID}
         oListData={oListData}

@@ -32,6 +32,7 @@ const ListSelector = ({ aListData, aEndorsementsData }) => {
   return (
     <>
       <div style={{ display: 'inline-block' }}>
+
         <select id="curatedListSelector" onChange={() => updateSelectedList()}>
           {aListData.map((oList) => {
             const sqlID = oList.id;
@@ -87,7 +88,7 @@ export default class CuratedListBox extends React.Component {
     return (
       <>
         <div style={{ border: '1px solid purple', padding: '5px' }}>
-          <div style={{ color: 'grey' }}>Endorse as a Curator for one or more Nostr Lists</div>
+          <div style={{ color: 'grey' }}>Endorse as a Curator for this Nostr List:</div>
           <ListSelector
             aListData={this.state.aListData}
             aEndorsementsData={this.state.aEndorsementsData}

@@ -27,7 +27,8 @@ export default class CuratorsOfIndividualList extends React.Component {
         <div id="mainCol">
           <Masthead />
           <div id="mainPanel">
-            List Curators
+            Coming soon: a table of curators of this list, as determined by your
+            Grapevine, along with accompanying trust scores.
           </div>
         </div>
       </>

@@ -1,8 +1,8 @@
 import { useNostrEvents } from 'nostr-react';
 import { useSelector, useDispatch } from 'react-redux';
 import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
-import { addEndorseAsRelaysPickerHunterNoteToReduxStore } from 'renderer/window1/redux/features/grapevine/listCuration/slice';
-import { updateListCurationNoteInSql } from 'renderer/window1/lib/pg/sql';
+import { addCuratorEndorsement } from 'renderer/window1/redux/features/curatedLists/lists/slice';
+import { addEndorsementOfListCuratorEventToSql } from 'renderer/window1/lib/pg/sql';
 
 /*
 modify code from:
@@ -35,6 +35,23 @@ const CuratorEndorsementsListener = () => {
     if (doesEventValidate(event)) {
       // dispatch(addEndorseAsRelaysPickerHunterNoteToReduxStore(event, myPubkey));
       // await updateListCurationNoteInSql(event, "endorseAsRelaysPickerHunter");
+      dispatch(addCuratorEndorsement(event));
+      const parentConceptNostrEventID = event.tags.find(
+        ([k, v]) => k === 'l' && v && v !== ''
+      )[1];
+
+      const oWord = JSON.parse(event.content);
+      if (oWord) {
+        if (oWord.hasOwnProperty("ratingData")) {
+          if (oWord.ratingData.hasOwnProperty("ratingFieldsetData")) {
+            if (oWord.ratingData.ratingFieldsetData.hasOwnProperty("nostrCuratedListsCuratorEndorsementFieldsetData")) {
+              const parentConceptSlug = oWord.ratingData.ratingFieldsetData.nostrCuratedListsCuratorEndorsementFieldsetData.contextData.nostrParentCuratedListData.slug.singular;
+              addEndorsementOfListCuratorEventToSql(event,parentConceptSlug,parentConceptNostrEventID);
+            }
+          }
+        }
+      }
+
     }
   });
   return (
@@ -44,9 +61,13 @@ const CuratorEndorsementsListener = () => {
         <div>numMessages received: {events.length}</div>
         {events.map((event, index) => {
           if (doesEventValidate(event)) {
+            const oWord = JSON.parse(event.content);
             return (
               <>
-                <div className="listenerEventBox">{JSON.stringify(event,null,4)}</div>
+                <div className="listenerInfoContainer">
+                  <div className="listenerEventBox">{JSON.stringify(event,null,4)}</div>
+                  <div className="listenerWordBox">{JSON.stringify(oWord,null,4)}</div>
+                </div>
               </>
             );
           }

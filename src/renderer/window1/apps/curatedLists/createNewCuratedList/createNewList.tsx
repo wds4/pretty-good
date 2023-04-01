@@ -130,24 +130,73 @@ const CreateNewCuratedList = () => {
   const { publish } = useNostr();
 
   const toggleViewDetails = () => {
-    console.log(`toggleViewDetails`);
+    const e = document.getElementById('technicalDetailsForNostrDevsContainer');
+    const currentState = e.style.display;
+    console.log(`toggleViewDetails; currentState: ${currentState}`);
+    if (currentState == 'none') {
+      e.style.display = 'block';
+    }
+    if (currentState == 'block') {
+      e.style.display = 'none';
+    }
+  };
 
+  const createAndSubmitEvent = () => {
+    const res1 = createEvent();
+    if (res1 == "success") {
+      const res2 = submitEvent();
+    }
   };
 
   const submitEvent = () => {
     const sEvent = document.getElementById('newConceptEventField').value;
+    if (!sEvent) {
+      const e1 = document.getElementById('successMessageContainer');
+      e1.innerHTML = `no event to send`;
+      return "failure";
+    }
     if (sEvent) {
       const oEvent = JSON.parse(sEvent);
       // console.log(`oEvent: ${JSON.stringify(oEvent)}`);
-      // publish(oEvent);
+      publish(oEvent);
     }
-    const e1 = document.getElementById("successMessageContainer");
-    e1.innerHTML = "message successfully sent!"
+
+    const z4 = document.getElementById('newConceptNamePluralField');
+    const newListName = z4.value;
+
+    const e1 = document.getElementById('successMessageContainer');
+    e1.innerHTML = `new list: <span style='color:purple;font-size:22px;' >${newListName}</span> submitted to the network!`;
+
+    const z1 = document.getElementById('newConceptRawFileField');
+    z1.value = '';
+
+    const z2 = document.getElementById('newConceptEventField');
+    z2.value = '';
+
+    const z3 = document.getElementById('newConceptNameSingularField');
+    z3.value = '';
+
+    z4.value = '';
+
+    const z5 = document.getElementById('newConceptDescriptionField');
+    z5.value = '';
+
+    return "success";
   };
 
   const createEvent = () => {
     const e1 = document.getElementById('newConceptRawFileField');
     const e2 = document.getElementById('newConceptEventField');
+
+    const z1 = document.getElementById('newConceptNameSingularField');
+    const z2 = document.getElementById('newConceptNamePluralField');
+    const z3 = document.getElementById('newConceptDescriptionField');
+    if ((!z1.value) || (!z2.value) || (!z3.value) ) {
+      const s = document.getElementById('successMessageContainer');
+      s.innerHTML = `All 3 fields must be nonempty.`;
+      e2.value = "";
+      return "failure";
+    }
 
     const sWord = JSON.stringify(JSON.parse(e1.value));
     const aTags = [];
@@ -166,6 +215,8 @@ const CreateNewCuratedList = () => {
     event.sig = signEvent(event, myPrivkey);
 
     e2.value = JSON.stringify(event, null, 4);
+
+    return "success";
   };
 
   return (
@@ -256,39 +307,68 @@ const CreateNewCuratedList = () => {
         </div>
 
         <div>
-          <button onClick={() => createEvent()} className="doSomethingButton">
-            create event
-          </button>
-          <button onClick={() => submitEvent()} className="doSomethingButton">
-            submit event
-          </button>
-          {' '}
-          <div id="successMessageContainer" style={{display:'inline-block'}}></div>
+          <button
+            type="button"
+            onClick={() => createAndSubmitEvent()}
+            className="doSomethingButton"
+          >
+            Submit
+          </button>{' '}
+          <div
+            id="successMessageContainer"
+            style={{ display: 'inline-block' }}
+          />
         </div>
         <div>
-          <span style={{fontSize: '10px'}}>View technical details for nostr nerds</span>
-          <button onClick={() => toggleViewDetails()} className="doSomethingButton">
-            +
+          <span style={{ fontSize: '10px' }}>
+            View technical details for nostr nerds
+          </span>
+          <button
+            type="button"
+            onClick={() => toggleViewDetails()}
+            className="doSomethingButton"
+          >
+            toggle
           </button>
         </div>
-        <textarea
-          id="newConceptRawFileField"
-          style={{
-            display: 'inline-block',
-            height: '400px',
-            width: '40%',
-            fontSize: '10px',
-          }}
-        />
-        <textarea
-          id="newConceptEventField"
-          style={{
-            display: 'inline-block',
-            height: '400px',
-            width: '40%',
-            fontSize: '10px',
-          }}
-        />
+        <div
+          id="technicalDetailsForNostrDevsContainer"
+          style={{ display: 'none' }}
+        >
+          <div>
+            <div>Submit button occurs in 2 steps:</div>
+            <button type="button" onClick={() => createEvent()} className="doSomethingButton">
+              step 1: package word as a nostr event
+            </button>
+            <button type="button" onClick={() => submitEvent()} className="doSomethingButton">
+              step 2: submit nostr event to network
+            </button>
+          </div>
+          <div style={{ display: 'inline-block', width: '45%' }}>
+            <center>word (concept graph)</center>
+            <textarea
+              id="newConceptRawFileField"
+              style={{
+                display: 'inline-block',
+                height: '400px',
+                width: '100%',
+                fontSize: '10px',
+              }}
+            />
+          </div>
+          <div style={{ display: 'inline-block', width: '45%' }}>
+            <center>word submitted as an event (a nostr note)</center>
+            <textarea
+              id="newConceptEventField"
+              style={{
+                display: 'inline-block',
+                height: '400px',
+                width: '100%',
+                fontSize: '10px',
+              }}
+            />
+          </div>
+        </div>
       </div>
     </>
   );

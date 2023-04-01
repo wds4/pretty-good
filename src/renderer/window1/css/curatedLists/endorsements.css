@@ -9,7 +9,7 @@
   color:white;
 }
 .endorseThumbsUpButton:before {
-  content:"👍"
+  content:"Endorse 👍"
 }
 .unendorseThumbsUpButton {
   border:1px solid black;
@@ -22,7 +22,7 @@
   color:black;
 }
 .unendorseThumbsUpButton:before {
-  content:"Un👍"
+  content:"Unendorse 👍"
 }
 .endorseThumbsUpButton:hover {
   background-color:yellow;
@@ -45,7 +45,7 @@ endorse: Thumbs Down button (rating: 100, certainty: 80 %)
   color:white;
 }
 .endorseThumbsDownButton:before {
-  content:"👎"
+  content:"Block 👎"
 }
 .unendorseThumbsDownButton {
   border:1px solid black;
@@ -58,7 +58,7 @@ endorse: Thumbs Down button (rating: 100, certainty: 80 %)
   color:black;
 }
 .unendorseThumbsDownButton:before {
-  content:"Un👎"
+  content:"Unblock 👎"
 }
 .endorseThumbsDownButton:hover {
   background-color:yellow;

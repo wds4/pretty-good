@@ -9,9 +9,23 @@
   border: 1px dashed grey;
   font-size: 8px;
   padding: 2px;
-  margin-bottom: 5px;
   height: 100px;
   width: 45%;
-  margin-left: 10px;
   overflow: auto;
+  display: inline-block;
+}
+.listenerWordBox {
+  border: 1px dashed grey;
+  font-size: 8px;
+  padding: 2px;
+  height: 100px;
+  width: 45%;
+  margin-left: 5px;
+  overflow: auto;
+  display: inline-block;
+}
+.listenerInfoContainer {
+  padding: 5px;
+  background-color: white;
+  margin: 10px;
 }

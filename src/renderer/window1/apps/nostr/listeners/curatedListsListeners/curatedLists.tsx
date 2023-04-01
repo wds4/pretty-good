@@ -1,8 +1,8 @@
 import { useNostrEvents } from 'nostr-react';
 import { useSelector, useDispatch } from 'react-redux';
 import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
-import { addEndorseAsRelaysPickerHunterNoteToReduxStore } from 'renderer/window1/redux/features/grapevine/listCuration/slice';
-import { updateListCurationNoteInSql } from 'renderer/window1/lib/pg/sql';
+import { addCuratedListEventToSql } from 'renderer/window1/lib/pg/sql';
+import { addCuratedList } from 'renderer/window1/redux/features/curatedLists/lists/slice';
 
 /*
 modify code from:
@@ -34,6 +34,8 @@ const CuratedListsListener = () => {
     if (doesEventValidate(event)) {
       // dispatch(addEndorseAsRelaysPickerHunterNoteToReduxStore(event, myPubkey));
       // await updateListCurationNoteInSql(event, "endorseAsRelaysPickerHunter");
+      dispatch(addCuratedList(event));
+      await addCuratedListEventToSql(event);
     }
   });
   return (
@@ -43,9 +45,13 @@ const CuratedListsListener = () => {
         <div>numMessages received: {events.length}</div>
         {events.map((event, index) => {
           if (doesEventValidate(event)) {
+            const oWord = JSON.parse(event.content);
             return (
               <>
-                <div className="listenerEventBox">{JSON.stringify(event,null,4)}</div>
+                <div className="listenerInfoContainer">
+                  <div className="listenerEventBox">{JSON.stringify(event,null,4)}</div>
+                  <div className="listenerWordBox">{JSON.stringify(oWord,null,4)}</div>
+                </div>
               </>
             );
           }

@@ -68,6 +68,7 @@
   width:80%;
   padding:10px;
   border:1px solid black;
+  max-height: 400px;
 }
 .storeHelloWorldFullDataContainer {
   height:200px;
