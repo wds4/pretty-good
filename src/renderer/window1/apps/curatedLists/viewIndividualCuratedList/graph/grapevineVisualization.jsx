@@ -307,7 +307,10 @@ const makeVisGraph_Grapevine = async (
           // group: 'ratingOfInstance', // no group styling for edges (I think ???)
           from: pk_rater,
           to: pk_ratee,
-          color: 'blue',
+          color: {
+            color: '#0000FF',
+            opacity: 1.0,
+          },
           title: title,
           width: width,
           rating: rating,
@@ -415,7 +418,10 @@ const makeVisGraph_Grapevine = async (
           // group: 'ratingOfInstance', // no group styling for edges (I think ???)
           from: pk_rater,
           to: instance_event_id,
-          color: 'green',
+          color: {
+            color: '#00FF00',
+            opacity: 1.0,
+          },
           title: title,
           width: width,
           rating: regularSliderRating / 100,

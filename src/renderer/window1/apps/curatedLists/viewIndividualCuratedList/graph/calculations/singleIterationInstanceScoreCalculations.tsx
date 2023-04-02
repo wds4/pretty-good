@@ -143,6 +143,7 @@ export const singleIterationInstanceScoreCalculations = (
       oEdge.mod3Coeff = mod3Coeff.toPrecision(4);
       oEdge.strat2Coeff = strat2Coeff_directRating_regular.toPrecision(4);
       oEdge.attenuationFactor = attenuationFactor_directRating;
+      oEdge.color.opacity = weightAdjusted;
       edges.update(oEdge);
       }
     }

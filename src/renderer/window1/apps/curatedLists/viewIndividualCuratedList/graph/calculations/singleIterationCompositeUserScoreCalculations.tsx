@@ -160,6 +160,7 @@ export const singleIterationCompositeUserScoreCalculations = (myPubKey,controlPa
         oEdge.mod3Coeff = mod3Coeff.toPrecision(4);
         oEdge.strat2Coeff = strat2Coeff_directRating_regular.toPrecision(4);
         oEdge.attenuationFactor = attenuationFactor_directRating;
+        oEdge.color.opacity = weightAdjusted;
         edges.update(oEdge);
       }
     }
@@ -223,6 +224,7 @@ export const singleIterationCompositeUserScoreCalculations = (myPubKey,controlPa
     oNode.title += "\n influence: "+influence;
     oNode.title += "\n input: "+input;
     oNode.title += "\n certainty: " + (certainty * 100) +" %";
+    oNode.opacity = certainty;
     nodes.update(oNode);
   }
 }

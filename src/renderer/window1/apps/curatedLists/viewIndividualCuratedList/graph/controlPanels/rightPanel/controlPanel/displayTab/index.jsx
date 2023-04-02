@@ -51,6 +51,11 @@ const DisplayTab = () => {
               <option value="nothing">nothing</option>
             </select>
           </div>
+          <div>
+            The <i>opacity</i> of each circle is proportional to the{' '}
+            <i>certainty</i> in its rating. More ratings by trusted users means
+            higher certainty.
+          </div>
         </div>
         <div style={{ marginTop: '20px' }}>
           <div className="h4">Instances of Nostr Curated Lists</div>
@@ -78,10 +83,11 @@ const DisplayTab = () => {
             The thickness of an arrow is proportional to the rating itself. A thick arrow
             is a favorable rating, while a thin arrow is an unfavorable one.
           </div>
-        </div>
-        <div style={{ marginTop: '20px' }}>
-          <div className="h4">Not yet implemented:</div>
-          <div>opacity of circles and arrows to reflect certainty (similar to diamonds)</div>
+          <div>
+            The <i>opacity</i> of each arrow is proportional to the{' '}
+            <i>weight</i> attributed to that rating by your grapevine.
+            More influence of the rater means more weight given to that rating.
+          </div>
         </div>
       </div>
     </>
