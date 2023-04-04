@@ -1,8 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useNostrEvents } from 'nostr-react';
+import React from 'react';
 import DataTable from 'react-data-table-component';
-import styled, { keyframes } from 'styled-components';
-import { Spinner, CustomLoader } from './reactDataTables';
 
 const CuratedListInstanceScores = ({
   curatedListFocusID,

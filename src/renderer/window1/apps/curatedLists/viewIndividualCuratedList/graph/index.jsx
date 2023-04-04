@@ -5,7 +5,7 @@ import LeftNavbar2 from 'renderer/window1/navbars/leftNavbar2/curatedLists/viewL
 import { updateMainColWidth, updateMastheadCenter } from 'renderer/window1/lib/pg/ui';
 import QueryReduxForListFocus from './queryReduxForListFocus';
 
-export default class ConceptGraphSettings extends React.Component {
+export default class GrapevineGraphForListItems extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};

@@ -88,7 +88,7 @@ export const addEndorsementOfListCuratorEventToSql = async (
   )}', '${event.id}', '${event.created_at}', '${
     event.pubkey
   }', '${parentConceptSlug}', '${parentConceptNostrEventID}', '${ratee_pubkey}', '${ratingTemplateSlug}', '${contextDAGSlug}',  '${uniqueID}' ) `;
-  console.log(`addEndorsementOfListCuratorEventToSql; sql: ${sql1}`);
+  // console.log(`addEndorsementOfListCuratorEventToSql; sql: ${sql1}`);
   const res1 = await asyncSql(sql1);
 
   return res1;

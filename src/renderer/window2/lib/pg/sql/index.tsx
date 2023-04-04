@@ -210,9 +210,7 @@ export const updateMyFullNostrProfileInSql = async (oMyNostrProfileInfo) => {
   console.log(`qwerty updateMyFullNostrProfileInSql sql: ${sql}`);
 
   const result = await asyncSql(sql);
-  console.log(
-    `qwerty updateMyFullNostrProfileInSql result: ${JSON.stringify(result, null, 4)}`
-  );
+  // console.log(`qwerty updateMyFullNostrProfileInSql result: ${JSON.stringify(result, null, 4)}`);
 };
 
 export const updateMyActiveNostrProfileInSql = async (oMyNostrProfileInfo) => {

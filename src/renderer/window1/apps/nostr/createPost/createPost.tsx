@@ -43,12 +43,14 @@ export default function CreatePost() {
       content: message,
       kind: 1,
       tags: [],
+      // tags: [['p','5c10ed0678805156d39ef1ef6d46110fe1e7e590ae04986ccf48ba1299cb53e2']], // This is chat @gpt3; need to include #[0] in the message content
       created_at: dateToUnix(),
       pubkey: getPublicKey(myPrivkey),
     };
 
     event.id = getEventHash(event);
     event.sig = signEvent(event, myPrivkey);
+
 
     publish(event);
     if (e1) {
@@ -64,6 +66,7 @@ export default function CreatePost() {
     if (e3) {
       e3.innerHTML = `Here it is:<br/><br/>${JSON.stringify(event, null, 4)}`
     }
+
   };
 
   return (

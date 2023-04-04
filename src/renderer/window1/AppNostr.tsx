@@ -14,7 +14,7 @@ const AppNostr = () => {
     }
   }
   return (
-    <NostrProvider relayUrls={aActiveRelayUrls} debug>
+    <NostrProvider relayUrls={aActiveRelayUrls} debug={false}>
       <AppRoutes />
     </NostrProvider>
   );

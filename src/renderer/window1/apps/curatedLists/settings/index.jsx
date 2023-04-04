@@ -27,6 +27,7 @@ export default class ConceptGraphSettings extends React.Component {
           <Masthead />
           <div id="mainPanel">
             <div className="h4">Curated Lists: Settings</div>
+            <p>Nothing to see here yet.</p>
           </div>
         </div>
       </>

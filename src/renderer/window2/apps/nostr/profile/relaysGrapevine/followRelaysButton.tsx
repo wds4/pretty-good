@@ -33,7 +33,7 @@ const FollowRelaysButton = ({ pubkey }) => {
   }
 
   const processToggleButtonClick = (currentState) => {
-    console.log("qwerty processToggleButtonClick; currentState: "+currentState);
+    //  processToggleButtonClick; currentState: "+currentState);
     let newState = 'following';
     if (currentState == 'following') {
       newState = 'notFollowing';

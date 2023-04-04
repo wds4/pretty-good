@@ -39,6 +39,18 @@ export default class LeftNavbar2 extends React.PureComponent {
           </NavLink>
 
           <NavLink
+            className={({ isActive }) =>
+              isActive
+                ? 'leftNav2Button leftNav2ButtonActive'
+                : 'leftNav2Button'
+            }
+            end
+            to="/CuratedListsHome/MultiListSummariesOfItemScores"
+          >
+            lists with score summaries
+          </NavLink>
+
+          <NavLink
           style={{display:"none"}}
             className={({ isActive }) =>
               isActive

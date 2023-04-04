@@ -7,6 +7,7 @@ const RightPanel = ({
   oListData,
   aCuratedListInstances,
   aInstanceCompScoreData,
+  aProfileCompScoreData,
 }) => {
   return (
     <>
@@ -23,6 +24,7 @@ const RightPanel = ({
                 oListData={oListData}
                 aCuratedListInstances={aCuratedListInstances}
                 aInstanceCompScoreData={aInstanceCompScoreData}
+                aProfileCompScoreData={aProfileCompScoreData}
               />
             </TabPanel>
             <TabPanel>

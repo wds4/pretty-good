@@ -124,10 +124,10 @@ export const curatedListsSlice = createSlice({
                 }
                 if (proceed) {
                   // only proceed if the current event is later than the preexisting event
-                  console.log("qwerty raterPubkey: "+raterPubkey+"; rateePubkey: "+rateePubkey)
+                  // console.log("qwerty raterPubkey: "+raterPubkey+"; rateePubkey: "+rateePubkey)
                   if (regularSliderRating == referenceRegularSliderRating) {
                     // console.log("qwerty thumbsUp")
-                    console.log("qwerty thumbsUp raterPubkey_"+raterPubkey+"; rateePubkey_"+rateePubkey)
+                    // console.log("qwerty thumbsUp raterPubkey_"+raterPubkey+"; rateePubkey_"+rateePubkey)
                     // remove from thumbs down, if present
                     state.curatedLists[listID].curators[rateePubkey].thumbsDown = removeStringFromArray(raterPubkey,state.curatedLists[listID].curators[rateePubkey].thumbsDown)
                     // add to thumbs up
@@ -141,7 +141,7 @@ export const curatedListsSlice = createSlice({
                   }
                   if (regularSliderRating == 0) {
                     // console.log("qwerty thumbsDown")
-                    console.log("qwerty thumbsDown raterPubkey_"+raterPubkey+"; rateePubkey_"+rateePubkey)
+                    // console.log("qwerty thumbsDown raterPubkey_"+raterPubkey+"; rateePubkey_"+rateePubkey)
                     // remove from thumbs up, if present
                     state.curatedLists[listID].curators[rateePubkey].thumbsUp = removeStringFromArray(raterPubkey,state.curatedLists[listID].curators[rateePubkey].thumbsUp)
                     // add to thumbs down

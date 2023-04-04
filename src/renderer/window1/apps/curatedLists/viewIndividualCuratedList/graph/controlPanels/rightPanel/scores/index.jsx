@@ -7,14 +7,15 @@ const CalculationResults = ({
   oListData,
   aCuratedListInstances,
   aInstanceCompScoreData,
+  aProfileCompScoreData,
 }) => {
   return (
     <>
       <div style={{ textAlign: 'center' }}>
         <Tabs>
           <TabList>
-            <Tab>instances</Tab>
-            <Tab>profiles</Tab>
+            <Tab>items</Tab>
+            <Tab>Curator influence</Tab>
           </TabList>
           <TabPanel>
             <CuratedListInstanceScores
@@ -25,7 +26,9 @@ const CalculationResults = ({
             />
           </TabPanel>
           <TabPanel>
-            <NostrProfileScores />
+            <NostrProfileScores
+              aProfileCompScoreData={aProfileCompScoreData}
+            />
           </TabPanel>
         </Tabs>
       </div>

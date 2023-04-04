@@ -87,6 +87,7 @@ import CuratedListSpecificInstance from './apps/curatedLists/viewInstance/overvi
 import SpecificInstanceTechOverview from './apps/curatedLists/viewInstance/techOverview';
 import SpecificInstanceViewRatings from './apps/curatedLists/viewInstance/viewRatings';
 import SpecificInstanceLeaveRating from './apps/curatedLists/viewInstance/leaveRating';
+import MultiListSummariesOfItemScores from './apps/curatedLists/multiListSummariesOfItemScores';
 
 const AppRoutes = () => {
   const { onDisconnect } = useNostr();
@@ -109,11 +110,12 @@ const AppRoutes = () => {
   /*
       <NostrProfilesListener />
       <DirectMessageListener />
-      <MyProfileListener />
       <GrapevineListener />
+      <MyProfileListener />
   */
   return (
     <>
+
       <fieldset id="app">
         <Router>
           <Routes>
@@ -359,6 +361,10 @@ const AppRoutes = () => {
             <Route
               path="/CuratedListsHome/SpecificInstanceLeaveRating"
               element={<SpecificInstanceLeaveRating />}
+            />
+            <Route
+              path="/CuratedListsHome/MultiListSummariesOfItemScores"
+              element={<MultiListSummariesOfItemScores />}
             />
           </Routes>
         </Router>

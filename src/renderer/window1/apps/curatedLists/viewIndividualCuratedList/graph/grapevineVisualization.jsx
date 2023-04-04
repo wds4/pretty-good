@@ -556,6 +556,7 @@ export default class GrapevineVisualization extends React.Component {
       oListData: {},
       aCuratedListInstances: [],
       aInstanceCompScoreData: [],
+      aProfileCompScoreData: [],
     };
   }
 
@@ -612,11 +613,13 @@ export default class GrapevineVisualization extends React.Component {
     const aContextDAG = ['thisListCuration_allContexts'];
 
     setInterval(() => {
-      singleIterationCompositeUserScoreCalculations(
+      let aProfileCompScoreData = singleIterationCompositeUserScoreCalculations(
         myPubKey,
         this.props.controlPanelSettings,
         aContextDAG
       );
+      this.setState( {aProfileCompScoreData} )
+
       let aInstanceCompScoreData = singleIterationInstanceScoreCalculations(
         myPubKey,
         this.props.controlPanelSettings,
@@ -637,6 +640,7 @@ export default class GrapevineVisualization extends React.Component {
         <UpdateSelectedNode />
         <TopControlPanel
           oMyNostrProfileData={this.state.oMyNostrProfileData}
+          aProfileCompScoreData={this.state.aProfileCompScoreData}
         />
         <div style={{ width: '100%', height: '500px', marginTop: '5px' }}>
           <div
@@ -651,6 +655,7 @@ export default class GrapevineVisualization extends React.Component {
               oListData={this.state.oListData}
               aCuratedListInstances={this.state.aCuratedListInstances}
               aInstanceCompScoreData={this.state.aInstanceCompScoreData}
+              aProfileCompScoreData={this.state.aProfileCompScoreData}
             />
           </div>
         </div>

@@ -298,16 +298,16 @@ export const myProfileSlice = createSlice({
     // MANAGE followingForRelays
     addToFollowingForRelaysList: (state, action) => {
       // pass in pubkey; add to followingForRelays list if not already there
-      console.log("qwerty addToFollowingForRelaysList; action.payload: "+action.payload);
+      // console.log("qwerty addToFollowingForRelaysList; action.payload: "+action.payload);
       if (!state.followingForRelays) {
         state.followingForRelays = [];
       }
-      console.log("qwerty addToFollowingForRelaysList; state.followingForRelays A: "+JSON.stringify(state.followingForRelays));
+      // console.log("qwerty addToFollowingForRelaysList; state.followingForRelays A: "+JSON.stringify(state.followingForRelays));
       state.followingForRelays = addStringToArrayUniquely(
         action.payload,
         state.followingForRelays
       );
-      console.log("qwerty addToFollowingForRelaysList; state.followingForRelays B: "+JSON.stringify(state.followingForRelays));
+      // console.log("qwerty addToFollowingForRelaysList; state.followingForRelays B: "+JSON.stringify(state.followingForRelays));
       const res = updateMyFullNostrProfileInSql(state);
     },
     removeFromFollowingForRelaysList: (state, action) => {

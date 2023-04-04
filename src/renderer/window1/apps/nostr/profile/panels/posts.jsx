@@ -24,15 +24,15 @@ const Posts = () => {
       <div style={{ textAlign: 'right', marginRight: '20px' }}>
         {aNostrNotesThisAuthor.length} posts
       </div>
-        {aEvents.map((event) => {
-          if (doesEventValidate(event)) {
-            return (
-              <>
-                <Post event={event} />
-              </>
-            );
-          }
-        })}
+      {aEvents.map((event) => {
+        if (doesEventValidate(event)) {
+          return (
+            <>
+              <Post event={event} />
+            </>
+          );
+        }
+      })}
     </>
   );
 };
