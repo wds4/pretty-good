@@ -22,6 +22,7 @@ const CalculationResults = ({
             <Tab>Curator trust scores</Tab>
           </TabList>
           <TabPanel>
+          <div>C number of items: {aCuratedListInstances.length}</div>
             <CuratedListInstanceScores
               curatedListFocusID={curatedListFocusID}
               oListData={oListData}

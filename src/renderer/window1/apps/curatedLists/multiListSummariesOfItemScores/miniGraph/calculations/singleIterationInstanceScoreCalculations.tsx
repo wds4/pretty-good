@@ -146,7 +146,7 @@ export const singleIterationInstanceScoreCalculations = (
         oEdge.strat2Coeff = strat2Coeff_directRating_regular.toPrecision(4);
         oEdge.attenuationFactor = attenuationFactor_directRating;
         oEdge.color.opacity = weightAdjusted;
-        edges.update(oEdge);
+        // edges.update(oEdge);
         }
       }
 
@@ -205,8 +205,7 @@ export const singleIterationInstanceScoreCalculations = (
       oNode.title = oNode.name;
       oNode.title += "\n average: "+average;
       oNode.title += "\n influence: "+influence;
-      nodes.update(oNode);
-
+      // nodes.update(oNode);
 
       ///////////////////////////////////////////////////////////////////////
       //////////////////// START CREATE Y-AXIS //////////////////////////////

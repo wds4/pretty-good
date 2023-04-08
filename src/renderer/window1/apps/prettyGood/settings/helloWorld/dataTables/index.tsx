@@ -6,7 +6,7 @@ import {
 import Masthead from 'renderer/window1/mastheads/pgMasthead';
 import LeftNavbar1 from 'renderer/window1/navbars/leftNavbar1/pgNavbar';
 import LeftNavbar2 from 'renderer/window1/navbars/leftNavbar2/prettyGood/helloWorld';
-import { timeout } from 'renderer/window2/lib/pg';
+import { timeout } from 'renderer/window1/lib/pg';
 const jQuery = require('jquery');
 jQuery.DataTable = require('datatables.net');
 

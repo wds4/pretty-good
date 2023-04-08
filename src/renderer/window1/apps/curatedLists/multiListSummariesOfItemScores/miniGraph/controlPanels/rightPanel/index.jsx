@@ -20,6 +20,7 @@ const RightPanel = ({
         <Header
           oListData={oListData}
         />
+        <div>B number of items: {aCuratedListInstances.length}</div>
         <Tabs>
           <TabList>
             <Tab>Results</Tab>

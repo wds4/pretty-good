@@ -44,6 +44,7 @@ const CuratedListInstanceScores = ({
   return (
     <>
       <div style={{}}>
+      <div>D number of items: {aCuratedListInstances.length}</div>
         <DataTable
           title="Curated List Instance Scores"
           columns={columns}

@@ -34,17 +34,19 @@ const { options } = VisStyleConstants;
 export const yAxisConst = 400;
 export const yAxisDisplacement = 200;
 
-export let nodes = new DataSet([]);
-export let edges = new DataSet([]);
-let network = {};
+let nodes = new DataSet([]);
+let edges = new DataSet([]);
 let data = {
   nodes,
   edges,
 };
-export let aAllUserNodes = [];
-export let aAllInstanceNodes = [];
 
-export const VisNetwork_Grapevine = () => {
+let aAllUserNodes = [];
+let aAllInstanceNodes = [];
+
+let network = {};
+
+export const VisNetwork_Grapevine = ({nodes,edges}) => {
   // moved from singleIterationCompositeUserScoreCalculations
   // might want to move this to makeVisGraph_Grapevine
   /*
@@ -131,6 +133,7 @@ const makeVisGraph_Grapevine = async (
   aRatingsOfInstancesData,
   aEndorsementsOfCuratorsData,
   controlPanelSettings,
+  curatedListFocusID,
 ) => {
   // console.log("oNostrProfilesData: "+JSON.stringify(oNostrProfilesData,null,4))
 
@@ -491,12 +494,14 @@ const makeVisGraph_Grapevine = async (
     <VisNetwork_Grapevine
       clickHandler={console.log('click')}
       onSelectNode={console.log('onSelectNode')}
+      nodes={nodes}
+      edges={edges}
     />,
-    document.getElementById('grapevineContainerElem')
+    document.getElementById('grapevineContainerElem'+curatedListFocusID)
   );
 };
 
-export const populateEachNodeAfferentEdgeIDs = (nodes, edges) => {
+export const populateEachNodeAfferentEdgeIDs = () => {
   // console.log("populateEachNodeAfferentEdgeIDs ");
   const aAllEdges = edges.getIds();
   for (let e = 0; e < aAllEdges.length; e++) {
@@ -533,6 +538,15 @@ export default class GrapevineVisualization extends React.Component {
   }
 
   async componentDidMount() {
+    /*
+    let nodes = new DataSet([]);
+    let edges = new DataSet([]);
+    let data = {
+      nodes,
+      edges,
+    };
+    */
+
     const aAllUserNodes = [];
     const aAllInstanceNodes = [];
 
@@ -577,9 +591,10 @@ export default class GrapevineVisualization extends React.Component {
       aRatingsOfInstancesData2,
       aEndorsementsOfCuratorsData,
       this.props.controlPanelSettings,
+      this.props.curatedListFocusID,
     );
 
-    populateEachNodeAfferentEdgeIDs(nodes, edges);
+    populateEachNodeAfferentEdgeIDs();
 
     // an array of contextDAG nodes; assumed to contain at least one node, although if empty, just assume the apex of the contextDAG
     // any nodes past the first one specify nodes through which the inheritance pathway is assumed to traverse
@@ -605,17 +620,6 @@ export default class GrapevineVisualization extends React.Component {
     this.setState({ aAllInstanceNodes });
 
     setInterval(() => {
-      let aProfileCompScoreData = singleIterationCompositeUserScoreCalculations(
-        myPubKey,
-        this.props.controlPanelSettings,
-        aContextDAG,
-        nodes,
-        edges,
-        aAllUserNodes,
-        aAllInstanceNodes,
-      );
-      this.setState( {aProfileCompScoreData} )
-
       let aInstanceCompScoreData = singleIterationInstanceScoreCalculations(
         myPubKey,
         this.props.controlPanelSettings,
@@ -626,21 +630,44 @@ export default class GrapevineVisualization extends React.Component {
         aAllInstanceNodes,
       );
       this.setState( {aInstanceCompScoreData} )
-    }, 300);
+
+      let aProfileCompScoreData = singleIterationCompositeUserScoreCalculations(
+        myPubKey,
+        this.props.controlPanelSettings,
+        aContextDAG,
+        nodes,
+        edges,
+        aAllUserNodes,
+        aAllInstanceNodes,
+      );
+      this.setState( {aProfileCompScoreData} )
+    }, 500);
   }
 
   render() {
+    const fooID = "grapevineContainerElem"+this.props.curatedListFocusID
     return (
       <>
         <div style={{display: 'inline-block', width: '45%', margin: '10px', border: '1px solid grey'}}>
           <div style={{ width: '100%', height: '500px', marginTop: '5px' }}>
             <div
-              id="grapevineContainerElem"
+              id={fooID}
               style={{ display: 'none', width: '100%', height: '100%', border: '1px solid purple', marginRight: '5px' }}
             />
             <div
               style={{ display: 'inline-block', width: '100%', height: '100%' }}
             >
+              <div style={{fontSize:'12px'}}>
+                A number of items: {this.state.aCuratedListInstances.length}
+                <br/>
+                aAllInstanceNodes: {this.state.aAllInstanceNodes.length};
+                aInstanceCompScoreData: {this.state.aInstanceCompScoreData.length}
+                <br />
+                aAllUserNodes: {this.state.aAllUserNodes.length};
+                aProfileCompScoreData: {this.state.aProfileCompScoreData.length}
+                <br/>
+                nodes: {nodes.length}
+              </div>
               <RightPanel
                 curatedListFocusID={this.props.curatedListFocusID}
                 oListData={this.state.oListData}

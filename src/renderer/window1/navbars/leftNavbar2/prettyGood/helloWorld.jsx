@@ -33,6 +33,13 @@ export default class LeftNavbar2 extends React.PureComponent {
 
           <NavLink
             className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
+            end to="/PrettyGoodHome/VisjsHelloWorldMultiGraph"
+          >
+            Vis.js: multi graph
+          </NavLink>
+
+          <NavLink
+            className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
             end to="/PrettyGoodHome/DataTablesHelloWorld"
           >
             dataTables

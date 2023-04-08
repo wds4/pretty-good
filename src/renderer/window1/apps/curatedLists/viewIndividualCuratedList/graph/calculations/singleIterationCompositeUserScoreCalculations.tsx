@@ -163,7 +163,7 @@ export const singleIterationCompositeUserScoreCalculations = (myPubKey,controlPa
           oEdge.strat2Coeff = strat2Coeff_directRating_regular.toPrecision(4);
           oEdge.attenuationFactor = attenuationFactor_directRating;
           oEdge.color.opacity = weightAdjusted;
-          edges.update(oEdge);
+          // edges.update(oEdge);
         }
       }
       // STEP 2: ADD INHERITED SCORE
@@ -228,7 +228,7 @@ export const singleIterationCompositeUserScoreCalculations = (myPubKey,controlPa
       oNode.title += "\n input: "+input;
       oNode.title += "\n certainty: " + (certainty * 100) +" %";
       oNode.opacity = certainty;
-      nodes.update(oNode);
+      // nodes.update(oNode);
 
       const oNextTableRow = {
         id: oNode.id,

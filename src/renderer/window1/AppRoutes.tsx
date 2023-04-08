@@ -27,6 +27,7 @@ import PrettyGoodApps from './apps/prettyGood/apps';
 import PrettyGoodHelloWorld from './apps/prettyGood/settings/helloWorld';
 import PrettyGoodRedux from './apps/prettyGood/settings/redux';
 import VisjsHelloWorld from './apps/prettyGood/settings/helloWorld/visjs';
+import VisjsHelloWorldMultiGraph from './apps/prettyGood/settings/helloWorld/visjsMultiGraph';
 import DataTablesHelloWorld from './apps/prettyGood/settings/helloWorld/dataTables';
 import ReactDataTableComponentHelloWorld from './apps/prettyGood/settings/helloWorld/reactDataTableComponent';
 
@@ -161,6 +162,10 @@ const AppRoutes = () => {
             <Route
               path="/PrettyGoodHome/VisjsHelloWorld"
               element={<VisjsHelloWorld />}
+            />
+            <Route
+              path="/PrettyGoodHome/VisjsHelloWorldMultiGraph"
+              element={<VisjsHelloWorldMultiGraph />}
             />
             <Route
               path="/PrettyGoodHome/DataTablesHelloWorld"

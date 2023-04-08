@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { removeStringFromArray } from 'renderer/window2/lib/pg';
-import { updateAbout } from 'renderer/window2/redux/features/nostr/myNostrProfile/slice';
+import { removeStringFromArray } from 'renderer/window1/lib/pg';
+import { updateAbout } from 'renderer/window1/redux/features/nostr/myNostrProfile/slice';
 import { EntryOptionPlugin } from 'webpack';
 
 /*
