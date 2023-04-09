@@ -11,7 +11,7 @@ export default class ConceptGraphSettings extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      aListData: []
+      aListData: [],
     };
   }
 

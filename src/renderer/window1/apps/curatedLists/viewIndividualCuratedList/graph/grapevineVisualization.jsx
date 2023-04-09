@@ -193,44 +193,6 @@ const makeVisGraph_Grapevine = async (
     myImageUrl = noProfilePicUrl
   }
 
-  /*
-  const oNodeN = {
-    id: -1,
-    group: 'legend',
-    physics: false,
-    x: 250,
-    y: 100,
-    label: '-1',
-    shape: 'circle',
-    size: 15,
-  }
-  // nodes_arr.push(oNodeN)
-
-  const oNode0 = {
-    id: 0,
-    group: 'legend',
-    physics: false,
-    x: 250,
-    y: 0,
-    label: '0',
-    shape: 'circle',
-    size: 15,
-  }
-  nodes_arr.push(oNode0)
-
-  const oNode1 = {
-    id: 1,
-    group: 'legend',
-    physics: false,
-    x: 250,
-    y: -100,
-    label: '1',
-    shape: 'circle',
-    size: 15,
-  }
-  nodes_arr.push(oNode1)
-  */
-
   const oNode = {
     id: myPubKey,
     group: "user",

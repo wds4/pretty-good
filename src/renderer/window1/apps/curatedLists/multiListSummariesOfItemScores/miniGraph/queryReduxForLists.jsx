@@ -12,6 +12,7 @@ const QueryReduxForLists = () => {
   const controlPanelSettings = useSelector(
     (state) => state.controlPanelSettings
   );
+
   return (
     /*
       <GrapevineVisualization

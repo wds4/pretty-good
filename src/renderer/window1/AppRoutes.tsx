@@ -89,6 +89,8 @@ import SpecificInstanceTechOverview from './apps/curatedLists/viewInstance/techO
 import SpecificInstanceViewRatings from './apps/curatedLists/viewInstance/viewRatings';
 import SpecificInstanceLeaveRating from './apps/curatedLists/viewInstance/leaveRating';
 import MultiListSummariesOfItemScores from './apps/curatedLists/multiListSummariesOfItemScores';
+import CuratedListsWithScores from './apps/curatedLists/listsWithScores';
+import CuratedListsWithScoresV4 from './apps/curatedLists/listsWithScoresV4';
 
 const AppRoutes = () => {
   const { onDisconnect } = useNostr();
@@ -370,6 +372,14 @@ const AppRoutes = () => {
             <Route
               path="/CuratedListsHome/MultiListSummariesOfItemScores"
               element={<MultiListSummariesOfItemScores />}
+            />
+            <Route
+              path="/CuratedListsHome/CuratedListsWithScores"
+              element={<CuratedListsWithScores />}
+            />
+            <Route
+              path="/CuratedListsHome/CuratedListsWithScoresV4"
+              element={<CuratedListsWithScoresV4 />}
             />
           </Routes>
         </Router>

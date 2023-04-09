@@ -34,17 +34,15 @@ const { options } = VisStyleConstants;
 export const yAxisConst = 400;
 export const yAxisDisplacement = 200;
 
+
 let nodes = new DataSet([]);
 let edges = new DataSet([]);
 let data = {
   nodes,
   edges,
 };
-
-let aAllUserNodes = [];
-let aAllInstanceNodes = [];
-
 let network = {};
+
 
 export const VisNetwork_Grapevine = ({nodes,edges}) => {
   // moved from singleIterationCompositeUserScoreCalculations
@@ -136,6 +134,15 @@ const makeVisGraph_Grapevine = async (
   curatedListFocusID,
 ) => {
   // console.log("oNostrProfilesData: "+JSON.stringify(oNostrProfilesData,null,4))
+  /*
+  let nodes = new DataSet([]);
+  let edges = new DataSet([]);
+  let data = {
+    nodes,
+    edges,
+  };
+  let network = {};
+  */
 
   const nodes_arr = [];
   const edges_arr = [];
@@ -196,44 +203,6 @@ const makeVisGraph_Grapevine = async (
   if (!myImageUrl) {
     myImageUrl = noProfilePicUrl
   }
-
-  /*
-  const oNodeN = {
-    id: -1,
-    group: 'legend',
-    physics: false,
-    x: 250,
-    y: 100,
-    label: '-1',
-    shape: 'circle',
-    size: 15,
-  }
-  // nodes_arr.push(oNodeN)
-
-  const oNode0 = {
-    id: 0,
-    group: 'legend',
-    physics: false,
-    x: 250,
-    y: 0,
-    label: '0',
-    shape: 'circle',
-    size: 15,
-  }
-  nodes_arr.push(oNode0)
-
-  const oNode1 = {
-    id: 1,
-    group: 'legend',
-    physics: false,
-    x: 250,
-    y: -100,
-    label: '1',
-    shape: 'circle',
-    size: 15,
-  }
-  nodes_arr.push(oNode1)
-  */
 
   const oNode = {
     id: myPubKey,
@@ -501,7 +470,7 @@ const makeVisGraph_Grapevine = async (
   );
 };
 
-export const populateEachNodeAfferentEdgeIDs = () => {
+export const populateEachNodeAfferentEdgeIDs = (nodes,edges) => {
   // console.log("populateEachNodeAfferentEdgeIDs ");
   const aAllEdges = edges.getIds();
   for (let e = 0; e < aAllEdges.length; e++) {
@@ -532,6 +501,7 @@ export default class GrapevineVisualization extends React.Component {
       aCuratedListInstances: [],
       aInstanceCompScoreData: [],
       aProfileCompScoreData: [],
+      aAllNodes: [],
       aAllUserNodes: [],
       aAllInstanceNodes: [],
     };
@@ -592,9 +562,12 @@ export default class GrapevineVisualization extends React.Component {
       aEndorsementsOfCuratorsData,
       this.props.controlPanelSettings,
       this.props.curatedListFocusID,
+      nodes,
+      edges,
+      data,
     );
 
-    populateEachNodeAfferentEdgeIDs();
+    populateEachNodeAfferentEdgeIDs(nodes,edges);
 
     // an array of contextDAG nodes; assumed to contain at least one node, although if empty, just assume the apex of the contextDAG
     // any nodes past the first one specify nodes through which the inheritance pathway is assumed to traverse
@@ -616,31 +589,32 @@ export default class GrapevineVisualization extends React.Component {
         }
       }
     }
+    this.setState({ aAllNodes });
     this.setState({ aAllUserNodes });
     this.setState({ aAllInstanceNodes });
 
     setInterval(() => {
-      let aInstanceCompScoreData = singleIterationInstanceScoreCalculations(
-        myPubKey,
-        this.props.controlPanelSettings,
-        aContextDAG,
-        nodes,
-        edges,
-        aAllUserNodes,
-        aAllInstanceNodes,
-      );
-      this.setState( {aInstanceCompScoreData} )
-
       let aProfileCompScoreData = singleIterationCompositeUserScoreCalculations(
         myPubKey,
         this.props.controlPanelSettings,
         aContextDAG,
         nodes,
         edges,
-        aAllUserNodes,
-        aAllInstanceNodes,
+        this.state.aAllUserNodes,
+        this.state.aAllInstanceNodes,
       );
       this.setState( {aProfileCompScoreData} )
+
+      let aInstanceCompScoreData = singleIterationInstanceScoreCalculations(
+        myPubKey,
+        this.props.controlPanelSettings,
+        aContextDAG,
+        nodes,
+        edges,
+        this.state.aAllUserNodes,
+        this.state.aAllInstanceNodes,
+      );
+      this.setState( {aInstanceCompScoreData} )
     }, 500);
   }
 
@@ -659,6 +633,8 @@ export default class GrapevineVisualization extends React.Component {
             >
               <div style={{fontSize:'12px'}}>
                 A number of items: {this.state.aCuratedListInstances.length}
+                <br />
+                aAllNodes: {this.state.aAllNodes.length};
                 <br/>
                 aAllInstanceNodes: {this.state.aAllInstanceNodes.length};
                 aInstanceCompScoreData: {this.state.aInstanceCompScoreData.length}
@@ -676,8 +652,8 @@ export default class GrapevineVisualization extends React.Component {
                 aProfileCompScoreData={this.state.aProfileCompScoreData}
                 nodes={nodes}
                 edges={edges}
-                aAllUserNodes={aAllUserNodes}
-                aAllInstanceNodes={aAllInstanceNodes}
+                aAllUserNodes={this.state.aAllUserNodes}
+                aAllInstanceNodes={this.state.aAllInstanceNodes}
               />
             </div>
           </div>

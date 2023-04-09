@@ -1,5 +1,4 @@
 import { useSelector } from 'react-redux';
-// import QueryDbForList from './queryDbForList';
 import GrapevineVisualization from './grapevineVisualization';
 
 const QueryReduxForListFocus = () => {

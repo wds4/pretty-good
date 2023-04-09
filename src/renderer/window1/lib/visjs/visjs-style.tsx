@@ -21,6 +21,7 @@ export const groups = {
 }
 
 export const options = {
+  autoResize: true,
   clickToUse: false,
   interaction: { hover: true },
   physics: {

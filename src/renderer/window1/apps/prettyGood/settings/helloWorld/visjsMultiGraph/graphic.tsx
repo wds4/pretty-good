@@ -1,52 +1,23 @@
 import { useEffect, useRef } from 'react';
 import { DataSet, Network } from 'vis-network/standalone/esm/vis-network';
 import * as VisStyleConstants from 'renderer/window1/lib/visjs/visjs-style';
+
 const { options } = VisStyleConstants;
 
-export let nodes = new DataSet([
-  { id: 1, label: 'Node 1' },
-  { id: 2, label: 'Node 2' },
-  { id: 3, label: 'Node 3' },
-  { id: 4, label: 'Node 4' },
-  { id: 5, label: 'Node 5' },
-  { id: 6, label: 'Node 6' },
-  { id: 7, label: 'Node 7' },
-  { id: 8, label: 'Node 8' },
-]);
-
-export let edges = new DataSet([
-  { from: 1, to: 2 },
-  { from: 1, to: 3 },
-  { from: 2, to: 4 },
-  { from: 1, to: 5 },
-  { from: 3, to: 6 },
-  { from: 2, to: 7 },
-  { from: 2, to: 8 },
-]);
-
-export let data = {
+/*
+let nodes = new DataSet([]);
+let edges = new DataSet([]);
+let data = {
   nodes,
   edges,
 };
+let network = {};
+*/
 
-export let network = {};
-
-const Graphic = () => {
-  /*
-    var nodes_arr = [];
-    var edges_arr = [];
-
-    nodes = new DataSet(nodes_arr);
-    edges = new DataSet(edges_arr);
-    data = {
-        nodes,
-        edges
-    };
-    */
-
+const Graphic2 = ({ nodes, edges, data }) => {
   const domNode = useRef(null);
 
-  network = useRef(null);
+  const network = useRef(null);
 
   useEffect(() => {
     network.current = new Network(domNode.current, data, options);
@@ -76,22 +47,58 @@ const Graphic = () => {
       if (numNodes == 1) {
         const nodeID = nodes_arr[0];
         const node = nodes.get(nodeID);
-        const { name } = node;
+        const { label } = node;
+        console.log(`selectNode; label: ${label}`);
+        node.label = 'CHANGED';
+        nodes.update(node);
         // drawScoreCalculationPanel(nodeID)
       }
     });
     network.current.on('deselectNode', function (params) {
       // jQuery("#usernameContainer").html("none")
     });
+    const nOde = { id: 100, label: 'NODE 100' };
+    nodes.update(nOde);
   }, [domNode, network, data, options]);
 
   return (
     <>
       <div
-        style={{ height: '500px', width: '700px', border: '1px solid purple' }}
+        style={{
+          height: '500px',
+          width: '100%',
+          border: '1px solid purple',
+          display: 'inline-block',
+        }}
         ref={domNode}
       />
     </>
   );
 };
-export default Graphic;
+
+const Graphic1 = ({ aNodes, aEdges }) => {
+  const nodes = new DataSet(aNodes);
+  const edges = new DataSet(aEdges);
+  const data = {
+    nodes,
+    edges,
+  };
+  const network = {};
+  const aAllNodes = nodes.getIds();
+
+  const nODe = { id: 200, label: 'NODE 200' };
+  nodes.update(nODe);
+
+  const noDe = { id: 0, label: 'NODE 0' };
+  nodes.update(noDe);
+
+  return (
+    <>
+      <div style={{ display: 'inline-block', width: '25%' }}>
+        <div>{JSON.stringify(aAllNodes)}</div>
+        <Graphic2 nodes={nodes} edges={edges} data={data} />
+      </div>
+    </>
+  );
+};
+export default Graphic1;
