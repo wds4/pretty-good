@@ -1,7 +1,8 @@
 import React from 'react';
 import { singleIterationCompositeUserScoreCalculations } from 'renderer/window1/lib/curatedLists/singleIterationCompositeUserScoreCalculations';
 import { singleIterationInstanceScoreCalculations } from 'renderer/window1/lib/curatedLists/singleIterationInstanceScoreCalculations';
-import RightPanel from './controlPanels/rightPanel';
+// import RightPanel from './controlPanels/rightPanel';
+import CalculationResults from './controlPanels/rightPanel/scores';
 
 export default class ListUI extends React.Component {
   constructor(props) {
@@ -45,8 +46,7 @@ export default class ListUI extends React.Component {
   render() {
     return (
       <>
-        <RightPanel
-          oListData={this.props.oListData}
+        <CalculationResults
           aInstanceCompScoreData={this.state.aInstanceCompScoreData}
           aProfileCompScoreData={this.state.aProfileCompScoreData}
         />

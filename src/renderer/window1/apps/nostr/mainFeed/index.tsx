@@ -1,9 +1,10 @@
 import React from 'react';
-import Masthead from '../../../mastheads/nostrMasthead';
-import LeftNavbar1 from '../../../navbars/leftNavbar1/nostrNavbar';
-import LeftNavbar2 from '../../../navbars/leftNavbar2/emptyNavbar';
-import { updateMainColWidth, updateMastheadCenter } from '../../../lib/pg/ui';
+import Masthead from 'renderer/window1/mastheads/nostrMasthead';
+import LeftNavbar1 from 'renderer/window1/navbars/leftNavbar1/nostrNavbar';
+import LeftNavbar2 from 'renderer/window1/navbars/leftNavbar2/emptyNavbar';
+import { updateMainColWidth, updateMastheadCenter } from 'renderer/window1/lib/pg/ui';
 import GlobalFeed from './globalFeed';
+import SourceToggleSwitch from 'renderer/window1/apps/curatedLists/components/sourceToggleSwitch';
 
 export default class MainFeed extends React.Component {
   constructor(props) {
@@ -27,6 +28,9 @@ export default class MainFeed extends React.Component {
         <div id="mainCol">
           <Masthead />
           <div id="mainPanel">
+            <div style={{ marginBottom: '5px' }}>
+              <SourceToggleSwitch />
+            </div>
             <GlobalFeed />
           </div>
         </div>

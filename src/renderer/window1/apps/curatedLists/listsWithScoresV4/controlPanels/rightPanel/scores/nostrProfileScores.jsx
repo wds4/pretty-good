@@ -32,7 +32,6 @@ const NostrProfileScores = ({aProfileCompScoreData}) => {
       <div style={{display: 'none', textAlign: 'left', fontSize: '10px', border: '1px solid red', padding: '5px' }}>{JSON.stringify(aProfileCompScoreData,null,4)}</div>
       <div style={{}}>
         <DataTable
-          title="Nostr Profiles: Curator Trust Scores"
           columns={columns}
           data={aProfileCompScoreData}
           pagination

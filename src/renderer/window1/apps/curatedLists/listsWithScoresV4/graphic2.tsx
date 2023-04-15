@@ -4,6 +4,7 @@ import * as VisStyleConstants from 'renderer/window1/lib/visjs/visjs-style';
 import { singleIterationCompositeUserScoreCalculations } from 'renderer/window1/lib/curatedLists/singleIterationCompositeUserScoreCalculations';
 import { singleIterationInstanceScoreCalculations } from 'renderer/window1/lib/curatedLists/singleIterationInstanceScoreCalculations';
 import ListUI from './listUI';
+import Header from './controlPanels/rightPanel/header';
 
 const { options } = VisStyleConstants;
 
@@ -90,8 +91,8 @@ const Graphic2 = ({
     <>
       <div
         style={{
-          height: '300px',
-          width: '50%',
+          height: '100%',
+          width: '300px',
           border: '1px solid blue',
           display: 'inline-block',
         }}
@@ -100,11 +101,14 @@ const Graphic2 = ({
       <div
         style={{
           display: 'inline-block',
-          width: '48%',
+          width: '300px',
           height: '100%',
           border: '1px dashed grey',
         }}
       >
+        <Header
+          oListData={oListData}
+        />
         <ListUI
           nodes={nodes}
           edges={edges}

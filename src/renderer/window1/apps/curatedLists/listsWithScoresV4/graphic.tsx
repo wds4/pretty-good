@@ -15,6 +15,7 @@ const Graphic = ({
   aCuratedListInstances,
   aRatingsOfInstancesData,
   aEndorsementsOfCuratorsData,
+  controlPanelSettings,
 }) => {
   const oListEvent = JSON.parse(oListData.event);
   let oListWord = {};
@@ -23,9 +24,6 @@ const Graphic = ({
     oListWord = JSON.parse(oListEvent.content);
     propertyPath = oListWord.nostrCuratedListData.propertyPath;
   }
-  const controlPanelSettings = useSelector(
-    (state) => state.controlPanelSettings
-  );
 
   const { aNodes, aEdges } = extractNodesAndEdges(
     oMyNostrProfileData,
@@ -46,17 +44,15 @@ const Graphic = ({
 
   return (
     <>
-      <div style={{ border: '1px solid purple', margin: '10px' }}>
-        <div style={{ display: 'inline-block', width: '100%' }}>
-          <Graphic2
-            nodes={nodes}
-            edges={edges}
-            data={data}
-            oMyNostrProfileData={oMyNostrProfileData}
-            controlPanelSettings={controlPanelSettings}
-            oListData={oListData}
-          />
-        </div>
+      <div style={{ border: '1px solid purple', height: '400px', margin: '2px', display: 'inline-block' }}>
+        <Graphic2
+          nodes={nodes}
+          edges={edges}
+          data={data}
+          oMyNostrProfileData={oMyNostrProfileData}
+          controlPanelSettings={controlPanelSettings}
+          oListData={oListData}
+        />
       </div>
     </>
   );

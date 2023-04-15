@@ -38,7 +38,6 @@ const CuratedListInstanceScores = ({
     <>
       <div style={{}}>
         <DataTable
-          title="Curated List Instance Scores"
           columns={columns}
           data={aInstanceCompScoreData}
           pagination
@@ -52,3 +51,7 @@ const CuratedListInstanceScores = ({
   );
 };
 export default CuratedListInstanceScores;
+/*
+DatTable:
+          title="Curated List Instance Scores"
+*/

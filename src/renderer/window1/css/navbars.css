@@ -35,6 +35,9 @@ MAIN PANEL
 .leftNavPanelCuratedLists {
   background-color: #2D32F3;
 }
+.leftNavPanelAskNostr {
+  background-color: #339933;
+}
 
 /******************************
 LEFT NAV 1 BUTTONS
@@ -96,6 +99,9 @@ MAIN PANEL
 }
 .leftNav2PanelCuratedLists {
   background-color: #B8BFF1;
+}
+.leftNav2PanelAskNostr {
+  background-color: #a1dea1;
 }
 
 /******************************

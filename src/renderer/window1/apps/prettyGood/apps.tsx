@@ -157,12 +157,13 @@ export default class PrettyGoodApps extends React.Component {
                   </NavLink>
 
                   <NavLink
-                    className="pgAppSquareButton plexAppSquareInactiveButton"
+                    className="pgAppSquareButton plexAppSquareActiveButton"
                     exact
                     activeClassName="active"
-                    to="/"
+                    to="/AskNostrHome"
                   >
-                    <center>Ask PG: decentralized Questions & Answers</center>
+                    <center>Ask Nostr</center>
+                    <div className="appsLargeIconEmoji">❓</div>
                   </NavLink>
                 </center>
               </div>

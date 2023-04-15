@@ -37,6 +37,7 @@ export default class CuratorsOfIndividualList extends React.Component {
           oListData={this.props.oListData}
           oMyNostrProfileData={this.props.oMyNostrProfileData}
           oNostrProfilesData={this.props.oNostrProfilesData}
+          controlPanelSettings={this.props.controlPanelSettings}
 
           aRatingsOfInstancesData={this.state.aRatingsOfInstancesData}
           aEndorsementsOfCuratorsData={this.state.aEndorsementsOfCuratorsData}

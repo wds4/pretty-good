@@ -1,6 +1,7 @@
 import React from 'react';
 import { asyncSql } from 'renderer/window1/lib/pg/asyncSql';
 import List from './list';
+import ControlPanel from './controlPanels/rightPanel/controlPanel';
 
 export default class ListsWithScores extends React.Component {
   constructor(props) {
@@ -35,10 +36,16 @@ export default class ListsWithScores extends React.Component {
     return (
       <>
         <div className="h3">List with Scores</div>
+        <div style={{width: '400px', maxHeight: '400px', border: '1px solid black', fontSize: '12px', textAlign: 'center'}}>
+          <div className="h4">Control Panel</div>
+          <ControlPanel />
+        </div>
+
         {this.state.aListsData.map((oListData) => {
           return (
             <>
               <List
+                controlPanelSettings={this.props.controlPanelSettings}
                 oListData={oListData}
                 oMyNostrProfileData={this.state.oMyNostrProfileData}
                 oNostrProfilesData={this.state.oNostrProfilesData}

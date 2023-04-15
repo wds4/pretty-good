@@ -2,7 +2,10 @@ import React from 'react';
 import Masthead from 'renderer/window1/mastheads/curatedListsMasthead';
 import LeftNavbar1 from 'renderer/window1/navbars/leftNavbar1/curatedListsNavbar';
 import LeftNavbar2 from 'renderer/window1/navbars/leftNavbar2/curatedLists/viewLists';
-import { updateMainColWidth, updateMastheadCenter } from 'renderer/window1/lib/pg/ui';
+import {
+  updateMainColWidth,
+  updateMastheadCenter,
+} from 'renderer/window1/lib/pg/ui';
 import SourceToggleSwitch from 'renderer/window1/apps/curatedLists/components/sourceToggleSwitch';
 import { asyncSql } from 'renderer/window1/lib/pg/asyncSql';
 import AllLists from './allLists';
@@ -38,9 +41,7 @@ export default class ConceptGraphSettings extends React.Component {
             <div style={{ marginBottom: '5px' }}>
               <SourceToggleSwitch />
             </div>
-            <AllLists
-              aListData={this.state.aListData}
-            />
+            <AllLists aListData={this.state.aListData} />
           </div>
         </div>
       </>

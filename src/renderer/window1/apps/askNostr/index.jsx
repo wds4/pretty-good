@@ -1,14 +1,13 @@
 import React from 'react';
-import Masthead from 'renderer/window1/mastheads/curatedListsMasthead';
-import LeftNavbar1 from 'renderer/window1/navbars/leftNavbar1/curatedListsNavbar';
-import LeftNavbar2 from 'renderer/window1/navbars/leftNavbar2/curatedLists/viewLists';
+import Masthead from 'renderer/window1/mastheads/askNostrMasthead';
+import LeftNavbar1 from 'renderer/window1/navbars/leftNavbar1/askNostrNavbar';
+import LeftNavbar2 from 'renderer/window1/navbars/leftNavbar2/askNostr/home';
 import {
   updateMainColWidth,
   updateMastheadCenter,
 } from 'renderer/window1/lib/pg/ui';
-import ListsRedux from './listsRedux';
 
-export default class CuratorsOfIndividualList extends React.Component {
+export default class AskNostrHome extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -16,7 +15,7 @@ export default class CuratorsOfIndividualList extends React.Component {
 
   async componentDidMount() {
     updateMainColWidth();
-    const mastheadDescriptor = 'list with scores';
+    const mastheadDescriptor = 'Ask Nostr';
     updateMastheadCenter(mastheadDescriptor);
   }
 
@@ -30,7 +29,9 @@ export default class CuratorsOfIndividualList extends React.Component {
         <div id="mainCol">
           <Masthead />
           <div id="mainPanel">
-            <ListsRedux />
+            <div style={{margin: '20px 50px 0px 50px'}}>
+              Ask Nostr.
+            </div>
           </div>
         </div>
       </>

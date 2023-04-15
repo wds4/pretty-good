@@ -52,7 +52,7 @@ const Header = ({ oListData }) => {
   return (
     <>
       <div className="h4" style={{marginBottom: '10px'}}>
-        <span style={{ color: 'purple', fontSize: '24px' }}>{name_plural}</span>
+        <span style={{ color: 'purple', fontSize: '18px' }}>{name_plural}</span>
       </div>
     </>
   );

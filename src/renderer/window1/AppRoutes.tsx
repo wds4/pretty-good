@@ -92,6 +92,11 @@ import MultiListSummariesOfItemScores from './apps/curatedLists/multiListSummari
 import CuratedListsWithScores from './apps/curatedLists/listsWithScores';
 import CuratedListsWithScoresV4 from './apps/curatedLists/listsWithScoresV4';
 
+import AskNostrHome from './apps/askNostr';
+import AskNostrSettings from './apps/askNostr/settings';
+import AskNostrQuestionsList from './apps/askNostr/questions';
+import AskNostrCreateNewQuestion from './apps/askNostr/createNewQuestion';
+
 const AppRoutes = () => {
   const { onDisconnect } = useNostr();
   const dispatch = useDispatch();
@@ -381,6 +386,24 @@ const AppRoutes = () => {
               path="/CuratedListsHome/CuratedListsWithScoresV4"
               element={<CuratedListsWithScoresV4 />}
             />
+
+            <Route
+              path="/AskNostrHome"
+              element={<AskNostrHome />}
+            />
+            <Route
+              path="/AskNostrHome/AskNostrSettings"
+              element={<AskNostrSettings />}
+            />
+            <Route
+              path="/AskNostrHome/AskNostrQuestionsList"
+              element={<AskNostrQuestionsList />}
+            />
+            <Route
+              path="/AskNostrHome/AskNostrCreateNewQuestion"
+              element={<AskNostrCreateNewQuestion />}
+            />
+
           </Routes>
         </Router>
       </fieldset>
