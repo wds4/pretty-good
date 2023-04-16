@@ -25,6 +25,12 @@ Anyone can rate items on any list. For now, ratings consist of a simple thumbs u
 
 Users can designate other users to be trusted curators. Again, for now, attestations are simple thumbs up or down. Attestations are designated to apply to a specified list (currently working) or to lists in general (in progress).
 
+There is no universal arbiter of truth. Instead, all calculations are performed from the perspective of a given user, the "seed user." By default, the seed user is YOU, but different seed users can be selected, as depicted in the screenshot.
+
+### Sybil resistance ###
+
+One of the principle functions of the grapevine is to resist influence by sybil attacks or other bad actors. Multiple adjustable parameters are provided, some of which are depicted in the screenshots above, including the default user parameters which determine how much influence to allow for completely unvetted users.
+
 ## Install Pretty Good
 
 Clone this repo and install dependencies:
