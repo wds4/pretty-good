@@ -12,8 +12,12 @@ As of April 2023: *** still in alpha ***
 
 Curation of items on a list by a decentralized web of trust. This is the simplest demonstration of the threaded tapestry model I have been able to devise so far that demonstrates knowledge representation as well as knowledge curation.
 
+<span>
 <img src=".erb/img/listCuration1.png" width="45%" display="inline-block" />
+</span>
+<span>
 <img src=".erb/img/listCuration2.png" width="45%" display="inline-block" />
+</span>
 
 ## Install Pretty Good
 
