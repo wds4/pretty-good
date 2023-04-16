@@ -15,11 +15,13 @@ Curation of items on a list by a decentralized web of trust. This is the simples
 <img src=".erb/img/listCuration1.png" width="100%" />
 <img src=".erb/img/listCuration2.png" width="100%" />
 
-### Knowledge Representation: the concept graph ###
+### decentralized knowledge representation: the concept graph ###
 
 Anyone can create a new list, and anyone can add items to any list. A list is a stripped-down version of what I call a concept. Eventually, this will mature into what I call the concept graph.
 
-### Knowledge Curation: the grapevine ###
+### decentralized knowledge curation: the grapevine ###
+
+When calculating weighted average scores, the trick is to determine how much weight to give to any single user's rating, to do so in a way that is contextual, and to do so in a way that resists sybil and other forms of attacks. Calculationof these weights is the purvue of the grapevine.
 
 Anyone can rate items on any list. For now, ratings consist of a simple thumbs up or down. More complex ratings will be forthcoming.
 
@@ -30,6 +32,18 @@ There is no universal arbiter of truth. Instead, all calculations are performed 
 ### Sybil resistance ###
 
 One of the principle functions of the grapevine is to resist influence by sybil attacks or other bad actors. Multiple adjustable parameters are provided, some of which are depicted in the screenshots above, including the default user parameters which determine how much influence to allow for completely unvetted users.
+
+### the threaded tapestry model ###
+
+Knowledge is represented in a graph, where nodes in the graph are chunks of information, and edges in the graph are specialised relationships between those chunks of information. In the decentralized web, a chunk is typically a file.
+
+Any relationship between two chunks is called a hop.
+
+Any continguous series of hops is called a thread.
+
+There are many categories of threads. The threaded tapestry model relies upon a special category of thread, called the <i>class thread</i>. The hallmark feature of a class thread is that the node at one end of the thread provides information on the endoding of information in the node at the opposite end of the thread. 
+
+The class thread may be thought of as a generalization of the notion of a <i>class</i> in an object oriented programming language such as javascript. Class threads connect to each other in a variety of ways. A collection of interconnected class threads may be referred to as a tapestry, or (equivalently) a concept graph. Class threads provide the scaffolding for the concept graph. Although other categories of threads exist, the class thread is the most important category.
 
 ## Install Pretty Good
 
