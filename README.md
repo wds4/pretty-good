@@ -11,7 +11,8 @@ As of April 2023: *** still in alpha ***
 ## Nostr
 
 Basic nostr functionality is currently available. Features include:
-[x] create new profile
+<li>create new profile
+<li>import profile
 
 However, this is still very much in alpha! Expect things to break, even if they are currently working.
 
