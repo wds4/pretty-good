@@ -20,6 +20,13 @@ const GeneralSettings = () => {
             initState={initState}
           />
         </div>
+        <div>used for debugging</div>
+      </div>
+      <div className="grapevineSettingsItemContainer">
+        toggle: show features that are still in alpha
+      </div>
+      <div className="grapevineSettingsItemContainer">
+        toggle: ability to see developer details (such as structure of words, nostr notes)
       </div>
     </>
   );

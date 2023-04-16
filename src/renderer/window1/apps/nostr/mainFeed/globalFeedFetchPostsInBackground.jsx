@@ -23,7 +23,7 @@ const GlobalFeedFetchPostsInBackground = ({ filter, mainNostrFeedFilter }) => {
   return (
     <>
       <div style={{ textAlign: 'right', marginRight: '20px' }}>
-        currently downloadingg (w/in past 2 days): {events.length} posts;
+        currently downloading: {events.length} posts;
       </div>
     </>
   );

@@ -50,7 +50,6 @@ import './css/curatedLists/index.css';
 import './css/curatedLists/endorsements.css';
 
 
-
 // an inelegant way to initialize the redux store
 const InitReduxStore = ({
   oMyActiveNostrProfileData,

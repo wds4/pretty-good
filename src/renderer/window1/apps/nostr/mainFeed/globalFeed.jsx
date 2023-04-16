@@ -1,54 +1,45 @@
 import { useRef } from 'react';
 import { useNostrEvents, dateToUnix } from 'nostr-react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
-import { updateNostrEvents } from 'renderer/window1/redux/features/nostr/settings/slice';
-import { addNote } from 'renderer/window1/redux/features/nostr/notes/slice';
-import {
-  setTwoBackSteps,
-  setCurrentPage,
-} from 'renderer/window1/redux/features/prettyGood/settings/slice';
-import { addNostrNoteToSql } from 'renderer/window1/lib/pg/sql';
 import Post from 'renderer/window1/apps/nostr/components/post';
-import MainFeedTypeSelector from './mainFeedTypeSelector';
-import WelcomeBox from './welcomeBox';
-import Posts from './posts';
 import GlobalFeedFetchPostsInBackground from './globalFeedFetchPostsInBackground';
 import GlobalFeedDisplayFromRedux from './globalFeedDisplayFromRedux';
+import GlobalFeedShowLiveEvents from './globalFeedShowLiveEvents';
 
-const GlobalFeed = () => {
-  const devMode = useSelector((state) => state.prettyGoodGlobalState.devMode);
-  let devModeClassName = 'devModeOff';
-  if (devMode) {
-    devModeClassName = 'devModeOn';
-  }
-  const dispatch = useDispatch();
-  dispatch(setTwoBackSteps());
-  dispatch(setCurrentPage('mainFeed'));
-
-  const myNostrProfile = useSelector((state) => state.myNostrProfile);
-  const aFollowing = myNostrProfile.following;
-  const aExtendedFollowing = myNostrProfile.extendedFollowing;
-
+const GlobalFeed = ({ aFollowing, aExtendedFollowing }) => {
   const mainNostrFeedFilter = useSelector(
     (state) => state.nostrSettings.mainNostrFeedFilter
   );
+  const nostrMainFeedFilterSettings = useSelector(
+    (state) => state.nostrSettings.nostrMainFeedFilterSettings
+  );
+  const viewEventsLoadStoredData = useSelector(
+    (state) => state.nostrSettings.viewEventsLoadStoredData
+  );
+  // viewEventsLoadStoredData true: load from redux; false: load live from nostr
 
   const now = useRef(new Date()); // Make sure current time isn't re-rendered
   const currentTime = dateToUnix(now.current);
-  const filter = { kinds: [1] };
+  const filter = {
+    kinds: [1],
+  };
+  if (nostrMainFeedFilterSettings.hasOwnProperty(mainNostrFeedFilter)) {
+    const { days, hours, minutes } = nostrMainFeedFilterSettings[mainNostrFeedFilter];
+    filter.since = currentTime - ( (24 * 60 * 60 * days) + (60 * 60 * hours) +(60 * minutes) )
+  }
   switch (mainNostrFeedFilter) {
     case 'following':
       filter.authors = aFollowing;
-      filter.since = currentTime - 2 * 24 * 60 * 60; // 2 * 24 * 60 * 60 = fetch messages as old as two days
+      // filter.since = currentTime - 6 * 60 * 60; // 12 * 60 * 60 = fetch messages as old as two days
       break;
     case 'eFollowing':
       filter.authors = aExtendedFollowing;
-      filter.since = currentTime - 2 * 24 * 60 * 60; // 2 * 24 * 60 * 60 = fetch messages as old as two days
+      // filter.since = currentTime - 2 * 24 * 60 * 60; // 2 * 24 * 60 * 60 = fetch messages as old as two days
       break;
     case 'firehose':
       // all authors
-      filter.since = currentTime - 30 * 60; // 60 * 60 = fetch messages as old as one hour
+      // filter.since = currentTime - 30 * 60; // 60 * 60 = fetch messages as old as one hour
       break;
     case 'grapevine':
       // all authors
@@ -60,26 +51,11 @@ const GlobalFeed = () => {
       filter.since = currentTime - 30 * 60;
       break;
   }
-  // <GlobalFeedFetchRecentPostsInBackground filter={filter} />
-  if (mainNostrFeedFilter == 'following') {
+  //
+  if (viewEventsLoadStoredData) {
     // show notes from redux
     return (
       <>
-        <pre className={devModeClassName}>
-          filter: {JSON.stringify(filter, null, 4)}
-        </pre>
-        <div style={{ position: 'relative', height: '40px' }}>
-          <div className="mainFeedTypeSelector">
-            <MainFeedTypeSelector
-              following={aFollowing}
-              extendedFollowing={aExtendedFollowing}
-            />
-          </div>
-        </div>
-        <WelcomeBox />
-        <pre className={devModeClassName}>
-          aFollowing: {JSON.stringify(aFollowing, null, 4)}
-        </pre>
         <GlobalFeedFetchPostsInBackground
           mainNostrFeedFilter={mainNostrFeedFilter}
           filter={filter}
@@ -92,36 +68,9 @@ const GlobalFeed = () => {
     );
   }
   // if extendedFollowing or firehose, show notes as they arrive
-  const { events } = useNostrEvents({
-    filter,
-  });
-  events.sort((a, b) => parseFloat(b.created_at) - parseFloat(a.created_at));
-  return (
-    <>
-      <pre className={devModeClassName}>
-        filter: {JSON.stringify(filter, null, 4)}
-      </pre>
-      <div style={{ position: 'relative', height: '40px' }}>
-        <div className="mainFeedTypeSelector">
-          <MainFeedTypeSelector
-            following={aFollowing}
-            extendedFollowing={aExtendedFollowing}
-          />
-        </div>
-      </div>
-      <WelcomeBox />
-      <pre className={devModeClassName}>
-        aFollowing: {JSON.stringify(aFollowing, null, 4)}
-      </pre>
-      {events.map((event, index) => {
-        if (doesEventValidate(event)) {
-          return (
-            <><Post event={event} /></>
-          );
-        }
-      })}
-    </>
-  );
+  if (!viewEventsLoadStoredData) {
+    return <GlobalFeedShowLiveEvents filter={filter} />;
+  }
 };
 
 export default GlobalFeed;

@@ -47,7 +47,8 @@ const ExtendedFollowingCalculation = ({  }) => {
         let aTags = [];
         if (kind3NostrProfiles.hasOwnProperty(pk)) {
           const kind3Event = kind3NostrProfiles[pk];
-          aTags = kind3Event.tags;
+          aTags = kind3Event?.tags;
+          if (!aTags) { aTags = [] }
         }
         return (
           <>

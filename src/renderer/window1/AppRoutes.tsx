@@ -17,6 +17,8 @@ import { useNostr } from 'nostr-react';
 import LandingPage from './landingPage';
 
 import PrettyGoodHome from './apps/prettyGood';
+import PrettyGoodAbout from './apps/prettyGood/about';
+import ThreadedTapestry from './apps/prettyGood/about/threadedTapestry';
 import PrettyGoodProfile from './apps/prettyGood/profile';
 import PrettyGoodSettings from './apps/prettyGood/settings';
 import PrettyGoodIPFSLightweight from './apps/prettyGood/settings/networksAndDatabases/ipfsLightweight';
@@ -53,6 +55,7 @@ import NostrRelays from './apps/nostr/settings/relays';
 import NostrSql from './apps/nostr/settings/sql';
 import NostrSettingsGrapevine from './apps/nostr/settings/grapevine';
 import NostrSettingsExtendedFollowing from './apps/nostr/settings/extendedFollowing';
+import NostrMainFeedSettings from './apps/nostr/settings/mainFeed';
 
 import GrapevineHome from './apps/grapevine';
 import GrapevineProfile from './apps/grapevine/profile';
@@ -133,6 +136,14 @@ const AppRoutes = () => {
             <Route
               path="/PrettyGoodHome/PrettyGoodProfile"
               element={<PrettyGoodProfile />}
+            />
+            <Route
+              path="/PrettyGoodHome/PrettyGoodAbout"
+              element={<PrettyGoodAbout />}
+            />
+            <Route
+              path="/PrettyGoodHome/ThreadedTapestry"
+              element={<ThreadedTapestry />}
             />
             <Route
               path="/PrettyGoodHome/PrettyGoodSettings"
@@ -250,6 +261,10 @@ const AppRoutes = () => {
             <Route
               path="/NostrHome/NostrSettingsExtendedFollowing"
               element={<NostrSettingsExtendedFollowing />}
+            />
+            <Route
+              path="/NostrHome/NostrMainFeedSettings"
+              element={<NostrMainFeedSettings />}
             />
 
             <Route path="/GrapevineHome" element={<GrapevineHome />} />

@@ -1,12 +1,14 @@
 import React from 'react';
 import Masthead from 'renderer/window1/mastheads/nostrMasthead';
 import LeftNavbar1 from 'renderer/window1/navbars/leftNavbar1/nostrNavbar';
-import LeftNavbar2 from 'renderer/window1/navbars/leftNavbar2/emptyNavbar';
-import { updateMainColWidth, updateMastheadCenter } from 'renderer/window1/lib/pg/ui';
-// import GlobalFeed from './globalFeed';
-import GlobalFeedPre from './globalFeed_pre';
+import LeftNavbar2 from 'renderer/window1/navbars/leftNavbar2/nostr/settings';
+import {
+  updateMainColWidth,
+  updateMastheadCenter,
+} from 'renderer/window1/lib/pg/ui';
+import NostrMainFeedSettings from './mainFeedSettings';
 
-export default class MainFeed extends React.Component {
+export default class MainFeedSettings extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -14,7 +16,7 @@ export default class MainFeed extends React.Component {
 
   async componentDidMount() {
     updateMainColWidth();
-    const mastheadDescriptor = 'Nostr: Main Feed';
+    const mastheadDescriptor = 'Nostr: Main Feed Settings';
     updateMastheadCenter(mastheadDescriptor);
   }
 
@@ -28,7 +30,8 @@ export default class MainFeed extends React.Component {
         <div id="mainCol">
           <Masthead />
           <div id="mainPanel">
-            <GlobalFeedPre />
+            <div className="h4">Nostr: Main Feed Settings</div>
+            <NostrMainFeedSettings />
           </div>
         </div>
       </>

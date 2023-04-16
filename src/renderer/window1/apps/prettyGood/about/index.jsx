@@ -1,10 +1,13 @@
 import React from 'react';
-import Masthead from '../../../mastheads/nostrMasthead';
-import LeftNavbar1 from '../../../navbars/leftNavbar1/nostrNavbar';
-import LeftNavbar2 from '../../../navbars/leftNavbar2/nostr/settings';
-import { updateMainColWidth, updateMastheadCenter } from '../../../lib/pg/ui';
+import Masthead from 'renderer/window1/mastheads/pgMasthead';
+import LeftNavbar1 from 'renderer/window1/navbars/leftNavbar1/pgNavbar';
+import LeftNavbar2 from 'renderer/window1/navbars/leftNavbar2/prettyGood/about';
+import {
+  updateMainColWidth,
+  updateMastheadCenter,
+} from 'renderer/window1/lib/pg/ui';
 
-export default class NostrSettings extends React.Component {
+export default class PrettyGoodAbout extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -12,7 +15,7 @@ export default class NostrSettings extends React.Component {
 
   async componentDidMount() {
     updateMainColWidth();
-    const mastheadDescriptor = 'Nostr: Settings';
+    const mastheadDescriptor = 'About';
     updateMastheadCenter(mastheadDescriptor);
   }
 
@@ -26,7 +29,7 @@ export default class NostrSettings extends React.Component {
         <div id="mainCol">
           <Masthead />
           <div id="mainPanel">
-            <div className="h4">Nostr: Settings</div>
+            <div className="h4">Pretty Good: About</div>
           </div>
         </div>
       </>

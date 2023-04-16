@@ -6,6 +6,24 @@ export default class LeftNavbar2 extends React.PureComponent {
     return (
       <>
         <div className="leftNav2Panel leftNav2PanelPrettyGood">
+          <div
+            style={{ fontSize: '12px', marginTop: '3px', marginBottom: '3px' }}
+          >
+            Pretty Good
+          </div>
+
+          <NavLink
+            className={({ isActive }) =>
+              isActive
+                ? 'leftNav2Button leftNav2ButtonActive'
+                : 'leftNav2Button'
+            }
+            end
+            to="/PrettyGoodHome"
+          >
+            home
+          </NavLink>
+
           <NavLink
             className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
             end to="/PrettyGoodHome/PrettyGoodSettings"

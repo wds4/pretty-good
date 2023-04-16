@@ -2,7 +2,10 @@ import { createSlice } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
 import { updateNostrRelayInSql } from 'renderer/window1/lib/pg/sql';
 import { doesEventValidate } from '../../../../lib/nostr/eventValidation';
-import { defaultNostrGrapevineSettings } from './defaultNostrGrapevineSettings';
+import {
+  defaultNostrGrapevineSettings,
+  defaultNostrMainFeedFilterSettings,
+} from './defaults';
 // which type of filter to use for main nostr feed
 type MainNostrFeedFilter = 'firehose' | 'following' | 'eFollowing';
 const iMNFF: MainNostrFeedFilter = 'following'; // initial choice
@@ -31,8 +34,25 @@ export const nostrSettingsSlice = createSlice({
       relayManagementStyle: 'manual',
     },
     nostrGrapevineSettings: defaultNostrGrapevineSettings,
+    nostrMainFeedFilterSettings: defaultNostrMainFeedFilterSettings,
+    viewEventsLoadStoredData: false,
+    // true: load events from redux (which was preloaded from SQL + actively loaded from nostr);
+    // false: load events from nostr (does not use redux)
   },
   reducers: {
+    updateNostrMainFeedFilterSettings: (state, action) => {
+      const { feedName } = action.payload;
+      const { timeUnit } = action.payload;
+      const { newValue } = action.payload;
+      state.nostrMainFeedFilterSettings[feedName][timeUnit] = newValue;
+    },
+    restoreDefaultNostrMainFeedFilterSettings: (state, action) => {
+      const { feedName } = action.payload;
+      state.nostrMainFeedFilterSettings[feedName] = defaultNostrMainFeedFilterSettings[feedName];
+    },
+    updateViewEventsLoadStoredData: (state, action) => {
+      state.viewEventsLoadStoredData = action.payload;
+    },
     updateNostrProfilePanelSelector: (state, action) => {
       state.nostrProfilePanelSelector = action.payload;
     },
@@ -40,19 +60,25 @@ export const nostrSettingsSlice = createSlice({
       state.nostrRelayManagement.endorseMyNostrRelays = action.payload;
     },
     updateNostrGrapevineGeneralSettings: (state, action) => {
-      state.nostrGrapevineSettings = { ... state.nostrGrapevineSettings, ... action.payload };
+      state.nostrGrapevineSettings = {
+        ...state.nostrGrapevineSettings,
+        ...action.payload,
+      };
     },
     restoreDefaultNostrGrapevineSettings: (state, action) => {
       // restore default grapevine settings, except keep top level active variable unchanged
-      let newSettings = structuredClone(defaultNostrGrapevineSettings);
+      const newSettings = structuredClone(defaultNostrGrapevineSettings);
       const isCurrentlyActive = state.nostrGrapevineSettings.active;
       newSettings.active = isCurrentlyActive;
       state.nostrGrapevineSettings = newSettings;
     },
     updateNostrGrapevineTopicalSettings: (state, action) => {
-      const topic = action.payload.topic;
-      const oUpdate = action.payload.oUpdate;
-      state.nostrGrapevineSettings[topic] = { ... state.nostrGrapevineSettings[topic], ... oUpdate[topic] };
+      const { topic } = action.payload;
+      const { oUpdate } = action.payload;
+      state.nostrGrapevineSettings[topic] = {
+        ...state.nostrGrapevineSettings[topic],
+        ...oUpdate[topic],
+      };
     },
     updateMainNostrFeedFilter: (state, action) => {
       state.mainNostrFeedFilter = action.payload;
@@ -87,7 +113,9 @@ export const nostrSettingsSlice = createSlice({
     },
     initNostrRelays: (state, action) => {
       const nostrRelays = action.payload;
-      console.log("initNostrRelays; nostrRelays: "+JSON.stringify(nostrRelays))
+      console.log(
+        `initNostrRelays; nostrRelays: ${JSON.stringify(nostrRelays)}`
+      );
       if (action.payload !== null && action.payload !== undefined) {
         state.nostrRelays = action.payload;
       }
@@ -134,7 +162,7 @@ export const nostrSettingsSlice = createSlice({
         state.nostrRelayStats[url].disconnects = 0;
       }
       state.nostrRelayStats[url].disconnects += 1;
-      console.log(`incrementRelayDisconnectCount; url: ${url}`)
+      console.log(`incrementRelayDisconnectCount; url: ${url}`);
       /*
       // state.nostrRelays = action.payload;
       state.nostrRelays[url].foo = "bar";
@@ -152,6 +180,9 @@ export const nostrSettingsSlice = createSlice({
 // Action creators are generated for each case reducer function
 
 export const {
+  restoreDefaultNostrMainFeedFilterSettings,
+  updateNostrMainFeedFilterSettings,
+  updateViewEventsLoadStoredData,
   updateNostrProfilePanelSelector,
   updateMyRelayListEndorsementMode,
   restoreDefaultNostrGrapevineSettings,
@@ -169,7 +200,7 @@ export const {
   addNostrRelay,
   removeNostrRelay,
   resetNostrSettingsNostrRelays,
-  incrementRelayDisconnectCount
+  incrementRelayDisconnectCount,
 } = nostrSettingsSlice.actions;
 
 export default nostrSettingsSlice.reducer;
@@ -184,11 +215,11 @@ export const ActivateNostrRelaysOfCurrentUser = () => {
     <>
       <div>ActivateNostrRelaysOfCurrentUser</div>
     </>
-  )
-}
+  );
+};
 
 export const updateNostrRelayStoreAndSql = (oNewState) => async (dispatch) => {
   dispatch(updateNostrRelay(oNewState));
-  const result = await updateNostrRelayInSql(oNewState)
+  const result = await updateNostrRelayInSql(oNewState);
   console.log('updateNostrRelayStoreAndSql');
 };

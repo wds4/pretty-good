@@ -6,7 +6,7 @@ import Post from 'renderer/window1/apps/nostr/components/post';
 const Posts = ({aEvents}) => {
   const now = useRef(new Date()); // Make sure current time isn't re-rendered
   const currentTime = dateToUnix(now.current);
-  const cutoffTime = currentTime - 2 * 24 * 60 * 60; // 2 * 24 * 60 * 60 = show messages as old as two days
+  const cutoffTime = currentTime - 6 * 60 * 60; // 2 * 24 * 60 * 60 = show messages as old as two days
   return (
     <>
       <div>

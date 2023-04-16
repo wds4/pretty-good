@@ -1,4 +1,20 @@
-export const foo = 'bar';
+export const defaultNostrMainFeedFilterSettings = {
+  following: {
+    minutes: 0,
+    hours: 12,
+    days: 0,
+  },
+  eFollowing: {
+    minutes: 0,
+    hours: 6,
+    days: 0,
+  },
+  firehose: {
+    minutes: 60,
+    hours: 0,
+    days: 0,
+  },
+}
 
 export const defaultNostrGrapevineSettings = {
   active: false,

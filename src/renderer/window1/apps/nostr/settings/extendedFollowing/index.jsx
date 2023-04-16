@@ -16,7 +16,7 @@ export default class ExtendedFollowing extends React.Component {
 
   async componentDidMount() {
     updateMainColWidth();
-    const mastheadDescriptor = 'Nostr: SQL Settings';
+    const mastheadDescriptor = 'Nostr: Extended Following List';
     updateMastheadCenter(mastheadDescriptor);
   }
 
