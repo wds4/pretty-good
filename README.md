@@ -15,7 +15,16 @@ Curation of items on a list by a decentralized web of trust. This is the simples
 In the example shown below, your web of trust tells you which nostr clients are the best nostr clients! (Take note, this example is drawn from testnet.)
 
 <img src=".erb/img/listCuration1.png" width="100%" />
+
+Anyone can rate items on any list. For now, ratings consist of a simple thumbs up or down. More complex ratings will be forthcoming.
+
+Users can designate other users to be trusted curators. Again, for now, attestations are simple thumbs up or down. Attestations are designated to apply to a specified list (currently working) or to lists in general (in progress).
+
 <img src=".erb/img/listCuration2.png" width="100%" />
+
+One of the principle functions of the grapevine is to resist influence by sybil attacks or other bad actors. Multiple adjustable parameters are provided, some of which are depicted in the screenshots above, including the default user parameters which determine how much influence to allow for completely unvetted users.
+
+There is no universal arbiter of truth. Instead, all calculations are performed from the perspective of a given user, the "seed user." By default, the seed user is YOU, but different seed users can be selected, as depicted in the screenshot.
 
 ## the threaded tapestry model ##
 
@@ -25,21 +34,11 @@ The threaded tapestry model is broken down into two parts: 1) decentralized know
 
 Anyone can create a new list, and anyone can add items to any list. A list is a stripped-down version of what I call a concept. Eventually, this will mature into what I call the concept graph.
 
-### decentralized knowledge curation: the grapevine ###
+### decentralized knowledge curation: the grapevine
 
-When calculating weighted average scores, the trick is to determine how much weight to give to any single user's rating, to do so in a way that is contextual, and to do so in a way that resists sybil and other forms of attacks. Calculationof these weights is the purvue of the grapevine.
+When calculating weighted average scores, the trick is to determine how much weight to give to any single user's rating, to do so in a way that is contextual, and to do so in a way that resists sybil and other forms of attacks. Calculation of these weights is the purvue of the grapevine.
 
-Anyone can rate items on any list. For now, ratings consist of a simple thumbs up or down. More complex ratings will be forthcoming.
-
-Users can designate other users to be trusted curators. Again, for now, attestations are simple thumbs up or down. Attestations are designated to apply to a specified list (currently working) or to lists in general (in progress).
-
-There is no universal arbiter of truth. Instead, all calculations are performed from the perspective of a given user, the "seed user." By default, the seed user is YOU, but different seed users can be selected, as depicted in the screenshot.
-
-### Sybil resistance ###
-
-One of the principle functions of the grapevine is to resist influence by sybil attacks or other bad actors. Multiple adjustable parameters are provided, some of which are depicted in the screenshots above, including the default user parameters which determine how much influence to allow for completely unvetted users.
-
-### the threaded tapestry model ###
+## abstrac overview of the threaded tapestry model
 
 Knowledge is represented in a graph, where nodes in the graph are chunks of information, and edges in the graph are specialised relationships between those chunks of information. In the decentralized web, a chunk is typically a file.
 
