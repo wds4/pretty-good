@@ -16,7 +16,7 @@ In the example shown below, your web of trust tells you which nostr clients are 
 
 <img src=".erb/img/listCuration1.png" width="100%" />
 
-Anyone can rate items on any list. For now, ratings consist of a simple thumbs up or down. More complex ratings will be forthcoming.
+Anyone can rate items on any list. For now, ratings consist of a simple thumbs up or down. The system is designed so that more complex ratings (e.g., rate from 1-5 stars or rate 0-100) will be simple to incorporate.
 
 Users can designate other users to be trusted curators. Again, for now, attestations are simple thumbs up or down. Attestations are designated to apply to a specified list (currently working) or to lists in general (in progress).
 
