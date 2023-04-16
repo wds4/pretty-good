@@ -87,6 +87,8 @@ When calculating weighted average scores, the trick is to determine how much wei
 
 ## abstract overview of the threaded tapestry model
 
+### knowledge representation in the TT model
+
 Knowledge is represented in a graph, where nodes in the graph are chunks of information, and edges in the graph are specialised relationships between those chunks of information. In the decentralized web, a chunk is typically a file. (I speculate that in the cerebral cortex -- another example of a decentralized, distributed system -- a cortical column [an arrangement of typically about 1000 neurons] may play the role of a chunk. Axonal projections from one column directly to another would naturally function as edges.)
 
 Any relationship between two chunks is called a hop.
@@ -102,6 +104,10 @@ Any given class node likely gives rise to multiple class threads. The collection
 The class thread is so named because it may be thought of as a generalization of the notion of a <i>class</i> in an object oriented programming language such as javascript. In the above example, consider a javascript Class called "dog" with instances "Fido," "Spot," etc. 
 
 Class threads connect to each other in a variety of ways. A collection of interconnected class threads may be referred to as a tapestry, or (equivalently) a concept graph. Class threads provide the scaffolding for the concept graph. Although other categories of threads exist, the class thread is the most important category of thread.
+
+### knowledge curation in the TT model
+
+(best way to understand this is to see it in action. Which is why I'm coding this app. See the screenshots above showing how the grapevine curates a list.)
 
 ## Install Pretty Good
 
