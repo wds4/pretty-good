@@ -2,7 +2,7 @@
 
 A nostr desktop client for linux, mac, and windows.
 
-The goal of this project is to build a functional and genuinely useful decentralized web of trust using a new model for decentralized knowledge representation and curation that I call the <i>threaded tapestry</i>.
+The goal of this project is to build a decentralized web of trust using a model for decentralized knowledge representation and curation that I call the <i>threaded tapestry</i>.
 
 This is a fork of [electron-nostr](https://github.com/wds4/electron-react-boilerplate-nostr) and is based on [electron-react-boilerplate](https://github.com/electron-react-boilerplate/electron-react-boilerplate). 
 
@@ -16,6 +16,10 @@ In the example shown below, your web of trust tells you which nostr clients are 
 
 <img src=".erb/img/listCuration1.png" width="100%" />
 <img src=".erb/img/listCuration2.png" width="100%" />
+
+## the threaded tapestry model ##
+
+The threaded tapestry model is broken down into two parts: 1) decentralized knowledge representation and 2) decentralized knowledge curation.
 
 ### decentralized knowledge representation: the concept graph ###
 
