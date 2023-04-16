@@ -15,6 +15,16 @@ Curation of items on a list by a decentralized web of trust. This is the simples
 <img src=".erb/img/listCuration1.png" width="100%" />
 <img src=".erb/img/listCuration2.png" width="100%" />
 
+### Knowledge Representation: the concept graph ###
+
+Anyone can create a new list, and anyone can add items to any list. A list is a stripped-down version of what I call a concept. Eventually, this will mature into what I call the concept graph.
+
+### Knowledge Curation: the grapevine ###
+
+Anyone can rate items on any list. For now, ratings consist of a simple thumbs up or down. More complex ratings will be forthcoming.
+
+Users can designate other users to be trusted curators. Again, for now, attestations are simple thumbs up or down. Attestations are designated to apply to a specified list (currently working) or to lists in general (in progress).
+
 ## Install Pretty Good
 
 Clone this repo and install dependencies:
