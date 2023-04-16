@@ -7,7 +7,7 @@ The goal of this project is to build a decentralized web of trust using a model 
 This is a fork of my older project, [electron-nostr](https://github.com/wds4/electron-react-boilerplate-nostr), and is based on [electron-react-boilerplate](https://github.com/electron-react-boilerplate/electron-react-boilerplate). 
 
 As of April 2023: *** still in alpha ***
-This is not quite ready for use by regular users. Still too many bugs and it's not always obvious how to find some of the features that do work. To any devs who are interested in decentralized web of trust: I am happy to get on a video call and walk you through how this works and what it can do.
+This is not quite ready for use by regular users. Still too many bugs and it's not always obvious how to find some of the features that do work. To any devs who are interested in decentralized web of trust: I am happy to get on a video call and walk you through how this works and what it can do. My long term goal is to see widespread adoption of the ideas and methods illustrated in this repo. (Not my code, but the ideas behind the code.)
 
 ## Nostr
 
