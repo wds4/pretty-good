@@ -38,17 +38,23 @@ Anyone can create a new list, and anyone can add items to any list. A list is a 
 
 When calculating weighted average scores, the trick is to determine how much weight to give to any single user's rating, to do so in a way that is contextual, and to do so in a way that resists sybil and other forms of attacks. Calculation of these weights is the purvue of the grapevine.
 
-## abstrac overview of the threaded tapestry model
+## abstract overview of the threaded tapestry model
 
-Knowledge is represented in a graph, where nodes in the graph are chunks of information, and edges in the graph are specialised relationships between those chunks of information. In the decentralized web, a chunk is typically a file.
+Knowledge is represented in a graph, where nodes in the graph are chunks of information, and edges in the graph are specialised relationships between those chunks of information. In the decentralized web, a chunk is typically a file. (I speculate that in the cerebral cortex, a cortical column [an arrangement of typically about 1000 neurons] plays the role of a chunk.)
 
 Any relationship between two chunks is called a hop.
 
 Any continguous series of hops is called a thread.
 
-There are many categories of threads. The threaded tapestry model relies upon a special category of thread, called the <i>class thread</i>. The hallmark feature of a class thread is that the node at one end of the thread provides information on the endoding of information in the node at the opposite end of the thread. 
+There are many categories of threads. The threaded tapestry model relies upon a special category of thread, called the <i>class thread</i>. The hallmark feature of a class thread is that the node at one end of the thread (the <i>class node</i>) provides information on the endoding of information in the node at the opposite end of the thread (the <i>instance node</i>).
 
-The class thread may be thought of as a generalization of the notion of a <i>class</i> in an object oriented programming language such as javascript. Class threads connect to each other in a variety of ways. A collection of interconnected class threads may be referred to as a tapestry, or (equivalently) a concept graph. Class threads provide the scaffolding for the concept graph. Although other categories of threads exist, the class thread is the most important category.
+As an example of a class thread, consider the class node "dog" and the instance node "Fido," each of which is a JSON file, with the class node stipulating that each instance node contains a property called "name" (Fido) and "owner" (Alice).
+
+Any given class node likely gives rise to multiple class threads. The collection of all class threads emanating from one class node is called a concept.
+
+The class thread is so named because it may be thought of as a generalization of the notion of a <i>class</i> in an object oriented programming language such as javascript. In the above example, consider a javascript Class called "dog" with instances "Fido," "Spot," etc. 
+
+Class threads connect to each other in a variety of ways. A collection of interconnected class threads may be referred to as a tapestry, or (equivalently) a concept graph. Class threads provide the scaffolding for the concept graph. Although other categories of threads exist, the class thread is the most important category of thread.
 
 ## Install Pretty Good
 
