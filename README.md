@@ -17,6 +17,7 @@ Basic nostr functionality is currently available. Features include:
 <li>edit profile
 <li>manage multiple profiles
 <li>main feed
+<li>following, extended following, and "firehose" options all available for the main feed
 <li>post new note
 <li>find new users
 <li>look at user profiles
@@ -26,6 +27,7 @@ Basic nostr functionality is currently available. Features include:
 However, this is still very much in alpha! Expect things to break, even if they are currently working.
 
 Incomplete list of known issues:
+<li>extended following list seems to freeze up -- authors list too big?
 <li>bug when following / unfollowing 
 <li>cannot yet reply to existing note
 <li>view thread does not always pull the entire thread
@@ -49,7 +51,8 @@ Current features:
 <li>graphical visualization of how average scores are calculated (see image below)
 
 Incomplete
-<li>lots of things
+<li>listener functions need to be moved to the background
+<li>lots of other things
 
 Known issues/bugs
 <li>summary views are incomplete and/or hard to find
