@@ -12,6 +12,8 @@ As of April 2023: *** still in alpha ***
 
 Curation of items on a list by a decentralized web of trust. This is the simplest demonstration of the threaded tapestry model I have been able to devise so far that demonstrates knowledge representation as well as knowledge curation.
 
+In the example shown below, your web of trust tells you which nostr clients are the best nostr clients! (Take note, this example is drawn from testnet.)
+
 <img src=".erb/img/listCuration1.png" width="100%" />
 <img src=".erb/img/listCuration2.png" width="100%" />
 
