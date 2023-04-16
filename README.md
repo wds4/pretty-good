@@ -13,10 +13,27 @@ As of April 2023: *** still in alpha ***
 Basic nostr functionality is currently available. Features include:
 <li>create new profile
 <li>import profile
+<li>edit profile
+<li>manage multiple profiles
+<li>main feed
+<li>post new note
+<li>find new users
+<li>look at user profiles
+<li>send / receive direct messages
+<li>manage relays
 
 However, this is still very much in alpha! Expect things to break, even if they are currently working.
 
+Iincomplete list of known issues:
+<li>bug when following / unfollowing 
+<li>cannot yet reply to existing note
+<li>view thread does not always pull the entire thread
+<li>likes, zaps not yet implemented
+<li>for the main feed, data persistence using redux works but is exceedingly slow; therefore currently off by default (can turn it on in settings)
+
 ## Curated Lists: decentralized web of trust
+
+You won't find this anywhere else.
 
 Curation of items on a list by a decentralized web of trust. This is the simplest demonstration of the threaded tapestry model I have been able to devise so far that demonstrates knowledge representation as well as knowledge curation.
 
