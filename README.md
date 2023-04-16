@@ -25,13 +25,13 @@ Basic nostr functionality is currently available. Features include:
 
 However, this is still very much in alpha! Expect things to break, even if they are currently working.
 
-Iincomplete list of known issues:
+Incomplete list of known issues:
 <li>bug when following / unfollowing 
 <li>cannot yet reply to existing note
 <li>view thread does not always pull the entire thread
 <li>likes, zaps not yet implemented
 <li>for the main feed, data persistence using redux works but is exceedingly slow; therefore currently off by default (can turn it on in settings)
-<li>profiles on my follow list not updating correctly
+<li>the follow list updates correctly locally but broadcasts the wrong version to the network
 
 ## Curated Lists: decentralized web of trust
 
@@ -39,7 +39,22 @@ You won't find this anywhere else.
 
 Curation of items on a list by a decentralized web of trust. This is the simplest demonstration of the threaded tapestry model I have been able to devise so far that demonstrates knowledge representation as well as knowledge curation.
 
-Anyone can create a new list, and anyone can add items to any list. 
+Current features:
+<li>anyone can create a new list
+<li>anyone can add items to any list
+<li>anyone can endorse (thumbs up or down) any item on any list
+<li>anyone can endorse (thumbs up or down) any user as a trusted curator of a given list
+<li>calculate weighted average scores of list items
+<li>calculate weighted average scores of curators (to determine influence)
+<li>graphical visualization of how average scores are calculated (see image below)
+
+Incomplete
+<li>lots of things
+
+Known issues/bugs
+<li>summary views are incomplete and/or hard to find
+<li>several deprecated pages that need to be removed
+<li>may others, to be added
 
 In the example shown below (currently live, although still in testnet), your web of trust tells you which nostr clients are the best nostr clients! Hooray Iris!
 
