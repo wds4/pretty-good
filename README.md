@@ -2,6 +2,8 @@
 
 A nostr desktop client, based on [electron-react-boilerplate](https://github.com/electron-react-boilerplate/electron-react-boilerplate) and similar to [electron-nostr](https://github.com/wds4/electron-react-boilerplate-nostr), with an extra reputational layer on top.
 
+As of April 2023: still in alpha.
+
 <br>
 
 ## Install Pretty Good

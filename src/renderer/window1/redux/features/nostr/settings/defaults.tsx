@@ -1,7 +1,7 @@
 export const defaultNostrMainFeedFilterSettings = {
   following: {
     minutes: 0,
-    hours: 12,
+    hours: 3,
     days: 0,
   },
   eFollowing: {
