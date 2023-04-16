@@ -30,6 +30,7 @@ Iincomplete list of known issues:
 <li>view thread does not always pull the entire thread
 <li>likes, zaps not yet implemented
 <li>for the main feed, data persistence using redux works but is exceedingly slow; therefore currently off by default (can turn it on in settings)
+<li>profiles on my follow list not updating correctly
 
 ## Curated Lists: decentralized web of trust
 
