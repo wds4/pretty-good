@@ -12,7 +12,9 @@ As of April 2023: *** still in alpha ***
 
 Curation of items on a list by a decentralized web of trust. This is the simplest demonstration of the threaded tapestry model I have been able to devise so far that demonstrates knowledge representation as well as knowledge curation.
 
-In the example shown below, your web of trust tells you which nostr clients are the best nostr clients! (Take note, this example is drawn from testnet.)
+Anyone can create a new list, and anyone can add items to any list. 
+
+In the example shown below (currently live, although still in testnet), your web of trust tells you which nostr clients are the best nostr clients! Hooray Iris!
 
 <img src=".erb/img/listCuration1.png" width="100%" />
 
@@ -32,15 +34,15 @@ The threaded tapestry model is broken down into two parts: 1) decentralized know
 
 ### decentralized knowledge representation: the concept graph ###
 
-Anyone can create a new list, and anyone can add items to any list. A list is a stripped-down version of what I call a concept. Eventually, this will mature into what I call the concept graph.
+A list is a stripped-down version of what I call a concept. Eventually, this will mature into what I call the concept graph.
 
 ### decentralized knowledge curation: the grapevine
 
-When calculating weighted average scores, the trick is to determine how much weight to give to any single user's rating, to do so in a way that is contextual, and to do so in a way that resists sybil and other forms of attacks. Calculation of these weights is the purvue of the grapevine.
+When calculating weighted average scores, the trick is to determine how much weight to give to any single user's rating, to do so in a way that is contextual, and to do so in a way that resists sybil and other forms of attacks. Calculation of these weights is the purvue of the grapevine. A working implementation of the grapevine is seen in the above screenshots.
 
 ## abstract overview of the threaded tapestry model
 
-Knowledge is represented in a graph, where nodes in the graph are chunks of information, and edges in the graph are specialised relationships between those chunks of information. In the decentralized web, a chunk is typically a file. (I speculate that in the cerebral cortex, a cortical column [an arrangement of typically about 1000 neurons] plays the role of a chunk.)
+Knowledge is represented in a graph, where nodes in the graph are chunks of information, and edges in the graph are specialised relationships between those chunks of information. In the decentralized web, a chunk is typically a file. (I speculate that in the cerebral cortex -- another example of a decentralized, distributed system -- a cortical column [an arrangement of typically about 1000 neurons] may play the role of a chunk. Axonal projections from one column directly to another would naturally function as ddges.)
 
 Any relationship between two chunks is called a hop.
 
