@@ -4,9 +4,16 @@ A nostr desktop client for linux, mac, and windows.
 
 The goal of this project is to build a decentralized web of trust using a model for decentralized knowledge representation and curation that I call the <i>threaded tapestry</i>.
 
-This is a fork of [electron-nostr](https://github.com/wds4/electron-react-boilerplate-nostr) and is based on [electron-react-boilerplate](https://github.com/electron-react-boilerplate/electron-react-boilerplate). 
+This is a fork of my older project, [electron-nostr](https://github.com/wds4/electron-react-boilerplate-nostr), and is based on [electron-react-boilerplate](https://github.com/electron-react-boilerplate/electron-react-boilerplate). 
 
 As of April 2023: *** still in alpha ***
+
+## Nostr
+
+Basic nostr functionality is currently available. Features include:
+[x] create new profile
+
+However, this is still very much in alpha! Expect things to break, even if they are currently working.
 
 ## Curated Lists: decentralized web of trust
 
@@ -42,13 +49,13 @@ When calculating weighted average scores, the trick is to determine how much wei
 
 ## abstract overview of the threaded tapestry model
 
-Knowledge is represented in a graph, where nodes in the graph are chunks of information, and edges in the graph are specialised relationships between those chunks of information. In the decentralized web, a chunk is typically a file. (I speculate that in the cerebral cortex -- another example of a decentralized, distributed system -- a cortical column [an arrangement of typically about 1000 neurons] may play the role of a chunk. Axonal projections from one column directly to another would naturally function as ddges.)
+Knowledge is represented in a graph, where nodes in the graph are chunks of information, and edges in the graph are specialised relationships between those chunks of information. In the decentralized web, a chunk is typically a file. (I speculate that in the cerebral cortex -- another example of a decentralized, distributed system -- a cortical column [an arrangement of typically about 1000 neurons] may play the role of a chunk. Axonal projections from one column directly to another would naturally function as edges.)
 
 Any relationship between two chunks is called a hop.
 
 Any continguous series of hops is called a thread.
 
-There are many categories of threads. The threaded tapestry model relies upon a special category of thread, called the <i>class thread</i>. The hallmark feature of a class thread is that the node at one end of the thread (the <i>class node</i>) provides information on the endoding of information in the node at the opposite end of the thread (the <i>instance node</i>).
+There are many categories of threads. The threaded tapestry model relies upon a special category of thread, called the <i>class thread</i>. The hallmark feature of a class thread is that the node at one end of the thread (the <i>class node</i>) provides information on how information is encoded in the node at the opposite end of the thread (the <i>instance node</i>).
 
 As an example of a class thread, consider the class node "dog" and the instance node "Fido," each of which is a JSON file, with the class node stipulating that each instance node contains a property called "name" (Fido) and "owner" (Alice).
 
