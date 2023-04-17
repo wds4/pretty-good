@@ -6,6 +6,7 @@ import {
   updateMainColWidth,
   updateMastheadCenter,
 } from 'renderer/window1/lib/pg/ui';
+import { NavLink } from 'react-router-dom';
 
 export default class PrettyGoodAbout extends React.Component {
   constructor(props) {
@@ -34,9 +35,9 @@ export default class PrettyGoodAbout extends React.Component {
             <p>
               The motivation behind Pretty Good Apps is to apply the{' '}
               <NavLink to="/PrettyGoodHome/ThreadedTapestry">
-                threaded tapestry (TT)
+                threaded tapestry
               </NavLink>{' '}
-              model of decentralized knowledge representation and curation to
+              (TT) model of decentralized knowledge representation and curation to
               the creation of a decentralized web of trust.
             </p>
 

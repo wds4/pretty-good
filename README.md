@@ -32,6 +32,7 @@ Incomplete list of known issues:
 <li>cannot yet reply to existing note
 <li>view thread does not always pull the entire thread
 <li>likes, zaps not yet implemented
+<li>render images in notes: not yet implemented
 <li>for the main feed, data persistence using redux works but is exceedingly slow; therefore currently off by default (can turn it on in settings)
 <li>the follow list updates correctly locally but broadcasts the wrong version to the network
 

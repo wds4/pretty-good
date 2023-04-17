@@ -33,9 +33,18 @@ export default class PrettyGoodHome extends React.Component {
             <div className="h2">Welcome to the Pretty Good family of apps</div>
 
             <p>
+              The motivation behind Pretty Good Apps is to apply the{' '}
+              <NavLink to="/PrettyGoodHome/ThreadedTapestry">
+                threaded tapestry
+              </NavLink>{' '}
+              (TT) model of decentralized knowledge representation and curation
+              to the creation of a decentralized web of trust.
+            </p>
+
+            <p>
               The baseline app is a desktop nostr client,{' '}
               <NavLink to="/NostrHome/NostrMainFeed">pgnostr</NavLink>, with
-              features similar to other nostr clients.
+              Twitter-like features similar to those of other nostr clients.
             </p>
 
             <p>
@@ -47,14 +56,14 @@ export default class PrettyGoodHome extends React.Component {
             <div className="h2">April 2023 status: *** still in alpha ***</div>
 
             <p>
-              Once this reaches beta, I hope to attract the attention of other
-              dev teams and motivate them to incorporate the threaded tapestry
-              model into their projects.
+              Once this app matures sufficiently, I hope to attract the
+              attention of other dev teams and motivate them to incorporate the
+              threaded tapestry model into their projects.
             </p>
 
             <p>
-              Once this is achieved, I will shift focus to an academic
-              treatement of the threaded tapestry model.
+              After that, I hope to shift focus to a higher level, abstract
+              overview of the threaded tapestry model.
             </p>
           </div>
         </div>

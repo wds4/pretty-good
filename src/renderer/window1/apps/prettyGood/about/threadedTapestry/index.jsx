@@ -29,18 +29,23 @@ export default class ThreadedTapestry extends React.Component {
         <div id="mainCol">
           <Masthead />
           <div id="mainPanel">
-            <div className="h4">the Threaded Tapestry Model</div>
+            <div className="h2">the Threaded Tapestry Model</div>
             <p>
               The Threaded Tapestry model is a model of knowledge representation
               and curation for distributed, decentralized systems, such as the
-              decentralized web or the cerebral cortex. This modeal can be
+              decentralized web or the cerebral cortex. This model can be
               broken down into two components: decentralized knowledge
               representation and decentralized knowledge curation.
             </p>
 
-            <div className="h4">knowledge representation</div>
+            <div style={{fontSize: '22px'}}>decentralized knowledge representation</div>
 
-            <div className="h4">knowledge curation</div>
+            <p>(...)</p>
+
+            <div style={{fontSize: '22px'}}>decentralized knowledge curation</div>
+
+            <p>(...)</p>
+
           </div>
         </div>
       </>
