@@ -1,8 +1,14 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
+/*
+const devMode2 = useSelector(
+  (state) => state.prettyGoodGlobalState.devMode2
+);
+*/
 export default class LeftNavbar2 extends React.PureComponent {
   render() {
+    const devModeClassName="devElemHide";
     return (
       <>
         <div className="leftNav2Panel leftNav2PanelCuratedLists">
@@ -50,17 +56,19 @@ export default class LeftNavbar2 extends React.PureComponent {
             lists v2
           </NavLink>
 
-          <NavLink
-            className={({ isActive }) =>
-              isActive
-                ? 'leftNav2Button leftNav2ButtonActive'
-                : 'leftNav2Button'
-            }
-            end
-            to="/CuratedListsHome/CuratedListsWithScores"
-          >
-            lists v3
-          </NavLink>
+          <div className='devMode2Class'>
+            <NavLink
+              className={({ isActive }) =>
+                isActive
+                  ? 'leftNav2Button leftNav2ButtonActive'
+                  : 'leftNav2Button'
+              }
+              end
+              to="/CuratedListsHome/CuratedListsWithScores"
+            >
+              lists v3
+            </NavLink>
+          </div>
 
           <NavLink
             className={({ isActive }) =>

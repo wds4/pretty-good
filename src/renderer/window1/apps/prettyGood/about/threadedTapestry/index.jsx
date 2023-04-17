@@ -7,7 +7,7 @@ import {
   updateMastheadCenter,
 } from 'renderer/window1/lib/pg/ui';
 
-export default class TribalTapestry extends React.Component {
+export default class ThreadedTapestry extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -33,19 +33,14 @@ export default class TribalTapestry extends React.Component {
             <p>
               The Threaded Tapestry model is a model of knowledge representation
               and curation for distributed, decentralized systems, such as the
-              decentralized web or the cerebral cortex.
+              decentralized web or the cerebral cortex. This modeal can be
+              broken down into two components: decentralized knowledge
+              representation and decentralized knowledge curation.
             </p>
 
-            <p>
-              The impetus for the development of the TT model was, and continues
-              to be, my attempts at building a reputation system for the
-              decentralized web.
-            </p>
+            <div className="h4">knowledge representation</div>
 
-            <p>
-              As I build this app, I will also be working on a high level
-              overview of the TT model, which I will make available on this app.
-            </p>
+            <div className="h4">knowledge curation</div>
           </div>
         </div>
       </>

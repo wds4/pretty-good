@@ -32,7 +32,10 @@ export default class PrettyGoodSettings extends React.Component {
         <div id="mainCol">
           <Masthead />
           <div id="mainPanel">
-            <div className="h4">Pretty Good: Settings</div>
+            <div className="h4">General Settings</div>
+
+            <br />
+
             <GeneralSettings />
           </div>
         </div>

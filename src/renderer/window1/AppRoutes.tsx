@@ -94,6 +94,8 @@ import SpecificInstanceLeaveRating from './apps/curatedLists/viewInstance/leaveR
 import MultiListSummariesOfItemScores from './apps/curatedLists/multiListSummariesOfItemScores';
 import CuratedListsWithScores from './apps/curatedLists/listsWithScores';
 import CuratedListsWithScoresV4 from './apps/curatedLists/listsWithScoresV4';
+import CuratedListsWithScoresV5 from './apps/curatedLists/listsWithScoresV5';
+import CuratedListsWithScoresV6 from './apps/curatedLists/listsWithScoresV6';
 
 import AskNostrHome from './apps/askNostr';
 import AskNostrSettings from './apps/askNostr/settings';
@@ -400,6 +402,14 @@ const AppRoutes = () => {
             <Route
               path="/CuratedListsHome/CuratedListsWithScoresV4"
               element={<CuratedListsWithScoresV4 />}
+            />
+            <Route
+              path="/CuratedListsHome/CuratedListsWithScoresV5"
+              element={<CuratedListsWithScoresV5 />}
+            />
+            <Route
+              path="/CuratedListsHome/CuratedListsWithScoresV6"
+              element={<CuratedListsWithScoresV6 />}
             />
 
             <Route

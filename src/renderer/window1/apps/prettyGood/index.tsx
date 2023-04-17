@@ -6,6 +6,7 @@ import {
   updateMainColWidth,
   updateMastheadCenter,
 } from 'renderer/window1/lib/pg/ui';
+import { NavLink } from 'react-router-dom';
 
 export default class PrettyGoodHome extends React.Component {
   constructor(props) {
@@ -32,22 +33,15 @@ export default class PrettyGoodHome extends React.Component {
             <div className="h2">Welcome to the Pretty Good family of apps</div>
 
             <p>
-              The motivation behind Pretty Good Apps is to apply the{' '}
-              <span style={{ color: 'grey' }}>threaded tapestry (TT)</span>{' '}
-              model of decentralized knowledge representation and curation.
+              The baseline app is a desktop nostr client,{' '}
+              <NavLink to="/NostrHome/NostrMainFeed">pgnostr</NavLink>, with
+              features similar to other nostr clients.
             </p>
 
             <p>
-              The baseline app will be a desktop nostr client, with features
-              similar to other nostr clients.
-            </p>
-
-            <p>
-              The first application to use the TT model will be Curated
-              Lists. This is perhaps the simplest possible demonstration of the
-              TT model. It will demonstrates decentralized knowledge representation (the
-              concept graph, with a list being the most primitive example of a
-              concept) and decentralized knowledge curation (using the grapevine).
+              The first application to differentiate Pretty Good Apps from other
+              nostr clients is{' '}
+              <NavLink to="/CuratedListsHome">Curated Lists</NavLink>.
             </p>
 
             <div className="h2">April 2023 status: *** still in alpha ***</div>
@@ -55,11 +49,13 @@ export default class PrettyGoodHome extends React.Component {
             <p>
               Once this reaches beta, I hope to attract the attention of other
               dev teams and motivate them to incorporate the threaded tapestry
-              model into their projects. Once this is achieved, I will shift
-              focus to an academic treatement of the threaded tapestry model.
+              model into their projects.
             </p>
 
-            <p>Choose an app on the left, at varying stages of construction.</p>
+            <p>
+              Once this is achieved, I will shift focus to an academic
+              treatement of the threaded tapestry model.
+            </p>
           </div>
         </div>
       </>

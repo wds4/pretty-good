@@ -3,6 +3,12 @@
     padding: 10px;
     border: 1px dashed grey;
 }
+.grapevineSettingsTitle {
+  margin:0px 0px 10px 20px;
+}
+.grapevineSettingsDescription {
+  margin:0px 0px 0px 20px;
+}
 .grapevineSettingsItemLeftCol {
     display:inline-block;
     width:150px;
@@ -14,7 +20,7 @@
 .grapevineSettingsItemMainToggleCol {
     display:inline-block;
     width:150px;
-    margin-left:10px;
+    margin:0px 0px 10px 10px;
     text-align:left;
 }
 .grapevineSettingsItemRatingNameCol {
