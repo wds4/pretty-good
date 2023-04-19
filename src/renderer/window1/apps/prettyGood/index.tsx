@@ -33,24 +33,24 @@ export default class PrettyGoodHome extends React.Component {
             <div className="h2">Welcome to the Pretty Good family of apps</div>
 
             <p>
-              The motivation behind Pretty Good Apps is to apply the{' '}
+              The motivation behind Pretty Good Apps is to showcase the{' '}
               <NavLink to="/PrettyGoodHome/ThreadedTapestry">
                 threaded tapestry
               </NavLink>{' '}
-              (TT) model of decentralized knowledge representation and curation
-              to the creation of a decentralized web of trust.
+              model of <i>knowledge representation</i> and{' '}
+              <i>knowledge curation</i> for distributed & decentralized networks.{' '}
+              <NavLink to="/CuratedListsHome">Curated Lists</NavLink> will be
+              the initial application to make full use of this model. The long
+              term goal is for all projects in the decentralized web to apply
+              the basic principles of this model, in one form or another. A high
+              level overview of these principles is forthcoming.
             </p>
 
             <p>
               The baseline app is a desktop nostr client,{' '}
-              <NavLink to="/NostrHome/NostrMainFeed">pgnostr</NavLink>, with
-              Twitter-like features similar to those of other nostr clients.
-            </p>
-
-            <p>
-              The first application to differentiate Pretty Good Apps from other
-              nostr clients is{' '}
-              <NavLink to="/CuratedListsHome">Curated Lists</NavLink>.
+              <NavLink to="/NostrHome/NostrMainFeed">Pretty Good Nostr</NavLink>
+              , with Twitter-like features similar to those of other nostr
+              clients.
             </p>
 
             <div className="h2">April 2023 status: *** still in alpha ***</div>
