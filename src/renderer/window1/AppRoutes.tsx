@@ -102,6 +102,10 @@ import AskNostrSettings from './apps/askNostr/settings';
 import AskNostrQuestionsList from './apps/askNostr/questions';
 import AskNostrCreateNewQuestion from './apps/askNostr/createNewQuestion';
 
+import EBooksHome from './apps/eBooks';
+import EBook from './apps/eBooks/book';
+import EBookIndex from './apps/eBooks/bookIndex';
+
 const AppRoutes = () => {
   const { onDisconnect } = useNostr();
   const dispatch = useDispatch();
@@ -429,6 +433,18 @@ const AppRoutes = () => {
               element={<AskNostrCreateNewQuestion />}
             />
 
+            <Route
+              path="/EBooksHome"
+              element={<EBooksHome />}
+            />
+            <Route
+              path="/EBooksHome/EBook"
+              element={<EBook />}
+            />
+            <Route
+              path="/EBooksHome/EBookIndex"
+              element={<EBookIndex />}
+            />
           </Routes>
         </Router>
       </fieldset>

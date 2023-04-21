@@ -166,6 +166,18 @@ export default class PrettyGoodApps extends React.Component {
                     <div className="appsLargeIconEmoji">❓</div>
                   </NavLink>
                 </center>
+
+                <div className="h3">misc</div>
+                <center>
+                  <NavLink
+                    className="pgAppSquareButton"
+                    exact
+                    activeClassName="active"
+                    to="/EBooksHome"
+                  >
+                    <center>eBooks</center>
+                  </NavLink>
+                </center>
               </div>
             </center>
           </div>

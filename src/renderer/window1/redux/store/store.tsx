@@ -13,6 +13,7 @@ import controlPanelSettingsReducer from '../features/grapevine/controlPanelSetti
 import compositeTrustScoresReducer from '../features/grapevine/compositeTrustScores/slice';
 import curatedListsReducer from '../features/curatedLists/lists/slice';
 import curatedListsSettingsReducer from '../features/curatedLists/settings/slice';
+import eBooksReducer from '../features/eBooks/slice';
 
 const store = configureStore({
   reducer: {
@@ -30,6 +31,7 @@ const store = configureStore({
     compositeTrustScores: compositeTrustScoresReducer,
     curatedLists: curatedListsReducer,
     curatedListsSettings: curatedListsSettingsReducer,
+    eBooks: eBooksReducer,
   }
 });
 export default store;
