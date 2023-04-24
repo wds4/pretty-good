@@ -103,8 +103,8 @@ import AskNostrQuestionsList from './apps/askNostr/questions';
 import AskNostrCreateNewQuestion from './apps/askNostr/createNewQuestion';
 
 import EBooksHome from './apps/eBooks';
-import EBook from './apps/eBooks/book';
-import EBookIndex from './apps/eBooks/bookIndex';
+import EBook from './apps/eBooks/eBook';
+import EBookIndex from './apps/eBooks/eBook/bookIndex';
 
 const AppRoutes = () => {
   const { onDisconnect } = useNostr();

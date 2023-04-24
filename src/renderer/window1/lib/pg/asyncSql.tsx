@@ -35,3 +35,16 @@ export const asyncSql = async (sql: string, queryType) => { // queryType is opti
     window.electron.ipcRenderer.sendMessage('asynchronous-sql-command', data);
   });
 };
+
+export const asyncFetchMarkdown = async (url: string) => {
+  return new Promise((resolve) => {
+    window.electron.ipcRenderer.once(
+      `ipc-fetch-markdown-file-reply`,
+      (arg) => {
+        resolve(arg);
+      }
+    );
+    const data = [url];
+    window.electron.ipcRenderer.sendMessage('ipc-fetch-markdown-file-request', data);
+  });
+};

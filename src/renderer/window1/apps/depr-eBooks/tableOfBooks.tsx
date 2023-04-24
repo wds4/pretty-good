@@ -10,10 +10,11 @@ const TableOfBooks = () => {
 
   return (
     <>
+      TableOfBooks
       {aEBooks.map((eBook) => {
         return (
           <>
-            <div >
+            <div>
               <NavLink
                 onClick={() => {
                   dispatch(updateCurrentEBookFocus(eBook));
@@ -21,9 +22,7 @@ const TableOfBooks = () => {
                 end
                 to="/EBooksHome/EBook"
               >
-                <div style={{border: '1px solid purple', padding: '5px', marginBottom: '5px', width: '300px'}}>
                 {eBook}
-                </div>
               </NavLink>
             </div>
           </>

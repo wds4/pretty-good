@@ -1,0 +1,15 @@
+.versionButtonSelected {
+  background-color: #3F3F3F;
+  color: white;
+}
+.versionButtonDeselected {
+  background-color: #EFEFEF;
+  color: black;
+}
+.eBookHyperlink {
+  display: inline-block;
+  color: blue;
+}
+.eBookHyperlink:hover {
+  color: green;
+}

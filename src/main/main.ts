@@ -81,6 +81,13 @@ ipcMain.on('ipc-show-userDataPaths', async (event, arg) => {
   event.reply('ipc-show-userDataPaths', sqlPathsInfo);
 });
 
+ipcMain.on('ipc-fetch-markdown-file-request', async (event, data) => {
+  const url = data[0];
+  const mdFile = fs.readFileSync(url, "utf8");
+  // const mdFile = "fooResult";
+  event.reply('ipc-fetch-markdown-file-reply', mdFile);
+});
+
 /*
 // fetch relays from sql to send to the renderer process.
 // more comments
