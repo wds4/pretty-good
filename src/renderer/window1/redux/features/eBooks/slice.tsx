@@ -35,34 +35,44 @@ export const eBooksSlice = createSlice({
             title: "Concept Graph",
             descriptions: ["singleSentence","singleParagraph","singlePage","singleChapter"],
           },
-          knowledgeRepresentation: {
-            name: "knowledge representation",
-            title: "Knowledge Representation",
-            descriptions: ["singleSentence","singleParagraph","singlePage","singleChapter"],
-          },
-          knowledgeCuration: {
-            name: "knowledge curation",
-            title: "Knowledge Curation",
-            descriptions: ["singleSentence","singleParagraph","singlePage","singleChapter"],
+          decentralizedDistributedSystem: {
+            name: "decentralized, distributed system",
+            title: "Decentralized, Distributed System",
+            descriptions: ["singleParagraph"],
           },
           grapevine: {
             name: "grapevine",
             title: "Grapevine",
             descriptions: ["singleSentence","singleParagraph","singlePage","singleChapter"],
           },
+          knowledgeCuration: {
+            name: "knowledge curation",
+            title: "Knowledge Curation",
+            descriptions: ["singleParagraph"],
+          },
+          knowledgeRepresentation: {
+            name: "knowledge representation",
+            title: "Knowledge Representation",
+            descriptions: ["singleParagraph"],
+          },
           lockInMinimization: {
             name: "lock-in minimization",
             title: "Lock-in Minimization",
             descriptions: ["singleSentence","singleParagraph","singlePage","singleChapter"],
           },
-          tribalTapestry: {
-            name: "tribal tapestry",
-            title: "Tribal Tapestry",
+          neuronalTapestry: {
+            name: "neuronal tapestry",
+            title: "Neuronal Tapestry",
             descriptions: ["singleSentence","singleParagraph","singlePage","singleChapter"],
           },
           threadedTapestry: {
             name: 'threaded tapestry',
             title: 'Threaded Tapestry',
+            descriptions: ["singleSentence","singleParagraph","singleChapter"],
+          },
+          tribalTapestry: {
+            name: "tribal tapestry",
+            title: "Tribal Tapestry",
             descriptions: ["singleSentence","singleParagraph","singlePage","singleChapter"],
           },
         },
@@ -89,9 +99,13 @@ export const eBooksSlice = createSlice({
       state.currentFocus.item = state.eBooks[action.payload].initialItemSlug;
     },
     updateCurrentItemFocus: (state, action) => {
-      state.currentFocus.item = action.payload;
-      state.currentFocus.previousTopics.unshift(action.payload)
-      state.currentFocus.version = "singleSentence"; // may deprecate this and set to first entry in the relevant array, if not empty
+      const prevItem = state.currentFocus.item;
+      const newItem = action.payload;
+      state.currentFocus.item = newItem;
+      state.currentFocus.previousTopics.unshift(prevItem)
+      // state.currentFocus.version = "singleSentence"; // may deprecate this and set to first entry in the relevant array, if not empty
+      const eBook = state.currentFocus.eBook;
+      state.currentFocus.version = state.eBooks[eBook].items[newItem].descriptions[0];
     },
     updateCurrentVersionFocus: (state, action) => {
       state.currentFocus.version = action.payload;
@@ -102,6 +116,15 @@ export const eBooksSlice = createSlice({
     updateEBooks: (state, action) => {
       // state.eBooks = action.payload
     },
+    goToPreviousTopic: (state, action) => {
+      const aPreviousTopics = state.currentFocus.previousTopics;
+      if (aPreviousTopics.length > 0) {
+        const topic = aPreviousTopics[0];
+        console.log(`goToPreviousTopic ${topic}`);
+        state.currentFocus.item = topic;
+        state.currentFocus.previousTopics.shift();
+      }
+    }
   },
 });
 
@@ -112,6 +135,7 @@ export const {
   updateCurrentVersionFocus,
   updateItemTypes,
   updateEBooks,
+  goToPreviousTopic,
 } = eBooksSlice.actions;
 
 export default eBooksSlice.reducer;

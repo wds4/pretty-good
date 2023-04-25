@@ -1,29 +1,36 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { goToPreviousTopic } from 'renderer/window1/redux/features/eBooks/slice';
 
 const PreviousTopicButton = () => {
-  const [aPreviousTopics, setAPreviousTopics] = useState(oCurrentFocus.previousTopics);
-
+  const dispatch = useDispatch();
   const oCurrentFocus = useSelector((state) => state.eBooks.currentFocus);
   const oEBooks = useSelector((state) => state.eBooks.eBooks);
   const oItemTypes = useSelector((state) => state.eBooks.itemTypes);
 
   const eBookSlug = oCurrentFocus.eBook;
   const itemSlug = oCurrentFocus.item;
-  // setAPreviousTopics(JSON.parse(JSON.stringify(oCurrentFocus.previousTopics)));
+  const aPreviousTopics = oCurrentFocus.previousTopics;
 
   const oItems = oEBooks[eBookSlug].items;
   const aItems = Object.keys(oItems);
 
-  const goToPreviousTopic = () => {
-    // const topic = aPreviousTopics.shift();
-    // console.log("goToPreviousTopic "+topic);
+  let buttonClassName = "block_hide";
+  if (aPreviousTopics.length > 0) {
+    buttonClassName = "block_show";
   }
 
   return (
     <>
-      <button type="button" onClick={goToPreviousTopic}>Previous Topic</button>
-      <div>{JSON.stringify(aPreviousTopics)}</div>
+      <button
+        type="button"
+        className = {buttonClassName}
+        onClick={() => {
+          dispatch(goToPreviousTopic('knowledgeRepresentation'));
+        }}
+      >
+        Previous Topic
+      </button>
     </>
   );
 };

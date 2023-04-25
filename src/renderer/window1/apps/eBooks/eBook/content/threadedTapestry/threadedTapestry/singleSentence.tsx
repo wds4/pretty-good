@@ -1,8 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  updateCurrentEBookFocus,
-  updateCurrentItemFocus,
-} from 'renderer/window1/redux/features/eBooks/slice';
+import { updateCurrentItemFocus } from 'renderer/window1/redux/features/eBooks/slice';
 
 const Content = () => {
   const dispatch = useDispatch();
@@ -34,8 +31,16 @@ const Content = () => {
         >
         knowledge curation
         </div>{' '}
-        for a distributed,
-        decentralized system, such as the decentralized web.
+        for a
+        <div
+          className="eBookHyperlink"
+          onClick={() => {
+            dispatch(updateCurrentItemFocus("decentralizedDistributedSystem"));
+          }}
+        >
+        decentralized, distributed system
+        </div>{' '}
+        such as the decentralized web.
       </div>
     </>
   );

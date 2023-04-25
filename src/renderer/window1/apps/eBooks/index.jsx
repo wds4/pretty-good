@@ -27,7 +27,6 @@ export default class EBooksHome extends React.Component {
         <div id="mainCol">
           <Masthead />
           <div id="mainPanel">
-            <div className="h3">eBooks Home</div>
             <TableOfBooks />
           </div>
         </div>

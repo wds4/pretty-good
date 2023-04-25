@@ -1,8 +1,14 @@
 import { useSelector } from 'react-redux';
-import ThreadedTapestry from './threadedTapestry';
+
 import ConceptGraph from './conceptGraph';
+import DecentralizedDistributedSystem from './decentralizedDistributedSystem';
+import Grapevine from './grapevine';
 import KnowledgeCuration from './knowledgeCuration';
 import KnowledgeRepresentation from './knowledgeRepresentation';
+import LockInMinimization from './lockInMinimization';
+import NeuronalTapestry from './neuronalTapestry';
+import ThreadedTapestry from './threadedTapestry';
+import TribalTapestry from './tribalTapestry';
 
 const Section = () => {
   const oCurrentFocus = useSelector((state) => state.eBooks.currentFocus);
@@ -14,17 +20,24 @@ const Section = () => {
   const versionSlug = oCurrentFocus.version;
 
   switch (itemSlug) {
-    case 'threadedTapestry':
-      return (
-        <>
-          <ThreadedTapestry />
-        </>
-      );
-      break;
     case 'conceptGraph':
       return (
         <>
           <ConceptGraph />
+        </>
+      );
+      break;
+    case 'decentralizedDistributedSystem':
+      return (
+        <>
+          <DecentralizedDistributedSystem />
+        </>
+      );
+      break;
+    case 'grapevine':
+      return (
+        <>
+          <Grapevine />
         </>
       );
       break;
@@ -39,6 +52,34 @@ const Section = () => {
       return (
         <>
           <KnowledgeRepresentation />
+        </>
+      );
+      break;
+    case 'lockInMinimization':
+      return (
+        <>
+          <LockInMinimization />
+        </>
+      );
+      break;
+    case 'neuronalTapestry':
+      return (
+        <>
+          <NeuronalTapestry />
+        </>
+      );
+      break;
+    case 'threadedTapestry':
+      return (
+        <>
+          <ThreadedTapestry />
+        </>
+      );
+      break;
+    case 'tribalTapestry':
+      return (
+        <>
+          <TribalTapestry />
         </>
       );
       break;

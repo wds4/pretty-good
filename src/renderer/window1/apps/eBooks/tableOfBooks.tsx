@@ -5,24 +5,25 @@ import { updateCurrentEBookFocus } from 'renderer/window1/redux/features/eBooks/
 const TableOfBooks = () => {
   const dispatch = useDispatch();
   const itemTypes = useSelector((state) => state.eBooks.itemTypes);
-  const eBooks = useSelector((state) => state.eBooks.eBooks);
-  const aEBooks = Object.keys(eBooks);
-
+  const oEBooks = useSelector((state) => state.eBooks.eBooks);
+  const aEBooks = Object.keys(oEBooks);
   return (
     <>
+      <div className="h2">Titles</div>
       {aEBooks.map((eBook) => {
         return (
           <>
-            <div >
+            <div>
               <NavLink
                 onClick={() => {
                   dispatch(updateCurrentEBookFocus(eBook));
                 }}
                 end
                 to="/EBooksHome/EBook"
+                style={{textDecoration: 'none'}}
               >
-                <div style={{border: '1px solid purple', padding: '5px', marginBottom: '5px', width: '300px'}}>
-                {eBook}
+                <div style={{color: 'purple', padding: '5px', marginBottom: '5px', width: '300px'}}>
+                {oEBooks[eBook]?.title}
                 </div>
               </NavLink>
             </div>
