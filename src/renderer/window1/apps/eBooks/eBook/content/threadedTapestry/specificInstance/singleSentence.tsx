@@ -10,15 +10,17 @@ const Content = () => {
   return (
     <>
       <div>
-        A <i>concept graph</i> is a graphical representation of data subject to{' '}
+        A <i>specific instance</i>, a.k.a an <i>instance</i>, is the final node
+        of a{' '}
         <div
           className="eBookHyperlink"
           onClick={() => {
-            dispatch(updateCurrentItemFocus('classCriteria'));
+            dispatch(updateCurrentItemFocus('classThread'));
           }}
         >
-          class criteria
-        </div>.
+          class thread
+        </div>
+        .
       </div>
     </>
   );

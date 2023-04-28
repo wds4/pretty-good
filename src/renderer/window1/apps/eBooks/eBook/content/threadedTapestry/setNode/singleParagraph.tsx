@@ -10,15 +10,7 @@ const Content = () => {
   return (
     <>
       <div>
-        A <i>concept graph</i> is a graphical representation of data subject to{' '}
-        <div
-          className="eBookHyperlink"
-          onClick={() => {
-            dispatch(updateCurrentItemFocus('classCriteria'));
-          }}
-        >
-          class criteria
-        </div>.
+        This is a {versionSlug} description of {itemSlug}.
       </div>
     </>
   );

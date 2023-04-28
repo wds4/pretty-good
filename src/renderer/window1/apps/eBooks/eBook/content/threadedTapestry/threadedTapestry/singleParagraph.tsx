@@ -41,9 +41,18 @@ const Content = () => {
         >
           decentralized, distributed system
         </div>{' '}
-        such as the decentralized web. It is designed to solve the chief problem
-        faced by such networks: how to develop and manage a{' '}
-        <i>common language</i>, without which no network can properly function.
+        such as the decentralized web. It is designed to solve the{' '}
+        <div
+          className="eBookHyperlink"
+          onClick={() => {
+            dispatch(updateCurrentItemFocus('primaryChallenge'));
+          }}
+        >
+          primary challenge
+        </div>{' '}
+        faced by such networks: how to develop and manage{' '}
+        <i>common languages</i> dynamically in the absence of any centralized
+        authority.
       </div>
     </>
   );

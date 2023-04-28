@@ -11,9 +11,9 @@ const Content = () => {
 
   return (
     <>
-      <div>
-
-      </div>
+      <p>
+        The primary challenge faced by a
+      </p>
     </>
   );
 };

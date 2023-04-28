@@ -4,29 +4,23 @@ import { updateCurrentItemFocus } from 'renderer/window1/redux/features/eBooks/s
 const Content = () => {
   const dispatch = useDispatch();
   const oCurrentFocus = useSelector((state) => state.eBooks.currentFocus);
-  const oEBooks = useSelector((state) => state.eBooks.eBooks);
-  const oItemTypes = useSelector((state) => state.eBooks.itemTypes);
-
-  const eBookSlug = oCurrentFocus.eBook;
   const itemSlug = oCurrentFocus.item;
   const versionSlug = oCurrentFocus.version;
 
   return (
     <>
       <div>
-        The <i>neuronal tapestry model</i> (a.k.a. the{' '}
-        <i>cortical tapestry model</i>) is the hypothesis that knowledge
-        representation and curation in the central nervous system, in particular
-        the cerebral cortex, follow the{' '}
+        The <i>primary challenge</i> faced by a{' '}
         <div
           className="eBookHyperlink"
           onClick={() => {
-            dispatch(updateCurrentItemFocus('threadedTapestry'));
+            dispatch(updateCurrentItemFocus('decentralizedDistributedSystem'));
           }}
         >
-          threaded tapestry
+          decentralized, distributed system
         </div>{' '}
-        model.
+        is to develop and manage common languages to meet the changing needs of
+        dynamic networks (subsets of the system) in the absence of any centralized authority.
       </div>
     </>
   );

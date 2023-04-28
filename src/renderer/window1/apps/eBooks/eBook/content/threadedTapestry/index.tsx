@@ -1,12 +1,23 @@
 import { useSelector } from 'react-redux';
 
+import Chunk from './chunk';
+import ClassCriteria from './classCriteria';
+import ClassNode from './classNode';
+import ClassThread from './classThread';
+import Concept from './concept';
 import ConceptGraph from './conceptGraph';
+import DataDuality from './dataDuality';
 import DecentralizedDistributedSystem from './decentralizedDistributedSystem';
 import Grapevine from './grapevine';
 import KnowledgeCuration from './knowledgeCuration';
 import KnowledgeRepresentation from './knowledgeRepresentation';
 import LockInMinimization from './lockInMinimization';
+import LooseConsensus from './looseConsensus';
 import NeuronalTapestry from './neuronalTapestry';
+import PrimaryChallenge from './primaryChallenge';
+import SetNode from './setNode';
+import SpecificInstance from './specificInstance';
+import Thread from './thread';
 import ThreadedTapestry from './threadedTapestry';
 import TribalTapestry from './tribalTapestry';
 
@@ -20,10 +31,52 @@ const Section = () => {
   const versionSlug = oCurrentFocus.version;
 
   switch (itemSlug) {
+    case 'chunk':
+      return (
+        <>
+          <Chunk />
+        </>
+      );
+      break;
+    case 'classCriteria':
+      return (
+        <>
+          <ClassCriteria />
+        </>
+      );
+      break;
+    case 'classNode':
+      return (
+        <>
+          <ClassNode />
+        </>
+      );
+      break;
+    case 'classThread':
+      return (
+        <>
+          <ClassThread />
+        </>
+      );
+      break;
+    case 'concept':
+      return (
+        <>
+          <Concept />
+        </>
+      );
+      break;
     case 'conceptGraph':
       return (
         <>
           <ConceptGraph />
+        </>
+      );
+      break;
+    case 'dataDuality':
+      return (
+        <>
+          <DataDuality />
         </>
       );
       break;
@@ -62,10 +115,45 @@ const Section = () => {
         </>
       );
       break;
+    case 'looseConsensus':
+      return (
+        <>
+          <LooseConsensus />
+        </>
+      );
+      break;
     case 'neuronalTapestry':
       return (
         <>
           <NeuronalTapestry />
+        </>
+      );
+      break;
+    case 'setNode':
+      return (
+        <>
+          <SetNode />
+        </>
+      );
+      break;
+    case 'primaryChallenge':
+      return (
+        <>
+          <PrimaryChallenge />
+        </>
+      );
+      break;
+    case 'specificInstance':
+      return (
+        <>
+          <SpecificInstance />
+        </>
+      );
+      break;
+    case 'thread':
+      return (
+        <>
+          <Thread />
         </>
       );
       break;

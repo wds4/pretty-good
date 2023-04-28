@@ -10,15 +10,17 @@ const Content = () => {
   return (
     <>
       <div>
-        A <i>concept graph</i> is a graphical representation of data subject to{' '}
+        The achievement of <i>loose consensus</i> is the solution to the{' '}
+        <i>problem of coordination</i> of a{' '}
         <div
           className="eBookHyperlink"
           onClick={() => {
-            dispatch(updateCurrentItemFocus('classCriteria'));
+            dispatch(updateCurrentItemFocus('decentralizedDistributedSystem'));
           }}
         >
-          class criteria
-        </div>.
+          decentralized, distributed system
+        </div>
+        .
       </div>
     </>
   );

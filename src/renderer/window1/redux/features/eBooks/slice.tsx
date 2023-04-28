@@ -10,6 +10,9 @@ export const eBooksSlice = createSlice({
       version: 'singleSentence',
     },
     itemTypes: {
+      notes: {
+        name: 'notes',
+      },
       singleSentence: {
         name: 'single sentence',
       },
@@ -30,50 +33,203 @@ export const eBooksSlice = createSlice({
         title: 'Threaded Tapestry',
         initialItemSlug: 'threadedTapestry',
         items: {
+          chunk: {
+            name: 'chunk',
+            title: 'Chunk',
+            aliases: [
+              {
+                name: 'data chunk',
+              },
+            ],
+            descriptions: [
+              'singleSentence',
+              'singleParagraph',
+              'singlePage',
+              'singleChapter',
+            ],
+          },
+          classCriteria: {
+            name: 'class criteria',
+            title: 'Class Criteria',
+            descriptions: [
+              'singleSentence',
+              'singleParagraph',
+              'singlePage',
+              'singleChapter',
+            ],
+          },
+          classNode: {
+            name: 'class node',
+            title: 'Class Node',
+            descriptions: [
+              'singleSentence',
+              'singleParagraph',
+              'singlePage',
+              'singleChapter',
+            ],
+          },
+          classThread: {
+            name: 'class thread',
+            title: 'Class Thread',
+            descriptions: [
+              'singleSentence',
+              'singleParagraph',
+              'singlePage',
+              'singleChapter',
+            ],
+          },
+          concept: {
+            name: 'concept',
+            title: 'Concept',
+            descriptions: [
+              'singleSentence',
+              'singleParagraph',
+              'singlePage',
+              'singleChapter',
+            ],
+          },
           conceptGraph: {
-            name: "concept graph",
-            title: "Concept Graph",
-            descriptions: ["singleSentence","singleParagraph","singlePage","singleChapter"],
+            name: 'concept graph',
+            title: 'Concept Graph',
+            descriptions: [
+              'singleSentence',
+              'singleParagraph',
+              'singlePage',
+              'singleChapter',
+            ],
+          },
+          dataDuality: {
+            name: 'data duality',
+            title: 'Data Duality',
+            descriptions: [
+              'singleSentence',
+              'singleParagraph',
+              'singlePage',
+              'singleChapter',
+            ],
           },
           decentralizedDistributedSystem: {
-            name: "decentralized, distributed system",
-            title: "Decentralized, Distributed System",
-            descriptions: ["singleParagraph"],
+            name: 'decentralized, distributed system',
+            title: 'Decentralized, Distributed System',
+            descriptions: ['singleParagraph', 'singlePage'],
           },
           grapevine: {
-            name: "grapevine",
-            title: "Grapevine",
-            descriptions: ["singleSentence","singleParagraph","singlePage","singleChapter"],
+            name: 'grapevine',
+            title: 'Grapevine',
+            descriptions: [
+              'singleSentence',
+              'singleParagraph',
+              'singlePage',
+              'singleChapter',
+            ],
           },
           knowledgeCuration: {
-            name: "knowledge curation",
-            title: "Knowledge Curation",
-            descriptions: ["singleParagraph"],
+            name: 'knowledge curation',
+            title: 'Knowledge Curation',
+            descriptions: ['singleParagraph'],
           },
           knowledgeRepresentation: {
-            name: "knowledge representation",
-            title: "Knowledge Representation",
-            descriptions: ["singleParagraph"],
+            name: 'knowledge representation',
+            title: 'Knowledge Representation',
+            descriptions: ['singleParagraph'],
           },
           lockInMinimization: {
-            name: "lock-in minimization",
-            title: "Lock-in Minimization",
-            descriptions: ["singleSentence","singleParagraph","singlePage","singleChapter"],
+            name: 'lock-in minimization',
+            title: 'Lock-in Minimization',
+            descriptions: [
+              'singleSentence',
+              'singleParagraph',
+              'singlePage',
+              'singleChapter',
+            ],
+          },
+          looseConsensus: {
+            name: 'loose consensus',
+            title: 'Loose Consensus',
+            descriptions: [
+              'singleSentence',
+              'singleParagraph',
+              'singlePage',
+              'singleChapter',
+            ],
           },
           neuronalTapestry: {
-            name: "neuronal tapestry",
-            title: "Neuronal Tapestry",
-            descriptions: ["singleSentence","singleParagraph","singlePage","singleChapter"],
+            name: 'neuronal tapestry',
+            title: 'Neuronal Tapestry',
+            descriptions: [
+              'singleSentence',
+              'singleParagraph',
+              'singlePage',
+              'singleChapter',
+            ],
+          },
+          primaryChallenge: {
+            name: 'primary challenge',
+            title: 'Primary Challenge',
+            descriptions: [
+              'singleSentence',
+              'singleParagraph',
+              'singlePage',
+              'singleChapter',
+            ],
+          },
+          setNode: {
+            name: 'set node',
+            title: 'Set Node',
+            descriptions: [
+              'singleSentence',
+              'singleParagraph',
+              'singlePage',
+              'singleChapter',
+            ],
+          },
+          specificInstance: {
+            name: 'specific instance',
+            title: 'Specific Instance',
+            aliases:[
+              {
+                slug: "classInstance",
+              },
+              {
+                slug: "instance",
+              },
+            ],
+            descriptions: [
+              'singleSentence',
+              'singleParagraph',
+              'singlePage',
+              'singleChapter',
+            ],
+          },
+          thread: {
+            name: 'thread',
+            title: 'Thread',
+            descriptions: [
+              'singleSentence',
+              'singleParagraph',
+              'singlePage',
+              'singleChapter',
+            ],
           },
           threadedTapestry: {
             name: 'threaded tapestry',
             title: 'Threaded Tapestry',
-            descriptions: ["singleSentence","singleParagraph","singleChapter"],
+            descriptions: [
+              'singleSentence',
+              'singleParagraph',
+              'singlePage',
+              'singleChapter',
+            ],
           },
           tribalTapestry: {
-            name: "tribal tapestry",
-            title: "Tribal Tapestry",
-            descriptions: ["singleSentence","singleParagraph","singlePage","singleChapter"],
+            name: 'tribal tapestry',
+            title: 'Tribal Tapestry',
+            descriptions: [
+              'singleSentence',
+              'singleParagraph',
+              'singlePage',
+              'singleChapter',
+            ],
           },
         },
       },
@@ -86,7 +242,12 @@ export const eBooksSlice = createSlice({
           book2: {
             name: 'foo',
             title: 'Foo',
-            descriptions: ["singleSentence","singleParagraph","singlePage","singleChapter"],
+            descriptions: [
+              'singleSentence',
+              'singleParagraph',
+              'singlePage',
+              'singleChapter',
+            ],
           },
         },
       },
@@ -102,10 +263,11 @@ export const eBooksSlice = createSlice({
       const prevItem = state.currentFocus.item;
       const newItem = action.payload;
       state.currentFocus.item = newItem;
-      state.currentFocus.previousTopics.unshift(prevItem)
+      state.currentFocus.previousTopics.unshift(prevItem);
       // state.currentFocus.version = "singleSentence"; // may deprecate this and set to first entry in the relevant array, if not empty
-      const eBook = state.currentFocus.eBook;
-      state.currentFocus.version = state.eBooks[eBook].items[newItem].descriptions[0];
+      const { eBook } = state.currentFocus;
+      state.currentFocus.version =
+        state.eBooks[eBook].items[newItem].descriptions[0];
     },
     updateCurrentVersionFocus: (state, action) => {
       state.currentFocus.version = action.payload;
@@ -124,7 +286,7 @@ export const eBooksSlice = createSlice({
         state.currentFocus.item = topic;
         state.currentFocus.previousTopics.shift();
       }
-    }
+    },
   },
 });
 
