@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 /*
 const devMode2 = useSelector(
-  (state) => state.prettyGoodGlobalState.devMode2
+  (state) => state.myNostrProfile.devModes.devMode2
 );
 */
 export default class LeftNavbar2 extends React.PureComponent {

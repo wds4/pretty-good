@@ -21,7 +21,7 @@ const Post = ({ event, index }) => {
   const dispatch = useDispatch();
 
   let devModeData = '';
-  const devMode = useSelector((state) => state.prettyGoodGlobalState.devMode);
+  const devMode = useSelector((state) => state.myNostrProfile.devModes.devMode);
   let devModeClassName = 'devModeOff';
   if (devMode) {
     devModeClassName = 'devModeOn';

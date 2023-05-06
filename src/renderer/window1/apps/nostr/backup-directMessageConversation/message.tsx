@@ -14,7 +14,7 @@ const decodeAndSend = async (event, showThisEvent, myPubkey, myPrivKey, pubkey) 
 };
 
 const Message = ({ event }) => {
-  const devMode = useSelector((state) => state.prettyGoodGlobalState.devMode);
+  const devMode = useSelector((state) => state.myNostrProfile.devModes.devMode);
   let devModeClassName = 'devModeOff';
   if (devMode) {
     devModeClassName = 'devModeOn';

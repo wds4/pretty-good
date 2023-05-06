@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const PrettyGoodLeftNavbar1 = () => {
-  const devMode2 = useSelector((state) => state.prettyGoodGlobalState.devMode2);
+  const devMode2 = useSelector((state) => state.myNostrProfile.devModes.devMode2);
   let devElemClass = 'devElemHide';
   if (devMode2) {
     devElemClass = 'devElemShow';

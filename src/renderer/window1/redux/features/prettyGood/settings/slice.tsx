@@ -1,11 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
+// import { oDefaultDevModes } from 'main/const/nostr';
 
 export const prettyGoodGlobalStateSlice = createSlice({
   name: 'prettyGoodGlobalState',
   initialState: {
-    devMode: false, // generic dev mode; may deprecate in favor of devModes 2 and 3
-    devMode2: false, // reveal features that are still in alpha
-    devMode3: false, // reveal "nostr nerd" toggle buttons
+    // devModes: JSON.parse(JSON.stringify(oDefaultDevModes)),
     numBackSteps: 1,
     currentPage: null,
     curatedListFocus: null, // the (nostr event) id of the curated list that is being viewed on the view list page
@@ -51,15 +50,17 @@ export const prettyGoodGlobalStateSlice = createSlice({
     }
   },
   reducers: {
+    /*
     updateDevMode: (state, action) => {
-      state.devMode = action.payload;
+      state.devModes.devMode = action.payload;
     },
     updateDevMode2: (state, action) => {
-      state.devMode2 = action.payload;
+      state.devModes.devMode2 = action.payload;
     },
     updateDevMode3: (state, action) => {
-      state.devMode3 = action.payload;
+      state.devModes.devMode3 = action.payload;
     },
+    */
     resetNumBackSteps: (state) => {
       state.numBackSteps = 1;
     },
@@ -84,9 +85,9 @@ export const prettyGoodGlobalStateSlice = createSlice({
 // Action creators are generated for each case reducer function
 
 export const {
-  updateDevMode,
-  updateDevMode2,
-  updateDevMode3,
+  // updateDevMode,
+  // updateDevMode2,
+  // updateDevMode3,
   resetNumBackSteps,
   setTwoBackSteps,
   setCurrentPage,

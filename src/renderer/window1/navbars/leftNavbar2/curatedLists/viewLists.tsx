@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 const LeftNavbar2 = () => {
   const devMode2 = useSelector(
-    (state) => state.prettyGoodGlobalState.devMode2
+    (state) => state.myNostrProfile.devModes.devMode2
   );
   let devElemClass = "devElemHide";
   if (devMode2) { devElemClass = "devElemShow"; }

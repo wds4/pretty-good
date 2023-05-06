@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { useSelector, useDispatch } from 'react-redux';
 import {
   addStringToArrayUniquely,
   removeStringFromArray,
@@ -9,7 +8,7 @@ import {
   updateMyFullNostrProfileInSql,
 } from 'renderer/window1/lib/pg/sql';
 import { noProfilePicUrl, noBannerPicUrl } from 'renderer/window1/const';
-import { oDefaultRelayUrls } from 'main/const/nostr';
+import { oDefaultRelayUrls, oDefaultDevModes } from 'main/const/nostr';
 import { dateToUnix } from 'nostr-react';
 import {
   nip19,
@@ -55,6 +54,7 @@ const initialState = {
 
   // objects
   relays: oDefaultRelayUrls,
+  devModes: oDefaultDevModes,
 
   /*
   endorseAsNostCuratedListCurator: {
@@ -125,7 +125,7 @@ export const myProfileSlice = createSlice({
     },
     initMyActiveNostrProfile: (state, action) => {
       const oMyProfileData = action.payload;
-      // console.log("initMyActiveNostrProfile; oMyProfileData: "+JSON.stringify(oMyProfileData))
+      console.log("initMyActiveNostrProfile; oMyProfileData: "+JSON.stringify(oMyProfileData))
       state.name = oMyProfileData?.name;
       // console.log("initMyActiveNostrProfile; oMyProfileData?.name: "+oMyProfileData?.name)
       state.display_name = oMyProfileData?.display_name;
@@ -167,6 +167,14 @@ export const myProfileSlice = createSlice({
         state.banner_url = noBannerPicUrl;
       }
 
+      // objects
+      if (oMyProfileData?.devModes) {
+        state.devModes = JSON.parse(oMyProfileData?.devModes)
+        console.log("qwerty A state.devModes: "+JSON.stringify(state.devModes))
+      } else {
+        state.devModes = oDefaultDevModes;
+        console.log("qwerty B state.devModes: "+JSON.stringify(state.devModes))
+      }
       if (oMyProfileData?.relays) {
         state.relays = JSON.parse(oMyProfileData?.relays)
       } else {
@@ -379,6 +387,22 @@ export const myProfileSlice = createSlice({
       state.relays = oRelays;
     },
     ///////////////////////////
+
+    // MANAGE DEVMODES
+    updateDevMode: (state, action) => {
+      state.devModes.devMode = action.payload;
+      const res = updateMyFullNostrProfileInSql(state);
+    },
+    updateDevMode2: (state, action) => {
+      state.devModes.devMode2 = action.payload;
+      const res = updateMyFullNostrProfileInSql(state);
+    },
+    updateDevMode3: (state, action) => {
+      state.devModes.devMode3 = action.payload;
+      const res = updateMyFullNostrProfileInSql(state);
+    },
+    ///////////////////////////
+
   },
 });
 
@@ -428,6 +452,10 @@ export const {
 
   initCuratedListToEndorseAsNostCuratedListCurator,
   addCuratorEndorsement,
+
+  updateDevMode,
+  updateDevMode2,
+  updateDevMode3,
 } = myProfileSlice.actions;
 
 export default myProfileSlice.reducer;

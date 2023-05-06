@@ -5,7 +5,7 @@ import { addEndorseAsRelaysPickerHunterNoteToReduxStore } from 'renderer/window1
 import { updateListCurationNoteInSql } from 'renderer/window1/lib/pg/sql';
 
 const EndorseAsRelaysPickerHunterListener = () => {
-  const devMode = useSelector((state) => state.prettyGoodGlobalState.devMode);
+  const devMode = useSelector((state) => state.myNostrProfile.devModes.devMode);
   let devModeClassName = 'devModeOff';
   if (devMode) {
     devModeClassName = 'devModeOn';

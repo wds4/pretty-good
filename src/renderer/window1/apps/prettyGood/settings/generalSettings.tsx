@@ -4,29 +4,42 @@ import {
   updateDevMode,
   updateDevMode2,
   updateDevMode3,
-} from 'renderer/window1/redux/features/prettyGood/settings/slice';
-
+// } from 'renderer/window1/redux/features/prettyGood/settings/slice';
+} from 'renderer/window1/redux/features/nostr/myNostrProfile/slice';
+/*
+import {
+  updateDevMode as b_updateDevMode,
+  updateDevMode2 as b_updateDevMode2,
+  updateDevMode3 as b_updateDevMode3,
+} from 'renderer/window1/redux/features/nostr/myNostrProfile/slice';
+*/
 const GeneralSettings = () => {
   const initState1 = useSelector(
-    (state) => state.prettyGoodGlobalState.devMode
+    // (state) => state.myNostrProfile.devModes.devMode
+    (state) => state.myNostrProfile.devModes.devMode
   );
   const initState2 = useSelector(
-    (state) => state.prettyGoodGlobalState.devMode2
+    // (state) => state.myNostrProfile.devModes.devMode2
+    (state) => state.myNostrProfile.devModes.devMode2
   );
   const initState3 = useSelector(
-    (state) => state.prettyGoodGlobalState.devMode3
+    // (state) => state.myNostrProfile.devModes.devMode3
+    (state) => state.myNostrProfile.devModes.devMode3
   );
   const dispatch = useDispatch();
   const processStateChange_devMode = (newState) => {
     dispatch(updateDevMode(newState));
+    // dispatch(b_updateDevMode(newState));
   };
   const processStateChange_devMode2 = (newState) => {
     console.log(`processStateChange_devMode2 callback; ${newState}`);
     dispatch(updateDevMode2(newState));
+    // dispatch(b_updateDevMode2(newState));
   };
   const processStateChange_devMode3 = (newState) => {
     console.log(`processStateChange_devMode3 callback; ${newState}`);
     dispatch(updateDevMode3(newState));
+    // dispatch(b_updateDevMode3(newState));
   };
   return (
     <>

@@ -31,6 +31,12 @@ export const oDefaultRelayUrls = {
   'wss://nostr.oxtr.dev': { write: true, read: true },
 };
 
+export const oDefaultDevModes = {
+  devMode: false, // generic dev mode; may deprecate in favor of devModes 2 and 3
+  devMode2: false, // reveal features that are still in alpha
+  devMode3: false, // reveal "nostr nerd" toggle buttons
+};
+
 createEndorsementsOfCuratorsTableCommand += 'id INTEGER PRIMARY KEY, ';
 createEndorsementsOfCuratorsTableCommand += 'event TEXT NULL, ';
 createEndorsementsOfCuratorsTableCommand += 'event_id TEXT NULL UNIQUE, ';
@@ -160,6 +166,7 @@ createMyProfileTableCommand += 'lastUpdate INTEGER NULL, ';
 createMyProfileTableCommand += 'followingListLastUpdate INTEGER NULL, ';
 createMyProfileTableCommand += 'relaysListLastUpdate INTEGER NULL, ';
 createMyProfileTableCommand += 'endorseAsNostCuratedListCurator TEXT NULL, ';
+createMyProfileTableCommand += 'devModes TEXT NULL, ';
 createMyProfileTableCommand += 'UNIQUE(pubkey, privkey) ';
 
 createMyFollowingNetworkTableCommand += 'id INTEGER PRIMARY KEY, ';
