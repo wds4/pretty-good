@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
 
 import Chunk from './chunk';
+import ClassCreation from './classCreation';
 import ClassCriteria from './classCriteria';
 import ClassNode from './classNode';
 import ClassThread from './classThread';
@@ -19,6 +20,10 @@ import SetNode from './setNode';
 import SpecificInstance from './specificInstance';
 import Thread from './thread';
 import ThreadedTapestry from './threadedTapestry';
+import ThreadedTapestryImplementation from './threadedTapestryImplementation';
+import TopologicalDataCompletion from './topologicalDataCompletion';
+import TopologicalDataEncoding from './topologicalDataEncoding';
+import ToxicThread from './toxicThread';
 import TribalTapestry from './tribalTapestry';
 
 const Section = () => {
@@ -35,6 +40,13 @@ const Section = () => {
       return (
         <>
           <Chunk />
+        </>
+      );
+      break;
+    case 'classCreation':
+      return (
+        <>
+          <ClassCreation />
         </>
       );
       break;
@@ -161,6 +173,34 @@ const Section = () => {
       return (
         <>
           <ThreadedTapestry />
+        </>
+      );
+      break;
+    case 'threadedTapestryImplementation':
+      return (
+        <>
+          <ThreadedTapestryImplementation />
+        </>
+      );
+      break;
+    case 'topologicalDataCompletion':
+      return (
+        <>
+          <TopologicalDataCompletion />
+        </>
+      );
+      break;
+    case 'topologicalDataEncoding':
+      return (
+        <>
+          <TopologicalDataEncoding />
+        </>
+      );
+      break;
+    case 'toxicThread':
+      return (
+        <>
+          <ToxicThread />
         </>
       );
       break;

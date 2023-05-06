@@ -97,7 +97,17 @@ const LeftNavbar2 = () => {
           end
           to="/CuratedListsHome/CuratedListsWithScoresV6"
         >
-          lists & scores
+          lists & scores v6
+        </NavLink>
+
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? 'leftNav2Button leftNav2ButtonActive' : 'leftNav2Button'
+          }
+          end
+          to="/CuratedListsHome/CuratedListsWithScoresV7"
+        >
+          lists & scores v7
         </NavLink>
 
         <NavLink

@@ -29,3 +29,20 @@
   background-color: white;
   margin: 10px;
 }
+.listSelectButton {
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  color: purple;
+  font-size: 14px;
+  text-align: left;
+  padding: 5px;
+}
+.listSelectButton:hover {
+  background-color: yellow;
+  color: black;
+}
+.listSelectedButton {
+  background-color: blue;
+  color: white;
+}

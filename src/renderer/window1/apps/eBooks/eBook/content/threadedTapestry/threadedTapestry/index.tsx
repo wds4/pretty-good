@@ -3,6 +3,7 @@ import SingleSentence from './singleSentence';
 import SingleParagraph from './singleParagraph';
 import SinglePage from './singlePage';
 import SingleChapter from './singleChapter';
+import Notes from './notes';
 
 const Content = () => {
   const oCurrentFocus = useSelector((state) => state.eBooks.currentFocus);
@@ -39,6 +40,13 @@ const Content = () => {
       return (
         <>
           <SingleChapter />
+        </>
+      );
+      break;
+    case 'notes':
+      return (
+        <>
+          <Notes />
         </>
       );
       break;

@@ -27,27 +27,42 @@ const Content = () => {
       <div className="h3">data storage within nodes</div>
       <p>
         The threaded tapestry model is agnostic regarding the way that data is
-        encoded within a node (chunk). Within any given concept graph and within
-        any individual concept, the class node will usually (always?) contain
-        information regarding what data is to be found in instances of the
-        concept and how to extract that data. In <i>Pretty Good Apps</i>, most
-        nodes are digital data files with one JSON object per node. As Pretty
-        Good Apps matures, other types of nodes (images, other types of data
-        files, etc) may be utilized.
+        encoded within a node (chunk). Indeed, data is not necessarily even
+        digital; a node could represent, for instance, a book. Within any given
+        concept graph and within any individual concept, the class node will
+        usually (always?) contain a (not necessarily complete) specification of
+        the data that is to be expected in instances of the concept and how to
+        extract that data (e.g, how that data is formatted). In{' '}
+        <i>Pretty Good Apps</i>, most nodes are digital data files with one JSON
+        object per node. As Pretty Good Apps matures, other types of nodes
+        (images, other types of data files, etc) may be utilized.
       </p>
       <div className="h3">data storage within topology</div>
       <p>
-        The primary method of data storage within the graph is within individual
-        concepts. Given the concept of Dog (see example image), a list of all
-        dogs who live in Nashville would be extracted by looking for all class
-        threads emanating from the class node corresponding to dog, and that
-        pass through the particular set in question. This would require a path
-        search, which is computationally expensive.
+        The primary method of topological data storage within the graph
+        (<i>topoligical data encoding</i>)
+         relies
+        directly on the structure of a class thread. Given the concept of Dog
+        (see example image), a list of all dogs who live in Nashville would be
+        extracted by looking for all class threads emanating from the class node
+        corresponding to dog, and that pass through the particular set in
+        question. This would require a path search, which is computationally
+        expensive. Other methods of data extraction from the graph itself will
+        also be utilized; for example, construction and utilization of{' '}
+        <i>analogies</i>, which typically require pattern searches that are even
+        more complex than path searches looking for class threads.
       </p>
       <div className="h3">an example</div>
-      (image) Consider the concept: dog with instances: Fido, Spot, etc, as
-      depicted in the image.
-      <div className="h3">purpose</div>
+      <p>
+        (image) Consider the concept: dog with instances: Fido, Spot, etc, as
+        depicted in the image.
+      </p>
+      <div className="h3">why data duality?</div>
+      <p>
+        The purpose of data duality is to get the best of both worlds, mixing
+        the advantages of topological data storage with the advantages of
+        file-based data storage (within nodes / "chunks").
+      </p>
       <p>
         Data storage in the concept graph has several advantages. Primary
         advantage: data normalization is straightforward. If you are adding an
@@ -76,8 +91,8 @@ const Content = () => {
         it is tempting to speculate within the context of the neuronal tapestry
         that one of the purposes of non REM sleep may be this type of background
         data processing / upkeep of the concept graph, with the purpose of REM
-        sleep being background, resource intensive processing / upkeep of
-        the value-rich calculations of the grapevine.
+        sleep being background, resource intensive processing / upkeep of the
+        value-rich calculations of the grapevine.
       </p>
     </>
   );

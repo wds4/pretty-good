@@ -28,7 +28,6 @@ However, this is still very much in alpha! Expect things to break, even if they 
 
 Incomplete list of known issues:
 <li>extended following list seems to freeze up -- authors list too big?
-<li>bug when following / unfollowing 
 <li>cannot yet reply to existing note
 <li>view thread does not always pull the entire thread
 <li>likes, zaps not yet implemented

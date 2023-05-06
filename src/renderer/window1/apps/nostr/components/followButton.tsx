@@ -3,6 +3,10 @@ import {
   addToFollowingList,
   removeFromFollowingList,
 } from 'renderer/window1/redux/features/nostr/myNostrProfile/slice';
+import {
+  addStringToArrayUniquely,
+  removeStringFromArray,
+} from 'renderer/window1/lib/pg/index';
 import { useNostr, dateToUnix } from 'nostr-react';
 import {
   type Event as NostrEvent,
@@ -35,8 +39,16 @@ const FollowButton = ({ pubkey }) => {
   }
 
   // access following list and relays list from redux store and publish an event with current lists to nostr
-  const updateFollowingAndRelaysListsInNostr = () => {
+  const updateFollowingAndRelaysListsInNostr = (aFollowingUpdated) => {
     const oCurrentRelaysList = myNostrProfile.relays;
+    // const aCurrentFollowingList = myNostrProfile.following;
+    const aFollowing = [];
+    for (let x=0;x<aFollowingUpdated.length;x++) {
+      let nextFollowing = aFollowingUpdated[x];
+      let aNext = [ 'p', nextFollowing ]
+      aFollowing.push(aNext)
+    }
+    /*
     const aCurrentFollowingList = myNostrProfile.following;
     // console.log("updateFollowingAndRelaysListsInNostr; oCurrentRelaysList: "+JSON.stringify(oCurrentRelaysList)+"; aCurrentFollowingList: "+JSON.stringify(aCurrentFollowingList));
     const aFollowing = [];
@@ -45,6 +57,7 @@ const FollowButton = ({ pubkey }) => {
       let aNext = [ 'p', nextFollowing ]
       aFollowing.push(aNext)
     }
+    */
     const event: NostrEvent = {
       created_at: dateToUnix(),
       kind: 3,
@@ -56,22 +69,25 @@ const FollowButton = ({ pubkey }) => {
     event.id = getEventHash(event);
     event.sig = signEvent(event, myPrivkey);
 
-    console.log("updateFollowingAndRelaysListsInNostr; event: "+JSON.stringify(event));
+    // console.log("updateFollowingAndRelaysListsInNostr; event: "+JSON.stringify(event));
 
     publish(event);
   }
 
   const toggleFollow = (currentState) => {
     let newState = 'following';
+    let aFollowingUpdated = [];
     if (currentState == 'following') {
       newState = 'notFollowing';
       dispatch(removeFromFollowingList(pubkey));
+      aFollowingUpdated = removeStringFromArray(pubkey,aFollowing);
     }
     if (currentState == 'notFollowing') {
       newState = 'following';
       dispatch(addToFollowingList(pubkey));
+      aFollowingUpdated = addStringToArrayUniquely(pubkey,aFollowing);
     }
-    updateFollowingAndRelaysListsInNostr();
+    updateFollowingAndRelaysListsInNostr(aFollowingUpdated);
   };
 
   return (

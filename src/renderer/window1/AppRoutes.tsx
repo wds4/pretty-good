@@ -96,6 +96,7 @@ import CuratedListsWithScores from './apps/curatedLists/listsWithScores';
 import CuratedListsWithScoresV4 from './apps/curatedLists/listsWithScoresV4';
 import CuratedListsWithScoresV5 from './apps/curatedLists/listsWithScoresV5';
 import CuratedListsWithScoresV6 from './apps/curatedLists/listsWithScoresV6';
+import CuratedListsWithScoresV7 from './apps/curatedLists/listsWithScoresV7';
 
 import AskNostrHome from './apps/askNostr';
 import AskNostrSettings from './apps/askNostr/settings';
@@ -414,6 +415,10 @@ const AppRoutes = () => {
             <Route
               path="/CuratedListsHome/CuratedListsWithScoresV6"
               element={<CuratedListsWithScoresV6 />}
+            />
+            <Route
+              path="/CuratedListsHome/CuratedListsWithScoresV7"
+              element={<CuratedListsWithScoresV7 />}
             />
 
             <Route

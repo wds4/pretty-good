@@ -48,6 +48,16 @@ export const eBooksSlice = createSlice({
               'singleChapter',
             ],
           },
+          classCreation: {
+            name: 'class creation',
+            title: 'Class Creation',
+            descriptions: [
+              'singleSentence',
+              'singleParagraph',
+              'singlePage',
+              'singleChapter',
+            ],
+          },
           classCriteria: {
             name: 'class criteria',
             title: 'Class Criteria',
@@ -214,6 +224,47 @@ export const eBooksSlice = createSlice({
           threadedTapestry: {
             name: 'threaded tapestry',
             title: 'Threaded Tapestry',
+            descriptions: [
+              'singleSentence',
+              'singleParagraph',
+              'singlePage',
+              'singleChapter',
+              "notes",
+            ],
+          },
+          threadedTapestryImplementation: {
+            name: 'threaded tapestry implementation',
+            title: 'Threaded Tapestry Implementation',
+            descriptions: [
+              'singleSentence',
+              'singleParagraph',
+              'singlePage',
+              'singleChapter',
+            ],
+          },
+          topologicalDataCompletion: {
+            name: 'topological data completion',
+            title: 'Topological Data Completion',
+            descriptions: [
+              'singleSentence',
+              'singleParagraph',
+              'singlePage',
+              'singleChapter',
+            ],
+          },
+          topologicalDataEncoding: {
+            name: 'topological data encoding',
+            title: 'Topological Data Encoding',
+            descriptions: [
+              'singleSentence',
+              'singleParagraph',
+              'singlePage',
+              'singleChapter',
+            ],
+          },
+          toxicThread: {
+            name: 'toxic thread',
+            title: 'Toxic Thread',
             descriptions: [
               'singleSentence',
               'singleParagraph',
