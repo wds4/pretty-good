@@ -1,0 +1,17 @@
+
+////////////// devModes //////////////////////
+// devMode: deprecating
+// devMode2: toggle alpha / beta mode
+// devMode3: show developer details for nostr nerds
+
+import { useSelector } from 'react-redux';
+
+/* *** */
+
+const { devMode2 } = useSelector((state) => state.myNostrProfile.devModes);
+let devElemClass = 'devElemHide';
+if (devMode2) {
+  devElemClass = 'devElemShow';
+}
+
+////////////// END devModes //////////////////////

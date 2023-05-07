@@ -43,7 +43,7 @@ const About = ({ pubkey }) => {
             <br />
             pubkey (bech32): {npub}
           </div>
-          <div>{website}</div>
+          <a href={website} target="_blank">{website}</a>
         </div>
         <div
           style={{

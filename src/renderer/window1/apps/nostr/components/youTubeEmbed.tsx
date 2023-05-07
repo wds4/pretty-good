@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 // src={`https://www.youtube.com/embed/${embedId}`}
 // vs:
 // src={`${extractedUrl}`}
-const YoutubeEmbed = ({ embedId, extractedUrl }) => {
+const YoutubeEmbed = ({ embedId, extractedVideoUrl }) => {
   const testUrl = 'https://www.youtube.com/watch?v=ljvpz2fEyVE';
   if (embedId) {
     return (

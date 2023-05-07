@@ -32,7 +32,6 @@ const Thread = () => {
 
   return (
     <>
-      <div>{JSON.stringify(event_focus,null,4)}</div>
       <Post event={event_focus} />
       <div style={{ textAlign: 'right', marginRight: '20px' }}>
         {events.length} posts

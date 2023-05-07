@@ -12,7 +12,57 @@ import { returnMostRecentEvent } from 'renderer/window1/lib/nostr';
 import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
 import { updateNostrProfiles } from 'renderer/window1/redux/features/nostr/profiles/slice';
 import YoutubeEmbed, { extractVideoID, extractVideoUrl } from './youTubeEmbed';
+import ImageEmbed, { extractImageUrl } from './imageEmbed';
 import ActionButtons from './actionButtons';
+
+const TechDetailsForNostrNerds = ({ event, extractedVideoUrl, extractedImageUrl }) => {
+  const { devMode3 } = useSelector((state) => state.myNostrProfile.devModes);
+  let devElemClass = 'devElemHide';
+  if (devMode3) {
+    devElemClass = 'devElemShow';
+  }
+  const event_id = event.id;
+  const elem_id = "technicalDetailsForNostrDevsContainer_"+event_id;
+  const toggleViewDetails = () => {
+    const e = document.getElementById(elem_id);
+    const currentState = e.style.display;
+    if (currentState == 'none') {
+      e.style.display = 'block';
+    }
+    if (currentState == 'block') {
+      e.style.display = 'none';
+    }
+  };
+
+  return (
+    <>
+      <div className={devElemClass}>
+        <div>
+          <span style={{ fontSize: '10px' }}>
+            View technical details for nostr nerds
+          </span>
+          <button
+            type="button"
+            onClick={() => toggleViewDetails()}
+            className="doSomethingButton"
+          >
+            toggle
+          </button>
+        </div>
+        <div
+          id={elem_id}
+          style={{ display: 'none', fontSize: '12px', border: '1px dashed grey', padding: '3px' }}
+        >
+          <div>extractedVideoUrl: {extractedVideoUrl}</div>
+          <div>extractedImageUrl: {extractedImageUrl}</div>
+          <div>
+            {JSON.stringify(event, null, 4)}
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
 
 const Post = ({ event, index }) => {
   const nostrProfiles = useSelector(
@@ -20,6 +70,7 @@ const Post = ({ event, index }) => {
   );
   const dispatch = useDispatch();
 
+  /*
   let devModeData = '';
   const devMode = useSelector((state) => state.myNostrProfile.devModes.devMode);
   let devModeClassName = 'devModeOff';
@@ -27,15 +78,25 @@ const Post = ({ event, index }) => {
     devModeClassName = 'devModeOn';
     devModeData = JSON.stringify(event, null, 4);
   }
+  */
 
   const displayTime = secsToTime(event.created_at);
   const rawContent = event.content;
-  const extractedUrl = extractVideoUrl(rawContent);
+
+  // EXTRACT VIDEO
+  const extractedVideoUrl = extractVideoUrl(rawContent);
   let contentMinusVideoUrl = rawContent;
   let embedId2 = null;
-  if (extractedUrl) {
-    embedId2 = extractVideoID(extractedUrl);
-    contentMinusVideoUrl = rawContent.replace(extractedUrl, '');
+  if (extractedVideoUrl) {
+    embedId2 = extractVideoID(extractedVideoUrl);
+    contentMinusVideoUrl = rawContent.replace(extractedVideoUrl, '');
+  }
+
+  // EXTRACT IMAGE
+  const extractedImageUrl = extractImageUrl(contentMinusVideoUrl);
+  let contentMinusVideoAndImageUrls = contentMinusVideoUrl;
+  if (extractedImageUrl) {
+    contentMinusVideoAndImageUrls = contentMinusVideoUrl.replace(extractedImageUrl, '');
   }
 
   // plan to make steps 1, 2, and maybe 3 into single function; 1 and 2 are sync, 3 would have to be async
@@ -126,13 +187,18 @@ const Post = ({ event, index }) => {
             }}
             className="eventContentContainer"
           >
-            <pre>{devModeData}</pre>
-            {contentMinusVideoUrl}
-            <YoutubeEmbed embedId={embedId2} extractedUrl={extractedUrl} />
+            {contentMinusVideoAndImageUrls}
+            <YoutubeEmbed embedId={embedId2} extractedVideoUrl={extractedVideoUrl} />
+            <ImageEmbed extractImageUrl={extractedImageUrl} />
           </NavLink>
           <div className="eventActionButtonsContainer">
             <ActionButtons event={event} />
           </div>
+          <TechDetailsForNostrNerds
+            extractedImageUrl={extractedImageUrl}
+            extractedVideoUrl={extractedVideoUrl}
+            event={event}
+          />
         </div>
       </div>
     </>

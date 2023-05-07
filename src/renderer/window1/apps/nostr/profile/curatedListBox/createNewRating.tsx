@@ -154,6 +154,11 @@ const createRatingWord = (
 };
 
 const CreateNewRating = ({ aListData, pubkeyFocusID, userData }) => {
+  const { devMode3 } = useSelector((state) => state.myNostrProfile.devModes);
+  let devElemClass = 'devElemHide';
+  if (devMode3) {
+    devElemClass = 'devElemShow';
+  }
   const curatedListFocusID = useSelector(
     (state) => state.prettyGoodGlobalState.curatedListFocus
   );
@@ -318,62 +323,63 @@ const CreateNewRating = ({ aListData, pubkeyFocusID, userData }) => {
       />
 
       {' '}<div style={{display:'inline-block',color:'grey'}} id="myCurrentRatingContainer">{myCurrentRating}</div>
-
-      <div>
-        <span style={{ fontSize: '10px' }}>
-          View technical details for nostr nerds
-        </span>
-        <button
-          type="button"
-          onClick={() => toggleViewDetails()}
-          className="doSomethingButton"
-        >
-          toggle
-        </button>
-      </div>
-      <div
-          id="technicalDetailsForNostrDevsContainer"
-          style={{ display: 'none' }}
-        >
+      <div className={devElemClass}>
         <div>
+          <span style={{ fontSize: '10px' }}>
+            View technical details for nostr nerds
+          </span>
           <button
             type="button"
-            onClick={() => createEvent()}
+            onClick={() => toggleViewDetails()}
             className="doSomethingButton"
           >
-            step 1: package word as a nostr event
+            toggle
           </button>
-          <button
-            type="button"
-            onClick={() => submitEvent()}
-            className="doSomethingButton"
+        </div>
+        <div
+            id="technicalDetailsForNostrDevsContainer"
+            style={{ display: 'none' }}
           >
-            step 2: submit nostr event to network
-          </button>
-        </div>
-        <div style={{ display: 'inline-block', width: '45%' }}>
-        <div style={{textAlign: 'center', fontSize:'10px'}}>word (concept graph)</div>
-          <textarea
-            id="newConceptRawFileField"
-            style={{
-              display: 'inline-block',
-              height: '400px',
-              width: '100%',
-              fontSize: '12px',
-            }}
-          />
-        </div>
-        <div style={{ display: 'inline-block', width: '45%' }}>
-          <div style={{textAlign: 'center', fontSize:'10px'}}>word submitted as an event (a nostr note)</div>
-          <textarea
-            id="newConceptEventField"
-            style={{
-              display: 'inline-block',
-              height: '400px',
-              width: '100%',
-              fontSize: '10px',
-            }}
-          />
+          <div>
+            <button
+              type="button"
+              onClick={() => createEvent()}
+              className="doSomethingButton"
+            >
+              step 1: package word as a nostr event
+            </button>
+            <button
+              type="button"
+              onClick={() => submitEvent()}
+              className="doSomethingButton"
+            >
+              step 2: submit nostr event to network
+            </button>
+          </div>
+          <div style={{ display: 'inline-block', width: '45%' }}>
+          <div style={{textAlign: 'center', fontSize:'10px'}}>word (concept graph)</div>
+            <textarea
+              id="newConceptRawFileField"
+              style={{
+                display: 'inline-block',
+                height: '400px',
+                width: '100%',
+                fontSize: '12px',
+              }}
+            />
+          </div>
+          <div style={{ display: 'inline-block', width: '45%' }}>
+            <div style={{textAlign: 'center', fontSize:'10px'}}>word submitted as an event (a nostr note)</div>
+            <textarea
+              id="newConceptEventField"
+              style={{
+                display: 'inline-block',
+                height: '400px',
+                width: '100%',
+                fontSize: '10px',
+              }}
+            />
+          </div>
         </div>
       </div>
     </>

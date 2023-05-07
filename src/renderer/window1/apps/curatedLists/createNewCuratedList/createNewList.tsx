@@ -127,6 +127,11 @@ const createListWord = () => {
 const CreateNewCuratedList = () => {
   const myNostrProfile = useSelector((state) => state.myNostrProfile);
   const myPrivkey = myNostrProfile.privkey;
+  const { devMode3 } = useSelector((state) => state.myNostrProfile.devModes);
+  let devElemClass = 'devElemHide';
+  if (devMode3) {
+    devElemClass = 'devElemShow';
+  }
   const { publish } = useNostr();
 
   const toggleViewDetails = () => {
@@ -319,54 +324,56 @@ const CreateNewCuratedList = () => {
             style={{ display: 'inline-block' }}
           />
         </div>
-        <div>
-          <span style={{ fontSize: '10px' }}>
-            View technical details for nostr nerds
-          </span>
-          <button
-            type="button"
-            onClick={() => toggleViewDetails()}
-            className="doSomethingButton"
-          >
-            toggle
-          </button>
-        </div>
-        <div
-          id="technicalDetailsForNostrDevsContainer"
-          style={{ display: 'none' }}
-        >
+        <div className={devElemClass}>
           <div>
-            <div>Submit button occurs in 2 steps:</div>
-            <button type="button" onClick={() => createEvent()} className="doSomethingButton">
-              step 1: package word as a nostr event
-            </button>
-            <button type="button" onClick={() => submitEvent()} className="doSomethingButton">
-              step 2: submit nostr event to network
+            <span style={{ fontSize: '10px' }}>
+              View technical details for nostr nerds
+            </span>
+            <button
+              type="button"
+              onClick={() => toggleViewDetails()}
+              className="doSomethingButton"
+            >
+              toggle
             </button>
           </div>
-          <div style={{ display: 'inline-block', width: '45%' }}>
-            <center>word (concept graph)</center>
-            <textarea
-              id="newConceptRawFileField"
-              style={{
-                display: 'inline-block',
-                height: '400px',
-                width: '100%',
-                fontSize: '10px',
-              }}
-            />
-          </div>
-          <div style={{ display: 'inline-block', width: '45%' }}>
-            <center>word submitted as an event (a nostr note)</center>
-            <textarea
-              id="newConceptEventField"
-              style={{
-                display: 'inline-block',
-                height: '400px',
-                width: '100%',
-                fontSize: '10px',
-              }}
-            />
+          <div
+            id="technicalDetailsForNostrDevsContainer"
+            style={{ display: 'none' }}
+          >
+            <div>
+              <div>Submit button occurs in 2 steps:</div>
+              <button type="button" onClick={() => createEvent()} className="doSomethingButton">
+                step 1: package word as a nostr event
+              </button>
+              <button type="button" onClick={() => submitEvent()} className="doSomethingButton">
+                step 2: submit nostr event to network
+              </button>
+            </div>
+            <div style={{ display: 'inline-block', width: '45%' }}>
+              <center>word (concept graph)</center>
+              <textarea
+                id="newConceptRawFileField"
+                style={{
+                  display: 'inline-block',
+                  height: '400px',
+                  width: '100%',
+                  fontSize: '10px',
+                }}
+              />
+            </div>
+            <div style={{ display: 'inline-block', width: '45%' }}>
+              <center>word submitted as an event (a nostr note)</center>
+              <textarea
+                id="newConceptEventField"
+                style={{
+                  display: 'inline-block',
+                  height: '400px',
+                  width: '100%',
+                  fontSize: '10px',
+                }}
+              />
+            </div>
           </div>
         </div>
       </div>

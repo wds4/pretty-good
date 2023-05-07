@@ -3,6 +3,14 @@ import { NavLink } from 'react-router-dom';
 import { updateMainNostrFeedFilter } from '../../../redux/features/nostr/settings/slice';
 
 const MainFeedTypeSelector = () => {
+  const devMode2 = useSelector((state) => state.myNostrProfile.devModes.devMode2);
+  // let devElemClass = 'devElemHide';
+  let hideOption = true;
+  if (devMode2) {
+    // devElemClass = 'devElemShow';
+    hideOption = false;
+  }
+
   const dispatch = useDispatch();
 
   const mainNostrFeedFilter = useSelector(
@@ -99,13 +107,13 @@ const MainFeedTypeSelector = () => {
           <option value="following" selected={followingSelected}>
             following list
           </option>
-          <option value="eFollowing" selected={eFollowingSelected}>
+          <option value="eFollowing" selected={eFollowingSelected} hidden={hideOption} >
             Extended following list
           </option>
           <option value="firehose" selected={firehoseSelected}>
             firehose
           </option>
-          <option value="grapevine" selected={grapevineSelected}>
+          <option value="grapevine" selected={grapevineSelected} hidden={hideOption} >
             grapevine (testnet)
           </option>
         </select>

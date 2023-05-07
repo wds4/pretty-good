@@ -16,6 +16,54 @@ import FollowCounts from 'renderer/window1/apps/nostr/components/followCounts';
 import UserGrapevinePanel from 'renderer/window1/apps/nostr/profile/userGrapevinePanel';
 import CuratedListBox from './curatedListBox';
 
+const TechDetailsForNostrNerds = ({ events, event, event_, userData }) => {
+  const { devMode3 } = useSelector((state) => state.myNostrProfile.devModes);
+  let devElemClass = 'devElemHide';
+  if (devMode3) {
+    devElemClass = 'devElemShow';
+  }
+  const event_id = event.id;
+  const elem_id = "technicalDetailsForNostrDevsContainer_"+event_id;
+  const toggleViewDetails = () => {
+    const e = document.getElementById(elem_id);
+    const currentState = e.style.display;
+    if (currentState == 'none') {
+      e.style.display = 'block';
+    }
+    if (currentState == 'block') {
+      e.style.display = 'none';
+    }
+  };
+
+  return (
+    <>
+      <div className={devElemClass}>
+        <div>
+          <span style={{ fontSize: '10px' }}>
+            View technical details for nostr nerds
+          </span>
+          <button
+            type="button"
+            onClick={() => toggleViewDetails()}
+            className="doSomethingButton"
+          >
+            toggle
+          </button>
+        </div>
+        <div
+          id={elem_id}
+          style={{ display: 'none', fontSize: '12px', border: '1px dashed grey', padding: '3px' }}
+        >
+          <pre>
+            <div>number events received: {events.length}</div>
+            {JSON.stringify(event_, null, 4)}
+          </pre>
+        </div>
+      </div>
+    </>
+  );
+};
+
 const MainProfile = ({pubkey}) => {
   const nostrProfiles = useSelector(
     (state) => state.nostrProfiles.nostrProfiles
@@ -35,6 +83,7 @@ const MainProfile = ({pubkey}) => {
 
   ///// STEP 1 ///// First load default profile info
   let profilePicUrl = noProfilePicUrl;
+  let bannerPicUrl = "";
   let displayName = '';
   let name = '';
   let website = '';
@@ -54,6 +103,7 @@ const MainProfile = ({pubkey}) => {
     } else {
       profilePicUrl = BlankAvatar;
     }
+    bannerPicUrl = profileContent?.banner;
   }
 
   ///// alternate step 3
@@ -94,84 +144,91 @@ const MainProfile = ({pubkey}) => {
     e.style.display = 'inline-block';
   }
 
+  const src = "https://void.cat/d/MreaerC65YkE8zeHvVv6XM.webp";
+  const type = "image/webp";
+
+  // <img src={profilePicUrl} className="myProfileAvatarImg" alt="" />
   return (
     <>
-      <pre className={devModeClassName}>
-        number events received: {events.length}
-        <br />userData:<br />
-        <div>
-          <p>Name: {userData?.name}</p>
-          <p>Public key: {userData?.npub}</p>
-          <p>Picture URL: {userData?.picture}</p>
-        </div>
-        {JSON.stringify(userData, null, 4)}
-        <br />event_:<br />
-        {JSON.stringify(event_, null, 4)}
-      </pre>
-      <div className="mainUserProfileBox myProfileBox">
-        <div className="mainUserProfileLeftColumnContainer">
-          <div id="largeAvatarContainer" className="largeAvatarContainer">
-            <div
-              id="myProfileAvatarContainer"
-              className="myProfileAvatarContainer"
-            />
-            <img src={profilePicUrl} className="myProfileAvatarImg" alt="" />
-          </div>
-          <FollowCounts pubkey={pubkey} />
-        </div>
-
-        <div
-          id="mainUserProfileRightColumnContainer"
-          className="mainUserProfileRightColumnContainer"
-        >
-          <div className="mainUserNameContainer">
-            <span id="myProfileDisplayNameContainer" style={{ color: 'black' }}>
-              {displayName}
-            </span>
-            <span
-              id="myProfileNameContainer"
-              style={{ color: 'grey', marginLeft: '10px' }}
-            >
-              @{name}
-            </span>
-          </div>
-
-          <div>
-            <div onClick={()=>toggleLnurl()} style={{ display: 'inline-block', marginRight: '10px' }}>
-              <div className={zapButtonClassName} style={{ fontSize: '28px' }}>⚡</div>
+      <div style={{position: 'relative', height:'560px'}}>
+        <div className="mainUserProfileBox myProfileBox" style={{position: 'relative'}}>
+          <div className="mainUserProfileLeftColumnContainer" style={{position:'relative', height:'550px'}}>
+            <div id="largeAvatarContainer" className="largeAvatarContainer" style={{position: 'absolute', top: '175px', zIndex: 100}}>
+              <div
+                id="myProfileAvatarContainer"
+                className="myProfileAvatarContainer"
+              />
+              <picture style={{zIndex: 200}}>
+                <source srcset={profilePicUrl} className="myProfileAvatarImg" type="image/webp" />
+                <img src={noProfilePicUrl} className="myProfileAvatarImg" />
+              </picture>
             </div>
-            <div style={{ display: 'inline-block' }}>
-              <NavLink
-                end
-                to="/NostrHome/NostrDirectMessageConvo"
-                style={{ textDecoration: 'none' }}
+            <div id="largeAvatarContainer" className="largeAvatarContainer" style={{height:'300px'}}>
+
+            </div>
+            <div style={{position:'absolute',top:'425px'}}>
+              <FollowCounts pubkey={pubkey} />
+            </div>
+          </div>
+
+          <div
+            id="mainUserProfileRightColumnContainer"
+            className="mainUserProfileRightColumnContainer"
+            style={{top:'300px'}}
+          >
+            <div className="mainUserNameContainer" style={{padding: '5px'}}>
+              <span id="myProfileDisplayNameContainer" style={{ color: 'black' }}>
+                {displayName}
+              </span>
+              <span
+                id="myProfileNameContainer"
+                style={{ color: 'grey', marginLeft: '10px' }}
               >
-                <div style={{ fontSize: '28px' }}>&#x1F4AC;</div>
-              </NavLink>
+                @{name}
+              </span>
             </div>
-            <div style={{ display: 'inline-block', marginLeft: '10px' }}>
-              <FollowButton pubkey={pubkey} />
-            </div>
-            <br />
-            <div id='lud06Container' style={{display:'none',marginLeft:'10px',fontSize:'12px',padding:'2px',border:'1px solid grey',width:'70%'}}>
-              {lnurl}
-            </div>
-          </div>
 
-          <div>
-            <div className={grapevineProfileControlPanelClassName}>
-              <div style={{marginLeft: '5px'}}>
-                <CuratedListBox
-                  pubkey={pubkey}
-                  userData={userData}
-                />
+            <div>
+              <span onClick={()=>toggleLnurl()} className={zapButtonClassName} style={{ marginRight: '10px', backgroundColor: 'red' }}>
+                <div style={{ fontSize: '28px' }}>⚡</div>
+              </span>
+              <span style={{ display: 'inline-block'}}>
+                <NavLink
+                  end
+                  to="/NostrHome/NostrDirectMessageConvo"
+                  style={{ textDecoration: 'none' }}
+                >
+                  <div style={{ fontSize: '28px' }}>&#x1F4AC;</div>
+                </NavLink>
+              </span>
+              <div style={{ display: 'inline-block', marginLeft: '10px' }}>
+                <FollowButton pubkey={pubkey} />
               </div>
-              <div style={{display:'none'}}><RelaysCurationBox pubkey={pubkey} /></div>
-              <div style={{display:'none'}}><UserGrapevinePanel /></div>
+              <br />
+              <div id='lud06Container' style={{display:'none',marginLeft:'10px',fontSize:'12px',padding:'2px',border:'1px solid grey',width:'70%'}}>
+                {lnurl}
+              </div>
+            </div>
+
+            <div>
+              <div className={grapevineProfileControlPanelClassName}>
+                <div style={{marginLeft: '5px'}}>
+                  <CuratedListBox
+                    pubkey={pubkey}
+                    userData={userData}
+                  />
+                </div>
+                <div style={{display:'none'}}><RelaysCurationBox pubkey={pubkey} /></div>
+                <div style={{display:'none'}}><UserGrapevinePanel /></div>
+              </div>
             </div>
           </div>
+        </div>
+        <div style={{width:'100%', height: '300px', position: 'absolute',top:'0px',backgroundColor:'grey'}}>
+          <img src={bannerPicUrl} style={{width: '100%', zIndex: 15}} alt="" />
         </div>
       </div>
+      <TechDetailsForNostrNerds events={events} event={event} event_={event_} userData={userData} />
     </>
   );
 };
