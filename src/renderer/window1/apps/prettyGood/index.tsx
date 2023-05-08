@@ -1,6 +1,6 @@
 import React from 'react';
 import Masthead from 'renderer/window1/mastheads/pgMasthead';
-import LeftNavbar1 from 'renderer/window1/navbars/leftNavbar1/pgNavbar';
+import LeftNavbar1 from 'renderer/window1/navbars/leftNavbar1/universalNavbar';
 import LeftNavbar2 from 'renderer/window1/navbars/leftNavbar2/prettyGood/home';
 import {
   updateMainColWidth,
@@ -53,7 +53,7 @@ export default class PrettyGoodHome extends React.Component {
               clients.
             </p>
 
-            <div className="h2">April 2023 status: *** still in alpha ***</div>
+            <div className="h2">May 2023 status: *** still in alpha ***</div>
 
             <p>
               Once this app matures sufficiently, I hope to attract the

@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
 import { updateNostrRelayInSql } from 'renderer/window1/lib/pg/sql';
+import { addStringToArrayUniquely, removeStringFromArray } from 'renderer/window1/lib/pg/index';
 import { doesEventValidate } from '../../../../lib/nostr/eventValidation';
 import {
   defaultNostrGrapevineSettings,
@@ -35,11 +36,65 @@ export const nostrSettingsSlice = createSlice({
     },
     nostrGrapevineSettings: defaultNostrGrapevineSettings,
     nostrMainFeedFilterSettings: defaultNostrMainFeedFilterSettings,
+    nostrActiveThread: {
+      focus: null, // the event id of the note that is the focus
+      aThreadNoteIDs: [], // an array of all of the event ids that make up the entire thread
+      aThreadNoteIDs_downloaded: [], // all event ids such that the full event is in local storage (redux)
+      aThreadNoteIDs_notDownloaded: [], // all event ids such that the full event is NOT YET in local storage (redux)
+      // aThreadNoteIDs should equal the union of aThreadNoteIDs_downloaded and aThreadNoteIDs_notDownloaded
+      aThreadEvents: [], // (may not need this?) array of all events (full objects) in the thread (transferred from redux for eas)
+
+    },
     viewEventsLoadStoredData: false,
     // true: load events from redux (which was preloaded from SQL + actively loaded from nostr);
     // false: load events from nostr (does not use redux)
   },
   reducers: {
+    updateNostrActiveThreadFocus: (state, action) => {
+      const event = action.payload;
+      const eventID = event.id;
+      state.nostrActiveThread.focus = eventID;
+      state.nostrActiveThread.aThreadNoteIDs = [ eventID ]; // also reset notes array to empty
+      state.nostrActiveThread.aThreadNoteIDs_downloaded = [ eventID ]; // assume the focus event has been downloaded
+      state.nostrActiveThread.aThreadNoteIDs_notDownloaded = [ ];
+      state.nostrActiveThread.aThreadEvents = [ event ];
+    },
+    addEventIDToNostrActiveThreadList: (state, action) => {
+      const eventID = action.payload;
+      state.nostrActiveThread.aThreadNoteIDs = addStringToArrayUniquely(eventID,state.nostrActiveThread.aThreadNoteIDs);
+      if (!state.nostrActiveThread.aThreadNoteIDs_downloaded.includes(eventID)) {
+        if (!state.nostrActiveThread.aThreadNoteIDs_notDownloaded.includes(eventID)) {
+          state.nostrActiveThread.aThreadNoteIDs_notDownloaded = addStringToArrayUniquely(eventID,state.nostrActiveThread.aThreadNoteIDs_notDownloaded);
+        }
+      }
+    },
+    addEventToNostrActiveThreadList: (state, action) => {
+      const event = action.payload;
+      const eventID = event.id;
+      console.log("addEventToNostrActiveThreadList; A eventID: "+eventID)
+
+      if (!state.nostrActiveThread.aThreadNoteIDs_downloaded.includes(eventID)) {
+        // probably not necessary for if statement; take same actions either way
+        if (state.nostrActiveThread.aThreadNoteIDs_notDownloaded.includes(eventID)) {
+          state.nostrActiveThread.aThreadEvents.push(event);
+          // next step is redundant but causes no harm
+          state.nostrActiveThread.aThreadNoteIDs = addStringToArrayUniquely(eventID,state.nostrActiveThread.aThreadNoteIDs)
+          // state.nostrActiveThread.aThreadNoteIDs_downloaded.push(eventID);
+          state.nostrActiveThread.aThreadNoteIDs_downloaded = addStringToArrayUniquely(eventID,state.nostrActiveThread.aThreadNoteIDs_downloaded)
+          state.nostrActiveThread.aThreadNoteIDs_notDownloaded = removeStringFromArray(eventID,state.nostrActiveThread.aThreadNoteIDs_notDownloaded);
+          // state.nostrActiveThread.aThreadNoteIDs_notDownloaded = [];
+          console.log("addEventToNostrActiveThreadList; B eventID: "+eventID)
+        } else {
+          state.nostrActiveThread.aThreadEvents.push(event);
+          state.nostrActiveThread.aThreadNoteIDs = addStringToArrayUniquely(eventID,state.nostrActiveThread.aThreadNoteIDs)
+          state.nostrActiveThread.aThreadNoteIDs_downloaded = addStringToArrayUniquely(eventID,state.nostrActiveThread.aThreadNoteIDs_downloaded)
+          // this part is redundant:
+          state.nostrActiveThread.aThreadNoteIDs_notDownloaded = removeStringFromArray(eventID,state.nostrActiveThread.aThreadNoteIDs_notDownloaded);
+          console.log("addEventToNostrActiveThreadList; C eventID: "+eventID)
+        }
+      }
+
+    },
     updateNostrMainFeedFilterSettings: (state, action) => {
       const { feedName } = action.payload;
       const { timeUnit } = action.payload;
@@ -180,6 +235,9 @@ export const nostrSettingsSlice = createSlice({
 // Action creators are generated for each case reducer function
 
 export const {
+  updateNostrActiveThreadFocus,
+  addEventIDToNostrActiveThreadList,
+  addEventToNostrActiveThreadList,
   restoreDefaultNostrMainFeedFilterSettings,
   updateNostrMainFeedFilterSettings,
   updateViewEventsLoadStoredData,

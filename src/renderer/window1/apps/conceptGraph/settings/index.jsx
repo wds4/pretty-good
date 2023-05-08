@@ -1,6 +1,6 @@
 import React from 'react';
-import Masthead from '../../../mastheads/cgMasthead';
-import LeftNavbar1 from '../../../navbars/leftNavbar1/cgNavbar';
+import Masthead from 'renderer/window1/mastheads/cgMasthead';
+import LeftNavbar1 from 'renderer/window1/navbars/leftNavbar1/universalNavbar';
 import LeftNavbar2 from '../../../navbars/leftNavbar2/conceptGraph/settings';
 import { updateMainColWidth, updateMastheadCenter } from '../../../lib/pg/ui';
 

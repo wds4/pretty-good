@@ -1,6 +1,6 @@
 import React from 'react';
 import Masthead from 'renderer/window1/mastheads/eBooksMasthead';
-import LeftNavbar1 from 'renderer/window1/navbars/leftNavbar1/eBooksNavbar';
+import LeftNavbar1 from 'renderer/window1/navbars/leftNavbar1/universalNavbar';
 import LeftNavbar2 from 'renderer/window1/navbars/leftNavbar2/eBooks/book';
 import {
   updateMainColWidth,

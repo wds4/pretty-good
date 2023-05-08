@@ -7,6 +7,8 @@ export const prettyGoodGlobalStateSlice = createSlice({
     // devModes: JSON.parse(JSON.stringify(oDefaultDevModes)),
     numBackSteps: 1,
     currentPage: null,
+    currentApp: 'prettyGood', // slug of the active app; used for color scheme of left-most navbar
+    // currentApp options: prettyGood, nostr, curatedLists, conceptGraph, grapevine, eBooks, askNostr, null
     curatedListFocus: null, // the (nostr event) id of the curated list that is being viewed on the view list page
     // NOTE: nostrProfileFocus is currently found in the nostr/settings store;
     // may consider moving all focus variables to this store (pretty good settings)
@@ -50,17 +52,9 @@ export const prettyGoodGlobalStateSlice = createSlice({
     }
   },
   reducers: {
-    /*
-    updateDevMode: (state, action) => {
-      state.devModes.devMode = action.payload;
+    updateCurrentApp: (state, action) => {
+      state.currentApp = action.payload;
     },
-    updateDevMode2: (state, action) => {
-      state.devModes.devMode2 = action.payload;
-    },
-    updateDevMode3: (state, action) => {
-      state.devModes.devMode3 = action.payload;
-    },
-    */
     resetNumBackSteps: (state) => {
       state.numBackSteps = 1;
     },
@@ -88,6 +82,7 @@ export const {
   // updateDevMode,
   // updateDevMode2,
   // updateDevMode3,
+  updateCurrentApp,
   resetNumBackSteps,
   setTwoBackSteps,
   setCurrentPage,

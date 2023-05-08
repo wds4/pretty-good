@@ -120,7 +120,7 @@
     padding:2px;
 }
 .singleActionButtonContainer {
-    margin:0px 10px 0px 10px;
+    margin:0px 10px 0px 0px;
     padding:2px 10px 2px 10px;
     border-radius:5px;
     display:inline-block;
@@ -153,4 +153,12 @@
 }
 .replyContainer_hide {
     display:none;
+}
+
+.threadNoteFocus {
+  padding: 10px 0px 0px 0px;
+  background-color: grey;
+}
+.threadNoteNotFocus {
+
 }

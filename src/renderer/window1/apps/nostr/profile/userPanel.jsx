@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNostrEvents } from 'nostr-react';
 import { useSelector, useDispatch } from 'react-redux';
-import Post from 'renderer/window1/apps/nostr/components/post';
+import Post from 'renderer/window1/apps/nostr/components/post/post';
 import { doesEventValidate } from '../../../lib/nostr/eventValidation';
 import { updateNostrProfilePanelSelector } from 'renderer/window1/redux/features/nostr/settings/slice';
 import LowerPanelContent from './lowerPanelContent';

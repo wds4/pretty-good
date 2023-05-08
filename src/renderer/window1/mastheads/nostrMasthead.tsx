@@ -15,6 +15,17 @@ export default function Masthead() {
   if (myNostrProfile.picture_url) {
     avatarUrl = myNostrProfile.picture_url;
   }
+
+  const { devMode1, devMode2 } = useSelector(
+    (state) => state.myNostrProfile.devModes
+  );
+
+  // devMode1: toggle curatedLists; use here to toggle the grapevine button (currently used with curated lists)
+  let devElemClass1 = 'devElemHide';
+  if (devMode1) {
+    devElemClass1 = 'devElemShowInline';
+  }
+
   return (
     <>
       <div className="mastheadContainer">
@@ -101,6 +112,7 @@ export default function Masthead() {
               <img src={avatarUrl} className="myProfileAvatarImgSmall" alt="" />
             </div>
           </NavLink>
+
           <NavLink
             className={({ isActive }) =>
               isActive
@@ -113,7 +125,10 @@ export default function Masthead() {
             <div style={{ fontSize: '20px' }}>⚙️</div>
             <div style={{ fontSize: '10px' }}>settings</div>
           </NavLink>
-          <ToggleNostrGrapevineSwitch />
+
+          <div className={devElemClass1}>
+            <ToggleNostrGrapevineSwitch />
+          </div>
         </div>
       </div>
       <div className="mastheadSubBanner mastheadSubBannerNostr">

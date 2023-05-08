@@ -47,7 +47,7 @@ const TechDetailsForNostrNerds = ({ events, event, event_, userData }) => {
             onClick={() => toggleViewDetails()}
             className="doSomethingButton"
           >
-            toggle
+            toggle 🤓
           </button>
         </div>
         <div

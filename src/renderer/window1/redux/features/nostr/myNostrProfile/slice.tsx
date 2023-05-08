@@ -170,10 +170,10 @@ export const myProfileSlice = createSlice({
       // objects
       if (oMyProfileData?.devModes) {
         state.devModes = JSON.parse(oMyProfileData?.devModes)
-        console.log("qwerty A state.devModes: "+JSON.stringify(state.devModes))
+        // console.log("qwerty A state.devModes: "+JSON.stringify(state.devModes))
       } else {
         state.devModes = oDefaultDevModes;
-        console.log("qwerty B state.devModes: "+JSON.stringify(state.devModes))
+        // console.log("qwerty B state.devModes: "+JSON.stringify(state.devModes))
       }
       if (oMyProfileData?.relays) {
         state.relays = JSON.parse(oMyProfileData?.relays)
@@ -393,6 +393,10 @@ export const myProfileSlice = createSlice({
       state.devModes.devMode = action.payload;
       const res = updateMyFullNostrProfileInSql(state);
     },
+    updateDevMode1: (state, action) => {
+      state.devModes.devMode1 = action.payload;
+      const res = updateMyFullNostrProfileInSql(state);
+    },
     updateDevMode2: (state, action) => {
       state.devModes.devMode2 = action.payload;
       const res = updateMyFullNostrProfileInSql(state);
@@ -454,6 +458,7 @@ export const {
   addCuratorEndorsement,
 
   updateDevMode,
+  updateDevMode1,
   updateDevMode2,
   updateDevMode3,
 } = myProfileSlice.actions;

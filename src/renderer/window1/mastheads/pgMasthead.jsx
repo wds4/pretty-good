@@ -15,6 +15,23 @@ export default function Masthead() {
   if (myNostrProfile.picture_url) {
     avatarUrl = myNostrProfile.picture_url;
   }
+
+  const { devMode1, devMode2 } = useSelector(
+    (state) => state.myNostrProfile.devModes
+  );
+
+  // devMode1: toggle curatedLists; use here to toggle the grapevine button (currently used with curated lists)
+  let devElemClass1 = 'devElemHide';
+  if (devMode1) {
+    devElemClass1 = 'devElemShowInline';
+  }
+
+  // devMode2: toggle apps button
+  let devElemClass2 = 'devElemHide';
+  if (devMode2) {
+    devElemClass2 = 'devElemShowInline';
+  }
+
   return (
     <>
       <div className="mastheadContainer">
@@ -48,18 +65,22 @@ export default function Masthead() {
             <div style={{ fontSize: '20px' }}>&#x1F50D;</div>
             <div style={{ fontSize: '10px' }}>search</div>
           </NavLink>
-          <NavLink
-            className={({ isActive }) =>
-              isActive
-                ? 'mastheadNavButton mastheadNavButtonActive'
-                : 'mastheadNavButton'
-            }
-            end
-            to="/PrettyGoodHome/PrettyGoodApps"
-          >
-            <div style={{ fontSize: '14px' }}>𓃑</div>
-            <div style={{ fontSize: '10px' }}>apps</div>
-          </NavLink>
+
+          <div className={devElemClass2}>
+            <NavLink
+              className={({ isActive }) =>
+                isActive
+                  ? 'mastheadNavButton mastheadNavButtonActive'
+                  : 'mastheadNavButton'
+              }
+              end
+              to="/PrettyGoodHome/PrettyGoodApps"
+            >
+              <div style={{ fontSize: '14px' }}>𓃑</div>
+              <div style={{ fontSize: '10px' }}>apps</div>
+            </NavLink>
+          </div>
+
           <NavLink
             onClick={() => {
               dispatch(updateNostrProfileFocus(myNostrProfile.pubkey));
@@ -101,7 +122,10 @@ export default function Masthead() {
             <div style={{ fontSize: '20px' }}>⚙️</div>
             <div style={{ fontSize: '10px' }}>settings</div>
           </NavLink>
-          <ToggleNostrGrapevineSwitch />
+
+          <div className={devElemClass1}>
+            <ToggleNostrGrapevineSwitch />
+          </div>
         </div>
       </div>
       <div className="mastheadSubBanner mastheadSubBannerPrettyGood">

@@ -71,12 +71,17 @@ export const secsToTime = (secs: number) => {
 };
 
 export const addStringToArrayUniquely = (str, aIn) => {
-  const aOut = [str];
+  const aOut = [];
+  // remove duplicates
   aIn.forEach((element) => {
     if (!aOut.includes(element)) {
       aOut.push(element);
     }
   });
+  // add str to the end if not already present
+  if (!aOut.includes(str)) {
+    aOut.push(str);
+  }
   return aOut;
 }
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import Masthead from '../../mastheads/pgMasthead';
-import LeftNavbar1 from '../../navbars/leftNavbar1/pgNavbar';
-import LeftNavbar2 from '../../navbars/leftNavbar2/emptyNavbar';
+import Masthead from 'renderer/window1/mastheads/pgMasthead';
+import LeftNavbar1 from 'renderer/window1/navbars/leftNavbar1/universalNavbar';
+import LeftNavbar2 from 'renderer/window1/navbars/leftNavbar2/emptyNavbar';
 import { updateMainColWidth, updateMastheadCenter } from '../../lib/pg/ui';
 
 export default class PrettyGoodApps extends React.Component {

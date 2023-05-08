@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import Post from 'renderer/window1/apps/nostr/components/post';
+import Post from 'renderer/window1/apps/nostr/components/post/post';
 import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
 import FetchPostsInBackground from './fetchPostsInBackground';
 

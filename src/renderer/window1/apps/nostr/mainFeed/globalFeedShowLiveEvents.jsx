@@ -1,6 +1,6 @@
 import { useNostrEvents } from 'nostr-react';
 import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
-import Post from 'renderer/window1/apps/nostr/components/post';
+import Post from 'renderer/window1/apps/nostr/components/post/post';
 
 const GlobalFeedShowLiveEvents = ({ filter }) => {
   // if extendedFollowing or firehose, show notes as they arrive

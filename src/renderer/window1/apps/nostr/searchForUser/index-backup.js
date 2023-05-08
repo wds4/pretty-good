@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { NavLink } from 'react-router-dom';
 import { useNostrEvents, dateToUnix } from 'nostr-react';
 import { nip19 } from 'nostr-tools';
-import Masthead from '../../mastheads/mainMasthead';
+import Masthead from 'renderer/window1/mastheads/mainMasthead';
 import LeftNavbar from '../../navbars/leftNav.js';
 import * as MiscAppFxns from '../../lib/app/misc.ts';
 import * as StartupFxns from '../../lib/app/startup.ts';

@@ -1,6 +1,6 @@
 import React from 'react';
-import Masthead from '../../../mastheads/curatedListsMasthead';
-import LeftNavbar1 from '../../../navbars/leftNavbar1/curatedListsNavbar';
+import Masthead from 'renderer/window1/mastheads/curatedListsMasthead';
+import LeftNavbar1 from 'renderer/window1/navbars/leftNavbar1/universalNavbar';
 import LeftNavbar2 from '../../../navbars/leftNavbar2/curatedLists/viewLists';
 import { updateMainColWidth, updateMastheadCenter } from '../../../lib/pg/ui';
 import CreateNewList from './createNewList';

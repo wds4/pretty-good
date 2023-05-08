@@ -6,79 +6,19 @@ import { noProfilePicUrl } from 'renderer/window1/const';
 import {
   updateNostrProfileFocus,
   updateNostrPostFocusEvent,
+  updateNostrActiveThreadFocus,
 } from 'renderer/window1/redux/features/nostr/settings/slice';
 import { secsToTime } from 'renderer/window1/lib/pg';
-import { returnMostRecentEvent } from 'renderer/window1/lib/nostr';
-import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
-import { updateNostrProfiles } from 'renderer/window1/redux/features/nostr/profiles/slice';
 import YoutubeEmbed, { extractVideoID, extractVideoUrl } from './youTubeEmbed';
 import ImageEmbed, { extractImageUrl } from './imageEmbed';
 import ActionButtons from './actionButtons';
-
-const TechDetailsForNostrNerds = ({ event, extractedVideoUrl, extractedImageUrl }) => {
-  const { devMode3 } = useSelector((state) => state.myNostrProfile.devModes);
-  let devElemClass = 'devElemHide';
-  if (devMode3) {
-    devElemClass = 'devElemShow';
-  }
-  const event_id = event.id;
-  const elem_id = "technicalDetailsForNostrDevsContainer_"+event_id;
-  const toggleViewDetails = () => {
-    const e = document.getElementById(elem_id);
-    const currentState = e.style.display;
-    if (currentState == 'none') {
-      e.style.display = 'block';
-    }
-    if (currentState == 'block') {
-      e.style.display = 'none';
-    }
-  };
-
-  return (
-    <>
-      <div className={devElemClass}>
-        <div>
-          <span style={{ fontSize: '10px' }}>
-            View technical details for nostr nerds
-          </span>
-          <button
-            type="button"
-            onClick={() => toggleViewDetails()}
-            className="doSomethingButton"
-          >
-            toggle
-          </button>
-        </div>
-        <div
-          id={elem_id}
-          style={{ display: 'none', fontSize: '12px', border: '1px dashed grey', padding: '3px' }}
-        >
-          <div>extractedVideoUrl: {extractedVideoUrl}</div>
-          <div>extractedImageUrl: {extractedImageUrl}</div>
-          <div>
-            {JSON.stringify(event, null, 4)}
-          </div>
-        </div>
-      </div>
-    </>
-  );
-};
+import TechDetailsForNostrNerds from './techDetailsForNostrNerds';
 
 const Post = ({ event, index }) => {
   const nostrProfiles = useSelector(
     (state) => state.nostrProfiles.nostrProfiles
   );
   const dispatch = useDispatch();
-
-  /*
-  let devModeData = '';
-  const devMode = useSelector((state) => state.myNostrProfile.devModes.devMode);
-  let devModeClassName = 'devModeOff';
-  if (devMode) {
-    devModeClassName = 'devModeOn';
-    devModeData = JSON.stringify(event, null, 4);
-  }
-  */
 
   const displayTime = secsToTime(event.created_at);
   const rawContent = event.content;
@@ -180,6 +120,7 @@ const Post = ({ event, index }) => {
           <NavLink
             onClick={() => {
               dispatch(updateNostrPostFocusEvent(event));
+              dispatch(updateNostrActiveThreadFocus(event));
             }}
             to={{
               pathname: '/NostrHome/NostrThread',

@@ -133,7 +133,7 @@ const AppRoutes = () => {
   */
   return (
     <>
-
+      <MyProfileListener />
       <fieldset id="app">
         <Router>
           <Routes>

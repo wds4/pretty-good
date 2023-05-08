@@ -9,7 +9,7 @@ import {
   setCurrentPage,
 } from 'renderer/window1/redux/features/prettyGood/settings/slice';
 import { addNostrNoteToSql } from 'renderer/window1/lib/pg/sql';
-import Post from 'renderer/window1/apps/nostr/components/post';
+import Post from 'renderer/window1/apps/nostr/components/post/post';
 import MainFeedTypeSelector from './mainFeedTypeSelector';
 import WelcomeBox from './welcomeBox';
 import Posts from './posts';

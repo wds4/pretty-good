@@ -5,7 +5,6 @@ const ActionButtons = ({ event }) => {
   if (!window.linkToReply_base) {
     window.linkToReply_base = 'Reply';
   }
-
   // const linkToReply = `/${window.linkToReply_base}/${event.id}`;
   const linkToReply = `/NostrHome/NostrThread`;
   return (
@@ -21,17 +20,6 @@ const ActionButtons = ({ event }) => {
           </Link>
         </span>
       </div>
-      <pre
-        style={{
-          display: 'none',
-          border: '1px solid purple',
-          padding: '5px',
-          margin: '5px',
-          fontSize: '10px',
-        }}
-      >
-        {JSON.stringify(event, null, 4)}
-      </pre>
     </>
   );
 };

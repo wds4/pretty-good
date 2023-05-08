@@ -15,6 +15,10 @@ export default function Masthead() {
   if (myNostrProfile.picture_url) {
     avatarUrl = myNostrProfile.picture_url;
   }
+
+  const { devMode1, devMode2 } = useSelector(
+    (state) => state.myNostrProfile.devModes
+  );
   return (
     <>
       <div className="mastheadContainer">

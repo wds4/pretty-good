@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { useNostrEvents, dateToUnix } from 'nostr-react';
 import { useSelector } from 'react-redux';
 import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
-import Post from 'renderer/window1/apps/nostr/components/post';
+import Post from 'renderer/window1/apps/nostr/components/post/post';
 import GlobalFeedFetchPostsInBackground from './globalFeedFetchPostsInBackground';
 import GlobalFeedDisplayFromRedux from './globalFeedDisplayFromRedux';
 import GlobalFeedShowLiveEvents from './globalFeedShowLiveEvents';

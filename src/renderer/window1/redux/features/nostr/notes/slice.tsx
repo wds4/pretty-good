@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
-import { removeDuplicatesFromArrayOfStrings } from 'renderer/window1/lib/pg/index';
 import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
 
 /*
@@ -18,6 +17,10 @@ export const nostrNotesSlice = createSlice({
   name: 'nostrNotes',
   initialState: {
     notes: {},
+    deprecated_thread: {
+      focus: null, // the event id of the note that is the focus
+      notes: [], // an array of all of the event ids that make up the entire thread
+    },
   },
   reducers: {
     initNostrNotes: (state, action) => {

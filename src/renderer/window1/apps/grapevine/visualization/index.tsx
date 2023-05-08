@@ -1,6 +1,6 @@
 import React from 'react';
-import Masthead from '../../../mastheads/grapevineMasthead';
-import LeftNavbar1 from '../../../navbars/leftNavbar1/grapevineNavbar';
+import Masthead from 'renderer/window1/mastheads/grapevineMasthead';
+import LeftNavbar1 from 'renderer/window1/navbars/leftNavbar1/universalNavbar';
 import LeftNavbar2 from '../../../navbars/leftNavbar2/grapevine/home';
 import { updateMainColWidth, updateMastheadCenter } from '../../../lib/pg/ui';
 // import GrapevineVisualizationMainPage from './grapevineVisualizationMainPage';

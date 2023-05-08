@@ -334,7 +334,7 @@ const CreateNewCuratedList = () => {
               onClick={() => toggleViewDetails()}
               className="doSomethingButton"
             >
-              toggle
+              toggle 🤓
             </button>
           </div>
           <div

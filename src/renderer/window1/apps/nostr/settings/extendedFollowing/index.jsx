@@ -1,5 +1,5 @@
 import React from 'react';
-import Masthead from '../../../../mastheads/nostrMasthead';
+import Masthead from 'renderer/window1/mastheads/nostrMasthead';
 import LeftNavbar1 from '../../../../navbars/leftNavbar1/nostrNavbar';
 import LeftNavbar2 from '../../../../navbars/leftNavbar2/nostr/settings';
 import {

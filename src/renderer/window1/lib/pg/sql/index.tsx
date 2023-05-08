@@ -390,9 +390,10 @@ export const updateMyFullNostrProfileInSql = async (oMyNostrProfileInfo) => {
   sql += ` , devModes = '${JSON.stringify(devModes)}' `;
   sql += ` WHERE pubkey = '${pubkey_hex}' `;
 
-  console.log(`qwerty updateMyFullNostrProfileInSql sql: ${sql}`);
+  // console.log(`qwerty updateMyFullNostrProfileInSql sql: ${sql}`);
 
   const result = await asyncSql(sql);
+  /*
   console.log(
     `qwerty updateMyFullNostrProfileInSql result: ${JSON.stringify(
       result,
@@ -400,6 +401,7 @@ export const updateMyFullNostrProfileInSql = async (oMyNostrProfileInfo) => {
       4
     )}`
   );
+  */
 };
 
 export const updateMyActiveNostrProfileInSql = async (oMyNostrProfileInfo) => {

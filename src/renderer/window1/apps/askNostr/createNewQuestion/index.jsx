@@ -1,6 +1,6 @@
 import React from 'react';
 import Masthead from 'renderer/window1/mastheads/askNostrMasthead';
-import LeftNavbar1 from 'renderer/window1/navbars/leftNavbar1/askNostrNavbar';
+import LeftNavbar1 from 'renderer/window1/navbars/leftNavbar1/universalNavbar';
 import LeftNavbar2 from 'renderer/window1/navbars/leftNavbar2/askNostr/home';
 import { updateMainColWidth, updateMastheadCenter } from 'renderer/window1/lib/pg/ui';
 

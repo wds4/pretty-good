@@ -333,7 +333,7 @@ const CreateNewRating = ({ aListData, pubkeyFocusID, userData }) => {
             onClick={() => toggleViewDetails()}
             className="doSomethingButton"
           >
-            toggle
+            toggle 🤓
           </button>
         </div>
         <div

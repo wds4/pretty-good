@@ -1,7 +1,7 @@
 import React from 'react';
 import ToggleSwitch from 'renderer/window1/components/toggleSwitch';
-import Masthead from '../../../mastheads/pgMasthead';
-import LeftNavbar1 from '../../../navbars/leftNavbar1/pgNavbar';
+import Masthead from 'renderer/window1/mastheads/pgMasthead';
+import LeftNavbar1 from 'renderer/window1/navbars/leftNavbar1/universalNavbar';
 import LeftNavbar2 from '../../../navbars/leftNavbar2/prettyGood/settings';
 import { updateMainColWidth, updateMastheadCenter } from '../../../lib/pg/ui';
 import GeneralSettings from './generalSettings';

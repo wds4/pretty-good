@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
 import { dateToUnix } from 'nostr-react';
-import Post from 'renderer/window1/apps/nostr/components/post';
+import Post from 'renderer/window1/apps/nostr/components/post/post';
 
 const Posts = ({aEvents}) => {
   const now = useRef(new Date()); // Make sure current time isn't re-rendered
