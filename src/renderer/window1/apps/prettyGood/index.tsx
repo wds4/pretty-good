@@ -38,12 +38,20 @@ export default class PrettyGoodHome extends React.Component {
                 threaded tapestry
               </NavLink>{' '}
               model of <i>knowledge representation</i> and{' '}
-              <i>knowledge curation</i> for distributed & decentralized networks.{' '}
-              <NavLink to="/CuratedListsHome">Curated Lists</NavLink> will be
-              the initial application to make full use of this model. The long
-              term goal is for all projects in the decentralized web to apply
-              the basic principles of this model, in one form or another. A high
-              level overview of these principles is forthcoming.
+              <i>knowledge curation</i> for distributed & decentralized
+              networks. <NavLink to="/CuratedListsHome">Curated Lists</NavLink>{' '}
+              will be the initial application to make use of this model. The
+              long term goal is for all projects in the decentralized web to
+              apply the basic principles of this model, in one form or another.
+              A high level overview of these principles is forthcoming.
+            </p>
+
+            <p>
+              You can activate Curated Lists app in{' '}
+              <NavLink to="/PrettyGoodHome/PrettyGoodSettings">
+                settings
+              </NavLink>{' '}
+              if it is not already visible.
             </p>
 
             <p>

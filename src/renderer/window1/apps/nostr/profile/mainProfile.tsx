@@ -158,7 +158,7 @@ const MainProfile = ({pubkey}) => {
                 id="myProfileAvatarContainer"
                 className="myProfileAvatarContainer"
               />
-              <picture style={{zIndex: 200}}>
+              <picture>
                 <source srcset={profilePicUrl} className="myProfileAvatarImg" type="image/webp" />
                 <img src={noProfilePicUrl} className="myProfileAvatarImg" />
               </picture>

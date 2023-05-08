@@ -6,6 +6,7 @@ import {
   updateDevMode2,
   updateDevMode3,
 } from 'renderer/window1/redux/features/nostr/myNostrProfile/slice';
+
 const GeneralSettings = () => {
   const initState = useSelector(
     (state) => state.myNostrProfile.devModes.devMode

@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { noProfilePicUrl } from 'renderer/window1/const';
 import { updateNostrProfileFocus } from 'renderer/window1/redux/features/nostr/settings/slice';
 import ToggleMultiClientAccess from './toggleMultiClientAccess';
 
@@ -25,16 +26,26 @@ export default function MyProfile() {
   }
   let numRelaysRead = 0;
   let numRelaysWrite = 0;
-  for (let x=0;x<Object.keys(oRelays).length;x++) {
+  for (let x = 0; x < Object.keys(oRelays).length; x++) {
     const url = Object.keys(oRelays)[x];
-    if (oRelays[url].read) { numRelaysRead += 1 }
-    if (oRelays[url].write) { numRelaysWrite += 1 }
+    if (oRelays[url].read) {
+      numRelaysRead += 1;
+    }
+    if (oRelays[url].write) {
+      numRelaysWrite += 1;
+    }
   }
-  let sMultiClientAccess = "DISABLED";
-  let multiClientAccessClassName = "mcaDisabled";
+  let sMultiClientAccess = 'DISABLED';
+  let multiClientAccessClassName = 'mcaDisabled';
   if (myNostrProfile.multiClientAccess) {
-    sMultiClientAccess = "ENABLED";
-    multiClientAccessClassName = "mcaEnabled";
+    sMultiClientAccess = 'ENABLED';
+    multiClientAccessClassName = 'mcaEnabled';
+  }
+  let myProfilePicUrl = noProfilePicUrl;
+  if (myNostrProfile.picture_url) {
+    if (myNostrProfile.picture_url != "undefined") {
+      myProfilePicUrl = myNostrProfile.picture_url;
+    }
   }
   return (
     <div>
@@ -49,11 +60,13 @@ export default function MyProfile() {
               id="myProfileAvatarContainer"
               className="myProfileAvatarContainer"
             />
-            <img
-              src={myNostrProfile.picture_url}
-              className="myProfileAvatarImg"
-              alt=""
-            />
+            <picture>
+              <source
+                srcSet={myProfilePicUrl}
+                className="myProfileAvatarImg"
+              />
+              <img src={noProfilePicUrl} className="myProfileAvatarImg" />
+            </picture>
           </div>
           <div className="followCountContainer">
             <NavLink
@@ -75,7 +88,6 @@ export default function MyProfile() {
               className="followsNavLink"
               to="/NostrHome/NostrRelays"
               style={{ marginLeft: '10px' }}
-
             >
               <div style={{ display: 'inline-block', marginRight: '5px' }}>
                 {Object.keys(oRelays).length}/{numRelaysRead}/{numRelaysWrite}
@@ -130,7 +142,12 @@ export default function MyProfile() {
             <div style={{ display: 'inline-block', marginLeft: '5px' }}>
               <span style={{ color: 'grey' }}>multi client access: </span>
               <ToggleMultiClientAccess />
-              <span className={multiClientAccessClassName} style={{ marginLeft: '10px' }} >{sMultiClientAccess}</span>
+              <span
+                className={multiClientAccessClassName}
+                style={{ marginLeft: '10px' }}
+              >
+                {sMultiClientAccess}
+              </span>
             </div>
           </div>
 

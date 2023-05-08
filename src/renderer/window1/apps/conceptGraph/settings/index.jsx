@@ -3,6 +3,7 @@ import Masthead from 'renderer/window1/mastheads/cgMasthead';
 import LeftNavbar1 from 'renderer/window1/navbars/leftNavbar1/universalNavbar';
 import LeftNavbar2 from '../../../navbars/leftNavbar2/conceptGraph/settings';
 import { updateMainColWidth, updateMastheadCenter } from '../../../lib/pg/ui';
+import AllAppSettingsNav from 'renderer/window1/apps/prettyGood/settings/allAppSettingsNav';
 
 export default class ConceptGraphSettings extends React.Component {
   constructor(props) {
@@ -26,7 +27,7 @@ export default class ConceptGraphSettings extends React.Component {
         <div id="mainCol">
           <Masthead />
           <div id="mainPanel">
-            <div className="h4">Concept Graph: Settings</div>
+            <AllAppSettingsNav />
           </div>
         </div>
       </>

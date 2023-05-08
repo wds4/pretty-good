@@ -4,21 +4,40 @@ import { NavLink } from 'react-router-dom';
 import { updateNostrProfileFocus } from 'renderer/window1/redux/features/nostr/settings/slice';
 import ToggleNostrGrapevineSwitch from 'renderer/window1/components/grToggleSwitchT2';
 import BackButton from 'renderer/window1/components/backButton';
-import { setCurrentPage } from 'renderer/window1/redux/features/prettyGood/settings/slice';
+import {
+  setCurrentPage,
+  updateCurrentApp,
+} from 'renderer/window1/redux/features/prettyGood/settings/slice';
 import { noProfilePicUrl } from '../const';
 
 export default function Masthead() {
   const myNostrProfile = useSelector((state) => state.myNostrProfile);
   const dispatch = useDispatch();
   dispatch(setCurrentPage('foo'));
+  dispatch(updateCurrentApp('conceptGraph'));
   let avatarUrl = noProfilePicUrl;
   if (myNostrProfile.picture_url) {
-    avatarUrl = myNostrProfile.picture_url;
+    if (myNostrProfile.picture_url != "undefined") {
+      avatarUrl = myNostrProfile.picture_url;
+    }
   }
 
   const { devMode1, devMode2 } = useSelector(
     (state) => state.myNostrProfile.devModes
   );
+
+  // devMode1: toggle curatedLists; use here to toggle the grapevine button (currently used with curated lists)
+  let devElemClass1 = 'devElemHide';
+  if (devMode1) {
+    devElemClass1 = 'devElemShowInline';
+  }
+
+  // devMode2: toggle apps button
+  let devElemClass2 = 'devElemHide';
+  if (devMode2) {
+    devElemClass2 = 'devElemShowInline';
+  }
+
   return (
     <>
       <div className="mastheadContainer">
@@ -86,7 +105,10 @@ export default function Masthead() {
             <div style={{ fontSize: '20px' }}>⚙️</div>
             <div style={{ fontSize: '10px' }}>settings</div>
           </NavLink>
-          <ToggleNostrGrapevineSwitch />
+
+          <div className={devElemClass1}>
+            <ToggleNostrGrapevineSwitch />
+          </div>
         </div>
       </div>
       <div className="mastheadSubBanner mastheadSubBannerConceptGraph">

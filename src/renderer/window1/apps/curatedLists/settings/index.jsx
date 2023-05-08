@@ -3,6 +3,7 @@ import Masthead from 'renderer/window1/mastheads/curatedListsMasthead';
 import LeftNavbar1 from 'renderer/window1/navbars/leftNavbar1/universalNavbar';
 import LeftNavbar2 from '../../../navbars/leftNavbar2/curatedLists/home';
 import { updateMainColWidth, updateMastheadCenter } from '../../../lib/pg/ui';
+import AllAppSettingsNav from 'renderer/window1/apps/prettyGood/settings/allAppSettingsNav';
 
 export default class ConceptGraphSettings extends React.Component {
   constructor(props) {
@@ -26,8 +27,7 @@ export default class ConceptGraphSettings extends React.Component {
         <div id="mainCol">
           <Masthead />
           <div id="mainPanel">
-            <div className="h4">Curated Lists: Settings</div>
-            <p>Nothing to see here yet.</p>
+            <AllAppSettingsNav />
           </div>
         </div>
       </>

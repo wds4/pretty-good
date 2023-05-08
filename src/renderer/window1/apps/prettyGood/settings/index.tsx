@@ -5,6 +5,7 @@ import LeftNavbar1 from 'renderer/window1/navbars/leftNavbar1/universalNavbar';
 import LeftNavbar2 from '../../../navbars/leftNavbar2/prettyGood/settings';
 import { updateMainColWidth, updateMastheadCenter } from '../../../lib/pg/ui';
 import GeneralSettings from './generalSettings';
+import AllAppSettingsNav from './allAppSettingsNav';
 
 export default class PrettyGoodSettings extends React.Component {
   constructor(props) {
@@ -32,10 +33,7 @@ export default class PrettyGoodSettings extends React.Component {
         <div id="mainCol">
           <Masthead />
           <div id="mainPanel">
-            <div className="h4">General Settings</div>
-
-            <br />
-
+            <AllAppSettingsNav />
             <GeneralSettings />
           </div>
         </div>

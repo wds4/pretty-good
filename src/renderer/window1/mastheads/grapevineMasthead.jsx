@@ -5,32 +5,60 @@ import { updateNostrProfileFocus } from 'renderer/window1/redux/features/nostr/s
 import GrapevineLogo from 'renderer/window1/assets/Grapevine_Logo03.png';
 import BackButton from 'renderer/window1/components/backButton';
 import ToggleNostrGrapevineSwitch from 'renderer/window1/components/grToggleSwitchT2';
-import { setCurrentPage } from 'renderer/window1/redux/features/prettyGood/settings/slice';
+import {
+  setCurrentPage,
+  updateCurrentApp,
+} from 'renderer/window1/redux/features/prettyGood/settings/slice';
 import { noProfilePicUrl } from '../const';
 
 export default function Masthead() {
   const myNostrProfile = useSelector((state) => state.myNostrProfile);
   const dispatch = useDispatch();
   dispatch(setCurrentPage('foo'));
+  dispatch(updateCurrentApp('grapevine'));
   let avatarUrl = noProfilePicUrl;
   if (myNostrProfile.picture_url) {
-    avatarUrl = myNostrProfile.picture_url;
+    if (myNostrProfile.picture_url != 'undefined') {
+      avatarUrl = myNostrProfile.picture_url;
+    }
   }
 
   const { devMode1, devMode2 } = useSelector(
     (state) => state.myNostrProfile.devModes
   );
+
+  // devMode1: toggle curatedLists; use here to toggle the grapevine button (currently used with curated lists)
+  let devElemClass1 = 'devElemHide';
+  if (devMode1) {
+    devElemClass1 = 'devElemShowInline';
+  }
+
+  // devMode2: toggle apps button
+  let devElemClass2 = 'devElemHide';
+  if (devMode2) {
+    devElemClass2 = 'devElemShowInline';
+  }
+
   return (
     <>
-      <div className="mastheadContainer" >
-
-        <div className="mastheadLeftContainer" style={{position:"absolute",left:"0px",top:"110px",overflow:"visible"}}>
-          <img src={GrapevineLogo} style={{height:"250px",marginLeft:"30px",overflow:"visible"}} />
+      <div className="mastheadContainer">
+        <div
+          className="mastheadLeftContainer"
+          style={{
+            position: 'absolute',
+            left: '0px',
+            top: '110px',
+            overflow: 'visible',
+          }}
+        >
+          <img
+            src={GrapevineLogo}
+            style={{ height: '250px', marginLeft: '30px', overflow: 'visible' }}
+          />
         </div>
 
-
         <div id="mastheadCenterContainer" className="mastheadCenterContainer">
-        center
+          center
         </div>
 
         <div className="mastheadRightContainer">
@@ -88,11 +116,17 @@ export default function Masthead() {
             <div style={{ fontSize: '20px' }}>⚙️</div>
             <div style={{ fontSize: '10px' }}>settings</div>
           </NavLink>
-          <ToggleNostrGrapevineSwitch />
+
+          <div className={devElemClass1}>
+            <ToggleNostrGrapevineSwitch />
+          </div>
         </div>
       </div>
       <div className="mastheadSubBanner mastheadSubBannerGrapevine">
-        <div>"ASK NOT WHAT YOUR <span style={{color:"purple"}}>GRAPEVINE</span> CAN DO FOR YOU." -- JFK inaugural address, 1961</div>
+        <div>
+          "ASK NOT WHAT YOUR <span style={{ color: 'purple' }}>GRAPEVINE</span>{' '}
+          CAN DO FOR YOU." -- JFK inaugural address, 1961
+        </div>
       </div>
     </>
   );

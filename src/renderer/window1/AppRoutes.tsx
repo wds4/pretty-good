@@ -137,7 +137,7 @@ const AppRoutes = () => {
       <fieldset id="app">
         <Router>
           <Routes>
-            <Route path="/" element={<PrettyGoodHome />} />
+            <Route path="/" element={<NostrLandingPage />} />
 
             <Route path="/PrettyGoodHome" element={<PrettyGoodHome />} />
             <Route
