@@ -33,8 +33,8 @@ export const oDefaultRelayUrls = {
 
 export const oDefaultDevModes = {
   devMode: false, // generic dev mode; may deprecate in favor of devModes 2 and 3
-  devMode1: false, // reserved
-  devMode2: false, // reveal features that are still in alpha
+  devMode1: true, // toggle Curated Lists
+  devMode2: false, // reveal other features that are still in alpha
   devMode3: false, // reveal "nostr nerd" toggle buttons
   devMode4: false, // reserved
   devMode5: false, // reserved
