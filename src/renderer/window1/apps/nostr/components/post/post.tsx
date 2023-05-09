@@ -1,5 +1,4 @@
 import { NavLink } from 'react-router-dom';
-import { useNostrEvents } from 'nostr-react';
 import { useSelector, useDispatch } from 'react-redux';
 import BlankAvatar from 'renderer/window1/assets/blankAvatar.png';
 import { noProfilePicUrl } from 'renderer/window1/const';
@@ -13,6 +12,40 @@ import YoutubeEmbed, { extractVideoID, extractVideoUrl } from './youTubeEmbed';
 import ImageEmbed, { extractImageUrl } from './imageEmbed';
 import ActionButtons from './actionButtons';
 import TechDetailsForNostrNerds from './techDetailsForNostrNerds';
+import ReplyToPost from './replyToPost';
+
+const ReplyingTo = ({ event }) => {
+  const aaETags = event.tags.filter(([k, v]) => k === 'e' && v && v !== '');
+  const aETags = [];
+  let replyID = '';
+  for (let x = 0; x < aaETags.length; x++) {
+    aETags.push(aaETags[x][1]);
+    if (aaETags[x].length > 3) {
+      const marker = aaETags[x][3];
+      if (marker == 'reply') {
+        replyID = aaETags[x][1];
+      }
+      if (marker == 'root') {
+      }
+      if (marker == 'mention') {
+      }
+    }
+  }
+  if (aETags.length > 0) {
+    if (!replyID) {
+      replyID = aETags[0];
+    }
+    return (
+      <>
+        <div className="eventReplyingToContainer">
+          <span style={{ color: 'grey' }}>replying to: </span>
+          <span>{replyID}</span>
+        </div>
+      </>
+    );
+  }
+  return <></>;
+};
 
 const Post = ({ event, index }) => {
   const nostrProfiles = useSelector(
@@ -36,7 +69,10 @@ const Post = ({ event, index }) => {
   const extractedImageUrl = extractImageUrl(contentMinusVideoUrl);
   let contentMinusVideoAndImageUrls = contentMinusVideoUrl;
   if (extractedImageUrl) {
-    contentMinusVideoAndImageUrls = contentMinusVideoUrl.replace(extractedImageUrl, '');
+    contentMinusVideoAndImageUrls = contentMinusVideoUrl.replace(
+      extractedImageUrl,
+      ''
+    );
   }
 
   // plan to make steps 1, 2, and maybe 3 into single function; 1 and 2 are sync, 3 would have to be async
@@ -56,7 +92,8 @@ const Post = ({ event, index }) => {
     if (profileContent.picture) {
       avatarUrl = profileContent.picture;
     } else {
-      avatarUrl = BlankAvatar;
+      // avatarUrl = BlankAvatar;
+      avatarUrl = noProfilePicUrl;
     }
   }
 
@@ -117,6 +154,7 @@ const Post = ({ event, index }) => {
             </div>
             <div className="eventTimeContainer">{displayTime}</div>
           </div>
+          <ReplyingTo event={event} />
           <NavLink
             onClick={() => {
               dispatch(updateNostrPostFocusEvent(event));
@@ -129,7 +167,10 @@ const Post = ({ event, index }) => {
             className="eventContentContainer"
           >
             {contentMinusVideoAndImageUrls}
-            <YoutubeEmbed embedId={embedId2} extractedVideoUrl={extractedVideoUrl} />
+            <YoutubeEmbed
+              embedId={embedId2}
+              extractedVideoUrl={extractedVideoUrl}
+            />
             <ImageEmbed extractImageUrl={extractedImageUrl} />
           </NavLink>
           <div className="eventActionButtonsContainer">
@@ -140,6 +181,7 @@ const Post = ({ event, index }) => {
             extractedVideoUrl={extractedVideoUrl}
             event={event}
           />
+          <ReplyToPost parentEvent={event} />
         </div>
       </div>
     </>

@@ -1,6 +1,30 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import {
+  updateNostrPostFocusEvent,
+  updateNostrActiveThreadFocus,
+} from 'renderer/window1/redux/features/nostr/settings/slice';
+import { useNostrEvents } from 'nostr-react';
+
+const CountReplies = ({event}) => {
+  const parentEventID = event.id;
+
+  const { events } = useNostrEvents({
+    filter: {
+      since: 0,
+      kinds: [1],
+      '#e': [parentEventID],
+    },
+  });
+  return (
+    <>
+      <span className="replyNumberContainer" style={{ marginLeft: '7px' }}>{events.length}</span>
+    </>
+  )
+}
 
 const ActionButtons = ({ event }) => {
+  const dispatch = useDispatch();
   // var randomNumber = Math.random();
   if (!window.linkToReply_base) {
     window.linkToReply_base = 'Reply';
@@ -11,13 +35,17 @@ const ActionButtons = ({ event }) => {
     <>
       <div style={{ fontSize: '18px' }}>
         <span className="singleActionButtonContainer">
-          <Link
+          <NavLink
+            onClick={() => {
+              dispatch(updateNostrPostFocusEvent(event));
+              dispatch(updateNostrActiveThreadFocus(event));
+            }}
             className="eventContentContainer"
             to={linkToReply}
-            event={event}
           >
             &#x1F4AC;
-          </Link>
+            <CountReplies event={event} />
+          </NavLink>
         </span>
       </div>
     </>

@@ -52,12 +52,17 @@ export const nostrSettingsSlice = createSlice({
   reducers: {
     updateNostrActiveThreadFocus: (state, action) => {
       const event = action.payload;
-      const eventID = event.id;
-      state.nostrActiveThread.focus = eventID;
-      state.nostrActiveThread.aThreadNoteIDs = [ eventID ]; // also reset notes array to empty
-      state.nostrActiveThread.aThreadNoteIDs_downloaded = [ eventID ]; // assume the focus event has been downloaded
-      state.nostrActiveThread.aThreadNoteIDs_notDownloaded = [ ];
-      state.nostrActiveThread.aThreadEvents = [ event ];
+      if (!event) {
+        state.nostrActiveThread.focus = null;
+      }
+      if (event) {
+        const eventID = event.id;
+        state.nostrActiveThread.focus = eventID;
+        state.nostrActiveThread.aThreadNoteIDs = [ eventID ]; // also reset notes array to empty
+        state.nostrActiveThread.aThreadNoteIDs_downloaded = [ eventID ]; // assume the focus event has been downloaded
+        state.nostrActiveThread.aThreadNoteIDs_notDownloaded = [ ];
+        state.nostrActiveThread.aThreadEvents = [ event ];
+      }
     },
     addEventIDToNostrActiveThreadList: (state, action) => {
       const eventID = action.payload;

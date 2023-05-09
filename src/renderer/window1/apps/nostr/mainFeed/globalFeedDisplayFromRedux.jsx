@@ -1,19 +1,7 @@
 import { useRef } from 'react';
-import { useNostrEvents, dateToUnix } from 'nostr-react';
-import { useSelector, useDispatch } from 'react-redux';
-import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
-import { updateNostrEvents } from 'renderer/window1/redux/features/nostr/settings/slice';
-import { addNote } from 'renderer/window1/redux/features/nostr/notes/slice';
-import {
-  setTwoBackSteps,
-  setCurrentPage,
-} from 'renderer/window1/redux/features/prettyGood/settings/slice';
-import { addNostrNoteToSql } from 'renderer/window1/lib/pg/sql';
-import Post from 'renderer/window1/apps/nostr/components/post/post';
-import MainFeedTypeSelector from './mainFeedTypeSelector';
-import WelcomeBox from './welcomeBox';
+import { dateToUnix } from 'nostr-react';
+import { useSelector } from 'react-redux';
 import Posts from './posts';
-import GlobalFeedFetchPostsInBackground from './globalFeedFetchPostsInBackground';
 
 const GlobalFeedDisplayFromRedux = ({ filter, mainNostrFeedFilter }) => {
   let oNotesAllAuthors = {};

@@ -28,12 +28,9 @@ However, this is still very much in alpha! Expect things to break, even if they 
 
 Incomplete list of known issues:
 <li>extended following list seems to freeze up -- authors list too big?
-<li>cannot yet reply to existing note
 <li>view thread does not always pull the entire thread
 <li>likes, zaps not yet implemented
-<li>render images in notes: not yet implemented
 <li>for the main feed, data persistence using redux works but is exceedingly slow; therefore currently off by default (can turn it on in settings)
-<li>the follow list updates correctly locally but broadcasts the wrong version to the network
 
 ## Curated Lists: decentralized web of trust
 

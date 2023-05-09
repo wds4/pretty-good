@@ -1,13 +1,19 @@
 import { useRef } from 'react';
-import { useNostrEvents, dateToUnix } from 'nostr-react';
-import { useSelector } from 'react-redux';
-import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
-import Post from 'renderer/window1/apps/nostr/components/post/post';
+import { dateToUnix } from 'nostr-react';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateNostrActiveThreadFocus } from 'renderer/window1/redux/features/nostr/settings/slice';
 import GlobalFeedFetchPostsInBackground from './globalFeedFetchPostsInBackground';
 import GlobalFeedDisplayFromRedux from './globalFeedDisplayFromRedux';
 import GlobalFeedShowLiveEvents from './globalFeedShowLiveEvents';
 
 const GlobalFeed = ({ aFollowing, aExtendedFollowing }) => {
+  const dispatch = useDispatch();
+  dispatch(updateNostrActiveThreadFocus(""));
+
+  const { focus } = useSelector(
+    (state) => state.nostrSettings.nostrActiveThread
+  );
+
   const mainNostrFeedFilter = useSelector(
     (state) => state.nostrSettings.mainNostrFeedFilter
   );

@@ -3,6 +3,9 @@ export const noBannerPicUrl = 'https://nostr.build/i/2282.png';
 
 export const foo = "bar";
 
+// tag to advertise Pretty Good Apps
+export const clientTag = [ 'client', 'prettyGood' ];
+
 // This is used as the default list for new profiles
 export const aDefaultRelayUrls: string[] = [
   'wss://nostr-pub.wellorder.net',

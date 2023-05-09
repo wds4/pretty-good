@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useNostr, dateToUnix } from 'nostr-react';
 import { useSelector } from 'react-redux';
 import {
@@ -7,46 +6,46 @@ import {
   getPublicKey,
   signEvent,
 } from 'nostr-tools';
-import { clientTag } from 'renderer/window1/const';
-import TechDetailsForNostrNerds from './techDetailsForNostrNerds';
+import TechDetailsForNostrNerds from '../components/post/techDetailsForNostrNerds';
 // <TechDetailsForNostrNerds event={event} />
 
 export default function CreatePost() {
-  const { devMode } = useSelector((state) => state.myNostrProfile.devModes);
-  let devElemClass = 'devElemHide';
-  if (devMode) {
-    devElemClass = 'devElemShow';
-  }
-
-  const initNote = {}
-  const [note, setNote] = useState(initNote);
-
   const myNostrProfile = useSelector((state) => state.myNostrProfile);
   const myPrivkey = myNostrProfile.privkey;
   const { publish } = useNostr();
 
-  const e1 = document.getElementById("newPostTextarea");
   const e2 = document.getElementById("successMessageContainer");
   const e3 = document.getElementById("newEventContainer");
 
-  let event_ = {};
-
-  const onChangeMessage = () => {
+  const clearFields = () => {
     if (e2 && e3) {
       e2.innerHTML = "";
       e3.innerHTML = "";
     }
+  }
+
+  const onPost = async () => {
+    if (!myPrivkey) {
+      alert('no private key provided');
+      return;
+    }
 
     let message = "";
+    const e1 = document.getElementById("newPostTextarea");
     if (e1) {
       message = e1.value;
+    }
+
+    if (!message) {
+      alert('no message provided');
+      return;
     }
 
     const event: NostrEvent = {
       content: message,
       kind: 1,
-      // tags: [ clientTag ],
-      tags: [ ],
+      tags: [],
+      // tags: [['p','5c10ed0678805156d39ef1ef6d46110fe1e7e590ae04986ccf48ba1299cb53e2']], // This is chat @gpt3; need to include #[0] in the message content
       created_at: dateToUnix(),
       pubkey: getPublicKey(myPrivkey),
     };
@@ -54,24 +53,22 @@ export default function CreatePost() {
     event.id = getEventHash(event);
     event.sig = signEvent(event, myPrivkey);
 
-    event_ = JSON.parse(JSON.stringify(event));
-    // console.log("onChangeMessage; event_: "+JSON.stringify(event_))
-    setNote(event_)
-  }
 
-  const onPost = async () => {
-    publish(note);
+    publish(event);
     if (e1) {
       e1.value = '';
     }
 
+    const e2 = document.getElementById("successMessageContainer");
+    const e3 = document.getElementById("newEventContainer");
     if (e2) {
       e2.innerHTML = 'Your message has been submitted to the nostr network!';
     }
 
     if (e3) {
-      e3.innerHTML = `Here it is:<br/><br/>${JSON.stringify(note, null, 4)}`
+      e3.innerHTML = `Here it is:<br/><br/>${JSON.stringify(event, null, 4)}`
     }
+
   };
 
   return (
@@ -79,7 +76,7 @@ export default function CreatePost() {
       style={{ position: 'relative', display: 'inline-block', width: '100%' }}
     >
       <div id="newPostTextareaContainer">
-        <textarea id="newPostTextarea" className="newPostTextarea" onChange={onChangeMessage} />
+        <textarea id="newPostTextarea" className="newPostTextarea" onChange={clearFields} />
       </div>
       <button
         type="button"
@@ -93,20 +90,18 @@ export default function CreatePost() {
         id="successMessageContainer"
         style={{ fontSize: '14px', marginTop: '20px' }}
       />
-      <div className={devElemClass}>
-        <div
-          id="newEventContainer"
-          className="newEventContainer"
-          style={{
-            fontSize: '14px',
-            marginTop: '20px',
-            width: '80%',
-            overflow: 'auto',
-            padding: '5px',
-          }}
-        />
-      </div>
-      <TechDetailsForNostrNerds event = {note} />
+      <div
+        id="newEventContainer"
+        className="newEventContainer"
+        style={{
+          fontSize: '14px',
+          marginTop: '20px',
+          width: '80%',
+          height: '250px',
+          overflow: 'auto',
+          padding: '5px',
+        }}
+      />
     </div>
   );
 }
