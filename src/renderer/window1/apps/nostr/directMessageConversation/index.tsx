@@ -6,25 +6,18 @@ import LeftNavbar2 from '../../../navbars/leftNavbar2/emptyNavbar';
 import { updateMainColWidth, updateMastheadCenter } from '../../../lib/pg/ui';
 import DirectMessages from './messages';
 import SendDirectMessage from './sendDirectMessage';
+import DMConveHeader from './dmConvoHeader';
 
 export default class NostrDirectMessageConvo extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      foo: null,
-    };
+    this.state = {};
   }
 
   async componentDidMount() {
     updateMainColWidth();
     const mastheadDescriptor = 'nostr: DM Convo';
     updateMastheadCenter(mastheadDescriptor);
-
-    /*
-    await timeout(1000);
-    const foo = 'bar';
-    this.setState({ foo });
-    */
   }
 
   render() {
@@ -39,7 +32,8 @@ export default class NostrDirectMessageConvo extends React.Component {
             <Masthead />
           </div>
           <div id="mainPanel">
-            <DirectMessages foo={this.state.foo} />
+            <DMConveHeader />
+            <DirectMessages />
             <SendDirectMessage />
           </div>
         </div>

@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 import { fetchConvoProfiles } from 'renderer/window1/redux/features/nostr/directMessages/slice';
+// import DirectMessageListener from 'renderer/window1/apps/nostr/listeners/dmListener';
 import DirectMessageProfileButton from './dmProfileButton';
 import MessagesPanel from './messagesPanel';
 
@@ -17,17 +18,13 @@ const DirectMessages = () => {
         {aInteractees.map((pubkey) => {
           return (
             <div>
-              <DirectMessageProfileButton
-                pubkey={pubkey}
-              />
+              <DirectMessageProfileButton pubkey={pubkey} />
             </div>
           );
         })}
       </div>
       <div className="dmMainPanel">
-        <MessagesPanel
-          pubkey={pubkey_focus}
-        />
+        <MessagesPanel pubkey={pubkey_focus} />
       </div>
     </>
   );

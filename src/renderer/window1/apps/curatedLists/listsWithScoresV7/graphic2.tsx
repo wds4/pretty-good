@@ -92,7 +92,7 @@ const Graphic2 = ({
       <div
         style={{
           height: '100%',
-          width: '300px',
+          width: '100%',
           border: '1px solid blue',
           display: 'none',
         }}
@@ -101,9 +101,8 @@ const Graphic2 = ({
       <div
         style={{
           display: 'inline-block',
-          width: '300px',
+          width: '100%',
           height: '100%',
-          border: '1px dashed grey',
         }}
       >
         <Header

@@ -15,6 +15,12 @@ const CuratorEndorsementsListener = () => {
   const myPubkey = myNostrProfile.pubkey_hex;
   const dispatch = useDispatch();
 
+  const { devMode } = useSelector((state) => state.myNostrProfile.devModes);
+  let devElemClass = 'devElemHide';
+  if (devMode) {
+    devElemClass = 'devElemShow';
+  }
+
   // set up filter
   // make an array for all known parentConceptNostrEventID ????
   const kind0 = 39901;
@@ -56,22 +62,24 @@ const CuratorEndorsementsListener = () => {
   });
   return (
     <>
-      <div className="listenerBox">
-        <div className="h4">CuratorEndorsementsListener</div>
-        <div>numMessages received: {events.length}</div>
-        {events.map((event, index) => {
-          if (doesEventValidate(event)) {
-            const oWord = JSON.parse(event.content);
-            return (
-              <>
-                <div className="listenerInfoContainer">
-                  <div className="listenerEventBox">{JSON.stringify(event,null,4)}</div>
-                  <div className="listenerWordBox">{JSON.stringify(oWord,null,4)}</div>
-                </div>
-              </>
-            );
-          }
-        })}
+      <div className={devElemClass}>
+        <div className="listenerBox">
+          <div className="h4">CuratorEndorsementsListener</div>
+          <div>numMessages received: {events.length}</div>
+          {events.map((event, index) => {
+            if (doesEventValidate(event)) {
+              const oWord = JSON.parse(event.content);
+              return (
+                <>
+                  <div className="listenerInfoContainer">
+                    <div className="listenerEventBox">{JSON.stringify(event,null,4)}</div>
+                    <div className="listenerWordBox">{JSON.stringify(oWord,null,4)}</div>
+                  </div>
+                </>
+              );
+            }
+          })}
+        </div>
       </div>
     </>
   );

@@ -125,15 +125,8 @@ const AppRoutes = () => {
     }, 30000);
   };
   onDisconnect(onDisconnectCallback);
-  /*
-      <NostrProfilesListener />
-      <DirectMessageListener />
-      <GrapevineListener />
-      <MyProfileListener />
-  */
   return (
     <>
-      <MyProfileListener />
       <fieldset id="app">
         <Router>
           <Routes>
@@ -453,8 +446,17 @@ const AppRoutes = () => {
           </Routes>
         </Router>
       </fieldset>
+      <MyProfileListener />
     </>
   );
 };
 
 export default AppRoutes;
+
+/*
+// LISTENERS: place at bottom of this page; or might move some to other specific pages
+    <NostrProfilesListener />
+    <DirectMessageListener /> // move to direct message page?
+    <GrapevineListener /> // move to grapevine header?
+    <MyProfileListener /> // move to my profile page?
+*/

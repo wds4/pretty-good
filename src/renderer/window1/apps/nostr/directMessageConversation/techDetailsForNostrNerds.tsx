@@ -1,12 +1,12 @@
 import { useSelector } from 'react-redux';
 
-const TechDetailsForNostrNerds = ({event}) => {
+const TechDetailsForNostrNerds = ({ event }) => {
   const { devMode3 } = useSelector((state) => state.myNostrProfile.devModes);
   let devElemClass = 'devElemHide';
   if (devMode3) {
     devElemClass = 'devElemShow';
   }
-  const elem_id = "technicalDetailsForNostrDevsContainer"; // add event_id or some other unique identifier if multiple details per page
+  const elem_id = 'technicalDetailsForNostrDevsContainer'; // add event_id or some other unique identifier if multiple details per page
   const toggleViewDetails = () => {
     const e = document.getElementById(elem_id);
     const currentState = e.style.display;
@@ -43,9 +43,7 @@ const TechDetailsForNostrNerds = ({event}) => {
         >
           <div>
             show note to be submitted
-            <pre>
-              {JSON.stringify(event,null,4)}
-            </pre>
+            <pre>{JSON.stringify(event, null, 4)}</pre>
           </div>
         </div>
       </div>

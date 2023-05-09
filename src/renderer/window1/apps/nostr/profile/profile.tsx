@@ -8,8 +8,10 @@ const Profile = () => {
   );
   return (
     <>
-      <MainProfile pubkey={pubkey} />
-      <UserPanel pubkey={pubkey} />
+      <div style={{paddingBottom: '20px'}}>
+        <MainProfile pubkey={pubkey} />
+        <UserPanel pubkey={pubkey} />
+      </div>
     </>
   );
 };

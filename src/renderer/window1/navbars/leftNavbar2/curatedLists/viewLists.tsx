@@ -30,15 +30,17 @@ const LeftNavbar2 = () => {
 
         <hr />
 
-        <NavLink
-          className={({ isActive }) =>
-            isActive ? 'leftNav2Button leftNav2ButtonActive' : 'leftNav2Button'
-          }
-          end
-          to="/CuratedListsHome/ViewAllLists"
-        >
-          lists
-        </NavLink>
+        <div className={devElemClass}>
+          <NavLink
+            className={({ isActive }) =>
+              isActive ? 'leftNav2Button leftNav2ButtonActive' : 'leftNav2Button'
+            }
+            end
+            to="/CuratedListsHome/ViewAllLists"
+          >
+            lists
+          </NavLink>
+        </div>
 
         <div className={devElemClass}>
           <NavLink
@@ -90,15 +92,17 @@ const LeftNavbar2 = () => {
           </NavLink>
         </div>
 
-        <NavLink
-          className={({ isActive }) =>
-            isActive ? 'leftNav2Button leftNav2ButtonActive' : 'leftNav2Button'
-          }
-          end
-          to="/CuratedListsHome/CuratedListsWithScoresV6"
-        >
-          lists & scores v6
-        </NavLink>
+        <div className={devElemClass}>
+          <NavLink
+            className={({ isActive }) =>
+              isActive ? 'leftNav2Button leftNav2ButtonActive' : 'leftNav2Button'
+            }
+            end
+            to="/CuratedListsHome/CuratedListsWithScoresV6"
+          >
+            lists & scores v6
+          </NavLink>
+        </div>
 
         <NavLink
           className={({ isActive }) =>
@@ -107,7 +111,7 @@ const LeftNavbar2 = () => {
           end
           to="/CuratedListsHome/CuratedListsWithScoresV7"
         >
-          lists & scores v7
+          lists
         </NavLink>
 
         <NavLink

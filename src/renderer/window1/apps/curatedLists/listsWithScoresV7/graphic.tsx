@@ -32,7 +32,7 @@ const Graphic = ({
     aCuratedListInstances,
     aRatingsOfInstancesData,
     aEndorsementsOfCuratorsData,
-    controlPanelSettings,
+    controlPanelSettings
   );
 
   const nodes = new DataSet(aNodes);
@@ -44,7 +44,15 @@ const Graphic = ({
 
   return (
     <>
-      <div style={{ border: '1px solid purple', height: '400px', margin: '2px', display: 'inline-block' }}>
+      <div
+        style={{
+          border: '1px solid purple',
+          padding: '2px',
+          height: '400px',
+          margin: '2px',
+          display: 'inline-block',
+        }}
+      >
         <Graphic2
           nodes={nodes}
           edges={edges}

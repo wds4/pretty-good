@@ -351,7 +351,7 @@ const CreateNewCuratedList = () => {
               </button>
             </div>
             <div style={{ display: 'inline-block', width: '45%' }}>
-              <center>word (concept graph)</center>
+              <center>word (in concept graph format)</center>
               <textarea
                 id="newConceptRawFileField"
                 style={{

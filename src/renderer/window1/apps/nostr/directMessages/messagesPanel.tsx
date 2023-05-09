@@ -25,7 +25,6 @@ const MessagesPanel = ({ pubkey }) => {
   const aMessageIds = [ ...aMessagesFromMe, ...aMessagesToMe ];
   const oMessages = { ...oMessagesFromMe, ...oMessagesToMe }
 
-
   const aMessages = [];
   aMessageIds.forEach((id) => {
     const oMessage = oMessages[id];

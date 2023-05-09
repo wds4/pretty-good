@@ -38,12 +38,29 @@ export default class ListsWithScores extends React.Component {
   render() {
     return (
       <>
-        <div style={{display: 'none', width: '400px', maxHeight: '400px', border: '1px solid black', fontSize: '12px', textAlign: 'center'}}>
+        <div
+          style={{
+            display: 'none',
+            width: '400px',
+            maxHeight: '400px',
+            border: '1px solid black',
+            fontSize: '12px',
+            textAlign: 'center',
+          }}
+        >
           <div className="h4">Control Panel</div>
           <ControlPanel />
         </div>
 
-        <div style={{display: 'inline-block', width: '25%', height: '500px', overflow: "scroll", border: '1px dashed grey'}}>
+        <div
+          style={{
+            display: 'inline-block',
+            width: '35%',
+            padding: '10px',
+            height: '500px',
+            overflow: 'scroll',
+          }}
+        >
           <center>Lists</center>
           {this.state.aListsData.map((oListData) => {
             return (
@@ -52,10 +69,18 @@ export default class ListsWithScores extends React.Component {
                   <ListSelectButton oListData={oListData} />
                 </div>
               </>
-            )
+            );
           })}
         </div>
-        <div style={{display: 'inline-block', width: '70%', height: '500px', overflow: "scroll", border: '1px dashed grey'}}>
+        <div
+          style={{
+            display: 'inline-block',
+            width: '60%',
+            height: '500px',
+            overflow: 'scroll',
+            textAlign: 'center',
+          }}
+        >
           {this.state.aListsData.map((oListData) => {
             return (
               <>
@@ -66,7 +91,7 @@ export default class ListsWithScores extends React.Component {
                   oNostrProfilesData={this.state.oNostrProfilesData}
                 />
               </>
-            )
+            );
           })}
         </div>
       </>

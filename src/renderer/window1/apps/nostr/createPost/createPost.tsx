@@ -9,7 +9,6 @@ import {
 } from 'nostr-tools';
 import { clientTag } from 'renderer/window1/const';
 import TechDetailsForNostrNerds from './techDetailsForNostrNerds';
-// <TechDetailsForNostrNerds event={event} />
 
 export default function CreatePost() {
   const { devMode } = useSelector((state) => state.myNostrProfile.devModes);

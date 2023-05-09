@@ -189,8 +189,8 @@ const MainProfile = ({pubkey}) => {
             </div>
 
             <div>
-              <span onClick={()=>toggleLnurl()} className={zapButtonClassName} style={{ marginRight: '10px', backgroundColor: 'red' }}>
-                <div style={{ fontSize: '28px' }}>⚡</div>
+              <span onClick={()=>toggleLnurl()} className={zapButtonClassName} style={{ marginRight: '10px' }}>
+                <div style={{ fontSize: '28px', display: 'inline-block' }}>⚡</div>
               </span>
               <span style={{ display: 'inline-block'}}>
                 <NavLink
