@@ -99,7 +99,7 @@ const DownloadMissingEvents = () => {
 };
 
 const ShowDownloadedEvents = () => {
-  console.log('loading_component ShowDownloadedEvents');
+  // console.log('loading_component ShowDownloadedEvents');
   const {
     focus,
     aThreadNoteIDs,

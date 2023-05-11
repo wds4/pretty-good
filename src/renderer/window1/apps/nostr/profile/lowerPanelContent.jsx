@@ -1,5 +1,4 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import About from './panels/about';
 import Grapevine from './panels/grapevine';
 import Posts from './panels/posts';

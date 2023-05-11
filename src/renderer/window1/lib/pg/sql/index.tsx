@@ -159,10 +159,13 @@ export const addInstanceEventToSql = async (
 };
 
 export const addCuratedListEventToSql = async (event) => {
-  const sql = ` INSERT OR IGNORE INTO curatedLists (event, event_id, created_at, pubkey) VALUES('${JSON.stringify(
-    event
-  )}', '${event.id}', '${event.created_at}', '${event.pubkey}' ) `;
+  // TEMPORARY FIX: remove all single quotes
+  const foo = JSON.stringify(event).replaceAll("'","");
+  const sql = ` INSERT OR IGNORE INTO curatedLists (event, event_id, created_at, pubkey) VALUES('${foo}', '${event.id}', '${event.created_at}', '${event.pubkey}' ) `;
+  // const sql = ' INSERT OR IGNORE INTO curatedLists (event, event_id, created_at, pubkey) VALUES(`' + JSON.stringify(event) + '`, `' + event.id + '`, `' + event.created_at + '`, `' + event.pubkey + '` ) ';
+  // console.log("addCuratedListEventToSql_a; sql: "+sql)
   const res = await asyncSql(sql);
+  // console.log("addCuratedListEventToSql_b; res: "+res)
   return res;
 };
 

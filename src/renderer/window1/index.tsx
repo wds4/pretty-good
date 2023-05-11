@@ -87,9 +87,40 @@ const startApp = async () => {
   const sql4 = 'SELECT * from nostrDirectMessages ';
   const aNostrDirectMessagesData = await asyncSql(sql4);
 
-    // LOAD nostrDirectMessages
-    const sql5 = 'SELECT * from testnetListCurationRatings ';
-    const aNostrTestnetListCurationRatings = await asyncSql(sql5);
+  // LOAD testnetListCurationRatings
+  const sql5 = 'SELECT * from testnetListCurationRatings ';
+  const aNostrTestnetListCurationRatings = await asyncSql(sql5);
+
+  // LOAD curatedLists
+  const sql6 = 'SELECT * from curatedLists ';
+  const aCuratedListsData = await asyncSql(sql6);
+
+  // LOAD curatedListInstances
+  const sql7 = 'SELECT * from curatedListInstances ';
+  const aCuratedListInstancesData = await asyncSql(sql7);
+
+  // LOAD ratingsOfCuratedListInstances
+  const sql8 = 'SELECT * from ratingsOfCuratedListInstances ';
+  const aRatingsOfCuratedListInstancesData = await asyncSql(sql8);
+
+  // LOAD endorsementsOfCurators
+  const sql9 = 'SELECT * from endorsementsOfCurators ';
+  const aEndorsementsOfCuratorsData = await asyncSql(sql9);
+
+  /*
+  // TABLES (as of 10 May 2023)
+  0 nostrProfiles (sql2)
+  1 followingNetwork
+  2 myNostrProfile (sql1)
+  3 relays
+  4 nostrDirectMessages (sql4)
+  5 nostrNotes (sql3)
+  6 testnetListCurationRatings (sql5)
+  7 curatedLists (sql6)
+  8 curatedListInstances (sql7)
+  9 ratingsOfCuratedListInstances (sql8)
+  10 endorsementsOfCurators (sql9)
+  */
 
   const container = document.getElementById('root')!;
   const root = createRoot(container);
@@ -101,6 +132,10 @@ const startApp = async () => {
       aNostrNotesData={aNostrNotesData}
       aNostrDirectMessagesData={aNostrDirectMessagesData}
       aNostrTestnetListCurationRatings={aNostrTestnetListCurationRatings}
+      aCuratedListsData={aCuratedListsData}
+      aCuratedListInstancesData={aCuratedListInstancesData}
+      aRatingsOfCuratedListInstancesData={aRatingsOfCuratedListInstancesData}
+      aEndorsementsOfCuratorsData={aEndorsementsOfCuratorsData}
     />
   );
 };

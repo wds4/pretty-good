@@ -2,6 +2,7 @@ import React from 'react';
 import { asyncSql } from 'renderer/window1/lib/pg/asyncSql';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateCuratedListFocus } from 'renderer/window1/redux/features/prettyGood/settings/slice';
+import CuratedListsAllListeners from 'renderer/window1/apps/nostr/listeners/curatedListsListeners';
 import CreateNewRating from './createNewRating';
 
 const extractNostrListData = (oList) => {
@@ -32,7 +33,6 @@ const ListSelector = ({ aListData, aEndorsementsData }) => {
   return (
     <>
       <div style={{ display: 'inline-block' }}>
-
         <select id="curatedListSelector" onChange={() => updateSelectedList()}>
           {aListData.map((oList) => {
             const sqlID = oList.id;
@@ -63,7 +63,7 @@ const ListSelector = ({ aListData, aEndorsementsData }) => {
   );
 };
 
-export default class CuratedListBox extends React.Component {
+export class CuratedListBoxA extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -88,7 +88,9 @@ export default class CuratedListBox extends React.Component {
     return (
       <>
         <div style={{ border: '1px solid purple', padding: '5px' }}>
-          <div style={{ color: 'grey' }}>Endorse as a Curator for this Nostr List:</div>
+          <div style={{ color: 'grey' }}>
+            Endorse as a Curator for this Nostr List:
+          </div>
           <ListSelector
             aListData={this.state.aListData}
             aEndorsementsData={this.state.aEndorsementsData}
@@ -104,3 +106,20 @@ export default class CuratedListBox extends React.Component {
     );
   }
 }
+
+const CuratedListBox = () => {
+  const isNostrGrapevineOn = useSelector(
+    (state) => state.nostrSettings.nostrGrapevineSettings.active
+  );
+
+  if (isNostrGrapevineOn) {
+    return (
+      <>
+        <CuratedListBoxA />
+        <CuratedListsAllListeners />
+      </>
+    );
+  }
+  return <></>;
+};
+export default CuratedListBox;

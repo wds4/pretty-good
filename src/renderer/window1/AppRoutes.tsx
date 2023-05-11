@@ -446,7 +446,6 @@ const AppRoutes = () => {
           </Routes>
         </Router>
       </fieldset>
-      <MyProfileListener />
     </>
   );
 };
@@ -458,5 +457,5 @@ export default AppRoutes;
     <NostrProfilesListener />
     <DirectMessageListener /> // move to direct message page?
     <GrapevineListener /> // move to grapevine header?
-    <MyProfileListener /> // move to my profile page?
+    <MyProfileListener /> // moved to my profile page
 */

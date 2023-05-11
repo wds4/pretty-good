@@ -55,7 +55,9 @@ const GeneralSettings = () => {
           />
         </div>
         <div className="grapevineSettingsDescription">
-          used for debugging (in process of deprecating this generic mode in favor of multiple more specific modes, below)
+          used for debugging (in process of deprecating this generic mode in
+          favor of multiple more specific modes, below) (converting this to
+          activate showing nostr listener data)
         </div>
       </div>
 
@@ -108,9 +110,12 @@ const GeneralSettings = () => {
           />
         </div>
         <div className="grapevineSettingsDescription">
-          reveals "nostr nerd" toggle buttons, designated with 🤓, to see things that may be of interest to devs, like:
+          reveals "nostr nerd" toggle buttons, designated with 🤓, to see things
+          that may be of interest to devs, like:
           <li>individual raw nostr note files</li>
-          <li>how concept graph words are structured and packaged into nostr notes</li>
+          <li>
+            how concept graph words are structured and packaged into nostr notes
+          </li>
         </div>
       </div>
     </>

@@ -6,8 +6,6 @@ import {
   updateMainColWidth,
   updateMastheadCenter,
 } from 'renderer/window1/lib/pg/ui';
-import CuratedListsListeners from 'renderer/window1/apps/nostr/listeners/curatedListsListeners';
-import CuratorEndorsements from 'renderer/window1/apps/nostr/listeners/curatedListsListeners/curatorEndorsements';
 import Profile from './profile';
 
 export default class NostrViewProfile extends React.Component {
@@ -35,7 +33,6 @@ export default class NostrViewProfile extends React.Component {
           </div>
           <div id="mainPanel">
             <Profile />
-            <CuratorEndorsements />
           </div>
         </div>
       </>

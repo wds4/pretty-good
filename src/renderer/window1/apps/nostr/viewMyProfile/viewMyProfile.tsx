@@ -3,6 +3,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { noProfilePicUrl } from 'renderer/window1/const';
 import { updateNostrProfileFocus } from 'renderer/window1/redux/features/nostr/settings/slice';
 import ToggleMultiClientAccess from './toggleMultiClientAccess';
+import MyProfileListener from 'renderer/window1/apps/nostr/listeners/myProfileListener';
+import TechDetailsForNostrNerds1 from './techDetailsForNostrNerds1';
+import TechDetailsForNostrNerds2 from './techDetailsForNostrNerds2';
+import TechDetailsForNostrNerds3 from './techDetailsForNostrNerds3';
+import TechDetailsForNostrNerds4 from './techDetailsForNostrNerds4';
 
 export default function MyProfile() {
   const dispatch = useDispatch();
@@ -49,10 +54,6 @@ export default function MyProfile() {
   }
   return (
     <div>
-      <pre className={devModeClassName}>
-        {JSON.stringify(myNostrProfile, null, 4)}
-      </pre>
-
       <div className="mainUserProfileBox myProfileBox">
         <div className="mainUserProfileLeftColumnContainer">
           <div id="largeAvatarContainer" className="largeAvatarContainer">
@@ -169,6 +170,14 @@ export default function MyProfile() {
           </div>
         </div>
       </div>
+      <TechDetailsForNostrNerds2 myNostrProfile={myNostrProfile} />
+      <MyProfileListener />
     </div>
   );
 }
+/*
+      <TechDetailsForNostrNerds1 />
+      <TechDetailsForNostrNerds2 myNostrProfile={myNostrProfile} />
+      <TechDetailsForNostrNerds3 />
+      <TechDetailsForNostrNerds4 />
+*/

@@ -2,6 +2,11 @@ import { useSelector } from 'react-redux';
 import { useNostrEvents } from 'nostr-react';
 import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
 import { addCuratedListEventToSql } from 'renderer/window1/lib/pg/sql';
+import TechDetailsForNostrNerds1 from './techDetailsForNostrNerds1';
+import TechDetailsForNostrNerds2 from './techDetailsForNostrNerds2';
+import TechDetailsForNostrNerds3 from './techDetailsForNostrNerds3';
+import TechDetailsForNostrNerds4 from './techDetailsForNostrNerds4';
+
 import List from './list';
 
 const AllListsLoadSql = ({aListData}) => {
@@ -53,7 +58,7 @@ const AllListsLoadLive = () => {
   );
 };
 
-const AllLists = ({ aListData }) => {
+const AllLists2 = ({aListData}) => {
   const viewListsLoadStoredData = useSelector(
     (state) => state.curatedListsSettings.viewListsLoadStoredData
   );
@@ -73,6 +78,18 @@ const AllLists = ({ aListData }) => {
       </>
     );
   }
+}
+
+const AllLists = ({ aListData }) => {
+  return (
+    <>
+      <AllLists2 aListData={aListData} />
+      <TechDetailsForNostrNerds1 />
+      <TechDetailsForNostrNerds2 aListData={aListData} />
+      <TechDetailsForNostrNerds3 aListData={aListData} />
+      <TechDetailsForNostrNerds4 aListData={aListData} />
+    </>
+  );
 };
 
 export default AllLists;

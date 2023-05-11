@@ -1,7 +1,5 @@
 import { NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { useNostrEvents, dateToUnix } from 'nostr-react';
-import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
 import { updateCuratedListFocus } from 'renderer/window1/redux/features/prettyGood/settings/slice';
 
 const List = ({ event }) => {

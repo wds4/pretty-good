@@ -7,6 +7,12 @@ import { initNostrDirectMessages } from 'renderer/window1/redux/features/nostr/d
 import { initMyActiveNostrProfile } from 'renderer/window1/redux/features/nostr/myNostrProfile/slice';
 import { initNostrTestnetListCurationRatings } from 'renderer/window1/redux/features/grapevine/listCuration/slice';
 import { initCompositeTrustScores } from 'renderer/window1/redux/features/grapevine/compositeTrustScores/slice';
+import {
+  initCuratedLists,
+  initCuratedListInstances,
+  initRatingsOfCuratedListInstances,
+  initEndorsementsOfCurators,
+} from 'renderer/window1/redux/features/curatedLists/lists/slice';
 import { oDefaultRelayUrls } from 'main/const/nostr';
 import ErrorBoundary from './errorBoundary';
 import store from './redux/store/store';
@@ -59,6 +65,10 @@ const InitReduxStore = ({
   aNostrNotesData,
   aNostrDirectMessagesData,
   aNostrTestnetListCurationRatings,
+  aCuratedListsData,
+  aCuratedListInstancesData,
+  aRatingsOfCuratedListInstancesData,
+  aEndorsementsOfCuratorsData,
 }) => {
   const dispatch = useDispatch();
 
@@ -74,8 +84,18 @@ const InitReduxStore = ({
   dispatch(initNostrProfiles(aNostrProfilesData));
   dispatch(initNostrNotes(aNostrNotesData));
   dispatch(initNostrDirectMessages(aNostrDirectMessagesData));
-  dispatch(initNostrTestnetListCurationRatings(aNostrTestnetListCurationRatings));
-  dispatch(initCompositeTrustScores({oMyActiveNostrProfileData,aNostrProfilesData}));
+  dispatch(
+    initNostrTestnetListCurationRatings(aNostrTestnetListCurationRatings)
+  );
+  dispatch(
+    initCompositeTrustScores({ oMyActiveNostrProfileData, aNostrProfilesData })
+  );
+  dispatch(initCuratedLists(aCuratedListsData));
+  dispatch(initCuratedListInstances(aCuratedListInstancesData));
+  dispatch(
+    initRatingsOfCuratedListInstances(aRatingsOfCuratedListInstancesData)
+  );
+  dispatch(initEndorsementsOfCurators(aEndorsementsOfCuratorsData));
   return <></>;
 };
 
@@ -101,7 +121,17 @@ export default class App extends React.Component {
               aNostrProfilesData={this.props.aNostrProfilesData}
               aNostrNotesData={this.props.aNostrNotesData}
               aNostrDirectMessagesData={this.props.aNostrDirectMessagesData}
-              aNostrTestnetListCurationRatings={this.props.aNostrTestnetListCurationRatings}
+              aNostrTestnetListCurationRatings={
+                this.props.aNostrTestnetListCurationRatings
+              }
+              aCuratedListsData={this.props.aCuratedListsData}
+              aCuratedListInstancesData={this.props.aCuratedListInstancesData}
+              aRatingsOfCuratedListInstancesData={
+                this.props.aRatingsOfCuratedListInstancesData
+              }
+              aEndorsementsOfCuratorsData={
+                this.props.aEndorsementsOfCuratorsData
+              }
             />
             <AppNostr />
           </Provider>
