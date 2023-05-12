@@ -44,7 +44,7 @@ const AllRatings = ({parentConceptPropertyPath, parentConceptNostrEventID, paren
   const aUniqueIDs = [];
   return (
     <>
-      <div className="h4">ratings of instances of this list</div>
+      <div className="h4">ratings of items on this list</div>
       {events.map((event, index) => {
         if (doesEventValidate(event)) {
           const uniqueID = event.tags.find(

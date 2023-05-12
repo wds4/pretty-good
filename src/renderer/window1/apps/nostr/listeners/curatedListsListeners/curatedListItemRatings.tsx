@@ -1,14 +1,6 @@
 import { useNostrEvents } from 'nostr-react';
 import { useSelector, useDispatch } from 'react-redux';
 import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
-import { addEndorseAsRelaysPickerHunterNoteToReduxStore } from 'renderer/window1/redux/features/grapevine/listCuration/slice';
-import { updateListCurationNoteInSql } from 'renderer/window1/lib/pg/sql';
-
-/*
-modify code from:
-listen from ratings of instances (items) of individual lists
-renderer/window1/apps/curatedLists/viewIndividualCuratedList/tableOfRatings/allRatings.jsx
-*/
 
 const CuratedListItemRatingsListener = () => {
   const myNostrProfile = useSelector((state) => state.myNostrProfile);

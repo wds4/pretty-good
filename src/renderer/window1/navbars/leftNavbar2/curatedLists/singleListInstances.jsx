@@ -15,7 +15,7 @@ export default class LeftNavbar2 extends React.PureComponent {
             home
           </NavLink>
 
-          <div style={{fontSize: "12px",marginTop: '3px',marginBottom: '3px'}}>Single List</div>
+          <div style={{fontSize: "12px",marginTop: '3px',marginBottom: '3px'}}>single list</div>
 
           <NavLink
             className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
@@ -24,7 +24,7 @@ export default class LeftNavbar2 extends React.PureComponent {
             home
           </NavLink>
 
-          <div style={{fontSize: "12px",marginTop: '3px',marginBottom: '3px'}}>Instances</div>
+          <div style={{fontSize: "12px",margin: '3px 1px 3px 1px'}}>items on this list</div>
 
           <NavLink
             className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
@@ -37,21 +37,21 @@ export default class LeftNavbar2 extends React.PureComponent {
             className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
             end to="/CuratedListsHome/CuratedListAllInstances"
           >
-            view all instances
+            view all items
           </NavLink>
 
           <NavLink
             className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
             end to="/CuratedListsHome/CuratedListAllRatings"
           >
-            ratings of instances
+            ratings of items
           </NavLink>
 
           <NavLink
             className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
             end to="/CuratedListsHome/CreateNewCuratedListInstance"
           >
-            create a new instance
+            create a new item
           </NavLink>
 
         </div>

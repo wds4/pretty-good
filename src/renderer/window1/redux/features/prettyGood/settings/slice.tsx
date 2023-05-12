@@ -9,7 +9,7 @@ export const prettyGoodGlobalStateSlice = createSlice({
     currentPage: null,
     currentApp: 'prettyGood', // slug of the active app; used for color scheme of left-most navbar
     // currentApp options: prettyGood, nostr, curatedLists, conceptGraph, grapevine, eBooks, askNostr, null
-    curatedListFocus: null, // the (nostr event) id of the curated list that is being viewed on the view list page
+    curatedListFocus: "7e92c80fb7d3fa7bec453c8b3c6db306bdde50f7eee34e76a880fe0ab770d485", // the (nostr event) id of the curated list that is being viewed on the view list page
     // NOTE: nostrProfileFocus is currently found in the nostr/settings store;
     // may consider moving all focus variables to this store (pretty good settings)
     // This is also used to keep track of the selected list in the list selector for leaving endorsements

@@ -91,7 +91,7 @@ const UniversalLeftNavbar1 = () => {
             onClick={() => {
               dispatch(updateCurrentApp('curatedLists'));
             }}
-            to="/CuratedListsHome/CuratedListsWithScoresV7"
+            to="/CuratedListsHome/CuratedListsWithScoresV8"
           >
             <div style={{ fontSize: '32px' }}>📃</div>
             <div style={{ fontSize: '12px' }}>Curated Lists</div>

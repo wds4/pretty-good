@@ -8,6 +8,7 @@ import {
   setCurrentPage,
   updateCurrentApp,
 } from 'renderer/window1/redux/features/prettyGood/settings/slice';
+import CuratedListsListeners from 'renderer/window1/apps/nostr/listeners/curatedListsListeners';
 import { noProfilePicUrl } from '../const';
 
 export default function Masthead() {
@@ -110,6 +111,7 @@ export default function Masthead() {
           </div>
         </div>
       </div>
+      <CuratedListsListeners />
       <div className="mastheadSubBanner mastheadSubBannerConceptGraph">
         CURATED LISTS:{' '}
         <select>

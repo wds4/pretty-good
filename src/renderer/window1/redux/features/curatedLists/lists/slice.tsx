@@ -74,7 +74,10 @@ export const oBlankItemData = {
   description: null,
   author: null,
   oWord: {},
-  ratings: {},
+  ratings: {
+    thumbsUp: [],
+    thumbsDown: [],
+  },
 };
 export const oBlankCuratorData = {
   thumbsUp: [], // pubkeys of thumbs up
@@ -102,6 +105,107 @@ export const oBlankCuratedListData = {
   oWord: {},
   items: {},
   curators: {},
+};
+
+export const addRatingOfCuratedListInstance_X = (oEvent, oWord, state) => {
+  if (oWord.hasOwnProperty('ratingData')) {
+    if (oWord.ratingData.hasOwnProperty('ratingTemplateData')) {
+      const { ratingTemplateSlug } = oWord.ratingData.ratingTemplateData;
+      if (ratingTemplateSlug == 'nostrCuratedListInstanceGenericRating') {
+        const raterPubkey = oWord.ratingData.raterData.nostrProfileData.pubkey;
+        const rateeID = oWord.ratingData.rateeData.nostrCuratedListInstanceData.eventID;
+        const { regularSliderRating } = oWord.ratingData.ratingFieldsetData.nostrCuratedListInstanceRatingFieldsetData;
+        const { confidence } = oWord.ratingData.ratingFieldsetData.confidenceFieldsetData;
+        const listID = oWord.ratingData.ratingFieldsetData.nostrCuratedListInstanceRatingFieldsetData.contextData.nostrParentCuratedListData.eventID;
+        const contextDAGSlug = oWord.ratingData.ratingFieldsetData.nostrCuratedListInstanceRatingFieldsetData.contextData.contextDAG.slug;
+
+        if (!state.curatedLists.hasOwnProperty(listID)) {
+          state.curatedLists[listID] = JSON.parse(
+            JSON.stringify(oBlankCuratedListData)
+          );
+        }
+
+        if (contextDAGSlug == 'genericRating' && confidence == 80) {
+          if (
+            !state.curatedLists[listID].items.hasOwnProperty(rateeID)
+          ) {
+            state.curatedLists[listID].items[rateeID] = JSON.parse(JSON.stringify(oBlankItemData));
+          }
+          // check if rating is already recorded and if so, compare created_at times
+          let proceed = false;
+          if (
+            !state.curatedLists[listID].items[rateeID].hasOwnProperty(
+              raterPubkey
+            )
+          ) {
+            proceed = true;
+          }
+          if (
+            state.curatedLists[listID].items[rateeID].hasOwnProperty(
+              raterPubkey
+            )
+          ) {
+            const existingCreatedAt =
+              state.curatedLists[listID].items[rateeID][raterPubkey]
+                .created_at;
+            if (oEvent.created_at > existingCreatedAt) {
+              proceed = true;
+            }
+          }
+          if (proceed) {
+            // only proceed if the current event is later than the preexisting event
+            // future: generalize to other rating values; for now (May 2023), just doing thumbs up (rating 100) and down (rating 0)
+            if (regularSliderRating == 100) {
+              // thumbs up
+              // remove from thumbs down, if present
+              state.curatedLists[listID].items[rateeID].ratings.thumbsDown =
+              removeStringFromArray(
+                raterPubkey,
+                state.curatedLists[listID].items[rateeID].ratings.thumbsDown
+              );
+              // add to thumbs up
+              if (
+                !state.curatedLists[listID].items[
+                  rateeID
+                ].ratings.thumbsUp.includes(raterPubkey)
+              ) {
+                state.curatedLists[listID].items[rateeID].ratings.thumbsUp.push(
+                  raterPubkey
+                );
+              }
+              state.curatedLists[listID].items[rateeID].ratings[raterPubkey] = {
+                created_at: oEvent.created_at,
+                thumbs: 'up',
+              };
+            }
+            if (regularSliderRating == 0) {
+              // thumbs down
+              // remove from thumbs up, if present
+              state.curatedLists[listID].items[rateeID].ratings.thumbsUp =
+              removeStringFromArray(
+                raterPubkey,
+                state.curatedLists[listID].items[rateeID].ratings.thumbsUp
+              );
+              // add to thumbs down
+              if (
+                !state.curatedLists[listID].items[
+                  rateeID
+                ].ratings.thumbsDown.includes(raterPubkey)
+              ) {
+                state.curatedLists[listID].items[rateeID].ratings.thumbsDown.push(
+                  raterPubkey
+                );
+              }
+              state.curatedLists[listID].items[rateeID].ratings[raterPubkey] = {
+                created_at: oEvent.created_at,
+                thumbs: 'down',
+              };
+            }
+          }
+        }
+      }
+    }
+  }
 };
 
 export const addCuratorEndorsement_X = (event, oWord, state) => {
@@ -137,10 +241,7 @@ export const addCuratorEndorsement_X = (event, oWord, state) => {
           if (
             !state.curatedLists[listID].curators.hasOwnProperty(rateePubkey)
           ) {
-            state.curatedLists[listID].curators[rateePubkey] = {
-              thumbsUp: [],
-              thumbsDown: [],
-            };
+            state.curatedLists[listID].curators[rateePubkey] = JSON.parse(JSON.stringify(oBlankCuratorData));
           }
           // check if rating is already recorded and if so, compare created_at times
           let proceed = false;
@@ -267,16 +368,6 @@ export const addCuratedListInstance_X = (oEvent, oWord, state) => {
       state.curatedLists[parentConceptNostrEventID].items[itemID].slug = slug;
       state.curatedLists[parentConceptNostrEventID].items[itemID].description =
         description;
-    }
-  }
-};
-export const addRatingOfCuratedListInstance_X = (oEvent, oWord, state) => {
-  if (oWord.hasOwnProperty('ratingData')) {
-    if (oWord.ratingData.hasOwnProperty('ratingTemplateData')) {
-      const { ratingTemplateSlug } = oWord.ratingData.ratingTemplateData;
-      if (ratingTemplateSlug == 'nostrCuratedListInstanceGenericRating') {
-        // INCOMPLETE
-      }
     }
   }
 };

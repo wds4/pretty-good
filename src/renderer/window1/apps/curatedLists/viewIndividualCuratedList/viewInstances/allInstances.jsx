@@ -28,7 +28,7 @@ const AllInstances = ({parentConceptPropertyPath, parentConceptNostrEventID, par
   events.sort((a, b) => parseFloat(b.created_at) - parseFloat(a.created_at));
   return (
     <>
-      <div className="h4">All Instances of this list</div>
+      <div className="h4">All items on this list</div>
       {events.map((event, index) => {
         if (doesEventValidate(event)) {
           // ALSO NEED TO VALIDATE AGAINST JSON SCHEMA OF LIST

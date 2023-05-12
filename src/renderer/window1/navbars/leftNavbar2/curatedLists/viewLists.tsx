@@ -1,4 +1,3 @@
-import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -100,7 +99,19 @@ const LeftNavbar2 = () => {
             end
             to="/CuratedListsHome/CuratedListsWithScoresV6"
           >
-            lists & scores v6
+            lists v6
+          </NavLink>
+        </div>
+
+        <div className={devElemClass}>
+          <NavLink
+            className={({ isActive }) =>
+              isActive ? 'leftNav2Button leftNav2ButtonActive' : 'leftNav2Button'
+            }
+            end
+            to="/CuratedListsHome/CuratedListsWithScoresV7"
+          >
+            lists v7
           </NavLink>
         </div>
 
@@ -109,11 +120,10 @@ const LeftNavbar2 = () => {
             isActive ? 'leftNav2Button leftNav2ButtonActive' : 'leftNav2Button'
           }
           end
-          to="/CuratedListsHome/CuratedListsWithScoresV7"
+          to="/CuratedListsHome/CuratedListsWithScoresV8"
         >
           lists
         </NavLink>
-
         <NavLink
           style={{ display: 'none' }}
           className={({ isActive }) =>

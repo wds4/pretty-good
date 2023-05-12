@@ -1,8 +1,6 @@
 import { useNostrEvents } from 'nostr-react';
 import { useSelector, useDispatch } from 'react-redux';
 import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
-import { addEndorseAsRelaysPickerHunterNoteToReduxStore } from 'renderer/window1/redux/features/grapevine/listCuration/slice';
-import { updateListCurationNoteInSql } from 'renderer/window1/lib/pg/sql';
 
 /*
 modify code from:
