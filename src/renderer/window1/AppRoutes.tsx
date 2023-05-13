@@ -79,8 +79,10 @@ import CreateNewCuratedList from './apps/curatedLists/createNewCuratedList';
 import ViewIndividualCuratedList from './apps/curatedLists/viewIndividualCuratedList/overview';
 import ViewIndividualCuratedListTechOverview from './apps/curatedLists/viewIndividualCuratedList/techOverview';
 import SingleListGraphOfInstances from './apps/curatedLists/viewIndividualCuratedList/graph';
-import CuratedListAllInstances from './apps/curatedLists/viewIndividualCuratedList/viewInstances';
-import CuratedListAllRatings from './apps/curatedLists/viewIndividualCuratedList/tableOfRatings';
+import CuratedListAllItemsNostrLive from './apps/curatedLists/viewIndividualCuratedList/viewInstancesNostrLive';
+import CuratedListAllItemsSql from './apps/curatedLists/viewIndividualCuratedList/viewInstancesSql';
+import CuratedListAllRatingsNostrLive from './apps/curatedLists/viewIndividualCuratedList/tableOfRatingsNostrLive';
+import CuratedListAllRatingsSql from './apps/curatedLists/viewIndividualCuratedList/tableOfRatingsSql';
 import CuratorsOfIndividualList from './apps/curatedLists/viewIndividualCuratedList/curators';
 import InstancesOfIndividualList from './apps/curatedLists/viewIndividualCuratedList/instances';
 import CuratedListEndorsementsOfCurators from './apps/curatedLists/viewIndividualCuratedList/curatorEndorsements';
@@ -342,14 +344,21 @@ const AppRoutes = () => {
               element={<SingleListGraphOfInstances />}
             />
             <Route
-              path="/CuratedListsHome/CuratedListAllInstances"
-              element={<CuratedListAllInstances />}
+              path="/CuratedListsHome/CuratedListAllItemsNostrLive"
+              element={<CuratedListAllItemsNostrLive />}
             />
             <Route
-              path="/CuratedListsHome/CuratedListAllRatings"
-              element={<CuratedListAllRatings />}
+              path="/CuratedListsHome/CuratedListAllItemsSql"
+              element={<CuratedListAllItemsSql />}
             />
-
+            <Route
+              path="/CuratedListsHome/CuratedListAllRatingsNostrLive"
+              element={<CuratedListAllRatingsNostrLive />}
+            />
+            <Route
+              path="/CuratedListsHome/CuratedListAllRatingsSql"
+              element={<CuratedListAllRatingsSql />}
+            />
             <Route
               path="/CuratedListsHome/CuratorsOfIndividualList"
               element={<CuratorsOfIndividualList />}

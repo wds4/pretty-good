@@ -1,15 +1,15 @@
 import { useNostrEvents, dateToUnix } from 'nostr-react';
 import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
-import { addEndorsementOfListCuratorEventToSql } from 'renderer/window1/lib/pg/sql';
+import { addRatingOfCuratedListInstanceEventToSql } from 'renderer/window1/lib/pg/sql';
 import { doesEventInstanceValidateAgainstEventParent } from 'renderer/window1/lib/conceptGraph';
-import Endorsement from './endorsement';
+import Rating from './rating';
 
 const removeDuplicates = (events) => {
   // cycle through events; since they have been placed in order starting with most recent,
   // discard any event whose uniqueID has already been seen
 }
 
-const AllEndorsements = ({parentConceptPropertyPath, parentConceptNostrEventID, parentConceptSlug, oParentEvent}) => {
+const AllRatings = ({parentConceptPropertyPath, parentConceptNostrEventID, parentConceptSlug, oParentEvent}) => {
   const kind0 = 39901;
   /*
   // tags used to create lists, and used to filter them
@@ -34,7 +34,7 @@ const AllEndorsements = ({parentConceptPropertyPath, parentConceptNostrEventID, 
     kinds: [kind0],
     '#g': ['grapevine-testnet-901'],
     '#l': [parentConceptNostrEventID],
-    '#r': [parentConceptNostrEventID + "-nostrCuratedListsCuratorEndorsement-genericContext"],
+    '#r': [parentConceptNostrEventID + "-genericContext"],
   },
   const { events } = useNostrEvents({
     filter: filter
@@ -44,8 +44,12 @@ const AllEndorsements = ({parentConceptPropertyPath, parentConceptNostrEventID, 
   const aUniqueIDs = [];
   return (
     <>
-      <div className="h4">endorsements of curators for this list</div>
-      <div>number of events: {events.length}</div>
+      <div className="h4">ratings of items on this list (loading live from nostr)</div>
+      <div style={{fontSize: '10px'}}>
+        <div>number of events: {events.length}</div>
+        <div>filter:</div>
+        {JSON.stringify(filter,null,4)}
+      </div>
       {events.map((event, index) => {
         if (doesEventValidate(event)) {
           const uniqueID = event.tags.find(
@@ -59,13 +63,12 @@ const AllEndorsements = ({parentConceptPropertyPath, parentConceptNostrEventID, 
             aUniqueIDs.push(uniqueID)
           }
           // ALSO NEED TO VALIDATE AGAINST JSON SCHEMA FOR RATINGS
-          // Need to create this function and the corresponding table in sql
-          addEndorsementOfListCuratorEventToSql(event,parentConceptSlug,parentConceptNostrEventID);
+          addRatingOfCuratedListInstanceEventToSql(event,parentConceptSlug,parentConceptNostrEventID);
           //
           return (
             <>
-              <div style={{display:"none"}}>{JSON.stringify(JSON.parse(event.content),null,4)}</div>
-              <Endorsement event={event} />
+              <div style={{display:"none"}}>{JSON.stringify(event,null,4)}</div>
+              <Rating event={event} />
             </>
           );
         }
@@ -74,4 +77,4 @@ const AllEndorsements = ({parentConceptPropertyPath, parentConceptNostrEventID, 
   );
 };
 
-export default AllEndorsements;
+export default AllRatings;

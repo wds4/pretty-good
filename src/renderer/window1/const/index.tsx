@@ -13,7 +13,7 @@ export const aDefaultRelayUrls: string[] = [
   'wss://nostr.fmt.wiz.biz', // NIP-16 and NIP-33
   'wss://nostr.zebedee.cloud', // NIP-16 and NIP-33
   'wss://nostr.oxtr.dev', // NIP-16 and NIP-33
-  'wss://nostr.wine',
+  // 'wss://nostr.wine',
   'wss://nos.lol',
 ];
 /*

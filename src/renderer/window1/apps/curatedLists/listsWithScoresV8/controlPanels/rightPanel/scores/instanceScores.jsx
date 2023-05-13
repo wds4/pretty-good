@@ -1,13 +1,33 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
+import { NavLink } from 'react-router-dom';
 import DataTable from 'react-data-table-component';
+import { useDispatch } from 'react-redux';
+import { updateCuratedListInstanceFocus } from 'renderer/window1/redux/features/prettyGood/settings/slice';
 
 const CuratedListInstanceScores = ({
   aInstanceCompScoreData,
 }) => {
-  // A super simple expandable component.
+  const dispatch = useDispatch();
   const ExpandedComponent = ({ data }) => (
     <pre style={{ textAlign: 'left' }}>{data.description}</pre>
   );
+
+  const ItemNavbar = ({row}) => {
+    return (
+      <>
+        <NavLink
+          style={{color: 'green'}}
+          onClick={() => {
+            dispatch(updateCuratedListInstanceFocus(row.id));
+          }}
+          end to="/CuratedListsHome/CuratedListSpecificInstance"
+        >
+          link
+        </NavLink>
+      </>
+    )
+  }
 
   const columns = [
     {
@@ -30,7 +50,11 @@ const CuratedListInstanceScores = ({
       name: 'Input',
       selector: (row) => row.input,
       sortable: true,
-      omit: true,
+    },
+    {
+      name: 'Link',
+      selector: (row) => ( <ItemNavbar row={row} /> ),
+      sortable: true,
     },
   ];
 

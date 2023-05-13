@@ -92,7 +92,7 @@ const CreateNewInstance = ({parentConceptPropertyPath, parentConceptNostrID, par
 
   return (
     <>
-      <div className="h4">Create New Instance of This Curated List</div>
+      <div className="h4">add a new item to this list</div>
       <div
         onChange={() => createNewInstanceWord({parentConceptPropertyPath})}
         id="allInputFieldsContainer"

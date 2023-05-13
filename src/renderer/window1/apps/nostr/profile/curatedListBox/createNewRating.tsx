@@ -153,12 +153,15 @@ const createRatingWord = (
   }
 };
 
-const CreateNewRating = ({ aListData, pubkeyFocusID, userData }) => {
+const CreateNewRating = ({ aListData, userData }) => {
   const { devMode3 } = useSelector((state) => state.myNostrProfile.devModes);
   let devElemClass = 'devElemHide';
   if (devMode3) {
     devElemClass = 'devElemShow';
   }
+  const pubkeyFocusID = useSelector(
+    (state) => state.nostrSettings.nostrProfileFocus
+  );
   const curatedListFocusID = useSelector(
     (state) => state.prettyGoodGlobalState.curatedListFocus
   );
@@ -170,7 +173,7 @@ const CreateNewRating = ({ aListData, pubkeyFocusID, userData }) => {
   const submitEvent = () => {
     const sEvent = document.getElementById('newConceptEventField').value;
     const oEvent = JSON.parse(sEvent);
-    // console.log(`oEvent: ${JSON.stringify(oEvent)}`);
+    console.log(`oEvent: ${JSON.stringify(oEvent)}`);
     publish(oEvent);
   };
 

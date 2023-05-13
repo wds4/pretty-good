@@ -94,19 +94,35 @@ export const extractNodesAndEdges = (
   aNodesIDs.push(myPubKey);
 
   // ADD ITEMS
-  /*
+
   for (let x = 0; x < aCuratedListInstances.length; x++) {
     const oItemEvent = JSON.parse(aCuratedListInstances[x].event);
-    const itemEventID = oItemEvent.id;
-    let oItemWord = {};
-    if (doesEventValidate(oItemEvent)) {
-      oItemWord = JSON.parse(oItemEvent.content);
-      // oItemWord[propertyPath]
+    const instance_event_id = oItemEvent.id;
+    const oWord = JSON.parse(oItemEvent.content);
+    if (oWord.hasOwnProperty(propertyPath)) {
+      const item_name = oWord[propertyPath]?.name;
+      const item_description = oWord[propertyPath]?.description;
+      if (!aNodesIDs.includes(instance_event_id)) {
+        const oNode = {
+          id: instance_event_id,
+          group: 'instance',
+          title: item_name,
+          label: item_name,
+          name: item_name,
+          description: item_description,
+          scores: JSON.parse(JSON.stringify(iScoresDefault)),
+          size: 15,
+          afferentEdgeIDs: [],
+          physics: false,
+          shape: 'diamond',
+          // x: 500,
+          // y: 100 * aNodesIDs.length - 500,
+        }
+        oResults.aNodes.push(oNode);
+        aNodesIDs.push(instance_event_id);
+      }
     }
-    const oNode = { id: itemEventID, label: itemEventID };
-    oResults.aNodes.push(oNode);
   }
-  */
 
   for (let r=0;r<aEndorsementsOfCuratorsData.length;r++) {
     const oEndorsementSql = aEndorsementsOfCuratorsData[r];

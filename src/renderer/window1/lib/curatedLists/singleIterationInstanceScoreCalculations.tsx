@@ -323,7 +323,7 @@ export const singleIterationInstanceScoreCalculations = (
       const oNextTableRow = {
         id: oNode.id,
         name: oNode.name,
-        description: 'foo',
+        description: oNode.description,
         average,
         input,
         influence,

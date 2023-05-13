@@ -56,48 +56,50 @@ export default class ListsWithScores extends React.Component {
           <ControlPanel />
         </div>
 
-        <div
-          style={{
-            display: 'inline-block',
-            width: '35%',
-            padding: '10px',
-            height: '600px',
-            overflow: 'scroll',
-          }}
-        >
-          <center>Curated Lists</center>
-          <br />
-          {this.state.aListsData.map((oListData) => {
-            return (
-              <>
-                <div>
-                  <ListSelectButton oListData={oListData} />
-                </div>
-              </>
-            );
-          })}
-        </div>
-        <div
-          style={{
-            display: 'inline-block',
-            width: '63%',
-            height: '600px',
-            overflow: 'scroll',
-            textAlign: 'center',
-          }}
-        >
-          {this.state.aListsData.map((oListData) => {
-            return (
-              <>
-                <ListPre
-                  controlPanelSettings={this.props.controlPanelSettings}
-                  oListData={oListData}
-                  oMyNostrProfileData={this.state.oMyNostrProfileData}
-                  oNostrProfilesData={this.state.oNostrProfilesData}
-                />
-              </>
-            );
-          })}
+        <div>
+          <div
+            style={{
+              display: 'inline-block',
+              width: '35%',
+              padding: '10px',
+              maxHeight: '600px',
+              overflow: 'scroll',
+            }}
+          >
+            <center>Curated Lists</center>
+            <br />
+            {this.state.aListsData.map((oListData) => {
+              return (
+                <>
+                  <div>
+                    <ListSelectButton oListData={oListData} />
+                  </div>
+                </>
+              );
+            })}
+          </div>
+          <div
+            style={{
+              display: 'inline-block',
+              width: '63%',
+              maxHeight: '600px',
+              overflow: 'scroll',
+              textAlign: 'center',
+            }}
+          >
+            {this.state.aListsData.map((oListData) => {
+              return (
+                <>
+                  <ListPre
+                    controlPanelSettings={this.props.controlPanelSettings}
+                    oListData={oListData}
+                    oMyNostrProfileData={this.state.oMyNostrProfileData}
+                    oNostrProfilesData={this.state.oNostrProfilesData}
+                  />
+                </>
+              );
+            })}
+          </div>
         </div>
         <TechDetailsForNostrNerds1 />
         <TechDetailsForNostrNerds2 aListData={this.state.aListsData} />

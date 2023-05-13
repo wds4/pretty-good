@@ -5,7 +5,7 @@ import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
 // FUTURE: make more generic version of this function; may need to pass parent propertyPath in as a parameter?
 // ALSO CHECKS that the events are valid nostr events
 export const doesEventInstanceValidateAgainstEventParent = (oChildEvent, oParentEvent) => {
-
+  // console.log("doesEventInstanceValidateAgainstEventParent initiating ... ")
   try {
     if (!doesEventValidate(oChildEvent)) {
       // console.log("doesEventInstanceValidateAgainstEventParent FALSE_A; oParentEvent: ")
@@ -34,6 +34,7 @@ export const doesEventInstanceValidateAgainstEventParent = (oChildEvent, oParent
     return false;
   }
   // console.log("doesEventInstanceValidateAgainstEventParent FALSE_D; oParentEvent: ")
+
   return false;
 }
 

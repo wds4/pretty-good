@@ -44,7 +44,7 @@ export default class LeftNavbar2 extends React.PureComponent {
             className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
             end to="/CuratedListsHome/CuratedListEndorsementsOfCurators"
           >
-            view endorsements
+            view endorsements (nostr live)
           </NavLink>
         </div>
       </>
