@@ -4,7 +4,7 @@ A desktop client for linux, mac, and windows, embedded currently with two apps:
 <li>a standard nostr client</li>
 <li>a demonstration of DCoSL: decentralized curation of simple lists</li>
 
-<br /> <br />
+<br />
 
 This is a fork of my older project, [electron-nostr](https://github.com/wds4/electron-react-boilerplate-nostr), and is based on [electron-react-boilerplate](https://github.com/electron-react-boilerplate/electron-react-boilerplate). 
 
@@ -14,7 +14,7 @@ The goal of this project is to explore two ideas, one more abstract, one more co
 
 ### Concrete idea
 
-One goal of this project is to advocate the idea that <i>decentralized curation of simple lists (DCoSL) is the defining feature of the decentralized web.</i> I realized long ago that instead of writing a whitepaper, I needed to build and demonstrate what I mean by a simple list and, more importantly, what I mean by <i>decentralized curation</i>. Ultimately, I want other developers to adapt this method to their own p2p projects. This does not require adoption of any specific library, protocol, etc. It means: identify one (or a few) simple lists, the curation of which you'd like to hand over to your users, and then use the methods illustrated in this app to do so.
+One goal of this project is to advocate the idea that <i>genuinely decentralized curation of simple lists (DCoSL) is the atomic building block and the defining feature of the decentralized web.</i> I realized long ago that instead of writing a whitepaper, I needed to build and demonstrate what I mean by a simple list and, more importantly, what I mean by <i>genuinely decentralized curation</i>. Ultimately, I want other developers to adapt the DCoSL method to their own p2p projects. This does not require adoption of any specific library, protocol, etc. It means: identify one (or a few) simple lists, the curation of which you'd like to hand over to your users, and then use the methods illustrated in this app to do so.
 
 I hope to convince developers that DCoSL:
 <li>is well defined</li>
