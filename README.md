@@ -1,28 +1,29 @@
 # Pretty Good Apps
 
-A desktop client for linux, mac, and windows, with two apps:
+A desktop client for linux, mac, and windows, embedded currently with two apps:
 <li>a standard nostr client</li>
 <li>a demonstration of DCoSL: decentralized curation of simple lists</li>
 
+<br />
 
 This is a fork of my older project, [electron-nostr](https://github.com/wds4/electron-react-boilerplate-nostr), and is based on [electron-react-boilerplate](https://github.com/electron-react-boilerplate/electron-react-boilerplate). 
 
 # Purpose
 
-There are two ways to describe the goal of this project, one more abstract, one more concrete.
+The goal of this project is to explore two ideas, one more abstract, one more concrete.
 
-### Concrete purpose
+### Concrete idea
 
-The concrete goal of this project is to advocate the idea that <i>decentralized curation of simple lists (DCoSL) is the defining feature of the decentralized web.</i> I realized long ago that instead of writing a whitepaper, I needed to build and demonstrate what I mean by a simple list and, more importantly, what I mean by <i>decentralized curation</i>. Ultimately, I want other developers to adapt this method to their own p2p projects. This does not require adoption of any specific library, protocol, etc. It means: identify one (or a few) simple lists, the curation of which you'd like to hand over to your users, and then use the methods illustrated in this app to do so.
+One goal of this project is to advocate the idea that <i>decentralized curation of simple lists (DCoSL) is the defining feature of the decentralized web.</i> I realized long ago that instead of writing a whitepaper, I needed to build and demonstrate what I mean by a simple list and, more importantly, what I mean by <i>decentralized curation</i>. Ultimately, I want other developers to adapt this method to their own p2p projects. This does not require adoption of any specific library, protocol, etc. It means: identify one (or a few) simple lists, the curation of which you'd like to hand over to your users, and then use the methods illustrated in this app to do so.
 
 I hope to convince developers that DCoSL:
 <li>is well defined</li>
 <li>is straightforward to implement</li>
 <li>is versatile and powerful</li>
 
-### Purpose in the abstract
+### Abstract idea
 
-The more abstract goal of this project is to build a decentralized web of trust using a theoretical model for decentralized knowledge representation and curation that I call the <i>threaded tapestry</i>. I argue this model is particularly well suited to decentralized and distributed systems such as the decentralized web. I conjecture that some version of this model may have already been implemented by nature to represent and curate knowledge in the brain. 
+Another goal of this project is to build a decentralized web of trust based on a theoretical model for decentralized knowledge representation and curation that I call the <i>threaded tapestry</i>. I argue this model is particularly well suited to decentralized and distributed systems such as the decentralized web. I conjecture that some version of this model may have already been implemented by nature to represent and curate knowledge in the brain. 
 
 What is our vision for the decentralied web? Billions of people, millions of developers, free to associate as they wish. We strive to build tools to enable spontaneous, dynamic organization into networks capable of highly sophisticated inter-network communication and coordinated action without ever putting one person, developer, or entity in charge of the network. What is the brain? Billions of neurons, millions of cortical columns; capable of dynamic organization into networks capable of highly sophisticated inter-network communication and coordinated action without ever putting a single neuron or column in charge of the network. Could it be that the decentralized web and the central nervous system will end up implementing more or less the same solution to the same problem? How fucking cool would that be??
 
