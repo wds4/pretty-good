@@ -14,12 +14,15 @@ The goal of this project is to explore two ideas, one more abstract, one more co
 
 ### Concrete idea
 
-One goal of this project is to advocate the idea that <i>genuinely decentralized curation of simple lists (DCoSL) is the atomic building block and the defining feature of the decentralized web.</i> I realized long ago that instead of writing a whitepaper, I needed to build and demonstrate what I mean by a simple list and, more importantly, what I mean by <i>genuinely decentralized curation</i>. Ultimately, I want other developers to adapt the DCoSL method to their own p2p projects. This does not require adoption of any specific library, protocol, etc. It means: identify one (or a few) simple lists, the curation of which you'd like to hand over to your users, and then use the methods illustrated in this app to do so.
+One goal of this project is to advocate the idea that <i>genuinely decentralized curation of simple lists (DCoSL) is the atomic building block and the defining feature of the decentralized web.</i> I realized long ago that instead of writing a whitepaper, I needed to build and demonstrate what I mean by a simple list and, more importantly, what I mean by <i>genuinely decentralized curation</i>. Ultimately, I want other developers to adapt and improve upon the DCoSL method to their own p2p projects. This does not require adoption of any specific library, protocol, etc. It means: identify one (or a few) simple lists, the curation of which you'd like to hand over to your users, and then use the methods illustrated in this app to do so.
 
-I hope to convince developers that DCoSL:
-<li>is well defined</li>
-<li>is straightforward to implement</li>
-<li>is versatile and powerful</li>
+I hope to convince developers that DCoSL method:
+<li>DCoSL is well defined.</li>
+<li>DCoSL is relatively straightforward to implement.</li>
+<li>DCoSL is versatile and powerful, more than it would seem at first glance.</li>
+<li>Without DCoSL or something similar, there is no truly decentralized web.</li>
+
+On the topic of versatility, consider that two simple lists is sufficient to specify a graph: one list for nodes, and one list for edges. A graph is a versatile tool, able to represent a data model (e.g. a verifiable credential), an ontology, a schema or a context tree. Each of these can be built out of simple lists, each one of which can be curated by your web of trust (WoT). Alice's WoT and Bob's WoT, though they are not identical, are very likely to have significant overlap. For any given list, although there is no guarantee, there is a good chance that Alice and Bob will end up using the exact same (or at least almost the same) list! This is a vitally important attribute of the DCoSL method, one that I call <li>loose consensus</li>. You'll want to think deeply about loose consensus before incorporating decentralized list curation to your p2p platform, app or project.
 
 ### Abstract idea
 
@@ -30,7 +33,7 @@ What is our vision for the decentralied web? Billions of people, millions of dev
 ## Status of this project
 
 As of May 2023: *** still in alpha ***
-This is not quite ready for use by regular users. Still too many bugs and it's not always obvious how to find some of the features that do work. To any devs who are interested in decentralized web of trust: I am happy to get on a video call and walk you through how this works and what it can do. My long term goal is to see widespread adoption of the ideas and methods illustrated in this repo. (Not my code, but the ideas behind the code.)
+This is not quite ready for use by regular users. Still too many bugs and it's not always obvious how to find some of the features that do work. To any devs who are interested in decentralized web of trust: I am happy to get on a video call and walk you through how this works and what it can do. My long term goal is to see widespread adoption of the ideas and methods illustrated in this repo. (Not necessarily my code, but the ideas behind the code.)
 
 ## Nostr
 
@@ -47,7 +50,7 @@ Basic nostr functionality is currently available. Features include:
 <li>send / receive direct messages
 <li>manage relays
 
-However, this is still very much in alpha! Expect things to break, even if they are currently working.
+This is still very much in alpha. Depending on their states of development, some features may be hidden behind developer modes which can be turned on/off in Pretty Good settings. Expect some things to break, even if they are currently working.
 
 Incomplete list of known issues:
 <li>extended following list seems to freeze up -- authors list too big?
