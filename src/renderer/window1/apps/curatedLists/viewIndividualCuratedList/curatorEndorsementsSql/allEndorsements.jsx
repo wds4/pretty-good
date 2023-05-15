@@ -1,30 +1,29 @@
-import { useNostrEvents } from 'nostr-react';
+import { useNostrEvents, dateToUnix } from 'nostr-react';
 import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
-import { addInstanceEventToSql } from 'renderer/window1/lib/pg/sql';
+import { addEndorsementOfListCuratorEventToSql } from 'renderer/window1/lib/pg/sql';
 import { doesEventInstanceValidateAgainstEventParent } from 'renderer/window1/lib/conceptGraph';
-import Instance from './instance';
+import Endorsement from './endorsement';
 
-//
-const AllInstances = ({
+const AllEndorsements = ({
   parentConceptPropertyPath,
   parentConceptNostrEventID,
   parentConceptSlug,
   oParentEvent,
-  aListItemsData,
+  aEndorsementsOfCuratorsData,
 }) => {
   return (
     <>
-      <div className="h4">All items on this list (loaded from SQL)</div>
-      {aListItemsData.map((oListItemData) => {
-        const parentID = oListItemData.parentConceptNostrEventID;
+      <div className="h4">endorsements of curators for this list (sql)</div>
+      {aEndorsementsOfCuratorsData.map((oEndorsementOfCuratorData)=>{
+        const parentID = oEndorsementOfCuratorData.parentConceptNostrEventID;
         if (parentID == parentConceptNostrEventID) {
-          const oEvent = JSON.parse(oListItemData.event);
+          const oEvent = JSON.parse(oEndorsementOfCuratorData.event);
           const oWord = JSON.parse(oEvent.content);
           return (
             <>
-              <Instance
+              <Endorsement
                 parentConceptPropertyPath={parentConceptPropertyPath}
-                oListItemData={oListItemData}
+                oEndorsementOfCuratorData={oEndorsementOfCuratorData}
                 event={oEvent}
                 oWord={oWord}
               />
@@ -37,4 +36,4 @@ const AllInstances = ({
   );
 };
 
-export default AllInstances;
+export default AllEndorsements;

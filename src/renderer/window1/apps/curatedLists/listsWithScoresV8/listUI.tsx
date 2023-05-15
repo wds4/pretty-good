@@ -40,7 +40,7 @@ export default class ListUI extends React.Component {
         this.props.edges,
       );
       this.setState( {aInstanceCompScoreData} )
-    }, 300);
+    }, 1000);
   }
 
   render() {

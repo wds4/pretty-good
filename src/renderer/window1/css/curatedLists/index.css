@@ -46,3 +46,14 @@
   background-color: blue;
   color: white;
 }
+.curatedListMainPageLink {
+  color: blue;
+  font-size: 12px;
+  width: 70px;
+  border-radius: 3px;
+  padding: 3px;
+}
+.curatedListMainPageLink:hover {
+  color: white;
+  background-color: black;
+}

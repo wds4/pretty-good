@@ -6,6 +6,11 @@ export default class LeftNavbar2 extends React.PureComponent {
     return (
       <>
         <div className="leftNav2Panel leftNav2PanelNostr">
+          <div
+            style={{ fontSize: '12px', marginTop: '3px', marginBottom: '3px' }}
+          >
+            nostr
+          </div>
           <NavLink
             className={({ isActive }) =>
               isActive

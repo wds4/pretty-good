@@ -1,36 +1,26 @@
 import { NavLink } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { useNostrEvents, dateToUnix } from 'nostr-react';
+import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
 import { updateCuratedListFocus } from 'renderer/window1/redux/features/prettyGood/settings/slice';
-import List from './list';
+import AllEndorsements from './allEndorsements';
 
-const ListPre = ({
-  controlPanelSettings,
-  oListData,
-  oMyNostrProfileData,
-  oNostrProfilesData,
-}) => {
-  const dispatch = useDispatch();
-  const curatedListFocusID = useSelector(
-    (state) => state.prettyGoodGlobalState.curatedListFocus
-  );
-  let name_singular = '';
-  let name_plural = '';
-  let title_singular = '';
-  let title_plural = '';
-  let slug_singular = '';
-  let slug_plural = '';
-  let description = '';
+const List = ({curatedListFocusID, oListData, aEndorsementsOfCuratorsData}) => {
+  let name_singular = "";
+  let name_plural = "";
+  let title_singular = "";
+  let title_plural = "";
+  let slug_singular = "";
+  let slug_plural = "";
+  let description = "";
   let oWord = {};
-  let sqlID = '';
+  let sqlID = "";
   let oEvent = {};
 
-  let pubkey = '';
-  let event_id = '';
-  let propertyPath = '';
-  let sEvent = '';
-
-  const buttonClassName = 'listSelectButton';
-  let displayList = false;
+  let pubkey = "";
+  let event_id = "";
+  let propertyPath = "";
+  let sEvent = "";
 
   if (oListData) {
     pubkey = oListData.pubkey;
@@ -41,10 +31,6 @@ const ListPre = ({
     if (sEvent) {
       oEvent = JSON.parse(sEvent);
       const sWord = oEvent.content;
-
-      if (curatedListFocusID == event_id) {
-        displayList = true;
-      }
 
       oWord = JSON.parse(sWord);
       if (oWord.nostrCuratedListData) {
@@ -69,23 +55,19 @@ const ListPre = ({
       }
     }
   }
-  if (displayList) {
-    return (
-      <>
-        <List
-          controlPanelSettings={controlPanelSettings}
-          oListData={oListData}
-          oMyNostrProfileData={oMyNostrProfileData}
-          oNostrProfilesData={oNostrProfilesData}
-        />
-      </>
-    );
-  }
+
   return (
     <>
-      <div />
+      <div className="h3" >{name_plural}</div>
+      <AllEndorsements
+        parentConceptNostrEventID={event_id}
+        parentConceptSlug={slug_singular}
+        parentConceptPropertyPath={propertyPath}
+        oParentEvent={oEvent}
+        aEndorsementsOfCuratorsData={aEndorsementsOfCuratorsData}
+      />
     </>
   );
-};
+}
 
-export default ListPre;
+export default List;

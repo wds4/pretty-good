@@ -10,6 +10,44 @@ import TechDetailsForNostrNerds2 from './techDetailsForNostrNerds/techDetailsFor
 import TechDetailsForNostrNerds3 from './techDetailsForNostrNerds/techDetailsForNostrNerds3';
 import TechDetailsForNostrNerds4 from './techDetailsForNostrNerds/techDetailsForNostrNerds4';
 
+export const ListsWithScores2 = ({
+  controlPanelSettings,
+  oMyNostrProfileData,
+  oNostrProfilesData,
+  aListsData,
+}) => {
+  /*
+  const curatedListFocusID = useSelector(
+    (state) => state.prettyGoodGlobalState.curatedListFocus
+  );
+  */
+  return (
+    <>
+      <div
+        style={{
+          display: 'inline-block',
+          width: '63%',
+          maxHeight: '600px',
+          overflow: 'scroll',
+          textAlign: 'center',
+        }}
+      >
+        {aListsData.map((oListData) => {
+          return (
+            <>
+              <ListPre
+                controlPanelSettings={controlPanelSettings}
+                oListData={oListData}
+                oMyNostrProfileData={oMyNostrProfileData}
+                oNostrProfilesData={oNostrProfilesData}
+              />
+            </>
+          );
+        })}
+      </div>
+    </>
+  );
+};
 export default class ListsWithScores extends React.Component {
   constructor(props) {
     super(props);
@@ -78,28 +116,12 @@ export default class ListsWithScores extends React.Component {
               );
             })}
           </div>
-          <div
-            style={{
-              display: 'inline-block',
-              width: '63%',
-              maxHeight: '600px',
-              overflow: 'scroll',
-              textAlign: 'center',
-            }}
-          >
-            {this.state.aListsData.map((oListData) => {
-              return (
-                <>
-                  <ListPre
-                    controlPanelSettings={this.props.controlPanelSettings}
-                    oListData={oListData}
-                    oMyNostrProfileData={this.state.oMyNostrProfileData}
-                    oNostrProfilesData={this.state.oNostrProfilesData}
-                  />
-                </>
-              );
-            })}
-          </div>
+          <ListsWithScores2
+            controlPanelSettings={this.props.controlPanelSettings}
+            oMyNostrProfileData={this.state.oMyNostrProfileData}
+            oNostrProfilesData={this.state.oNostrProfilesData}
+            aListsData={this.state.aListsData}
+          />
         </div>
         <TechDetailsForNostrNerds1 />
         <TechDetailsForNostrNerds2 aListData={this.state.aListsData} />

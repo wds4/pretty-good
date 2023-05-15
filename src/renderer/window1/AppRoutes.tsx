@@ -85,7 +85,8 @@ import CuratedListAllRatingsNostrLive from './apps/curatedLists/viewIndividualCu
 import CuratedListAllRatingsSql from './apps/curatedLists/viewIndividualCuratedList/tableOfRatingsSql';
 import CuratorsOfIndividualList from './apps/curatedLists/viewIndividualCuratedList/curators';
 import InstancesOfIndividualList from './apps/curatedLists/viewIndividualCuratedList/instances';
-import CuratedListEndorsementsOfCurators from './apps/curatedLists/viewIndividualCuratedList/curatorEndorsements';
+import CuratedListEndorsementsOfCuratorsNostrLive from './apps/curatedLists/viewIndividualCuratedList/curatorEndorsementsNostrLive';
+import CuratedListEndorsementsOfCuratorsSql from './apps/curatedLists/viewIndividualCuratedList/curatorEndorsementsSql';
 import SelectListCurators from './apps/curatedLists/viewIndividualCuratedList/selectCurators';
 import CreateNewCuratedListInstance from './apps/curatedLists/createNewCuratedListInstance';
 import CuratedListsSettings from './apps/curatedLists/settings';
@@ -107,6 +108,7 @@ import AskNostrQuestionsList from './apps/askNostr/questions';
 import AskNostrCreateNewQuestion from './apps/askNostr/createNewQuestion';
 
 import EBooksHome from './apps/eBooks';
+import EBooksSettings from './apps/eBooks/settings';
 import EBook from './apps/eBooks/eBook';
 import EBookIndex from './apps/eBooks/eBook/bookIndex';
 
@@ -368,8 +370,12 @@ const AppRoutes = () => {
               element={<InstancesOfIndividualList />}
             />
             <Route
-              path="/CuratedListsHome/CuratedListEndorsementsOfCurators"
-              element={<CuratedListEndorsementsOfCurators />}
+              path="/CuratedListsHome/CuratedListEndorsementsOfCuratorsNostrLive"
+              element={<CuratedListEndorsementsOfCuratorsNostrLive />}
+            />
+            <Route
+              path="/CuratedListsHome/CuratedListEndorsementsOfCuratorsSql"
+              element={<CuratedListEndorsementsOfCuratorsSql />}
             />
             <Route
               path="/CuratedListsHome/SelectListCurators"
@@ -448,6 +454,10 @@ const AppRoutes = () => {
             <Route
               path="/EBooksHome"
               element={<EBooksHome />}
+            />
+            <Route
+              path="/EBooksHome/EBooksSettings"
+              element={<EBooksSettings />}
             />
             <Route
               path="/EBooksHome/EBook"

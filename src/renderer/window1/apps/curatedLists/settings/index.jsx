@@ -1,7 +1,7 @@
 import React from 'react';
 import Masthead from 'renderer/window1/mastheads/curatedListsMasthead';
 import LeftNavbar1 from 'renderer/window1/navbars/leftNavbar1/universalNavbar';
-import LeftNavbar2 from '../../../navbars/leftNavbar2/curatedLists/home';
+import LeftNavbar2 from '../../../navbars/leftNavbar2/curatedLists/settings';
 import { updateMainColWidth, updateMastheadCenter } from '../../../lib/pg/ui';
 import AllAppSettingsNav from 'renderer/window1/apps/prettyGood/settings/allAppSettingsNav';
 

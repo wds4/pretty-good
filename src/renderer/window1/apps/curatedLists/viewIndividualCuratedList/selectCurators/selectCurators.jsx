@@ -8,11 +8,22 @@ import AllInstances from './allInstances';
 import ChangeProfileFocus from './changeProfileFocus';
 import RateProfile from './rateProfile';
 
-const SelectCurators = ({curatedListFocusID, oListData, curatedListProfileFocusID, oProfileFocusSqlData}) => {
-  let name_plural = "";
+const SelectCurators = ({
+  curatedListFocusID,
+  oListData,
+  curatedListProfileFocusID,
+  oProfileFocusSqlData,
+}) => {
+  const { devMode2 } = useSelector((state) => state.myNostrProfile.devModes);
+  let devElemClass = 'devElemHide';
+  if (devMode2) {
+    devElemClass = 'devElemShow';
+  }
+
+  let name_plural = '';
   let oWord = {};
   let oEvent = {};
-  let sEvent = "";
+  let sEvent = '';
 
   if (oListData) {
     sEvent = oListData.event;
@@ -32,22 +43,26 @@ const SelectCurators = ({curatedListFocusID, oListData, curatedListProfileFocusI
     <>
       <div className="h3">
         select curators for the list of{' '}
-        <div style={{ display:"inline-block", color:"blue" }}>{name_plural}</div>
+        <div style={{ display: 'inline-block', color: 'blue' }}>
+          {name_plural}
+        </div>
       </div>
       <div style={{ margin: '50px' }}>
         This page is being deprecated. To endorse a nostr profile as a curator,
         navigate to that user's profile page. (If not visible, make sure
         Grapevine is toggled to ON in the upper right masthead.)
       </div>
-      <RateProfile
-        curatedListFocusID={curatedListFocusID}
-        oListData={oListData}
-        curatedListProfileFocusID={curatedListProfileFocusID}
-        oProfileFocusSqlData={oProfileFocusSqlData}
-      />
-      <ChangeProfileFocus />
+      <div className={devElemClass}>
+        <RateProfile
+          curatedListFocusID={curatedListFocusID}
+          oListData={oListData}
+          curatedListProfileFocusID={curatedListProfileFocusID}
+          oProfileFocusSqlData={oProfileFocusSqlData}
+        />
+        <ChangeProfileFocus />
+      </div>
     </>
   );
-}
+};
 
 export default SelectCurators;

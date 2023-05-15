@@ -29,8 +29,7 @@ export default class CuratorsOfIndividualList extends React.Component {
         <div id="mainCol">
           <Masthead />
           <div id="mainPanel">
-            Coming soon: a table of instances (items) of this list, ranked by
-            average score as determined by your Grapevine.
+            See links to the left.
           </div>
         </div>
       </>

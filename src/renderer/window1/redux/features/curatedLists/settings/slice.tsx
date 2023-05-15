@@ -4,6 +4,8 @@ export const curatedListsSettingsSlice = createSlice({
   name: 'curatedListsSettings',
   initialState: {
     viewListsLoadStoredData: false,
+    activateCuratedListsBackgroundListener: false, // activates curated lists listener (all relevant notes) in curatedLists masthead
+    // note: curated lists listener is active on the profile page, independently of this state
   },
   reducers: {
     updateViewListsLoadStoredData: (state, action) => {

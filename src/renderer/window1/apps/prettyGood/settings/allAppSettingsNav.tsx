@@ -98,7 +98,7 @@ const AllAppSettingsNav = () => {
           onClick={() => {
             dispatch(updateCurrentApp('eBooks'));
           }}
-          to="/PrettyGoodHome/PrettyGoodSettings"
+          to="/EBooksHome/EBooksSettings"
         >
           <div style={{ fontSize: '20px' }}>⚙️</div>
           <div style={{ fontSize: '8px' }}>eBooks</div>

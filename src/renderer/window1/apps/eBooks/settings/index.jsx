@@ -1,11 +1,11 @@
 import React from 'react';
-import Masthead from 'renderer/window1/mastheads/curatedListsMasthead';
+import Masthead from 'renderer/window1/mastheads/cgMasthead';
 import LeftNavbar1 from 'renderer/window1/navbars/leftNavbar1/universalNavbar';
-import LeftNavbar2 from 'renderer/window1/navbars/leftNavbar2/curatedLists/singleListCurators';
-import { updateMainColWidth, updateMastheadCenter } from 'renderer/window1/lib/pg/ui';
-import QueryReduxForListFocus from './queryReduxForListFocus';
+import LeftNavbar2 from '../../../navbars/leftNavbar2/eBooks/settings';
+import { updateMainColWidth, updateMastheadCenter } from '../../../lib/pg/ui';
+import AllAppSettingsNav from 'renderer/window1/apps/prettyGood/settings/allAppSettingsNav';
 
-export default class CuratorsOfIndividualList extends React.Component {
+export default class ConceptGraphSettings extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -13,7 +13,7 @@ export default class CuratorsOfIndividualList extends React.Component {
 
   async componentDidMount() {
     updateMainColWidth();
-    const mastheadDescriptor = 'list curators';
+    const mastheadDescriptor = 'eBooks: Settings';
     updateMastheadCenter(mastheadDescriptor);
   }
 
@@ -27,7 +27,7 @@ export default class CuratorsOfIndividualList extends React.Component {
         <div id="mainCol">
           <Masthead />
           <div id="mainPanel">
-            See links to the left.
+            <AllAppSettingsNav />
           </div>
         </div>
       </>

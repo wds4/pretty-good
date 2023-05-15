@@ -44,8 +44,12 @@ const AllEndorsements = ({parentConceptPropertyPath, parentConceptNostrEventID, 
   const aUniqueIDs = [];
   return (
     <>
-      <div className="h4">endorsements of curators for this list</div>
-      <div>number of events: {events.length}</div>
+      <div className="h4">endorsements of curators for this list (loading live from nostr)</div>
+      <div style={{fontSize: '10px'}}>
+        <div>number of events: {events.length}</div>
+        <div>filter:</div>
+        {JSON.stringify(filter,null,4)}
+      </div>
       {events.map((event, index) => {
         if (doesEventValidate(event)) {
           const uniqueID = event.tags.find(

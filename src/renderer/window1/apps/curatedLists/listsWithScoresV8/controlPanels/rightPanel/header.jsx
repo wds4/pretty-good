@@ -56,19 +56,29 @@ const Header = ({ oListData }) => {
 
   return (
     <>
-      <div className="h4" style={{ marginBottom: '10px' }}>
-        <NavLink
-          onClick={() => {
-            dispatch(updateCuratedListFocus(event_id));
-          }}
-          end
-          to="/CuratedListsHome/SingleListGraphOfInstances"
-          style={{ textDecoration: 'none' }}
-        >
-          <span style={{ color: 'purple', fontSize: '22px' }}>
-            {name_plural}
-          </span>
-        </NavLink>
+      <div
+        className="h4"
+        style={{ marginBottom: '10px', position: 'relative' }}
+      >
+        <div style={{ color: 'purple', fontSize: '32px' }}>{name_plural}</div>
+        <div style={{ position: 'absolute', right: '5px', top: '0px' }}>
+          <NavLink
+            onClick={() => {
+              dispatch(updateCuratedListFocus(event_id));
+            }}
+            end
+            to="/CuratedListsHome/SingleListGraphOfInstances"
+            style={{ textDecoration: 'none' }}
+          >
+            <div
+              className="curatedListMainPageLink"
+              style={{  }}
+            >
+              VIEW WEB of TRUST
+            </div>
+          </NavLink>
+        </div>
+
         <div
           style={{
             maxHeight: '100px',
@@ -77,7 +87,7 @@ const Header = ({ oListData }) => {
             padding: '5px',
             margin: '5px',
             textAlign: 'left',
-            color: 'grey'
+            color: 'grey',
           }}
         >
           {description}

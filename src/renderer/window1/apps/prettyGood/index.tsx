@@ -37,8 +37,8 @@ export default class PrettyGoodHome extends React.Component {
               other developers in this space that{' '}
               <i>
                 <span style={{ color: 'red' }}>
-                  decentralized curation of simple lists is the killer app that
-                  will change everything.
+                  decentralized curation of simple lists is the defining ability
+                  of the decentralized web.
                 </span>
               </i>{' '}
               It has power and versatility far beyond what is apparent at first

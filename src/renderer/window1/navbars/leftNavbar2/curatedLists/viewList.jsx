@@ -36,7 +36,7 @@ const LeftNavbar2 = () => {
         </NavLink>
         <NavLink
           className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
-          end to="/CuratedListsHome/InstancesOfIndividualList"
+          end to="/CuratedListsHome/CuratedListAllItemsSql"
         >
           items on this list
         </NavLink>
