@@ -14,7 +14,7 @@ The goal of this project is to explore two ideas, one more abstract, one more co
 
 ### Concrete idea
 
-One goal of this project is to advocate the idea that <span style="color:'purple'"><i>genuinely decentralized curation of simple lists (DCoSL) is the atomic building block and the defining feature of the decentralized web.</i></span> Ultimately, I want other developers to adapt and improve upon the DCoSL method to their own p2p projects. This does not require adoption of any specific library, protocol, etc. It means: identify one (or a few) simple lists, the curation of which you'd like to hand over to your users, and then use the methods illustrated in this app to allow them to do so.
+One goal of this project is to advocate the idea that <span style="color:purple"><i>genuinely decentralized curation of simple lists (DCoSL) is the atomic building block and the defining feature of the decentralized web.</i></span> Ultimately, I want other developers to adapt and improve upon the DCoSL method to their own p2p projects. This does not require adoption of any specific library, protocol, etc. It means: identify one (or a few) simple lists, the curation of which you'd like to hand over to your users, and then use the methods illustrated in this app to allow them to do so.
 
 I hope to convince developers that DCoSL method:
 <li>DCoSL is well defined.</li>
