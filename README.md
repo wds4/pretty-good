@@ -2,7 +2,7 @@
 
 A desktop client for linux, mac, and windows, embedded currently with two apps:
 <li>a standard nostr client</li>
-<li>a demonstration of DCoSL: decentralized curation of simple lists</li>
+<li>DCoSL (decentralized curation of simple lists) proof of concept</li>
 
 <br />
 
@@ -14,18 +14,18 @@ The goal of this project is to explore two ideas, one more abstract, one more co
 
 ### Concrete idea
 
-The immediate goal of this project is to advocate the idea that <span style="color:purple"><i>genuinely decentralized curation of simple lists (DCoSL) is the atomic building block and the defining feature of the decentralized web.</i></span> I believe I have stripped the DCoSL method down to its bare essentials (though I welcome suggestions how to strip it down further, while retaining its essence). Ultimately, I want other developers to adapt and improve upon the DCoSL method in their own p2p projects. This does not require adoption of any specific library, protocol, etc. It means: identify one (or a few) simple lists (example: user profile properties, with default list items being: username, handle, location, description), the curation of which you'd like to hand over to your users and user communities, and then use the methods illustrated in this app to allow them to do so.
+The immediate goal of this project is to advocate the idea that <span style="color:purple"><i>genuinely decentralized curation of simple lists (DCoSL) is the atomic building block and the defining feature of the decentralized web.</i></span> I believe I have stripped the DCoSL method down to its bare essentials (though I welcome suggestions how to strip it down further, while retaining its essence). Ultimately, I want other developers to adapt and improve upon the DCoSL method in their own p2p projects. This does not require adoption of any specific library, protocol, etc. It means: identify one (or a few) simple lists in your project (example: user profile properties, with default list items being: username, handle, location, description, etc.), the curation of which you'd like to hand over to your users and their communities, and then use the DCoSL method illustrated in this app to allow them to do so.
 
 I hope to convince developers that:
 <li>DCoSL is substantive and well defined.</li>
 <li>DCoSL (single-list) is relatively straightforward to implement.</li>
 <li>Scalable (multiple interacting lists) DCoSL is versatile and powerful, much more than it would seem at first glance.</li>
 <li>Without DCoSL or something similar, there is no truly decentralized web.</li>
-<li>As of May 2023, zero major projects (to my knowledge) have implemented single-list DCoSL; certainly no one has implemented scalable DCoSL. Many close, but no cigars.</li>
+<li>As of May 2023, zero major projects (to my knowledge) have implemented single-list DCoSL or anything functionally equivalent; certainly no one has implemented scalable DCoSL. Many close, but no cigars.</li>
 
 <br />
 
-On the topics of power, versatility, and scalability, consider that a simple list can be enriched (turned into a complex list) through association with multiple simple lists in building block fashion; a second list to organize your main list into subsets, a third list to add properties to items of your main list, etc.
+On the topics of power, versatility, and scalability, consider that a simple "parent" list can be enriched (turned from a "simple" into a "complex" list) through utilization of multiple additional simple lists which act as accessories to the parent list. A simple list of nostr relays, for example, can be converted into a complex list by adding a simple list of subsets (paid vs free), a simple list of relay properties (name, url, array of supported nips, etc), and so on.
 
 Also consider that two simple lists is sufficient to specify a graph: one list for nodes, and one list for edges. (Optionally, a third and fourth list for <i>node types</i> and <i>edge types</i>.) A graph is a versatile tool, able to represent a data model (e.g. a verifiable credential), standards and specifications, an ontology, a schema, a context tree, etc. Currently, these tend to be curated by developer teams or by organizations such as the World Wide Web Consortium.
 

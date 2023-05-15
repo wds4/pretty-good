@@ -48,7 +48,8 @@ export default class CuratorsOfIndividualList extends React.Component {
                   Genuinely decentralized curation
                 </span>{' '}
                 of <span style={{ color: 'blue' }}>simple lists</span> is the
-                defining feature of the decentralized web.
+                atomic building block and the defining feature of the
+                decentralized web.
               </div>
             </center>
             <ListsRedux />

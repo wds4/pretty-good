@@ -63,7 +63,8 @@ export default class CuratedListsHome extends React.Component {
                 >
                   <span style={{ color: 'blue' }}>Decentralized curation</span>{' '}
                   of <span style={{ color: 'blue' }}>simple lists</span> (DCoSL)
-                  is the defining feature of the decentralized web.
+                  is the atomic building block and the defining feature of the
+                  decentralized web.
                 </div>
               </center>
 
