@@ -14,10 +14,10 @@ The goal of this project is to explore two ideas, one more abstract, one more co
 
 ### Concrete idea
 
-The immediate goal of this project is to advocate the idea that <span style="color:purple"><i>genuinely decentralized curation of simple lists (DCoSL) is the atomic building block and the defining feature of the decentralized web.</i></span> I believe I have stripped the DCoSL method down to its bare essentials (though I welcome suggestions how to strip it down further, while retaining its essence). Ultimately, I want other developers to adapt and improve upon the DCoSL method to their own p2p projects. This does not require adoption of any specific library, protocol, etc. It means: identify one (or a few) simple lists (example: user profile properties, with default list items being: username, handle, location, description), the curation of which you'd like to hand over to your users and user communities, and then use the methods illustrated in this app to allow them to do so.
+The immediate goal of this project is to advocate the idea that <span style="color:purple"><i>genuinely decentralized curation of simple lists (DCoSL) is the atomic building block and the defining feature of the decentralized web.</i></span> I believe I have stripped the DCoSL method down to its bare essentials (though I welcome suggestions how to strip it down further, while retaining its essence). Ultimately, I want other developers to adapt and improve upon the DCoSL method in their own p2p projects. This does not require adoption of any specific library, protocol, etc. It means: identify one (or a few) simple lists (example: user profile properties, with default list items being: username, handle, location, description), the curation of which you'd like to hand over to your users and user communities, and then use the methods illustrated in this app to allow them to do so.
 
 I hope to convince developers that:
-<li>DCoSL is well defined.</li>
+<li>DCoSL is substantive and well defined.</li>
 <li>DCoSL (single-list) is relatively straightforward to implement.</li>
 <li>Scalable (multiple interacting lists) DCoSL is versatile and powerful, much more than it would seem at first glance.</li>
 <li>Without DCoSL or something similar, there is no truly decentralized web.</li>
@@ -25,15 +25,19 @@ I hope to convince developers that:
 
 <br />
 
-On the topic of power and versatility, consider that two simple lists is sufficient to specify a graph: one list for nodes, and one list for edges. A graph is a versatile tool, able to represent a data model (e.g. a verifiable credential), standards and specifications, an ontology, a schema, a context tree, etc. Each of these can be built out of simple lists, one, several, or all of which can be curated by your web of trust (WoT). Alice's WoT and Bob's WoT, though they are not identical, are very likely to have significant overlap. For any given list, although there is no guarantee, there is a good chance that Alice and Bob will end up using the exact same (or at least almost the same) list! This is a vitally important attribute of the DCoSL method, one that I call <i>loose consensus</i>. You'll want to think deeply about loose consensus before incorporating decentralized list curation to your p2p platform, app or project.
+On the topics of power, versatility, and scalability, consider that a simple list can be enriched (turned into a complex list) through association with multiple simple lists in building block fashion; a second list to organize your main list into subsets, a third list to add properties to items of your main list, etc.
+
+Also consider that two simple lists is sufficient to specify a graph: one list for nodes, and one list for edges. (Optionally, a third and fourth list for <i>node types</i> and <i>edge types</i>.) A graph is a versatile tool, able to represent a data model (e.g. a verifiable credential), standards and specifications, an ontology, a schema, a context tree, etc. Currently, these tend to be curated by developer teams or by organizations such as the World Wide Web Consortium.
+
+But consider that anything that can be represented as a graph can in turn be represented as a small handful of simple lists, one, several, or all of which can be curated by your web of trust (WoT). Alice's WoT and Bob's WoT, though they are not identical, are very likely to have significant overlap. For any given list, although there is no guarantee, there is a good chance that Alice and Bob will end up using the exact same (or at least almost the same) list! This is a vitally important attribute of the DCoSL method, one that I call <i>loose consensus</i>. You'll want to think deeply about loose consensus before incorporating decentralized list curation to your p2p platform, app or project.
 
 ### Abstract idea
 
 The broader goal of this project is to explore a theoretical model for decentralized knowledge representation and curation that I (currently) call the <i>threaded tapestry</i>. I argue this model is particularly well suited to decentralized and distributed systems such as the decentralized web. I conjecture that some version of this model may have already been implemented by nature to represent and curate knowledge in the brain. 
 
-What is our vision for the decentralied web? Billions of people, millions of developers, free to associate and interact as they wish. As cypherpunks we strive to build tools to enable their spontaneous, dynamic organization into networks both large and small, with or without overlap, each one of which is capable of highly sophisticated intra-network communication and coordinated action without ever putting one person, developer, or entity in charge of any given network.
+What is our vision for the decentralied web? Billions of people, millions of developers, free to associate and interact as they wish. As cypherpunks we strive to build tools to enable their spontaneous, dynamic organization into networks both large and small, with or without overlap, each one of which is capable of highly sophisticated intra-network communication and coordinated action without ever putting one person, developer, or entity in charge of any given network, including the network's tools for communication and interaction.
 
-What is the brain? Billions of neurons, millions of cortical columns; capable of dynamic organization into specialized networks both large and small, sometimes overlapping, capable of highly sophisticated intra-network communication and coordinated action without ever putting a single neuron, column, or other discrete entity in charge of any given network. 
+What is the brain? Billions of neurons, millions of cortical columns; capable of dynamic organization into specialized networks both large and small, sometimes overlapping, capable of highly sophisticated intra-network communication and coordinated action without ever putting a single neuron, column, or other discrete entity in charge of any given network. How does this work? In a nutshell: we do not know! Indeed, some of our leading theories could be described as unfalsifiable.
 
 Could it be that the decentralized web and the central nervous system will end up implementing more or less the same solution to more or less the same problem? How fucking cool would that be??!?
 
@@ -62,7 +66,7 @@ This is still very much in alpha. Depending on their states of development, some
 Incomplete list of known issues:
 <li>extended following list seems to freeze up -- authors list too big?
 <li>view thread does not always pull the entire thread
-<li>likes, zaps not yet implemented
+<li>likes, reposts, and zaps are not yet implemented
 <li>for the main feed, data persistence using redux works but is exceedingly slow; therefore currently off by default (can turn it on in settings)
 
 ## Curated Lists: decentralized web of trust
