@@ -1,14 +1,16 @@
-# Pretty Good
+# Pretty Good Apps
 
-A nostr desktop client for linux, mac, and windows.
+A desktop client for linux, mac, and windows, with two apps:
+<li>a standard nostr client</li>
+<li>decentralized curation of simple lists</li>
 
 This is a fork of my older project, [electron-nostr](https://github.com/wds4/electron-react-boilerplate-nostr), and is based on [electron-react-boilerplate](https://github.com/electron-react-boilerplate/electron-react-boilerplate). 
 
-## Purpose
+# Purpose
 
 There are two ways to describe the goal of this project, one more abstract, one more concrete.
 
-# Concrete purpose
+### Concrete purpose
 
 The concrete goal of this project is to advocate the idea that <i>decentralized curation of simple lists (DCoSL) is the defining feature of the decentralized web.</i> I realized long ago that instead of writing a whitepaper, I needed to build and demonstrate what I mean by a simple list and, more importantly, what I mean by <i>decentralized curation</i>. Ultimately, I want other developers to adapt this method to their own p2p projects. This does not require adoption of any specific library, protocol, etc. It means: identify one (or a few) simple lists, the curation of which you'd like to hand over to your users, and then use the methods illustrated in this app to do so.
 
@@ -17,7 +19,7 @@ I hope to convince developers that DCoSL:
 <li>is straightforward to implement</li>
 <li>is versatile and powerful</li>
 
-# Purpose in the abstract
+### Purpose in the abstract
 
 The more abstract goal of this project is to build a decentralized web of trust using a theoretical model for decentralized knowledge representation and curation that I call the <i>threaded tapestry</i>. I argue this model is particularly well suited to decentralized and distributed systems such as the decentralized web. Billions of people, millions of developers, not a single one of which is in charge of all the rest. I conjecture that some version of this model may have already been implemented by nature to represent and curate knowledge in the brain. Billions of neurons, millions of cortical columns, not a single one of which is in charge of all the rest.
 
