@@ -4,7 +4,7 @@ A desktop client for linux, mac, and windows, embedded currently with two apps:
 <li>a standard nostr client</li>
 <li>a demonstration of DCoSL: decentralized curation of simple lists</li>
 
-<br />
+<br /> <br />
 
 This is a fork of my older project, [electron-nostr](https://github.com/wds4/electron-react-boilerplate-nostr), and is based on [electron-react-boilerplate](https://github.com/electron-react-boilerplate/electron-react-boilerplate). 
 
