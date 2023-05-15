@@ -2,7 +2,8 @@
 
 A desktop client for linux, mac, and windows, with two apps:
 <li>a standard nostr client</li>
-<li>decentralized curation of simple lists</li>
+<li>a demonstration of DCoSL: decentralized curation of simple lists</li>
+
 
 This is a fork of my older project, [electron-nostr](https://github.com/wds4/electron-react-boilerplate-nostr), and is based on [electron-react-boilerplate](https://github.com/electron-react-boilerplate/electron-react-boilerplate). 
 
@@ -21,7 +22,9 @@ I hope to convince developers that DCoSL:
 
 ### Purpose in the abstract
 
-The more abstract goal of this project is to build a decentralized web of trust using a theoretical model for decentralized knowledge representation and curation that I call the <i>threaded tapestry</i>. I argue this model is particularly well suited to decentralized and distributed systems such as the decentralized web. Billions of people, millions of developers, not a single one of which is in charge of all the rest. I conjecture that some version of this model may have already been implemented by nature to represent and curate knowledge in the brain. Billions of neurons, millions of cortical columns, not a single one of which is in charge of all the rest.
+The more abstract goal of this project is to build a decentralized web of trust using a theoretical model for decentralized knowledge representation and curation that I call the <i>threaded tapestry</i>. I argue this model is particularly well suited to decentralized and distributed systems such as the decentralized web. I conjecture that some version of this model may have already been implemented by nature to represent and curate knowledge in the brain. 
+
+What is our vision for the decentralied web? Billions of people, millions of developers, free to associate as they wish. We strive to build tools to enable spontaneous, dynamic organization into networks capable of highly sophisticated inter-network communication and coordinated action without ever putting one person, developer, or entity in charge of the network. What is the brain? Billions of neurons, millions of cortical columns; capable of dynamic organization into networks capable of highly sophisticated inter-network communication and coordinated action without ever putting a single neuron or column in charge of the network. Could it be that the decentralized web and the central nervous system will end up implementing more or less the same solution to the same problem? How fucking cool would that be??
 
 ## Status of this project
 
