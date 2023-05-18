@@ -1,7 +1,6 @@
 import React from 'react';
 import { singleIterationCompositeUserScoreCalculations } from 'renderer/window1/lib/curatedLists/singleIterationCompositeUserScoreCalculations';
 import { singleIterationInstanceScoreCalculations } from 'renderer/window1/lib/curatedLists/singleIterationInstanceScoreCalculations';
-// import RightPanel from './controlPanels/rightPanel';
 import CalculationResults from './controlPanels/rightPanel/scores';
 
 export default class ListUI extends React.Component {

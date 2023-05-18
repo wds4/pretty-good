@@ -41,7 +41,6 @@ const CuratedListInstanceScores = ({
       <div style={{display: 'none', textAlign: 'left', fontSize: '10px', border: '1px solid red', padding: '5px' }}>{JSON.stringify(aInstanceCompScoreData,null,4)}</div>
       <div style={{}}>
         <DataTable
-          title="Curated List Instance Scores"
           columns={columns}
           data={aInstanceCompScoreData}
           pagination

@@ -24,7 +24,7 @@ export default class LeftNavbar2 extends React.PureComponent {
             home
           </NavLink>
 
-          <div style={{fontSize: "12px",marginTop: '3px',marginBottom: '3px'}}>Instances</div>
+          <div style={{fontSize: "12px",marginTop: '3px',marginBottom: '3px'}}>List Items</div>
 
           <NavLink
             className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
@@ -33,7 +33,7 @@ export default class LeftNavbar2 extends React.PureComponent {
             home
           </NavLink>
 
-          <div style={{fontSize: "12px",marginTop: '3px',marginBottom: '3px'}}>Single Instance</div>
+          <div style={{fontSize: "12px",marginTop: '3px',marginBottom: '3px'}}>Single Item</div>
 
           <NavLink
             className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }

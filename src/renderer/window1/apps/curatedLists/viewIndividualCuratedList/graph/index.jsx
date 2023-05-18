@@ -15,6 +15,7 @@ export default class GrapevineGraphForListItems extends React.Component {
     updateMainColWidth();
     const mastheadDescriptor = 'List Curation';
     updateMastheadCenter(mastheadDescriptor);
+    // console.log("qwerty index")
   }
 
   render() {

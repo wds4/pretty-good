@@ -10,13 +10,16 @@ const CuratedListsListeners = () => {
   if (devMode) {
     devElemClass = 'devElemShow';
   }
-  const { activateCuratedListsBackgroundListener } = useSelector(
+  const activateCuratedListsBackgroundListener = useSelector(
     (state) => state.curatedListsSettings.activateCuratedListsBackgroundListener
   );
+
+  console.log("activateCuratedListsBackgroundListener: "+activateCuratedListsBackgroundListener)
 
   if (activateCuratedListsBackgroundListener) {
     return (
       <>
+        <div className="curatedListsListenerStatusContainer">CURATED LISTS<br/>LISTENERS: ON</div>
         <div className={devElemClass}>
           <div className="h4">
             Curated Lists; kinds 9901 and 39901 Listeners
@@ -30,8 +33,13 @@ const CuratedListsListeners = () => {
         </div>
       </>
     );
+  } else {
+    return (
+      <>
+        <div className="curatedListsListenerStatusContainer">CURATED LISTS<br/>LISTENERS: OFF</div>
+      </>
+    );
   }
-  return <></>;
 };
 
 export default CuratedListsListeners;

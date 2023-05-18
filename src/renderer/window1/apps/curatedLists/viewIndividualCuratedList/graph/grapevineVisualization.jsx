@@ -17,7 +17,9 @@ import RightPanel from './controlPanels/rightPanel';
 import ShowSingleEntityCompScoreCalculations from './showSingleEntityCompScoreCalculations';
 // import ShowSingleEntityCompScoreCalculations from 'renderer/window1/apps/grapevine/components/showSingleEntityCompScoreCalculations';
 import { singleIterationCompositeUserScoreCalculations } from './calculations/singleIterationCompositeUserScoreCalculations';
+// import { singleIterationCompositeUserScoreCalculations } from 'renderer/window1/lib/curatedLists/singleIterationCompositeUserScoreCalculations';
 import { singleIterationInstanceScoreCalculations } from './calculations/singleIterationInstanceScoreCalculations';
+
 import {
   uDefaultScores_seed,
   iDefaultScores,
@@ -130,8 +132,31 @@ const makeVisGraph_Grapevine = async (
   aRatingsOfInstancesData,
   aEndorsementsOfCuratorsData,
   controlPanelSettings,
+  aCuratedListInstances,
+  propertyPath,
 ) => {
   // console.log("oNostrProfilesData: "+JSON.stringify(oNostrProfilesData,null,4))
+
+  // fetch name from oNostrProfilesData if present
+  const fetchNameFromPk = (pk) => {
+    let result = "fetchedNameFromPk";
+    if (oNostrProfilesData.hasOwnProperty(pk)) {
+      const oEvent = JSON.parse(oNostrProfilesData[pk].event);
+      const oContent = JSON.parse(oEvent.content);
+      result = oContent?.name;
+    }
+    return result;
+  }
+  // fetch display_name from oNostrProfilesData if present
+  const fetchDisplayNameFromPk = (pk) => {
+    let result = "fetchDisplayNameFromPk";
+    if (oNostrProfilesData.hasOwnProperty(pk)) {
+      const oEvent = JSON.parse(oNostrProfilesData[pk].event);
+      const oContent = JSON.parse(oEvent.content);
+      result = oContent?.display_name;
+    }
+    return result;
+  }
 
   const nodes_arr = [];
   const edges_arr = [];
@@ -215,6 +240,37 @@ const makeVisGraph_Grapevine = async (
   nodes_arr.push(oNode)
   aNodesIDs.push(myPubKey);
 
+  // ADD ITEMS
+
+  for (let x = 0; x < aCuratedListInstances.length; x++) {
+    const oItemEvent = JSON.parse(aCuratedListInstances[x].event);
+    const instance_event_id = oItemEvent.id;
+    const oWord = JSON.parse(oItemEvent.content);
+    if (oWord.hasOwnProperty(propertyPath)) {
+      const item_name = oWord[propertyPath]?.name;
+      const item_description = oWord[propertyPath]?.description;
+      if (!aNodesIDs.includes(instance_event_id)) {
+        const oNode = {
+          id: instance_event_id,
+          group: 'instance',
+          title: item_name,
+          label: item_name,
+          name: item_name,
+          description: item_description,
+          scores: JSON.parse(JSON.stringify(iScoresDefault)),
+          size: 15,
+          afferentEdgeIDs: [],
+          physics: false,
+          shape: 'diamond',
+          // x: 500,
+          // y: 100 * aNodesIDs.length - 500,
+        }
+        nodes_arr.push(oNode);
+        aNodesIDs.push(instance_event_id);
+      }
+    }
+  }
+
   for (let r=0;r<aEndorsementsOfCuratorsData.length;r++) {
     const oEndorsementSql = aEndorsementsOfCuratorsData[r];
     const oEndorsementEvent = JSON.parse(oEndorsementSql.event);
@@ -225,16 +281,30 @@ const makeVisGraph_Grapevine = async (
     if (ratingTemplateSlug=="nostrCuratedListsCuratorEndorsement") {
       // rater data
       const pk_rater = oEndorsementWord.ratingData.raterData.nostrProfileData.pubkey;
-      const name_rater = oEndorsementWord.ratingData.raterData.nostrProfileData?.name;
-      const display_name_rater = oEndorsementWord.ratingData.raterData.nostrProfileData?.display_name;
+      let name_rater = oEndorsementWord.ratingData.raterData.nostrProfileData?.name;
+      let display_name_rater = oEndorsementWord.ratingData.raterData.nostrProfileData?.display_name;
       // ratee data
       const pk_ratee = oEndorsementWord.ratingData.rateeData.nostrProfileData.pubkey;
-      const name_ratee = oEndorsementWord.ratingData.rateeData.nostrProfileData?.name;
-      const display_name_ratee = oEndorsementWord.ratingData.rateeData.nostrProfileData?.display_name;
+      let name_ratee = oEndorsementWord.ratingData.rateeData.nostrProfileData?.name;
+      let display_name_ratee = oEndorsementWord.ratingData.rateeData.nostrProfileData?.display_name;
       // rating data
       const regularSliderRating = oEndorsementWord.ratingData.ratingFieldsetData.nostrCuratedListsCuratorEndorsementFieldsetData.regularSliderRating;
       const referenceRegularSliderRating = oEndorsementWord.ratingData.ratingFieldsetData.nostrCuratedListsCuratorEndorsementFieldsetData.referenceRegularSliderRating;
       const confidence = oEndorsementWord.ratingData.ratingFieldsetData.confidenceFieldsetData.confidence;
+
+      // if !name_ratee, !name_rater, then try to fetch using the pk; if cannot, then show last 6 chars of pk
+      if (!name_rater) {
+        name_rater = fetchNameFromPk(pk_rater);
+      }
+      if (!name_ratee) {
+        name_ratee = fetchNameFromPk(pk_ratee);
+      }
+      if (!display_name_rater) {
+        display_name_rater = fetchDisplayNameFromPk(pk_rater);
+      }
+      if (!display_name_ratee) {
+        display_name_ratee = fetchDisplayNameFromPk(pk_ratee);
+      }
 
       let rater_profilePicUrl = noProfilePicUrl;
       if (oNostrProfilesData[pk_rater]) {
@@ -442,6 +512,8 @@ const makeVisGraph_Grapevine = async (
     }
   }
 
+  // console.log("qwerty number of nodes_arr: "+nodes_arr.length)
+
   nodes = new DataSet(nodes_arr);
   edges = new DataSet(edges_arr);
   data = {
@@ -519,10 +591,13 @@ export default class GrapevineVisualization extends React.Component {
       aCuratedListInstances: [],
       aInstanceCompScoreData: [],
       aProfileCompScoreData: [],
+      controlPanelSettings: {},
     };
   }
 
   async componentDidMount() {
+    // this.setState({controlPanelSettings: this.props.controlPanelSettings});
+
     aAllUserNodes = [];
     aAllInstanceNodes = [];
 
@@ -535,6 +610,12 @@ export default class GrapevineVisualization extends React.Component {
     const sql = ` SELECT * FROM curatedLists WHERE event_id = '${curatedListFocusID}' `;
     const oListData = await asyncSql(sql, 'get');
     this.setState({ oListData });
+    const oEvent = JSON.parse(oListData.event);
+    const oWord = JSON.parse(oEvent.content);
+    // console.log("qwerty oListData: "+JSON.stringify(oListData,null,4));
+    // console.log("qwerty oEvent: "+JSON.stringify(oEvent,null,4));
+    // console.log("qwerty oWord: "+JSON.stringify(oWord,null,4));
+    const propertyPath = oWord.nostrCuratedListData.propertyPath;
 
     const sql0 = ' SELECT * FROM myNostrProfile WHERE active = true ';
     const oMyNostrProfileData = await asyncSql(sql0, 'get');
@@ -558,14 +639,16 @@ export default class GrapevineVisualization extends React.Component {
     const sql3 = ` SELECT * FROM endorsementsOfCurators WHERE parentConceptNostrEventID = '${this.props.curatedListFocusID}' `;
     const aEndorsementsOfCuratorsData = await asyncSql(sql3);
 
-    console.log("this.state: "+JSON.stringify(this.state,null,4))
-    console.log("aCuratedListInstancesData: "+JSON.stringify(aCuratedListInstancesData,null,4))
+    // console.log("this.state: "+JSON.stringify(this.state,null,4))
+    // console.log("aCuratedListInstancesData: "+JSON.stringify(aCuratedListInstancesData,null,4))
     await makeVisGraph_Grapevine(
       oMyNostrProfileData,
       oNostrProfilesData,
       aRatingsOfInstancesData2,
       aEndorsementsOfCuratorsData,
       this.props.controlPanelSettings,
+      this.state.aCuratedListInstances,
+      propertyPath,
     );
 
     populateEachNodeAfferentEdgeIDs(nodes, edges);
@@ -573,32 +656,46 @@ export default class GrapevineVisualization extends React.Component {
     // an array of contextDAG nodes; assumed to contain at least one node, although if empty, just assume the apex of the contextDAG
     // any nodes past the first one specify nodes through which the inheritance pathway is assumed to traverse
     const aContextDAG = ['thisListCuration_allContexts'];
+    // console.log("qwerty GrapevineVisualization")
+
+    let controlPanelSettings_X = {};
+    const e = document.getElementById("controlPanelSettingsContainer");
+    if (e) {
+      controlPanelSettings_X = JSON.parse(e.innerHTML);
+    }
 
     setInterval(() => {
+      let controlPanelSettings_X = {};
+      const e = document.getElementById("controlPanelSettingsContainer");
+      if (e) {
+        controlPanelSettings_X = JSON.parse(e.innerHTML);
+      }
+
       let aProfileCompScoreData = singleIterationCompositeUserScoreCalculations(
         myPubKey,
-        this.props.controlPanelSettings,
+        controlPanelSettings_X,
         aContextDAG
       );
       this.setState( {aProfileCompScoreData} )
 
       let aInstanceCompScoreData = singleIterationInstanceScoreCalculations(
         myPubKey,
-        this.props.controlPanelSettings,
+        controlPanelSettings_X,
         aContextDAG
       );
       this.setState( {aInstanceCompScoreData} )
-    }, 300);
+    }, 500);
   }
 
   render() {
     return (
       <>
-        <div style={{display: 'none', fontSize: '10px', border: '1px solid red', padding: '5px' }}>{JSON.stringify(this.state.aInstanceCompScoreData,null,4)}</div>
-
         <Header
           oListData={this.state.oListData}
         />
+        <div style={{ display: 'none' }} id="controlPanelSettingsContainer">
+          {JSON.stringify(this.props.controlPanelSettings,null,4)}
+        </div>
         <UpdateSelectedNode />
         <TopControlPanel
           oMyNostrProfileData={this.state.oMyNostrProfileData}

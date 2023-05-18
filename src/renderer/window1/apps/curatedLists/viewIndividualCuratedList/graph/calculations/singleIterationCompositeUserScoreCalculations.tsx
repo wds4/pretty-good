@@ -1,38 +1,6 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { nodes, edges, aAllUserNodes, } from '../grapevineVisualization';
 import { convertInputToCertainty, convertRatingToMod3Coeff } from 'renderer/window1/lib/grapevine';
-
-/*
-export const convertInputToCertainty = (input, rigor) => {
-  const rigority = -Math.log(rigor);
-  const fooB = -input * rigority;
-  const fooA = Math.exp(fooB);
-  const certainty = 1 - fooA;
-  return certainty;
-};
-
-export const convertRatingToMod3Coeff = (r, s3, s4, s5) => {
-  if (r < 1) {
-    let mod3Coeff = 1;
-    return mod3Coeff;
-  }
-  // console.log("r,s3,s4,s5,mod3Coeff: s4: "+ s4)
-  const s3z = 1 / (1 - s3);
-  let logRat = Math.log(r) / Math.log(s5);
-  logRat = Math.abs(logRat);
-  if (s4 > 0) {
-    let logRatExp = Math.pow(logRat, s4);
-  } else {
-    let logRatExp = logRat;
-  }
-  let logRatExp = Math.pow(logRat, s4);
-  let mod3Coeff = Math.pow(s3z, -logRatExp);
-  // console.log("r,s3,s4,s5,mod3Coeff: "+r+" "+s3+" "+s4+" "+s5+" "+mod3Coeff)
-  // console.log("r,s3,s4,s5,mod3Coeff: typeof s4: "+typeof s4)
-
-  return mod3Coeff;
-};
-*/
 
 export const foo = () => {}
 
@@ -40,6 +8,15 @@ export const singleIterationCompositeUserScoreCalculations = (myPubKey,controlPa
   // for now, aContextDAG = ["thisListCuration_allContexts"]; bc those are the ratings I currently have to work with.
   // Future: will accomodate any generic aContextDAG
   const aAllEdges = edges.getIds();
+
+  /*
+  let controlPanelSettings_X = {};
+  const e = document.getElementById("controlPanelSettingsContainer");
+  if (e) {
+    controlPanelSettings_X = JSON.parse(e.innerHTML);
+  }
+  */
+
   const {
     attenuationFactor,
     rigor,
@@ -223,10 +200,11 @@ export const singleIterationCompositeUserScoreCalculations = (myPubKey,controlPa
       }
 
       oNode.title = oNode.name;
-      oNode.title += "\n average: "+average;
+      oNode.title += "\n averagee: "+average;
       oNode.title += "\n influence: "+influence;
       oNode.title += "\n input: "+input;
       oNode.title += "\n certainty: " + (certainty * 100) +" %";
+      // oNode.label = attenuationFactor;
       oNode.opacity = certainty;
       nodes.update(oNode);
 

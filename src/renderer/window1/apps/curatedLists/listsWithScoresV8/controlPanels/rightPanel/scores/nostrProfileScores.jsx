@@ -1,8 +1,14 @@
 import DataTable from 'react-data-table-component';
 
-const NostrProfileScores = ({aProfileCompScoreData}) => {
+const NostrProfileScores = ({ aProfileCompScoreData }) => {
   const ExpandedComponent = ({ data }) => (
-    <pre style={{ textAlign: 'left' }}>pubkey: {data.pubkey}</pre>
+    <pre style={{ textAlign: 'left' }}>
+      pubkey: {data.pubkey}
+      <br />
+      {JSON.stringify(data,null,4)}
+      <br />
+      {JSON.stringify(aProfileCompScoreData,null,4)}
+    </pre>
   );
   const columns = [
     {
@@ -29,7 +35,17 @@ const NostrProfileScores = ({aProfileCompScoreData}) => {
   ];
   return (
     <>
-      <div style={{display: 'none', textAlign: 'left', fontSize: '10px', border: '1px solid red', padding: '5px' }}>{JSON.stringify(aProfileCompScoreData,null,4)}</div>
+      <div
+        style={{
+          display: 'none',
+          textAlign: 'left',
+          fontSize: '10px',
+          border: '1px solid red',
+          padding: '5px',
+        }}
+      >
+        {JSON.stringify(aProfileCompScoreData, null, 4)}
+      </div>
       <div style={{}}>
         <DataTable
           columns={columns}

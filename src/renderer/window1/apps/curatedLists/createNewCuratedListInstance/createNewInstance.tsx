@@ -11,6 +11,7 @@ import {
   convertNameToSlug,
   convertNameToTitle,
 } from 'renderer/window1/lib/conceptGraph';
+import TechDetailsForNostrNerds from './techDetailsForNostrNerds';
 
 /*
 const event: NostrEvent = {
@@ -31,33 +32,37 @@ const { events } = useNostrEvents({
   },
 });
 */
-const createNewInstanceWord = ({parentConceptPropertyPath}) => {
+const createNewInstanceWord = ({ parentConceptPropertyPath }) => {
   const name_singular = document.getElementById(
     'newInstanceNameSingularField'
   ).value;
   const description = document.getElementById(
     'newInstanceDescriptionField'
   ).value;
-  let oWord = {};
+  const oWord = {};
   oWord[parentConceptPropertyPath] = {
-    name:  name_singular,
+    name: name_singular,
     slug: convertNameToSlug(name_singular),
     description,
   };
   const e1 = document.getElementById('newInstanceRawFileField');
   e1.value = JSON.stringify(oWord, null, 4);
-}
+};
 
-const CreateNewInstance = ({parentConceptPropertyPath, parentConceptNostrID, parentConceptSlug}) => {
+const CreateNewInstance = ({
+  parentConceptPropertyPath,
+  parentConceptNostrID,
+  parentConceptSlug,
+}) => {
   const myNostrProfile = useSelector((state) => state.myNostrProfile);
   const myPrivkey = myNostrProfile.privkey;
   const { publish } = useNostr();
 
   const kind0 = 9901;
-  const aTag0 = ["c","concept-graph-testnet-901"];
-  const aTag1 = ["t","createInstance"]; // t for type of concept graph event
-  const aTag2 = ["e", parentConceptNostrID]; // if t = createInstance; e for parent concept of the instance (e for the nostr event id of the parent concept)
-  const aTag3 = ["s", parentConceptSlug]; // if t = createInstance; s for parent concept of the instance (s for slug of the parent concept)
+  const aTag0 = ['c', 'concept-graph-testnet-901'];
+  const aTag1 = ['t', 'createInstance']; // t for type of concept graph event
+  const aTag2 = ['e', parentConceptNostrID]; // if t = createInstance; e for parent concept of the instance (e for the nostr event id of the parent concept)
+  const aTag3 = ['s', parentConceptSlug]; // if t = createInstance; s for parent concept of the instance (s for slug of the parent concept)
 
   const createEvent = () => {
     const e1 = document.getElementById('newInstanceRawFileField');
@@ -90,11 +95,24 @@ const CreateNewInstance = ({parentConceptPropertyPath, parentConceptNostrID, par
     publish(oEvent);
   };
 
+  const createAndSubmitEvent = () => {
+    createEvent();
+    submitEvent();
+
+    const e1 = document.getElementById('successMessageContainer');
+    e1.style.display = 'block';
+
+    const e2 = document.getElementById('createAndSubmitEventButtonContainer');
+    e2.style.display = 'none';
+  };
+
+  const elem_id = 'technicalDetailsForNostrDevsContainer';
+
   return (
     <>
       <div className="h4">add a new item to this list</div>
       <div
-        onChange={() => createNewInstanceWord({parentConceptPropertyPath})}
+        onChange={() => createNewInstanceWord({ parentConceptPropertyPath })}
         id="allInputFieldsContainer"
         style={{ marginTop: '20px' }}
       >
@@ -149,33 +167,73 @@ const CreateNewInstance = ({parentConceptPropertyPath, parentConceptNostrID, par
           numbers, boolean, etc.
         </div>
 
-        <div>
-          rawFile
-          <button onClick={() => createEvent()} className="doSomethingButton">
-            create event
-          </button>
-          <button onClick={() => submitEvent()} className="doSomethingButton">
-            submit event
+        <div
+          id="createAndSubmitEventButtonContainer"
+        >
+          <button
+            type="button"
+            onClick={() => createAndSubmitEvent()}
+            className="doSomethingButton"
+          >
+            submit
           </button>
         </div>
-        <textarea
-          id="newInstanceRawFileField"
-          style={{
-            display: 'inline-block',
-            height: '400px',
-            width: '40%',
-            fontSize: '10px',
-          }}
-        />
-        <textarea
-          id="newInstanceEventField"
-          style={{
-            display: 'inline-block',
-            height: '400px',
-            width: '40%',
-            fontSize: '10px',
-          }}
-        />
+
+
+        <div
+          id="successMessageContainer"
+          style={{ display: 'none', marginBottom: '20px' }}
+        >
+          Item submitted successfully to the nostr network.
+          <br />
+          To listen for this item on the network, click the{' '}
+          <i>view all items (nostr live)</i> button on the left.
+        </div>
+
+        <TechDetailsForNostrNerds />
+
+        <div id={elem_id} style={{ display: 'none' }}>
+          <div>
+            <button
+              type="button"
+              onClick={() => createEvent()}
+              className="doSomethingButton"
+            >
+              step 1: create event
+            </button>
+            <button
+              type="button"
+              onClick={() => submitEvent()}
+              className="doSomethingButton"
+            >
+              step 2: submit event
+            </button>
+          </div>
+          <div style={{ display: 'inline-block', width: '40%', fontSize: '12px' }}>
+            <div>list item as a 'word' (concept graph format)</div>
+            <textarea
+              id="newInstanceRawFileField"
+              style={{
+                display: 'inline-block',
+                height: '400px',
+                width: '100%',
+                fontSize: '10px',
+              }}
+            />
+          </div>
+          <div style={{ display: 'inline-block', width: '40%', fontSize: '12px' }}>
+            <div>word wrapped as a nostr event</div>
+            <textarea
+              id="newInstanceEventField"
+              style={{
+                display: 'inline-block',
+                height: '400px',
+                width: '100%',
+                fontSize: '10px',
+              }}
+            />
+          </div>
+        </div>
       </div>
     </>
   );

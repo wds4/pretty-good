@@ -1,4 +1,3 @@
-import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
 import {
   noProfilePicUrl,
 } from 'renderer/window1/const';
@@ -14,6 +13,28 @@ export const extractNodesAndEdges = (
   aEndorsementsOfCuratorsData,
   controlPanelSettings,
 ) => {
+
+  // fetch name from oNostrProfilesData if present
+  const fetchNameFromPk = (pk) => {
+    let result = "fetchedNameFromPk";
+    if (oNostrProfilesData.hasOwnProperty(pk)) {
+      const oEvent = JSON.parse(oNostrProfilesData[pk].event);
+      const oContent = JSON.parse(oEvent.content);
+      result = oContent?.name;
+    }
+    return result;
+  }
+  // fetch display_name from oNostrProfilesData if present
+  const fetchDisplayNameFromPk = (pk) => {
+    let result = "fetchDisplayNameFromPk";
+    if (oNostrProfilesData.hasOwnProperty(pk)) {
+      const oEvent = JSON.parse(oNostrProfilesData[pk].event);
+      const oContent = JSON.parse(oEvent.content);
+      result = oContent?.display_name;
+    }
+    return result;
+  }
+
   const oResults = {
     aNodes: [],
     aEdges: [],
@@ -134,16 +155,30 @@ export const extractNodesAndEdges = (
     if (ratingTemplateSlug=="nostrCuratedListsCuratorEndorsement") {
       // rater data
       const pk_rater = oEndorsementWord.ratingData.raterData.nostrProfileData.pubkey;
-      const name_rater = oEndorsementWord.ratingData.raterData.nostrProfileData?.name;
-      const display_name_rater = oEndorsementWord.ratingData.raterData.nostrProfileData?.display_name;
+      let name_rater = oEndorsementWord.ratingData.raterData.nostrProfileData?.name;
+      let display_name_rater = oEndorsementWord.ratingData.raterData.nostrProfileData?.display_name;
       // ratee data
       const pk_ratee = oEndorsementWord.ratingData.rateeData.nostrProfileData.pubkey;
-      const name_ratee = oEndorsementWord.ratingData.rateeData.nostrProfileData?.name;
-      const display_name_ratee = oEndorsementWord.ratingData.rateeData.nostrProfileData?.display_name;
+      let name_ratee = oEndorsementWord.ratingData.rateeData.nostrProfileData?.name;
+      let display_name_ratee = oEndorsementWord.ratingData.rateeData.nostrProfileData?.display_name;
       // rating data
       const regularSliderRating = oEndorsementWord.ratingData.ratingFieldsetData.nostrCuratedListsCuratorEndorsementFieldsetData.regularSliderRating;
       const referenceRegularSliderRating = oEndorsementWord.ratingData.ratingFieldsetData.nostrCuratedListsCuratorEndorsementFieldsetData.referenceRegularSliderRating;
       const confidence = oEndorsementWord.ratingData.ratingFieldsetData.confidenceFieldsetData.confidence;
+
+      // if !name_ratee, !name_rater, then try to fetch using the pk; if cannot, then show last 6 chars of pk
+      if (!name_rater) {
+        name_rater = fetchNameFromPk(pk_rater);
+      }
+      if (!name_ratee) {
+        name_ratee = fetchNameFromPk(pk_ratee);
+      }
+      if (!display_name_rater) {
+        display_name_rater = fetchDisplayNameFromPk(pk_rater);
+      }
+      if (!display_name_ratee) {
+        display_name_ratee = fetchDisplayNameFromPk(pk_ratee);
+      }
 
       let rater_profilePicUrl = noProfilePicUrl;
       if (oNostrProfilesData[pk_rater]) {

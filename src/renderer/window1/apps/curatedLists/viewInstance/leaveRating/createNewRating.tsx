@@ -12,7 +12,7 @@ import {
   convertNameToTitle,
 } from 'renderer/window1/lib/conceptGraph';
 import { nostrProfilesSlice } from 'renderer/window2/redux/features/nostr/profiles/slice';
-
+import TechDetailsForNostrNerds from './techDetailsForNostrNerds';
 
 /*
 // RATING OF A SPECIFIC INSTANCE
@@ -94,8 +94,8 @@ const createRatingWord = (
         },
       },
       ratingTemplateData: {
-        ratingTemplateSlug: "nostrCuratedListInstanceGenericRating",
-        ratingTemplateTitle: "Nostr Curated List Instance: Generic Rating",
+        ratingTemplateSlug: 'nostrCuratedListInstanceGenericRating',
+        ratingTemplateTitle: 'Nostr Curated List Instance: Generic Rating',
       },
       ratingFieldsetData: {
         ratingFieldsetSlugs: [
@@ -193,66 +193,127 @@ const CreateNewRating = ({
     e2.value = JSON.stringify(event, null, 4);
   };
 
-  const createThumbsUpEvent = () => {
+  const createThumbsUpWord = () => {
     createRatingWord('up', myNostrProfile, oListSqlData, oInstanceSqlData);
+    createEvent();
+    submitEvent();
+    indicateMessageSuccess();
+
+    const e3 = document.getElementById('ratingTypeContainer');
+    e3.innerHTML = 'Thumbs Up';
   };
 
-  const creatThumbsDownEvent = () => {
+  const creatThumbsDownWord = () => {
     createRatingWord('down', myNostrProfile, oListSqlData, oInstanceSqlData);
+    createEvent();
+    submitEvent();
+    indicateMessageSuccess();
+
+    const e3 = document.getElementById('ratingTypeContainer');
+    e3.innerHTML = 'Thumbs Down';
   };
+
+  const indicateMessageSuccess = () => {
+    const e1 = document.getElementById('successMessageContainer');
+    e1.style.display = 'block';
+
+    const e2 = document.getElementById('createAndSubmitEventButtonsContainer');
+    e2.style.display = 'none';
+  };
+
+  const elem_id = 'technicalDetailsForNostrDevsContainer';
 
   return (
     <>
-      <div className="h4">Create New Rating</div>
-      <button
-        onClick={() => createThumbsUpEvent()}
-        className="doSomethingButton"
-      >
-        👍
-      </button>
+      <div className="h4" style={{ marginTop: '20px' }}>
+        Create New Rating
+      </div>
 
-      <button
-        onClick={() => creatThumbsDownEvent()}
-        className="doSomethingButton"
-      >
-        👎
-      </button>
+      <div style={{ margin: '20px 0px 20px 0px' }}>
+        Thumbs up is your attestation that this item BELONGS on this list.
+        <br />
+        Thumbs down is your attestation that this item DOES NOT BELONG on this
+        list.
+      </div>
 
-      <button
-        onClick={() => creatThumbsDownEvent()}
-        className="doSomethingButton"
-      >
-        more complex rating
-      </button>
+      <div id="createAndSubmitEventButtonsContainer">
+        <button
+          type="button"
+          onClick={() => createThumbsUpWord()}
+          className="doSomethingButton"
+        >
+          👍
+        </button>
 
-      <div>
+        <button
+          type="button"
+          onClick={() => creatThumbsDownWord()}
+          className="doSomethingButton"
+        >
+          👎
+        </button>
+      </div>
+
+      <div
+        id="successMessageContainer"
+        style={{ display: 'none', marginBottom: '20px' }}
+      >
+        <span id="ratingTypeContainer" /> rating submitted successfully to the
+        nostr network.
+        <br />
+        To listen for this item on the network, navigate to the{' '}
+        <i>List Items</i> menu on the left; then click the{' '}
+        <i>ratings of items (nostr live)</i> button on the left.
+      </div>
+
+      <TechDetailsForNostrNerds />
+
+      <div id={elem_id} style={{ display: 'none' }}>
         <div>
-          rawFile
-          <button onClick={() => createEvent()} className="doSomethingButton">
-            create event
+          <button
+            type="button"
+            onClick={() => createEvent()}
+            className="doSomethingButton"
+          >
+            step 1: create event
           </button>
-          <button onClick={() => submitEvent()} className="doSomethingButton">
-            submit event
+          <button
+            type="button"
+            onClick={() => submitEvent()}
+            className="doSomethingButton"
+          >
+            step 2: submit event
           </button>
         </div>
-        <textarea
-          id="newConceptRawFileField"
-          style={{
-            display: 'inline-block',
-            height: '400px',
-            width: '40%',
-            fontSize: '10px',
-          }}
-        />
-        <textarea
-          id="newConceptEventField"
-          style={{
-            display: 'inline-block',
-            height: '400px',
-            width: '40%',
-            fontSize: '10px',
-          }}
-        />
+
+        <div
+          style={{ display: 'inline-block', width: '40%', fontSize: '12px' }}
+        >
+          <div>list rating as a 'word' (concept graph format)</div>
+          <textarea
+            id="newConceptRawFileField"
+            style={{
+              display: 'inline-block',
+              height: '400px',
+              width: '100%',
+              fontSize: '10px',
+            }}
+          />
+        </div>
+        <div
+          style={{ display: 'inline-block', width: '40%', fontSize: '12px' }}
+        >
+          <div>word wrapped as a nostr event</div>
+          <textarea
+            id="newConceptEventField"
+            style={{
+              display: 'inline-block',
+              height: '400px',
+              width: '100%',
+              fontSize: '10px',
+            }}
+          />
+        </div>
       </div>
     </>
   );

@@ -8,6 +8,7 @@ const QueryReduxForListFocus = () => {
   const controlPanelSettings = useSelector(
     (state) => state.controlPanelSettings
   );
+  // console.log("qwerty QueryReduxForListFocus")
   return (
     <>
       <GrapevineVisualization

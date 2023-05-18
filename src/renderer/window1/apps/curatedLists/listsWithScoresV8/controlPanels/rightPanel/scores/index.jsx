@@ -20,9 +20,7 @@ const CalculationResults = ({
             />
           </TabPanel>
           <TabPanel>
-            <NostrProfileScores
-              aProfileCompScoreData={aProfileCompScoreData}
-            />
+            <NostrProfileScores aProfileCompScoreData={aProfileCompScoreData} />
           </TabPanel>
         </Tabs>
       </div>

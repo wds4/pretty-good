@@ -10,7 +10,9 @@ const CuratedListInstanceScores = ({
 }) => {
   const dispatch = useDispatch();
   const ExpandedComponent = ({ data }) => (
-    <pre style={{ textAlign: 'left' }}>{data.description}</pre>
+    <pre style={{ textAlign: 'left' }}>
+      {data.description}
+    </pre>
   );
 
   const ItemNavbar = ({row}) => {

@@ -145,3 +145,10 @@ Generic settings
 .backButtonContainer:hover {
   background-color:#CFCFCF;
 }
+.curatedListsListenerStatusContainer {
+  position: absolute;
+  top: 10px;
+  left: 250px;
+  color: grey;
+  font-size: 12px;
+}

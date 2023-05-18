@@ -20,6 +20,15 @@ export const singleIterationInstanceScoreCalculations = (
   // for now, aContextDAG = ["thisListCuration_allContexts"]; bc those are the ratings I currently have to work with.
   // Future: will accomodate any generic aContextDAG
   const aAllEdges = edges.getIds();
+
+  /*
+  let controlPanelSettings_X = {};
+  const e = document.getElementById("controlPanelSettingsContainer");
+  if (e) {
+    controlPanelSettings_X = JSON.parse(e.innerHTML);
+  }
+  */
+
   const {
     rigor,
     defaultUserTrustAverageScore,
@@ -118,35 +127,35 @@ export const singleIterationInstanceScoreCalculations = (
 
           const mod1Coeff =
           raterCurrentAverage * strat1Coeff_directRating + 1 * (1 - strat1Coeff_directRating);
-        const mod3Coeff = convertRatingToMod3Coeff(
-          rating,
-          strat3Coeff_directRating,
-          strat4Coeff_directRating,
-          strat5Coeff_directRating
-        );
+          const mod3Coeff = convertRatingToMod3Coeff(
+            rating,
+            strat3Coeff_directRating,
+            strat4Coeff_directRating,
+            strat5Coeff_directRating
+          );
 
-        const weight =
-          (attenuationFactor_directRating *
-          mod3Coeff *
-          strat2Coeff_directRating_regular *
-          ratingConfidence *
-          raterCurrentInfluence);
+          const weight =
+            (attenuationFactor_directRating *
+            mod3Coeff *
+            strat2Coeff_directRating_regular *
+            ratingConfidence *
+            raterCurrentInfluence);
 
-        const weightAdjusted = weight;
-        sumOfWeights_directRatings += weightAdjusted;
-        const product = (weightAdjusted * rating * mod1Coeff);
-        sumOfProducts += product;
-        oEdge.mod1Coeff = mod1Coeff.toPrecision(4);
-        oEdge.weightAdjusted = weightAdjusted.toPrecision(4);
-        oEdge.weight = weight.toPrecision(4);
-        oEdge.product = product.toPrecision(4);
-        oEdge.raterInfluence = raterCurrentInfluence;
-        oEdge.ratingConfidence = ratingConfidence * 100;
-        oEdge.mod3Coeff = mod3Coeff.toPrecision(4);
-        oEdge.strat2Coeff = strat2Coeff_directRating_regular.toPrecision(4);
-        oEdge.attenuationFactor = attenuationFactor_directRating;
-        oEdge.color.opacity = weightAdjusted;
-        // edges.update(oEdge);
+          const weightAdjusted = weight;
+          sumOfWeights_directRatings += weightAdjusted;
+          const product = (weightAdjusted * rating * mod1Coeff);
+          sumOfProducts += product;
+          oEdge.mod1Coeff = mod1Coeff.toPrecision(4);
+          oEdge.weightAdjusted = weightAdjusted.toPrecision(4);
+          oEdge.weight = weight.toPrecision(4);
+          oEdge.product = product.toPrecision(4);
+          oEdge.raterInfluence = raterCurrentInfluence;
+          oEdge.ratingConfidence = ratingConfidence * 100;
+          oEdge.mod3Coeff = mod3Coeff.toPrecision(4);
+          oEdge.strat2Coeff = strat2Coeff_directRating_regular.toPrecision(4);
+          oEdge.attenuationFactor = attenuationFactor_directRating;
+          oEdge.color.opacity = weightAdjusted;
+          // edges.update(oEdge);
         }
       }
 
@@ -206,7 +215,6 @@ export const singleIterationInstanceScoreCalculations = (
       oNode.title += "\n average: "+average;
       oNode.title += "\n influence: "+influence;
       nodes.update(oNode);
-
 
       ///////////////////////////////////////////////////////////////////////
       //////////////////// START CREATE Y-AXIS //////////////////////////////

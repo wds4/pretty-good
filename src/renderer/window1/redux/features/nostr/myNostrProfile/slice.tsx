@@ -298,7 +298,7 @@ export const myProfileSlice = createSlice({
       if (action.payload) {
         aFollowing = action.payload;
       }
-      console.log(`updateFollowing; action.payload: ${JSON.stringify(action.payload)}; aFollowing: ${JSON.stringify(aFollowing)}`)
+      // console.log(`updateFollowing; action.payload: ${JSON.stringify(action.payload)}; aFollowing: ${JSON.stringify(aFollowing)}`)
       state.following = aFollowing;
     },
     ///////////////////////////

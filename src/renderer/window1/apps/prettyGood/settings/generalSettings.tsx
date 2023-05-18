@@ -26,17 +26,17 @@ const GeneralSettings = () => {
     // dispatch(b_updateDevMode(newState));
   };
   const processStateChange_devMode1 = (newState) => {
-    console.log(`processStateChange_devMode1 callback; ${newState}`);
+    // console.log(`processStateChange_devMode1 callback; ${newState}`);
     dispatch(updateDevMode1(newState));
     // dispatch(b_updateDevMode2(newState));
   };
   const processStateChange_devMode2 = (newState) => {
-    console.log(`processStateChange_devMode2 callback; ${newState}`);
+    // console.log(`processStateChange_devMode2 callback; ${newState}`);
     dispatch(updateDevMode2(newState));
     // dispatch(b_updateDevMode2(newState));
   };
   const processStateChange_devMode3 = (newState) => {
-    console.log(`processStateChange_devMode3 callback; ${newState}`);
+    // console.log(`processStateChange_devMode3 callback; ${newState}`);
     dispatch(updateDevMode3(newState));
     // dispatch(b_updateDevMode3(newState));
   };
