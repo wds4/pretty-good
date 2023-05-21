@@ -52,6 +52,7 @@ import NostrDirectMessages from './apps/nostr/directMessages';
 import NostrSettings from './apps/nostr/settings';
 import NostrProfiles from './apps/nostr/settings/profiles';
 import NostrRelays from './apps/nostr/settings/relays';
+import NostrRelaysV2 from './apps/nostr/settings/relaysV2';
 import NostrSql from './apps/nostr/settings/sql';
 import NostrSettingsGrapevine from './apps/nostr/settings/grapevine';
 import NostrSettingsExtendedFollowing from './apps/nostr/settings/extendedFollowing';
@@ -258,6 +259,7 @@ const AppRoutes = () => {
               element={<NostrProfiles />}
             />
             <Route path="/NostrHome/NostrRelays" element={<NostrRelays />} />
+            <Route path="/NostrHome/NostrRelaysV2" element={<NostrRelaysV2 />} />
             <Route path="/NostrHome/NostrSql" element={<NostrSql />} />
             <Route
               path="/NostrHome/NostrSettingsGrapevine"

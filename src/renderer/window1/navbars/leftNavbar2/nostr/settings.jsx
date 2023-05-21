@@ -54,6 +54,18 @@ export default class LeftNavbar2 extends React.PureComponent {
                 : 'leftNav2Button'
             }
             end
+            to="/NostrHome/NostrRelaysV2"
+          >
+            relays V2
+          </NavLink>
+
+          <NavLink
+            className={({ isActive }) =>
+              isActive
+                ? 'leftNav2Button leftNav2ButtonActive'
+                : 'leftNav2Button'
+            }
+            end
             to="/NostrHome/NostrMainFeedSettings"
           >
             main feed

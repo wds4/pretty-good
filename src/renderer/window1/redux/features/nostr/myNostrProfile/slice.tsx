@@ -47,6 +47,7 @@ const initialState = {
   // arrays of pubkeys
   followers: [], // array of pubkeys
   following: [], // array of pubkeys
+  followingReviewedForRelaysList: [], // once a following's relays list has been checked for dcosl (relaysFromMyFollowingList), add the pk here
   extendedFollowing: [], // array of pubkeys
   followingForRelays: [], // array of pubkeys
   endorseAsRelaysPicker: [], // array of pubkeys
@@ -55,6 +56,7 @@ const initialState = {
   // objects
   relays: oDefaultRelayUrls,
   devModes: oDefaultDevModes,
+  relaysFromMyFollowingList: {}, // maintain list of relays scraped from my following list; an example of basic DCoSL
 
   /*
   endorseAsNostCuratedListCurator: {
@@ -84,6 +86,30 @@ export const myProfileSlice = createSlice({
         thumbsDown: [],
       };
     },
+    updateRelaysFromMyFollowingList: (state, action) => {
+      // const oData = action.payload;
+      const { pubkey, aRelays } = action.payload;
+      // console.log("oData: "+JSON.stringify(oData,null,4))
+      for (let x=0;x<aRelays.length;x++) {
+        let nextRelayUrl = aRelays[x];
+        const lastChar = nextRelayUrl.slice(-1);
+        // console.log("lastChar: "+lastChar)
+        if (lastChar == "\/") {
+          nextRelayUrl = nextRelayUrl.slice(0, nextRelayUrl.length - 1);
+        }
+
+        if (!state.relaysFromMyFollowingList.hasOwnProperty(nextRelayUrl)) {
+          state.relaysFromMyFollowingList[nextRelayUrl] = [ pubkey ];
+        }
+        if (!state.relaysFromMyFollowingList[nextRelayUrl].includes(pubkey)) {
+          state.relaysFromMyFollowingList[nextRelayUrl].push(pubkey);
+        }
+      }
+      if (!state.followingReviewedForRelaysList.includes(pubkey)) {
+        state.followingReviewedForRelaysList.push(pubkey);
+      }
+    },
+
     // move this to end of list once complete
     /*
     oEndorsementData: {
@@ -154,6 +180,7 @@ export const myProfileSlice = createSlice({
       if (oMyProfileData?.endorseAsRelaysPicker) { state.endorseAsRelaysPicker = JSON.parse(oMyProfileData?.endorseAsRelaysPicker); }
       if (oMyProfileData?.endorseAsRelaysPickerHunter) { state.endorseAsRelaysPickerHunter = JSON.parse(oMyProfileData?.endorseAsRelaysPickerHunter); }
       if (oMyProfileData?.endorseAsNostCuratedListCurator) { state.endorseAsNostCuratedListCurator = JSON.parse(oMyProfileData?.endorseAsNostCuratedListCurator); }
+      state.followingReviewedForRelaysList = [];
 
       if (oMyProfileData?.picture_url) {
         state.picture_url = oMyProfileData?.picture_url
@@ -168,6 +195,7 @@ export const myProfileSlice = createSlice({
       }
 
       // objects
+      state.relaysFromMyFollowingList = {};
       if (oMyProfileData?.devModes) {
         state.devModes = JSON.parse(oMyProfileData?.devModes)
         // console.log("qwerty A state.devModes: "+JSON.stringify(state.devModes))
@@ -413,6 +441,7 @@ export const myProfileSlice = createSlice({
 // Action creators are generated for each case reducer function
 export const {
   initMyActiveNostrProfile,
+  updateRelaysFromMyFollowingList,
   updatePubkeyHex,
   updatePubkeyBech32,
   updatePrivkey,
