@@ -8,7 +8,7 @@ const LeftNavbar2 = () => {
 
   return (
     <>
-      <div className="leftNav2Panel leftNav2PanelPrettyGood">
+      <div className="leftNav2Panel leftNav2PanelEBooks">
         <div
           style={{ fontSize: '12px', marginTop: '3px', marginBottom: '3px' }}
         >

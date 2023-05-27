@@ -12,11 +12,23 @@ const LeftNavbar2 = () => {
       <div className="leftNav2Panel leftNav2PanelCuratedLists">
         <div style={{fontSize: "12px",marginTop: '3px',marginBottom: '3px'}}>Lists</div>
 
+        <div className={devElemClass}>
+          <NavLink
+            className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
+            end to="/CuratedListsHome"
+          >
+            home
+          </NavLink>
+        </div>
+
         <NavLink
-          className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
-          end to="/CuratedListsHome"
+          className={({ isActive }) =>
+            isActive ? 'leftNav2Button leftNav2ButtonActive' : 'leftNav2Button'
+          }
+          end
+          to="/CuratedListsHome/CuratedListsWithScoresV8"
         >
-          home
+          lists
         </NavLink>
 
         <div style={{fontSize: "12px",marginTop: '3px',marginBottom: '3px'}}>Single List</div>
@@ -30,10 +42,11 @@ const LeftNavbar2 = () => {
 
         <NavLink
           className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
-          end to="/CuratedListsHome/CuratorsOfIndividualList"
+          end to="/CuratedListsHome/CuratedListEndorsementsOfCuratorsSql"
         >
           curators
         </NavLink>
+
         <NavLink
           className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
           end to="/CuratedListsHome/CuratedListAllItemsSql"

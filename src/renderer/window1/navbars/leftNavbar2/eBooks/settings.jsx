@@ -1,32 +1,38 @@
-import React from 'react';
+import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
-export default class LeftNavbar2 extends React.PureComponent {
-  render() {
-    return (
-      <>
-        <div className="leftNav2Panel leftNav2PanelEBooks">
-          <div
-            style={{ fontSize: '12px', marginTop: '3px', marginBottom: '3px' }}
-          >
-            eBooks
-          </div>
-          <NavLink
-            className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
-            end to="/EBooksHome/EBooksSettings"
-          >
-            settings
-          </NavLink>
+const LeftNavbar2 = () => {
+  const devMode2 = useSelector(
+    (state) => state.myNostrProfile.devModes.devMode2
+  );
+  let devElemClass = "devElemHide";
+  if (devMode2) { devElemClass = "devElemShow"; }
+  return (
+    <>
+      <div className="leftNav2Panel leftNav2PanelEBooks">
+        <div
+          style={{ fontSize: '12px', marginTop: '3px', marginBottom: '3px' }}
+        >
+          eBooks
+        </div>
+        <NavLink
+          className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
+          end to="/EBooksHome/EBooksSettings"
+        >
+          settings
+        </NavLink>
 
+        <div className={devElemClass}>
           <NavLink
             className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
             end to="/EBooksHome"
           >
             settings 2
           </NavLink>
-
         </div>
-      </>
-    );
-  }
+      </div>
+    </>
+  );
 }
+
+export default LeftNavbar2;

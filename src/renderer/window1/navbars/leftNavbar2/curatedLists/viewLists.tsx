@@ -17,17 +17,19 @@ const LeftNavbar2 = () => {
           Lists
         </div>
 
-        <NavLink
-          className={({ isActive }) =>
-            isActive ? 'leftNav2Button leftNav2ButtonActive' : 'leftNav2Button'
-          }
-          end
-          to="/CuratedListsHome"
-        >
-          home
-        </NavLink>
+        <div className={devElemClass}>
+          <NavLink
+            className={({ isActive }) =>
+              isActive ? 'leftNav2Button leftNav2ButtonActive' : 'leftNav2Button'
+            }
+            end
+            to="/CuratedListsHome"
+          >
+            home
+          </NavLink>
 
-        <hr />
+          <hr />
+        </div>
 
         <div className={devElemClass}>
           <NavLink
@@ -124,6 +126,7 @@ const LeftNavbar2 = () => {
         >
           lists
         </NavLink>
+
         <NavLink
           style={{ display: 'none' }}
           className={({ isActive }) =>
@@ -145,17 +148,19 @@ const LeftNavbar2 = () => {
           create a new list
         </NavLink>
 
-        <hr />
+        <div className={devElemClass}>
+          <hr />
 
-        <NavLink
-          className={({ isActive }) =>
-            isActive ? 'leftNav2Button leftNav2ButtonActive' : 'leftNav2Button'
-          }
-          end
-          to="/CuratedListsHome/AboutCuratedLists"
-        >
-          about
-        </NavLink>
+          <NavLink
+            className={({ isActive }) =>
+              isActive ? 'leftNav2Button leftNav2ButtonActive' : 'leftNav2Button'
+            }
+            end
+            to="/CuratedListsHome/AboutCuratedLists"
+          >
+            about
+          </NavLink>
+        </div>
       </div>
     </>
   );

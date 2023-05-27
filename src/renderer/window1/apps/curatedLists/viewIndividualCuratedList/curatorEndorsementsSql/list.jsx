@@ -59,6 +59,13 @@ const List = ({curatedListFocusID, oListData, aEndorsementsOfCuratorsData}) => {
   return (
     <>
       <div className="h3" >{name_plural}</div>
+
+      <div style={{ margin: '20px', color: 'grey' }}>
+        To endorse a nostr profile as a curator, navigate to that user's profile
+        page. (If endorsement options are not visible, make sure Grapevine is
+        toggled to ON in the upper right masthead.)
+      </div>
+
       <AllEndorsements
         parentConceptNostrEventID={event_id}
         parentConceptSlug={slug_singular}

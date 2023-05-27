@@ -19,7 +19,7 @@ export default class LeftNavbar2 extends React.PureComponent {
                 : 'leftNav2Button'
             }
             end
-            to="/CuratedListsHome"
+            to="/CuratedListsHome/ViewAllLists"
           >
             home
           </NavLink>

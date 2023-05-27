@@ -5,22 +5,22 @@ import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
 import { updateCuratedListFocus } from 'renderer/window1/redux/features/prettyGood/settings/slice';
 import AllEndorsements from './allEndorsements';
 
-const List = ({curatedListFocusID, oListData}) => {
-  let name_singular = "";
-  let name_plural = "";
-  let title_singular = "";
-  let title_plural = "";
-  let slug_singular = "";
-  let slug_plural = "";
-  let description = "";
+const List = ({ curatedListFocusID, oListData }) => {
+  let name_singular = '';
+  let name_plural = '';
+  let title_singular = '';
+  let title_plural = '';
+  let slug_singular = '';
+  let slug_plural = '';
+  let description = '';
   let oWord = {};
-  let sqlID = "";
+  let sqlID = '';
   let oEvent = {};
 
-  let pubkey = "";
-  let event_id = "";
-  let propertyPath = "";
-  let sEvent = "";
+  let pubkey = '';
+  let event_id = '';
+  let propertyPath = '';
+  let sEvent = '';
 
   if (oListData) {
     pubkey = oListData.pubkey;
@@ -58,7 +58,14 @@ const List = ({curatedListFocusID, oListData}) => {
 
   return (
     <>
-      <div className="h3" >{name_plural}</div>
+      <div className="h3">{name_plural}</div>
+
+      <div style={{ margin: '20px', color: 'grey' }}>
+        To endorse a nostr profile as a curator, navigate to that user's profile
+        page. (If endorsement options are not visible, make sure Grapevine is
+        toggled to ON in the upper right masthead.)
+      </div>
+
       <AllEndorsements
         parentConceptNostrEventID={event_id}
         parentConceptSlug={slug_singular}
@@ -67,6 +74,6 @@ const List = ({curatedListFocusID, oListData}) => {
       />
     </>
   );
-}
+};
 
 export default List;

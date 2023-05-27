@@ -7,6 +7,7 @@ import { generateNewNostrKeys } from './lib/nostr';
 const startApp = async () => {
   // need to remove relaysAutoMerge from nostrProfiles
 
+  /*
   const sql0_a = ' SELECT devModes FROM myNostrProfile LIMIT 1 ';
   const isColPresent0 = await asyncSql(sql0_a);
   if (isColPresent0) {
@@ -16,6 +17,7 @@ const startApp = async () => {
     console.log("isColPresent0 devModes is NOT truthy; sql0_b: "+sql0_b)
     const fooB = await asyncSql(sql0_b);
   }
+  */
 
   /*
   const sql0_a = ' SELECT relaysAutoMerge FROM myNostrProfile LIMIT 1 ';
