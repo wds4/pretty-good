@@ -99,3 +99,25 @@
 .devElemShowInline {
   display: inline-block;
 }
+.qMarkToggleButton {
+  border: 1px solid black;
+  border-radius: 2px;
+  padding: 0px 5px 0px 5px;
+  display: inline-block;
+}
+.qMarkToggleButton:hover {
+  background-color: orange;
+}
+
+.toggleButtonParentContainer div.scoresContainer {
+  margin: 5px 5px 10px 30px;
+  display: none;
+}
+.toggleButtonParentContainer:hover div.scoresContainer {
+  display: block;
+}
+.itemsInfoBox {
+  padding: 5px;
+  background-color: white;
+  margin-top: 20px;
+}

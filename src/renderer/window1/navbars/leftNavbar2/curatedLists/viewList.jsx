@@ -2,11 +2,11 @@ import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
 const LeftNavbar2 = () => {
-  const devMode3 = useSelector(
-    (state) => state.myNostrProfile.devModes.devMode3
+  const devMode2 = useSelector(
+    (state) => state.myNostrProfile.devModes.devMode2
   );
   let devElemClass = "devElemHide";
-  if (devMode3) { devElemClass = "devElemShow"; }
+  if (devMode2) { devElemClass = "devElemShow"; }
   return (
     <>
       <div className="leftNav2Panel leftNav2PanelCuratedLists">
@@ -37,7 +37,7 @@ const LeftNavbar2 = () => {
           className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
           end to="/CuratedListsHome/ViewIndividualCuratedList"
         >
-          home
+          list
         </NavLink>
 
         <NavLink

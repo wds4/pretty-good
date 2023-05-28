@@ -10,7 +10,7 @@ const LeftNavbar2 = () => {
   return (
     <>
       <div className="leftNav2Panel leftNav2PanelCuratedLists">
-        <div style={{fontSize: "12px",marginTop: '3px',marginBottom: '3px'}}>Lists</div>
+        <div style={{fontSize: "12px",marginTop: '3px',marginBottom: '3px'}}>ListsQ</div>
 
         <NavLink
           className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }

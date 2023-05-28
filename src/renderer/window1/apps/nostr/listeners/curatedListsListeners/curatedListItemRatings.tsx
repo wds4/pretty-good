@@ -1,6 +1,8 @@
 import { useNostrEvents } from 'nostr-react';
 import { useSelector, useDispatch } from 'react-redux';
 import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
+import { addRatingOfCuratedListInstance } from 'renderer/window1/redux/features/curatedLists/lists/slice';
+import { addRatingOfCuratedListInstanceEventToSql } from 'renderer/window1/lib/pg/sql';
 
 const CuratedListItemRatingsListener = () => {
   const myNostrProfile = useSelector((state) => state.myNostrProfile);
@@ -33,6 +35,23 @@ const CuratedListItemRatingsListener = () => {
     if (doesEventValidate(event)) {
       // dispatch(addEndorseAsRelaysPickerHunterNoteToReduxStore(event, myPubkey));
       // await updateListCurationNoteInSql(event, "endorseAsRelaysPickerHunter");
+      dispatch(addRatingOfCuratedListInstance(event));
+      const parentConceptNostrEventID = event.tags.find(
+        ([k, v]) => k === 'l' && v && v !== ''
+      )[1];
+      const oWord = JSON.parse(event.content);
+      if (oWord) {
+        if (oWord.hasOwnProperty("ratingData")) {
+          if (oWord.ratingData.hasOwnProperty("ratingFieldsetData")) {
+            if (oWord.ratingData.ratingFieldsetData.hasOwnProperty("nostrCuratedListInstanceRatingFieldsetData")) {
+              const parentConceptSlug = oWord.ratingData.ratingFieldsetData.nostrCuratedListInstanceRatingFieldsetData.contextData.nostrParentCuratedListData.slug.singular;
+              if ( (parentConceptSlug) && (parentConceptNostrEventID) ) {
+                addRatingOfCuratedListInstanceEventToSql(event,parentConceptSlug,parentConceptNostrEventID);
+              }
+            }
+          }
+        }
+      }
     }
   });
   return (
@@ -44,9 +63,26 @@ const CuratedListItemRatingsListener = () => {
           {events.map((event, index) => {
             if (doesEventValidate(event)) {
               const oWord = JSON.parse(event.content);
+
+              const parentConceptNostrEventID = event.tags.find(
+                ([k, v]) => k === 'l' && v && v !== ''
+              )[1];
+              let parentConceptSlug = "";
+              if (oWord) {
+                if (oWord.hasOwnProperty("ratingData")) {
+                  if (oWord.ratingData.hasOwnProperty("ratingFieldsetData")) {
+                    if (oWord.ratingData.ratingFieldsetData.hasOwnProperty("nostrCuratedListInstanceRatingFieldsetData")) {
+                      parentConceptSlug = oWord.ratingData.ratingFieldsetData.nostrCuratedListInstanceRatingFieldsetData.contextData.nostrParentCuratedListData.slug.singular;
+                    }
+                  }
+                }
+              }
+
               return (
                 <>
                   <div className="listenerInfoContainer">
+                    <div>parentConceptNostrEventID: {parentConceptNostrEventID}</div>
+                    <div>parentConceptSlug: {parentConceptSlug}</div>
                     <div className="listenerEventBox">{JSON.stringify(event,null,4)}</div>
                     <div className="listenerWordBox">{JSON.stringify(oWord,null,4)}</div>
                   </div>

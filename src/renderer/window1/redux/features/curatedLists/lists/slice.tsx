@@ -341,33 +341,64 @@ export const addCuratedList_X = (oEvent, oWord, state, event_id, pubkey) => {
 };
 
 export const addCuratedListInstance_X = (oEvent, oWord, state) => {
-  const itemID = oEvent.id;
-  const authorPubkey = oEvent.pubkey;
-  const parentConceptSlug = oEvent.tags.find(
-    ([k, v]) => k === 's' && v && v !== ''
-  )[1];
-  const parentConceptNostrEventID = oEvent.tags.find(
-    ([k, v]) => k === 'e' && v && v !== ''
-  )[1];
-  const propertyPath = `${parentConceptSlug}Data`;
-  if (oWord.hasOwnProperty(propertyPath)) {
-    if (state.curatedLists.hasOwnProperty(parentConceptNostrEventID)) {
-      state.curatedLists[parentConceptNostrEventID].items[itemID] = JSON.parse(
-        JSON.stringify(oBlankItemData)
-      );
-      // state.curatedLists[parentConceptNostrEventID].items[itemID].tags = JSON.parse(JSON.stringify(oEvent.tags));
-      // state.curatedLists[parentConceptNostrEventID].items[itemID].oWord = JSON.parse(JSON.stringify(oWord));
-      state.curatedLists[parentConceptNostrEventID].items[itemID].author =
-        authorPubkey;
+  // console.log("addCuratedListInstance_X; oEvent: "+JSON.stringify(oEvent,null,4))
+  if ((oEvent) && (oWord)) {
+    const itemID = oEvent.id;
+    const authorPubkey = oEvent.pubkey;
+    const aParentConceptNostrEventID = oEvent.tags.filter(
+      ([k, v]) => k === 'e' && v && v !== ''
+    )[0];
+    const aParentConceptSlug = oEvent.tags.filter(
+      ([k, v]) => k === 's' && v && v !== ''
+    )[0];
+    let parentConceptNostrEventID = "";
+    if (aParentConceptNostrEventID) {
+      if (aParentConceptNostrEventID.length > 0) {
+        parentConceptNostrEventID = aParentConceptNostrEventID[1];
+      }
     }
-    if (oWord.hasOwnProperty(propertyPath)) {
-      const name = oWord[propertyPath]?.name;
-      const slug = oWord[propertyPath]?.slug;
-      const description = oWord[propertyPath]?.description;
-      state.curatedLists[parentConceptNostrEventID].items[itemID].name = name;
-      state.curatedLists[parentConceptNostrEventID].items[itemID].slug = slug;
-      state.curatedLists[parentConceptNostrEventID].items[itemID].description =
-        description;
+    let parentConceptSlug = "";
+    if (aParentConceptSlug) {
+      if (aParentConceptSlug.length > 0) {
+        parentConceptSlug = aParentConceptSlug[1];
+      }
+    }
+    /*
+    const parentConceptSlug = oEvent.tags.find(
+      ([k, v]) => k === 's' && v && v !== ''
+    )[1];
+    const parentConceptNostrEventID = oEvent.tags.find(
+      ([k, v]) => k === 'e' && v && v !== ''
+    )[1];
+    */
+
+    if ((parentConceptNostrEventID) && (parentConceptSlug)) {
+      const propertyPath = `${parentConceptSlug}Data`;
+      if (oWord.hasOwnProperty(propertyPath)) {
+        console.log("addCuratedListInstance_X; parentConceptNostrEventID: "+parentConceptNostrEventID+"; parentConceptSlug: "+parentConceptSlug)
+        if (state.curatedLists.hasOwnProperty(parentConceptNostrEventID)) {
+          if (state.curatedLists[parentConceptNostrEventID].hasOwnProperty("items")) {
+            state.curatedLists[parentConceptNostrEventID].items[itemID] = JSON.parse(
+              JSON.stringify(oBlankItemData)
+            );
+            // state.curatedLists[parentConceptNostrEventID].items[itemID].tags = JSON.parse(JSON.stringify(oEvent.tags));
+            // state.curatedLists[parentConceptNostrEventID].items[itemID].oWord = JSON.parse(JSON.stringify(oWord));
+            state.curatedLists[parentConceptNostrEventID].items[itemID].author =
+              authorPubkey;
+          }
+        }
+        if (oWord.hasOwnProperty(propertyPath)) {
+          const name = oWord[propertyPath]?.name;
+          const slug = oWord[propertyPath]?.slug;
+          const description = oWord[propertyPath]?.description;
+          if (state.curatedLists[parentConceptNostrEventID].hasOwnProperty("items")) {
+            state.curatedLists[parentConceptNostrEventID].items[itemID].name = name;
+            state.curatedLists[parentConceptNostrEventID].items[itemID].slug = slug;
+            state.curatedLists[parentConceptNostrEventID].items[itemID].description =
+              description;
+          }
+        }
+      }
     }
   }
 };
