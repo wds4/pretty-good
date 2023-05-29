@@ -60,8 +60,19 @@ const Header = ({ oListData }) => {
         className="h4"
         style={{ marginBottom: '10px', position: 'relative' }}
       >
-        <div style={{ color: 'purple', fontSize: '32px' }}>{name_plural}</div>
-        <div style={{ position: 'absolute', right: '5px', top: '0px' }}>
+        <div style={{ color: 'purple', fontSize: '32px' }}>
+          <NavLink
+            onClick={() => {
+              dispatch(updateCuratedListFocus(event_id));
+            }}
+            end
+            to="/CuratedListsHome/SingleListGraphOfInstances"
+            style={{ textDecoration: 'none' }}
+          >
+            {name_plural}
+          </NavLink>
+        </div>
+        <div style={{ display: 'none', position: 'absolute', right: '5px', top: '0px' }}>
           <NavLink
             onClick={() => {
               dispatch(updateCuratedListFocus(event_id));

@@ -39,7 +39,7 @@ const RelaysSettings = () => {
   const aRelays = Object.keys(oRelaysData);
   return (
     <>
-      <div style={{ width: '100%', border: '1px dashed grey', marginBottom: '5px' }}>
+      <div style={{ width: '100%', marginBottom: '5px' }}>
         <div className="h3"><a id="relaysSettingsMyRelays">My Relays</a></div>
         <Tooltip
           anchorSelect="#relaysSettingsMyRelays"

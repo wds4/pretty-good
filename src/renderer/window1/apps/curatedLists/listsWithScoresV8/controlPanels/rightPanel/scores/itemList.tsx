@@ -1,20 +1,54 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import DataTable from 'react-data-table-component';
-import { useDispatch } from 'react-redux';
+import { updateNostrProfileFocus } from 'renderer/window1/redux/features/nostr/settings/slice';
 import { updateCuratedListInstanceFocus } from 'renderer/window1/redux/features/prettyGood/settings/slice';
+import { Tooltip } from 'react-tooltip';
+import { tooltipContent } from 'renderer/window1/const/tooltipContent';
 
 const ItemList = ({ aInstanceCompScoreData }) => {
   const dispatch = useDispatch();
+  const { seedUser } = useSelector(
+    (state) => state.controlPanelSettings
+  );
+  const nostrProfiles = useSelector(
+    (state) => state.nostrProfiles.nostrProfiles
+  );
+
+  let seedUserName = seedUser;
+  if (nostrProfiles.hasOwnProperty(seedUser)) {
+    const profileContent = JSON.parse(nostrProfiles[seedUser].content);
+    const name = `@${profileContent.name}`;
+    const displayName = profileContent.display_name;
+    seedUserName = displayName;
+  }
+  if (!seedUserName) {
+    seedUserName = seedUser;
+  }
 
   return (
     <>
       <div style={{ textAlign: 'left', margin: '10px' }}>
+        <div>
+          <div style={{textAlign: 'center', fontSize: '12px'}}>Curation of this list by:</div>
+          <div style={{}}>
+            <span style={{textAlign: 'center', color: 'blue', fontSize: '18px'}}>
+              <NavLink
+                onClick={() => {
+                  dispatch(updateNostrProfileFocus(seedUser));
+                }}
+                to="/NostrHome/NostrViewProfile"
+                className="goToUserProfileButton"
+              >
+                {seedUserName}
+              </NavLink>
+            </span>
+            's grapevine
+          </div>
+        </div>
+
         <div className="itemsInfoBox">
           <div style={{ color: 'grey', margin: '5px' }}>
-            According to (seed user)'s grapevine, the following items belong on
-            this list:
+            ACCEPTED items:
           </div>
           <hr />
           {aInstanceCompScoreData.map((oInstanceCompScoreData) => {
@@ -39,11 +73,19 @@ const ItemList = ({ aInstanceCompScoreData }) => {
                     <div
                       style={{
                         display: 'inline-block',
-                        color: 'green',
                         marginLeft: '10px',
                       }}
                     >
-                      {name}
+                      <NavLink
+                        onClick={() => {
+                          dispatch(updateCuratedListInstanceFocus(id));
+                        }}
+                        to="/CuratedListsHome/CuratedListSpecificInstance"
+                        className="goToUserProfileButton"
+                        style={{color: 'green'}}
+                      >
+                        {name}
+                      </NavLink>
                     </div>
                     <div className="scoresContainer">
                       <div>average: {average}</div>
@@ -58,7 +100,7 @@ const ItemList = ({ aInstanceCompScoreData }) => {
 
         <div className="itemsInfoBox">
           <div style={{ color: 'grey', margin: '5px' }}>
-            The following items have been REJECTED from this list:
+            REJECTED items:
           </div>
           <hr />
           {aInstanceCompScoreData.map((oInstanceCompScoreData) => {
@@ -83,11 +125,19 @@ const ItemList = ({ aInstanceCompScoreData }) => {
                     <div
                       style={{
                         display: 'inline-block',
-                        color: 'red',
                         marginLeft: '10px',
                       }}
                     >
-                      {name}
+                      <NavLink
+                        onClick={() => {
+                          dispatch(updateCuratedListInstanceFocus(id));
+                        }}
+                        to="/CuratedListsHome/CuratedListSpecificInstance"
+                        className="goToUserProfileButton"
+                        style={{color: 'red'}}
+                      >
+                        {name}
+                      </NavLink>
                     </div>
                     <div className="scoresContainer">
                       <div>average: {average}</div>
@@ -102,8 +152,7 @@ const ItemList = ({ aInstanceCompScoreData }) => {
 
         <div className="itemsInfoBox">
           <div style={{ color: 'grey', margin: '5px' }}>
-            The following items have been submitted but not (sufficiently) vetted
-            by the grapevine:
+            PENDING items:
           </div>
           <hr />
           {aInstanceCompScoreData.map((oInstanceCompScoreData) => {
@@ -128,11 +177,19 @@ const ItemList = ({ aInstanceCompScoreData }) => {
                     <div
                       style={{
                         display: 'inline-block',
-                        color: 'black',
                         marginLeft: '10px',
                       }}
                     >
-                      {name}
+                      <NavLink
+                        onClick={() => {
+                          dispatch(updateCuratedListInstanceFocus(id));
+                        }}
+                        to="/CuratedListsHome/CuratedListSpecificInstance"
+                        className="goToUserProfileButton"
+                        style={{color: 'black'}}
+                      >
+                        {name}
+                      </NavLink>
                     </div>
                     <div className="scoresContainer">
                       <div>average: {average}</div>

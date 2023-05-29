@@ -68,8 +68,6 @@ const LeftNavbar2 = () => {
         >
           technical overview
         </NavLink>
-
-
       </div>
     </>
   );

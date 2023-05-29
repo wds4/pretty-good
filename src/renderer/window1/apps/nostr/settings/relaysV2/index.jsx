@@ -42,10 +42,8 @@ export default class NostrRelays extends React.Component {
               style={{
                 display: 'inline-block',
                 width: '48%',
-                border: '1px dashed grey',
               }}
             >
-              <RelaysAutoUpdateControls />
               <Relays />
               <AddNewRelay />
             </div>
@@ -55,7 +53,6 @@ export default class NostrRelays extends React.Component {
                 width: '48%',
                 height: '600px',
                 overflow: 'auto',
-                border: '1px dashed grey',
               }}
             >
               <CuratedRelaysList />

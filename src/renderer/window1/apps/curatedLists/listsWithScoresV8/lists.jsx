@@ -9,6 +9,7 @@ import TechDetailsForNostrNerds1 from './techDetailsForNostrNerds/techDetailsFor
 import TechDetailsForNostrNerds2 from './techDetailsForNostrNerds/techDetailsForNostrNerds2';
 import TechDetailsForNostrNerds3 from './techDetailsForNostrNerds/techDetailsForNostrNerds3';
 import TechDetailsForNostrNerds4 from './techDetailsForNostrNerds/techDetailsForNostrNerds4';
+import ListsAndControlPanel from './listsAndControlPanel';
 
 export const ListsWithScores2 = ({
   controlPanelSettings,
@@ -80,20 +81,6 @@ export default class ListsWithScores extends React.Component {
   render() {
     return (
       <>
-        <div
-          style={{
-            display: 'none',
-            width: '400px',
-            maxHeight: '400px',
-            border: '1px solid black',
-            fontSize: '12px',
-            textAlign: 'center',
-          }}
-        >
-          <div className="h4">Control Panel</div>
-          <ControlPanel />
-        </div>
-
         <div>
           <div
             style={{
@@ -104,18 +91,11 @@ export default class ListsWithScores extends React.Component {
               overflow: 'scroll',
             }}
           >
-            <center>Curated Lists</center>
-            <br />
-            {this.state.aListsData.map((oListData) => {
-              return (
-                <>
-                  <div>
-                    <ListSelectButton oListData={oListData} />
-                  </div>
-                </>
-              );
-            })}
+            <ListsAndControlPanel
+              aListsData={this.state.aListsData}
+            />
           </div>
+
           <ListsWithScores2
             controlPanelSettings={this.props.controlPanelSettings}
             oMyNostrProfileData={this.state.oMyNostrProfileData}

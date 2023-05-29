@@ -7,6 +7,7 @@ import { oGrapevineDefaults } from 'renderer/window1/const';
 export const controlPanelSettingsSlice = createSlice({
   name: 'controlPanelSettings',
   initialState: {
+    seedUser: "e5272de914bd301755c439b88e6959a43c9d2664831f093c51e9c799a16a102f", // pubkey (hex)
     attenuationFactor: oGrapevineDefaults.attenuationFactor,
     rigor: oGrapevineDefaults.rigor,
     defaultUserTrustAverageScore: oGrapevineDefaults.defaultUserTrustAverageScore,
@@ -27,6 +28,10 @@ export const controlPanelSettingsSlice = createSlice({
   reducers: {
     updateControlPanelSettings: (state, action) => {
       const event = action.payload;
+      // incomplete (may deprecate?)
+    },
+    updateSeedUser: (state, action) => {
+      state.seedUser = action.payload; // should be a pubkey (hex)
     },
     updateAttenuationFactor: (state, action) => {
       state.attenuationFactor = action.payload;
@@ -81,6 +86,7 @@ export const controlPanelSettingsSlice = createSlice({
 
 export const {
   updateControlPanelSettings,
+  updateSeedUser,
   updateAttenuationFactor,
   updateDefaultUserTrustAverageScore,
   updateDefaultUserTrustConfidence,

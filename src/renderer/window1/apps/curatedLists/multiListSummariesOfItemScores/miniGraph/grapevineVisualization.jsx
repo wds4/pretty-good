@@ -644,6 +644,7 @@ export default class GrapevineVisualization extends React.Component {
                 <br/>
                 nodes: {nodes.length}
               </div>
+              <div>seedUser per redux: {this.props.controlPanelSettings.seedUser}</div>
               <RightPanel
                 curatedListFocusID={this.props.curatedListFocusID}
                 oListData={this.state.oListData}

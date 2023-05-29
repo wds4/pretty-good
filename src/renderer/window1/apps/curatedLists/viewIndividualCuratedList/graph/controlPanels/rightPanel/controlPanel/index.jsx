@@ -10,7 +10,7 @@ const ControlPanel = () => {
       <Tabs>
         <TabList>
           <Tab>Users</Tab>
-          <Tab>Instances</Tab>
+          <Tab>Items</Tab>
           <Tab>Display</Tab>
           <Tab>sybil mitigation</Tab>
         </TabList>
