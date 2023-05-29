@@ -24,8 +24,16 @@ const SeedUserSelector = ({oMyNostrProfileData,aProfileCompScoreData}) => {
         const oNode = nodes.get(pk);
         if (pk == pubkey) {
           oNode.seed = true;
+          oNode.fixed = true;
+          oNode.physics = false;
+          oNode.x = -200;
+          oNode.y = 0;
         } else {
           oNode.seed = false;
+          oNode.fixed = false;
+          oNode.physics = true;
+          delete oNode.x;
+          delete oNode.y;
         }
         nodes.update(oNode);
       }

@@ -37,12 +37,10 @@ const ListsAndControlPanel = ({aListsData}) => {
               style={{
                 width: '100%',
                 maxHeight: '400px',
-                border: '1px solid black',
                 fontSize: '12px',
                 textAlign: 'center',
               }}
             >
-              <div className="h4">Control Panel</div>
               <ControlPanel />
             </div>
           </TabPanel>

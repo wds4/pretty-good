@@ -72,6 +72,12 @@ const Header = ({ oListData }) => {
             {name_plural}
           </NavLink>
         </div>
+
+        <div style={{position: 'absolute', left: '10px', top: '10px', fontSize: '10px', textAlign: 'left'}}>
+          CURATION OF<br/>
+          THE LIST OF:
+        </div>
+
         <div style={{ display: 'none', position: 'absolute', right: '5px', top: '0px' }}>
           <NavLink
             onClick={() => {

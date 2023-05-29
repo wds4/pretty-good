@@ -27,25 +27,7 @@ const ItemList = ({ aInstanceCompScoreData }) => {
 
   return (
     <>
-      <div style={{ textAlign: 'left', margin: '10px' }}>
-        <div>
-          <div style={{textAlign: 'center', fontSize: '12px'}}>Curation of this list by:</div>
-          <div style={{}}>
-            <span style={{textAlign: 'center', color: 'blue', fontSize: '18px'}}>
-              <NavLink
-                onClick={() => {
-                  dispatch(updateNostrProfileFocus(seedUser));
-                }}
-                to="/NostrHome/NostrViewProfile"
-                className="goToUserProfileButton"
-              >
-                {seedUserName}
-              </NavLink>
-            </span>
-            's grapevine
-          </div>
-        </div>
-
+      <div style={{ textAlign: 'left', marginRight: '20px', marginLeft: '20px' }}>
         <div className="itemsInfoBox">
           <div style={{ color: 'grey', margin: '5px' }}>
             ACCEPTED items:
@@ -57,6 +39,15 @@ const ItemList = ({ aInstanceCompScoreData }) => {
             const average = oInstanceCompScoreData?.average;
             const input = oInstanceCompScoreData?.input;
             const influence = oInstanceCompScoreData?.influence;
+            // classify as ACCEPTED, REJECTED, or PENDING / indeterminate
+            // based on average score and input
+            // This is a tentative algorithm. May change in future.
+            // input_default = default input = default confidence
+            // If this item input < input_default + 0.1 (or 1.5 * input_default?), then pending
+            // otherwise: if average > 0.66 then ACCEPTED
+            // if average < 0.34 then REJECTED
+            // else pending
+
             if (input > 0.1 && average > 0.5) {
               return (
                 <>

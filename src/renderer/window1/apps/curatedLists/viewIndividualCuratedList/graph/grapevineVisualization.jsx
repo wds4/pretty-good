@@ -165,6 +165,7 @@ const makeVisGraph_Grapevine = async (
   const aEdgesIDs = [];
 
   const {
+    seedUser,
     attenuationFactor,
     rigor,
     defaultUserTrustAverageScore,
@@ -218,6 +219,13 @@ const makeVisGraph_Grapevine = async (
     myImageUrl = noProfilePicUrl
   }
 
+  // add my profile
+  let amISeedUser = false;
+  let physics = true;
+  if (seedUser == myPubKey) {
+    amISeedUser = true;
+    physics = false;
+  }
   const oNode = {
     id: myPubKey,
     group: "user",
@@ -229,16 +237,63 @@ const makeVisGraph_Grapevine = async (
     name: myName,
     display_name: myDisplayName,
     afferentEdgeIDs: [],
-    seed: true,
+    seed: amISeedUser,
     scores: JSON.parse(JSON.stringify(uScoresDefault)),
     size: 50,
-    physics: true,
-    fixed: true,
-    x: -200,
-    y: 0,
+    physics: physics,
+    fixed: amISeedUser,
+  }
+  if (seedUser == myPubKey) {
+    oNode.x = -200;
+    oNode.y = 0;
   }
   nodes_arr.push(oNode)
   aNodesIDs.push(myPubKey);
+
+  // console.log("oNostrProfilesData: "+JSON.stringify(oNostrProfilesData,null,4))
+
+  // add seed user if not me
+  if (seedUser != myPubKey) {
+    let seedUserImageUrl = noProfilePicUrl;
+    let seedUserDisplayName = "seedUserDisplayName";
+    let seedUserName = "seedUserName";
+    if (oNostrProfilesData.hasOwnProperty(seedUser)) {
+      const oEventProfile = JSON.parse(oNostrProfilesData[seedUser].event);
+      const oProfileContent = JSON.parse(oEventProfile.content);
+      if (oProfileContent.display_name) {
+        seedUserDisplayName = oProfileContent.display_name;
+      }
+      if (oProfileContent.name) {
+        seedUserName = oProfileContent.name;
+      }
+      if (oProfileContent.picture) {
+        seedUserImageUrl = oProfileContent.picture;
+      }
+    }
+    const oSeedUserNode = {
+      id: seedUser,
+      group: "user",
+      image: seedUserImageUrl,
+      brokenImage: noProfilePicUrl,
+      shape: 'circularImage',
+      title: seedUserDisplayName,
+      label: seedUserName,
+      name: seedUserName,
+      display_name: seedUserDisplayName,
+      afferentEdgeIDs: [],
+      seed: true,
+      scores: JSON.parse(JSON.stringify(uScoresDefault)),
+      size: 50,
+      physics: false,
+      fixed: true,
+      x: -200,
+      y: 0,
+    }
+    if (!aNodesIDs.includes(seedUser)) {
+      nodes_arr.push(oSeedUserNode)
+      aNodesIDs.push(seedUser);
+    }
+  }
 
   // ADD ITEMS
 
