@@ -35,7 +35,8 @@ import ReactDataTableComponentHelloWorld from './apps/prettyGood/settings/helloW
 
 // import NostrHome from './apps/nostr'
 import NostrHome from './apps/nostr';
-import NostrLandingPage from './apps/nostr/landingPage';
+// import NostrLandingPage from './apps/nostr/landingPage'; // if want start page to be nostr main feed
+import NostrLandingPage from './apps/curatedLists/listsWithScoresV8'; // if want start page to be cuarated list summary page
 import NostrMainFeed from './apps/nostr/mainFeed';
 import NostrViewMyProfile from './apps/nostr/viewMyProfile';
 import NostrEditMyProfile from './apps/nostr/editMyProfile';

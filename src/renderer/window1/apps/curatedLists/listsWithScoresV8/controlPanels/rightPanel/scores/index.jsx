@@ -31,7 +31,7 @@ const CalculationResults = ({
   return (
     <>
       <div style={{marginBottom: '10px'}}>
-        <div style={{textAlign: 'center', fontSize: '12px'}}>as determined by:</div>
+        <div style={{textAlign: 'center', fontSize: '12px'}}>* as determined by:</div>
         <div style={{}}>
           <span style={{textAlign: 'center', color: 'blue', fontSize: '18px'}}>
             <NavLink
@@ -66,6 +66,10 @@ const CalculationResults = ({
             <NostrProfileScores aProfileCompScoreData={aProfileCompScoreData} />
           </TabPanel>
         </Tabs>
+      </div>
+      <div style={{textAlign: 'left', marginLeft: '20px', marginRight: '20px'}}>
+        * As per DIP-00, there is no universal, preferred, 'correct' or
+        'reference' list. Each list is in the eye of the beholder.
       </div>
     </>
   );
