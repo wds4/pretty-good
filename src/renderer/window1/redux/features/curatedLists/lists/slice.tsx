@@ -108,6 +108,7 @@ export const oBlankCuratedListData = {
 };
 
 export const addRatingOfCuratedListInstance_X = (oEvent, oWord, state) => {
+  console.log("addRatingOfCuratedListInstance_X")
   if (oWord.hasOwnProperty('ratingData')) {
     if (oWord.ratingData.hasOwnProperty('ratingTemplateData')) {
       const { ratingTemplateSlug } = oWord.ratingData.ratingTemplateData;
@@ -209,6 +210,7 @@ export const addRatingOfCuratedListInstance_X = (oEvent, oWord, state) => {
 };
 
 export const addCuratorEndorsement_X = (event, oWord, state) => {
+  console.log("addCuratorEndorsement_X")
   if (oWord.hasOwnProperty('ratingData')) {
     if (oWord.ratingData.hasOwnProperty('ratingTemplateData')) {
       const { ratingTemplateSlug } = oWord.ratingData.ratingTemplateData;
@@ -407,6 +409,10 @@ export const curatedListsSlice = createSlice({
   name: 'curatedLists',
   initialState: {
     curatedLists: {},
+    aRatingsOfItemsEventIDs: [],
+    aRatingsOfCuratorsEventIDs: [],
+    aListEventIDs: [],
+    aListItemEventIDs: [],
   },
   reducers: {
     initCuratedListInstances: (state, action) => {
@@ -497,21 +503,50 @@ export const curatedListsSlice = createSlice({
     addCuratedList: (state, action) => {
       const oEvent = action.payload;
       const event_id = oEvent.id;
-      const { pubkey } = oEvent;
-      const oWord = JSON.parse(oEvent.content);
-      if (oWord) {
-        addCuratedList_X(oEvent, oWord, state, event_id, pubkey);
+      const oCuratedLists = state.curatedLists;
+      const aCuratedLists = Object.keys(oCuratedLists); // array of curated list event IDs
+      // console.log("aCuratedLists: "+JSON.stringify(aCuratedLists,null,4))
+      if (!aCuratedLists.includes(event_id)) { // only add curated list if not already added
+        const { pubkey } = oEvent;
+        const oWord = JSON.parse(oEvent.content);
+        if (oWord) {
+          addCuratedList_X(oEvent, oWord, state, event_id, pubkey);
+        }
       }
     },
     addCuratedListInstance: (state, action) => {
       const oEvent = action.payload;
-      const oWord = JSON.parse(oEvent.content);
-      if (oWord) {
-        addCuratedListInstance_X(oEvent, oWord, state);
+      const oCuratedLists = state.curatedLists;
+      const aCuratedLists = Object.keys(oCuratedLists); // array of curated list event IDs
+      let aCuratedListItems = [];
+      for (let x=0;x<aCuratedLists.length;x++) {
+        const listEventID = aCuratedLists[x]
+        const oCuratedListItems = state.curatedLists[listEventID].items;
+        aCuratedListItems = aCuratedListItems.concat(Object.keys(oCuratedListItems));
+      }
+      // console.log("aCuratedListItems: "+JSON.stringify(aCuratedListItems,null,4))
+      if (!aCuratedListItems.includes(oEvent.id)) { // only add list item if it does not already exist in store
+        const oWord = JSON.parse(oEvent.content);
+        if (oWord) {
+          addCuratedListInstance_X(oEvent, oWord, state);
+        }
       }
     },
     addRatingOfCuratedListInstance: (state, action) => {
       const oEvent = action.payload;
+
+
+
+      /*
+      // INCOMPLETE -- SEE ALSO BELOW
+      // maybe should do this entire check in addRatingOfCuratedListInstance_X ?
+      const oCuratedLists = state.curatedLists;
+      const aCuratedLists = Object.keys(oCuratedLists); // array of curated list event IDs
+      // END INCOMPLETE
+      */
+
+
+
       const oWord = JSON.parse(oEvent.content);
       if (oWord) {
         addRatingOfCuratedListInstance_X(oEvent, oWord, state);
@@ -519,6 +554,33 @@ export const curatedListsSlice = createSlice({
     },
     addCuratorEndorsement: (state, action) => {
       const event = action.payload;
+
+
+
+      /*
+      // INCOMPLETE -- SEE ALSO ABOVE
+      // maybe should do this entire check in addCuratorEndorsement_X ?
+      // Or maybe need to keey a running array in redux of eventID of each recorded rating (rating of curator, rating of item); will be easier to check
+
+      const oCuratedLists = state.curatedLists;
+      const aCuratedLists = Object.keys(oCuratedLists); // array of curated list event IDs
+      for (let x=0;x<aCuratedLists.length;x++) {
+        const listEventID = aCuratedLists[x];
+        const oCuratedListCurators = state.curatedLists[listEventID].curators;
+        const aCuratedListCurators = Object.keys(oCuratedListCurators);
+        for (let z=0;z<aCuratedListCurators.length;z++) {
+          const curatorPubkey = aCuratedListCurators[x];
+          const oCuratorRaters = state.curatedLists[listEventID].curators[curatorPubkey]
+          const aCuratorRaters = Object.keys(oCuratorRaters); // contains pubkeys or raters but also contains 'thumbsUp' and 'thumbsDown' !!!
+          // need to decide whether to add this one or not
+          // ...
+        }
+      }
+      // END INCOMPLETE
+      */
+
+
+
       const oWord = JSON.parse(event.content);
       if (oWord) {
         addCuratorEndorsement_X(event, oWord, state);

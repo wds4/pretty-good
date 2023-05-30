@@ -58,15 +58,15 @@ const DisplayTab = () => {
           </div>
         </div>
         <div style={{ marginTop: '20px' }}>
-          <div className="h4">Instances of Nostr Curated Lists</div>
-          <div>Each instance is represented as a diamond.</div>
+          <div className="h4">Items</div>
+          <div>Each item is represented as a diamond.</div>
           <div>
             The <i>opacity</i> of each diamond is proportional to the{' '}
             <i>certainty</i> in its rating. More ratings by trusted users means
             higher certainty.
           </div>
           <div>
-            Each instance's position on the y-axis will represent:{' '}
+            Each item's position on the y-axis will represent:{' '}
             <select id="curatedListInstanceYAxisSelector">
               <option value="influence">influence</option>
               <option value="average" selected>

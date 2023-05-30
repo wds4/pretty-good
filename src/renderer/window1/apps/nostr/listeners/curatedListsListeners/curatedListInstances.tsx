@@ -21,6 +21,9 @@ const CuratedListInstancesListener = () => {
     devElemClass = 'devElemShow';
   }
 
+  // const oCuratedLists = useSelector((state) => state.curatedLists.curatedLists);
+  // const aCuratedLists = Object.keys(oCuratedLists); // array of curated list event IDs
+
   // set up filter
   const kind0 = 9901;
   const filter = {
@@ -42,30 +45,31 @@ const CuratedListInstancesListener = () => {
       // dispatch(addEndorseAsRelaysPickerHunterNoteToReduxStore(event, myPubkey));
       // await updateListCurationNoteInSql(event, "endorseAsRelaysPickerHunter");
       // need to get parentConceptSlug,parentConceptNostrEventID
-      const oWord = JSON.parse(event.content);
-      const aParentConceptNostrEventID = event.tags.filter(
-        ([k, v]) => k === 'e' && v && v !== ''
-      )[0];
-      const aParentConceptSlug = event.tags.filter(
-        ([k, v]) => k === 's' && v && v !== ''
-      )[0];
-      let parentConceptNostrEventID = "";
-      if (aParentConceptNostrEventID) {
-        if (aParentConceptNostrEventID.length > 0) {
-          parentConceptNostrEventID = aParentConceptNostrEventID[1];
+      // if (!aCuratedLists.includes(event.id)) { // no need to store list if it has already been stored
+        const oWord = JSON.parse(event.content);
+        const aParentConceptNostrEventID = event.tags.filter(
+          ([k, v]) => k === 'e' && v && v !== ''
+        )[0];
+        const aParentConceptSlug = event.tags.filter(
+          ([k, v]) => k === 's' && v && v !== ''
+        )[0];
+        let parentConceptNostrEventID = "";
+        if (aParentConceptNostrEventID) {
+          if (aParentConceptNostrEventID.length > 0) {
+            parentConceptNostrEventID = aParentConceptNostrEventID[1];
+          }
         }
-      }
-      let parentConceptSlug = "";
-      if (aParentConceptSlug) {
-        if (aParentConceptSlug.length > 0) {
-          parentConceptSlug = aParentConceptSlug[1];
+        let parentConceptSlug = "";
+        if (aParentConceptSlug) {
+          if (aParentConceptSlug.length > 0) {
+            parentConceptSlug = aParentConceptSlug[1];
+          }
         }
-      }
-      if ( (parentConceptNostrEventID) && (parentConceptSlug) ) {
-        dispatch(addCuratedListInstance(event));
-        await addInstanceEventToSql(event,parentConceptSlug,parentConceptNostrEventID);
-      }
-
+        if ( (parentConceptNostrEventID) && (parentConceptSlug) ) {
+          dispatch(addCuratedListInstance(event));
+          await addInstanceEventToSql(event,parentConceptSlug,parentConceptNostrEventID);
+        }
+      // }
     }
   });
   return (

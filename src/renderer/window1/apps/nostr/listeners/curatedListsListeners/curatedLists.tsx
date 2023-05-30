@@ -21,6 +21,9 @@ const CuratedListsListener = () => {
     devElemClass = 'devElemShow';
   }
 
+  // const oCuratedLists = useSelector((state) => state.curatedLists.curatedLists);
+  // const aCuratedLists = Object.keys(oCuratedLists); // array of curated list event IDs
+
   // set up filter
   const kind0 = 9901;
   const filter = {
@@ -40,8 +43,10 @@ const CuratedListsListener = () => {
     if (doesEventValidate(event)) {
       // dispatch(addEndorseAsRelaysPickerHunterNoteToReduxStore(event, myPubkey));
       // await updateListCurationNoteInSql(event, "endorseAsRelaysPickerHunter");
-      dispatch(addCuratedList(event));
-      await addCuratedListEventToSql(event);
+      // if (!aCuratedLists.includes(event.id)) { // no need to store list if it has already been stored
+        dispatch(addCuratedList(event));
+        await addCuratedListEventToSql(event);
+      // }
     }
   });
   return (

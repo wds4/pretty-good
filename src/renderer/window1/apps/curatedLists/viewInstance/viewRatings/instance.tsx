@@ -69,7 +69,7 @@ const Instance = ({
           <div style={{display:"inline-block"}}>Ratings by my grapevine of</div>{' '}
           <div style={{display:"inline-block", color:"blue"}}>{instanceName}</div>
         </div>
-        <div style={{textAlign:"center"}}>an instance of the list of {' '}
+        <div style={{textAlign:"center"}}>an item on the list of {' '}
           <NavLink
             style={{}}
             onClick={() => {
