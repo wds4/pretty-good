@@ -105,9 +105,6 @@ const Graphic2 = ({
           height: '100%',
         }}
       >
-        <Header
-          oListData={oListData}
-        />
         <ListUI
           nodes={nodes}
           edges={edges}
@@ -124,3 +121,12 @@ const Graphic2 = ({
   );
 };
 export default Graphic2;
+
+/*
+<Header
+  oListData={oListData}
+  oMyNostrProfileData={oMyNostrProfileData}
+  nodes={nodes}
+  aAllUserNodes={aAllUserNodes}
+/>
+*/

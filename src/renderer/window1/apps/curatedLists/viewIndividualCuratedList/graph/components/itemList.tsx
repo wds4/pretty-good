@@ -46,7 +46,7 @@ const ItemList = ({ aInstanceCompScoreData }) => {
   return (
     <>
       <div style={{ textAlign: 'left', marginRight: '20px', marginLeft: '20px' }}>
-        <div className="itemsInfoBox">
+        <div className="itemsInfoBox" style={{border: '2px solid green'}}>
           <div style={{ color: 'grey', margin: '5px' }}>
             ACCEPTED items:
           </div>
@@ -123,7 +123,7 @@ const ItemList = ({ aInstanceCompScoreData }) => {
           })}
         </div>
 
-        <div className="itemsInfoBox">
+        <div className="itemsInfoBox" style={{border: '2px solid red'}}>
           <div style={{ color: 'grey', margin: '5px' }}>
             REJECTED items:
           </div>
@@ -179,7 +179,7 @@ const ItemList = ({ aInstanceCompScoreData }) => {
           })}
         </div>
 
-        <div className="itemsInfoBox">
+        <div className="itemsInfoBox" style={{border: '2px solid grey'}}>
           <div style={{ color: 'grey', margin: '5px' }}>
             PENDING items:
           </div>

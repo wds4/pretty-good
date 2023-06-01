@@ -48,6 +48,10 @@ export default class ListUI extends React.Component {
         <CalculationResults
           aInstanceCompScoreData={this.state.aInstanceCompScoreData}
           aProfileCompScoreData={this.state.aProfileCompScoreData}
+          oMyNostrProfileData={this.props.oMyNostrProfileData}
+          aAllUserNodes={this.props.aAllUserNodes}
+          nodes={this.props.nodes}
+          oListData={this.props.oListData}
         />
       </>
     );

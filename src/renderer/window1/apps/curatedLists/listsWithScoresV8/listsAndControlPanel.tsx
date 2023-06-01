@@ -42,10 +42,12 @@ const ListsAndControlPanel = ({ aListsData }) => {
     <>
       <div>
         <Tabs>
+          <div style={{display: 'none'}}>
           <TabList>
             <Tab>Curated Lists</Tab>
             <Tab>Control Panel</Tab>
           </TabList>
+          </div>
           <TabPanel>
             <CuratedLists aListsData={aListsData} />
           </TabPanel>

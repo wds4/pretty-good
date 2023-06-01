@@ -1,8 +1,25 @@
 import { NavLink } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { updateCuratedListFocus } from 'renderer/window1/redux/features/prettyGood/settings/slice';
+import { updateNostrProfileFocus } from 'renderer/window1/redux/features/nostr/settings/slice';
+import SeedUserSelector from '../topControlPanel/seedUserSelector';
 
-const Header = ({ oListData }) => {
+const Header = ({ oListData, oMyNostrProfileData, nodes, aAllUserNodes, aProfileCompScoreData }) => {
+  const { seedUser } = useSelector((state) => state.controlPanelSettings);
+  const nostrProfiles = useSelector(
+    (state) => state.nostrProfiles.nostrProfiles
+  );
+  let seedUserName = seedUser;
+  if (nostrProfiles.hasOwnProperty(seedUser)) {
+    const profileContent = JSON.parse(nostrProfiles[seedUser].content);
+    const name = `@${profileContent.name}`;
+    const displayName = profileContent.display_name;
+    seedUserName = name;
+  }
+  if (!seedUserName) {
+    seedUserName = seedUser;
+  }
+
   const dispatch = useDispatch();
   let name_singular = '';
   let name_plural = '';
@@ -73,12 +90,29 @@ const Header = ({ oListData }) => {
           </NavLink>
         </div>
 
-        <div style={{position: 'absolute', left: '10px', top: '10px', fontSize: '10px', textAlign: 'left'}}>
-          CURATION OF<br/>
-          THE LIST OF:
+        <div
+          style={{
+            position: 'absolute',
+            left: '0px',
+            top: '10px',
+            fontSize: '10px',
+            textAlign: 'right',
+            color: 'grey',
+            fontSize: '12px',
+          }}
+        >
+          CURATION of
+          <br />
+          the list of:
         </div>
+        <div
+          style={{
 
-        <div style={{ display: 'none', position: 'absolute', right: '5px', top: '0px' }}>
+            position: 'absolute',
+            right: '5px',
+            top: '0px',
+          }}
+        >
           <NavLink
             onClick={() => {
               dispatch(updateCuratedListFocus(event_id));
@@ -87,24 +121,65 @@ const Header = ({ oListData }) => {
             to="/CuratedListsHome/SingleListGraphOfInstances"
             style={{ textDecoration: 'none' }}
           >
-            <div
-              className="curatedListMainPageLink"
-              style={{  }}
-            >
-              VIEW WEB of TRUST
+            <div className="curatedListMainPageLink" style={{}}>
+              How is this determined?
             </div>
           </NavLink>
         </div>
+      </div>
+      <div>
+        <div style={{ marginBottom: '10px', position: 'relative' }}>
+          <div
+            style={{
+              textAlign: 'center',
+              fontSize: '12px',
+              position: 'absolute',
+              left: '0px',
+              top: '5px',
+              color: 'grey',
+            }}
+          >
+            as determined by::
+          </div>
 
+          <div style={{marginBottom: '5px'}}>
+            <span
+              style={{ textAlign: 'center', color: 'blue', fontSize: '18px' }}
+            >
+              <NavLink
+                onClick={() => {
+                  dispatch(updateNostrProfileFocus(seedUser));
+                }}
+                to="/NostrHome/NostrViewProfile"
+                className="goToUserProfileButton"
+              >
+                {seedUserName}
+              </NavLink>
+            </span>
+            's grapevine
+          </div>
+          <div>
+            <span style={{color: 'grey', fontSize: '12px'}}>* change seed user:</span>
+            <SeedUserSelector
+              oMyNostrProfileData={oMyNostrProfileData}
+              aProfileCompScoreData={aProfileCompScoreData}
+              nodes={nodes}
+              aAllUserNodes={aAllUserNodes}
+            />
+          </div>
+        </div>
+      </div>
+
+      <div style={{ textAlign: 'left' }}>
+        <div style={{ fontSize: '12px', color: 'grey' }}>list description:</div>
         <div
           style={{
             maxHeight: '100px',
             scroll: 'auto',
             fontSize: '14px',
-            padding: '5px',
-            margin: '5px',
             textAlign: 'left',
-            color: 'grey',
+            color: 'black',
+            marginBottom: '10px',
           }}
         >
           {description}

@@ -6,11 +6,18 @@ import NostrProfileScores from './nostrProfileScores';
 import CuratedListInstanceScores from './instanceScores';
 // import ItemList from './itemList';
 import ItemList from 'renderer/window1/apps/curatedLists/viewIndividualCuratedList/graph/components/itemList';
+import SeedUserSelector from '../../topControlPanel/seedUserSelector';
+import Header from '../header';
 
 const CalculationResults = ({
   aInstanceCompScoreData,
   aProfileCompScoreData,
+  oMyNostrProfileData,
+  nodes,
+  aAllUserNodes,
+  oListData,
 }) => {
+  /*
   const dispatch = useDispatch();
   const { seedUser } = useSelector(
     (state) => state.controlPanelSettings
@@ -28,32 +35,25 @@ const CalculationResults = ({
   if (!seedUserName) {
     seedUserName = seedUser;
   }
+  */
   return (
     <>
-      <div style={{marginBottom: '10px'}}>
-        <div style={{textAlign: 'center', fontSize: '12px'}}>* as determined by:</div>
-        <div style={{}}>
-          <span style={{textAlign: 'center', color: 'blue', fontSize: '18px'}}>
-            <NavLink
-              onClick={() => {
-                dispatch(updateNostrProfileFocus(seedUser));
-              }}
-              to="/NostrHome/NostrViewProfile"
-              className="goToUserProfileButton"
-            >
-              {seedUserName}
-            </NavLink>
-          </span>
-          's grapevine
-        </div>
-      </div>
+      <Header
+        oListData={oListData}
+        oMyNostrProfileData={oMyNostrProfileData}
+        nodes={nodes}
+        aAllUserNodes={aAllUserNodes}
+        aProfileCompScoreData={aProfileCompScoreData}
+      />
       <div style={{ textAlign: 'center' }}>
         <Tabs>
+          <div style={{display: 'none'}}>
           <TabList>
             <Tab>items</Tab>
             <Tab>item scores</Tab>
             <Tab>curator scores</Tab>
           </TabList>
+          </div>
           <TabPanel>
             <ItemList aInstanceCompScoreData={aInstanceCompScoreData} />
           </TabPanel>
@@ -67,9 +67,9 @@ const CalculationResults = ({
           </TabPanel>
         </Tabs>
       </div>
-      <div style={{textAlign: 'left', marginLeft: '20px', marginRight: '20px'}}>
-        * As per DIP-00, there is no universal, preferred, 'correct' or
-        'reference' list. Each list is in the eye of the beholder.
+      <div style={{textAlign: 'left', marginLeft: '20px', marginRight: '20px', color: 'grey', fontSize: '12px'}}>
+        * As per <a href="https://github.com/wds4/DCoSL/blob/main/dips/coreProtocol/00.md" target="_blank">DIP-00</a>, there is no universal, preferred, 'correct' or
+        'reference' list. Each list is curated from the perspective of the grapevine's seed user.
       </div>
     </>
   );
