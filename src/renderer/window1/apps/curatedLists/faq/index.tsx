@@ -1,14 +1,11 @@
 import React from 'react';
-import Masthead from 'renderer/window1/mastheads/pgMasthead';
+import Masthead from 'renderer/window1/mastheads/curatedListsMasthead';
 import LeftNavbar1 from 'renderer/window1/navbars/leftNavbar1/universalNavbar';
-import LeftNavbar2 from 'renderer/window1/navbars/leftNavbar2/prettyGood/home';
-import {
-  updateMainColWidth,
-  updateMastheadCenter,
-} from 'renderer/window1/lib/pg/ui';
-import { NavLink } from 'react-router-dom';
+import LeftNavbar2 from '../../../navbars/leftNavbar2/curatedLists/viewLists';
+import { updateMainColWidth, updateMastheadCenter } from '../../../lib/pg/ui';
+import Faq from './faq';
 
-export default class PrettyGoodHome extends React.Component {
+export default class CuratedListsFaq extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -16,7 +13,7 @@ export default class PrettyGoodHome extends React.Component {
 
   async componentDidMount() {
     updateMainColWidth();
-    const mastheadDescriptor = 'home';
+    const mastheadDescriptor = 'Curated Lists: FAQ';
     updateMastheadCenter(mastheadDescriptor);
   }
 
@@ -30,7 +27,7 @@ export default class PrettyGoodHome extends React.Component {
         <div id="mainCol">
           <Masthead />
           <div id="mainPanel">
-            <div className="h2">Welcome to the Pretty Good family of apps</div>
+            <Faq />
           </div>
         </div>
       </>

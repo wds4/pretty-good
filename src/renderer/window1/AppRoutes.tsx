@@ -19,6 +19,7 @@ import LandingPage from './landingPage';
 import PrettyGoodHome from './apps/prettyGood';
 import PrettyGoodAbout from './apps/prettyGood/about';
 import ThreadedTapestry from './apps/prettyGood/about/threadedTapestry';
+import PrettyGoodFaq from './apps/prettyGood/faq';
 import PrettyGoodProfile from './apps/prettyGood/profile';
 import PrettyGoodSettings from './apps/prettyGood/settings';
 import PrettyGoodIPFSLightweight from './apps/prettyGood/settings/networksAndDatabases/ipfsLightweight';
@@ -74,6 +75,7 @@ import ConceptGraphSettings from './apps/conceptGraph/settings';
 
 import CuratedListsHome from './apps/curatedLists';
 import AboutCuratedLists from './apps/curatedLists/about';
+import CuratedListsFaq from './apps/curatedLists/faq';
 import ViewListOfCuratedLists from './apps/curatedLists/viewListOfCuratedLists';
 import ViewAllLists from './apps/curatedLists/viewListOfCuratedLists/allLists';
 import ViewMyLists from './apps/curatedLists/viewListOfCuratedLists/myLists';
@@ -147,6 +149,10 @@ const AppRoutes = () => {
             <Route
               path="/PrettyGoodHome/PrettyGoodAbout"
               element={<PrettyGoodAbout />}
+            />
+            <Route
+              path="/PrettyGoodHome/PrettyGoodFaq"
+              element={<PrettyGoodFaq />}
             />
             <Route
               path="/PrettyGoodHome/ThreadedTapestry"
@@ -319,6 +325,10 @@ const AppRoutes = () => {
             <Route
               path="/CuratedListsHome/AboutCuratedLists"
               element={<AboutCuratedLists />}
+            />
+            <Route
+              path="/CuratedListsHome/CuratedListsFaq"
+              element={<CuratedListsFaq />}
             />
             <Route
               path="/CuratedListsHome/ViewListOfCuratedLists"

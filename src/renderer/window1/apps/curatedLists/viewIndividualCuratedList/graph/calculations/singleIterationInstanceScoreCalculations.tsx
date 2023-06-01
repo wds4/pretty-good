@@ -155,7 +155,8 @@ export const singleIterationInstanceScoreCalculations = (
           oEdge.strat2Coeff = strat2Coeff_directRating_regular.toPrecision(4);
           oEdge.attenuationFactor = attenuationFactor_directRating;
           oEdge.color.opacity = weightAdjusted;
-          // edges.update(oEdge);
+          // oEdge.color.opacity = 0.1;
+          edges.update(oEdge);
         }
       }
 

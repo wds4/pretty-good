@@ -8,9 +8,8 @@ Generic settings
   height: 52px;
   border: 1px solid black;
   border-radius:3px;
-  margin-left:15px;
-  bottom:2px;
-  position:relative;
+  margin-left:0px;
+
 }
 .mastheadBackButton:hover {
   color:white;
@@ -22,32 +21,32 @@ Generic settings
     height:60px;
 }
 .mastheadLeftContainer {
-    font-size:28px;
-    color:#1B2631;
-    position: absolute;
-    top: 50%;
-    left: 5px;
-    transform: translate(0%, -50%);
+  font-size:28px;
+  color:#1B2631;
+  position: absolute;
+  top: 57%;
+  left: 5px;
+  transform: translate(0%, -50%);
 }
 .mastheadCenterContainer {
-    font-size:18px;
-    text-align:center;
-    display:inline-block;
-    margin-top:0px;
-    margin-bottom:0px;
-    color:#1B2631;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  font-size:18px;
+  text-align:center;
+  display:inline-block;
+  margin-top:0px;
+  margin-bottom:0px;
+  color:#1B2631;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 .mastheadRightContainer {
-    font-size:32px;
-    position: absolute;
-    top: 50%;
-    right: 5px;
-    transform: translate(0%, -50%);
-    color:purple;
+  font-size:32px;
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  transform: translate(0%, -50%);
+  color:purple;
 }
 .mastheadEmojiNavButton {
     width:50px;
@@ -148,7 +147,7 @@ Generic settings
 .curatedListsListenerStatusContainer {
   position: absolute;
   top: 10px;
-  left: 250px;
+  left: 300px;
   color: grey;
   font-size: 12px;
 }

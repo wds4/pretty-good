@@ -33,9 +33,10 @@ export const oDefaultRelayUrls = {
 };
 
 export const oGrapevineDefaults = {
+  seedUser: "e5272de914bd301755c439b88e6959a43c9d2664831f093c51e9c799a16a102f", // wds4 default pubkey (hex)
   attenuationFactor: 80,
   rigor: 25,
-  defaultUserTrustAverageScore: 0,
+  defaultUserTrustAverageScore: 25,
   defaultUserTrustConfidence: 40,
   defaultInstanceBaselineAverageScore: 0,
   defaultInstanceBaselineConfidence: 20,

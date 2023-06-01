@@ -8,7 +8,7 @@ import {
 } from 'renderer/window1/lib/pg/ui';
 import { NavLink } from 'react-router-dom';
 
-export default class PrettyGoodHome extends React.Component {
+export default class PrettyGoodAbout extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -16,7 +16,7 @@ export default class PrettyGoodHome extends React.Component {
 
   async componentDidMount() {
     updateMainColWidth();
-    const mastheadDescriptor = 'home';
+    const mastheadDescriptor = 'About';
     updateMastheadCenter(mastheadDescriptor);
   }
 
@@ -30,7 +30,7 @@ export default class PrettyGoodHome extends React.Component {
         <div id="mainCol">
           <Masthead />
           <div id="mainPanel">
-            <div className="h2">Welcome to the Pretty Good family of apps</div>
+            <div className="h2">FAQ</div>
           </div>
         </div>
       </>

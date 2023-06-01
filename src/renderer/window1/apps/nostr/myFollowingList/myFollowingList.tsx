@@ -1,10 +1,12 @@
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import MiniProfile from 'renderer/window1/apps/nostr/components/miniProfile';
+import MiniProfile from './miniProfile';
 import { noProfilePicUrl } from 'renderer/window1/const';
 import BlankAvatar from 'renderer/window1/assets/blankAvatar.png';
 
 export default function FollowingList() {
+  const [searchString, setSearchString] = useState("");
   const myNostrProfile = useSelector((state) => state.myNostrProfile);
   const aFollowing = myNostrProfile.following;
   const { name } = myNostrProfile;
@@ -13,6 +15,9 @@ export default function FollowingList() {
     avatarUrl = myNostrProfile.picture_url;
   } else {
     avatarUrl = BlankAvatar;
+  }
+  const handleChange = (event) => {
+    setSearchString(event.target.value);
   }
   return (
     <>
@@ -32,10 +37,20 @@ export default function FollowingList() {
           following
         </div>
       </NavLink>
+      <div style={{textAlign: 'left',marginBottom: '5px'}}>
+        <div style={{color: 'grey'}}>Search by name, display_name, about, or pubkey (hex or bech32)</div>
+        <textarea
+          style={{width: '99%'}}
+          onChange={handleChange}
+        ></textarea>
+      </div>
       {aFollowing.map((pk) => {
         return (
           <>
-            <MiniProfile pubkey={pk} />
+            <MiniProfile
+              searchString={searchString}
+              pubkey={pk}
+            />
           </>
         );
       })}

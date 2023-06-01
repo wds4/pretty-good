@@ -23,7 +23,7 @@ const CalculationResults = ({
     const profileContent = JSON.parse(nostrProfiles[seedUser].content);
     const name = `@${profileContent.name}`;
     const displayName = profileContent.display_name;
-    seedUserName = displayName;
+    seedUserName = name;
   }
   if (!seedUserName) {
     seedUserName = seedUser;

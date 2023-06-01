@@ -161,6 +161,18 @@ const LeftNavbar2 = () => {
             about
           </NavLink>
         </div>
+
+        <hr />
+
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? 'leftNav2Button leftNav2ButtonActive' : 'leftNav2Button'
+          }
+          end
+          to="/CuratedListsHome/CuratedListsFaq"
+        >
+          FAQ
+        </NavLink>
       </div>
     </>
   );

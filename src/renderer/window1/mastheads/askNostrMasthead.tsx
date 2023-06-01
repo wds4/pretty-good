@@ -42,11 +42,12 @@ export default function Masthead() {
     <>
       <div className="mastheadContainer">
         <div className="mastheadLeftContainer">
+          <BackButton />
           <div
             style={{
               fontSize: '48px',
               display: 'inline-block',
-              marginRight: '10px',
+              marginLeft: '10px',
             }}
           >
             ❓
@@ -58,7 +59,7 @@ export default function Masthead() {
         </div>
 
         <div className="mastheadRightContainer">
-          <BackButton />
+
           <NavLink
             onClick={() => {
               dispatch(updateNostrProfileFocus(myNostrProfile.pubkey));

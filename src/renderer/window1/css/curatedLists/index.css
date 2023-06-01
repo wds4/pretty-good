@@ -57,3 +57,25 @@
   color: white;
   background-color: black;
 }
+
+.curatedListsFaqContainer {
+  margin: 20px;
+}
+.curatedListsFaqButtonAndQuestionContainer {
+  margin-bottom:5px;
+}
+.curatedListsFaqButton {
+  border:1px solid black;
+  padding:0px 5px 0px 5px;
+  display:inline-block;
+  font-size:18px;
+}
+.curatedListsFaqQuestionContainer {
+  margin-left: 10px;
+  display:inline-block;
+  font-size:18px;
+}
+.curatedListFaqAnswerContainer {
+  color:grey;
+  margin-left:30px;
+}

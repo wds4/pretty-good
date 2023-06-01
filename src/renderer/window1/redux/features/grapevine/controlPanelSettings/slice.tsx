@@ -7,7 +7,7 @@ import { oGrapevineDefaults } from 'renderer/window1/const';
 export const controlPanelSettingsSlice = createSlice({
   name: 'controlPanelSettings',
   initialState: {
-    seedUser: "e5272de914bd301755c439b88e6959a43c9d2664831f093c51e9c799a16a102f", // pubkey (hex)
+    seedUser: oGrapevineDefaults.seedUser,
     attenuationFactor: oGrapevineDefaults.attenuationFactor,
     rigor: oGrapevineDefaults.rigor,
     defaultUserTrustAverageScore: oGrapevineDefaults.defaultUserTrustAverageScore,

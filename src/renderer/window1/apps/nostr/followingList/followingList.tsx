@@ -1,13 +1,15 @@
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNostrEvents } from 'nostr-react';
 import { returnMostRecentEvent } from 'renderer/window1/lib/nostr';
 import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
-import MiniProfile from 'renderer/window1/apps/nostr/components/miniProfile';
+import MiniProfile from './miniProfile';
 import { noProfilePicUrl } from 'renderer/window1/const';
 import BlankAvatar from 'renderer/window1/assets/blankAvatar.png';
 
 export default function FollowingList() {
+  const [searchString, setSearchString] = useState("");
   const pubkey = useSelector(
     (state) => state.nostrSettings.nostrProfileFocus
   );
@@ -45,12 +47,15 @@ export default function FollowingList() {
     `FollowingList; events.length: ${events.length}; pubkey: ${pubkey}`
   );
   let aFollowing = [];
+  const handleChange = (event) => {
+    setSearchString(event.target.value);
+  }
   if (events.length > 0) {
     const event = returnMostRecentEvent(events);
     if (doesEventValidate(event)) {
       if (event.hasOwnProperty('tags')) {
         aFollowing = event.tags;
-        console.log(`FollowingList; aFollowing.length: ${aFollowing.length}`);
+        // console.log(`FollowingList; aFollowing.length: ${aFollowing.length}`);
         return (
           <>
             <NavLink
@@ -64,12 +69,22 @@ export default function FollowingList() {
                 <span style={{color:"grey",marginLeft:"10px",marginRight:"5px"}}>@{name}</span> following
               </div>
             </NavLink >
+            <div style={{textAlign: 'left',marginBottom: '5px'}}>
+              <div style={{color: 'grey'}}>Search by name, display_name, about, or pubkey (hex or bech32)</div>
+              <textarea
+                style={{width: '99%'}}
+                onChange={handleChange}
+              ></textarea>
+            </div>
             {aFollowing.map((oPk) => {
               if (oPk[0] == 'p') {
                 const pk = oPk[1];
                 return (
                   <>
-                    <MiniProfile pubkey={pk} />
+                    <MiniProfile
+                      searchString={searchString}
+                      pubkey={pk}
+                    />
                   </>
                 );
               }

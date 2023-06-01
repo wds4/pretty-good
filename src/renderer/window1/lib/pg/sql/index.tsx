@@ -138,7 +138,8 @@ export const addRatingOfCuratedListInstanceEventToSql = async (
   )}', '${event.id}', '${event.created_at}', '${
     event.pubkey
   }', '${parentConceptSlug}', '${parentConceptNostrEventID}', '${instanceSlug}', '${instanceNostrEventID}', '${ratingTemplateSlug}', '${uniqueID}' ) `;
-  console.log(`addRatingOfCuratedListInstanceEventToSql; sql: ${sql1}`);
+  // console.log(`addRatingOfCuratedListInstanceEventToSql; sql: ${sql1}`);
+  console.log(`addRatingOfCuratedListInstanceEventToSql`);
   const res1 = await asyncSql(sql1);
 
   return res1;
@@ -211,9 +212,11 @@ export const updateThisKind3EventProfileInSql = (event) => {
 };
 
 export const updateThisProfileInSql = (event) => {
+  /*
   console.log(
     `updateThisProfileInSql; event: ${JSON.stringify(event, null, 4)}`
   );
+  */
   const currentTime = dateToUnix(new Date());
 
   const sql1 = ` INSERT OR IGNORE INTO nostrProfiles (pubkey,event,firstSeen) VALUES('${

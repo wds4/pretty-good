@@ -46,7 +46,7 @@ export const nostrProfilesSlice = createSlice({
     },
     initNostrProfiles: (state, action) => {
       const aProfilesData = action.payload;
-      console.log("initNostrProfiles; aProfilesData: "+JSON.stringify(aProfilesData,null,4));
+      // console.log("initNostrProfiles; aProfilesData: "+JSON.stringify(aProfilesData,null,4));
       const oProfileData = {};
       for (let r = 0; r < aProfilesData.length; r += 1) {
         const oProfileData = aProfilesData[r];

@@ -1,26 +1,43 @@
-import ControlPanel from './controlPanels/rightPanel/controlPanel';
+import { useState } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import ControlPanel from './controlPanels/rightPanel/controlPanel';
 import ListSelectButton from './listSelectButton';
 
-const CuratedLists = ({aListsData}) => {
+const CuratedLists = ({ aListsData }) => {
+  const [searchString, setSearchString] = useState('');
+  const handleChange = (event) => {
+    setSearchString(event.target.value);
+  };
   return (
     <>
       <div>
+        <div style={{ textAlign: 'left', marginBottom: '5px' }}>
+          <div style={{ color: 'grey', fontSize: '10px' }}>
+            Search lists by name, description, or event ID
+          </div>
+          <textarea
+            style={{ width: '98%', height: '20px', marginBottom: '5px' }}
+            onChange={handleChange}
+          />
+        </div>
         {aListsData.map((oListData) => {
           return (
             <>
               <div>
-                <ListSelectButton oListData={oListData} />
+                <ListSelectButton
+                  searchString={searchString}
+                  oListData={oListData}
+                />
               </div>
             </>
           );
         })}
       </div>
     </>
-  )
-}
+  );
+};
 
-const ListsAndControlPanel = ({aListsData}) => {
+const ListsAndControlPanel = ({ aListsData }) => {
   return (
     <>
       <div>
@@ -47,7 +64,7 @@ const ListsAndControlPanel = ({aListsData}) => {
         </Tabs>
       </div>
     </>
-  )
-}
+  );
+};
 
 export default ListsAndControlPanel;

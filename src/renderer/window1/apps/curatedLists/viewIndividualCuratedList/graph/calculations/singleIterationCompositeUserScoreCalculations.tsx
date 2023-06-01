@@ -140,6 +140,7 @@ export const singleIterationCompositeUserScoreCalculations = (myPubKey,controlPa
           oEdge.strat2Coeff = strat2Coeff_directRating_regular.toPrecision(4);
           oEdge.attenuationFactor = attenuationFactor_directRating;
           oEdge.color.opacity = weightAdjusted;
+          // oEdge.color.opacity = 1;
           edges.update(oEdge);
         }
       }

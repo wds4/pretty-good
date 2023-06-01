@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import MiniProfile from './miniProfile';
 import RatingsRows from './ratingsRows';
 import ScoresSummary from './scoresSummary';
@@ -5,10 +6,15 @@ import TrustScoresSummations from './scoresSummations';
 import { nodes } from '../../grapevineVisualization';
 
 const NostrProfile = ({ pubkey, contextDAG, controlPanelSettings }) => {
+  const devMode = useSelector(
+    (state) => state.myNostrProfile.devModes.devMode
+  );
+  let devElemClass = "devElemHide";
+  if (devMode) { devElemClass = "devElemShow"; }
   const oNode = nodes.get(pubkey);
   return (
     <>
-      <center>Nostr User Trust Score Calculations: {contextDAG}</center>
+      <center>score calculations overview</center>
       <center>
         <div style={{ display: 'inline-block' }}>
           <MiniProfile oNode={oNode} pubkey={pubkey} />
@@ -27,7 +33,11 @@ const NostrProfile = ({ pubkey, contextDAG, controlPanelSettings }) => {
           <TrustScoresSummations oNode={oNode} pubkey={pubkey} />
         </div>
       </center>
-      <div style={{fontSize:'10px',textAlign:'left'}}>{JSON.stringify(oNode,null,4)}</div>
+      <div className={devElemClass} style={{fontSize:'10px',textAlign:'left'}}>
+        {contextDAG}
+        <br />
+        {JSON.stringify(oNode,null,4)}
+      </div>
     </>
   );
 };

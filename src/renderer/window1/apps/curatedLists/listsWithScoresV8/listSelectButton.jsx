@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateCuratedListFocus } from 'renderer/window1/redux/features/prettyGood/settings/slice';
 
-const Header = ({ oListData }) => {
+const ListSelectButton = ({ searchString, oListData }) => {
   const dispatch = useDispatch();
   const curatedListFocusID = useSelector(
     (state) => state.prettyGoodGlobalState.curatedListFocus
@@ -62,6 +62,22 @@ const Header = ({ oListData }) => {
       }
     }
   }
+  let display="block";
+  if (searchString) {
+    display = "none";
+    if (name_singular && name_singular.includes(searchString)) {
+      display = "block";
+    }
+    if (name_plural && name_plural.includes(searchString)) {
+      display = "block";
+    }
+    if (description && description.includes(searchString)) {
+      display = "block";
+    }
+    if (event_id && event_id.includes(searchString)) {
+      display = "block";
+    }
+  }
 
   return (
     <>
@@ -70,6 +86,7 @@ const Header = ({ oListData }) => {
           dispatch(updateCuratedListFocus(event_id));
         }}
         className={buttonClassName}
+        style={{display}}
       >
         {name_plural}
       </div>
@@ -77,4 +94,4 @@ const Header = ({ oListData }) => {
   );
 };
 
-export default Header;
+export default ListSelectButton;

@@ -503,6 +503,15 @@ export const curatedListsSlice = createSlice({
     addCuratedList: (state, action) => {
       const oEvent = action.payload;
       const event_id = oEvent.id;
+      if (!state.aListEventIDs.includes(event_id)) {
+        const { pubkey } = oEvent;
+        const oWord = JSON.parse(oEvent.content);
+        if (oWord) {
+          addCuratedList_X(oEvent, oWord, state, event_id, pubkey);
+          state.aListEventIDs.push(event_id);
+        }
+      }
+      /*
       const oCuratedLists = state.curatedLists;
       const aCuratedLists = Object.keys(oCuratedLists); // array of curated list event IDs
       // console.log("aCuratedLists: "+JSON.stringify(aCuratedLists,null,4))
@@ -513,9 +522,20 @@ export const curatedListsSlice = createSlice({
           addCuratedList_X(oEvent, oWord, state, event_id, pubkey);
         }
       }
+      */
     },
     addCuratedListInstance: (state, action) => {
       const oEvent = action.payload;
+      const event_id = oEvent.id;
+      if (!state.aListItemEventIDs.includes(event_id)) {
+        const oWord = JSON.parse(oEvent.content);
+        if (oWord) {
+          addCuratedListInstance_X(oEvent, oWord, state);
+          state.aListItemEventIDs.push(event_id);
+        }
+      }
+
+      /*
       const oCuratedLists = state.curatedLists;
       const aCuratedLists = Object.keys(oCuratedLists); // array of curated list event IDs
       let aCuratedListItems = [];
@@ -531,9 +551,18 @@ export const curatedListsSlice = createSlice({
           addCuratedListInstance_X(oEvent, oWord, state);
         }
       }
+      */
     },
     addRatingOfCuratedListInstance: (state, action) => {
       const oEvent = action.payload;
+      const event_id = oEvent.id;
+      if (!state.aRatingsOfItemsEventIDs.includes(event_id)) {
+        const oWord = JSON.parse(oEvent.content);
+        if (oWord) {
+          addRatingOfCuratedListInstance_X(oEvent, oWord, state);
+          state.aRatingsOfItemsEventIDs.push(event_id);
+        }
+      }
 
 
 
@@ -546,14 +575,23 @@ export const curatedListsSlice = createSlice({
       */
 
 
-
+      /*
       const oWord = JSON.parse(oEvent.content);
       if (oWord) {
         addRatingOfCuratedListInstance_X(oEvent, oWord, state);
       }
+      */
     },
     addCuratorEndorsement: (state, action) => {
       const event = action.payload;
+      const event_id = event.id;
+      if (!state.aRatingsOfCuratorsEventIDs.includes(event_id)) {
+        const oWord = JSON.parse(event.content);
+        if (oWord) {
+          addCuratorEndorsement_X(event, oWord, state);
+          state.aRatingsOfCuratorsEventIDs.push(event_id);
+        }
+      }
 
 
 
@@ -580,11 +618,12 @@ export const curatedListsSlice = createSlice({
       */
 
 
-
+      /*
       const oWord = JSON.parse(event.content);
       if (oWord) {
         addCuratorEndorsement_X(event, oWord, state);
       }
+      */
     },
   },
 });

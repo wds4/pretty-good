@@ -43,25 +43,6 @@ const GeneralSettings = () => {
   return (
     <>
       <div className="grapevineSettingsItemContainer">
-        <div className="grapevineSettingsTitle">toggle developer mode</div>
-        <div className="grapevineSettingsTopRight">devMode</div>
-        <div className="grapevineSettingsItemMainToggleCol">
-          <ToggleSwitch
-            label="devMode"
-            processStateChange={(newState) =>
-              processStateChange_devMode(newState)
-            }
-            initState={initState}
-          />
-        </div>
-        <div className="grapevineSettingsDescription">
-          used for debugging (in process of deprecating this generic mode in
-          favor of multiple more specific modes, below) (converting this to
-          activate showing nostr listener data)
-        </div>
-      </div>
-
-      <div className="grapevineSettingsItemContainer">
         <div className="grapevineSettingsTitle">toggle Curated Lists</div>
         <div className="grapevineSettingsTopRight">devMode1</div>
         <div className="grapevineSettingsItemMainToggleCol">
@@ -75,23 +56,6 @@ const GeneralSettings = () => {
         </div>
         <div className="grapevineSettingsDescription">
           access the Curated Lists app
-        </div>
-      </div>
-
-      <div className="grapevineSettingsItemContainer">
-        <div className="grapevineSettingsTitle">toggle alpha / beta mode</div>
-        <div className="grapevineSettingsTopRight">devMode2</div>
-        <div className="grapevineSettingsItemMainToggleCol">
-          <ToggleSwitch
-            label="devMode2"
-            processStateChange={(newState) =>
-              processStateChange_devMode2(newState)
-            }
-            initState={initState2}
-          />
-        </div>
-        <div className="grapevineSettingsDescription">
-          show misc other apps and features that are still in alpha
         </div>
       </div>
 
@@ -116,6 +80,43 @@ const GeneralSettings = () => {
           <li>
             how concept graph words are structured and packaged into nostr notes
           </li>
+        </div>
+      </div>
+
+      <div className="grapevineSettingsItemContainer">
+        <div className="grapevineSettingsTitle">toggle alpha / beta mode</div>
+        <div className="grapevineSettingsTopRight">devMode2</div>
+        <div className="grapevineSettingsItemMainToggleCol">
+          <ToggleSwitch
+            label="devMode2"
+            processStateChange={(newState) =>
+              processStateChange_devMode2(newState)
+            }
+            initState={initState2}
+          />
+        </div>
+        <div className="grapevineSettingsDescription">
+          show misc other apps and features that are still in alpha (as well as
+          some pages or features in the process of deprecation)
+        </div>
+      </div>
+
+      <div className="grapevineSettingsItemContainer">
+        <div className="grapevineSettingsTitle">toggle developer mode</div>
+        <div className="grapevineSettingsTopRight">devMode</div>
+        <div className="grapevineSettingsItemMainToggleCol">
+          <ToggleSwitch
+            label="devMode"
+            processStateChange={(newState) =>
+              processStateChange_devMode(newState)
+            }
+            initState={initState}
+          />
+        </div>
+        <div className="grapevineSettingsDescription">
+          used for debugging (in process of deprecating this generic mode in
+          favor of multiple more specific modes, below) (converting this to
+          activate showing nostr listener data)
         </div>
       </div>
     </>
