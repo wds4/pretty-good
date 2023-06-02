@@ -2,10 +2,10 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateNostrProfileFocus } from 'renderer/window1/redux/features/nostr/settings/slice';
+import ItemList from 'renderer/window1/apps/curatedLists/viewIndividualCuratedList/graph/components/itemList';
 import NostrProfileScores from './nostrProfileScores';
 import CuratedListInstanceScores from './instanceScores';
 // import ItemList from './itemList';
-import ItemList from 'renderer/window1/apps/curatedLists/viewIndividualCuratedList/graph/components/itemList';
 
 const CalculationResults = ({
   curatedListFocusID,
@@ -15,9 +15,7 @@ const CalculationResults = ({
   aProfileCompScoreData,
 }) => {
   const dispatch = useDispatch();
-  const { seedUser } = useSelector(
-    (state) => state.controlPanelSettings
-  );
+  const { seedUser } = useSelector((state) => state.controlPanelSettings);
   const nostrProfiles = useSelector(
     (state) => state.nostrProfiles.nostrProfiles
   );
@@ -33,23 +31,6 @@ const CalculationResults = ({
   }
   return (
     <>
-      <div style={{marginBottom: '10px'}}>
-        <div style={{textAlign: 'center', fontSize: '12px'}}>* as determined by:</div>
-        <div style={{}}>
-          <span style={{textAlign: 'center', color: 'blue', fontSize: '18px'}}>
-            <NavLink
-              onClick={() => {
-                dispatch(updateNostrProfileFocus(seedUser));
-              }}
-              to="/NostrHome/NostrViewProfile"
-              className="goToUserProfileButton"
-            >
-              {seedUserName}
-            </NavLink>
-          </span>
-          's grapevine
-        </div>
-      </div>
       <div style={{ textAlign: 'center' }}>
         <Tabs>
           <TabList>
@@ -69,13 +50,23 @@ const CalculationResults = ({
             />
           </TabPanel>
           <TabPanel>
-            <NostrProfileScores
-              aProfileCompScoreData={aProfileCompScoreData}
-            />
+            <NostrProfileScores aProfileCompScoreData={aProfileCompScoreData} />
           </TabPanel>
         </Tabs>
       </div>
-      <div style={{textAlign: 'left', marginLeft: '20px', marginRight: '20px'}}>
+
+      <div style={{ marginBottom: '10px', textAlign: 'left' }}>
+        <center>scoring overview</center>
+        List items are placed in one of three bins (accepted, rejected, or
+        pending) based on their average scores and the amount of input they have
+        received. Endorsements of list items (thumbs up or down) are used to
+        calculate average scores. Endorsements of users as curators are used
+        to determine how much influence any given user has.
+      </div>
+
+      <div
+        style={{ display: 'none', textAlign: 'left', marginLeft: '20px', marginRight: '20px' }}
+      >
         * As per DIP-00, there is no universal, preferred, 'correct' or
         'reference' list. Each list is in the eye of the beholder.
       </div>

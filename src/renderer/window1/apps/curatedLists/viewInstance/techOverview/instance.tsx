@@ -81,7 +81,7 @@ const Instance = ({
           </div>
         </div>
         <div>
-          <div style={{ display: 'inline-block' }}>instance: </div>{' '}
+          <div style={{ display: 'inline-block' }}>list item: </div>{' '}
           <div style={{ display: 'inline-block', color: 'blue' }}>
             <NavLink
               style={{}}

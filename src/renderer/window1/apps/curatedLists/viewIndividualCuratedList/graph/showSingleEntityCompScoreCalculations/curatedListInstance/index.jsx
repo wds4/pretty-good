@@ -3,6 +3,7 @@ import MiniInstanceSummary from './miniInstanceSummary';
 import ScoresSummary from './scoresSummary';
 import RatingsRows from './ratingsRows';
 import { nodes } from '../../grapevineVisualization';
+import ScoresSummations from './scoresSummations';
 
 const CuratedListInstance = ({
   instanceID,
@@ -19,10 +20,10 @@ const CuratedListInstance = ({
     <>
       <center>score calculations overview</center>
       <center>
-        <div style={{ display: 'inline-block' }}>
+        <div style={{ display: 'block' }}>
           <MiniInstanceSummary oNode={oNode} instanceID={instanceID} />
         </div>
-        <div style={{ display: 'inline-block' }}>
+        <div style={{ display: 'block' }}>
           <ScoresSummary oNode={oNode} contextDAG={contextDAG} instanceID={instanceID} />
         </div>
         <div>
@@ -31,6 +32,9 @@ const CuratedListInstance = ({
             instanceID={instanceID}
             controlPanelSettings={controlPanelSettings}
           />
+        </div>
+        <div>
+          <ScoresSummations oNode={oNode} />
         </div>
       </center>
       <div className={devElemClass} style={{fontSize:'10px',textAlign:'left'}}>

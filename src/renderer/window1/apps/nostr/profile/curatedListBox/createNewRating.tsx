@@ -329,14 +329,14 @@ const CreateNewRating = ({ aListData, userData }) => {
       <div className={devElemClass}>
         <div>
           <span style={{ fontSize: '10px' }}>
-            View technical details for nostr nerds
+
           </span>
           <button
             type="button"
             onClick={() => toggleViewDetails()}
-            className="doSomethingButton"
+            className="doSomethingButton techDetailsToggleButton"
           >
-            toggle 🤓
+            🤓
           </button>
         </div>
         <div

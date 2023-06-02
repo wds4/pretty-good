@@ -78,7 +78,7 @@ const CuratedListInstanceScores = () => {
   return (
     <>
       <div style={{}}>
-        <center>Curated List Instance Scores</center>
+        <center>Curated List Item Scores</center>
         <DataTable
           title="Movie List"
           columns={columns}

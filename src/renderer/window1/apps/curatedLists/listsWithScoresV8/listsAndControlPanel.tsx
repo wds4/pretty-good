@@ -11,6 +11,15 @@ const CuratedLists = ({ aListsData }) => {
   return (
     <>
       <div>
+        <div
+          style={{
+            textAlign: 'center',
+            marginTop: '20px',
+            marginBottom: '10px',
+          }}
+        >
+          Curated Lists
+        </div>
         <div style={{ textAlign: 'left', marginBottom: '5px' }}>
           <div style={{ color: 'grey', fontSize: '10px' }}>
             Search lists by name, description, or event ID
@@ -42,11 +51,11 @@ const ListsAndControlPanel = ({ aListsData }) => {
     <>
       <div>
         <Tabs>
-          <div style={{display: 'none'}}>
-          <TabList>
-            <Tab>Curated Lists</Tab>
-            <Tab>Control Panel</Tab>
-          </TabList>
+          <div style={{ display: 'none' }}>
+            <TabList>
+              <Tab>Curated Lists</Tab>
+              <Tab>Control Panel</Tab>
+            </TabList>
           </div>
           <TabPanel>
             <CuratedLists aListsData={aListsData} />

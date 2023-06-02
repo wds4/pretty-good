@@ -7,6 +7,11 @@ import GrapevineTweaksTab from './grapevineTweaksTab';
 const ControlPanel = () => {
   return (
     <>
+      <div style={{ marginBottom: '5px', textAlign: 'left' }}>
+        There are several adjustable parameters that influnce the calculation of
+        scores, including the attenuation factor (above), the seed user (above),
+        and others in the tabs below.
+      </div>
       <Tabs>
         <TabList>
           <Tab>Users</Tab>

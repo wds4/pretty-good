@@ -39,7 +39,7 @@ const ScoresSummary = ({ contextDAG, instanceID }) => {
         </div>
         <div style={{display:'inline-block',width:'25%'}}>
           <div style={{ color: 'grey' }}>Certainty</div>
-          <div>{cer}</div>
+          <div>{(cer * 100).toPrecision(4)}%</div>
         </div>
       </div>
     </>

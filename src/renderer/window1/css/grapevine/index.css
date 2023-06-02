@@ -51,7 +51,7 @@
 .calculationRowsHeaderContainer {
   background-color:#4f4f4f;
   color:white;
-
+  padding:2px;
   font-size:10px;
 }
 .calculationRowContainer {

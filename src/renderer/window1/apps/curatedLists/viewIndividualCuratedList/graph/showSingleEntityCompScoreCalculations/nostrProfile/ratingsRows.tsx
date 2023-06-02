@@ -18,7 +18,6 @@ const RatingsRows = ({ oNode, pubkey, controlPanelSettings }) => {
       <div
         style={{
           display: 'inline-block',
-          border: '1px dashed grey',
           width: '100%',
           marginBottom: '5px',
           padding: '5px',
@@ -28,7 +27,7 @@ const RatingsRows = ({ oNode, pubkey, controlPanelSettings }) => {
       >
         <div className="calculationRowsHeaderContainer">
           <div className="grapevinePageColA">
-            rater <span style={{ color: 'blue' }}>(ratee)</span>
+            rater <span style={{ color: 'yellow' }}>(ratee)</span>
           </div>
           <div className="grapevinePageColB">product</div>
           <div className="grapevinePageSpacer1Col">=</div>
@@ -41,7 +40,7 @@ const RatingsRows = ({ oNode, pubkey, controlPanelSettings }) => {
           <div className="grapevinePageColB">WEIGHT</div>
           <div className="grapevinePageSpacer1Col">=</div>
           <div className="grapevinePageColB">
-            rater <span style={{ color: 'blue' }}>(ratee)</span> influence
+            rater <span style={{ color: 'yellow' }}>(ratee)</span> influence
           </div>
           <div className="grapevinePageSpacer1Col">*</div>
           <div className="grapevinePageColB">rating confidence</div>

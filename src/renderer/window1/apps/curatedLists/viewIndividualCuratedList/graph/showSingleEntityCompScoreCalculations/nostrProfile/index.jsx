@@ -16,10 +16,10 @@ const NostrProfile = ({ pubkey, contextDAG, controlPanelSettings }) => {
     <>
       <center>score calculations overview</center>
       <center>
-        <div style={{ display: 'inline-block' }}>
+        <div style={{ display: 'block' }}>
           <MiniProfile oNode={oNode} pubkey={pubkey} />
         </div>
-        <div style={{ display: 'inline-block' }}>
+        <div style={{ display: 'block' }}>
           <ScoresSummary oNode={oNode} contextDAG={contextDAG} pubkey={pubkey} />
         </div>
         <div>

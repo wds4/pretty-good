@@ -4,7 +4,13 @@ import { updateCuratedListFocus } from 'renderer/window1/redux/features/prettyGo
 import { updateNostrProfileFocus } from 'renderer/window1/redux/features/nostr/settings/slice';
 import SeedUserSelector from '../topControlPanel/seedUserSelector';
 
-const Header = ({ oListData, oMyNostrProfileData, nodes, aAllUserNodes, aProfileCompScoreData }) => {
+const Header = ({
+  oListData,
+  oMyNostrProfileData,
+  nodes,
+  aAllUserNodes,
+  aProfileCompScoreData,
+}) => {
   const { seedUser } = useSelector((state) => state.controlPanelSettings);
   const nostrProfiles = useSelector(
     (state) => state.nostrProfiles.nostrProfiles
@@ -74,6 +80,37 @@ const Header = ({ oListData, oMyNostrProfileData, nodes, aAllUserNodes, aProfile
   return (
     <>
       <div
+        style={{
+          color: 'grey',
+          textAlign: 'left',
+          fontSize: '14px',
+          marginLeft: '20px',
+          marginBottom: '10px',
+          marginRight: '20px',
+        }}
+      >
+        Endorsements of list items are used to curate lists for you.
+        Endorsements of users are used to determine who can influence your list
+        and by how much. Your crowdsourced results may or may not match someone
+        else's results. Select a different seed user (selector on the right) to
+        find out!
+        <br />
+        <div style={{marginTop: '5px'}}>Visualize the crowdsourcing process{' '}
+          <span style={{ color: 'blue' }}>
+            <NavLink
+              onClick={() => {
+                dispatch(updateCuratedListFocus(event_id));
+              }}
+              end
+              to="/CuratedListsHome/SingleListGraphOfInstances"
+              style={{ textDecoration: 'none' }}
+            >
+              here
+            </NavLink>
+          </span>.
+        </div>
+      </div>
+      <div
         className="h4"
         style={{ marginBottom: '10px', position: 'relative' }}
       >
@@ -93,7 +130,7 @@ const Header = ({ oListData, oMyNostrProfileData, nodes, aAllUserNodes, aProfile
         <div
           style={{
             position: 'absolute',
-            left: '0px',
+            left: '20px',
             top: '10px',
             fontSize: '10px',
             textAlign: 'right',
@@ -107,7 +144,6 @@ const Header = ({ oListData, oMyNostrProfileData, nodes, aAllUserNodes, aProfile
         </div>
         <div
           style={{
-
             position: 'absolute',
             right: '5px',
             top: '0px',
@@ -121,8 +157,8 @@ const Header = ({ oListData, oMyNostrProfileData, nodes, aAllUserNodes, aProfile
             to="/CuratedListsHome/SingleListGraphOfInstances"
             style={{ textDecoration: 'none' }}
           >
-            <div className="curatedListMainPageLink" style={{}}>
-              How is this determined?
+            <div className="curatedListMainPageLink" style={{display: 'none'}}>
+             Want to visualize how this is determined?
             </div>
           </NavLink>
         </div>
@@ -134,7 +170,7 @@ const Header = ({ oListData, oMyNostrProfileData, nodes, aAllUserNodes, aProfile
               textAlign: 'center',
               fontSize: '12px',
               position: 'absolute',
-              left: '0px',
+              left: '20px',
               top: '5px',
               color: 'grey',
             }}
@@ -142,7 +178,7 @@ const Header = ({ oListData, oMyNostrProfileData, nodes, aAllUserNodes, aProfile
             as determined by::
           </div>
 
-          <div style={{marginBottom: '5px'}}>
+          <div style={{ marginBottom: '5px' }}>
             <span
               style={{ textAlign: 'center', color: 'blue', fontSize: '18px' }}
             >
@@ -158,8 +194,8 @@ const Header = ({ oListData, oMyNostrProfileData, nodes, aAllUserNodes, aProfile
             </span>
             's grapevine
           </div>
-          <div>
-            <span style={{color: 'grey', fontSize: '12px'}}>* change seed user:</span>
+          <div style={{ textAlign: 'right' }}>
+            <span style={{ color: 'grey', fontSize: '12px' }}>seed user:</span>
             <SeedUserSelector
               oMyNostrProfileData={oMyNostrProfileData}
               aProfileCompScoreData={aProfileCompScoreData}
@@ -170,7 +206,7 @@ const Header = ({ oListData, oMyNostrProfileData, nodes, aAllUserNodes, aProfile
         </div>
       </div>
 
-      <div style={{ textAlign: 'left' }}>
+      <div style={{ textAlign: 'left', marginLeft: '20px' }}>
         <div style={{ fontSize: '12px', color: 'grey' }}>list description:</div>
         <div
           style={{

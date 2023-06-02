@@ -1,4 +1,24 @@
+import { NavLink } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateNostrProfileFocus } from 'renderer/window1/redux/features/nostr/settings/slice';
+
 const Header = ({ curatedListFocusID, oListData }) => {
+  const dispatch = useDispatch();
+  const { seedUser } = useSelector((state) => state.controlPanelSettings);
+  const nostrProfiles = useSelector(
+    (state) => state.nostrProfiles.nostrProfiles
+  );
+  let seedUserName = seedUser;
+  if (nostrProfiles.hasOwnProperty(seedUser)) {
+    const profileContent = JSON.parse(nostrProfiles[seedUser].content);
+    const name = `@${profileContent.name}`;
+    const displayName = profileContent.display_name;
+    seedUserName = name;
+  }
+  if (!seedUserName) {
+    seedUserName = seedUser;
+  }
+
   let name_singular = '';
   let name_plural = '';
   let title_singular = '';
@@ -51,9 +71,35 @@ const Header = ({ curatedListFocusID, oListData }) => {
 
   return (
     <>
-      <div className="h4" style={{marginBottom: '10px'}}>
+      <div className="h4" style={{ marginBottom: '10px' }}>
         Curation of the list of{' '}
-        <span style={{ color: 'purple', fontSize: '24px' }}>{name_plural}</span> by the Grapevine
+        <span style={{ color: 'purple', fontSize: '24px' }}>{name_plural}</span>{' '}
+        by
+        <span
+          style={{
+            marginLeft: '5px',
+            textAlign: 'center',
+            color: 'blue',
+            fontSize: '18px',
+          }}
+        >
+          <NavLink
+            onClick={() => {
+              dispatch(updateNostrProfileFocus(seedUser));
+            }}
+            to="/NostrHome/NostrViewProfile"
+            className="goToUserProfileButton"
+          >
+            {seedUserName}
+          </NavLink>
+        </span>
+        's Grapevine
+      </div>
+      <div style={{ display: 'none', textAlign: 'left', fontSize: '12px', marginLeft: '20px', marginBottom: '10px', marginRight: '20px' }}>
+        Endorsements of list items are used to curate lists for you.
+        Endorsements of users are used to determine who can influence your list.
+        Your crowdsourced results may or may not match someone else's results.
+        Select a different seed user (selector on the right) to find out!
       </div>
     </>
   );

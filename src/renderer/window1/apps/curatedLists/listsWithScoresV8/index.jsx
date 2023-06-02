@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Masthead from 'renderer/window1/mastheads/curatedListsMasthead';
 import LeftNavbar1 from 'renderer/window1/navbars/leftNavbar1/universalNavbar';
 import LeftNavbar2 from 'renderer/window1/navbars/leftNavbar2/curatedLists/viewLists';
@@ -6,6 +6,7 @@ import {
   updateMainColWidth,
   updateMastheadCenter,
 } from 'renderer/window1/lib/pg/ui';
+import styled, { keyframes } from 'styled-components';
 import ListsRedux from './listsRedux';
 
 export default class CuratorsOfIndividualList extends React.Component {
@@ -17,7 +18,17 @@ export default class CuratorsOfIndividualList extends React.Component {
   async componentDidMount() {
     updateMainColWidth();
     const mastheadDescriptor = 'curated lists';
-    updateMastheadCenter(mastheadDescriptor);
+    let mastheadHTML = '';
+    mastheadHTML += '<div>';
+    mastheadHTML += 'DCoSL:';
+    mastheadHTML += '</div>';
+
+    mastheadHTML += '<div>';
+    mastheadHTML += '<span style=color:blue}>Decentralized Curation</span> ';
+    mastheadHTML += 'of <span>Simple Lists</span>';
+
+    mastheadHTML += '</div>';
+    updateMastheadCenter(mastheadHTML);
   }
 
   render() {
@@ -30,9 +41,11 @@ export default class CuratorsOfIndividualList extends React.Component {
         <div id="mainCol">
           <Masthead />
           <div id="mainPanel">
+            <ListsRedux />
             <center>
               <div
                 style={{
+                  display: 'none',
                   marginBottom: '10px',
                   textAlign: 'center',
                   width: '65%',
@@ -43,7 +56,7 @@ export default class CuratorsOfIndividualList extends React.Component {
                   borderRadius: '5px',
                 }}
               >
-                <div style={{fontSize: '20px'}}>
+                <div style={{ fontSize: '20px' }}>
                   DCoSL:{' '}
                   <span style={{ color: 'blue' }}>Decentralized Curation</span>{' '}
                   of <span style={{ color: 'blue' }}>Simple Lists</span>
@@ -55,7 +68,7 @@ export default class CuratorsOfIndividualList extends React.Component {
                 </div>
               </div>
             </center>
-            <ListsRedux />
+
           </div>
         </div>
       </>

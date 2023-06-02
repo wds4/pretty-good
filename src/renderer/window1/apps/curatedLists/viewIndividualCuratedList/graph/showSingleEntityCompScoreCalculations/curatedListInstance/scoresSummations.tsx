@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { nodes } from '../../grapevineVisualization';
 
-const TrustScoresSummations = ({ oNode, pubkey }) => {
+const ScoresSummations = ({ oNode }) => {
   let sumOfProducts = '';
   let sumOfWeights = '';
   let sumOfWeightsWithoutStrat = '';
@@ -96,4 +96,4 @@ const TrustScoresSummations = ({ oNode, pubkey }) => {
     </>
   );
 };
-export default TrustScoresSummations;
+export default ScoresSummations;
