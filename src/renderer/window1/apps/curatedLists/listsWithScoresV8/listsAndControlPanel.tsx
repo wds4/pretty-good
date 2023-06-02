@@ -1,9 +1,13 @@
 import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import { updateCuratedListFocus } from 'renderer/window1/redux/features/prettyGood/settings/slice';
 import ControlPanel from './controlPanels/rightPanel/controlPanel';
 import ListSelectButton from './listSelectButton';
 
 const CuratedLists = ({ aListsData }) => {
+  const dispatch = useDispatch();
   const [searchString, setSearchString] = useState('');
   const handleChange = (event) => {
     setSearchString(event.target.value);
@@ -14,12 +18,37 @@ const CuratedLists = ({ aListsData }) => {
         <div
           style={{
             textAlign: 'center',
-            marginTop: '20px',
+            marginTop: '10px',
             marginBottom: '10px',
           }}
         >
           Curated Lists
         </div>
+
+        <div
+          style={{
+            textAlign: 'center',
+            marginBottom: '20px',
+            color: 'grey',
+            fontSize: '12px',
+          }}
+        >
+          Anyone can{' '}
+          <span style={{ color: 'blue' }}>
+            <NavLink
+              onClick={() => {
+                // dispatch(updateCuratedListFocus());
+              }}
+              end
+              to="/CuratedListsHome/CreateNewCuratedList"
+              style={{ textDecoration: 'none' }}
+            >
+              submit
+            </NavLink>
+          </span>{' '}
+           a new list to the nostr network.
+        </div>
+
         <div style={{ textAlign: 'left', marginBottom: '5px' }}>
           <div style={{ color: 'grey', fontSize: '10px' }}>
             Search lists by name, description, or event ID

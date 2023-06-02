@@ -342,7 +342,7 @@ const CreateNewCuratedList = () => {
             style={{ display: 'none' }}
           >
             <div>
-              <div>Submit button occurs in 2 steps:</div>
+              <div>The submit button triggers these 2 steps, in order:</div>
               <button type="button" onClick={() => createEvent()} className="doSomethingButton">
                 step 1: package word as a nostr event
               </button>

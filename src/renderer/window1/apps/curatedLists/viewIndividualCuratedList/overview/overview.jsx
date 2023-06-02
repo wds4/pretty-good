@@ -54,12 +54,12 @@ const Overview = ({curatedListFocusID, oListData}) => {
       <br />
 
       <div className="overPageItemContainer">
-        <div className="overviewPageLeftCol">list name:</div>
+        <div className="overviewPageLeftCol">This is a list of:</div>
         <div className="overviewPageRightCol">{name_plural}</div>
       </div>
 
       <div className="overPageItemContainer">
-        <div className="overviewPageLeftCol">single instance:</div>
+        <div className="overviewPageLeftCol">A single item is called:</div>
         <div className="overviewPageRightCol">{name_singular}</div>
       </div>
 

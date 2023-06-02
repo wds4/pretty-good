@@ -19,9 +19,9 @@ export default class CuratorsOfIndividualList extends React.Component {
     updateMainColWidth();
     const mastheadDescriptor = 'curated lists';
     let mastheadHTML = '';
-    mastheadHTML += '<div>';
+    mastheadHTML += "<a href='https://github.com/wds4/DCoSL' target='_blank' style='text-decoration:none' >";
     mastheadHTML += 'DCoSL:';
-    mastheadHTML += '</div>';
+    mastheadHTML += '</a>';
 
     mastheadHTML += '<div>';
     mastheadHTML += '<span style=color:blue}>Decentralized Curation</span> ';

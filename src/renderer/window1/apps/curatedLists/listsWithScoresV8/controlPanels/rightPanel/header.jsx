@@ -80,37 +80,6 @@ const Header = ({
   return (
     <>
       <div
-        style={{
-          color: 'grey',
-          textAlign: 'left',
-          fontSize: '14px',
-          marginLeft: '20px',
-          marginBottom: '10px',
-          marginRight: '20px',
-        }}
-      >
-        Endorsements of list items are used to curate lists for you.
-        Endorsements of users are used to determine who can influence your list
-        and by how much. Your crowdsourced results may or may not match someone
-        else's results. Select a different seed user (selector on the right) to
-        find out!
-        <br />
-        <div style={{marginTop: '5px'}}>Visualize the crowdsourcing process{' '}
-          <span style={{ color: 'blue' }}>
-            <NavLink
-              onClick={() => {
-                dispatch(updateCuratedListFocus(event_id));
-              }}
-              end
-              to="/CuratedListsHome/SingleListGraphOfInstances"
-              style={{ textDecoration: 'none' }}
-            >
-              here
-            </NavLink>
-          </span>.
-        </div>
-      </div>
-      <div
         className="h4"
         style={{ marginBottom: '10px', position: 'relative' }}
       >
@@ -120,7 +89,7 @@ const Header = ({
               dispatch(updateCuratedListFocus(event_id));
             }}
             end
-            to="/CuratedListsHome/SingleListGraphOfInstances"
+            to="/CuratedListsHome/ViewIndividualCuratedList"
             style={{ textDecoration: 'none' }}
           >
             {name_plural}
@@ -157,14 +126,17 @@ const Header = ({
             to="/CuratedListsHome/SingleListGraphOfInstances"
             style={{ textDecoration: 'none' }}
           >
-            <div className="curatedListMainPageLink" style={{display: 'none'}}>
-             Want to visualize how this is determined?
+            <div
+              className="curatedListMainPageLink"
+              style={{ display: 'none' }}
+            >
+              Want to visualize how this is determined?
             </div>
           </NavLink>
         </div>
       </div>
       <div>
-        <div style={{ marginBottom: '10px', position: 'relative' }}>
+        <div style={{ marginBottom: '0px', position: 'relative' }}>
           <div
             style={{
               textAlign: 'center',
@@ -194,7 +166,7 @@ const Header = ({
             </span>
             's grapevine
           </div>
-          <div style={{ textAlign: 'right' }}>
+          <div style={{ textAlign: 'right', marginRight: '20px' }}>
             <span style={{ color: 'grey', fontSize: '12px' }}>seed user:</span>
             <SeedUserSelector
               oMyNostrProfileData={oMyNostrProfileData}
@@ -219,6 +191,50 @@ const Header = ({
           }}
         >
           {description}
+        </div>
+      </div>
+
+      <div
+        style={{
+          color: 'grey',
+          textAlign: 'left',
+          fontSize: '14px',
+          marginLeft: '20px',
+          marginBottom: '10px',
+          marginRight: '20px',
+        }}
+      >
+        Using endorsements of list items and endorsements of users as list
+        curators, your grapevine curates lists for you. Your crowdsourced
+        results may or may not match someone else's results. If the list is
+        important enough to garner sufficient attention and studied input, the
+        community may converge to similar or identical results via the process of{' '}
+        <a
+          href="https://github.com/wds4/DCoSL/blob/main/glossary/looseConsensus.md"
+          target="_blank"
+          rel="noreferrer"
+          style={{textDecoration: 'none'}}
+        >
+          loose consensus
+        </a>
+        . Select different seed users (selector on the upper right) to find out whose
+        grapevines agree and whose don't!
+        <br />
+        <div style={{ marginTop: '5px' }}>
+          Visualize the crowdsourcing process and find out how it works{' '}
+          <span style={{ color: 'blue' }}>
+            <NavLink
+              onClick={() => {
+                dispatch(updateCuratedListFocus(event_id));
+              }}
+              end
+              to="/CuratedListsHome/SingleListGraphOfInstances"
+              style={{ textDecoration: 'none' }}
+            >
+              here
+            </NavLink>
+          </span>
+          .
         </div>
       </div>
     </>

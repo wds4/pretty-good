@@ -38,11 +38,22 @@ export default class PrettyGoodHome extends React.Component {
                 href="https://github.com/wds4/DCoSL/tree/main"
                 target="_blank"
                 rel="noreferrer"
+                style={{ textDecoration: 'none' }}
               >
-                DCoSL: decentralized curation of simple lists
+                DCoSL: Decentralized Curation of Simple Lists
               </a>
-              . DCoSL allows you to <i>crowdsource</i> a list to your web of
-              trust in a way that is resistant to sybil attacks.
+              . The DCoSL protocol allows you to <i>crowdsource</i> a list to
+              your web of trust in a way that is designed to resist sybil
+              attacks and to generate{' '}
+              <a
+                href="https://github.com/wds4/DCoSL/blob/main/glossary/looseConsensus.md"
+                target="_blank"
+                rel="noreferrer"
+                style={{ textDecoration: 'none' }}
+              >
+                loose consensus
+              </a>
+              .
             </p>
 
             <p>
