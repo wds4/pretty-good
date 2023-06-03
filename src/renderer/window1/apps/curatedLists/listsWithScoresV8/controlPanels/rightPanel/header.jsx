@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { updateCuratedListFocus } from 'renderer/window1/redux/features/prettyGood/settings/slice';
 import { updateNostrProfileFocus } from 'renderer/window1/redux/features/nostr/settings/slice';
 import SeedUserSelector from '../topControlPanel/seedUserSelector';
+import TechDetailsForNostrNerds from './techDetailsForNostrNerds';
 
 const Header = ({
   oListData,
@@ -150,7 +151,7 @@ const Header = ({
             as determined by::
           </div>
 
-          <div style={{ marginBottom: '5px' }}>
+          <div style={{ textAlign: 'center', marginBottom: '5px' }}>
             <span
               style={{ textAlign: 'center', color: 'blue', fontSize: '18px' }}
             >
@@ -169,7 +170,6 @@ const Header = ({
           <div style={{ textAlign: 'right', marginRight: '20px' }}>
             <span style={{ color: 'grey', fontSize: '12px' }}>seed user:</span>
             <SeedUserSelector
-              oMyNostrProfileData={oMyNostrProfileData}
               aProfileCompScoreData={aProfileCompScoreData}
               nodes={nodes}
               aAllUserNodes={aAllUserNodes}
@@ -178,7 +178,7 @@ const Header = ({
         </div>
       </div>
 
-      <div style={{ textAlign: 'left', marginLeft: '20px' }}>
+      <div style={{ textAlign: 'left', marginLeft: '20px', marginBottom: '10px' }}>
         <div style={{ fontSize: '12px', color: 'grey' }}>list description:</div>
         <div
           style={{
@@ -187,55 +187,13 @@ const Header = ({
             fontSize: '14px',
             textAlign: 'left',
             color: 'black',
-            marginBottom: '10px',
+            marginBottom: '5px',
           }}
         >
           {description}
         </div>
-      </div>
 
-      <div
-        style={{
-          color: 'grey',
-          textAlign: 'left',
-          fontSize: '14px',
-          marginLeft: '20px',
-          marginBottom: '10px',
-          marginRight: '20px',
-        }}
-      >
-        Using endorsements of list items and endorsements of users as list
-        curators, your grapevine curates lists for you. Your crowdsourced
-        results may or may not match someone else's results. If the list is
-        important enough to garner sufficient attention and studied input, the
-        community may converge to similar or identical results via the process of{' '}
-        <a
-          href="https://github.com/wds4/DCoSL/blob/main/glossary/looseConsensus.md"
-          target="_blank"
-          rel="noreferrer"
-          style={{textDecoration: 'none'}}
-        >
-          loose consensus
-        </a>
-        . Select different seed users (selector on the upper right) to find out whose
-        grapevines agree and whose don't!
-        <br />
-        <div style={{ marginTop: '5px' }}>
-          Visualize the crowdsourcing process and find out how it works{' '}
-          <span style={{ color: 'blue' }}>
-            <NavLink
-              onClick={() => {
-                dispatch(updateCuratedListFocus(event_id));
-              }}
-              end
-              to="/CuratedListsHome/SingleListGraphOfInstances"
-              style={{ textDecoration: 'none' }}
-            >
-              here
-            </NavLink>
-          </span>
-          .
-        </div>
+        <TechDetailsForNostrNerds />
       </div>
     </>
   );

@@ -4,10 +4,13 @@ import { tooltipContent } from 'renderer/window1/const/tooltipContent';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateSeedUser } from 'renderer/window1/redux/features/grapevine/controlPanelSettings/slice';
 
-const SeedUserSelector = ({aProfileCompScoreData,nodes,aAllUserNodes}) => {
+const SeedUserSelectorRedo = ({oNostrProfilesData,nodes,aAllUserNodes}) => {
   const dispatch = useDispatch();
   const { seedUser } = useSelector(
     (state) => state.controlPanelSettings
+  );
+  const nostrProfiles = useSelector(
+    (state) => state.nostrProfiles.nostrProfiles
   );
   const [seedUsr, setSeedUsr] = useState(seedUser);
   const updateSeedUser_X = () => {
@@ -56,19 +59,23 @@ const SeedUserSelector = ({aProfileCompScoreData,nodes,aAllUserNodes}) => {
               }}
 
             >
-              {aProfileCompScoreData.map((oProfileData)=>{
-                const pk = oProfileData.pubkey;
+              {aAllUserNodes.map((pk)=>{
                 let selected = false;
                 if (seedUser == pk) {
                   selected = true;
+                }
+                let name = "..."+pk.substr(-6);
+                if (nostrProfiles.hasOwnProperty(pk)) {
+                  const profileContent = JSON.parse(nostrProfiles[pk].content);
+                  name = `@${profileContent?.name}`;
                 }
                 return (
                   <>
                     <option
                       selected={selected}
-                      value={oProfileData.name}
-                      data-pubkey={oProfileData.pubkey}
-                    >{oProfileData.name}</option>
+                      value={name}
+                      data-pubkey={pk}
+                    >{name}</option>
                   </>
                 )
               })}
@@ -79,4 +86,4 @@ const SeedUserSelector = ({aProfileCompScoreData,nodes,aAllUserNodes}) => {
     </>
   );
 };
-export default SeedUserSelector;
+export default SeedUserSelectorRedo;

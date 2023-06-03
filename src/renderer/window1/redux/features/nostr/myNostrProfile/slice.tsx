@@ -433,6 +433,18 @@ export const myProfileSlice = createSlice({
       state.devModes.devMode3 = action.payload;
       const res = updateMyFullNostrProfileInSql(state);
     },
+    updateDevMode4: (state, action) => {
+      state.devModes.devMode4 = action.payload;
+      const res = updateMyFullNostrProfileInSql(state);
+    },
+    updateDevMode5: (state, action) => {
+      state.devModes.devMode5 = action.payload;
+      const res = updateMyFullNostrProfileInSql(state);
+    },
+    updateDevMode6: (state, action) => {
+      state.devModes.devMode6 = action.payload;
+      const res = updateMyFullNostrProfileInSql(state);
+    },
     ///////////////////////////
 
   },
@@ -490,6 +502,9 @@ export const {
   updateDevMode1,
   updateDevMode2,
   updateDevMode3,
+  updateDevMode4,
+  updateDevMode5,
+  updateDevMode6,
 } = myProfileSlice.actions;
 
 export default myProfileSlice.reducer;

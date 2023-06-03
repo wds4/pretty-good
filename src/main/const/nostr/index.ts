@@ -36,9 +36,13 @@ export const oDefaultDevModes = {
   devMode1: true, // toggle Curated Lists
   devMode2: false, // reveal other features that are still in alpha
   devMode3: false, // reveal "nostr nerd" toggle buttons
-  devMode4: false, // reserved
-  devMode5: false, // reserved
-  devMode6: false, // reserved
+  devMode4: true, // Curated Lists main page: show data from SQL
+  devMode5: false, // Curated Lists main page: show data from redux store
+  devMode6: false, // Curated Lists main page: show additional features
+  devMode7: false, // reserved
+  devMode8: false, // reserved
+  devMode9: false, // reserved
+  devMode10: false, // reserved
 };
 
 createEndorsementsOfCuratorsTableCommand += 'id INTEGER PRIMARY KEY, ';

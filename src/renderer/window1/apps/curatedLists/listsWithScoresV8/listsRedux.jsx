@@ -13,7 +13,7 @@ from {
     }
 `;
 
-export const CustomLoader = ({ aCuratedListIDs, controlPanelSettings }) => {
+export const CustomLoader = ({ oCuratedLists, aCuratedListIDs, controlPanelSettings }) => {
   const [loader, setLoader] = React.useState(true);
   const [numLists, setNumLists] = React.useState(aCuratedListIDs.length);
 
@@ -38,7 +38,7 @@ export const CustomLoader = ({ aCuratedListIDs, controlPanelSettings }) => {
   }
   return (
     <>
-      <Lists controlPanelSettings={controlPanelSettings} />
+      <Lists oCuratedLists={oCuratedLists} controlPanelSettings={controlPanelSettings} />
     </>
   );
 };
@@ -75,7 +75,7 @@ const ListsRedux = () => {
 
   return (
     <>
-      <CustomLoader aCuratedListIDs={aCuratedListIDs} controlPanelSettings={controlPanelSettings} />
+      <CustomLoader oCuratedLists={oCuratedLists} aCuratedListIDs={aCuratedListIDs} controlPanelSettings={controlPanelSettings} />
     </>
   );
 };

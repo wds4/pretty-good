@@ -339,7 +339,7 @@ export const addCuratedList_X = (oEvent, oWord, state, event_id, pubkey) => {
   state.curatedLists[event_id].description =
     oWord.nostrCuratedListData.description;
   state.curatedLists[event_id].author = pubkey;
-  // state.curatedLists[event_id].oWord = JSON.parse(JSON.stringify(oWord)); // clone object
+  state.curatedLists[event_id].oWord = JSON.parse(JSON.stringify(oWord)); // clone object
 };
 
 export const addCuratedListInstance_X = (oEvent, oWord, state) => {
@@ -384,7 +384,7 @@ export const addCuratedListInstance_X = (oEvent, oWord, state) => {
               JSON.stringify(oBlankItemData)
             );
             // state.curatedLists[parentConceptNostrEventID].items[itemID].tags = JSON.parse(JSON.stringify(oEvent.tags));
-            // state.curatedLists[parentConceptNostrEventID].items[itemID].oWord = JSON.parse(JSON.stringify(oWord));
+            state.curatedLists[parentConceptNostrEventID].items[itemID].oWord = JSON.parse(JSON.stringify(oWord));
             state.curatedLists[parentConceptNostrEventID].items[itemID].author =
               authorPubkey;
           }

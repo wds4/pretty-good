@@ -2,19 +2,20 @@ import { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { Network } from 'vis-network/standalone/esm/vis-network';
 import * as VisStyleConstants from 'renderer/window1/lib/visjs/visjs-style';
-import ListUI from './listUI';
+import ListUIRedo from './listUIRedo';
 
 const { options } = VisStyleConstants;
 
-const Graphic2 = ({
+const Graphic2Redo = ({
   nodes,
   edges,
   data,
   oMyNostrProfileData,
   controlPanelSettings,
-  oListData,
+  oCuratedListData,
+  oNostrProfilesData,
+  curatedListEventId,
 }) => {
-  const myPubKey = oMyNostrProfileData.pubkey;
   const aAllNodes = nodes.getIds();
   const aAllUserNodes = [];
   const aAllInstanceNodes = [];
@@ -75,14 +76,6 @@ const Graphic2 = ({
     network.current.on('deselectNode', function (params) {
       // jQuery("#usernameContainer").html("none")
     });
-    /*
-    const nODe = { id: 200, label: 'NODE 200' };
-    nodes.update(nODe);
-    const noDe = { id: 0, label: 'NODE 0' };
-    nodes.update(noDe);
-    const nOde = { id: 100, label: 'NODE 100' };
-    nodes.update(nOde);
-    */
   }, [domNode, network, data, options]);
 
   const devMode6 = useSelector(
@@ -102,16 +95,18 @@ const Graphic2 = ({
           height: '100%',
         }}
       >
-        <ListUI
+        <ListUIRedo
           nodes={nodes}
           edges={edges}
           data={data}
           oMyNostrProfileData={oMyNostrProfileData}
           controlPanelSettings={controlPanelSettings}
+          oCuratedListData={oCuratedListData}
+          curatedListEventId={curatedListEventId}
+          oNostrProfilesData={oNostrProfilesData}
           aAllNodes={aAllNodes}
           aAllUserNodes={aAllUserNodes}
           aAllInstanceNodes={aAllInstanceNodes}
-          oListData={oListData}
         />
       </div>
       <div
@@ -126,13 +121,5 @@ const Graphic2 = ({
     </>
   );
 };
-export default Graphic2;
+export default Graphic2Redo;
 
-/*
-<Header
-  oListData={oListData}
-  oMyNostrProfileData={oMyNostrProfileData}
-  nodes={nodes}
-  aAllUserNodes={aAllUserNodes}
-/>
-*/

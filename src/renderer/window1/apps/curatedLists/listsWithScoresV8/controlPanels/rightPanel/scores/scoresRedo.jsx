@@ -5,16 +5,17 @@ import { updateNostrProfileFocus } from 'renderer/window1/redux/features/nostr/s
 import ItemList from 'renderer/window1/apps/curatedLists/viewIndividualCuratedList/graph/components/itemList';
 import NostrProfileScores from './nostrProfileScores';
 import CuratedListInstanceScores from './instanceScores';
-// import ItemList from './itemList';
-import Header from '../header';
+import HeaderRedo from '../headerRedo';
 
-const CalculationResults = ({
+const CalculationResultsRedo = ({
   aInstanceCompScoreData,
   aProfileCompScoreData,
   oMyNostrProfileData,
   nodes,
   aAllUserNodes,
-  oListData,
+  oNostrProfilesData,
+  oCuratedListData,
+  curatedListEventId,
 }) => {
   const devMode6 = useSelector(
     (state) => state.myNostrProfile.devModes.devMode6
@@ -25,12 +26,14 @@ const CalculationResults = ({
   }
   return (
     <>
-      <Header
-        oListData={oListData}
+      <HeaderRedo
+        oNostrProfilesData={oNostrProfilesData}
         oMyNostrProfileData={oMyNostrProfileData}
         nodes={nodes}
         aAllUserNodes={aAllUserNodes}
         aProfileCompScoreData={aProfileCompScoreData}
+        oCuratedListData={oCuratedListData}
+        curatedListEventId={curatedListEventId}
       />
       <div style={{ textAlign: 'center' }}>
         <Tabs>
@@ -84,4 +87,4 @@ const CalculationResults = ({
     </>
   );
 };
-export default CalculationResults;
+export default CalculationResultsRedo;

@@ -5,8 +5,67 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { updateCuratedListFocus } from 'renderer/window1/redux/features/prettyGood/settings/slice';
 import ControlPanel from './controlPanels/rightPanel/controlPanel';
 import ListSelectButton from './listSelectButton';
+import ListSelectButtonRedo from './listSelectButtonRedo';
 
-const CuratedLists = ({ aListsData }) => {
+export const DataFromRedux = ({
+  aCuratedLists,
+  searchString,
+  oCuratedLists,
+  devMode,
+}) => {
+  if (devMode) {
+    return (
+      <>
+        <div style={{textAlign: 'left', fontSize: '12px'}}>
+          {aCuratedLists.map((curatedListEventId) => {
+            return (
+              <>
+                <div>
+                  <ListSelectButtonRedo
+                    searchString={searchString}
+                    curatedListEventId={curatedListEventId}
+                    oCuratedLists={oCuratedLists}
+                  />
+                </div>
+              </>
+            )
+          })}
+        </div>
+      </>
+    )
+  }
+  return <></>;
+}
+
+export const DataFromSql = ({
+  aListsData,
+  searchString,
+  devMode,
+}) => {
+  if (devMode) {
+    return (
+      <>
+        <div>
+          {aListsData.map((oListData) => {
+            return (
+              <>
+                <div>
+                  <ListSelectButton
+                    searchString={searchString}
+                    oListData={oListData}
+                  />
+                </div>
+              </>
+            );
+          })}
+        </div>
+      </>
+    )
+  }
+  return <></>;
+}
+
+const CuratedLists = ({ oCuratedLists, aListsData }) => {
   const dispatch = useDispatch();
   const [searchString, setSearchString] = useState('');
   const handleChange = (event) => {
@@ -18,6 +77,19 @@ const CuratedLists = ({ aListsData }) => {
     aRatingsOfItemsEventIDs,
     aRatingsOfCuratorsEventIDs,
   } = useSelector((state) => state.curatedLists);
+  const aCuratedLists = Object.keys(oCuratedLists);
+  const { devMode4, devMode5 } = useSelector(
+    (state) => state.myNostrProfile.devModes
+  );
+  const activateCuratedListsBackgroundListener = useSelector(
+    (state) => state.curatedListsSettings.activateCuratedListsBackgroundListener
+  );
+
+  let displayInfoBox = "none";
+  if (activateCuratedListsBackgroundListener) {
+    displayInfoBox = "block";
+  }
+
   return (
     <>
       <div>
@@ -64,18 +136,19 @@ const CuratedLists = ({ aListsData }) => {
             onChange={handleChange}
           />
         </div>
-        {aListsData.map((oListData) => {
-          return (
-            <>
-              <div>
-                <ListSelectButton
-                  searchString={searchString}
-                  oListData={oListData}
-                />
-              </div>
-            </>
-          );
-        })}
+
+        <DataFromRedux
+          aCuratedLists={aCuratedLists}
+          searchString={searchString}
+          oCuratedLists={oCuratedLists}
+          devMode={devMode5}
+        />
+
+        <DataFromSql
+          aListsData={aListsData}
+          searchString={searchString}
+          devMode={devMode4}
+        />
       </div>
       <div
         style={{
@@ -85,6 +158,7 @@ const CuratedLists = ({ aListsData }) => {
           border: '1px solid grey',
           color: 'grey',
           marginTop: '30px',
+          display: displayInfoBox,
         }}
       >
         <center>curated lists listener / updates</center>
@@ -103,19 +177,26 @@ const CuratedLists = ({ aListsData }) => {
   );
 };
 
-const ListsAndControlPanel = ({ aListsData }) => {
+const ListsAndControlPanel = ({ oCuratedLists, aListsData }) => {
+  const { devMode6 } = useSelector(
+    (state) => state.myNostrProfile.devModes
+  );
+  let displayTabs = 'none';
+  if (devMode6) {
+    displayTabs = 'block';
+  }
   return (
     <>
       <div>
         <Tabs>
-          <div style={{ display: 'none' }}>
+          <div style={{ display: displayTabs }}>
             <TabList>
               <Tab>Curated Lists</Tab>
               <Tab>Control Panel</Tab>
             </TabList>
           </div>
           <TabPanel>
-            <CuratedLists aListsData={aListsData} />
+            <CuratedLists oCuratedLists={oCuratedLists} aListsData={aListsData} />
           </TabPanel>
           <TabPanel>
             <div

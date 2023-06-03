@@ -2,37 +2,29 @@ import { useSelector } from 'react-redux';
 import { DataSet, Network } from 'vis-network/standalone/esm/vis-network';
 import * as VisStyleConstants from 'renderer/window1/lib/visjs/visjs-style';
 import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
-import { extractNodesAndEdges } from 'renderer/window1/lib/curatedLists';
+import { extractNodesAndEdgesRedo } from 'renderer/window1/lib/curatedLists/extractNodesAndEdgesRedo';
 
-import Graphic2 from './graphic2';
+import Graphic2Redo from './graphic2Redo';
 
 const { options } = VisStyleConstants;
 
-const Graphic = ({
+const GraphicRedo = ({
+  controlPanelSettings,
+  curatedListEventId,
   oMyNostrProfileData,
   oNostrProfilesData,
-  oListData,
-  aCuratedListInstances,
-  aRatingsOfInstancesData,
-  aEndorsementsOfCuratorsData,
-  controlPanelSettings,
+  oCuratedListData,
+  oCuratedLists,
 }) => {
-  const oListEvent = JSON.parse(oListData.event);
-  let oListWord = {};
-  let propertyPath = 'fooData'; //
-  if (doesEventValidate(oListEvent)) {
-    oListWord = JSON.parse(oListEvent.content);
-    propertyPath = oListWord.nostrCuratedListData.propertyPath;
-  }
+  const oWord = oCuratedListData.oWord;
+  const propertyPath = oWord.nostrCuratedListData.propertyPath;
 
-  const { aNodes, aEdges } = extractNodesAndEdges(
+  const { aNodes, aEdges } = extractNodesAndEdgesRedo(
     oMyNostrProfileData,
     oNostrProfilesData,
     propertyPath,
-    aCuratedListInstances,
-    aRatingsOfInstancesData,
-    aEndorsementsOfCuratorsData,
-    controlPanelSettings
+    oCuratedListData,
+    controlPanelSettings,
   );
 
   const nodes = new DataSet(aNodes);
@@ -53,16 +45,19 @@ const Graphic = ({
           display: 'inline-block',
         }}
       >
-        <Graphic2
+        <Graphic2Redo
           nodes={nodes}
           edges={edges}
           data={data}
           oMyNostrProfileData={oMyNostrProfileData}
           controlPanelSettings={controlPanelSettings}
-          oListData={oListData}
+          oCuratedListData={oCuratedListData}
+          oNostrProfilesData={oNostrProfilesData}
+          curatedListEventId={curatedListEventId}
         />
       </div>
     </>
   );
 };
-export default Graphic;
+export default GraphicRedo;
+
