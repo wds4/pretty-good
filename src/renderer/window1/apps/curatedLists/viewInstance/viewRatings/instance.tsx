@@ -64,14 +64,19 @@ const Instance = ({
 
   return (
     <>
-      <div style={{marginBottom:"20px"}}>
-        <div className="h3" style={{marginBottom:"10px"}}>
-          <div style={{display:"inline-block"}}>Ratings by my grapevine of</div>{' '}
-          <div style={{display:"inline-block", color:"blue"}}>{instanceName}</div>
+      <div style={{ marginBottom: '20px' }}>
+        <div className="h3" style={{ marginBottom: '10px' }}>
+          <div style={{ display: 'inline-block' }}>
+            Ratings by my grapevine of
+          </div>{' '}
+          <div style={{ display: 'inline-block', color: 'blue' }}>
+            {instanceName}
+          </div>
         </div>
-        <div style={{textAlign:"center"}}>an item on the list of {' '}
+        <div style={{ textAlign: 'center' }}>
+          an item on the list of{' '}
           <NavLink
-            style={{}}
+            style={{ textDecoration: 'none' }}
             onClick={() => {
               dispatch(updateCuratedListFocus(curatedListFocusID));
             }}
@@ -82,7 +87,10 @@ const Instance = ({
           </NavLink>
         </div>
       </div>
-      <div>under construction</div>
+      <div>
+        This page is under construction. For now, navigate to the page that shows all ratings
+        that correspond to all items on this list.
+      </div>
     </>
   );
 };

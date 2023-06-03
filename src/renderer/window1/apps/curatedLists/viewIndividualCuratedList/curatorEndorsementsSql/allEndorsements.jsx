@@ -13,7 +13,13 @@ const AllEndorsements = ({
 }) => {
   return (
     <>
-      <div className="h4">endorsements of curators for this list (sql)</div>
+      <div className="h4" style={{marginBottom: '20px'}}>endorsements of curators for this list (locally stored in SQL)</div>
+      <div style={{fontSize: '22px', color: 'grey', width: '40%', textAlign: 'center', display: 'inline-block'}}>
+        rater
+      </div>
+      <div style={{float: 'right', fontSize: '22px', color: 'grey', width: '40%', textAlign: 'center', display: 'inline-block'}}>
+        ratee
+      </div>
       {aEndorsementsOfCuratorsData.map((oEndorsementOfCuratorData)=>{
         const parentID = oEndorsementOfCuratorData.parentConceptNostrEventID;
         if (parentID == parentConceptNostrEventID) {

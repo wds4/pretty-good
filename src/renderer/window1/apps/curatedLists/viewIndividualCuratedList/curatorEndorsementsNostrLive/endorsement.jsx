@@ -5,6 +5,9 @@ import {
   updateCuratedListFocus,
   updateCuratedListInstanceFocus,
 } from 'renderer/window1/redux/features/prettyGood/settings/slice';
+import MiniProfile from './miniProfile';
+import TechDetailsForNostrNerds2 from './techDetailsForNostrNerds2';
+import TechDetailsForNostrNerds3 from './techDetailsForNostrNerds3';
 
 const Rating = ({ event }) => {
   const dispatch = useDispatch();
@@ -32,13 +35,93 @@ const Rating = ({ event }) => {
     oWord.ratingData.ratingFieldsetData
       .nostrCuratedListsCuratorEndorsementFieldsetData.contextData
       .nostrParentCuratedListData.eventID;
+  let endorsementColor = 'green';
+  let recommendedDisplay = 'block';
+  let notRecommendedDisplay = 'none';
+  if (rating == 0) {
+    endorsementColor = 'red';
+    recommendedDisplay = 'none';
+    notRecommendedDisplay = 'block';
+  }
   return (
     <>
+      <div
+        style={{
+          position: 'relative',
+          border: '0px solid green',
+          borderRadius: '5px',
+          height: '90px',
+          padding: '10px',
+        }}
+      >
+        <div style={{ position: 'absolute', left: '5px', width: '40%' }}>
+          <MiniProfile pubkey={pk_rater} />
+        </div>
+
+        <div
+          style={{
+            position: 'absolute',
+            left: '42%',
+            top: '10px',
+            textAlign: 'center',
+          }}
+        >
+          endorses as
+          <div
+            style={{
+              color: 'green',
+              display: recommendedDisplay,
+            }}
+          >
+            recommended
+          </div>
+
+          <div
+            style={{
+              color: 'red',
+              display: notRecommendedDisplay,
+            }}
+          >
+            NOT recommended
+          </div>
+        </div>
+
+        <div style={{ position: 'absolute', right: '5px', width: '40%' }}>
+          <MiniProfile pubkey={pk_ratee} />
+        </div>
+
+        <div style={{ display: 'none', position: 'absolute', left: '5px', bottom: '5px' }}>
+          as curator of the list:{' '}
+          <NavLink
+            style={{}}
+            onClick={() => {
+              dispatch(updateCuratedListFocus(curatedListID));
+            }}
+            end
+            to="/CuratedListsHome/ViewIndividualCuratedList"
+          >
+            {list_name}
+          </NavLink>
+          .
+        </div>
+      </div>
+
+      <div
+        style={{
+          padding: '5px',
+          paddingLeft: '20px',
+        }}
+      >
+        <TechDetailsForNostrNerds3 event_id={event.id} oWord={oWord} />
+        <TechDetailsForNostrNerds2 event_id={event.id} event={event} />
+      </div>
+
       <div
         style={{
           border: '1px solid green',
           padding: '5px',
           marginBottom: '5px',
+          display: 'none',
         }}
       >
         <div>

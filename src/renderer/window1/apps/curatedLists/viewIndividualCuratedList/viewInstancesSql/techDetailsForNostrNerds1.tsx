@@ -35,7 +35,7 @@ const TechDetailsForNostrNerds = ({event_id, event}) => {
             🤓
           </button>
           {' '}<span style={{ fontSize: '10px' }}>
-            (word wrapped in nostr event)
+            word wrapped in nostr event
           </span>
         </div>
         <div
@@ -47,6 +47,17 @@ const TechDetailsForNostrNerds = ({event_id, event}) => {
             padding: '3px',
           }}
         >
+          <div>
+            See{' '}
+            <a
+              style={{ textDecoration: 'none' }}
+              href="https://github.com/wds4/DCoSL/blob/main/dips/conceptGraph/101.md"
+              target="_blank"
+              rel="noreferrer"
+            >
+              DIP-101: publication of a word over nostr
+            </a>
+          </div>
           <div>{JSON.stringify(event,null,4)}</div>
         </div>
       </div>

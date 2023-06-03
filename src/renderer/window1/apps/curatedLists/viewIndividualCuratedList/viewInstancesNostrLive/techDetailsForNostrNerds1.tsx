@@ -1,7 +1,6 @@
-
 import { useSelector } from 'react-redux';
 
-const TechDetailsForNostrNerds = ({event_id, oWord}) => {
+const TechDetailsForNostrNerds = ({ event_id, event }) => {
   const { devMode3 } = useSelector((state) => state.myNostrProfile.devModes);
   let devElemClass = 'devElemHide';
   if (devMode3) {
@@ -10,7 +9,7 @@ const TechDetailsForNostrNerds = ({event_id, oWord}) => {
 
   const curatedLists = useSelector((state) => state.curatedLists);
 
-  const elem_id = "technicalDetailsForNostrDevsContainer2_"+event_id; // add event_id or some other unique identifier if multiple details per page
+  const elem_id = `technicalDetailsForNostrDevsContainer1_${event_id}`; // add event_id or some other unique identifier if multiple details per page
   const toggleViewDetails = () => {
     const e = document.getElementById(elem_id);
     const currentState = e.style.display;
@@ -25,18 +24,16 @@ const TechDetailsForNostrNerds = ({event_id, oWord}) => {
     <>
       <div className={devElemClass}>
         <div>
-          <span style={{ fontSize: '10px' }}>
-
-          </span>
+          <span style={{ fontSize: '10px' }} />
           <button
             type="button"
             onClick={() => toggleViewDetails()}
             className="doSomethingButton techDetailsToggleButton"
           >
             🤓
-          </button>
-          {' '}<span style={{ fontSize: '10px' }}>
-            item encoded as a concept graph 'word'
+          </button>{' '}
+          <span style={{ fontSize: '10px' }}>
+            word wrapped in a nostr event
           </span>
         </div>
         <div
@@ -52,14 +49,14 @@ const TechDetailsForNostrNerds = ({event_id, oWord}) => {
             See{' '}
             <a
               style={{ textDecoration: 'none' }}
-              href="https://github.com/wds4/DCoSL/blob/main/dips/conceptGraph/100.md"
+              href="https://github.com/wds4/DCoSL/blob/main/dips/conceptGraph/101.md"
               target="_blank"
               rel="noreferrer"
             >
-              DIP-100: words
+              DIP-101: publication of a word over nostr
             </a>
           </div>
-          <div>{JSON.stringify(oWord,null,4)}</div>
+          <div>{JSON.stringify(event, null, 4)}</div>
         </div>
       </div>
     </>

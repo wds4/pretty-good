@@ -36,7 +36,7 @@ const TechDetailsForNostrNerds = ({event_id, oWord}) => {
             🤓
           </button>
           {' '}<span style={{ fontSize: '10px' }}>
-            item encoded as a concept graph 'word'
+            (item encoded as a concept graph 'word')
           </span>
         </div>
         <div
@@ -48,17 +48,6 @@ const TechDetailsForNostrNerds = ({event_id, oWord}) => {
             padding: '3px',
           }}
         >
-          <div>
-            See{' '}
-            <a
-              style={{ textDecoration: 'none' }}
-              href="https://github.com/wds4/DCoSL/blob/main/dips/conceptGraph/100.md"
-              target="_blank"
-              rel="noreferrer"
-            >
-              DIP-100: words
-            </a>
-          </div>
           <div>{JSON.stringify(oWord,null,4)}</div>
         </div>
       </div>

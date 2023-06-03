@@ -1,7 +1,7 @@
 
 import { useSelector } from 'react-redux';
 
-const TechDetailsForNostrNerds = ({event_id, oWord}) => {
+const TechDetailsForNostrNerds = ({event_id, event}) => {
   const { devMode3 } = useSelector((state) => state.myNostrProfile.devModes);
   let devElemClass = 'devElemHide';
   if (devMode3) {
@@ -10,7 +10,7 @@ const TechDetailsForNostrNerds = ({event_id, oWord}) => {
 
   const curatedLists = useSelector((state) => state.curatedLists);
 
-  const elem_id = "technicalDetailsForNostrDevsContainer2_"+event_id; // add event_id or some other unique identifier if multiple details per page
+  const elem_id = "technicalDetailsForNostrDevsContainer1_"+event_id; // add event_id or some other unique identifier if multiple details per page
   const toggleViewDetails = () => {
     const e = document.getElementById(elem_id);
     const currentState = e.style.display;
@@ -36,7 +36,7 @@ const TechDetailsForNostrNerds = ({event_id, oWord}) => {
             🤓
           </button>
           {' '}<span style={{ fontSize: '10px' }}>
-            item encoded as a concept graph 'word'
+            (word wrapped in nostr event)
           </span>
         </div>
         <div
@@ -48,18 +48,7 @@ const TechDetailsForNostrNerds = ({event_id, oWord}) => {
             padding: '3px',
           }}
         >
-          <div>
-            See{' '}
-            <a
-              style={{ textDecoration: 'none' }}
-              href="https://github.com/wds4/DCoSL/blob/main/dips/conceptGraph/100.md"
-              target="_blank"
-              rel="noreferrer"
-            >
-              DIP-100: words
-            </a>
-          </div>
-          <div>{JSON.stringify(oWord,null,4)}</div>
+          <div>{JSON.stringify(event,null,4)}</div>
         </div>
       </div>
     </>

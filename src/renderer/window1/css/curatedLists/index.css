@@ -49,9 +49,9 @@
 .curatedListMainPageLink {
   color: blue;
   font-size: 12px;
-  width: 150px;
+  width: 130px;
   border-radius: 3px;
-  padding: 3px;
+  padding: 5px;
 }
 .curatedListMainPageLink:hover {
   color: white;

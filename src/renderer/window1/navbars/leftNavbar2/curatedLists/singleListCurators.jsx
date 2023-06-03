@@ -35,7 +35,7 @@ const LeftNavbar2 = () => {
           className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
           end to="/CuratedListsHome/ViewIndividualCuratedList"
         >
-          home
+          list
         </NavLink>
 
         <div style={{fontSize: "12px",marginTop: '3px',marginBottom: '3px'}}>Curators</div>

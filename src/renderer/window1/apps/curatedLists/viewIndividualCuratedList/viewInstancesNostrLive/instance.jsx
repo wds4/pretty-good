@@ -1,6 +1,8 @@
 import { NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { updateCuratedListInstanceFocus } from 'renderer/window1/redux/features/prettyGood/settings/slice';
+import TechDetailsForNostrNerds1 from './techDetailsForNostrNerds1';
+import TechDetailsForNostrNerds2 from './techDetailsForNostrNerds2';
 
 const Instance = ({parentConceptPropertyPath,event}) => {
   const dispatch = useDispatch();
@@ -25,7 +27,7 @@ const Instance = ({parentConceptPropertyPath,event}) => {
           <>
             <div style={{ padding: '5px', marginBottom: '5px', border: '1px solid blue', borderRadius: '5px' }}>
               <NavLink
-                style={{}}
+                style={{textDecoration: 'none'}}
                 onClick={() => {
                   dispatch(updateCuratedListInstanceFocus(event.id));
                 }}
@@ -43,8 +45,9 @@ const Instance = ({parentConceptPropertyPath,event}) => {
                 <div>event_id: {event_id}</div>
                 <div>author: {pubkey}</div>
               </div>
+              <TechDetailsForNostrNerds2 event_id={event_id} oWord={oWord} />
+              <TechDetailsForNostrNerds1 event_id={event_id} event={event} />
             </div>
-
           </>
         );
       }

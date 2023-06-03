@@ -10,6 +10,7 @@ import {
 } from 'renderer/window1/redux/features/prettyGood/settings/slice';
 import CuratedListsListeners from 'renderer/window1/apps/nostr/listeners/curatedListsListeners';
 import { noProfilePicUrl } from '../const';
+import CuratedListsListenersToggle from './curatedListsListenersToggle';
 
 export default function Masthead() {
   const myNostrProfile = useSelector((state) => state.myNostrProfile);

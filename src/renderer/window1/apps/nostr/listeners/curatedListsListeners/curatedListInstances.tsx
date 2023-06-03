@@ -21,6 +21,8 @@ const CuratedListInstancesListener = () => {
     devElemClass = 'devElemShow';
   }
 
+  // const { aListItemEventIDs } = useSelector((state) => state.curatedLists);
+
   // const oCuratedLists = useSelector((state) => state.curatedLists.curatedLists);
   // const aCuratedLists = Object.keys(oCuratedLists); // array of curated list event IDs
 
@@ -37,15 +39,18 @@ const CuratedListInstancesListener = () => {
   const { events } = useNostrEvents({
     filter: filter
   });
-  events.sort((a, b) => parseFloat(b.created_at) - parseFloat(a.created_at));
+
+  // no need to put them in order
+  // events.sort((a, b) => parseFloat(b.created_at) - parseFloat(a.created_at));
 
   // store events in redux (and in sql?)
   events.forEach(async (event, item) => {
     if (doesEventValidate(event)) {
-      // dispatch(addEndorseAsRelaysPickerHunterNoteToReduxStore(event, myPubkey));
-      // await updateListCurationNoteInSql(event, "endorseAsRelaysPickerHunter");
-      // need to get parentConceptSlug,parentConceptNostrEventID
-      // if (!aCuratedLists.includes(event.id)) { // no need to store list if it has already been stored
+      // if (!aListItemEventIDs.includes(event.id)) {
+        // dispatch(addEndorseAsRelaysPickerHunterNoteToReduxStore(event, myPubkey));
+        // await updateListCurationNoteInSql(event, "endorseAsRelaysPickerHunter");
+        // need to get parentConceptSlug,parentConceptNostrEventID
+        // if (!aCuratedLists.includes(event.id)) { // no need to store list if it has already been stored
         const oWord = JSON.parse(event.content);
         const aParentConceptNostrEventID = event.tags.filter(
           ([k, v]) => k === 'e' && v && v !== ''
@@ -65,10 +70,13 @@ const CuratedListInstancesListener = () => {
             parentConceptSlug = aParentConceptSlug[1];
           }
         }
+
         if ( (parentConceptNostrEventID) && (parentConceptSlug) ) {
           dispatch(addCuratedListInstance(event));
           await addInstanceEventToSql(event,parentConceptSlug,parentConceptNostrEventID);
         }
+
+      // }
       // }
     }
   });
@@ -79,7 +87,7 @@ const CuratedListInstancesListener = () => {
           <div className="h4">CuratedListInstancesListener</div>
           <div>numMessages received: {events.length}</div>
           {events.map((event, index) => {
-            if (doesEventValidate(event)) {
+            if (event && doesEventValidate(event)) {
               const aParentConceptNostrEventID = event.tags.filter(
                 ([k, v]) => k === 'e' && v && v !== ''
               )[0];
@@ -99,6 +107,12 @@ const CuratedListInstancesListener = () => {
                 }
               }
               const oWord = JSON.parse(event.content);
+              /*
+              if ( (parentConceptNostrEventID) && (parentConceptSlug) ) {
+                // dispatch(addCuratedListInstance(event));
+                // addInstanceEventToSql(event,parentConceptSlug,parentConceptNostrEventID);
+              }
+              */
               return (
                 <>
                   <div className="listenerInfoContainer">

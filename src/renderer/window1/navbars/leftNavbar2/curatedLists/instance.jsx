@@ -10,13 +10,13 @@ const LeftNavbar2 = () => {
   return (
     <>
       <div className="leftNav2Panel leftNav2PanelCuratedLists">
-        <div style={{fontSize: "12px",marginTop: '3px',marginBottom: '3px'}}>ListsQ</div>
+        <div style={{fontSize: "12px",marginTop: '3px',marginBottom: '3px'}}>Lists</div>
 
         <NavLink
           className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
           end to="/CuratedListsHome"
         >
-          home
+          lists
         </NavLink>
 
         <div style={{fontSize: "12px",marginTop: '3px',marginBottom: '3px'}}>Single List</div>
@@ -25,7 +25,7 @@ const LeftNavbar2 = () => {
           className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
           end to="/CuratedListsHome/ViewIndividualCuratedList"
         >
-          home
+          list
         </NavLink>
 
         <div style={{fontSize: "12px",marginTop: '3px',marginBottom: '3px'}}>List Items</div>
@@ -34,7 +34,7 @@ const LeftNavbar2 = () => {
           className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
           end to="/CuratedListsHome/InstancesOfIndividualList"
         >
-          home
+          item
         </NavLink>
 
         <div style={{fontSize: "12px",marginTop: '3px',marginBottom: '3px'}}>Single Item</div>
@@ -60,14 +60,16 @@ const LeftNavbar2 = () => {
           leave rating
         </NavLink>
 
-        <hr />
+        <div className={devElemClass}>
+          <hr />
 
-        <NavLink
-          className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
-          end to="/CuratedListsHome/SpecificInstanceTechOverview"
-        >
-          technical overview
-        </NavLink>
+          <NavLink
+            className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
+            end to="/CuratedListsHome/SpecificInstanceTechOverview"
+          >
+            technical overview
+          </NavLink>
+        </div>
       </div>
     </>
   );

@@ -72,7 +72,7 @@ const Instance = ({
         <div style={{ textAlign: 'center' }}>
           an item on the list of{' '}
           <NavLink
-            style={{}}
+            style={{textDecoration: 'none'}}
             onClick={() => {
               dispatch(updateCuratedListFocus(curatedListFocusID));
             }}

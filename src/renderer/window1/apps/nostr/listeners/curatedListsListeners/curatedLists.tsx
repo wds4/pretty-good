@@ -21,6 +21,8 @@ const CuratedListsListener = () => {
     devElemClass = 'devElemShow';
   }
 
+  // const { aListEventIDs } = useSelector((state) => state.curatedLists);
+
   // const oCuratedLists = useSelector((state) => state.curatedLists.curatedLists);
   // const aCuratedLists = Object.keys(oCuratedLists); // array of curated list event IDs
 
@@ -41,11 +43,13 @@ const CuratedListsListener = () => {
   // store events in redux (and in sql?)
   events.forEach(async (event, item) => {
     if (doesEventValidate(event)) {
-      // dispatch(addEndorseAsRelaysPickerHunterNoteToReduxStore(event, myPubkey));
-      // await updateListCurationNoteInSql(event, "endorseAsRelaysPickerHunter");
-      // if (!aCuratedLists.includes(event.id)) { // no need to store list if it has already been stored
-        dispatch(addCuratedList(event));
-        await addCuratedListEventToSql(event);
+      // if (!aListEventIDs.includes(event.id)) {
+        // dispatch(addEndorseAsRelaysPickerHunterNoteToReduxStore(event, myPubkey));
+        // await updateListCurationNoteInSql(event, "endorseAsRelaysPickerHunter");
+        // if (!aCuratedLists.includes(event.id)) { // no need to store list if it has already been stored
+          dispatch(addCuratedList(event));
+          await addCuratedListEventToSql(event);
+        // }
       // }
     }
   });

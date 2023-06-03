@@ -1,3 +1,6 @@
+import TechDetailsForNostrNerds1 from './techDetailsForNostrNerds1';
+import TechDetailsForNostrNerds2 from './techDetailsForNostrNerds2';
+
 const Overview = ({curatedListFocusID, oListData}) => {
   let name_singular = "";
   let name_plural = "";
@@ -71,6 +74,11 @@ const Overview = ({curatedListFocusID, oListData}) => {
       <div className="overPageItemContainer">
         <div className="overviewPageLeftCol">author:</div>
         <div className="overviewPageRightCol" style={{ fontSize: '12px' }}>{pubkey}</div>
+      </div>
+
+      <div style={{marginLeft: '30px'}}>
+        <TechDetailsForNostrNerds1 oWord={oWord} />
+        <TechDetailsForNostrNerds2 oEvent={oEvent} />
       </div>
     </>
   );

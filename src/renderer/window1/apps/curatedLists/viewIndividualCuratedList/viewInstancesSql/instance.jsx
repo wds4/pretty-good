@@ -40,7 +40,7 @@ const Instance = ({
               }}
             >
               <NavLink
-                style={{}}
+                style={{textDecoration: 'none'}}
                 onClick={() => {
                   dispatch(updateCuratedListInstanceFocus(event.id));
                 }}

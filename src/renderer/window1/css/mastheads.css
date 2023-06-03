@@ -146,7 +146,7 @@ Generic settings
 }
 .curatedListsListenerStatusContainer {
   position: absolute;
-  top: 10px;
+  top: 3px;
   left: 300px;
   color: grey;
   font-size: 12px;

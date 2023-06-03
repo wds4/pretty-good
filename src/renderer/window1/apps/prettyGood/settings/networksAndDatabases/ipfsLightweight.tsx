@@ -5,7 +5,7 @@ import {
   getIpfsNodeID,
 } from 'renderer/window1/lib/ipfs';
 import Masthead from 'renderer/window1/mastheads/pgMasthead';
-import LeftNavbar1 from '../../../../navbars/leftNavbar1/pgNavbar';
+import LeftNavbar1 from '../../../../navbars/leftNavbar1/universalNavbar';
 import LeftNavbar2 from '../../../../navbars/leftNavbar2/prettyGood/settings';
 import {
   updateMainColWidth,

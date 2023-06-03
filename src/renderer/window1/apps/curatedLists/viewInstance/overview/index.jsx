@@ -16,7 +16,7 @@ export default class CuratedListSpecificInstance extends React.Component {
 
   async componentDidMount() {
     updateMainColWidth();
-    const mastheadDescriptor = 'Specific Instance';
+    const mastheadDescriptor = 'List Item';
     updateMastheadCenter(mastheadDescriptor);
   }
 

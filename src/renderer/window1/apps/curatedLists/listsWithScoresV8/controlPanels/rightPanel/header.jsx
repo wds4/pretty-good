@@ -15,7 +15,7 @@ const Header = ({
   const nostrProfiles = useSelector(
     (state) => state.nostrProfiles.nostrProfiles
   );
-  let seedUserName = seedUser;
+  let seedUserName = "..." + seedUser.substr(-6);
   if (nostrProfiles.hasOwnProperty(seedUser)) {
     const profileContent = JSON.parse(nostrProfiles[seedUser].content);
     const name = `@${profileContent.name}`;
@@ -23,7 +23,7 @@ const Header = ({
     seedUserName = name;
   }
   if (!seedUserName) {
-    seedUserName = seedUser;
+    seedUserName = "..." + seedUser.substr(-6);
   }
 
   const dispatch = useDispatch();
@@ -128,9 +128,9 @@ const Header = ({
           >
             <div
               className="curatedListMainPageLink"
-              style={{ display: 'none' }}
+              style={{  }}
             >
-              Want to visualize how this is determined?
+              VISUALIZE how<br/>this is determined
             </div>
           </NavLink>
         </div>

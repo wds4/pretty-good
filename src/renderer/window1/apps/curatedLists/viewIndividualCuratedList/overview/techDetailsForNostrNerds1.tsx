@@ -1,16 +1,13 @@
 
 import { useSelector } from 'react-redux';
 
-const TechDetailsForNostrNerds = ({event_id, oWord}) => {
+const TechDetailsForNostrNerds = ({oWord}) => {
   const { devMode3 } = useSelector((state) => state.myNostrProfile.devModes);
   let devElemClass = 'devElemHide';
   if (devMode3) {
     devElemClass = 'devElemShow';
   }
-
-  const curatedLists = useSelector((state) => state.curatedLists);
-
-  const elem_id = "technicalDetailsForNostrDevsContainer2_"+event_id; // add event_id or some other unique identifier if multiple details per page
+  const elem_id = "technicalDetailsForNostrDevsContainer1"; // add event_id or some other unique identifier if multiple details per page
   const toggleViewDetails = () => {
     const e = document.getElementById(elem_id);
     const currentState = e.style.display;
@@ -35,9 +32,7 @@ const TechDetailsForNostrNerds = ({event_id, oWord}) => {
           >
             🤓
           </button>
-          {' '}<span style={{ fontSize: '10px' }}>
-            item encoded as a concept graph 'word'
-          </span>
+          list as a word
         </div>
         <div
           id={elem_id}
@@ -49,16 +44,20 @@ const TechDetailsForNostrNerds = ({event_id, oWord}) => {
           }}
         >
           <div>
-            See{' '}
-            <a
-              style={{ textDecoration: 'none' }}
-              href="https://github.com/wds4/DCoSL/blob/main/dips/conceptGraph/100.md"
-              target="_blank"
-              rel="noreferrer"
-            >
-              DIP-100: words
-            </a>
+            See:
+            <li><a style={{textDecoration: 'none'}} href="https://github.com/wds4/DCoSL/blob/main/dips/conceptGraph/100.md" target="_blank">DIP-100: words</a></li>
+            <li><a style={{textDecoration: 'none'}} href="https://github.com/wds4/DCoSL/blob/main/dips/conceptGraph/106.md" target="_blank">DIP-106: lists</a></li>
+            <li><a style={{textDecoration: 'none'}} href="https://github.com/wds4/DCoSL/blob/main/dips/conceptGraph/107.md" target="_blank">DIP-107: json schema</a></li>
+            <br />
+            <div>
+            There are several deviations from the above DIPs, due to the fact that testnet-1 was launched prior to initial rough draft of DIPs.
+            </div>
+            <br />
+            <li>wordData is not included (may change DIP-100 to say this is allowed)</li>
+            <li>nostrCuratedListData is used rather than listData</li>
+            <li>nostrCuratedListData and jsonSchemaData are merged into the same word.</li>
           </div>
+          <br />
           <div>{JSON.stringify(oWord,null,4)}</div>
         </div>
       </div>

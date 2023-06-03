@@ -4,6 +4,11 @@ import {
   updateCuratedListFocus,
   updateCuratedListInstanceFocus,
 } from 'renderer/window1/redux/features/prettyGood/settings/slice';
+import { secsToTimeAgo } from 'renderer/window1/lib/pg';
+import TechDetailsForNostrNerds1 from './techDetailsForNostrNerds1';
+import TechDetailsForNostrNerds2 from './techDetailsForNostrNerds2';
+// import TechDetailsForNostrNerds3 from './techDetailsForNostrNerds3';
+import MiniProfile from './miniProfile';
 
 const Instance = ({
   curatedListFocusID,
@@ -43,12 +48,15 @@ const Instance = ({
   let instanceDescription = '';
   let pk_instance_author = '';
   let created_at = '';
+  let displayTime = '';
+
   if (oInstanceSqlData) {
     const sEvent = oInstanceSqlData.event;
     const { parentConceptSlug } = oInstanceSqlData;
     const { parentConceptNostrEventID } = oInstanceSqlData;
     if (sEvent) {
       oEvent = JSON.parse(sEvent);
+      displayTime = secsToTimeAgo(oEvent?.created_at);
       pk_instance_author = oEvent?.pubkey;
       created_at = oEvent?.created_at;
       const sWord = oEvent.content;
@@ -81,17 +89,18 @@ const Instance = ({
               verticalAlign: 'bottom',
             }}
           >
-            has been added to the list of
+            was submitted to nostr {displayTime} as an item on the list of
           </div>{' '}
           <div
             style={{
               display: 'inline-block',
               fontSize: '20px',
               verticalAlign: 'bottom',
+
             }}
           >
             <NavLink
-              style={{}}
+              style={{textDecoration: 'none'}}
               onClick={() => {
                 dispatch(updateCuratedListFocus(curatedListFocusID));
               }}
@@ -110,32 +119,9 @@ const Instance = ({
           >
             by
           </div>{' '}
-          <div
-            style={{
-              display: 'inline-block',
-              fontSize: '14px',
-              verticalAlign: 'bottom',
-            }}
-          >
-            {pk_instance_author}
-          </div>{' '}
-          <div
-            style={{
-              display: 'inline-block',
-              fontSize: '14px',
-              verticalAlign: 'bottom',
-            }}
-          >
-            on
-          </div>{' '}
-          <div
-            style={{
-              display: 'inline-block',
-              fontSize: '14px',
-              verticalAlign: 'bottom',
-            }}
-          >
-            {created_at}
+
+          <div style={{margin: '20px 50px 10px 50px'}}>
+            <MiniProfile pubkey={pk_instance_author} />
           </div>
         </div>
         <br />
@@ -153,6 +139,11 @@ const Instance = ({
         <div>propertyPath: {propertyPath}</div>
         <div>pk_instance_author: {pk_instance_author}</div>
         <div>{JSON.stringify(oWord, null, 4)}</div>
+      </div>
+
+      <div style={{marginLeft: '30px'}}>
+        <TechDetailsForNostrNerds1 oWord={oWord} />
+        <TechDetailsForNostrNerds2 oEvent={oEvent} />
       </div>
     </>
   );

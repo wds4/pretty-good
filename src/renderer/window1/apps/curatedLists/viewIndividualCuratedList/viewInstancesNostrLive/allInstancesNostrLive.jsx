@@ -3,6 +3,7 @@ import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
 import { addInstanceEventToSql } from 'renderer/window1/lib/pg/sql';
 import { doesEventInstanceValidateAgainstEventParent } from 'renderer/window1/lib/conceptGraph';
 import Instance from './instance';
+import TechDetailsForNostrNerds3 from './techDetailsForNostrNerds3';
 
 const AllInstances = ({parentConceptPropertyPath, parentConceptNostrEventID, parentConceptSlug, oParentEvent}) => {
   const kind0 = 9901;
@@ -29,11 +30,7 @@ const AllInstances = ({parentConceptPropertyPath, parentConceptNostrEventID, par
   return (
     <>
       <div className="h4">All items on this list (loading live from nostr)</div>
-      <div style={{fontSize: '10px'}}>
-        <div>number of events: {events.length}</div>
-        <div>filter:</div>
-        {JSON.stringify(filter,null,4)}
-      </div>
+      <TechDetailsForNostrNerds3 events={events} filter={filter} />
       {events.map((event, index) => {
         if (doesEventValidate(event)) {
           // ALSO NEED TO VALIDATE AGAINST JSON SCHEMA OF LIST

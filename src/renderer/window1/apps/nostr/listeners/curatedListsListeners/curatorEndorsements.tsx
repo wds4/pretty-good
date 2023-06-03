@@ -21,6 +21,8 @@ const CuratorEndorsementsListener = () => {
     devElemClass = 'devElemShow';
   }
 
+  // const { aRatingsOfCuratorsEventIDs } = useSelector((state) => state.curatedLists);
+
   // set up filter
   // make an array for all known parentConceptNostrEventID ????
   const kind0 = 39901;
@@ -39,6 +41,7 @@ const CuratorEndorsementsListener = () => {
   // store events in redux (and in sql?)
   events.forEach(async (event, item) => {
     if (doesEventValidate(event)) {
+      // if (!aRatingsOfCuratorsEventIDs.includes(event.id)) {}
       // dispatch(addEndorseAsRelaysPickerHunterNoteToReduxStore(event, myPubkey));
       // await updateListCurationNoteInSql(event, "endorseAsRelaysPickerHunter");
       dispatch(addCuratorEndorsement(event));

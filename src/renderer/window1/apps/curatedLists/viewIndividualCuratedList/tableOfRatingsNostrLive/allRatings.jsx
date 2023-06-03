@@ -3,6 +3,7 @@ import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
 import { addRatingOfCuratedListInstanceEventToSql } from 'renderer/window1/lib/pg/sql';
 import { doesEventInstanceValidateAgainstEventParent } from 'renderer/window1/lib/conceptGraph';
 import Rating from './rating';
+import TechDetailsForNostrNerds1 from './techDetailsForNostrNerds1';
 
 const removeDuplicates = (events) => {
   // cycle through events; since they have been placed in order starting with most recent,
@@ -45,10 +46,12 @@ const AllRatings = ({parentConceptPropertyPath, parentConceptNostrEventID, paren
   return (
     <>
       <div className="h4">ratings of items on this list (loading live from nostr)</div>
-      <div style={{fontSize: '10px'}}>
-        <div>number of events: {events.length}</div>
-        <div>filter:</div>
-        {JSON.stringify(filter,null,4)}
+      <TechDetailsForNostrNerds1 events={events} filter={filter} />
+      <div style={{fontSize: '22px', color: 'grey', width: '40%', textAlign: 'center', display: 'inline-block'}}>
+        rater
+      </div>
+      <div style={{float: 'right', fontSize: '22px', color: 'grey', width: '40%', textAlign: 'center', display: 'inline-block'}}>
+        ratee
       </div>
       {events.map((event, index) => {
         if (doesEventValidate(event)) {

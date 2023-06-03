@@ -21,10 +21,9 @@ export default class CuratorsOfIndividualList extends React.Component {
     let mastheadHTML = '';
     mastheadHTML += "<a href='https://github.com/wds4/DCoSL' target='_blank' style='text-decoration:none' >";
     mastheadHTML += 'DCoSL:';
-    mastheadHTML += '</a>';
-
+    mastheadHTML += '</a> Decentralized';
     mastheadHTML += '<div>';
-    mastheadHTML += '<span style=color:blue}>Decentralized Curation</span> ';
+    mastheadHTML += '<span style=color:blue}>Curation</span> ';
     mastheadHTML += 'of <span>Simple Lists</span>';
 
     mastheadHTML += '</div>';

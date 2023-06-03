@@ -28,13 +28,13 @@ const LeftNavbar2 = () => {
           </NavLink>
         </div>
 
-        <div style={{fontSize: "12px",marginTop: '3px',marginBottom: '3px'}}>single list</div>
+        <div style={{fontSize: "12px",marginTop: '3px',marginBottom: '3px'}}>Single List</div>
 
         <NavLink
           className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
           end to="/CuratedListsHome/ViewIndividualCuratedList"
         >
-          home
+          list
         </NavLink>
 
         <div style={{fontSize: "12px",margin: '3px 1px 3px 1px'}}>items on this list</div>
@@ -44,7 +44,7 @@ const LeftNavbar2 = () => {
             className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
             end to="/CuratedListsHome/InstancesOfIndividualList"
           >
-            home
+            list items
           </NavLink>
         </div>
 
@@ -52,14 +52,14 @@ const LeftNavbar2 = () => {
           className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
           end to="/CuratedListsHome/CuratedListAllItemsNostrLive"
         >
-          view all items (nostr live)
+          list items (nostr live)
         </NavLink>
 
         <NavLink
           className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
           end to="/CuratedListsHome/CuratedListAllItemsSql"
         >
-          view all items (sql)
+          list items (sql)
         </NavLink>
 
         <NavLink

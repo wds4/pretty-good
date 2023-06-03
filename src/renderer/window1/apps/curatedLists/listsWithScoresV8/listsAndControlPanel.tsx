@@ -12,6 +12,12 @@ const CuratedLists = ({ aListsData }) => {
   const handleChange = (event) => {
     setSearchString(event.target.value);
   };
+  const {
+    aListEventIDs,
+    aListItemEventIDs,
+    aRatingsOfItemsEventIDs,
+    aRatingsOfCuratorsEventIDs,
+  } = useSelector((state) => state.curatedLists);
   return (
     <>
       <div>
@@ -46,7 +52,7 @@ const CuratedLists = ({ aListsData }) => {
               submit
             </NavLink>
           </span>{' '}
-           a new list to the nostr network.
+          a new list to the nostr network.
         </div>
 
         <div style={{ textAlign: 'left', marginBottom: '5px' }}>
@@ -70,6 +76,28 @@ const CuratedLists = ({ aListsData }) => {
             </>
           );
         })}
+      </div>
+      <div
+        style={{
+          textAlign: 'left',
+          padding: '5px',
+          fontSize: '12px',
+          border: '1px solid grey',
+          color: 'grey',
+          marginTop: '30px',
+        }}
+      >
+        <center>curated lists listener / updates</center>
+        <div>lists: {aListEventIDs.length}</div>
+        <div>list items: {aListItemEventIDs.length}</div>
+        <div>item ratings: {aRatingsOfItemsEventIDs.length}</div>
+        <div>curator ratings: {aRatingsOfCuratorsEventIDs.length}</div>
+        <div style={{ marginTop: '10px' }}>
+          If this app is using too much energy, once updates of lists, list
+          items, item ratings, and curator ratings appear to be finished (ought
+          to happen quickly if connection is good), turn off the Curated Lists
+          Listeners in the masthead.
+        </div>
       </div>
     </>
   );

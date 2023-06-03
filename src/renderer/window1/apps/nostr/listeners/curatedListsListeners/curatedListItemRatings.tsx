@@ -15,6 +15,8 @@ const CuratedListItemRatingsListener = () => {
     devElemClass = 'devElemShow';
   }
 
+  // const { aRatingsOfItemsEventIDs } = useSelector((state) => state.curatedLists);
+
   // set up filter
   const kind0 = 39901;
   const filter = {
@@ -33,25 +35,27 @@ const CuratedListItemRatingsListener = () => {
   // store events in redux (and in sql?)
   events.forEach(async (event, item) => {
     if (doesEventValidate(event)) {
-      // dispatch(addEndorseAsRelaysPickerHunterNoteToReduxStore(event, myPubkey));
-      // await updateListCurationNoteInSql(event, "endorseAsRelaysPickerHunter");
-      dispatch(addRatingOfCuratedListInstance(event));
-      const parentConceptNostrEventID = event.tags.find(
-        ([k, v]) => k === 'l' && v && v !== ''
-      )[1];
-      const oWord = JSON.parse(event.content);
-      if (oWord) {
-        if (oWord.hasOwnProperty("ratingData")) {
-          if (oWord.ratingData.hasOwnProperty("ratingFieldsetData")) {
-            if (oWord.ratingData.ratingFieldsetData.hasOwnProperty("nostrCuratedListInstanceRatingFieldsetData")) {
-              const parentConceptSlug = oWord.ratingData.ratingFieldsetData.nostrCuratedListInstanceRatingFieldsetData.contextData.nostrParentCuratedListData.slug.singular;
-              if ( (parentConceptSlug) && (parentConceptNostrEventID) ) {
-                addRatingOfCuratedListInstanceEventToSql(event,parentConceptSlug,parentConceptNostrEventID);
+      // if (!aRatingsOfItemsEventIDs.includes(event.id)) {
+        // dispatch(addEndorseAsRelaysPickerHunterNoteToReduxStore(event, myPubkey));
+        // await updateListCurationNoteInSql(event, "endorseAsRelaysPickerHunter");
+        dispatch(addRatingOfCuratedListInstance(event));
+        const parentConceptNostrEventID = event.tags.find(
+          ([k, v]) => k === 'l' && v && v !== ''
+        )[1];
+        const oWord = JSON.parse(event.content);
+        if (oWord) {
+          if (oWord.hasOwnProperty("ratingData")) {
+            if (oWord.ratingData.hasOwnProperty("ratingFieldsetData")) {
+              if (oWord.ratingData.ratingFieldsetData.hasOwnProperty("nostrCuratedListInstanceRatingFieldsetData")) {
+                const parentConceptSlug = oWord.ratingData.ratingFieldsetData.nostrCuratedListInstanceRatingFieldsetData.contextData.nostrParentCuratedListData.slug.singular;
+                if ( (parentConceptSlug) && (parentConceptNostrEventID) ) {
+                  addRatingOfCuratedListInstanceEventToSql(event,parentConceptSlug,parentConceptNostrEventID);
+                }
               }
             }
           }
         }
-      }
+      // }
     }
   });
   return (
