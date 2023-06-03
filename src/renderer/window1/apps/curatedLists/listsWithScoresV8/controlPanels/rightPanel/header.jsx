@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { updateCuratedListFocus } from 'renderer/window1/redux/features/prettyGood/settings/slice';
 import { updateNostrProfileFocus } from 'renderer/window1/redux/features/nostr/settings/slice';
 import SeedUserSelector from '../topControlPanel/seedUserSelector';
-import TechDetailsForNostrNerds from './techDetailsForNostrNerds';
+import TechDetailsForNostrNerds1 from './techDetailsForNostrNerds1';
+import TechDetailsForNostrNerds2 from './techDetailsForNostrNerds2';
 
 const Header = ({
   oListData,
@@ -82,9 +83,9 @@ const Header = ({
     <>
       <div
         className="h4"
-        style={{ marginBottom: '10px', position: 'relative' }}
+        style={{ marginBottom: '5px', paddingTop: '25px', position: 'relative' }}
       >
-        <div style={{ color: 'purple', fontSize: '32px' }}>
+        <div style={{ color: 'purple', fontSize: '26px' }}>
           <NavLink
             onClick={() => {
               dispatch(updateCuratedListFocus(event_id));
@@ -108,9 +109,7 @@ const Header = ({
             fontSize: '12px',
           }}
         >
-          CURATION of
-          <br />
-          the list of:
+          CURATION of the list of:
         </div>
         <div
           style={{
@@ -193,7 +192,8 @@ const Header = ({
           {description}
         </div>
 
-        <TechDetailsForNostrNerds />
+        <TechDetailsForNostrNerds1 />
+        <TechDetailsForNostrNerds2 />
       </div>
     </>
   );

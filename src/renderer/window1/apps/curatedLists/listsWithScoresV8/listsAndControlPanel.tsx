@@ -103,9 +103,11 @@ const CuratedLists = ({ oCuratedLists, aListsData }) => {
           Curated Lists
         </div>
 
+
+
         <div
           style={{
-            textAlign: 'center',
+            textAlign: 'left',
             marginBottom: '20px',
             color: 'grey',
             fontSize: '12px',
@@ -124,8 +126,9 @@ const CuratedLists = ({ oCuratedLists, aListsData }) => {
               submit
             </NavLink>
           </span>{' '}
-          a new list to the nostr network.
+          a new list.
         </div>
+
 
         <div style={{ textAlign: 'left', marginBottom: '5px' }}>
           <div style={{ color: 'grey', fontSize: '10px' }}>
