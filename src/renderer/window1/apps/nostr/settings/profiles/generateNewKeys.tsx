@@ -13,9 +13,13 @@ export default function GenerateNewKeys() {
       const privkeyNew = generatePrivateKey(); // `sk` is a hex string
       const pubkeyHexNew = getPublicKey(privkeyNew); // `pk` is a hex string
       const pubkeyBech32New = nip19.npubEncode(pubkeyHexNew);
+      const nameNew = "newUser_"+pubkeyHexNew.substr(-6);
+      const displayNameNew = "New User "+pubkeyHexNew.substr(-6);
       const e1 = document.getElementById('pkHexNewContainer');
       const e2 = document.getElementById('pkBech32NewContainer');
       const e3 = document.getElementById('privkeyNewShownElem');
+      const e4 = document.getElementById('nameNewContainer');
+      const e5 = document.getElementById('displayNameNewContainer');
       if (e1) {
         e1.innerHTML = pubkeyHexNew;
       }
@@ -24,6 +28,12 @@ export default function GenerateNewKeys() {
       }
       if (e3) {
         e3.innerHTML = privkeyNew;
+      }
+      if (e4) {
+        e4.value = nameNew;
+      }
+      if (e5) {
+        e5.value = displayNameNew;
       }
     }
   };
@@ -41,12 +51,16 @@ export default function GenerateNewKeys() {
     const e1 = document.getElementById('pkHexNewContainer');
     const e2 = document.getElementById('pkBech32NewContainer');
     const e3 = document.getElementById('privkeyNewShownElem');
+    const e4 = document.getElementById('nameNewContainer');
+    const e5 = document.getElementById('displayNameNewContainer');
 
-    if (e1 && e2 && e3) {
+    if (e1 && e2 && e3 && e4 && e5) {
       const pubkeyHex = e1.innerHTML;
       // const pubkeyBech32 = e2.innerHTML;
       const privkey = e3.innerHTML;
-      const result = await addNewRowToMyNostrProfileInSql(pubkeyHex, privkey);
+      const name = e4.value;
+      const display_name = e5.value;
+      const result = await addNewRowToMyNostrProfileInSql(pubkeyHex, privkey, name, display_name);
       console.log(`result: ${result}`);
 
       const e = document.getElementById('savedKeysMessageContainer');
@@ -73,6 +87,10 @@ export default function GenerateNewKeys() {
           new pubkey (hex): <span id="pkHexNewContainer" />
           <br />
           new pubkey (bech32): <span id="pkBech32NewContainer" />
+          <br />
+          new name: <textarea style={{height:'25px', width: '50%'}} id="nameNewContainer" />
+          <br />
+          new display name: <textarea style={{height:'25px', width: '50%'}} id="displayNameNewContainer" />
         </div>
         <div style={{ marginBottom: '10px' }}>
           <button

@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { timeout } from 'renderer/window1/lib/pg';
 import Masthead from 'renderer/window1/mastheads/nostrMasthead';
 import LeftNavbar1 from 'renderer/window1/navbars/leftNavbar1/universalNavbar';

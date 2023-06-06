@@ -58,46 +58,49 @@ const CuratedListItemRatingsListener = () => {
       // }
     }
   });
-  return (
-    <>
-      <div className={devElemClass}>
-        <div className="listenerBox">
-          <div className="h4">CuratedListItemRatingsListener</div>
-          <div>numMessages received: {events.length}</div>
-          {events.map((event, index) => {
-            if (doesEventValidate(event)) {
-              const oWord = JSON.parse(event.content);
+  if (devMode) {
+    return (
+      <>
+        <div className={devElemClass}>
+          <div className="listenerBox">
+            <div className="h4">CuratedListItemRatingsListener</div>
+            <div>numMessages received: {events.length}</div>
+            {events.map((event, index) => {
+              if (doesEventValidate(event)) {
+                const oWord = JSON.parse(event.content);
 
-              const parentConceptNostrEventID = event.tags.find(
-                ([k, v]) => k === 'l' && v && v !== ''
-              )[1];
-              let parentConceptSlug = "";
-              if (oWord) {
-                if (oWord.hasOwnProperty("ratingData")) {
-                  if (oWord.ratingData.hasOwnProperty("ratingFieldsetData")) {
-                    if (oWord.ratingData.ratingFieldsetData.hasOwnProperty("nostrCuratedListInstanceRatingFieldsetData")) {
-                      parentConceptSlug = oWord.ratingData.ratingFieldsetData.nostrCuratedListInstanceRatingFieldsetData.contextData.nostrParentCuratedListData.slug.singular;
+                const parentConceptNostrEventID = event.tags.find(
+                  ([k, v]) => k === 'l' && v && v !== ''
+                )[1];
+                let parentConceptSlug = "";
+                if (oWord) {
+                  if (oWord.hasOwnProperty("ratingData")) {
+                    if (oWord.ratingData.hasOwnProperty("ratingFieldsetData")) {
+                      if (oWord.ratingData.ratingFieldsetData.hasOwnProperty("nostrCuratedListInstanceRatingFieldsetData")) {
+                        parentConceptSlug = oWord.ratingData.ratingFieldsetData.nostrCuratedListInstanceRatingFieldsetData.contextData.nostrParentCuratedListData.slug.singular;
+                      }
                     }
                   }
                 }
-              }
 
-              return (
-                <>
-                  <div className="listenerInfoContainer">
-                    <div>parentConceptNostrEventID: {parentConceptNostrEventID}</div>
-                    <div>parentConceptSlug: {parentConceptSlug}</div>
-                    <div className="listenerEventBox">{JSON.stringify(event,null,4)}</div>
-                    <div className="listenerWordBox">{JSON.stringify(oWord,null,4)}</div>
-                  </div>
-                </>
-              );
-            }
-          })}
+                return (
+                  <>
+                    <div className="listenerInfoContainer">
+                      <div>parentConceptNostrEventID: {parentConceptNostrEventID}</div>
+                      <div>parentConceptSlug: {parentConceptSlug}</div>
+                      <div className="listenerEventBox">{JSON.stringify(event,null,4)}</div>
+                      <div className="listenerWordBox">{JSON.stringify(oWord,null,4)}</div>
+                    </div>
+                  </>
+                );
+              }
+            })}
+          </div>
         </div>
-      </div>
-    </>
-  );
+      </>
+    );
+  }
+  return <></>;
 };
 
 export default CuratedListItemRatingsListener;

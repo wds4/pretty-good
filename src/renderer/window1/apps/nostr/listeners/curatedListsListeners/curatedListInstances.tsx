@@ -35,9 +35,9 @@ const CuratedListInstancesListener = () => {
     '#t': ['createInstance'],
     // '#s': [parentConceptSlug],
     // '#e': [parentConceptNostrEventID],
-  },
+  };
   const { events } = useNostrEvents({
-    filter: filter
+    filter,
   });
 
   // no need to put them in order
@@ -47,88 +47,101 @@ const CuratedListInstancesListener = () => {
   events.forEach(async (event, item) => {
     if (doesEventValidate(event)) {
       // if (!aListItemEventIDs.includes(event.id)) {
-        // dispatch(addEndorseAsRelaysPickerHunterNoteToReduxStore(event, myPubkey));
-        // await updateListCurationNoteInSql(event, "endorseAsRelaysPickerHunter");
-        // need to get parentConceptSlug,parentConceptNostrEventID
-        // if (!aCuratedLists.includes(event.id)) { // no need to store list if it has already been stored
-        const oWord = JSON.parse(event.content);
-        const aParentConceptNostrEventID = event.tags.filter(
-          ([k, v]) => k === 'e' && v && v !== ''
-        )[0];
-        const aParentConceptSlug = event.tags.filter(
-          ([k, v]) => k === 's' && v && v !== ''
-        )[0];
-        let parentConceptNostrEventID = "";
-        if (aParentConceptNostrEventID) {
-          if (aParentConceptNostrEventID.length > 0) {
-            parentConceptNostrEventID = aParentConceptNostrEventID[1];
-          }
+      // dispatch(addEndorseAsRelaysPickerHunterNoteToReduxStore(event, myPubkey));
+      // await updateListCurationNoteInSql(event, "endorseAsRelaysPickerHunter");
+      // need to get parentConceptSlug,parentConceptNostrEventID
+      // if (!aCuratedLists.includes(event.id)) { // no need to store list if it has already been stored
+      const oWord = JSON.parse(event.content);
+      const aParentConceptNostrEventID = event.tags.filter(
+        ([k, v]) => k === 'e' && v && v !== ''
+      )[0];
+      const aParentConceptSlug = event.tags.filter(
+        ([k, v]) => k === 's' && v && v !== ''
+      )[0];
+      let parentConceptNostrEventID = '';
+      if (aParentConceptNostrEventID) {
+        if (aParentConceptNostrEventID.length > 0) {
+          parentConceptNostrEventID = aParentConceptNostrEventID[1];
         }
-        let parentConceptSlug = "";
-        if (aParentConceptSlug) {
-          if (aParentConceptSlug.length > 0) {
-            parentConceptSlug = aParentConceptSlug[1];
-          }
+      }
+      let parentConceptSlug = '';
+      if (aParentConceptSlug) {
+        if (aParentConceptSlug.length > 0) {
+          parentConceptSlug = aParentConceptSlug[1];
         }
+      }
 
-        if ( (parentConceptNostrEventID) && (parentConceptSlug) ) {
-          dispatch(addCuratedListInstance(event));
-          await addInstanceEventToSql(event,parentConceptSlug,parentConceptNostrEventID);
-        }
+      if (parentConceptNostrEventID && parentConceptSlug) {
+        dispatch(addCuratedListInstance(event));
+        await addInstanceEventToSql(
+          event,
+          parentConceptSlug,
+          parentConceptNostrEventID
+        );
+      }
 
       // }
       // }
     }
   });
-  return (
-    <>
-      <div className={devElemClass}>
-        <div className="listenerBox">
-          <div className="h4">CuratedListInstancesListener</div>
-          <div>numMessages received: {events.length}</div>
-          {events.map((event, index) => {
-            if (event && doesEventValidate(event)) {
-              const aParentConceptNostrEventID = event.tags.filter(
-                ([k, v]) => k === 'e' && v && v !== ''
-              )[0];
-              const aParentConceptSlug = event.tags.filter(
-                ([k, v]) => k === 's' && v && v !== ''
-              )[0];
-              let parentConceptNostrEventID = "";
-              if (aParentConceptNostrEventID) {
-                if (aParentConceptNostrEventID.length > 0) {
-                  parentConceptNostrEventID = aParentConceptNostrEventID[1];
+  if (devMode) {
+    return (
+      <>
+        <div className={devElemClass}>
+          <div className="listenerBox">
+            <div className="h4">CuratedListInstancesListener</div>
+            <div>numMessages received: {events.length}</div>
+            {events.map((event, index) => {
+              if (event && doesEventValidate(event)) {
+                const aParentConceptNostrEventID = event.tags.filter(
+                  ([k, v]) => k === 'e' && v && v !== ''
+                )[0];
+                const aParentConceptSlug = event.tags.filter(
+                  ([k, v]) => k === 's' && v && v !== ''
+                )[0];
+                let parentConceptNostrEventID = '';
+                if (aParentConceptNostrEventID) {
+                  if (aParentConceptNostrEventID.length > 0) {
+                    parentConceptNostrEventID = aParentConceptNostrEventID[1];
+                  }
                 }
-              }
-              let parentConceptSlug = "";
-              if (aParentConceptSlug) {
-                if (aParentConceptSlug.length > 0) {
-                  parentConceptSlug = aParentConceptSlug[1];
+                let parentConceptSlug = '';
+                if (aParentConceptSlug) {
+                  if (aParentConceptSlug.length > 0) {
+                    parentConceptSlug = aParentConceptSlug[1];
+                  }
                 }
+                const oWord = JSON.parse(event.content);
+                /*
+                if ( (parentConceptNostrEventID) && (parentConceptSlug) ) {
+                  // dispatch(addCuratedListInstance(event));
+                  // addInstanceEventToSql(event,parentConceptSlug,parentConceptNostrEventID);
+                }
+                */
+                return (
+                  <>
+                    <div className="listenerInfoContainer">
+                      <div>
+                        parentConceptNostrEventID: {parentConceptNostrEventID}
+                      </div>
+                      <div>parentConceptSlug: {parentConceptSlug}</div>
+                      <div className="listenerEventBox">
+                        {JSON.stringify(event, null, 4)}
+                      </div>
+                      <div className="listenerWordBox">
+                        {JSON.stringify(oWord, null, 4)}
+                      </div>
+                    </div>
+                  </>
+                );
               }
-              const oWord = JSON.parse(event.content);
-              /*
-              if ( (parentConceptNostrEventID) && (parentConceptSlug) ) {
-                // dispatch(addCuratedListInstance(event));
-                // addInstanceEventToSql(event,parentConceptSlug,parentConceptNostrEventID);
-              }
-              */
-              return (
-                <>
-                  <div className="listenerInfoContainer">
-                    <div>parentConceptNostrEventID: {parentConceptNostrEventID}</div>
-                    <div>parentConceptSlug: {parentConceptSlug}</div>
-                    <div className="listenerEventBox">{JSON.stringify(event,null,4)}</div>
-                    <div className="listenerWordBox">{JSON.stringify(oWord,null,4)}</div>
-                  </div>
-                </>
-              );
-            }
-          })}
+            })}
+          </div>
         </div>
-      </div>
-    </>
-  );
+      </>
+    );
+  }
+  return <></>;
 };
 
 export default CuratedListInstancesListener;

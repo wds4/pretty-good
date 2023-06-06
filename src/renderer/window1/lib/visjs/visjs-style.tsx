@@ -10,9 +10,10 @@ export const groups = {
   },
   instance: {
     shape: 'box',
+    color: 'red',
   },
   ratingOfInstance: {
-    color: 'blue'
+    color: 'green'
   },
   legend: {
     color: '#EFEFEF',

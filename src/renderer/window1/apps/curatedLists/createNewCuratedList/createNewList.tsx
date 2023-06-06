@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
+import { setCurrentPage } from 'renderer/window1/redux/features/prettyGood/settings/slice';
 import { useNostr, dateToUnix } from 'nostr-react';
 import {
   type Event as NostrEvent,
@@ -125,6 +126,8 @@ const createListWord = () => {
 };
 
 const CreateNewCuratedList = () => {
+  const dispatch = useDispatch();
+  dispatch(setCurrentPage('CreateNewCuratedList'));
   const myNostrProfile = useSelector((state) => state.myNostrProfile);
   const myPrivkey = myNostrProfile.privkey;
   const { devMode3 } = useSelector((state) => state.myNostrProfile.devModes);

@@ -4,6 +4,7 @@ import { updateNostrProfileFocus } from 'renderer/window1/redux/features/nostr/s
 import { updateCuratedListInstanceFocus } from 'renderer/window1/redux/features/prettyGood/settings/slice';
 import { Tooltip } from 'react-tooltip';
 import { tooltipContent } from 'renderer/window1/const/tooltipContent';
+import TechDetailsForNostrNerds1 from './techDetailsForNostrNerds1';
 
 const ItemList = ({ aInstanceCompScoreData }) => {
   const dispatch = useDispatch();
@@ -45,6 +46,7 @@ const ItemList = ({ aInstanceCompScoreData }) => {
   }
   return (
     <>
+      <TechDetailsForNostrNerds1 />
       <div style={{ textAlign: 'left', marginRight: '20px', marginLeft: '20px' }}>
         <div className="itemsInfoBox" style={{border: '2px solid green'}}>
           <div style={{ color: 'grey', margin: '5px' }}>

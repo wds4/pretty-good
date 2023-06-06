@@ -16,6 +16,7 @@ export const DataFromRedux = ({
   if (devMode) {
     return (
       <>
+        <div style={{color: 'grey', textAlign: 'right', fontSize: '12px'}}>dev notes: data from redux store</div>
         <div style={{textAlign: 'left', fontSize: '12px'}}>
           {aCuratedLists.map((curatedListEventId) => {
             return (
@@ -45,6 +46,7 @@ export const DataFromSql = ({
   if (devMode) {
     return (
       <>
+        <div style={{color: 'grey', textAlign: 'right', fontSize: '12px'}}>dev notes: data from sql</div>
         <div>
           {aListsData.map((oListData) => {
             return (
@@ -72,6 +74,7 @@ const CuratedLists = ({ oCuratedLists, aListsData }) => {
     setSearchString(event.target.value);
   };
   const {
+    aThreadedTapestryEventIDs,
     aListEventIDs,
     aListItemEventIDs,
     aRatingsOfItemsEventIDs,
@@ -103,8 +106,6 @@ const CuratedLists = ({ oCuratedLists, aListsData }) => {
           Curated Lists
         </div>
 
-
-
         <div
           style={{
             textAlign: 'left',
@@ -128,7 +129,6 @@ const CuratedLists = ({ oCuratedLists, aListsData }) => {
           </span>{' '}
           a new list.
         </div>
-
 
         <div style={{ textAlign: 'left', marginBottom: '5px' }}>
           <div style={{ color: 'grey', fontSize: '10px' }}>
@@ -165,6 +165,7 @@ const CuratedLists = ({ oCuratedLists, aListsData }) => {
         }}
       >
         <center>curated lists listener / updates</center>
+        <div>threadedTapestry events: {aThreadedTapestryEventIDs.length}</div>
         <div>lists: {aListEventIDs.length}</div>
         <div>list items: {aListItemEventIDs.length}</div>
         <div>item ratings: {aRatingsOfItemsEventIDs.length}</div>

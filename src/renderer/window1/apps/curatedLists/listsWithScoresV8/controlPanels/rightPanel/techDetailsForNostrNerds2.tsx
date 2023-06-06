@@ -26,22 +26,24 @@ const TechDetailsForNostrNerds = () => {
   };
   return (
     <>
-      <div className={devElemClass}>
-        <div>
-          <button
-            type="button"
-            onClick={() => toggleViewDetails()}
-            className="doSomethingButton techDetailsToggleButton"
-            style={{
-              fontSize: '14px',
-              marginLeft: '0px',
-              paddingTop: '1px',
-              paddingBottom: '1px',
-            }}
-          >
-            🤓
-          </button>
-          <span style={{ color: 'grey' }}>What is the seed user?</span>
+      <div className={devElemClass} style={{marginLeft: '23px'}}>
+        <div style={{height: '33px', position: 'relative'}}>
+          <div style={{position: 'absolute', right: '30px'}}>
+            <button
+              type="button"
+              onClick={() => toggleViewDetails()}
+              className="doSomethingButton techDetailsToggleButton"
+              style={{
+                fontSize: '14px',
+                marginLeft: '0px',
+                paddingTop: '1px',
+                paddingBottom: '1px',
+              }}
+            >
+              🤓
+            </button>
+            <span style={{ color: 'grey' }}>What is the seed user?</span>
+          </div>
         </div>
         <div
           id={elem_id}

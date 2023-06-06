@@ -26,7 +26,7 @@ const TechDetailsForNostrNerds = () => {
   };
   return (
     <>
-      <div className={devElemClass}>
+      <div className={devElemClass} style={{marginLeft: '23px'}}>
 
         <div style={{textAlign: 'center'}}>
           <span style={{color: 'grey', fontSize: '18px'}}>LIST ITEMS</span>
@@ -98,20 +98,8 @@ const TechDetailsForNostrNerds = () => {
             </li>
 
             <li>
-              Anyone can{' '}
-              <span style={{ color: 'blue' }}>
-                <NavLink
-                  onClick={() => {
-                    // dispatch(updateCuratedListFocus());
-                  }}
-                  end
-                  to="/NostrHome/NostrViewProfile"
-                  style={{ textDecoration: 'none' }}
-                >
-                  endorse
-                </NavLink>
-              </span>{' '}
-              any user as curator of a given list{' '}
+              Anyone can endorse
+              any user as a curator of a given list{' '}
               <span>(trusted 👍 or not trusted 👎)</span>.
             </li>
 

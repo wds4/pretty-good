@@ -1,6 +1,9 @@
-import React from 'react';
+import { useDispatch } from 'react-redux';
+import { setCurrentPage } from 'renderer/window1/redux/features/prettyGood/settings/slice';
 
 const Faq = () => {
+  const dispatch = useDispatch();
+  dispatch(setCurrentPage('curatedListsFaq'));
   const toggleAnswer = (event) => {
     const answerID = `curatedListFaqAnswerContainer_${event.target.dataset.questionnumber}`;
     console.log(`toggleAnswer; answerID: ${answerID}`);
@@ -17,6 +20,7 @@ const Faq = () => {
       }
     }
   };
+
   return (
     <>
       <div className="h2">FAQ</div>

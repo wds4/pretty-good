@@ -317,6 +317,7 @@ const makeVisGraph_Grapevine = async (
           afferentEdgeIDs: [],
           physics: false,
           shape: 'diamond',
+
           // x: 500,
           // y: 100 * aNodesIDs.length - 500,
         }

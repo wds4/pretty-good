@@ -4,6 +4,8 @@ import LeftNavbar1 from 'renderer/window1/navbars/leftNavbar1/universalNavbar';
 import LeftNavbar2 from 'renderer/window1/navbars/leftNavbar2/nostr/settings';
 import { updateMainColWidth, updateMastheadCenter } from 'renderer/window1/lib/pg/ui';
 import AllAppSettingsNav from 'renderer/window1/apps/prettyGood/settings/allAppSettingsNav';
+// import CuratedListsMasterListener from 'renderer/window1/apps/nostr/listeners/curatedListsListeners';
+import CuratedListsMasterListener from 'renderer/window1/apps/nostr/listeners/curatedListsListenersRedo';
 
 export default class NostrSettings extends React.Component {
   constructor(props) {
@@ -28,6 +30,7 @@ export default class NostrSettings extends React.Component {
           <Masthead />
           <div id="mainPanel">
             <AllAppSettingsNav />
+            <CuratedListsMasterListener />
           </div>
         </div>
       </>

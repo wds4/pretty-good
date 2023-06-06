@@ -279,12 +279,20 @@ export const fetchExtendedFollowingListFromSql = async () => {
   const sql = 'SELECT * FROM myNostrProfile WHERE active=1';
 };
 
-export const addNewRowToMyNostrProfileInSql = async (pubkey, privkey) => {
+export const addNewRowToMyNostrProfileInSql = async (pubkey, privkey, name, display_name) => {
   // pubkey is hex formatted
-  const sql = ` INSERT OR IGNORE INTO myNostrProfile (pubkey,privkey,following,relays,active) VALUES ('${pubkey}','${privkey}','[]','${JSON.stringify(
-    oDefaultRelayUrls
-  )}',false) `;
+  let sql = "";
+  if (name && display_name) {
+    sql = ` INSERT OR IGNORE INTO myNostrProfile (pubkey,privkey,following,relays,active,name,display_name) VALUES ('${pubkey}','${privkey}','[]','${JSON.stringify(
+      oDefaultRelayUrls
+    )}',false,'${name}','${display_name}') `;
+  } else {
+    sql = ` INSERT OR IGNORE INTO myNostrProfile (pubkey,privkey,following,relays,active) VALUES ('${pubkey}','${privkey}','[]','${JSON.stringify(
+      oDefaultRelayUrls
+    )}',false) `;
+  }
   console.log(`addNewRowToMyNostrProfileInSql; sql: ${sql}`);
+  // return "foo";
   return asyncSql(sql);
 };
 

@@ -5,18 +5,19 @@ import { updateNostrProfileFocus } from 'renderer/window1/redux/features/nostr/s
 import ToggleNostrGrapevineSwitch from 'renderer/window1/components/grToggleSwitchT2';
 import BackButton from 'renderer/window1/components/backButton';
 import {
-  setCurrentPage,
   updateCurrentApp,
+  setCurrentPage,
 } from 'renderer/window1/redux/features/prettyGood/settings/slice';
-import CuratedListsListeners from 'renderer/window1/apps/nostr/listeners/curatedListsListeners';
+// import CuratedListsListeners from 'renderer/window1/apps/nostr/listeners/curatedListsListeners';
+import CuratedListsListeners from 'renderer/window1/apps/nostr/listeners/curatedListsListenersRedo';
 import { noProfilePicUrl } from '../const';
-import CuratedListsListenersToggle from './curatedListsListenersToggle';
+import TapestryStatus from './tapestryStatus';
 
 export default function Masthead() {
   const myNostrProfile = useSelector((state) => state.myNostrProfile);
   const dispatch = useDispatch();
-  dispatch(setCurrentPage('foo'));
   dispatch(updateCurrentApp('curatedLists'));
+  const currentPage = useSelector((state) => state.prettyGoodGlobalState.currentPage);
   let avatarUrl = noProfilePicUrl;
   if (myNostrProfile.picture_url) {
     if (myNostrProfile.picture_url != "undefined") {
@@ -59,6 +60,7 @@ export default function Masthead() {
                 : 'mastheadNavButton'
             }
             end
+            onClick={() => dispatch(setCurrentPage('NostrSearchForUser'))}
             to="/NostrHome/NostrSearchForUser"
           >
             <div style={{ fontSize: '20px' }}>&#x1F50D;</div>
@@ -66,6 +68,7 @@ export default function Masthead() {
           </NavLink>
           <NavLink
             onClick={() => {
+              dispatch(setCurrentPage('NostrViewMyProfile'));
               dispatch(updateNostrProfileFocus(myNostrProfile.pubkey));
             }}
             className={({ isActive }) =>
@@ -101,6 +104,7 @@ export default function Masthead() {
                 : 'mastheadNavButton'
             }
             end
+            onClick={() => dispatch(setCurrentPage('curatedListsSettings'))}
             to="/CuratedListsHome/CuratedListsSettings"
           >
             <div style={{ fontSize: '20px' }}>⚙️</div>
@@ -114,14 +118,10 @@ export default function Masthead() {
       </div>
       <CuratedListsListeners />
       <div className="mastheadSubBanner mastheadSubBannerConceptGraph">
-        CURATED LISTS:{' '}
-        <select>
-          <option>testnet-1 (kinds: 9901, 39901)</option>
-          <option disabled>testnet-2 (kinds: 9902, 39902)</option>
-          <option disabled>mainnet</option>
-        </select>
+        <span><TapestryStatus /></span>
       </div>
     </>
   );
 }
 // <CuratedListsListeners />
+

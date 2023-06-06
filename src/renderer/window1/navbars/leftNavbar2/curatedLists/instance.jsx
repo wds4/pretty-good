@@ -34,7 +34,7 @@ const LeftNavbar2 = () => {
           className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
           end to="/CuratedListsHome/InstancesOfIndividualList"
         >
-          item
+          items
         </NavLink>
 
         <div style={{fontSize: "12px",marginTop: '3px',marginBottom: '3px'}}>Single Item</div>
@@ -43,7 +43,7 @@ const LeftNavbar2 = () => {
           className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
           end to="/CuratedListsHome/CuratedListSpecificInstance"
         >
-          overview
+          item
         </NavLink>
 
         <NavLink

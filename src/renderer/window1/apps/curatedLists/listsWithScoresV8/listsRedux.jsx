@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled, { keyframes } from 'styled-components';
+import {
+  setCurrentPage,
+} from 'renderer/window1/redux/features/prettyGood/settings/slice';
 import Lists from './lists';
 
 const rotate360 = keyframes`
@@ -20,7 +23,7 @@ export const CustomLoader = ({ oCuratedLists, aCuratedListIDs, controlPanelSetti
   React.useEffect(() => {
     const timeout = setTimeout(() => {
       setLoader(false);
-    }, 5000);
+    }, 3000);
     return () => clearTimeout(timeout);
   }, []);
 
@@ -58,6 +61,7 @@ const Spinner = styled.div`
 `;
 
 const ListsRedux = () => {
+  const dispatch = useDispatch();
   const controlPanelSettings = useSelector(
     (state) => state.controlPanelSettings
   );
@@ -72,7 +76,7 @@ const ListsRedux = () => {
   if (devMode2) {
     devElemClass = 'devElemShow';
   }
-
+  dispatch(setCurrentPage('curatedListsMainPage'));
   return (
     <>
       <CustomLoader oCuratedLists={oCuratedLists} aCuratedListIDs={aCuratedListIDs} controlPanelSettings={controlPanelSettings} />

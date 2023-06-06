@@ -1,7 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { removeStringFromArray } from 'renderer/window1/lib/pg';
-import { updateAbout } from 'renderer/window1/redux/features/nostr/myNostrProfile/slice';
-import { EntryOptionPlugin } from 'webpack';
+import { removeStringFromArray, isValidObj, isValidObjString } from 'renderer/window1/lib/pg';
+import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
+import {
+  addCuratedListEventToSql,
+  addInstanceEventToSql,
+  addRatingOfCuratedListInstanceEventToSql,
+  addEndorsementOfListCuratorEventToSql,
+} from 'renderer/window1/lib/pg/sql';
+// import { updateAbout } from 'renderer/window1/redux/features/nostr/myNostrProfile/slice';
+// import { EntryOptionPlugin } from 'webpack';
 
 /*
 curatedLists: {
@@ -107,224 +114,229 @@ export const oBlankCuratedListData = {
   curators: {},
 };
 
-export const addRatingOfCuratedListInstance_X = (oEvent, oWord, state) => {
-  console.log("addRatingOfCuratedListInstance_X")
-  if (oWord.hasOwnProperty('ratingData')) {
-    if (oWord.ratingData.hasOwnProperty('ratingTemplateData')) {
-      const { ratingTemplateSlug } = oWord.ratingData.ratingTemplateData;
-      if (ratingTemplateSlug == 'nostrCuratedListInstanceGenericRating') {
-        const raterPubkey = oWord.ratingData.raterData.nostrProfileData.pubkey;
-        const rateeID = oWord.ratingData.rateeData.nostrCuratedListInstanceData.eventID;
-        const { regularSliderRating } = oWord.ratingData.ratingFieldsetData.nostrCuratedListInstanceRatingFieldsetData;
-        const { confidence } = oWord.ratingData.ratingFieldsetData.confidenceFieldsetData;
-        const listID = oWord.ratingData.ratingFieldsetData.nostrCuratedListInstanceRatingFieldsetData.contextData.nostrParentCuratedListData.eventID;
-        const contextDAGSlug = oWord.ratingData.ratingFieldsetData.nostrCuratedListInstanceRatingFieldsetData.contextData.contextDAG.slug;
+export const addRatingOfCuratedListItem_X = (oEvent, oWord, state) => {
+  // already checked that oWord.ratingData.ratingTemplateData.ratingTemplateSlug == 'nostrCuratedListInstanceGenericRating'
+  // console.log("addRatingOfCuratedListItem_X")
+  // console.log("qwerty addRatingOfCuratedListItem_X typeof oEvent: "+typeof oEvent)
+  const event_id = oEvent.id;
+  const raterPubkey = oWord.ratingData.raterData.nostrProfileData.pubkey;
+  const rateeID = oWord.ratingData.rateeData.nostrCuratedListInstanceData.eventID;
+  const { regularSliderRating } = oWord.ratingData.ratingFieldsetData.nostrCuratedListInstanceRatingFieldsetData;
+  const { confidence } = oWord.ratingData.ratingFieldsetData.confidenceFieldsetData;
+  const listID = oWord.ratingData.ratingFieldsetData.nostrCuratedListInstanceRatingFieldsetData.contextData.nostrParentCuratedListData.eventID;
+  const contextDAGSlug = oWord.ratingData.ratingFieldsetData.nostrCuratedListInstanceRatingFieldsetData.contextData.contextDAG.slug;
 
-        if (!state.curatedLists.hasOwnProperty(listID)) {
-          state.curatedLists[listID] = JSON.parse(
-            JSON.stringify(oBlankCuratedListData)
+  if (!state.curatedLists.hasOwnProperty(listID)) {
+    state.curatedLists[listID] = JSON.parse(
+      JSON.stringify(oBlankCuratedListData)
+    );
+  }
+
+  if (contextDAGSlug == 'genericRating' && confidence == 80) {
+    if (
+      !state.curatedLists[listID].items.hasOwnProperty(rateeID)
+    ) {
+      state.curatedLists[listID].items[rateeID] = JSON.parse(JSON.stringify(oBlankItemData));
+    }
+    // check if rating is already recorded and if so, compare created_at times
+    let proceed = false;
+    if (
+      !state.curatedLists[listID].items[rateeID].hasOwnProperty(
+        raterPubkey
+      )
+    ) {
+      proceed = true;
+    }
+    if (
+      state.curatedLists[listID].items[rateeID].hasOwnProperty(
+        raterPubkey
+      )
+    ) {
+      const existingCreatedAt =
+        state.curatedLists[listID].items[rateeID][raterPubkey]
+          .created_at;
+      if (oEvent.created_at > existingCreatedAt) {
+        proceed = true;
+      }
+    }
+    if (proceed) {
+      // only proceed if the current event is later than the preexisting event
+      // future: generalize to other rating values; for now (May 2023), just doing thumbs up (rating 100) and down (rating 0)
+      if (regularSliderRating == 100) {
+        // thumbs up
+        // remove from thumbs down, if present
+        state.curatedLists[listID].items[rateeID].ratings.thumbsDown =
+        removeStringFromArray(
+          raterPubkey,
+          state.curatedLists[listID].items[rateeID].ratings.thumbsDown
+        );
+        // add to thumbs up
+        if (
+          !state.curatedLists[listID].items[
+            rateeID
+          ].ratings.thumbsUp.includes(raterPubkey)
+        ) {
+          state.curatedLists[listID].items[rateeID].ratings.thumbsUp.push(
+            raterPubkey
           );
         }
-
-        if (contextDAGSlug == 'genericRating' && confidence == 80) {
-          if (
-            !state.curatedLists[listID].items.hasOwnProperty(rateeID)
-          ) {
-            state.curatedLists[listID].items[rateeID] = JSON.parse(JSON.stringify(oBlankItemData));
-          }
-          // check if rating is already recorded and if so, compare created_at times
-          let proceed = false;
-          if (
-            !state.curatedLists[listID].items[rateeID].hasOwnProperty(
-              raterPubkey
-            )
-          ) {
-            proceed = true;
-          }
-          if (
-            state.curatedLists[listID].items[rateeID].hasOwnProperty(
-              raterPubkey
-            )
-          ) {
-            const existingCreatedAt =
-              state.curatedLists[listID].items[rateeID][raterPubkey]
-                .created_at;
-            if (oEvent.created_at > existingCreatedAt) {
-              proceed = true;
-            }
-          }
-          if (proceed) {
-            // only proceed if the current event is later than the preexisting event
-            // future: generalize to other rating values; for now (May 2023), just doing thumbs up (rating 100) and down (rating 0)
-            if (regularSliderRating == 100) {
-              // thumbs up
-              // remove from thumbs down, if present
-              state.curatedLists[listID].items[rateeID].ratings.thumbsDown =
-              removeStringFromArray(
-                raterPubkey,
-                state.curatedLists[listID].items[rateeID].ratings.thumbsDown
-              );
-              // add to thumbs up
-              if (
-                !state.curatedLists[listID].items[
-                  rateeID
-                ].ratings.thumbsUp.includes(raterPubkey)
-              ) {
-                state.curatedLists[listID].items[rateeID].ratings.thumbsUp.push(
-                  raterPubkey
-                );
-              }
-              state.curatedLists[listID].items[rateeID].ratings[raterPubkey] = {
-                created_at: oEvent.created_at,
-                thumbs: 'up',
-              };
-            }
-            if (regularSliderRating == 0) {
-              // thumbs down
-              // remove from thumbs up, if present
-              state.curatedLists[listID].items[rateeID].ratings.thumbsUp =
-              removeStringFromArray(
-                raterPubkey,
-                state.curatedLists[listID].items[rateeID].ratings.thumbsUp
-              );
-              // add to thumbs down
-              if (
-                !state.curatedLists[listID].items[
-                  rateeID
-                ].ratings.thumbsDown.includes(raterPubkey)
-              ) {
-                state.curatedLists[listID].items[rateeID].ratings.thumbsDown.push(
-                  raterPubkey
-                );
-              }
-              state.curatedLists[listID].items[rateeID].ratings[raterPubkey] = {
-                created_at: oEvent.created_at,
-                thumbs: 'down',
-              };
-            }
-          }
+        state.curatedLists[listID].items[rateeID].ratings[raterPubkey] = {
+          created_at: oEvent.created_at,
+          thumbs: 'up',
+        };
+      }
+      if (regularSliderRating == 0) {
+        // thumbs down
+        // remove from thumbs up, if present
+        state.curatedLists[listID].items[rateeID].ratings.thumbsUp =
+        removeStringFromArray(
+          raterPubkey,
+          state.curatedLists[listID].items[rateeID].ratings.thumbsUp
+        );
+        // add to thumbs down
+        if (
+          !state.curatedLists[listID].items[
+            rateeID
+          ].ratings.thumbsDown.includes(raterPubkey)
+        ) {
+          state.curatedLists[listID].items[rateeID].ratings.thumbsDown.push(
+            raterPubkey
+          );
         }
+        state.curatedLists[listID].items[rateeID].ratings[raterPubkey] = {
+          created_at: oEvent.created_at,
+          thumbs: 'down',
+        };
+      }
+      if (!state.aRatingsOfItemsEventIDs.includes(event_id)) {
+        state.aRatingsOfItemsEventIDs.push(event_id);
+      }
+      if (!state.aThreadedTapestryEventIDs.includes(event_id)) {
+        state.aThreadedTapestryEventIDs.push(event_id);
       }
     }
   }
 };
 
 export const addCuratorEndorsement_X = (event, oWord, state) => {
-  console.log("addCuratorEndorsement_X")
-  if (oWord.hasOwnProperty('ratingData')) {
-    if (oWord.ratingData.hasOwnProperty('ratingTemplateData')) {
-      const { ratingTemplateSlug } = oWord.ratingData.ratingTemplateData;
-      if (ratingTemplateSlug == 'nostrCuratedListsCuratorEndorsement') {
-        const raterPubkey = oWord.ratingData.raterData.nostrProfileData.pubkey;
-        const rateePubkey = oWord.ratingData.rateeData.nostrProfileData.pubkey;
-        const { regularSliderRating } =
-          oWord.ratingData.ratingFieldsetData
-            .nostrCuratedListsCuratorEndorsementFieldsetData;
-        const { referenceRegularSliderRating } =
-          oWord.ratingData.ratingFieldsetData
-            .nostrCuratedListsCuratorEndorsementFieldsetData;
-        const { confidence } =
-          oWord.ratingData.ratingFieldsetData.confidenceFieldsetData;
-        const listID =
-          oWord.ratingData.ratingFieldsetData
-            .nostrCuratedListsCuratorEndorsementFieldsetData.contextData
-            .nostrParentCuratedListData.eventID;
-        const contextDAGSlug =
-          oWord.ratingData.ratingFieldsetData
-            .nostrCuratedListsCuratorEndorsementFieldsetData.contextData
-            .contextDAG.slug;
+  // already checked that ratingData.ratingTemplateData.ratingTemplateSlug == 'nostrCuratedListsCuratorEndorsement'
+  // console.log("qwerty addCuratorEndorsement_X typeof event: "+typeof event)
+  const event_id = event.id;
+  const raterPubkey = oWord.ratingData.raterData.nostrProfileData.pubkey;
+  const rateePubkey = oWord.ratingData.rateeData.nostrProfileData.pubkey;
+  const { regularSliderRating } =
+    oWord.ratingData.ratingFieldsetData
+      .nostrCuratedListsCuratorEndorsementFieldsetData;
+  const { referenceRegularSliderRating } =
+    oWord.ratingData.ratingFieldsetData
+      .nostrCuratedListsCuratorEndorsementFieldsetData;
+  const { confidence } =
+    oWord.ratingData.ratingFieldsetData.confidenceFieldsetData;
+  const listID =
+    oWord.ratingData.ratingFieldsetData
+      .nostrCuratedListsCuratorEndorsementFieldsetData.contextData
+      .nostrParentCuratedListData.eventID;
+  const contextDAGSlug =
+    oWord.ratingData.ratingFieldsetData
+      .nostrCuratedListsCuratorEndorsementFieldsetData.contextData
+      .contextDAG.slug;
 
-        if (!state.curatedLists.hasOwnProperty(listID)) {
-          state.curatedLists[listID] = JSON.parse(
-            JSON.stringify(oBlankCuratedListData)
+  if (!state.curatedLists.hasOwnProperty(listID)) {
+    state.curatedLists[listID] = JSON.parse(
+      JSON.stringify(oBlankCuratedListData)
+    );
+  }
+  if (contextDAGSlug == 'genericRating' && confidence == 80) {
+    if (
+      !state.curatedLists[listID].curators.hasOwnProperty(rateePubkey)
+    ) {
+      state.curatedLists[listID].curators[rateePubkey] = JSON.parse(JSON.stringify(oBlankCuratorData));
+    }
+    // check if rating is already recorded and if so, compare created_at times
+    let proceed = false;
+    if (
+      !state.curatedLists[listID].curators[rateePubkey].hasOwnProperty(
+        raterPubkey
+      )
+    ) {
+      proceed = true;
+    }
+    if (
+      state.curatedLists[listID].curators[rateePubkey].hasOwnProperty(
+        raterPubkey
+      )
+    ) {
+      const existingCreatedAt =
+        state.curatedLists[listID].curators[rateePubkey][raterPubkey]
+          .created_at;
+      if (event.created_at > existingCreatedAt) {
+        proceed = true;
+      }
+    }
+    if (proceed) {
+      // only proceed if the current event is later than the preexisting event
+      // console.log("qwerty raterPubkey: "+raterPubkey+"; rateePubkey: "+rateePubkey)
+      if (regularSliderRating == referenceRegularSliderRating) {
+        // console.log("qwerty thumbsUp")
+        // console.log("qwerty thumbsUp raterPubkey_"+raterPubkey+"; rateePubkey_"+rateePubkey)
+        // remove from thumbs down, if present
+        state.curatedLists[listID].curators[rateePubkey].thumbsDown =
+          removeStringFromArray(
+            raterPubkey,
+            state.curatedLists[listID].curators[rateePubkey].thumbsDown
+          );
+        // add to thumbs up
+        if (
+          !state.curatedLists[listID].curators[
+            rateePubkey
+          ].thumbsUp.includes(raterPubkey)
+        ) {
+          state.curatedLists[listID].curators[rateePubkey].thumbsUp.push(
+            raterPubkey
           );
         }
-        if (contextDAGSlug == 'genericRating' && confidence == 80) {
-          if (
-            !state.curatedLists[listID].curators.hasOwnProperty(rateePubkey)
-          ) {
-            state.curatedLists[listID].curators[rateePubkey] = JSON.parse(JSON.stringify(oBlankCuratorData));
-          }
-          // check if rating is already recorded and if so, compare created_at times
-          let proceed = false;
-          if (
-            !state.curatedLists[listID].curators[rateePubkey].hasOwnProperty(
-              raterPubkey
-            )
-          ) {
-            proceed = true;
-          }
-          if (
-            state.curatedLists[listID].curators[rateePubkey].hasOwnProperty(
-              raterPubkey
-            )
-          ) {
-            const existingCreatedAt =
-              state.curatedLists[listID].curators[rateePubkey][raterPubkey]
-                .created_at;
-            if (event.created_at > existingCreatedAt) {
-              proceed = true;
-            }
-          }
-          if (proceed) {
-            // only proceed if the current event is later than the preexisting event
-            // console.log("qwerty raterPubkey: "+raterPubkey+"; rateePubkey: "+rateePubkey)
-            if (regularSliderRating == referenceRegularSliderRating) {
-              // console.log("qwerty thumbsUp")
-              // console.log("qwerty thumbsUp raterPubkey_"+raterPubkey+"; rateePubkey_"+rateePubkey)
-              // remove from thumbs down, if present
-              state.curatedLists[listID].curators[rateePubkey].thumbsDown =
-                removeStringFromArray(
-                  raterPubkey,
-                  state.curatedLists[listID].curators[rateePubkey].thumbsDown
-                );
-              // add to thumbs up
-              if (
-                !state.curatedLists[listID].curators[
-                  rateePubkey
-                ].thumbsUp.includes(raterPubkey)
-              ) {
-                state.curatedLists[listID].curators[rateePubkey].thumbsUp.push(
-                  raterPubkey
-                );
-              }
-              state.curatedLists[listID].curators[rateePubkey][raterPubkey] = {
-                created_at: event.created_at,
-                thumbs: 'up',
-              };
-            }
-            if (regularSliderRating == 0) {
-              // console.log("qwerty thumbsDown")
-              // console.log("qwerty thumbsDown raterPubkey_"+raterPubkey+"; rateePubkey_"+rateePubkey)
-              // remove from thumbs up, if present
-              state.curatedLists[listID].curators[rateePubkey].thumbsUp =
-                removeStringFromArray(
-                  raterPubkey,
-                  state.curatedLists[listID].curators[rateePubkey].thumbsUp
-                );
-              // add to thumbs down
-              if (
-                !state.curatedLists[listID].curators[
-                  rateePubkey
-                ].thumbsDown.includes(raterPubkey)
-              ) {
-                state.curatedLists[listID].curators[
-                  rateePubkey
-                ].thumbsDown.push(raterPubkey);
-              }
-              state.curatedLists[listID].curators[rateePubkey][raterPubkey] = {
-                created_at: event.created_at,
-                thumbs: 'up',
-              };
-            }
-          }
+        state.curatedLists[listID].curators[rateePubkey][raterPubkey] = {
+          created_at: event.created_at,
+          thumbs: 'up',
+        };
+
+      }
+      if (regularSliderRating == 0) {
+        // console.log("qwerty thumbsDown")
+        // console.log("qwerty thumbsDown raterPubkey_"+raterPubkey+"; rateePubkey_"+rateePubkey)
+        // remove from thumbs up, if present
+        state.curatedLists[listID].curators[rateePubkey].thumbsUp =
+          removeStringFromArray(
+            raterPubkey,
+            state.curatedLists[listID].curators[rateePubkey].thumbsUp
+          );
+        // add to thumbs down
+        if (
+          !state.curatedLists[listID].curators[
+            rateePubkey
+          ].thumbsDown.includes(raterPubkey)
+        ) {
+          state.curatedLists[listID].curators[
+            rateePubkey
+          ].thumbsDown.push(raterPubkey);
         }
+        state.curatedLists[listID].curators[rateePubkey][raterPubkey] = {
+          created_at: event.created_at,
+          thumbs: 'down',
+        };
+      }
+      if (!state.aRatingsOfCuratorsEventIDs.includes(event_id)) {
+        state.aRatingsOfCuratorsEventIDs.push(event_id);
+      }
+      if (!state.aThreadedTapestryEventIDs.includes(event_id)) {
+        state.aThreadedTapestryEventIDs.push(event_id);
       }
     }
   }
 };
 
-export const addCuratedList_X = (oEvent, oWord, state, event_id, pubkey) => {
+export const addCuratedList_X = (event, oWord, state, event_id) => {
+  const { pubkey } = event;
   if (!state.curatedLists.hasOwnProperty(event_id)) {
     // don't overwrite if already present; otherwise, data in items property will be lost
     state.curatedLists[event_id] = JSON.parse(
@@ -332,20 +344,30 @@ export const addCuratedList_X = (oEvent, oWord, state, event_id, pubkey) => {
     );
   }
   // transcribe data
-  state.curatedLists[event_id].name = {
-    singular: oWord.nostrCuratedListData.name.singular,
-    plural: oWord.nostrCuratedListData.name.plural,
-  };
-  state.curatedLists[event_id].description =
-    oWord.nostrCuratedListData.description;
-  state.curatedLists[event_id].author = pubkey;
-  state.curatedLists[event_id].oWord = JSON.parse(JSON.stringify(oWord)); // clone object
+  if (oWord?.nostrCuratedListData) {
+    if (oWord.nostrCuratedListData?.name) {
+      state.curatedLists[event_id].name = {
+        singular: oWord.nostrCuratedListData.name.singular,
+        plural: oWord.nostrCuratedListData.name.plural,
+      };
+    }
+    state.curatedLists[event_id].description =
+      oWord.nostrCuratedListData?.description;
+    state.curatedLists[event_id].author = pubkey;
+    state.curatedLists[event_id].oWord = JSON.parse(JSON.stringify(oWord)); // clone object
+  }
+  if (!state.aListEventIDs.includes(event_id)) {
+    state.aListEventIDs.push(event_id);
+  }
+  if (!state.aThreadedTapestryEventIDs.includes(event_id)) {
+    state.aThreadedTapestryEventIDs.push(event_id);
+  }
 };
 
-export const addCuratedListInstance_X = (oEvent, oWord, state) => {
-  // console.log("addCuratedListInstance_X; oEvent: "+JSON.stringify(oEvent,null,4))
+export const addCuratedListItem_X = (oEvent, oWord, state) => {
+  // console.log("addCuratedListItem_X; oEvent: "+JSON.stringify(oEvent,null,4))
   if ((oEvent) && (oWord)) {
-    const itemID = oEvent.id;
+    const event_id = oEvent.id;
     const authorPubkey = oEvent.pubkey;
     const aParentConceptNostrEventID = oEvent.tags.filter(
       ([k, v]) => k === 'e' && v && v !== ''
@@ -377,15 +399,15 @@ export const addCuratedListInstance_X = (oEvent, oWord, state) => {
     if ((parentConceptNostrEventID) && (parentConceptSlug)) {
       const propertyPath = `${parentConceptSlug}Data`;
       if (oWord.hasOwnProperty(propertyPath)) {
-        console.log("addCuratedListInstance_X; parentConceptNostrEventID: "+parentConceptNostrEventID+"; parentConceptSlug: "+parentConceptSlug)
+        console.log("addCuratedListItem_X; parentConceptNostrEventID: "+parentConceptNostrEventID+"; parentConceptSlug: "+parentConceptSlug)
         if (state.curatedLists.hasOwnProperty(parentConceptNostrEventID)) {
           if (state.curatedLists[parentConceptNostrEventID].hasOwnProperty("items")) {
-            state.curatedLists[parentConceptNostrEventID].items[itemID] = JSON.parse(
+            state.curatedLists[parentConceptNostrEventID].items[event_id] = JSON.parse(
               JSON.stringify(oBlankItemData)
             );
-            // state.curatedLists[parentConceptNostrEventID].items[itemID].tags = JSON.parse(JSON.stringify(oEvent.tags));
-            state.curatedLists[parentConceptNostrEventID].items[itemID].oWord = JSON.parse(JSON.stringify(oWord));
-            state.curatedLists[parentConceptNostrEventID].items[itemID].author =
+            // state.curatedLists[parentConceptNostrEventID].items[event_id].tags = JSON.parse(JSON.stringify(oEvent.tags));
+            state.curatedLists[parentConceptNostrEventID].items[event_id].oWord = JSON.parse(JSON.stringify(oWord));
+            state.curatedLists[parentConceptNostrEventID].items[event_id].author =
               authorPubkey;
           }
         }
@@ -394,13 +416,19 @@ export const addCuratedListInstance_X = (oEvent, oWord, state) => {
           const slug = oWord[propertyPath]?.slug;
           const description = oWord[propertyPath]?.description;
           if (state.curatedLists[parentConceptNostrEventID].hasOwnProperty("items")) {
-            state.curatedLists[parentConceptNostrEventID].items[itemID].name = name;
-            state.curatedLists[parentConceptNostrEventID].items[itemID].slug = slug;
-            state.curatedLists[parentConceptNostrEventID].items[itemID].description =
+            state.curatedLists[parentConceptNostrEventID].items[event_id].name = name;
+            state.curatedLists[parentConceptNostrEventID].items[event_id].slug = slug;
+            state.curatedLists[parentConceptNostrEventID].items[event_id].description =
               description;
           }
         }
       }
+    }
+    if (!state.aListItemEventIDs.includes(event_id)) {
+      state.aListItemEventIDs.push(event_id);
+    }
+    if (!state.aThreadedTapestryEventIDs.includes(event_id)) {
+      state.aThreadedTapestryEventIDs.push(event_id);
     }
   }
 };
@@ -409,6 +437,7 @@ export const curatedListsSlice = createSlice({
   name: 'curatedLists',
   initialState: {
     curatedLists: {},
+    aThreadedTapestryEventIDs: [],
     aRatingsOfItemsEventIDs: [],
     aRatingsOfCuratorsEventIDs: [],
     aListEventIDs: [],
@@ -431,7 +460,7 @@ export const curatedListsSlice = createSlice({
         const oEvent = JSON.parse(event);
         const oWord = JSON.parse(oEvent.content);
         if (oWord) {
-          addCuratedListInstance_X(oEvent, oWord, state);
+          addCuratedListItem_X(oEvent, oWord, state);
         }
       }
     },
@@ -456,7 +485,14 @@ export const curatedListsSlice = createSlice({
         const oEvent = JSON.parse(event);
         const oWord = JSON.parse(oEvent.content);
         if (oWord) {
-          addRatingOfCuratedListInstance_X(oEvent, oWord, state);
+          if (oWord.hasOwnProperty('ratingData')) {
+            if (oWord.ratingData.hasOwnProperty('ratingTemplateData')) {
+              const { ratingTemplateSlug } = oWord.ratingData.ratingTemplateData;
+              if (ratingTemplateSlug == 'nostrCuratedListInstanceGenericRating') {
+                addRatingOfCuratedListItem_X(oEvent, oWord, state);
+              }
+            }
+          }
         }
       }
     },
@@ -481,13 +517,20 @@ export const curatedListsSlice = createSlice({
         const oEvent = JSON.parse(event);
         const oWord = JSON.parse(oEvent.content);
         if (oWord) {
-          addCuratorEndorsement_X(event, oWord, state);
+          if (oWord.hasOwnProperty('ratingData')) {
+            if (oWord.ratingData.hasOwnProperty('ratingTemplateData')) {
+              const { ratingTemplateSlug } = oWord.ratingData.ratingTemplateData;
+              if (ratingTemplateSlug == 'nostrCuratedListsCuratorEndorsement') {
+                addCuratorEndorsement_X(oEvent, oWord, state);
+              }
+            }
+          }
         }
       }
     },
     initCuratedLists: (state, action) => {
       const aCuratedListsData = action.payload;
-      // console.log("initCuratedLists_a; aCuratedListsData: "+JSON.stringify(aCuratedListsData,null,4));
+      console.log("initCuratedLists_a; aCuratedListsData: "+JSON.stringify(aCuratedListsData,null,4));
       const oCuratedListData = {};
       for (let x = 0; x < aCuratedListsData.length; x += 1) {
         const oCuratedListData = aCuratedListsData[x];
@@ -496,7 +539,7 @@ export const curatedListsSlice = createSlice({
         const oEvent = JSON.parse(event);
         const oWord = JSON.parse(oEvent.content);
         if (oWord) {
-          addCuratedList_X(oEvent, oWord, state, event_id, pubkey);
+          addCuratedList_X(oEvent, oWord, state, event_id);
         }
       }
     },
@@ -507,7 +550,7 @@ export const curatedListsSlice = createSlice({
         const { pubkey } = oEvent;
         const oWord = JSON.parse(oEvent.content);
         if (oWord) {
-          addCuratedList_X(oEvent, oWord, state, event_id, pubkey);
+          addCuratedList_X(oEvent, oWord, state, event_id);
           state.aListEventIDs.push(event_id);
         }
       }
@@ -519,7 +562,7 @@ export const curatedListsSlice = createSlice({
         const { pubkey } = oEvent;
         const oWord = JSON.parse(oEvent.content);
         if (oWord) {
-          addCuratedList_X(oEvent, oWord, state, event_id, pubkey);
+          addCuratedList_X(oEvent, oWord, state, event_id);
         }
       }
       */
@@ -530,7 +573,7 @@ export const curatedListsSlice = createSlice({
       if (!state.aListItemEventIDs.includes(event_id)) {
         const oWord = JSON.parse(oEvent.content);
         if (oWord) {
-          addCuratedListInstance_X(oEvent, oWord, state);
+          addCuratedListItem_X(oEvent, oWord, state);
           state.aListItemEventIDs.push(event_id);
         }
       }
@@ -548,7 +591,7 @@ export const curatedListsSlice = createSlice({
       if (!aCuratedListItems.includes(oEvent.id)) { // only add list item if it does not already exist in store
         const oWord = JSON.parse(oEvent.content);
         if (oWord) {
-          addCuratedListInstance_X(oEvent, oWord, state);
+          addCuratedListItem_X(oEvent, oWord, state);
         }
       }
       */
@@ -559,8 +602,15 @@ export const curatedListsSlice = createSlice({
       if (!state.aRatingsOfItemsEventIDs.includes(event_id)) {
         const oWord = JSON.parse(oEvent.content);
         if (oWord) {
-          addRatingOfCuratedListInstance_X(oEvent, oWord, state);
-          state.aRatingsOfItemsEventIDs.push(event_id);
+          if (oWord.hasOwnProperty('ratingData')) {
+            if (oWord.ratingData.hasOwnProperty('ratingTemplateData')) {
+              const { ratingTemplateSlug } = oWord.ratingData.ratingTemplateData;
+              if (ratingTemplateSlug == 'nostrCuratedListInstanceGenericRating') {
+                addRatingOfCuratedListItem_X(oEvent, oWord, state);
+                state.aRatingsOfItemsEventIDs.push(event_id);
+              }
+            }
+          }
         }
       }
 
@@ -568,7 +618,7 @@ export const curatedListsSlice = createSlice({
 
       /*
       // INCOMPLETE -- SEE ALSO BELOW
-      // maybe should do this entire check in addRatingOfCuratedListInstance_X ?
+      // maybe should do this entire check in addRatingOfCuratedListItem_X ?
       const oCuratedLists = state.curatedLists;
       const aCuratedLists = Object.keys(oCuratedLists); // array of curated list event IDs
       // END INCOMPLETE
@@ -578,7 +628,7 @@ export const curatedListsSlice = createSlice({
       /*
       const oWord = JSON.parse(oEvent.content);
       if (oWord) {
-        addRatingOfCuratedListInstance_X(oEvent, oWord, state);
+        addRatingOfCuratedListItem_X(oEvent, oWord, state);
       }
       */
     },
@@ -588,8 +638,15 @@ export const curatedListsSlice = createSlice({
       if (!state.aRatingsOfCuratorsEventIDs.includes(event_id)) {
         const oWord = JSON.parse(event.content);
         if (oWord) {
-          addCuratorEndorsement_X(event, oWord, state);
-          state.aRatingsOfCuratorsEventIDs.push(event_id);
+          if (oWord.hasOwnProperty('ratingData')) {
+            if (oWord.ratingData.hasOwnProperty('ratingTemplateData')) {
+              const { ratingTemplateSlug } = oWord.ratingData.ratingTemplateData;
+              if (ratingTemplateSlug == 'nostrCuratedListsCuratorEndorsement') {
+                addCuratorEndorsement_X(event, oWord, state);
+                state.aRatingsOfCuratorsEventIDs.push(event_id);
+              }
+            }
+          }
         }
       }
 
@@ -617,13 +674,144 @@ export const curatedListsSlice = createSlice({
       // END INCOMPLETE
       */
 
-
       /*
       const oWord = JSON.parse(event.content);
       if (oWord) {
         addCuratorEndorsement_X(event, oWord, state);
       }
       */
+    },
+
+    // 4 June 2023: addThreadedTapestryEvent will replace addCuratedList, addCuratedListInstance, addRatingOfCuratedListInstance, and addCuratorEndorsement, all of which will be deprecated
+    // It will also HOPEFULLY call a single function: (addThreadedTapestryEventToSql) so that: addCuratedListEventToSql, addInstanceEventToSql, addRatingOfCuratedListInstanceEventToSql, addEndorsementOfListCuratorEventToSql,
+    // (currently in renderer/window1/lib/pg/sql)
+    // will also be deprecated. (Although call to sql needs to be async -- can this be done asynchronously?)
+    addThreadedTapestryEvent: (state, action) => {
+      const event = action.payload;
+      // console.log("qwerty addThreadedTapestryEvent A");
+      if (doesEventValidate(event)) {
+        // console.log("qwerty addThreadedTapestryEvent B")
+        const event_id = event.id;
+
+        // c0 and g0 will not be needed if 9901, 33901 are reserved for these purposes;
+        // but for now at least, c0 and g0 will be used as additional checks that these are
+        // following the DCoSL protocol. (Maybe change to z0 == dcosl ???)
+
+        if (!state.aThreadedTapestryEventIDs.includes(event_id)) {
+          const { pubkey } = event;
+          const kind = event.kind;
+          if (isValidObjString(event?.content)) {
+            const oWord = JSON.parse(event.content);
+
+            /*
+            const aPropertyPaths = Object.keys(oWord);
+            if (aPropertyPaths.includes("nostrCuratedListData")) {
+
+            }
+            */
+            let c0 = event.tags.filter(([k, v]) => k === 'c' && v && v !== '')[0];
+            let d0 = event.tags.filter(([k, v]) => k === 'd' && v && v !== '')[0];
+            let e0 = event.tags.filter(([k, v]) => k === 'e' && v && v !== '')[0];
+            let g0 = event.tags.filter(([k, v]) => k === 'g' && v && v !== '')[0];
+            let l0 = event.tags.filter(([k, v]) => k === 'l' && v && v !== '')[0];
+            let m0 = event.tags.filter(([k, v]) => k === 'm' && v && v !== '')[0];
+            let p0 = event.tags.filter(([k, v]) => k === 'p' && v && v !== '')[0];
+            let r0 = event.tags.filter(([k, v]) => k === 'r' && v && v !== '')[0];
+            let s0 = event.tags.filter(([k, v]) => k === 's' && v && v !== '')[0];
+            let t0 = event.tags.filter(([k, v]) => k === 't' && v && v !== '')[0];
+
+            if (c0 && (typeof c0 == "object") && (c0.length > 1)) { c0 = c0[1]; }
+            if (d0 && (typeof d0 == "object") && (d0.length > 1)) { d0 = d0[1]; }
+            if (e0 && (typeof e0 == "object") && (e0.length > 1)) { e0 = e0[1]; }
+            if (g0 && (typeof g0 == "object") && (g0.length > 1)) { g0 = g0[1]; }
+            if (l0 && (typeof l0 == "object") && (l0.length > 1)) { l0 = l0[1]; }
+            if (m0 && (typeof m0 == "object") && (m0.length > 1)) { m0 = m0[1]; }
+            if (p0 && (typeof p0 == "object") && (p0.length > 1)) { p0 = p0[1]; }
+            if (r0 && (typeof r0 == "object") && (r0.length > 1)) { r0 = r0[1]; }
+            if (s0 && (typeof s0 == "object") && (s0.length > 1)) { s0 = s0[1]; }
+            if (t0 && (typeof t0 == "object") && (t0.length > 1)) { t0 = t0[1]; }
+
+            if (g0 == "grapevine-testnet-901") {
+              console.log("qwerty g0=grapevine-testnet; event: "+JSON.stringify(event,null,4))
+            }
+
+            // c0 and g0 will not be needed if 9901, 33901 are reserved for these purposes;
+            // but for now at least, c0 and g0 will be used as additional checks that these are
+            // following the DCoSL protocol. (Maybe change to z0 == dcosl ???)
+            if ( (kind == 9901) && (c0 == "concept-graph-testnet-901") ) {
+              // console.log("qwerty concept graph testnet")
+              if (t0 == "createInstance") {
+                // list, testnet 901
+                if (s0 == "nostrCuratedList") {
+                  // old way:
+                  // dispatch(addCuratedList(event));
+                  // await addCuratedListEventToSql(event);
+                  // new way:
+                  addCuratedList_X(event, oWord, state, event_id);
+                  addCuratedListEventToSql(event);
+
+                }
+                if (e0 && s0) {
+                  const parentConceptNostrEventID = e0;
+                  const parentConceptSlug = s0;
+                  // list item:
+                  // old way:
+                  /*
+                  dispatch(addCuratedListInstance(event));
+                  await addInstanceEventToSql(
+                    event,
+                    parentConceptSlug,
+                    parentConceptNostrEventID
+                  );
+                  */
+                  // new way:
+                  addCuratedListItem_X(event, oWord, state);
+                  addInstanceEventToSql(
+                    event,
+                    parentConceptSlug,
+                    parentConceptNostrEventID
+                  );
+                }
+              }
+            }
+            if ( (kind == 39901) && (g0 == "grapevine-testnet-901") ) {
+              // console.log("qwerty grapevine testnet")
+              // endorsements of items
+              // old way:
+              // dispatch(addRatingOfCuratedListInstance(event));
+              // endorsements of users
+              // old way:
+              // dispatch(addCuratorEndorsement(event));
+              if (oWord.hasOwnProperty('ratingData')) {
+                if (oWord.ratingData.hasOwnProperty('ratingTemplateData')) {
+                  const { ratingTemplateSlug } = oWord.ratingData.ratingTemplateData;
+                  if (ratingTemplateSlug == 'nostrCuratedListInstanceGenericRating') {
+                    addRatingOfCuratedListItem_X(event, oWord, state);
+                    if (l0) {
+                      const parentConceptSlug = oWord.ratingData.ratingFieldsetData.nostrCuratedListInstanceRatingFieldsetData.contextData.nostrParentCuratedListData.slug.singular;
+                      const parentConceptNostrEventID = l0;
+                      addRatingOfCuratedListInstanceEventToSql(event,parentConceptSlug,parentConceptNostrEventID);
+                    }
+                  }
+                  if (ratingTemplateSlug == 'nostrCuratedListsCuratorEndorsement') {
+                    addCuratorEndorsement_X(event, oWord, state);
+                    if (l0) {
+                      const parentConceptSlug = oWord.ratingData.ratingFieldsetData.nostrCuratedListsCuratorEndorsementFieldsetData.contextData.nostrParentCuratedListData.slug.singular;
+                      const parentConceptNostrEventID = l0;
+                      addEndorsementOfListCuratorEventToSql(event,parentConceptSlug,parentConceptNostrEventID);
+                    }
+                  }
+                }
+              }
+            }
+          }
+          if (!state.aThreadedTapestryEventIDs.includes(event_id)) {
+            state.aThreadedTapestryEventIDs.push(event_id);
+          }
+
+          // console.log("qwerty state.aThreadedTapestryEventIDs.length: "+state.aThreadedTapestryEventIDs.length)
+        }
+      }
     },
   },
 });
@@ -639,6 +827,7 @@ export const {
   addCuratedListInstance,
   addRatingOfCuratedListInstance,
   addCuratorEndorsement,
+  addThreadedTapestryEvent,
 } = curatedListsSlice.actions;
 
 export default curatedListsSlice.reducer;

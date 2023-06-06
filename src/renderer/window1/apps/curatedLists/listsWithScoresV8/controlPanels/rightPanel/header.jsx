@@ -5,6 +5,7 @@ import { updateNostrProfileFocus } from 'renderer/window1/redux/features/nostr/s
 import SeedUserSelector from '../topControlPanel/seedUserSelector';
 import TechDetailsForNostrNerds1 from './techDetailsForNostrNerds1';
 import TechDetailsForNostrNerds2 from './techDetailsForNostrNerds2';
+import MiniProfile from './miniProfile';
 
 const Header = ({
   oListData,
@@ -147,25 +148,13 @@ const Header = ({
               color: 'grey',
             }}
           >
-            as determined by::
+            as determined by:
           </div>
 
           <div style={{ textAlign: 'center', marginBottom: '5px' }}>
-            <span
-              style={{ textAlign: 'center', color: 'blue', fontSize: '18px' }}
-            >
-              <NavLink
-                onClick={() => {
-                  dispatch(updateNostrProfileFocus(seedUser));
-                }}
-                to="/NostrHome/NostrViewProfile"
-                className="goToUserProfileButton"
-              >
-                {seedUserName}
-              </NavLink>
-            </span>
-            's grapevine
+            <MiniProfile pubkey={seedUser} />
           </div>
+
           <div style={{ textAlign: 'right', marginRight: '20px' }}>
             <span style={{ color: 'grey', fontSize: '12px' }}>seed user:</span>
             <SeedUserSelector
@@ -174,9 +163,9 @@ const Header = ({
               aAllUserNodes={aAllUserNodes}
             />
           </div>
+          <TechDetailsForNostrNerds2 />
         </div>
       </div>
-
       <div style={{ textAlign: 'left', marginLeft: '20px', marginBottom: '10px' }}>
         <div style={{ fontSize: '12px', color: 'grey' }}>list description:</div>
         <div
@@ -192,8 +181,6 @@ const Header = ({
           {description}
         </div>
 
-        <TechDetailsForNostrNerds1 />
-        <TechDetailsForNostrNerds2 />
       </div>
     </>
   );

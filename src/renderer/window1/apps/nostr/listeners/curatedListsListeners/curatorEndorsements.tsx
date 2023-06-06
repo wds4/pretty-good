@@ -63,29 +63,32 @@ const CuratorEndorsementsListener = () => {
 
     }
   });
-  return (
-    <>
-      <div className={devElemClass}>
-        <div className="listenerBox">
-          <div className="h4">CuratorEndorsementsListener</div>
-          <div>numMessages received: {events.length}</div>
-          {events.map((event, index) => {
-            if (doesEventValidate(event)) {
-              const oWord = JSON.parse(event.content);
-              return (
-                <>
-                  <div className="listenerInfoContainer">
-                    <div className="listenerEventBox">{JSON.stringify(event,null,4)}</div>
-                    <div className="listenerWordBox">{JSON.stringify(oWord,null,4)}</div>
-                  </div>
-                </>
-              );
-            }
-          })}
+  if (devMode) {
+    return (
+      <>
+        <div className={devElemClass}>
+          <div className="listenerBox">
+            <div className="h4">CuratorEndorsementsListener</div>
+            <div>numMessages received: {events.length}</div>
+            {events.map((event, index) => {
+              if (doesEventValidate(event)) {
+                const oWord = JSON.parse(event.content);
+                return (
+                  <>
+                    <div className="listenerInfoContainer">
+                      <div className="listenerEventBox">{JSON.stringify(event,null,4)}</div>
+                      <div className="listenerWordBox">{JSON.stringify(oWord,null,4)}</div>
+                    </div>
+                  </>
+                );
+              }
+            })}
+          </div>
         </div>
-      </div>
-    </>
-  );
+      </>
+    );
+  }
+  return <></>;
 };
 
 export default CuratorEndorsementsListener;

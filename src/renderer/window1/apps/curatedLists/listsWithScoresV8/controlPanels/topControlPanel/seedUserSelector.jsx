@@ -28,6 +28,10 @@ const SeedUserSelector = ({aProfileCompScoreData,nodes,aAllUserNodes}) => {
       }
     }
   }
+  const nostrProfiles = useSelector(
+    (state) => state.nostrProfiles.nostrProfiles
+  );
+  const aNostrProfilePubkeys = Object.keys(nostrProfiles);
   return (
     <>
       <div style={{display: 'inline-block'}}>
@@ -58,6 +62,14 @@ const SeedUserSelector = ({aProfileCompScoreData,nodes,aAllUserNodes}) => {
             >
               {aProfileCompScoreData.map((oProfileData)=>{
                 const pk = oProfileData.pubkey;
+                /*
+                if (!aNostrProfilePubkeys.includes(pk)) {
+                  console.log("qwerty need to fetch profile for pk: "+pk)
+                }
+                if (aNostrProfilePubkeys.includes(pk)) {
+                  console.log("qwerty ALREADY FETCHED profile for pk: "+pk)
+                }
+                */
                 let selected = false;
                 if (seedUser == pk) {
                   selected = true;

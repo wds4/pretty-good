@@ -74,6 +74,7 @@ import ConceptGraphProfile from './apps/conceptGraph/profile';
 import ConceptGraphSettings from './apps/conceptGraph/settings';
 
 import CuratedListsHome from './apps/curatedLists';
+import CuratedListsLandingPageRedirect from './apps/curatedLists/landingPageRedirect';
 import AboutCuratedLists from './apps/curatedLists/about';
 import CuratedListsFaq from './apps/curatedLists/faq';
 import ViewListOfCuratedLists from './apps/curatedLists/viewListOfCuratedLists';
@@ -322,6 +323,10 @@ const AppRoutes = () => {
             />
 
             <Route path="/CuratedListsHome" element={<CuratedListsHome />} />
+            <Route
+              path="/CuratedListsHome/CuratedListsLandingPageRedirect"
+              element={<CuratedListsLandingPageRedirect />}
+            />
             <Route
               path="/CuratedListsHome/AboutCuratedLists"
               element={<AboutCuratedLists />}

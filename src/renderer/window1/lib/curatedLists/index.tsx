@@ -16,7 +16,7 @@ export const extractNodesAndEdges = (
 
   // fetch name from oNostrProfilesData if present
   const fetchNameFromPk = (pk) => {
-    let result = "fetchedNameFromPk";
+    let result = "..."+pk.substr(-6);
     if (oNostrProfilesData.hasOwnProperty(pk)) {
       const oEvent = JSON.parse(oNostrProfilesData[pk].event);
       const oContent = JSON.parse(oEvent.content);
@@ -26,7 +26,7 @@ export const extractNodesAndEdges = (
   }
   // fetch display_name from oNostrProfilesData if present
   const fetchDisplayNameFromPk = (pk) => {
-    let result = "fetchDisplayNameFromPk";
+    let result =  "..."+pk.substr(-6);
     if (oNostrProfilesData.hasOwnProperty(pk)) {
       const oEvent = JSON.parse(oNostrProfilesData[pk].event);
       const oContent = JSON.parse(oEvent.content);
@@ -129,7 +129,7 @@ export const extractNodesAndEdges = (
   if (seedUser != myPubKey) {
     let seedUserImageUrl = noProfilePicUrl;
     let seedUserDisplayName = "seedUserDisplayName";
-    let seedUserName = "seedUserName";
+    let seedUserName = "..."+seedUser.substr(-6);
     if (oNostrProfilesData.hasOwnProperty(seedUser)) {
       const oEventProfile = JSON.parse(oNostrProfilesData[seedUser].event);
       const oProfileContent = JSON.parse(oEventProfile.content);

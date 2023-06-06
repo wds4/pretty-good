@@ -45,6 +45,7 @@ export default class ListUI extends React.Component {
   render() {
     return (
       <>
+        <div style={{color: 'grey', textAlign: 'right', marginRight: '30px'}}>dev notes: loading data from SQL</div>
         <CalculationResults
           aInstanceCompScoreData={this.state.aInstanceCompScoreData}
           aProfileCompScoreData={this.state.aProfileCompScoreData}

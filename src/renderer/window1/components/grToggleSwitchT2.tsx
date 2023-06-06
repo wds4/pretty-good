@@ -27,6 +27,7 @@ export default class ToggleButtonOnOff extends React.Component {
   }
 }
 */
+
 const ToggleButtonOnOff = ({ }) => {
   const dispatch = useDispatch();
   const initState = useSelector((state) => state.nostrSettings.nostrGrapevineSettings.active);

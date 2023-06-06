@@ -15,6 +15,24 @@ export default class ListUIRedo extends React.Component {
   async componentDidMount() {
     const myPubKey = this.props.oMyNostrProfileData.pubkey;
     const aContextDAG = ['thisListCuration_allContexts'];
+
+    const aProfileCompScoreData =
+    singleIterationCompositeUserScoreCalculationsRedo(
+      this.props.controlPanelSettings,
+      this.props.aAllUserNodes,
+      this.props.nodes,
+      this.props.edges,
+    );
+    this.setState( {aProfileCompScoreData} )
+    const aInstanceCompScoreData = singleIterationInstanceScoreCalculationsRedo(
+      this.props.controlPanelSettings,
+      this.props.aAllUserNodes,
+      this.props.aAllInstanceNodes,
+      this.props.nodes,
+      this.props.edges,
+    );
+    this.setState( {aInstanceCompScoreData} )
+
     setInterval(() => {
       const aProfileCompScoreData =
         singleIterationCompositeUserScoreCalculationsRedo(
@@ -32,12 +50,13 @@ export default class ListUIRedo extends React.Component {
         this.props.edges,
       );
       this.setState( {aInstanceCompScoreData} )
-    }, 2000);
+    }, 1500);
   }
 
   render() {
     return (
       <>
+        <div style={{color: 'grey', textAlign: 'right', marginRight: '30px'}}>dev notes: loading data from redux store</div>
         <CalculationResultsRedo
           aInstanceCompScoreData={this.state.aInstanceCompScoreData}
           aProfileCompScoreData={this.state.aProfileCompScoreData}
