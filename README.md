@@ -1,8 +1,8 @@
 # Pretty Good Apps
 
 A desktop client for linux, mac, and windows, embedded currently with two apps:
-<li>a standard nostr client</li>
-<li>DCoSL (decentralized curation of simple lists) proof of concept</li>
+- a standard nostr client
+- curated lists: an implementation of the [DCoSL](https://github.com/wds4/DCoSL) protocol (decentralized curation of simple lists)
 
 <br />
 
