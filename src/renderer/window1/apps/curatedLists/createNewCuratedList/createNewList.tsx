@@ -299,21 +299,6 @@ const CreateNewCuratedList = () => {
 
         <br />
 
-        <div className="h4">Properties</div>
-        <div
-          style={{
-            fontSize: '12px',
-            marginLeft: '20%',
-            padding: '20px',
-            width: '60%',
-          }}
-        >
-          These will be the properties of instances of this list. Default
-          properties are name and description. For now, properties are all of
-          type: strings. Future property types will include: objects, arrays,
-          numbers, boolean, etc.
-        </div>
-
         <div>
           <button
             type="button"
