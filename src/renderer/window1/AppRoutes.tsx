@@ -34,10 +34,14 @@ import VisjsHelloWorldMultiGraph from './apps/prettyGood/settings/helloWorld/vis
 import DataTablesHelloWorld from './apps/prettyGood/settings/helloWorld/dataTables';
 import ReactDataTableComponentHelloWorld from './apps/prettyGood/settings/helloWorld/reactDataTableComponent';
 
+// import PrettyGoodAppsLandingPage from './apps/nostr/landingPage'; // if want start page to be nostr main feed
+import PrettyGoodAppsLandingPage from './apps/curatedLists/listsWithScoresV8'; // if want start page to be cuarated list summary page
+import CuratedListsLandingPage from './apps/curatedLists/listsWithScoresV8';
+
 // import NostrHome from './apps/nostr'
 import NostrHome from './apps/nostr';
-// import NostrLandingPage from './apps/nostr/landingPage'; // if want start page to be nostr main feed
-import NostrLandingPage from './apps/curatedLists/listsWithScoresV8'; // if want start page to be cuarated list summary page
+import NostrLandingPage from './apps/nostr/landingPage';
+// import NostrLandingPage from './apps/curatedLists/listsWithScoresV8'; // deprecating this usage
 import NostrMainFeed from './apps/nostr/mainFeed';
 import NostrViewMyProfile from './apps/nostr/viewMyProfile';
 import NostrEditMyProfile from './apps/nostr/editMyProfile';
@@ -140,7 +144,7 @@ const AppRoutes = () => {
       <fieldset id="app">
         <Router>
           <Routes>
-            <Route path="/" element={<NostrLandingPage />} />
+            <Route path="/" element={<PrettyGoodAppsLandingPage />} />
 
             <Route path="/PrettyGoodHome" element={<PrettyGoodHome />} />
             <Route
@@ -323,6 +327,10 @@ const AppRoutes = () => {
             />
 
             <Route path="/CuratedListsHome" element={<CuratedListsHome />} />
+            <Route
+              path="/CuratedListsHome/CuratedListsLandingPage"
+              element={<CuratedListsLandingPage />}
+            />
             <Route
               path="/CuratedListsHome/CuratedListsLandingPageRedirect"
               element={<CuratedListsLandingPageRedirect />}
