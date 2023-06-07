@@ -53,12 +53,14 @@ const LeftNavbar2 = () => {
           view ratings
         </NavLink>
 
-        <NavLink
-          className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
-          end to="/CuratedListsHome/SpecificInstanceLeaveRating"
-        >
-          leave rating
-        </NavLink>
+        <div className={devElemClass}>
+          <NavLink
+            className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
+            end to="/CuratedListsHome/SpecificInstanceLeaveRating"
+          >
+            leave rating
+          </NavLink>
+        </div>
 
         <div className={devElemClass}>
           <hr />

@@ -107,7 +107,7 @@ const EndorsementListener = ({pubkey}) => {
   })
   return (
     <>
-      <div style={{display:'none'}}>listen for endorsement updates; number of events: {events.length}</div>
+      <div style={{display:'none'}}>listen for endorsement updates; number of events:</div>
     </>
   )
 }
@@ -125,7 +125,7 @@ const ThisUserProfileListener = ({pubkey}) => {
 
   const event = returnMostRecentEvent(events);
   if (event && doesEventValidate(event)) {
-    // dispatch(updateNostrProfiles(event));
+    dispatch(updateNostrProfiles(event));
     /*
     event_ = JSON.parse(JSON.stringify(event));
     content = JSON.parse(event.content);
@@ -143,7 +143,7 @@ const ThisUserProfileListener = ({pubkey}) => {
   }
   return (
     <>
-      <div>listen for profile updates (follows) (might be redundant bc of userData?)</div>
+      <div style={{display:'none'}}>listen for profile updates (follows) (might be redundant bc of userData?)</div>
     </>
   )
 }

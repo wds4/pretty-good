@@ -153,33 +153,36 @@ const CuratedLists = ({ oCuratedLists, aListsData }) => {
           devMode={devMode4}
         />
       </div>
-      <div
-        style={{
-          textAlign: 'left',
-          padding: '5px',
-          fontSize: '12px',
-          border: '1px solid grey',
-          color: 'grey',
-          marginTop: '30px',
-          display: displayInfoBox,
-        }}
-      >
-        <center>curated lists listener / updates</center>
-        <div>threadedTapestry events: {aThreadedTapestryEventIDs.length}</div>
-        <div>lists: {aListEventIDs.length}</div>
-        <div>list items: {aListItemEventIDs.length}</div>
-        <div>item ratings: {aRatingsOfItemsEventIDs.length}</div>
-        <div>curator ratings: {aRatingsOfCuratorsEventIDs.length}</div>
-        <div style={{ marginTop: '10px' }}>
-          If this app is using too much energy, once updates of lists, list
-          items, item ratings, and curator ratings appear to be finished (ought
-          to happen quickly if connection is good), turn off the Curated Lists
-          Listeners in the masthead.
-        </div>
-      </div>
     </>
   );
 };
+
+/*
+<div
+  style={{
+    textAlign: 'left',
+    padding: '5px',
+    fontSize: '12px',
+    border: '1px solid grey',
+    color: 'grey',
+    marginTop: '30px',
+    display: displayInfoBox,
+  }}
+>
+  <center>curated lists listener / updates ...</center>
+  <div>threadedTapestry events: {aThreadedTapestryEventIDs.length}</div>
+  <div>lists: {aListEventIDs.length}</div>
+  <div>list items: {aListItemEventIDs.length}</div>
+  <div>item ratings: {aRatingsOfItemsEventIDs.length}</div>
+  <div>curator ratings: {aRatingsOfCuratorsEventIDs.length}</div>
+  <div style={{ marginTop: '10px' }}>
+    If this app is using too much energy, once updates of lists, list
+    items, item ratings, and curator ratings appear to be finished (ought
+    to happen quickly if connection is good), turn off the Curated Lists
+    Listeners in the masthead.
+  </div>
+</div>
+*/
 
 const ListsAndControlPanel = ({ oCuratedLists, aListsData }) => {
   const { devMode6 } = useSelector(

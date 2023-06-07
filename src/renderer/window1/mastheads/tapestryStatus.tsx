@@ -52,13 +52,13 @@ const TapestryStatus = () => {
             fontSize: '12px',
           }}
         >
-          CURATED LISTS:{' '}
+          DCoSL:{' '}
           <select>
             <option>testnet-1 (kinds: 9901, 39901)</option>
             <option disabled>testnet-2 (kinds: 9902, 39902)</option>
             <option disabled>mainnet</option>
           </select>{' '}
-          <span># of events updated live: {aThreadedTapestryEventIDs.length} (start: {numberOfBeginningTapestryEvents})</span>
+          <span>loaded {numberOfBeginningTapestryEvents} (below) of {aThreadedTapestryEventIDs.length} events detected live on nostr: </span>
         </button>
         <div style={{position: 'absolute', right: '10px', top: '2px', display: reloadButtonDisplay}}>
           <NavLink
@@ -90,15 +90,16 @@ const TapestryStatus = () => {
                   color: 'grey',
                 }}
               >
-                <center>curated lists listener / updates</center>
-                <hr />
+                <center>curated lists listener: status</center>
+                <br />
                 <div>number of events in redux store (includes events loaded from SQL): {aThreadedTapestryEventIDs.length}</div>
-                <hr />
-                <div>lists: {aListEventIDs.length}</div>
-                <div>list items: {aListItemEventIDs.length}</div>
-                <div>item ratings: {aRatingsOfItemsEventIDs.length}</div>
-                <div>curator ratings: {aRatingsOfCuratorsEventIDs.length}</div>
-                <div>TOTAL: {aListEventIDs.length + aListItemEventIDs.length + aRatingsOfItemsEventIDs.length +aRatingsOfCuratorsEventIDs.length}</div>
+                <div style={{marginLeft: '20px'}}>
+                  <div>lists: {aListEventIDs.length}</div>
+                  <div>list items: {aListItemEventIDs.length}</div>
+                  <div>item ratings: {aRatingsOfItemsEventIDs.length}</div>
+                  <div>curator ratings: {aRatingsOfCuratorsEventIDs.length}</div>
+                  <div>TOTAL: {aListEventIDs.length + aListItemEventIDs.length + aRatingsOfItemsEventIDs.length +aRatingsOfCuratorsEventIDs.length}</div>
+                </div>
                 <div style={{ marginTop: '10px' }}>
                   If this app is using too much energy, once updates of lists, list
                   items, item ratings, and curator ratings appear to be finished (ought

@@ -32,20 +32,12 @@ const CuratedListsMasterFilter = () => {
     filter,
   });
 
-  // TODO 1: switch from METHOD: OLD to METHOD: NEW
-  // METHOD: NEW works for redux but does not yet add new events to SQL
-
-
   // METHOD: NEW
   events.forEach(async (event, item) => {
     if (doesEventValidate(event)) {
       dispatch(addThreadedTapestryEvent(event));
-      // TODO 2: send to SQL here OR send to sql from addThreadedTapestryEvent
     }
   });
-
-  // TODO 3: toggle Follow button listener on/off along with the relevant curated list listener when endorsing user as curator
-
   // METHOD: OLD
   /*
   events.forEach(async (event, item) => {

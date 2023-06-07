@@ -98,11 +98,13 @@ const EndorseItemListener = () => {
     }
   })
   return (
-    <>
-      <div >listen for endorsement updates; number of events: {events.length}</div>
-    </>
+    <></>
   )
 }
+
+
+// TODO: transfer functionality from nostr/profile/curatedListBox/createNewRating
+// 2. In both createNewRating files (rate item and rate user as curator), allow to submit a "blank" rating
 
 /*
 // RATING OF A SPECIFIC INSTANCE
@@ -287,7 +289,7 @@ const CreateNewRating = ({
     createRatingWord('up', myNostrProfile, oListSqlData, oInstanceSqlData);
     createEvent();
     submitEvent();
-    indicateMessageSuccess();
+    // indicateMessageSuccess();
 
     const e3 = document.getElementById('ratingTypeContainer');
     e3.innerHTML = 'Thumbs Up';
@@ -297,7 +299,7 @@ const CreateNewRating = ({
     createRatingWord('down', myNostrProfile, oListSqlData, oInstanceSqlData);
     createEvent();
     submitEvent();
-    indicateMessageSuccess();
+    // indicateMessageSuccess();
 
     const e3 = document.getElementById('ratingTypeContainer');
     e3.innerHTML = 'Thumbs Down';
@@ -313,11 +315,14 @@ const CreateNewRating = ({
 
   const elem_id = 'technicalDetailsForNostrDevsContainer';
 
+
+
+
   let thumbsUpButtonClass = 'endorseThumbsUpButton';
   let thumbsDownButtonClass = 'endorseThumbsDownButton';
   let thumbsUpCurrentState = 'notEndorsed';
   let thumbsDownCurrentState = 'notEndorsed';
-  let myCurrentRating = "not rated";
+  let myCurrentRating = "You have not rated this item.";
   // lookup whether this item is already rated by me
   const curatedLists = useSelector((state) => state.curatedLists.curatedLists);
   if (curatedLists.hasOwnProperty(curatedListFocusID)) {
@@ -326,120 +331,118 @@ const CreateNewRating = ({
         // I have rated this user thumbs up
         thumbsUpCurrentState = 'endorsed';
         thumbsUpButtonClass = 'unendorseThumbsUpButton';
-        myCurrentRating = "👍 ENDORSED";
+        myCurrentRating = "👍 You have ENDORSED this item.";
+        const z = document.getElementById("myCurrentRatingContainer");
+        if (z) {
+          z.style.color = "green";
+        }
       }
       if (curatedLists[curatedListFocusID].items[curatedListInstanceFocusID].ratings.thumbsDown.includes(myPubkey)) {
         // I have rated this user thumbs down
         thumbsDownCurrentState = 'endorsed';
         thumbsDownButtonClass = 'unendorseThumbsDownButton';
-        myCurrentRating = "👎 BLOCKED";
+        myCurrentRating = "👎 You have BLOCKED this item.";
+        const z = document.getElementById("myCurrentRatingContainer");
+        if (z) {
+          z.style.color = "red";
+        }
       }
     }
   }
 
   return (
     <>
-      <div className="h4" style={{ marginTop: '20px' }}>
-        Create New Rating
-      </div>
-      <br />
-      <div>
-        This page is functional but is being deprecated, with functionality
-        moved to the main page for this item.
-      </div>
-      <br />
+      <div style={{marginLeft: '30px'}}>
+        <div className="h4" style={{ marginTop: '20px' }}>
+          rate this item
+        </div>
 
-      <EndorseItemListener />
+        <EndorseItemListener />
 
-      <div style={{ margin: '20px 0px 20px 0px' }}>
-        Thumbs up 👍 is your attestation that this item BELONGS on this list.
-        <br />
-        Thumbs down 👎 is your attestation that this item DOES NOT BELONG on this
-        list.
-      </div>
+        <div style={{ margin: '20px 0px 20px 0px' }}>
+          Thumbs up 👍 is your attestation that this item BELONGS on this list.
+          <br />
+          Thumbs down 👎 is your attestation that this item DOES NOT BELONG on this
+          list.
+        </div>
 
-      <div id="createAndSubmitEventButtonsContainer">
-        <button
-          type="button"
-          value={thumbsUpCurrentState}
-          onClick={() => createThumbsUpWord()}
-          className={thumbsUpButtonClass}
-        />
-
-        <button
-          type="button"
-          value={thumbsDownCurrentState}
-          onClick={() => creatThumbsDownWord()}
-          className={thumbsDownButtonClass}
-        />
-      </div>
-
-      <div
-        id="successMessageContainer"
-        style={{ display: 'none', marginBottom: '20px' }}
-      >
-        <span id="ratingTypeContainer" /> rating submitted successfully to the
-        nostr network.
-        <br />
-        To listen for this item on the network, navigate to the{' '}
-        <i>List Items</i> menu on the left; then click the{' '}
-        <i>ratings of items (nostr live)</i> button on the left.
-      </div>
-
-      <TechDetailsForNostrNerds />
-
-      <div id={elem_id} style={{ display: 'none' }}>
-        <div>
+        <div id="createAndSubmitEventButtonsContainer">
           <button
             type="button"
-            onClick={() => createEvent()}
-            className="doSomethingButton"
-          >
-            step 0: create event
-          </button>
+            value={thumbsUpCurrentState}
+            onClick={() => createThumbsUpWord()}
+            className={thumbsUpButtonClass}
+          />
+
           <button
             type="button"
-            onClick={() => createEvent()}
-            className="doSomethingButton"
-          >
-            step 1: create event
-          </button>
-          <button
-            type="button"
-            onClick={() => submitEvent()}
-            className="doSomethingButton"
-          >
-            step 2: submit event
-          </button>
+            value={thumbsDownCurrentState}
+            onClick={() => creatThumbsDownWord()}
+            className={thumbsDownButtonClass}
+          />
+          <div style={{display:'inline-block',color:'grey'}} id="myCurrentRatingContainer">{myCurrentRating}</div>
         </div>
 
         <div
-          style={{ display: 'inline-block', width: '40%', fontSize: '12px' }}
+          id="successMessageContainer"
+          style={{ display: 'none', marginBottom: '20px' }}
         >
-          <div>list rating as a 'word' (concept graph format)</div>
-          <textarea
-            id="newConceptRawFileField"
-            style={{
-              display: 'inline-block',
-              height: '400px',
-              width: '100%',
-              fontSize: '10px',
-            }}
-          />
+          <span id="ratingTypeContainer" /> rating submitted successfully to the
+          nostr network.
+          <br />
+          To listen for this item on the network, navigate to the{' '}
+          <i>List Items</i> menu on the left; then click the{' '}
+          <i>ratings of items (nostr live)</i> button on the left.
         </div>
-        <div
-          style={{ display: 'inline-block', width: '40%', fontSize: '12px' }}
-        >
-          <div>word wrapped as a nostr event</div>
-          <textarea
-            id="newConceptEventField"
-            style={{
-              display: 'inline-block',
-              height: '400px',
-              width: '100%',
-              fontSize: '10px',
-            }}
-          />
+
+        <TechDetailsForNostrNerds />
+
+        <div id={elem_id} style={{ display: 'none' }}>
+          <div>
+            <button
+              type="button"
+              onClick={() => createEvent()}
+              className="doSomethingButton"
+            >
+              step 1: create event
+            </button>
+            <button
+              type="button"
+              onClick={() => submitEvent()}
+              className="doSomethingButton"
+            >
+              step 2: submit event
+            </button>
+          </div>
+
+          <div
+            style={{ display: 'inline-block', width: '40%', fontSize: '12px' }}
+          >
+            <div>list rating as a 'word' (concept graph format)</div>
+            <textarea
+              id="newConceptRawFileField"
+              style={{
+                display: 'inline-block',
+                height: '400px',
+                width: '100%',
+                fontSize: '10px',
+              }}
+            />
+          </div>
+          <div
+            style={{ display: 'inline-block', width: '40%', fontSize: '12px' }}
+          >
+            <div>word wrapped as a nostr event</div>
+            <textarea
+              id="newConceptEventField"
+              style={{
+                display: 'inline-block',
+                height: '400px',
+                width: '100%',
+                fontSize: '10px',
+              }}
+            />
+          </div>
         </div>
       </div>
     </>

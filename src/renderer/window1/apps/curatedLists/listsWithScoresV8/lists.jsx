@@ -102,7 +102,7 @@ export const ListsWithScores2 = ({
         style={{
           display: 'inline-block',
           width: '63%',
-          maxHeight: '600px',
+          maxHeight: '800px',
           overflow: 'scroll',
           textAlign: 'center',
         }}
@@ -171,7 +171,7 @@ export default class ListsWithScores extends React.Component {
               display: 'inline-block',
               width: '35%',
               padding: '10px',
-              maxHeight: '600px',
+              maxHeight: '800px',
               overflow: 'scroll',
             }}
           >

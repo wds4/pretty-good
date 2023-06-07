@@ -264,7 +264,7 @@ const CreateNewRating = ({ aListData, userData }) => {
   let thumbsDownButtonClass = 'endorseThumbsDownButton';
   let thumbsUpCurrentState = 'notEndorsed';
   let thumbsDownCurrentState = 'notEndorsed';
-  let myCurrentRating = "not rated";
+  let myCurrentRating = "You have not rated this user.";
   const z = document.getElementById("myCurrentRatingContainer");
   if (z) {
     z.style.color = "grey";
@@ -277,7 +277,7 @@ const CreateNewRating = ({ aListData, userData }) => {
         // I have rated this user thumbs up
         thumbsUpCurrentState = 'endorsed';
         thumbsUpButtonClass = 'unendorseThumbsUpButton';
-        myCurrentRating = "👍 ENDORSED";
+        myCurrentRating = "👍 You have ENDORSED this user.";
         const z = document.getElementById("myCurrentRatingContainer");
         if (z) {
           z.style.color = "green";
@@ -287,7 +287,7 @@ const CreateNewRating = ({ aListData, userData }) => {
         // I have rated this user thumbs down
         thumbsDownCurrentState = 'endorsed';
         thumbsDownButtonClass = 'unendorseThumbsDownButton';
-        myCurrentRating = "👎 BLOCKED";
+        myCurrentRating = "👎 You have BLOCKED this user.";
         const z = document.getElementById("myCurrentRatingContainer");
         if (z) {
           z.style.color = "red";

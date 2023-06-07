@@ -2,7 +2,7 @@ import React from 'react';
 import { asyncSql } from 'renderer/window1/lib/pg/asyncSql';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateCuratedListFocus } from 'renderer/window1/redux/features/prettyGood/settings/slice';
-import CuratedListsAllListeners from 'renderer/window1/apps/nostr/listeners/curatedListsListeners';
+// import CuratedListsAllListeners from 'renderer/window1/apps/nostr/listeners/curatedListsListeners';
 import CreateNewRating from './createNewRating';
 
 const extractNostrListData = (oList) => {
@@ -116,10 +116,12 @@ const CuratedListBox = () => {
     return (
       <>
         <CuratedListBoxA />
-        <CuratedListsAllListeners />
+
       </>
     );
   }
   return <></>;
 };
 export default CuratedListBox;
+
+/* <CuratedListsAllListeners /> */

@@ -9,6 +9,7 @@ import TechDetailsForNostrNerds1 from './techDetailsForNostrNerds1';
 import TechDetailsForNostrNerds2 from './techDetailsForNostrNerds2';
 // import TechDetailsForNostrNerds3 from './techDetailsForNostrNerds3';
 import MiniProfile from './miniProfile';
+import CreateNewRating from './createNewRating';
 
 const Instance = ({
   curatedListFocusID,
@@ -130,6 +131,13 @@ const Instance = ({
           <div>{instanceDescription}</div>
         </div>
       </div>
+
+      <CreateNewRating
+        curatedListInstanceFocusID={curatedListInstanceFocusID}
+        curatedListFocusID={curatedListFocusID}
+        oListSqlData={oListSqlData}
+        oInstanceSqlData={oInstanceSqlData}
+      />
 
       <div style={{ display: 'none' }}>
         <div>instanceName: {instanceName}</div>

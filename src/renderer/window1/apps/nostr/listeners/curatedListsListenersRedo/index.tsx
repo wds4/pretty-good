@@ -23,11 +23,15 @@ const CuratedListsListenersRedo = () => {
     return (
       <>
         <div className="curatedListsListenerStatusContainer">
-          <div style={{ display: 'inline-block', marginBottom: '2px' }}>
+          <div style={{ display: 'inline-block', marginBottom: '2px'}}>
             CURATED LISTS
             <br />
             LISTENERS: ON
           </div>
+          <div style={{display: 'inline-block', marginLeft: '3px', paddingRight:'2px'}}>
+            <i>(toggle off if app<br/>is running hot)</i>
+          </div>
+
           <br />
           <div style={{ display: 'inline-block' }}>
             <CuratedListsListenersToggle />
@@ -53,6 +57,7 @@ const CuratedListsListenersRedo = () => {
           <CuratedListsListenersToggle />
         </div>
       </div>
+
     </>
   );
 };
