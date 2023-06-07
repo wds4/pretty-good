@@ -58,7 +58,7 @@ const TapestryStatus = () => {
             <option disabled>testnet-2 (kinds: 9902, 39902)</option>
             <option disabled>mainnet</option>
           </select>{' '}
-          <span>loaded {numberOfBeginningTapestryEvents} (below) of {aThreadedTapestryEventIDs.length} events detected live on nostr</span>
+          <span>{aThreadedTapestryEventIDs.length} events detected live on nostr since startup ({numberOfBeginningTapestryEvents} when this page was loaded)</span>
         </button>
         <div style={{position: 'absolute', right: '10px', top: '2px', display: reloadButtonDisplay}}>
           <NavLink
