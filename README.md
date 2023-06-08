@@ -39,13 +39,17 @@ In this app, anyone can:
 
 Lists and list items are stored as kind: 9901 (regular events). Endorsements are stored using kind: 39901 (parameterized replaceable events). Your app pulls data from the network, crunches numbers, and shows you which items have been accepted by your web of trust onto any given list.
 
-Curator influence is contextual (list-specific), transitive and calculated in PageRank-like fashion. Influence scores are calculated in a way designed to maximize worthy users while simultaneiusly screening out bad actos (sybil resistance). The app is designed to allow users to look under the hood to see how calculations are performed, and even to adjust various parameters and see how the resulting lists change in real time.
+Curator influence is contextual (list-specific), transitive and calculated in PageRank-like fashion. Influence scores are calculated in a way designed to maximize worthy users while simultaneiusly screening out bad actors (sybil resistance). The app is designed to allow users to look under the hood to see how calculations are performed, and even to adjust various parameters and see how the resulting lists change in real time.
 
 Forthcoming features (not exhaustive):
-- the ability for Alice to publish a note saying, in effect: Here is a List of XYZ items, as curated by MY (Alice's) web of trust. 
+- the ability for Alice to publish a note saying, in effect: Here is a List of XYZ items, as curated by MY (Alice's) web of trust. This will have interestinga applications from a privacy perspective.
 - the ability to endorse or reject a user as a trusted curator of <i>any</i> list (all contexts). This will be used to calculate a generic (non-contextual) influence score which can then be used as a default influence score if no contextual information about that user is available. If context-specific attestations are available, the default generic score gets overridden.
 
-## Install Pretty Good
+## Download and install Pretty Good 
+
+Releases are available here.
+
+## Install Pretty Good (development)
 
 Clone this repo and install dependencies:
 
@@ -54,8 +58,6 @@ git clone --depth 1 --branch main https://github.com/wds4/pretty-good.git pretty
 cd pretty-good
 npm install
 ```
-
-## Development
 
 Start the app in the `dev` environment:
 
