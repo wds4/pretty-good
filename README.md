@@ -61,13 +61,7 @@ Linux, windows: coming soon.
 
 ## Download and install Pretty Good in development
 
-If you're a developer and/or comfortable with the command line, first check to made sure you have node package manager installed on your machine:
-
-```bash
-npm --version
-```
-
-Install npm if not already present.
+If you're a developer and/or comfortable with the command line, first check to made sure you have node and node package manager installed on your machine. If you're not sure, run commands: `node --version` and `npm --version` and install them if necessary.
 
 Then clone this repo and install dependencies:
 
