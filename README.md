@@ -60,7 +60,7 @@ Your mac will probably complain that the downloaded files are from an unidentifi
 
 ### Linux
 
-Download and install PrettyGood-[version].AppImage, e.g. PrettyGood-0.1.1-alpha.AppImage.
+Download and open PrettyGood-[version].AppImage, e.g. PrettyGood-0.1.1-alpha.AppImage. (You will have to make the AppImage executable, as described [here](https://docs.appimage.org/introduction/quickstart.html).)
 
 ### Windows
 
