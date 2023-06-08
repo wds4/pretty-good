@@ -43,7 +43,7 @@ Curator influence is contextual (list-specific), transitive and calculated in Pa
 
 Forthcoming features (not exhaustive):
 - the ability for Alice to publish a note saying, in effect: Here is a List of XYZ items, as curated by MY (Alice's) web of trust. 
-- the ability to endorse or reject any user as a trusted curator of <i>any</i> list. This will be used to calculate a generic (non-contextual) influence score which can then be used as a default influence score if no contextual information about that user is available.
+- the ability to endorse or reject a user as a trusted curator of <i>any</i> list (all contexts). This will be used to calculate a generic (non-contextual) influence score which can then be used as a default influence score if no contextual information about that user is available. If context-specific attestations are available, the default generic score gets overridden.
 
 ## Install Pretty Good
 
