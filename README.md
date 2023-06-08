@@ -47,11 +47,29 @@ Forthcoming features (not exhaustive):
 
 ## Download and install Pretty Good 
 
-Releases are available here.
+The latest release will be made available [here](https://github.com/wds4/pretty-good/releases).
 
-## Install Pretty Good (development)
+### MacOS
 
-Clone this repo and install dependencies:
+For Apple Silicon macs (released from late 2020 to now), download and install PrettyGood-[version]-arm64.dmg, e.g. PrettyGood-0.1.1-alpha-arm64.dmg.
+
+For intel macs (between 2005 and 2021), download and install PrettyGood-[version].dmg, e.g. PrettyGood-0.1.1-alpha.dmg.
+
+Your mac will probably complain that the downloaded files are from an unidentified developer; instructions on how to address that problem are [here](https://www.macworld.com/article/672947/how-to-open-a-mac-app-from-an-unidentified-developer.html).
+
+Linux, windows: coming soon.
+
+## Download and install Pretty Good in development
+
+If you're a developer and/or comfortable with the command line, first check to made sure you have node package manager installed on your machine:
+
+```bash
+npm --version
+```
+
+Install npm if not already present.
+
+Then clone this repo and install dependencies:
 
 ```bash
 git clone --depth 1 --branch main https://github.com/wds4/pretty-good.git pretty-good
@@ -65,7 +83,7 @@ Start the app in the `dev` environment:
 npm start
 ```
 
-## Packaging for Production
+### Packaging for Production
 
 To package apps for the local platform:
 
