@@ -48,7 +48,7 @@ Forthcoming features include:
 
 ## Download and install Pretty Good 
 
-The latest release will be made available [here](https://github.com/wds4/pretty-good/releases).
+The latest releases will be made available [here](https://github.com/wds4/pretty-good/releases).
 
 ### MacOS
 
