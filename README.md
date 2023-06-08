@@ -8,7 +8,7 @@ Pretty Good Apps is a desktop client for linux and mac (likely will also add win
 
 ## Pretty Good Nostr
 
-Basic nostr functionality is currently available. Features include:
+Basic [nostr](https://github.com/nostr-protocol/nostr) functionality is currently available. (List of supported [NIPs](https://github.com/nostr-protocol/nips) is coming soon.) Features include:
 - create new profiles
 - import profiles
 - edit profiles
@@ -22,10 +22,11 @@ Basic nostr functionality is currently available. Features include:
 - send / receive direct messages
 - manage relays
 
-Forthcoming:
+Forthcoming / under consideration:
 - likes, reposts, and zaps
+- mentions (via NIP-27)
 - fixes to thread view
-- probably some other basic features
+- probably some other commonly used features
 
 ## Curated Lists: decentralized web of trust
 
