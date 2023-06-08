@@ -57,7 +57,13 @@ For intel macs (between 2005 and 2021), download and install PrettyGood-[version
 
 Your mac will probably complain that the downloaded files are from an unidentified developer; instructions on how to address that problem are [here](https://www.macworld.com/article/672947/how-to-open-a-mac-app-from-an-unidentified-developer.html).
 
-Linux, windows: coming soon.
+### Linux
+
+Download and install PrettyGood-[version].AppImage, e.g. PrettyGood-0.1.1-alpha.AppImage.
+
+### Windows
+
+Coming soon.
 
 ## Download and install Pretty Good in development
 
