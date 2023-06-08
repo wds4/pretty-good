@@ -4,19 +4,20 @@ This is a refactor of my older project, [electron-nostr](https://github.com/wds4
 
 Pretty Good Apps is a desktop client for linux and mac (likely will also add windows), embedded currently with two apps:
 - Curated Lists: an implementation of the [DCoSL](https://github.com/wds4/DCoSL) protocol (decentralized curation of simple lists)
-- a standard nostr client
+- Pretty Good Nostr, a standard nostr client with basic functionality
 
 ## Pretty Good Nostr
 
 Basic nostr functionality is currently available. Features include:
-- create new profile
-- import profile
-- edit profile
+- create new profiles
+- import profiles
+- edit profiles
 - manage multiple profiles
 - main feed
-- following and "firehose" options all available for the main feed
+- following and "firehose" options for the main feed
 - post new note
-- find new users
+- reply to notes
+- find new users by pubkey
 - look at user profiles
 - send / receive direct messages
 - manage relays
@@ -24,7 +25,7 @@ Basic nostr functionality is currently available. Features include:
 Forthcoming:
 - likes, reposts, and zaps
 - fixes to thread view
-- probably other basic features
+- probably some other basic features
 
 ## Curated Lists: decentralized web of trust
 
