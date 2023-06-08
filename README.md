@@ -40,10 +40,10 @@ In this app, anyone can:
 
 Lists and list items are stored as kind: 9901 (regular events). Endorsements are stored using kind: 39901 (parameterized replaceable events). Your app pulls data from the network, crunches numbers, and shows you which items have been accepted by your web of trust onto any given list.
 
-Curator influence is contextual (list-specific), transitive and calculated in PageRank-like fashion. Influence scores are calculated in a way designed to maximize worthy users while simultaneiusly screening out bad actors (sybil resistance). The app is designed to allow users to look under the hood to see how calculations are performed, and even to adjust various parameters and see how the resulting lists change in real time.
+Curator influence is contextual (list-specific) and transitive. Influence scores are calculated using an algorithm similar in many ways to [PageRank](https://en.wikipedia.org/wiki/PageRank). This was designed to maximize the influence of worthy users while simultaneously screening out bad actors (sybil resistance). The app is designed to allow users to look under the hood (if they so desire) to see how calculations are performed. There are several parameters (such as default user influence scores) that can be adjusted, allowing the user to see how the resulting lists change in real time.
 
-Forthcoming features (not exhaustive):
-- the ability for Alice to publish a note saying, in effect: Here is a List of XYZ items, as curated by MY (Alice's) web of trust. This will have interestinga applications from a privacy perspective.
+Forthcoming features include:
+- the ability for Alice to publish a note saying, in effect: Here is a List of XYZ items, as curated by MY (Alice's) web of trust. This will have interesting applications from a privacy perspective: she will be able to transmit useful information to the wider community that has been gathered by psuedonymous accounts known only to her, in a manner that shields those accounts from being identified.
 - the ability to endorse or reject a user as a trusted curator of <i>any</i> list (all contexts). This will be used to calculate a generic (non-contextual) influence score which can then be used as a default influence score if no contextual information about that user is available. If context-specific attestations are available, the default generic score gets overridden.
 
 ## Download and install Pretty Good 
