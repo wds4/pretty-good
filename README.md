@@ -2,13 +2,13 @@
 
 This is a refactor of my older project, [electron-nostr](https://github.com/wds4/electron-react-boilerplate-nostr), and is based on [electron-react-boilerplate](https://github.com/electron-react-boilerplate/electron-react-boilerplate). 
 
-Pretty Good Apps is a desktop client for linux and mac (likely will also add windows), embedded currently with two apps:
+Pretty Good Apps is a desktop client (linux, mac, windows), embedded currently with two apps:
 - Curated Lists: an implementation of the [DCoSL](https://github.com/wds4/DCoSL) protocol (decentralized curation of simple lists)
 - Pretty Good Nostr, a standard nostr client with basic functionality
 
 ## Pretty Good Nostr
 
-Basic nostr functionality is currently available. Features include:
+Basic [nostr](https://github.com/nostr-protocol/nostr) functionality is currently available. (List of supported [NIPs](https://github.com/nostr-protocol/nips) is coming soon.) Features include:
 - create new profiles
 - import profiles
 - edit profiles
@@ -22,14 +22,15 @@ Basic nostr functionality is currently available. Features include:
 - send / receive direct messages
 - manage relays
 
-Forthcoming:
+Forthcoming / under consideration:
 - likes, reposts, and zaps
+- mentions (via NIP-27)
 - fixes to thread view
-- probably some other basic features
+- probably some other commonly used features
 
 ## Curated Lists: decentralized web of trust
 
-This app is an implementation of the [DCoSL](https://github.com/wds4/DCoSL) protocol, which is a work in progress (decentralized curation of simple lists). I propose that the ability to curate a simple list in a truly decentralized fashion - no tokens or blockchains, no email or phone number verifications - should be considered not only the <i>atomic unit</i> but also the <i>fundamental building block</i> of the decentralized web. If we can curate <i>simple lists</i>, then the ability to curate <i>data structures of arbitrary complexity</i> will very quickly fall into place. See [DCoSL](https://github.com/wds4/DCoSL) for a more in depth discussion.
+This app is an implementation of the [DCoSL](https://github.com/wds4/DCoSL) protocol (decentralized curation of simple lists; a work in progress). I propose that the ability to curate a simple list in a truly decentralized fashion - no tokens or blockchains, no email or phone number verifications - should be considered not only the <i>atomic unit</i> but also the <i>fundamental building block</i> of the decentralized web. If we can curate <i>simple lists</i>, then the ability to curate <i>data structures of arbitrary complexity</i> will very quickly fall into place. See [DCoSL](https://github.com/wds4/DCoSL) for a more in depth discussion.
 
 In this app, anyone can:
 - create a new list
@@ -39,15 +40,15 @@ In this app, anyone can:
 
 Lists and list items are stored as kind: 9901 (regular events). Endorsements are stored using kind: 39901 (parameterized replaceable events). Your app pulls data from the network, crunches numbers, and shows you which items have been accepted by your web of trust onto any given list.
 
-Curator influence is contextual (list-specific), transitive and calculated in PageRank-like fashion. Influence scores are calculated in a way designed to maximize worthy users while simultaneiusly screening out bad actors (sybil resistance). The app is designed to allow users to look under the hood to see how calculations are performed, and even to adjust various parameters and see how the resulting lists change in real time.
+Curator influence is contextual (list-specific) and transitive. Influence scores are calculated using an algorithm similar in many ways to [PageRank](https://en.wikipedia.org/wiki/PageRank). This was designed to maximize the influence of worthy users while simultaneously screening out bad actors (sybil resistance). The app is designed to allow users to look under the hood (if they so desire) to see how calculations are performed. There are several parameters (such as default user influence scores) that can be adjusted, allowing the user to see how the resulting lists change in real time.
 
-Forthcoming features (not exhaustive):
-- the ability for Alice to publish a note saying, in effect: Here is a List of XYZ items, as curated by MY (Alice's) web of trust. This will have interestinga applications from a privacy perspective.
+Forthcoming features include:
+- the ability for Alice to publish a note saying, in effect: Here is a List of XYZ items, as curated by MY (Alice's) web of trust. This will have interesting applications from a privacy perspective: she will be able to transmit useful information to the wider community that has been gathered by psuedonymous accounts known only to her, in a manner that shields those accounts from being identified.
 - the ability to endorse or reject a user as a trusted curator of <i>any</i> list (all contexts). This will be used to calculate a generic (non-contextual) influence score which can then be used as a default influence score if no contextual information about that user is available. If context-specific attestations are available, the default generic score gets overridden.
 
 ## Download and install Pretty Good 
 
-The latest release will be made available [here](https://github.com/wds4/pretty-good/releases).
+The latest releases will be made available [here](https://github.com/wds4/pretty-good/releases).
 
 ### MacOS
 
@@ -59,7 +60,7 @@ Your mac will probably complain that the downloaded files are from an unidentifi
 
 ### Linux
 
-Download and install PrettyGood-[version].AppImage, e.g. PrettyGood-0.1.1-alpha.AppImage.
+Download and open PrettyGood-[version].AppImage, e.g. PrettyGood-0.1.1-alpha.AppImage. (You will have to make the AppImage executable, as described [here](https://docs.appimage.org/introduction/quickstart.html).)
 
 ### Windows
 
