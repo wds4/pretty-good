@@ -29,7 +29,7 @@ const TechDetailsForNostrNerds = () => {
       <div className={devElemClass} style={{marginLeft: '23px'}}>
 
         <div style={{textAlign: 'center'}}>
-          <span style={{color: 'grey', fontSize: '18px'}}>LIST ITEMS</span>
+          <span style={{color: 'grey', fontSize: '18px'}}>ITEMS on this list</span>
           <button
             type="button"
             onClick={() => toggleViewDetails()}

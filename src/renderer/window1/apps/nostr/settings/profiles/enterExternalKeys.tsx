@@ -18,7 +18,10 @@ export default function EnterExternalKeys() {
       const privkeyHex = e3.value;
       const isPkValid = checkPrivkeyHexValidity(privkeyHex);
       if (isPkValid) {
-        const result = await addNewRowToMyNostrProfileInSql(pubkeyHex, privkeyHex);
+        const result = await addNewRowToMyNostrProfileInSql(
+          pubkeyHex,
+          privkeyHex
+        );
         console.log(`result: ${result}`);
 
         const e = document.getElementById(
@@ -59,13 +62,13 @@ export default function EnterExternalKeys() {
         }
       } catch (err) {
         if (e1) {
-          e1.innerHTML = "invalid";
+          e1.innerHTML = 'invalid';
         }
         if (e2) {
-          e2.innerHTML = "invalid";
+          e2.innerHTML = 'invalid';
         }
         if (e4) {
-          e4.innerHTML = "invalid";
+          e4.innerHTML = 'invalid';
         }
       }
     }
@@ -74,9 +77,11 @@ export default function EnterExternalKeys() {
     console.log(`processNewPrivkeyBech32`);
     if (e4) {
       const privkeyBech32 = e4.value;
-      const nsec = privkeyBech32.slice(0,4)
-      if (nsec === "nsec") {
-        console.log(`processNewPrivkeyBech32; privkeyBech32: ${privkeyBech32};`);
+      const nsec = privkeyBech32.slice(0, 4);
+      if (nsec === 'nsec') {
+        console.log(
+          `processNewPrivkeyBech32; privkeyBech32: ${privkeyBech32};`
+        );
         try {
           const oPrivkeyHex = nip19.decode(privkeyBech32);
           const privkeyHex = oPrivkeyHex.data;
@@ -96,25 +101,24 @@ export default function EnterExternalKeys() {
           }
         } catch (err) {
           if (e1) {
-            e1.innerHTML = "invalid";
+            e1.innerHTML = 'invalid';
           }
           if (e2) {
-            e2.innerHTML = "invalid";
+            e2.innerHTML = 'invalid';
           }
           if (e3) {
-            e3.innerHTML = "invalid";
+            e3.innerHTML = 'invalid';
           }
         }
-      }
-      else {
+      } else {
         if (e1) {
-          e1.innerHTML = "invalid";
+          e1.innerHTML = 'invalid';
         }
         if (e2) {
-          e2.innerHTML = "invalid";
+          e2.innerHTML = 'invalid';
         }
         if (e3) {
-          e3.innerHTML = "invalid";
+          e3.innerHTML = 'invalid';
         }
       }
     }
@@ -122,10 +126,25 @@ export default function EnterExternalKeys() {
   return (
     <div className="infoBox">
       <div className="h4">Enter Private Key Generated Elsewhere</div>
-      <div>TEMPORARILY DISABLED</div>
-        <div style={{display: 'none'}}>
+      <div style={{ color: 'red', textAlign: 'center', fontSize: '22px' }}>
+        CAUTION!
+      </div>
+      <div style={{ color: 'red', textAlign: 'left' }}>
+        There is a risk this app could introduce errors
+        into your profile, including loss of your following and relays lists. If you're
+        going to risk it, I strongly suggest you backup your profile first!
+      </div>
+      <div style={{ textAlign: 'left' }}>
+        Note: A future feature will allow you to take a new profile created by this app,
+        click a button, and clone the following list (maybe also relays list)
+        from your external profile.
+      </div>
+      <div style={{}}>
         <br />
-        <div>You can enter your privkey either in bech32 format (begins with nsec) or hex.</div>
+        <div>
+          You can enter your privkey either in bech32 format (begins with nsec)
+          or hex.
+        </div>
         <br />
         <div id="newKeysContainer">
           <div style={{ marginBottom: '10px' }}>
@@ -142,8 +161,13 @@ export default function EnterExternalKeys() {
               onChange={processNewPrivkeyBech32}
             />
             <div style={{}}>pubkey (hex, auto generated from private key):</div>
-            <div id="outsidePubkeyHex" style={{ width: '90%', height: '20px' }} />
-            <div style={{}}>pubkey (bech32, auto generated from hex pubkey):</div>
+            <div
+              id="outsidePubkeyHex"
+              style={{ width: '90%', height: '20px' }}
+            />
+            <div style={{}}>
+              pubkey (bech32, auto generated from hex pubkey):
+            </div>
             <div
               id="outsidePubkeyBech32"
               style={{ width: '90%', height: '20px' }}

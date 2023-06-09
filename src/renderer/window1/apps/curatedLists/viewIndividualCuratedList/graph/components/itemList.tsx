@@ -47,6 +47,15 @@ const ItemList = ({ aInstanceCompScoreData }) => {
   return (
     <>
       <TechDetailsForNostrNerds1 />
+      <div style={{textAlign: 'left', marginLeft: '25px', marginBottom: '3px'}}>
+        <NavLink
+          to="/CuratedListsHome/CreateNewCuratedListInstance"
+          style={{ textDecoration: 'none' }}
+        >
+          Add another item
+        </NavLink>{' '}
+         to this list.
+      </div>
       <div style={{ textAlign: 'left', marginRight: '20px', marginLeft: '20px' }}>
         <div className="itemsInfoBox" style={{border: '2px solid green'}}>
           <div style={{ color: 'grey', margin: '5px' }}>
