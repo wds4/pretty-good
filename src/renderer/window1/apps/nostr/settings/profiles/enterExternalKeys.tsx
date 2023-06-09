@@ -122,41 +122,44 @@ export default function EnterExternalKeys() {
   return (
     <div className="infoBox">
       <div className="h4">Enter Private Key Generated Elsewhere</div>
-      <br />
-      <div>You can enter your privkey either in bech32 format (begins with nsec) or hex.</div>
-      <br />
-      <div id="newKeysContainer">
-        <div style={{ marginBottom: '10px' }}>
-          <div style={{}}>privkey (hex):</div>
-          <textarea
-            id="outsidePrivkeyHex"
-            style={{ width: '90%', height: '40px' }}
-            onChange={processNewPrivkeyHex}
-          />
-          <div style={{}}>privkey (bech32 format; starts with nsec):</div>
-          <textarea
-            id="outsidePrivkeyBech32"
-            style={{ width: '90%', height: '40px' }}
-            onChange={processNewPrivkeyBech32}
-          />
-          <div style={{}}>pubkey (hex, auto generated from private key):</div>
-          <div id="outsidePubkeyHex" style={{ width: '90%', height: '20px' }} />
-          <div style={{}}>pubkey (bech32, auto generated from hex pubkey):</div>
-          <div
-            id="outsidePubkeyBech32"
-            style={{ width: '90%', height: '20px' }}
-          />
-        </div>
-        <button
-          id="saveKeysGeneratedElsewhereButton"
-          className="doSomethingButton"
-          type="button"
-          onClick={saveKeysToSql}
-        >
-          Save these keys in sql
-        </button>
+      <div>TEMPORARILY DISABLED</div>
+        <div style={{display: 'none'}}>
+        <br />
+        <div>You can enter your privkey either in bech32 format (begins with nsec) or hex.</div>
+        <br />
+        <div id="newKeysContainer">
+          <div style={{ marginBottom: '10px' }}>
+            <div style={{}}>privkey (hex):</div>
+            <textarea
+              id="outsidePrivkeyHex"
+              style={{ width: '90%', height: '40px' }}
+              onChange={processNewPrivkeyHex}
+            />
+            <div style={{}}>privkey (bech32 format; starts with nsec):</div>
+            <textarea
+              id="outsidePrivkeyBech32"
+              style={{ width: '90%', height: '40px' }}
+              onChange={processNewPrivkeyBech32}
+            />
+            <div style={{}}>pubkey (hex, auto generated from private key):</div>
+            <div id="outsidePubkeyHex" style={{ width: '90%', height: '20px' }} />
+            <div style={{}}>pubkey (bech32, auto generated from hex pubkey):</div>
+            <div
+              id="outsidePubkeyBech32"
+              style={{ width: '90%', height: '20px' }}
+            />
+          </div>
+          <button
+            id="saveKeysGeneratedElsewhereButton"
+            className="doSomethingButton"
+            type="button"
+            onClick={saveKeysToSql}
+          >
+            Save these keys in sql
+          </button>
 
-        <div id="savedKeysGeneratedElsewhereMessageContainer" />
+          <div id="savedKeysGeneratedElsewhereMessageContainer" />
+        </div>
       </div>
     </div>
   );
