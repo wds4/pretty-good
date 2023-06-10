@@ -83,6 +83,10 @@ import AboutCuratedLists from './apps/curatedLists/about';
 import CuratedListsFaq from './apps/curatedLists/faq';
 import ViewListOfCuratedLists from './apps/curatedLists/viewListOfCuratedLists';
 import ViewAllLists from './apps/curatedLists/viewListOfCuratedLists/allLists';
+
+import ViewAllListsFromNostrLive from './apps/curatedLists/viewListOfCuratedLists/allListsFromNostrLive';
+import ViewAllListsFromSql from './apps/curatedLists/viewListOfCuratedLists/allListsFromSql';
+
 import ViewMyLists from './apps/curatedLists/viewListOfCuratedLists/myLists';
 import CreateNewCuratedList from './apps/curatedLists/createNewCuratedList';
 import ViewIndividualCuratedList from './apps/curatedLists/viewIndividualCuratedList/overview';
@@ -350,6 +354,14 @@ const AppRoutes = () => {
             <Route
               path="/CuratedListsHome/ViewAllLists"
               element={<ViewAllLists />}
+            />
+            <Route
+              path="/CuratedListsHome/ViewAllListsFromNostrLive"
+              element={<ViewAllListsFromNostrLive />}
+            />
+            <Route
+              path="/CuratedListsHome/ViewAllListsFromSql"
+              element={<ViewAllListsFromSql />}
             />
             <Route
               path="/CuratedListsHome/ViewMyLists"

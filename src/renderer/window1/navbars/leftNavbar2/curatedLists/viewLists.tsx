@@ -37,18 +37,6 @@ const LeftNavbar2 = () => {
               isActive ? 'leftNav2Button leftNav2ButtonActive' : 'leftNav2Button'
             }
             end
-            to="/CuratedListsHome/ViewAllLists"
-          >
-            lists
-          </NavLink>
-        </div>
-
-        <div className={devElemClass}>
-          <NavLink
-            className={({ isActive }) =>
-              isActive ? 'leftNav2Button leftNav2ButtonActive' : 'leftNav2Button'
-            }
-            end
             to="/CuratedListsHome/MultiListSummariesOfItemScores"
           >
             lists v2
@@ -124,19 +112,55 @@ const LeftNavbar2 = () => {
           end
           to="/CuratedListsHome/CuratedListsWithScoresV8"
         >
-          lists
+          lists: main page
         </NavLink>
 
+        <hr />
+
         <NavLink
-          style={{ display: 'none' }}
           className={({ isActive }) =>
             isActive ? 'leftNav2Button leftNav2ButtonActive' : 'leftNav2Button'
           }
           end
-          to="/CuratedListsHome/ViewMyLists"
+          to="/CuratedListsHome/ViewAllLists"
         >
-          view my lists
+          all lists
         </NavLink>
+
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? 'leftNav2Button leftNav2ButtonActive' : 'leftNav2Button'
+          }
+          end
+          to="/CuratedListsHome/ViewAllListsFromNostrLive"
+        >
+          lists (live from nostr)
+        </NavLink>
+
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? 'leftNav2Button leftNav2ButtonActive' : 'leftNav2Button'
+          }
+          end
+          to="/CuratedListsHome/ViewAllListsFromSql"
+        >
+          lists (sql)
+        </NavLink>
+
+        <div className={devElemClass}>
+          <NavLink
+            style={{  }}
+            className={({ isActive }) =>
+              isActive ? 'leftNav2Button leftNav2ButtonActive' : 'leftNav2Button'
+            }
+            end
+            to="/CuratedListsHome/ViewMyLists"
+          >
+            my lists
+          </NavLink>
+        </div>
+
+        <hr />
 
         <NavLink
           className={({ isActive }) =>
