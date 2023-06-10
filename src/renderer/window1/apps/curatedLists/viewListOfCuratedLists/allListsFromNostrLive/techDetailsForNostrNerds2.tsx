@@ -44,6 +44,7 @@ const TechDetailsForNostrNerds = ({event}) => {
             padding: '3px',
           }}
         >
+          <div>See: <a target="_blank" href="https://github.com/wds4/DCoSL/blob/main/dips/conceptGraph/101.md" >DIP-101: publication of a word over nostr</a></div>
           <div>{JSON.stringify(event,null,4)}</div>
         </div>
       </div>

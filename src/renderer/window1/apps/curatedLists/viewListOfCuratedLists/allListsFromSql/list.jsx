@@ -52,17 +52,9 @@ const List = ({ event }) => {
         <div style={{fontSize:"12px",marginTop:"10px"}}>
           {description}
         </div>
-        <div style={{ display: 'none' }}>
-          <div>id: {event.id}</div>
-          <div>author: {event.pubkey}</div>
-          <div>created_at: {event.created_at}</div>
-          <div>
-            name: {name_singular}, {name_plural}
-          </div>
-          <div>
-            title: {title_singular}, {title_plural}
-          </div>
-          <div>description: {description}</div>
+        <div >
+          <TechDetailsForNostrNerds1 event={event} />
+          <TechDetailsForNostrNerds2 event={event} />
         </div>
       </div>
     </>

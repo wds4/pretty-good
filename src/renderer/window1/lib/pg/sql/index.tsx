@@ -159,10 +159,26 @@ export const addInstanceEventToSql = async (
   return res;
 };
 
+/*
+connection.query("INSERT IGNORE INTO collections VALUES (?, ?, ?, ?)", [queryData.nom, queryData.categorie, queryData.description, queryData.urlimage], function (err, result) {
+        if (err) throw err;
+        res.json("Vous avez ajouté "+queryData.categorie+"et"+queryData.description+"et"+queryData.objet+"a la table");
+    }
+);
+*/
+
 export const addCuratedListEventToSql = async (event) => {
+
+  // const foo = JSON.stringify(event).replaceAll("'","");
+  const foo = JSON.stringify(event)
+  const sql = " INSERT OR IGNORE INTO curatedLists (event, event_id, created_at, pubkey) VALUES (?,?,?,?) " [ foo, event.id, event.created_at, event.pubkey ];
+
+  /*
   // TEMPORARY FIX: remove all single quotes
   const foo = JSON.stringify(event).replaceAll("'","");
   const sql = ` INSERT OR IGNORE INTO curatedLists (event, event_id, created_at, pubkey) VALUES('${foo}', '${event.id}', '${event.created_at}', '${event.pubkey}' ) `;
+  */
+
   // const sql = ' INSERT OR IGNORE INTO curatedLists (event, event_id, created_at, pubkey) VALUES(`' + JSON.stringify(event) + '`, `' + event.id + '`, `' + event.created_at + '`, `' + event.pubkey + '` ) ';
   // console.log("addCuratedListEventToSql_a; sql: "+sql)
   const res = await asyncSql(sql);

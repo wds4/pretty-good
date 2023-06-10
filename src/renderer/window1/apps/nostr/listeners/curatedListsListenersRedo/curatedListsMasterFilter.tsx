@@ -200,6 +200,32 @@ const CuratedListsMasterFilter = () => {
   }
   // console.log("qwerty devMode NO; number of events: "+events.length);
   return <></>;
+
+/*
+  return (
+    <>
+      <div>
+      {events.map((event) => {
+          if (doesEventValidate(event)) {
+            if (event.id == "f83f2a931c8cc15d536366c9f6065e79425e804309d528cfce552fb11d7b7306") {
+              return (
+                <>
+                  <div>{JSON.stringify(event,null,4)}</div>
+                </>
+              )
+            }
+            return (
+              <>
+                <div>{event.id}</div>
+              </>
+            )
+          }
+        })};
+      </div>
+    </>
+  );
+*/
+
 };
 
 export default CuratedListsMasterFilter;

@@ -1,13 +1,14 @@
 
 import { useSelector } from 'react-redux';
 
-const TechDetailsForNostrNerds = () => {
+const TechDetailsForNostrNerds = ({event}) => {
+  const event_id = event.id;
   const { devMode3 } = useSelector((state) => state.myNostrProfile.devModes);
   let devElemClass = 'devElemHide';
   if (devMode3) {
     devElemClass = 'devElemShow';
   }
-  const elem_id = "technicalDetailsForNostrDevsContainer2"; // add event_id or some other unique identifier if multiple details per page
+  const elem_id = "technicalDetailsForNostrDevsContainer2_"+event_id; // add event_id or some other unique identifier if multiple details per page
   const toggleViewDetails = () => {
     const e = document.getElementById(elem_id);
     const currentState = e.style.display;
@@ -31,7 +32,8 @@ const TechDetailsForNostrNerds = () => {
             className="doSomethingButton techDetailsToggleButton"
           >
             🤓
-          </button>
+          </button>{' '}
+          <span>word wrapped as an event</span>
         </div>
         <div
           id={elem_id}
@@ -42,7 +44,8 @@ const TechDetailsForNostrNerds = () => {
             padding: '3px',
           }}
         >
-          <div>TechDetailsForNostrNerds</div>
+          <div>See: <a target="_blank" href="https://github.com/wds4/DCoSL/blob/main/dips/conceptGraph/101.md" >DIP-101: publication of a word over nostr</a></div>
+          <div>{JSON.stringify(event,null,4)}</div>
         </div>
       </div>
     </>
