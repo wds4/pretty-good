@@ -5,15 +5,15 @@ import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
 // FUTURE: make more generic version of this function; may need to pass parent propertyPath in as a parameter?
 // ALSO CHECKS that the events are valid nostr events
 export const doesEventInstanceValidateAgainstEventParent = (oChildEvent, oParentEvent) => {
-  // console.log("doesEventInstanceValidateAgainstEventParent initiating ... ")
+  console.log("doesEventInstanceValidateAgainstEventParent initiating ... ")
   try {
     if (!doesEventValidate(oChildEvent)) {
-      // console.log("doesEventInstanceValidateAgainstEventParent FALSE_A; oParentEvent: ")
+      console.log("doesEventInstanceValidateAgainstEventParent FALSE_A; oParentEvent: ")
       return false;
     }
     if (!doesEventValidate(oParentEvent)) {
-      // console.log("doesEventInstanceValidateAgainstEventParent FALSE_B; oParentEvent: ")
-      return false;
+      console.log("doesEventInstanceValidateAgainstEventParent FALSE_B; oParentEvent: "+JSON.stringify(oParentEvent,null,4))
+      // return false;
     }
     const childContent = oChildEvent.content;
     const parentContent = oParentEvent.content;
@@ -22,18 +22,18 @@ export const doesEventInstanceValidateAgainstEventParent = (oChildEvent, oParent
     const propertyPath = oParent.nostrCuratedListData.propertyPath;
     // For now, this is the only check!
     // Future: fully validate JSON Schema
-    // console.log("doesEventInstanceValidateAgainstEventParent_oChild: "+JSON.stringify(oParent))
+    console.log("doesEventInstanceValidateAgainstEventParent_oChild: "+JSON.stringify(oParent))
     if (oChild.hasOwnProperty(propertyPath)) {
-      // console.log("doesEventInstanceValidateAgainstEventParent TRUE_A; oParentEvent: ")
+      console.log("doesEventInstanceValidateAgainstEventParent TRUE_A; oParentEvent: ")
       return true;
     }
-    // console.log("doesEventInstanceValidateAgainstEventParent FALSE_Z; oParentEvent: ")
+    console.log("doesEventInstanceValidateAgainstEventParent FALSE_Z; oParentEvent: ")
     return false;
   } catch (e) {
-    // console.log("doesEventInstanceValidateAgainstEventParent FALSE_C; oParentEvent: ")
+    console.log("doesEventInstanceValidateAgainstEventParent FALSE_C; oParentEvent: ")
     return false;
   }
-  // console.log("doesEventInstanceValidateAgainstEventParent FALSE_D; oParentEvent: ")
+  console.log("doesEventInstanceValidateAgainstEventParent FALSE_D; oParentEvent: ")
 
   return false;
 }

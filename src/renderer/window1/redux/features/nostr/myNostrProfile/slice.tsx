@@ -21,7 +21,7 @@ import {
 const initialState = {
   // booleans
   showWelcomeBox: false,
-  multiClientAccess: false, // whether this profile will be managed from multiple clients or not; if yes, updates are autoimported from the network
+  multiClientAccess: true, // whether this profile will be managed from multiple clients or not; if yes, updates are autoimported from the network
   relaysAutoUpdate: false,
   relaysAutoMerge: false,
 

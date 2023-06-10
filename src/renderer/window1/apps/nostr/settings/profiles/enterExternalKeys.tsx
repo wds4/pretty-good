@@ -133,11 +133,8 @@ export default function EnterExternalKeys() {
         There is a risk this app could introduce errors
         into your profile, including loss of your following and relays lists. If you're
         going to risk it, I strongly suggest you backup your profile first!
-      </div>
-      <div style={{ textAlign: 'left' }}>
-        Note: A future feature will allow you to take a new profile created by this app,
-        click a button, and clone the following list (maybe also relays list)
-        from your external profile.
+        See this <a href="https://github.com/wds4/pretty-good/issues/4">issue</a>{' '}
+        for a discussion of this bug.
       </div>
       <div style={{}}>
         <br />
