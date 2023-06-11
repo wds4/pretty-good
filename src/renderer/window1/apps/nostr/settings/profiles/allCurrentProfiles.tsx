@@ -144,6 +144,10 @@ export default function AllCurrentProfiles({
           }
           // console.log("pubkeyHex: "+pubkeyHex)
           const pubkeyBech32 = nip19.npubEncode(pubkeyHex);
+          let displayOptionToDeleteBox = "block";
+          if (isChecked) {
+            displayOptionToDeleteBox = "none";
+          }
           return (
             <>
               <div
@@ -156,6 +160,7 @@ export default function AllCurrentProfiles({
                     top: '5px',
                     right: '5px',
                     width: '20%',
+                    display: displayOptionToDeleteBox,
                   }}
                 >
                   <button

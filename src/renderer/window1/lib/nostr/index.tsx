@@ -56,8 +56,10 @@ export const returnMostRecentProfileEvent = (events, pubkey) => {
 };
 
 export const checkPrivkeyHexValidity = (privkeyHex) => {
+  if (!privkeyHex) { return false; }
   try {
     const privkeyBech32 = nip19.nsecEncode(privkeyHex);
+    if (!privkeyBech32) { return false }
     return true;
   } catch (err) {
     return false;

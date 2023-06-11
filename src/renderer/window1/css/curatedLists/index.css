@@ -58,6 +58,31 @@
   background-color: black;
 }
 
+.curatedListMainPageLink2 {
+  color: blue;
+  font-size: 16px;
+  border-radius: 3px;
+  padding: 5px;
+  display: inline-block;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.curatedListMainPageLink2:hover {
+  color: white;
+  background-color: black;
+}
+.curatedListMainPageListName {
+
+  font-size: 26px;
+  display: inline-block;
+  padding: 0px 10px 0px 10px;
+  border-radius: 3px;
+}
+.curatedListMainPageListName:hover {
+  color: white;
+  background-color: black;
+}
+
 .curatedListsFaqContainer {
   margin: 20px;
 }

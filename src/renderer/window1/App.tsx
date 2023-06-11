@@ -22,7 +22,6 @@ import AppNostr from './AppNostr';
 import './css/customDataTables.css';
 import './css/dataTables/dataTables.css';
 // import './css/dataTables/bulma.css';
-
 import 'react-tooltip/dist/react-tooltip.css';
 import './css/app.css';
 import './css/navbars.css';
@@ -51,10 +50,8 @@ import './css/nostr/settings.css';
 import './css/nostr/userList.css';
 import './css/nostr/youTubeEmbed.css';
 import 'react-tabs/style/react-tabs.css';
-
 import './css/curatedLists/index.css';
 import './css/curatedLists/endorsements.css';
-
 import './css/eBooks/index.css';
 
 // an inelegant way to initialize the redux store

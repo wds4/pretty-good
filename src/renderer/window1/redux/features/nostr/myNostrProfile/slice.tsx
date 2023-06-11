@@ -151,7 +151,7 @@ export const myProfileSlice = createSlice({
     },
     initMyActiveNostrProfile: (state, action) => {
       const oMyProfileData = action.payload;
-      console.log("initMyActiveNostrProfile; oMyProfileData: "+JSON.stringify(oMyProfileData))
+      // console.log("initMyActiveNostrProfile; oMyProfileData: "+JSON.stringify(oMyProfileData))
       state.name = oMyProfileData?.name;
       // console.log("initMyActiveNostrProfile; oMyProfileData?.name: "+oMyProfileData?.name)
       state.display_name = oMyProfileData?.display_name;

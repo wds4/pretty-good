@@ -82,23 +82,43 @@ const Header = ({
 
   return (
     <>
+      <div style={{marginBottom: '10px'}}>
+        <div
+          style={{
+            marginLeft: '20px',
+            marginRight: '10px',
+            fontSize: '12px',
+            textAlign: 'right',
+            color: 'grey',
+            display: 'inline-block',
+          }}
+        >
+          CURATION<br/>of the list of:
+        </div>
+        <NavLink
+          end
+          to="/CuratedListsHome/ViewIndividualCuratedList"
+          style={{ textDecoration: 'none' }}
+        >
+          <div className="curatedListMainPageListName">
+            {name_plural}
+          </div>
+        </NavLink>
+      </div>
+
       <div
         className="h4"
-        style={{ marginBottom: '5px', paddingTop: '25px', position: 'relative' }}
+        style={{ display: 'none', marginBottom: '5px', paddingTop: '25px', position: 'relative',textAlign: 'center' }}
       >
-        <div style={{ color: 'purple', fontSize: '26px' }}>
-          <NavLink
-            onClick={() => {
-              dispatch(updateCuratedListFocus(event_id));
-            }}
-            end
-            to="/CuratedListsHome/ViewIndividualCuratedList"
-            style={{ textDecoration: 'none' }}
-          >
+        <NavLink
+          end
+          to="/CuratedListsHome/ViewIndividualCuratedList"
+          style={{ textDecoration: 'none' }}
+        >
+          <div className="curatedListMainPageListName">
             {name_plural}
-          </NavLink>
-        </div>
-
+          </div>
+        </NavLink>
         <div
           style={{
             position: 'absolute',
@@ -110,7 +130,7 @@ const Header = ({
             fontSize: '12px',
           }}
         >
-          CURATION of the list of:
+          CURATION<br/>of the list of:
         </div>
         <div
           style={{
@@ -129,9 +149,58 @@ const Header = ({
           >
             <div
               className="curatedListMainPageLink"
-              style={{  }}
+              style={{ display: 'none' }}
             >
               VISUALIZE how<br/>this is determined
+            </div>
+          </NavLink>
+        </div>
+        <div style={{textAlign: 'center', marginLeft: '20px'}}>
+          <NavLink
+            to="/CuratedListsHome/ViewIndividualCuratedList"
+            style={{ textDecoration: 'none' }}
+          >
+            <div
+              className="curatedListMainPageLink2"
+              style={{  }}
+            >
+              overview
+            </div>
+          </NavLink>
+
+          <NavLink
+            to="/CuratedListsHome/CuratedListAllItemsSql"
+            style={{ textDecoration: 'none' }}
+          >
+            <div
+              className="curatedListMainPageLink2"
+              style={{  }}
+            >
+              view items
+            </div>
+          </NavLink>
+
+          <NavLink
+            to="/CuratedListsHome/CreateNewCuratedListInstance"
+            style={{ textDecoration: 'none' }}
+          >
+            <div
+              className="curatedListMainPageLink2"
+              style={{  }}
+            >
+              add new item
+            </div>
+          </NavLink>
+
+          <NavLink
+            to="/CuratedListsHome/SingleListGraphOfInstances"
+            style={{ textDecoration: 'none' }}
+          >
+            <div
+              className="curatedListMainPageLink2"
+              style={{  }}
+            >
+              view graph
             </div>
           </NavLink>
         </div>

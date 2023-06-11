@@ -28,37 +28,40 @@ const List = ({ event }) => {
   if (oListData.description) {
     description = oListData.description;
   }
-  return (
-    <>
-      <div
-        style={{
-          padding: '5px',
-          marginBottom: '5px',
-          border: '1px solid blue',
-          borderRadius: '5px',
-        }}
-      >
-        List of:{' '}
-        <NavLink
-          style={{}}
-          onClick={() => {
-            dispatch(updateCuratedListFocus(event.id));
+  if (oWord?.nostrCuratedListData) {
+    return (
+      <>
+        <div
+          style={{
+            padding: '5px',
+            marginBottom: '5px',
+            border: '1px solid blue',
+            borderRadius: '5px',
           }}
-          end
-          to="/CuratedListsHome/ViewIndividualCuratedList"
         >
-          {name_plural}
-        </NavLink>
-        <div style={{fontSize:"12px",marginTop:"10px"}}>
-          {description}
+          List of:{' '}
+          <NavLink
+            style={{}}
+            onClick={() => {
+              dispatch(updateCuratedListFocus(event.id));
+            }}
+            end
+            to="/CuratedListsHome/ViewIndividualCuratedList"
+          >
+            {name_plural}
+          </NavLink>
+          <div style={{fontSize:"12px",marginTop:"10px"}}>
+            {description}
+          </div>
+          <div >
+            <TechDetailsForNostrNerds1 event={event} />
+            <TechDetailsForNostrNerds2 event={event} />
+          </div>
         </div>
-        <div >
-          <TechDetailsForNostrNerds1 event={event} />
-          <TechDetailsForNostrNerds2 event={event} />
-        </div>
-      </div>
-    </>
-  );
+      </>
+    );
+  }
+  return <></>;
 };
 
 export default List;

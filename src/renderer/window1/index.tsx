@@ -59,7 +59,6 @@ const startApp = async () => {
     console.log("isColPresent3 endorseAsNostCuratedListCurator is NOT truthy; sql3_b: "+sql3_b)
     const fooB = await asyncSql(sql3_b);
   }
-
   */
 
   // LOAD myNostrProfiles - loads all of my profiles; currently I do not load all of them into redux so this query may be unnecessary
