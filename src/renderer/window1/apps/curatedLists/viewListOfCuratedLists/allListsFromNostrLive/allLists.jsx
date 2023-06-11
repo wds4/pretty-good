@@ -23,21 +23,21 @@ const AllListsLoadLive = () => {
   const { events } = useNostrEvents({
     filter: filter
   });
-  events.sort((a, b) => parseFloat(b.created_at) - parseFloat(a.created_at));
+  // events.sort((a, b) => parseFloat(b.created_at) - parseFloat(a.created_at));
   return (
     <>
       <div style={{textAlign: 'center', marginBottom: '10px'}}>Live streaming from nostr:</div>
       <TechDetailsForNostrNerds filter={filter} />
       <div>number of lists: {events.length}</div>
       {events.map((event, index) => {
-        if (doesEventValidate(event)) {
-          addCuratedListEventToSql(event);
+        // if (doesEventValidate(event)) {
+          // addCuratedListEventToSql(event);
           return (
             <>
               <List event={event} />
             </>
           );
-        }
+        // }
       })}
     </>
   );

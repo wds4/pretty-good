@@ -1,6 +1,6 @@
 import { dateToUnix } from 'nostr-react';
 import { oDefaultRelayUrls } from 'renderer/window1/const';
-import { asyncSql } from '../asyncSql';
+import { asyncSql, asyncSqlParameterized } from '../asyncSql';
 import { generateNewNostrKeys } from '../../nostr';
 
 export const updateListCurationNoteInSql = async (event, slug) => {
@@ -9,7 +9,6 @@ export const updateListCurationNoteInSql = async (event, slug) => {
   const sql1 = ` INSERT OR IGNORE INTO testnetListCurationRatings (uniqueID, ratingSlug, pk_rater, event) VALUES('${uniqueID}', '${slug}', '${pk}', '${JSON.stringify(
     event
   )}' ) `;
-
   const res1 = await asyncSql(sql1);
 
   let sql2 = '';
@@ -74,15 +73,17 @@ export const addEndorsementOfListCuratorEventToSql = async (
       .slug;
   uniqueID = `${rater_pubkey}-${ratee_pubkey}-${parentConceptNostrEventID}-${ratingTemplateSlug}-${contextDAGSlug}`;
 
-    // NEED TO REMOVE RATING IF AN OLDER ONE ALREADY EXISTS, i.e. if uniqueID is present but event_id is nonidentical
-    let sql2 = '';
-    sql2 += ' DELETE FROM endorsementsOfCurators ';
-    sql2 += ` WHERE (uniqueID = '${uniqueID}' `;
-    // need to compare created_at to see which one is older
-    sql2 += ` AND created_at < '${event.created_at}' `;
-    sql2 += ` AND event_id != '${event.id}') `;
-    const res2 = await asyncSql(sql2);
+  // NEED TO REMOVE RATING IF AN OLDER ONE ALREADY EXISTS, i.e. if uniqueID is present but event_id is nonidentical
+  let sql2 = '';
+  sql2 += ' DELETE FROM endorsementsOfCurators ';
+  sql2 += ` WHERE (uniqueID = '${uniqueID}' `;
+  // need to compare created_at to see which one is older
+  sql2 += ` AND created_at < '${event.created_at}' `;
+  sql2 += ` AND event_id != '${event.id}') `;
+  const res2 = await asyncSql(sql2);
 
+  /*
+  // OLD WAY (before asyncSqlParameterized)
   const sql1 = ` INSERT OR IGNORE INTO endorsementsOfCurators (event, event_id, created_at, rater_pubkey, parentConceptSlug, parentConceptNostrEventID, ratee_pubkey, ratingTemplateSlug, contextDAGSlug, uniqueID) VALUES('${JSON.stringify(
     event
   )}', '${event.id}', '${event.created_at}', '${
@@ -90,6 +91,12 @@ export const addEndorsementOfListCuratorEventToSql = async (
   }', '${parentConceptSlug}', '${parentConceptNostrEventID}', '${ratee_pubkey}', '${ratingTemplateSlug}', '${contextDAGSlug}',  '${uniqueID}' ) `;
   // console.log(`addEndorsementOfListCuratorEventToSql; sql: ${sql1}`);
   const res1 = await asyncSql(sql1);
+  */
+
+  const foo1 = JSON.stringify(event)
+  const params = [ foo1, event.id, event.created_at, event.pubkey, parentConceptSlug, parentConceptNostrEventID, ratee_pubkey, ratingTemplateSlug, contextDAGSlug, uniqueID ];
+  const sql1 = " INSERT OR IGNORE INTO endorsementsOfCurators (event, event_id, created_at, rater_pubkey, parentConceptSlug, parentConceptNostrEventID, ratee_pubkey, ratingTemplateSlug, contextDAGSlug, uniqueID) VALUES (?,?,?,?,?,?,?,?,?,?) ";
+  const res = await asyncSqlParameterized(sql1, params);
 
   return res1;
 };
@@ -133,14 +140,22 @@ export const addRatingOfCuratedListInstanceEventToSql = async (
   sql2 += ` AND event_id != '${event.id}') `;
   const res2 = await asyncSql(sql2);
 
+  /*
+  // OLD WAY (before asyncSqlParameterized)
   const sql1 = ` INSERT OR IGNORE INTO ratingsOfCuratedListInstances (event, event_id, created_at, pubkey, parentConceptSlug, parentConceptNostrEventID, instanceSlug, instanceNostrEventID, ratingTemplateSlug, uniqueID) VALUES('${JSON.stringify(
     event
   )}', '${event.id}', '${event.created_at}', '${
     event.pubkey
   }', '${parentConceptSlug}', '${parentConceptNostrEventID}', '${instanceSlug}', '${instanceNostrEventID}', '${ratingTemplateSlug}', '${uniqueID}' ) `;
   // console.log(`addRatingOfCuratedListInstanceEventToSql; sql: ${sql1}`);
-  console.log(`addRatingOfCuratedListInstanceEventToSql`);
+  // console.log(`addRatingOfCuratedListInstanceEventToSql`);
   const res1 = await asyncSql(sql1);
+  */
+
+  const foo1 = JSON.stringify(event)
+  const params = [ foo1, event.id, event.created_at, event.pubkey, parentConceptSlug, parentConceptNostrEventID, instanceSlug, instanceNostrEventID, ratingTemplateSlug, uniqueID ];
+  const sql1 = " INSERT OR IGNORE INTO ratingsOfCuratedListInstances (event, event_id, created_at, pubkey, parentConceptSlug, parentConceptNostrEventID, instanceSlug, instanceNostrEventID, ratingTemplateSlug, uniqueID) VALUES (?,?,?,?,?,?,?,?,?,?) ";
+  const res = await asyncSqlParameterized(sql1, params);
 
   return res1;
 };
@@ -150,39 +165,43 @@ export const addInstanceEventToSql = async (
   parentConceptSlug,
   parentConceptNostrEventID
 ) => {
+
+  /*
+  // OLD WAY (before asyncSqlParameterized)
   const sql = ` INSERT OR IGNORE INTO curatedListInstances (event, event_id, created_at, pubkey, parentConceptSlug, parentConceptNostrEventID) VALUES('${JSON.stringify(
     event
   )}', '${event.id}', '${event.created_at}', '${
     event.pubkey
   }', '${parentConceptSlug}', '${parentConceptNostrEventID}' ) `;
   const res = await asyncSql(sql);
+  */
+
+  const foo1 = JSON.stringify(event)
+  const params = [ foo1, event.id, event.created_at, event.pubkey, parentConceptSlug, parentConceptNostrEventID ];
+  const sql1 = " INSERT OR IGNORE INTO curatedListInstances (event, event_id, created_at, pubkey, parentConceptSlug, parentConceptNostrEventID) VALUES (?,?,?,?,?,?) ";
+  const res = await asyncSqlParameterized(sql1, params);
+
   return res;
 };
 
-/*
-connection.query("INSERT IGNORE INTO collections VALUES (?, ?, ?, ?)", [queryData.nom, queryData.categorie, queryData.description, queryData.urlimage], function (err, result) {
-        if (err) throw err;
-        res.json("Vous avez ajouté "+queryData.categorie+"et"+queryData.description+"et"+queryData.objet+"a la table");
-    }
-);
-*/
-
+//
 export const addCuratedListEventToSql = async (event) => {
-
-  // const foo = JSON.stringify(event).replaceAll("'","");
-  const foo = JSON.stringify(event)
-  const sql = " INSERT OR IGNORE INTO curatedLists (event, event_id, created_at, pubkey) VALUES (?,?,?,?) " [ foo, event.id, event.created_at, event.pubkey ];
-
+  // TODO: try asyncSqlParameterized in place of asyncSql
+  // second try with parameterized queries
+  const foo1 = JSON.stringify(event)
+  const params = [ foo1, event.id, event.created_at, event.pubkey ];
+  const sql1 = " INSERT OR IGNORE INTO curatedLists (event, event_id, created_at, pubkey) VALUES (?,?,?,?) ";
+  const res = await asyncSqlParameterized(sql1, params);
   /*
-  // TEMPORARY FIX: remove all single quotes
+  // OLD WAY (before asyncSqlParameterized)
+  // PREVIOUS TEMPORARY FIX: remove all single quotes
   const foo = JSON.stringify(event).replaceAll("'","");
   const sql = ` INSERT OR IGNORE INTO curatedLists (event, event_id, created_at, pubkey) VALUES('${foo}', '${event.id}', '${event.created_at}', '${event.pubkey}' ) `;
-  */
-
   // const sql = ' INSERT OR IGNORE INTO curatedLists (event, event_id, created_at, pubkey) VALUES(`' + JSON.stringify(event) + '`, `' + event.id + '`, `' + event.created_at + '`, `' + event.pubkey + '` ) ';
   // console.log("addCuratedListEventToSql_a; sql: "+sql)
   const res = await asyncSql(sql);
   // console.log("addCuratedListEventToSql_b; res: "+res)
+  */
   return res;
 };
 
@@ -190,27 +209,46 @@ export const addDirectMessageToSql = async (event) => {
   const pk_recipient = event.tags.find(
     ([k, v]) => k === 'p' && v && v !== ''
   )[1];
+
+  /*
+  // OLD WAY (before asyncSqlParameterized)
   const sql = ` INSERT OR IGNORE INTO nostrDirectMessages (event, event_id, created_at, pubkey_author, pubkey_recipient) VALUES('${JSON.stringify(
     event
   )}', '${event.id}', '${event.created_at}', '${
     event.pubkey
   }', '${pk_recipient}' ) `;
   const res = await asyncSql(sql);
+  */
+
+  const foo1 = JSON.stringify(event)
+  const params = [ foo1, event.id, event.created_at, event.pubkey, pk_recipient ];
+  const sql1 = " INSERT OR IGNORE INTO nostrDirectMessages (event, event_id, created_at, pubkey_author, pubkey_recipient) VALUES (?,?,?,?,?) ";
+  const res = await asyncSqlParameterized(sql1, params);
+
   return res;
 };
 
 export const addNostrNoteToSql = async (event) => {
+
+  /*
+  // OLD WAY (before asyncSqlParameterized)
   const sql = ` INSERT OR IGNORE INTO nostrNotes (event, event_id, created_at, pubkey) VALUES('${JSON.stringify(
     event
   )}', '${event.id}', '${event.created_at}', '${event.pubkey}' ) `;
   const res = await asyncSql(sql);
+  */
+
+  const foo1 = JSON.stringify(event)
+  const params = [ foo1, event.id, event.created_at, event.pubkey ];
+  const sql1 = " INSERT OR IGNORE INTO nostrNotes (event, event_id, created_at, pubkey) VALUES (?,?,?,?) ";
+  const res = await asyncSqlParameterized(sql1, params);
+
   return res;
 };
 
 export const updateThisKind3EventProfileInSql = (event) => {
-  console.log(
-    `updateThisKind3EventProfileInSql; event: ${JSON.stringify(event, null, 4)}`
-  );
+
+  // console.log(`updateThisKind3EventProfileInSql; event: ${JSON.stringify(event, null, 4)}`);
   const currentTime = dateToUnix(new Date());
 
   const sql1 = ` INSERT OR IGNORE INTO nostrProfiles (pubkey,kind3Event,firstSeen) VALUES('${
@@ -225,6 +263,7 @@ export const updateThisKind3EventProfileInSql = (event) => {
   sql2 += ` WHERE pubkey = '${event.pubkey}' `;
   // console.log("updateThisKind3EventProfileInSql; sql2: "+sql2);
   const res2 = asyncSql(sql2);
+
 };
 
 export const updateThisProfileInSql = (event) => {

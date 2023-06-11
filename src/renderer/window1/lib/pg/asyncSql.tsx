@@ -36,6 +36,27 @@ export const asyncSql = async (sql: string, queryType) => { // queryType is opti
   });
 };
 
+// use asyncSqlParameterized for all INSERT INTO sql commands
+// This function uses parameterization so that strings with single and double quotes can be packaged into vars
+// without the need to remove either single or double quotes
+export const asyncSqlParameterized = async (sql: string, params) => { // queryType is optional parameter: all, get, each
+  const nonce = Math.floor(Math.random() * 100000);
+  // console.log(`asyncSql; nonce: ${nonce}`);
+  return new Promise((resolve) => {
+    window.electron.ipcRenderer.once(
+      `asynchronous-sql-reply-${nonce}`,
+      (arg) => {
+        resolve(arg);
+      }
+    );
+    // queryType: all, get, each (if null, all is the default action)
+    // all: returns array;
+    const queryType = "parameterized";
+    const data = [sql, nonce, queryType, params];
+    window.electron.ipcRenderer.sendMessage('asynchronous-sql-command', data);
+  });
+};
+
 export const asyncFetchMarkdown = async (url: string) => {
   return new Promise((resolve) => {
     window.electron.ipcRenderer.once(

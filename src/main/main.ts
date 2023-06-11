@@ -122,6 +122,12 @@ ipcMain.on('asynchronous-sql-command', async (event, data) => {
       event.reply(`asynchronous-sql-reply-${nonce}`, rows);
     });
   }
+  if (queryType === 'parameterized') {
+    const params = data[3];
+    db.each(sql, params, (err, result) => {
+      event.reply(`asynchronous-sql-reply-${nonce}`, result);
+    });
+  }
   if (queryType === 'get') {
     db.get(sql, (err, result) => {
       event.reply(`asynchronous-sql-reply-${nonce}`, result);
@@ -132,6 +138,7 @@ ipcMain.on('asynchronous-sql-command', async (event, data) => {
       event.reply(`asynchronous-sql-reply-${nonce}`, result);
     });
   }
+
 });
 
 db.serialize(() => {

@@ -27,6 +27,10 @@ const CuratedListsMasterFilter = () => {
   const filter = {
     since: 0,
     kinds: [kind0, kind1],
+    // ids: ["f83f2a931c8cc15d536366c9f6065e79425e804309d528cfce552fb11d7b7306"],
+    // "#c": ["concept-graph-testnet-901"],
+    // "#s": ["nostrCuratedList"],
+    // "#t": ["createInstance"],
   };
   const { events } = useNostrEvents({
     filter,
@@ -201,7 +205,7 @@ const CuratedListsMasterFilter = () => {
   // console.log("qwerty devMode NO; number of events: "+events.length);
   return <></>;
 
-/*
+
   return (
     <>
       <div>
@@ -220,11 +224,11 @@ const CuratedListsMasterFilter = () => {
               </>
             )
           }
-        })};
+        })}
       </div>
     </>
   );
-*/
+
 
 };
 
