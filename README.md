@@ -54,22 +54,6 @@ Importing private key for a profile should be done with caution. There is a risk
 
 The latest releases will be made available [here](https://github.com/wds4/pretty-good/releases).
 
-### MacOS
-
-For Apple Silicon macs (released from late 2020 to now), download and install PrettyGood-[version]-arm64.dmg, e.g. PrettyGood-0.1.1-alpha-arm64.dmg.
-
-For intel macs (between 2005 and 2021), download and install PrettyGood-[version].dmg, e.g. PrettyGood-0.1.1-alpha.dmg.
-
-Your mac will probably complain that the downloaded files are from an unidentified developer; instructions on how to address that problem are [here](https://www.macworld.com/article/672947/how-to-open-a-mac-app-from-an-unidentified-developer.html).
-
-### Linux
-
-Download and open PrettyGood-[version].AppImage, e.g. PrettyGood-0.1.1-alpha.AppImage. (You will have to make the AppImage executable, as described [here](https://docs.appimage.org/introduction/quickstart.html).)
-
-### Windows
-
-Coming soon.
-
 ## Download and install Pretty Good in development
 
 If you're a developer and/or comfortable with the command line, first check to made sure you have node and node package manager installed on your machine. If you're not sure, use commands: `node --version` and `npm --version` to check, and install them if necessary.
