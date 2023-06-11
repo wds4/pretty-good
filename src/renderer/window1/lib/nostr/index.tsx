@@ -8,7 +8,7 @@ export const generateNewNostrKeys = async (active) => {
   const sk = generatePrivateKey(); // `sk` is a hex string
   const pk = getPublicKey(sk); // `pk` is a hex string
   const currentTime = dateToUnix(new Date());
-  const sql = `INSERT OR IGNORE INTO myNostrProfile (pubkey, privkey, relays, active, created_at) VALUES ('${pk}', '${sk}', '${JSON.stringify(oDefaultRelayUrls)}', ${active}, ${currentTime}) `;
+  const sql = `INSERT OR IGNORE INTO myNostrProfile (pubkey, privkey, relays, active, multiClientAccess, created_at) VALUES ('${pk}', '${sk}', '${JSON.stringify(oDefaultRelayUrls)}', ${active}, true, ${currentTime}) `;
   await asyncSql(sql);
 
   return [sk, pk];

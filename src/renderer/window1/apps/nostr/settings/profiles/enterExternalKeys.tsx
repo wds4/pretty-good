@@ -22,7 +22,7 @@ export default function EnterExternalKeys() {
           pubkeyHex,
           privkeyHex
         );
-        console.log(`result: ${result}`);
+        // console.log(`result: ${result}`);
 
         const e = document.getElementById(
           'savedKeysGeneratedElsewhereMessageContainer'
@@ -129,7 +129,7 @@ export default function EnterExternalKeys() {
       <div style={{ color: 'red', textAlign: 'center', fontSize: '22px' }}>
         CAUTION!
       </div>
-      <div style={{ color: 'red', textAlign: 'left' }}>
+      <div style={{ color: 'red', textAlign: 'left', fontSize: '16px' }}>
         There is a risk this app could introduce errors
         into your profile, including loss of your following and relays lists. If you're
         going to risk it, I strongly suggest you backup your profile first!

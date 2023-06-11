@@ -338,15 +338,15 @@ export const addNewRowToMyNostrProfileInSql = async (pubkey, privkey, name, disp
   // pubkey is hex formatted
   let sql = "";
   if (name && display_name) {
-    sql = ` INSERT OR IGNORE INTO myNostrProfile (pubkey,privkey,following,relays,active,name,display_name) VALUES ('${pubkey}','${privkey}','[]','${JSON.stringify(
+    sql = ` INSERT OR IGNORE INTO myNostrProfile (pubkey,privkey,following,relays,active,multiClientAccess,name,display_name) VALUES ('${pubkey}','${privkey}','[]','${JSON.stringify(
       oDefaultRelayUrls
-    )}',false,'${name}','${display_name}') `;
+    )}',false,true,'${name}','${display_name}') `;
   } else {
-    sql = ` INSERT OR IGNORE INTO myNostrProfile (pubkey,privkey,following,relays,active) VALUES ('${pubkey}','${privkey}','[]','${JSON.stringify(
+    sql = ` INSERT OR IGNORE INTO myNostrProfile (pubkey,privkey,following,relays,active,multiClientAccess) VALUES ('${pubkey}','${privkey}','[]','${JSON.stringify(
       oDefaultRelayUrls
-    )}',false) `;
+    )}',false,true) `;
   }
-  console.log(`addNewRowToMyNostrProfileInSql; sql: ${sql}`);
+  // console.log(`addNewRowToMyNostrProfileInSql; sql: ${sql}`);
   // return "foo";
   return asyncSql(sql);
 };
