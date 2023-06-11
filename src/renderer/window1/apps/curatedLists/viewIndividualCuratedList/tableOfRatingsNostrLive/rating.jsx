@@ -45,7 +45,7 @@ const Rating = ({event}) => {
             textAlign: 'center',
           }}
         >
-          endorses as
+          endorsement:
           <div
             style={{
               color: 'green',

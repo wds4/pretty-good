@@ -68,7 +68,7 @@ const Rating = ({ oEndorsementOfCuratorData, event }) => {
             textAlign: 'center',
           }}
         >
-          endorses as
+          endorsement:
           <div
             style={{
               color: 'green',
