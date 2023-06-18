@@ -1,7 +1,7 @@
 import React from 'react';
 import Masthead from 'renderer/window1/mastheads/cgMasthead';
 import LeftNavbar1 from 'renderer/window1/navbars/leftNavbar1/universalNavbar';
-import LeftNavbar2 from 'renderer/window1/navbars/leftNavbar2/emptyNavbar';
+import LeftNavbar2 from 'renderer/window1/navbars/leftNavbar2/conceptGraph/home';
 import { updateMainColWidth, updateMastheadCenter } from '../../lib/pg/ui';
 
 export default class ConceptGraphHome extends React.Component {

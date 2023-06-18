@@ -56,6 +56,7 @@ import NostrThread from './apps/nostr/thread';
 import NostrDirectMessages from './apps/nostr/directMessages';
 
 import NostrSettings from './apps/nostr/settings';
+import NostrApp from './apps/nostr/settings/nostrapp';
 import NostrProfiles from './apps/nostr/settings/profiles';
 import NostrRelays from './apps/nostr/settings/relays';
 import NostrRelaysV2 from './apps/nostr/settings/relaysV2';
@@ -76,6 +77,8 @@ import GrapevineVisualizationMainPage from './apps/grapevine/visualization';
 import ConceptGraphHome from './apps/conceptGraph';
 import ConceptGraphProfile from './apps/conceptGraph/profile';
 import ConceptGraphSettings from './apps/conceptGraph/settings';
+import ConceptGraphViewWords from './apps/conceptGraph/words/viewWords';
+import ConceptGraphCreateWord from './apps/conceptGraph/words/createWord';
 
 import CuratedListsHome from './apps/curatedLists';
 import CuratedListsLandingPageRedirect from './apps/curatedLists/landingPageRedirect';
@@ -114,6 +117,31 @@ import CuratedListsWithScoresV5 from './apps/curatedLists/listsWithScoresV5';
 import CuratedListsWithScoresV6 from './apps/curatedLists/listsWithScoresV6';
 import CuratedListsWithScoresV7 from './apps/curatedLists/listsWithScoresV7';
 import CuratedListsWithScoresV8 from './apps/curatedLists/listsWithScoresV8';
+
+import ContentCurationHome from './apps/curatedLists/contentCuration';
+import ContextualFeed from './apps/curatedLists/contentCuration/contextualFeed';
+import TopicsHome from './apps/curatedLists/contentCuration/topics';
+import TopicsSql from './apps/curatedLists/contentCuration/topics/tableOfTopicsSql';
+import TopicsNostrLive from './apps/curatedLists/contentCuration/topics/tableOfTopicsNostrLive';
+import CreateATopic from './apps/curatedLists/contentCuration/topics/createATopic';
+import CreateATopicRelationship from './apps/curatedLists/contentCuration/relationships/createARelationship';
+import TopicRelationshipsNostrLive from './apps/curatedLists/contentCuration/relationships/tableOfRelationshipsNostrLive';
+import TopicRelationshipsSql from './apps/curatedLists/contentCuration/relationships/tableOfRelationshipsSql';
+import ContentCreators from './apps/curatedLists/contentCuration/contentCreators';
+import ContentCreatorsEndorsementsNostrLive from './apps/curatedLists/contentCuration/contentCreators/creatorEndorsementsNostrLive';
+import ContentCreatorsEndorsementsSql from './apps/curatedLists/contentCuration/contentCreators/creatorEndorsementsSql';
+import ContentCreatorsNostrLive from './apps/curatedLists/contentCuration/contentCreators/creatorsNostrLive';
+import ContentCreatorsSql from './apps/curatedLists/contentCuration/contentCreators/creatorsSql';
+import ContentCurators from './apps/curatedLists/contentCuration/contentCurators';
+import ContentCuratorsEndorsementsNostrLive from './apps/curatedLists/contentCuration/contentCurators/curatorEndorsementsNostrLive';
+import ContentCuratorsEndorsementsSql from './apps/curatedLists/contentCuration/contentCurators/curatorEndorsementsSql';
+import ContentCuratorsNostrLive from './apps/curatedLists/contentCuration/contentCurators/curatorsNostrLive';
+import ContentCuratorsSql from './apps/curatedLists/contentCuration/contentCurators/curatorsSql';
+import ContentCurationGraphs from './apps/curatedLists/contentCuration/graphs';
+import ContentCurationContextTreeGraph from './apps/curatedLists/contentCuration/graphs/contextTree';
+import ContentCurationGrapevineGraph from './apps/curatedLists/contentCuration/graphs/grapevine';
+
+
 
 import AskNostrHome from './apps/askNostr';
 import AskNostrSettings from './apps/askNostr/settings';
@@ -238,6 +266,10 @@ const AppRoutes = () => {
               element={<NostrSettings />}
             />
             <Route
+              path="/NostrHome/NostrApp"
+              element={<NostrApp />}
+            />
+            <Route
               path="/NostrHome/NostrCreatePost"
               element={<NostrCreatePost />}
             />
@@ -329,7 +361,14 @@ const AppRoutes = () => {
               path="/ConceptGraphHome/ConceptGraphSettings"
               element={<ConceptGraphSettings />}
             />
-
+            <Route
+              path="/ConceptGraphHome/ConceptGraphViewWords"
+              element={<ConceptGraphViewWords />}
+            />
+            <Route
+              path="/ConceptGraphHome/ConceptGraphCreateWord"
+              element={<ConceptGraphCreateWord />}
+            />
             <Route path="/CuratedListsHome" element={<CuratedListsHome />} />
             <Route
               path="/CuratedListsHome/CuratedListsLandingPage"
@@ -470,6 +509,96 @@ const AppRoutes = () => {
             <Route
               path="/CuratedListsHome/CuratedListsWithScoresV8"
               element={<CuratedListsWithScoresV8 />}
+            />
+            <Route
+              path="/CuratedListsHome/ContentCurationHome"
+              element={<ContentCurationHome />}
+            />
+            <Route
+              path="/CuratedListsHome/ContextualFeed"
+              element={<ContextualFeed />}
+            />
+            <Route
+              path="/CuratedListsHome/ContentCreators"
+              element={<ContentCreators />}
+            />
+            <Route
+              path="/CuratedListsHome/ContentCurators"
+              element={<ContentCurators />}
+            />
+            <Route
+              path="/CuratedListsHome/TopicsHome"
+              element={<TopicsHome />}
+            />
+            <Route
+              path="/CuratedListsHome/TopicsNostrLive"
+              element={<TopicsNostrLive />}
+            />
+            <Route
+              path="/CuratedListsHome/TopicsSql"
+              element={<TopicsSql />}
+            />
+            <Route
+              path="/CuratedListsHome/CreateATopic"
+              element={<CreateATopic />}
+            />
+            <Route
+              path="/CuratedListsHome/CreateATopicRelationship"
+              element={<CreateATopicRelationship />}
+            />
+            <Route
+              path="/CuratedListsHome/TopicRelationshipsNostrLive"
+              element={<TopicRelationshipsNostrLive />}
+            />
+            <Route
+              path="/CuratedListsHome/TopicRelationshipsSql"
+              element={<TopicRelationshipsSql />}
+            />
+
+            <Route
+              path="/CuratedListsHome/ContentCreatorsEndorsementsNostrLive"
+              element={<ContentCreatorsEndorsementsNostrLive />}
+            />
+            <Route
+              path="/CuratedListsHome/ContentCreatorsEndorsementsSql"
+              element={<ContentCreatorsEndorsementsSql />}
+            />
+            <Route
+              path="/CuratedListsHome/ContentCreatorsNostrLive"
+              element={<ContentCreatorsNostrLive />}
+            />
+            <Route
+              path="/CuratedListsHome/ContentCreatorsSql"
+              element={<ContentCreatorsSql />}
+            />
+
+            <Route
+              path="/CuratedListsHome/ContentCuratorsEndorsementsNostrLive"
+              element={<ContentCuratorsEndorsementsNostrLive />}
+            />
+            <Route
+              path="/CuratedListsHome/ContentCuratorsEndorsementsSql"
+              element={<ContentCuratorsEndorsementsSql />}
+            />
+            <Route
+              path="/CuratedListsHome/ContentCuratorsNostrLive"
+              element={<ContentCuratorsNostrLive />}
+            />
+            <Route
+              path="/CuratedListsHome/ContentCuratorsSql"
+              element={<ContentCuratorsSql />}
+            />
+            <Route
+              path="/CuratedListsHome/ContentCurationGraphs"
+              element={<ContentCurationGraphs />}
+            />
+            <Route
+              path="/CuratedListsHome/ContentCurationContextTreeGraph"
+              element={<ContentCurationContextTreeGraph />}
+            />
+            <Route
+              path="/CuratedListsHome/ContentCurationGrapevineGraph"
+              element={<ContentCurationGrapevineGraph />}
             />
 
             <Route

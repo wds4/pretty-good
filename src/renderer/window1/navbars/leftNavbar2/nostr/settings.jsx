@@ -132,6 +132,20 @@ const LeftNavbar2 = () => {
             <div style={{ fontSize: '26px' }}>&#x1F310;</div>
           </NavLink>
         </div>
+
+        <div className={devElemClass}>
+          <NavLink
+            className={({ isActive }) =>
+              isActive
+                ? 'leftNav2Button leftNav2ButtonActive'
+                : 'leftNav2Button'
+            }
+            end
+            to="/NostrHome/NostrApp"
+          >
+            nostrapp
+          </NavLink>
+        </div>
       </div>
     </>
   );

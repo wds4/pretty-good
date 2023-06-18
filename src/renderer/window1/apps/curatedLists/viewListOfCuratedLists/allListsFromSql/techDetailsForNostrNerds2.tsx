@@ -1,4 +1,3 @@
-
 import { useSelector } from 'react-redux';
 
 const TechDetailsForNostrNerds = ({event}) => {

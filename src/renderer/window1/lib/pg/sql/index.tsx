@@ -96,7 +96,7 @@ export const addEndorsementOfListCuratorEventToSql = async (
   const foo1 = JSON.stringify(event)
   const params = [ foo1, event.id, event.created_at, event.pubkey, parentConceptSlug, parentConceptNostrEventID, ratee_pubkey, ratingTemplateSlug, contextDAGSlug, uniqueID ];
   const sql1 = " INSERT OR IGNORE INTO endorsementsOfCurators (event, event_id, created_at, rater_pubkey, parentConceptSlug, parentConceptNostrEventID, ratee_pubkey, ratingTemplateSlug, contextDAGSlug, uniqueID) VALUES (?,?,?,?,?,?,?,?,?,?) ";
-  const res = await asyncSqlParameterized(sql1, params);
+  const res1 = await asyncSqlParameterized(sql1, params);
 
   return res1;
 };
@@ -155,7 +155,7 @@ export const addRatingOfCuratedListInstanceEventToSql = async (
   const foo1 = JSON.stringify(event)
   const params = [ foo1, event.id, event.created_at, event.pubkey, parentConceptSlug, parentConceptNostrEventID, instanceSlug, instanceNostrEventID, ratingTemplateSlug, uniqueID ];
   const sql1 = " INSERT OR IGNORE INTO ratingsOfCuratedListInstances (event, event_id, created_at, pubkey, parentConceptSlug, parentConceptNostrEventID, instanceSlug, instanceNostrEventID, ratingTemplateSlug, uniqueID) VALUES (?,?,?,?,?,?,?,?,?,?) ";
-  const res = await asyncSqlParameterized(sql1, params);
+  const res1 = await asyncSqlParameterized(sql1, params);
 
   return res1;
 };
