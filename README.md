@@ -46,6 +46,10 @@ Forthcoming features include:
 - the ability for Alice to publish a note saying, in effect: Here is a List of XYZ items, as curated by MY (Alice's) web of trust. This will have interesting applications from a privacy perspective: she will be able to transmit useful information to the wider community that has been gathered by psuedonymous accounts known only to her, in a manner that shields those accounts from being identified.
 - the ability to endorse or reject a user as a trusted curator of <i>any</i> list (all contexts). This will be used to calculate a generic (non-contextual) influence score which can then be used as a default influence score if no contextual information about that user is available. If context-specific attestations are available, the default generic score gets overridden.
 
+## Developer mode
+
+There is a mode that allows you to explore the structures of various JSON files according to nostr and dcosl protocols. In the case of dcosl, links to relevant DIPs are provided. To activate this feature, go to Pretty Good settings and toggle `show developer details for nostr nerds` to ON.
+
 ## Known issues
 
 Importing private key for a profile should be done with caution. There is a risk of introducing errors into your profile, including loss of following list and/or relays list. Best to back these up first! See this [issue](https://github.com/wds4/pretty-good/issues/4) for details.
@@ -53,22 +57,6 @@ Importing private key for a profile should be done with caution. There is a risk
 ## Download and install Pretty Good 
 
 The latest releases will be made available [here](https://github.com/wds4/pretty-good/releases).
-
-### MacOS
-
-For Apple Silicon macs (released from late 2020 to now), download and install PrettyGood-[version]-arm64.dmg, e.g. PrettyGood-0.1.1-alpha-arm64.dmg.
-
-For intel macs (between 2005 and 2021), download and install PrettyGood-[version].dmg, e.g. PrettyGood-0.1.1-alpha.dmg.
-
-Your mac will probably complain that the downloaded files are from an unidentified developer; instructions on how to address that problem are [here](https://www.macworld.com/article/672947/how-to-open-a-mac-app-from-an-unidentified-developer.html).
-
-### Linux
-
-Download and open PrettyGood-[version].AppImage, e.g. PrettyGood-0.1.1-alpha.AppImage. (You will have to make the AppImage executable, as described [here](https://docs.appimage.org/introduction/quickstart.html).)
-
-### Windows
-
-Coming soon.
 
 ## Download and install Pretty Good in development
 
