@@ -210,7 +210,7 @@ export const singleIterationInstanceScoreCalculations = (
       }
       oNode.y = yAxisDisplacement - yNew * yAxisConst;
       oNode.opacity = certainty;
-      oNode.color = '#000000';
+      // oNode.color = '#000000';
       // oNode.size = 50 * influence;
       oNode.title = oNode.name;
       oNode.title += "\n average: "+average;

@@ -15,6 +15,9 @@ import curatedListsReducer from '../features/curatedLists/lists/slice';
 import curatedListsSettingsReducer from '../features/curatedLists/settings/slice';
 import eBooksReducer from '../features/eBooks/slice';
 
+import channelsReducer from '../features/curatedChannels/channels/slice';
+import channelsSettingsReducer from '../features/curatedChannels/settings/slice';
+
 const store = configureStore({
   reducer: {
     counter: counterReducer,

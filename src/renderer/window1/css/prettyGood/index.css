@@ -34,6 +34,10 @@
   background-color:#DFDFDF;
   color:black;
 }
+.doSomethingButtonActive {
+  background-color:green;
+  color:white;
+}
 .doSomethingButton:hover {
   background-color:yellow;
 }

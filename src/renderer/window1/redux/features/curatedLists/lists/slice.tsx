@@ -415,7 +415,7 @@ export const addCuratedListItem_X = (oEvent, oWord, state) => {
           const name = oWord[propertyPath]?.name;
           const slug = oWord[propertyPath]?.slug;
           const description = oWord[propertyPath]?.description;
-          if (state.curatedLists[parentConceptNostrEventID].hasOwnProperty("items")) {
+          if (state.curatedLists.hasOwnProperty(parentConceptNostrEventID) && state.curatedLists[parentConceptNostrEventID].hasOwnProperty("items")) {
             state.curatedLists[parentConceptNostrEventID].items[event_id].name = name;
             state.curatedLists[parentConceptNostrEventID].items[event_id].slug = slug;
             state.curatedLists[parentConceptNostrEventID].items[event_id].description =

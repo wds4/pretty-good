@@ -86,7 +86,7 @@ const LeftNavbar2 = () => {
             isActive ? 'leftNav2Button leftNav2ButtonActive' : 'leftNav2Button'
           }
           end
-          to="/CuratedListsHome/CreateATopicRelationship"
+          to="/CuratedListsHome/TopicRelationshipsNostrLive"
         >
           topic relationships (nostr live)
         </NavLink>
@@ -106,7 +106,7 @@ const LeftNavbar2 = () => {
             isActive ? 'leftNav2Button leftNav2ButtonActive' : 'leftNav2Button'
           }
           end
-          to="/CuratedListsHome/TopicRelationshipsNostrLive"
+          to="/CuratedListsHome/CreateATopicRelationship"
         >
           create new relationship
         </NavLink>

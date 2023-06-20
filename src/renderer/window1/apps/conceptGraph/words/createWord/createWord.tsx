@@ -45,7 +45,7 @@ export default function CreatePost() {
     // console.log("oWord: "+JSON.stringify(oWord,null,4))
 
     const aTags = [
-      [ "c", "concept-graph-testnet-2" ],
+      [ "c", "concept-graph-testnet-902" ],
       [ "t", "createWord" ],
       [ "s", "word" ],
       [ "w", slug ]

@@ -104,3 +104,7 @@
   color:grey;
   margin-left:30px;
 }
+.contentCreationWholePage {
+  border: 1px solid grey;
+  padding: 5px;
+}

@@ -29,6 +29,7 @@ import {
   createCuratedListsTableCommand,
   createCuratedListInstancesTableCommand,
   createEndorsementsOfCuratorsTableCommand,
+  createMyConceptGraphChannelsTableCommand,
   aDefaultRelayUrls,
 } from './const/nostr';
 
@@ -153,6 +154,12 @@ db.serialize(() => {
   // db.run('DROP TABLE IF EXISTS curatedListInstances');
   // db.run('DROP TABLE IF EXISTS ratingsOfCuratedListInstances');
   // db.run('DROP TABLE IF EXISTS endorsementsOfCurators');
+  // db.run('DROP TABLE IF EXISTS myConceptGraph_channels');
+  /*
+  db.run(
+    `CREATE TABLE IF NOT EXISTS myConceptGraph_channels (${createMyConceptGraphChannelsTableCommand})`
+  );
+  */
   db.run(
     `CREATE TABLE IF NOT EXISTS endorsementsOfCurators (${createEndorsementsOfCuratorsTableCommand})`
   );

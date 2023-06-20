@@ -3,6 +3,7 @@ import Masthead from 'renderer/window1/mastheads/curatedListsMasthead';
 import LeftNavbar1 from 'renderer/window1/navbars/leftNavbar1/universalNavbar';
 import LeftNavbar2 from 'renderer/window1/navbars/leftNavbar2/curatedLists/contentCuration/creators';
 import { updateMainColWidth, updateMastheadCenter } from 'renderer/window1/lib/pg/ui';
+import CreatorEndorsementsNostrLive from './creatorEndorsementsNostrLive';
 
 export default class ContentCurationHome extends React.Component {
   constructor(props) {
@@ -26,7 +27,8 @@ export default class ContentCurationHome extends React.Component {
         <div id="mainCol">
           <Masthead />
           <div id="mainPanel">
-            <div className="h4">Table of Content Creator Endorsements (nostr live)</div>
+
+            <CreatorEndorsementsNostrLive />
           </div>
         </div>
       </>

@@ -13,7 +13,7 @@ export default class NostrFollowingList extends React.Component {
 
   async componentDidMount() {
     updateMainColWidth();
-    const mastheadDescriptor = 'nostr: view following list';
+    const mastheadDescriptor = 'following';
     updateMastheadCenter(mastheadDescriptor);
   }
 

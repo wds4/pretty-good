@@ -3,6 +3,7 @@ import Masthead from 'renderer/window1/mastheads/curatedListsMasthead';
 import LeftNavbar1 from 'renderer/window1/navbars/leftNavbar1/universalNavbar';
 import LeftNavbar2 from 'renderer/window1/navbars/leftNavbar2/curatedLists/contentCuration/graphs';
 import { updateMainColWidth, updateMastheadCenter } from 'renderer/window1/lib/pg/ui';
+import ContextTree from './contextTree';
 
 export default class ContentCurationTopics extends React.Component {
   constructor(props) {
@@ -26,8 +27,7 @@ export default class ContentCurationTopics extends React.Component {
         <div id="mainCol">
           <Masthead />
           <div id="mainPanel">
-            <div className="h4">Content Curation: Graph of Context Tree</div>
-
+            <ContextTree />
           </div>
         </div>
       </>

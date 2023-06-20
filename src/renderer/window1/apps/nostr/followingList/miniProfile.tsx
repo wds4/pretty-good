@@ -10,7 +10,7 @@ import { noProfilePicUrl } from 'renderer/window1/const';
 import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
 import FollowButton from 'renderer/window1/apps/nostr/components/followButton';
 
-const NostrMiniProfile = ({ pubkey, searchString }) => {
+const NostrMiniProfile = ({ pubkey, searchString, whichFollowsSubset, aMyFollowing }) => {
   const dispatch = useDispatch();
   const nostrProfiles = useSelector(
     (state) => state.nostrProfiles.nostrProfiles
@@ -74,6 +74,18 @@ const NostrMiniProfile = ({ pubkey, searchString }) => {
     if (npub && npub.includes(searchString)) {
       display = "block";
     }
+  }
+
+  let amIFollowing = false;
+  if (aMyFollowing.includes(pubkey)) {
+    amIFollowing = true;
+  }
+
+  if ( (whichFollowsSubset==1) && (!amIFollowing) ) {
+    display = "none";
+  }
+  if ( (whichFollowsSubset==2) && (amIFollowing) ) {
+    display = "none";
   }
   return (
     <>

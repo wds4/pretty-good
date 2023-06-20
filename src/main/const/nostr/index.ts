@@ -9,6 +9,7 @@ export let createCuratedListsTableCommand = '';
 export let createCuratedListInstancesTableCommand = '';
 export let createRatingsOfCuratedListInstancesTableCommand = '';
 export let createEndorsementsOfCuratorsTableCommand = '';
+export let createMyConceptGraphChannelsTableCommand = '';
 
 // duplication from renderer/window1/const - may deprecate the lists here in favor of the one over there
 export const aDefaultRelayUrls: string[] = [
@@ -44,6 +45,38 @@ export const oDefaultDevModes = {
   devMode9: false, // reserved
   devMode10: false, // reserved
 };
+
+/*
+myConceptGraph_channels
+- id (unique)
+- event
+- event_id (unique)
+
+- slug (=wordData.slug)
+- version (=wordData.version)
+- mostRecentSlug (boolean: true if it's the most recent for this slug)
+- mostRecentSlugAndVersion (boolean: true if it's the most recent for this slug and this version)
+- word
+- stewardPubkey
+- stewardPubkeyPlusVersion (should be unique, analagous to ipns)
+- wordTypes
+- ipns (for potential later usage)
+- ipfs (for potential later usage)
+*/
+createMyConceptGraphChannelsTableCommand += 'id INTEGER PRIMARY KEY, ';
+createMyConceptGraphChannelsTableCommand += 'event TEXT NULL, ';
+createMyConceptGraphChannelsTableCommand += 'event_id TEXT NULL, ';
+createMyConceptGraphChannelsTableCommand += 'slug TEXT NULL, ';
+createMyConceptGraphChannelsTableCommand += 'version TEXT NULL, ';
+createMyConceptGraphChannelsTableCommand += 'mostRecentSlug BOOLEAN NULL, ';
+createMyConceptGraphChannelsTableCommand += 'mostRecentSlugAndVersion BOOLEAN NULL, ';
+createMyConceptGraphChannelsTableCommand += 'word TEXT NULL, ';
+createMyConceptGraphChannelsTableCommand += 'stewardPubkey TEXT NULL, ';
+createMyConceptGraphChannelsTableCommand += 'stewardPubkeyPlusVersion TEXT NULL, ';
+createMyConceptGraphChannelsTableCommand += 'wordTypes TEXT NULL, ';
+createMyConceptGraphChannelsTableCommand += 'ipns TEXT NULL, ';
+createMyConceptGraphChannelsTableCommand += 'ipfs TEXT NULL, ';
+createMyConceptGraphChannelsTableCommand += 'UNIQUE(event_id) ';
 
 createEndorsementsOfCuratorsTableCommand += 'id INTEGER PRIMARY KEY, ';
 createEndorsementsOfCuratorsTableCommand += 'event TEXT NULL, ';
