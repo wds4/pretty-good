@@ -5,6 +5,7 @@ This is a refactor of my older project, [electron-nostr](https://github.com/wds4
 Pretty Good Apps is a desktop client (linux, mac, windows), embedded currently with two apps (and a third on the way):
 - Curated Lists: an implementation of the [DCoSL](https://github.com/wds4/DCoSL) protocol (decentralized curation of simple lists). Currently functional although bugs exist and UX is poor.
 - Pretty Good Nostr, a standard nostr client with basic functionality
+- Curated Nostr Channels (under construction)
 
 The fundamental purpose of Pretty Good Apps is to provide a proof of concept that genuinely decentralized, web of trust-based curation of knowledge is possible, despite having never truly been implemented. Of course, this hinges on thw question: what counts as "genuine decentralization?" I hope this app will stimulate an examination of that question. 
 
