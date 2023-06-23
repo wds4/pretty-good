@@ -2,7 +2,7 @@
 
 This is a refactor of my older project, [electron-nostr](https://github.com/wds4/electron-react-boilerplate-nostr), and is based on [electron-react-boilerplate](https://github.com/electron-react-boilerplate/electron-react-boilerplate). 
 
-Pretty Good Apps is a desktop client (linux, mac, windows), embedded currently with two apps:
+Pretty Good Apps is a desktop client (linux, mac, windows), embedded currently with two apps (and a third on the way):
 - Curated Lists: an implementation of the [DCoSL](https://github.com/wds4/DCoSL) protocol (decentralized curation of simple lists). Currently functional although bugs exist and UX is poor.
 - Pretty Good Nostr, a standard nostr client with basic functionality
 
