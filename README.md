@@ -2,9 +2,16 @@
 
 This is a refactor of my older project, [electron-nostr](https://github.com/wds4/electron-react-boilerplate-nostr), and is based on [electron-react-boilerplate](https://github.com/electron-react-boilerplate/electron-react-boilerplate). 
 
-Pretty Good Apps is a desktop client (linux, mac, windows), embedded currently with two apps:
-- Curated Lists: an implementation of the [DCoSL](https://github.com/wds4/DCoSL) protocol (decentralized curation of simple lists)
+Pretty Good Apps is a desktop client (linux, mac, windows), embedded currently with two apps (and a third on the way):
+- Curated Lists: an implementation of the [DCoSL](https://github.com/wds4/DCoSL) protocol (decentralized curation of simple lists). Currently functional although bugs exist and UX is poor.
 - Pretty Good Nostr, a standard nostr client with basic functionality
+- Curated Nostr Channels (under construction)
+
+The fundamental purpose of Pretty Good Apps is to provide a proof of concept that genuinely decentralized, web of trust-based curation of knowledge is something that can be done, despite the fact that as of today, we still haven't truly done it. And once we do, it be incredibly useful! Of course, this hinges on the question: what do we mean by "genuine decentralization?" I hope this app will stimulate an examination of that question. See [DCoSL](https://github.com/wds4/DCoSL) for an introduction to this topic.
+
+As of 23 June 2023, I am in the process of using using the basic tools of Curated Lists and building a third app: Curated Nostr Channels. With the Channels app, the user can select a topic (a "channel") such as monetary policy, nostr development, entertainment, sports, etc, and see a nostr feed focused on that topic. Don't see a topic you like? Add it! The list of topics, their arrangement in a hierarchy (e.g. movies is a subcategory of entertainment), and pubkeys that associate with a given topic will all be <i>curated by your web of trust</i> following the principles and methods described in DCoSL. Among other things, this will be a great tool to discover new users to follow.
+
+tl;dr: My goal is for Curated Lists to prove that genuinely decentralized curation of knowledge is possible <i>in theory</i>, and for the Channels app to prove <i>utility</i>. Once those two points have been (hopefully) demonstrated convincingly, the next step will be to make an implementation that is sleek, snazzy, bug free, with good UX.
 
 ## Pretty Good Nostr
 
@@ -22,10 +29,16 @@ Basic [nostr](https://github.com/nostr-protocol/nostr) functionality is currentl
 - send / receive direct messages
 - manage relays
 
-Forthcoming / under consideration:
-- likes, reposts, and zaps
-- mentions (via NIP-27)
-- fixes to thread view
+Features not available on most other clients:
+- See a list of relays used by your follows list, organized by frequency of usage (demonstrates [DIP-01](https://github.com/wds4/DCoSL/blob/main/dips/coreProtocol/01.md) but not [DIP-02](https://github.com/wds4/DCoSL/blob/main/dips/coreProtocol/02.md), because follow != trust to pick relays)
+- easy switch between multiple accounts
+- basic keyword search of your follow list
+
+standard features not yet implemented in PGA:
+- zaps
+- likes, reposts, reactions
+- notifications
+- mentions (NIP-27)
 - probably some other commonly used features
 
 ## Curated Lists: decentralized web of trust
@@ -48,7 +61,7 @@ Forthcoming features include:
 
 ## Developer mode
 
-There is a mode that allows you to explore the structures of various JSON files according to nostr and dcosl protocols. In the case of dcosl, links to relevant DIPs are provided. To activate this feature, go to Pretty Good settings and toggle `show developer details for nostr nerds` to ON.
+Under settings, users can activate a mode that allows you to explore the structures of various JSON files according to nostr and dcosl protocols. In the case of dcosl, links to relevant DIPs are provided. To activate this feature, go to Pretty Good settings and toggle `show developer details for nostr nerds` to ON.
 
 ## Known issues
 
