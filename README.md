@@ -29,16 +29,16 @@ Basic [nostr](https://github.com/nostr-protocol/nostr) functionality is currentl
 - send / receive direct messages
 - manage relays
 
-Features not available on most other clients
+Features not available on most other clients:
 - See a list of relays used by your follows list, organized by frequency of usage (demonstrates [DIP-01](https://github.com/wds4/DCoSL/blob/main/dips/coreProtocol/01.md) but not [DIP-02](https://github.com/wds4/DCoSL/blob/main/dips/coreProtocol/02.md), because follow != trust to pick relays)
 - easy switch between multiple accounts
 - basic keyword search of your follow list
 
-Forthcoming / under consideration:
-- likes, reposts, and zaps
+standard features not yet implemented in PGA:
+- zaps
+- likes, reposts, reactions
 - notifications
-- mentions (via NIP-27)
-- fixes to thread view
+- mentions (NIP-27)
 - probably some other commonly used features
 
 ## Curated Lists: decentralized web of trust
