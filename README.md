@@ -3,8 +3,12 @@
 This is a refactor of my older project, [electron-nostr](https://github.com/wds4/electron-react-boilerplate-nostr), and is based on [electron-react-boilerplate](https://github.com/electron-react-boilerplate/electron-react-boilerplate). 
 
 Pretty Good Apps is a desktop client (linux, mac, windows), embedded currently with two apps:
-- Curated Lists: an implementation of the [DCoSL](https://github.com/wds4/DCoSL) protocol (decentralized curation of simple lists)
+- Curated Lists: an implementation of the [DCoSL](https://github.com/wds4/DCoSL) protocol (decentralized curation of simple lists). Currently functional although bugs exist and UX is poor.
 - Pretty Good Nostr, a standard nostr client with basic functionality
+
+The fundamental purpose of Pretty Good Apps is to provide a proof of concept that genuinely decentralized, web of trust-based curation of knowledge is possible, despite having never truly been implemented. Of course, this hinges on thw question: what counts as "genuine decentralization?" I hope this app will stimulate an examination of that question. 
+
+As of 23 June 2023, I am in the process of using using the basic tools of Curated Lists and building a third app: Curated Nostr Channels. With the Channels app, the user can select a topic (a "channel") such as monetary policy, nostr development, entertainment, sports, etc, and see a nostr feed focused on that topic. Don't see a topic you like? Add it! The list of topics, their arrangement in a hierarchy (e.g. movies is a subcategory of entertainment), and pubkeys that associated with a given topic will all be curated by your web of trust. Among other things, this will be a great tool to discover new users to follow.
 
 ## Pretty Good Nostr
 
