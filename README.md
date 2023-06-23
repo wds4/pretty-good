@@ -11,6 +11,8 @@ The fundamental purpose of Pretty Good Apps is to provide a proof of concept tha
 
 As of 23 June 2023, I am in the process of using using the basic tools of Curated Lists and building a third app: Curated Nostr Channels. With the Channels app, the user can select a topic (a "channel") such as monetary policy, nostr development, entertainment, sports, etc, and see a nostr feed focused on that topic. Don't see a topic you like? Add it! The list of topics, their arrangement in a hierarchy (e.g. movies is a subcategory of entertainment), and pubkeys that associated with a given topic will all be curated by your web of trust. Among other things, this will be a great tool to discover new users to follow.
 
+tl;dr: My goal is for Curated Lists to prove that genuinely decentralized curation of knowledge is possible <i>in theory</i>, and for the Channels app to prove <i>utility</i>. Once those two points have been demonstrated convincingly, I will rely on others to make it sleek, snazzy, bug free with good UX.
+
 ## Pretty Good Nostr
 
 Basic [nostr](https://github.com/nostr-protocol/nostr) functionality is currently available. (List of supported [NIPs](https://github.com/nostr-protocol/nips) is coming soon.) Features include:
