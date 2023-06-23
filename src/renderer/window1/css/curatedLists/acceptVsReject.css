@@ -1,0 +1,68 @@
+.acceptThumbsUpButton {
+  border:1px solid black;
+  border-radius:15px;
+  font-size:12px;
+  display:inline-block;
+  padding:4px 20px 4px 20px;
+  margin:4px;
+  background-color:black;
+  color:white;
+}
+.acceptThumbsUpButton:before {
+  content:"Accept 👍"
+}
+.rejectThumbsUpButton {
+  border:1px solid black;
+  border-radius:15px;
+  font-size:12px;
+  display:inline-block;
+  padding:4px 14px 4px 14px;
+  margin:4px;
+  background-color:white;
+  color:black;
+}
+.rejectThumbsUpButton:before {
+  content:"Reject 👍"
+}
+.acceptThumbsUpButton:hover {
+  background-color:yellow;
+}
+.rejectThumbsUpButton:hover {
+  background-color:#DFDFDF;
+}
+
+/*
+accept: Thumbs Down button (rating: 100, certainty: 80 %)
+*/
+.acceptThumbsDownButton {
+  border:1px solid black;
+  border-radius:15px;
+  font-size:12px;
+  display:inline-block;
+  padding:4px 20px 4px 20px;
+  margin:4px;
+  background-color:black;
+  color:white;
+}
+.acceptThumbsDownButton:before {
+  content:"Reject 👎"
+}
+.rejectThumbsDownButton {
+  border:1px solid black;
+  border-radius:15px;
+  font-size:12px;
+  display:inline-block;
+  padding:4px 14px 4px 14px;
+  margin:4px;
+  background-color:white;
+  color:black;
+}
+.rejectThumbsDownButton:before {
+  content:"Unblock 👎"
+}
+.acceptThumbsDownButton:hover {
+  background-color:yellow;
+}
+.rejectThumbsDownButton:hover {
+  background-color:#DFDFDF;
+}

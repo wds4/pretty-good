@@ -3,6 +3,7 @@ import Masthead from 'renderer/window1/mastheads/curatedListsMasthead';
 import LeftNavbar1 from 'renderer/window1/navbars/leftNavbar1/universalNavbar';
 import LeftNavbar2 from 'renderer/window1/navbars/leftNavbar2/curatedLists/contentCuration/home';
 import { updateMainColWidth, updateMastheadCenter } from 'renderer/window1/lib/pg/ui';
+import ChannelsListener from 'renderer/window1/apps/nostr/listeners/channelsListener';
 
 export default class ContentCurationHome extends React.Component {
   constructor(props) {
@@ -38,6 +39,7 @@ export default class ContentCurationHome extends React.Component {
               that topic. What could be easier than that!
             </div>
           </div>
+          <ChannelsListener />
         </div>
       </>
     );

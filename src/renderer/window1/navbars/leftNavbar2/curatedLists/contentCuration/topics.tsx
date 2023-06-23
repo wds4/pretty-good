@@ -60,9 +60,9 @@ const LeftNavbar2 = () => {
             isActive ? 'leftNav2Button leftNav2ButtonActive' : 'leftNav2Button'
           }
           end
-          to="/CuratedListsHome/TopicsSql"
+          to="/CuratedListsHome/TopicsRedux"
         >
-          topics (sql)
+          topics (redux)
         </NavLink>
 
         <NavLink
@@ -98,7 +98,7 @@ const LeftNavbar2 = () => {
           end
           to="/CuratedListsHome/TopicRelationshipsSql"
         >
-          topic relationships (sql)
+          topic relationships (redux)
         </NavLink>
 
         <NavLink

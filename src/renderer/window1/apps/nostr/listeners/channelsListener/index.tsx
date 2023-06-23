@@ -10,7 +10,7 @@ const ChannelsListener = () => {
   if (activateChannelsBackgroundListener) {
     return (
       <>
-        <div className="curatedListsListenerStatusContainer">
+        <div className="curatedListsListenerStatusContainer" style={{marginLeft: '120px'}}>
           <div style={{ display: 'inline-block', marginBottom: '2px'}}>
             CHANNELS
             <br />
@@ -34,7 +34,7 @@ const ChannelsListener = () => {
   }
   return (
     <>
-      <div className="curatedListsListenerStatusContainer">
+      <div className="curatedListsListenerStatusContainer" style={{marginLeft: '120px'}}>
         <div style={{ display: 'inline-block', marginBottom: '2px' }}>
           CHANNELS
           <br />

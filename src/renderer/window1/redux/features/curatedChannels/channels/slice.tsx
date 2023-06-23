@@ -46,24 +46,54 @@ channels: {
       },
       bySlug: {
         <slug>: {
-          noVersion: eventID,
+          versionIndependent: eventID,
           byVersion: {
             <version>: eventID
           }
         }
       },
-      byConcept: {
+      byWordType: {
         <concept1Slug>: {
-          <word1Slug>: eventID, use this to look up data under channels.nodes.byEventID
-          <word2Slug>: eventID,
-          ...
+          <word1Slug>: {
+            versionIndependent: eventID, use this to look up data under channels.nodes.byEventID
+            byVersion: {
+              <version>: eventID
+            }
+          }
+          <word2Slug>: {
+            versionIndependent: eventID, use this to look up data under channels.nodes.byEventID
+            byVersion: {
+              <version>: eventID
+            }
+          }
         }
       }
     }
   },
   // store ratings? and scores?
   grapevine: {
-
+    byRatingTemplateSlug: {
+      <ratingTemplateSlug>: {
+        byRaterUniversalID: {
+          <raterUniversalID>: {
+            byRateeUniversalID: {
+              <rateeUniversalID>: {
+                ratingEventID: <ratingEventID>
+              }
+            }
+          }
+        },
+        byRateeUniversalID: {
+          <rateeUniversalID>: {
+            byRaterUniversalID: {
+              <raterUniversalID>: {
+                ratingEventID: <ratingEventID>
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }
 */
@@ -72,11 +102,22 @@ export const channelsSlice = createSlice({
   name: 'channels',
   initialState: {
     aThreadedTapestryEventIDs: [],
-    nodes: {
-      byEventID: {
+    conceptGraph: {
+      nodes: {
+        byEventID: {
 
-      },
-      bySlug: {
+        },
+        bySlug: {
+
+        },
+        byWordType: {
+          nostrTopic: {}
+
+        }
+      }
+    },
+    grapevine: { // for words of wordType: rating
+      byRatingTemplateSlug: {
 
       }
     }
@@ -88,33 +129,174 @@ export const channelsSlice = createSlice({
     addThreadedTapestryEvent: (state, action) => {
       const event = action.payload;
       if (doesEventValidate(event)) {
-        // console.log("qwerty addThreadedTapestryEvent B")
         const event_id = event.id;
         if (!state.aThreadedTapestryEventIDs.includes(event_id)) {
-          const { pubkey } = event;
-          const kind = event.kind;
+          const { pubkey, kind, created_at } = event;
           if (isValidObjString(event?.content)) {
             const oWord = JSON.parse(event.content);
             if (oWord && oWord.wordData) {
               const slug = oWord.wordData?.slug;
               const version = oWord.wordData?.version;
+              const wordTypes = oWord.wordData?.wordTypes;
 
-              state.nodes.byEventID.[event_id].event = event;
-              state.nodes.byEventID.[event_id].word = oWord;
+              if (!state.conceptGraph.nodes.byEventID.hasOwnProperty(event_id)) {
+                state.conceptGraph.nodes.byEventID[event_id] = {};
+              }
+              state.conceptGraph.nodes.byEventID[event_id].event = event;
+              state.conceptGraph.nodes.byEventID[event_id].word = oWord;
+
               if (slug) {
-                if (!state.nodes.bySlug) {
-                  state.nodes.bySlug[slug] = {};
+                if (!state.conceptGraph.nodes.bySlug.hasOwnProperty(slug)) {
+                  state.conceptGraph.nodes.bySlug[slug] = {};
+                  state.conceptGraph.nodes.bySlug[slug].versionIndependent = null;
+                  state.conceptGraph.nodes.bySlug[slug].byVersion = {};
                 }
 
+                // versionIndependent
+                if (state.conceptGraph.nodes.bySlug[slug].versionIndependent) {
+                  const event_id_previous = state.conceptGraph.nodes.bySlug[slug].versionIndependent;
+                  const event_id_current = event_id;
+                  const created_at_previous = state.conceptGraph.nodes.byEventID[event_id_previous].event.created_at;
+                  const created_at_current = state.conceptGraph.nodes.byEventID[event_id_current].event.created_at;
+                  if (created_at_current > created_at_previous) {
+                    state.conceptGraph.nodes.bySlug[slug].versionIndependent = event_id;
+                  }
+                } else {
+                  state.conceptGraph.nodes.bySlug[slug].versionIndependent = event_id;
+                }
+
+                // byVersion
                 if (version) {
-                  // TO DO: if one already exists, check created_at and keep the most recent
-                  state.nodes.bySlug[slug].byVersion[version] = event_id;
+                  // state.conceptGraph.nodes.bySlug[slug].byVersion[version] = event_id;
+                  if (state.conceptGraph.nodes.bySlug[slug].byVersion[version]) {
+                    // compare created_at, existing and current
+                    const event_id_previous = state.conceptGraph.nodes.bySlug[slug].byVersion[version];
+                    const event_id_current = event_id;
+                    const created_at_previous = state.conceptGraph.nodes.byEventID[event_id_previous].event.created_at;
+                    const created_at_current = state.conceptGraph.nodes.byEventID[event_id_current].event.created_at;
+                    if (created_at_current > created_at_previous) {
+                      state.conceptGraph.nodes.bySlug[slug].byVersion[version] = event_id;
+                    }
+                  } else {
+                    state.conceptGraph.nodes.bySlug[slug].byVersion[version] = event_id;
+                  }
                 }
+              }
 
-                // TO DO: fugure out what to put for noVersion when there are multiple choices
-                // probably check the created_at and keep the most recent
-                // maybe change noVersion to something like versionIndependent
-                state.nodes.bySlug[slug].noVersion = event_id;
+              if (slug && wordTypes && (Array.isArray(wordTypes)) ) {
+                for (let z=0;z<wordTypes.length;z++) {
+                  const wT = wordTypes[z];
+
+                  //////////////////////////////////////////////
+                  ////// ADD RATINGS TO state.grapevine ////////
+                  if (wT == "rating") {
+                    const ratingTemplateSlug = oWord.ratingData.ratingTemplateData.ratingTemplateSlug;
+
+                    const raterType = oWord.ratingData.raterData.raterType;
+                    let raterUniversalID = "";
+                    if (raterType=="nostrProfile") {
+                      raterUniversalID = oWord.ratingData.raterData.nostrProfileData.pubkey;
+                    }
+
+                    const rateeType = oWord.ratingData.rateeData.rateeType;
+                    let rateeUniversalID = "";
+                    if (rateeType=="nostrCuratedListInstance") {
+                      rateeUniversalID = oWord.ratingData.rateeData.nostrCuratedListInstanceData.eventID;
+                    }
+                    if (rateeType=="relationship") {
+                      rateeUniversalID = oWord.ratingData.rateeData.relationshipData.eventID;
+                    }
+                    if (ratingTemplateSlug && raterUniversalID && rateeUniversalID) {
+                      if (!state.grapevine.byRatingTemplateSlug[ratingTemplateSlug]) {
+                        state.grapevine.byRatingTemplateSlug[ratingTemplateSlug] = {
+                          byRaterUniversalID: {},
+                          byRateeUniversalID: {}
+                        }
+                      }
+                      // byRatingTemplateSlug, byRaterUniversalID
+                      if (!state.grapevine.byRatingTemplateSlug[ratingTemplateSlug].byRaterUniversalID[raterUniversalID]) {
+                        state.grapevine.byRatingTemplateSlug[ratingTemplateSlug].byRaterUniversalID[raterUniversalID] = {
+                          byRateeUniversalID: {}
+                        }
+                      }
+                      // check if one already exists; if so, compare created_at
+                      if (state.grapevine.byRatingTemplateSlug[ratingTemplateSlug].byRaterUniversalID[raterUniversalID].byRateeUniversalID[rateeUniversalID]) {
+                        const event_id_previous = state.grapevine.byRatingTemplateSlug[ratingTemplateSlug].byRaterUniversalID[raterUniversalID].byRateeUniversalID[rateeUniversalID].ratingEventID;
+                        const created_at_previous = state.conceptGraph.nodes.byEventID[event_id_previous].event.created_at;
+                        if (created_at > created_at_previous) {
+                          state.grapevine.byRatingTemplateSlug[ratingTemplateSlug].byRaterUniversalID[raterUniversalID].byRateeUniversalID[rateeUniversalID] = {
+                            ratingEventID: event_id
+                          }
+                        }
+                      } else {
+                        state.grapevine.byRatingTemplateSlug[ratingTemplateSlug].byRaterUniversalID[raterUniversalID].byRateeUniversalID[rateeUniversalID] = {
+                          ratingEventID: event_id
+                        }
+                      }
+
+                      // byRatingTemplateSlug, byRateeUniversalID
+                      if (!state.grapevine.byRatingTemplateSlug[ratingTemplateSlug].byRateeUniversalID[rateeUniversalID]) {
+                        state.grapevine.byRatingTemplateSlug[ratingTemplateSlug].byRateeUniversalID[rateeUniversalID] = {
+                          byRaterUniversalID: {}
+                        }
+                      }
+                      // check if one already exists; if so, compare created_at
+                      if (state.grapevine.byRatingTemplateSlug[ratingTemplateSlug].byRateeUniversalID[rateeUniversalID].byRaterUniversalID[raterUniversalID]) {
+                        const event_id_previous = state.grapevine.byRatingTemplateSlug[ratingTemplateSlug].byRateeUniversalID[rateeUniversalID].byRaterUniversalID[raterUniversalID].ratingEventID;
+                        const created_at_previous = state.conceptGraph.nodes.byEventID[event_id_previous].event.created_at;
+                        if (created_at > created_at_previous) {
+                          state.grapevine.byRatingTemplateSlug[ratingTemplateSlug].byRateeUniversalID[rateeUniversalID].byRaterUniversalID[raterUniversalID] = {
+                            ratingEventID: event_id
+                          }
+                        }
+                      } else {
+                        state.grapevine.byRatingTemplateSlug[ratingTemplateSlug].byRateeUniversalID[rateeUniversalID].byRaterUniversalID[raterUniversalID] = {
+                          ratingEventID: event_id
+                        }
+                      }
+                    }
+
+                  }
+                  ////// end ADD RATINGS TO state.grapevine ////////
+                  //////////////////////////////////////////////
+
+                  if (!state.conceptGraph.nodes.byWordType[wT]) {
+                    state.conceptGraph.nodes.byWordType[wT] = {};
+                  }
+                  if (!state.conceptGraph.nodes.byWordType[wT][slug]) {
+                    state.conceptGraph.nodes.byWordType[wT][slug] = {};
+                    state.conceptGraph.nodes.byWordType[wT][slug].versionIndependent = null;
+                    state.conceptGraph.nodes.byWordType[wT][slug].byVersion = {};
+                  }
+
+                  // versionIndependent
+                  if (state.conceptGraph.nodes.byWordType[wT][slug].versionIndependent) {
+                    const event_id_previous = state.conceptGraph.nodes.byWordType[wT][slug].versionIndependent;
+                    const event_id_current = event_id;
+                    const created_at_previous = state.conceptGraph.nodes.byEventID[event_id_previous].event.created_at;
+                    const created_at_current = state.conceptGraph.nodes.byEventID[event_id_current].event.created_at;
+                    if (created_at_current > created_at_previous) {
+                      state.conceptGraph.nodes.byWordType[wT][slug].versionIndependent = event_id;
+                    }
+                  } else {
+                    state.conceptGraph.nodes.byWordType[wT][slug].versionIndependent = event_id;
+                  }
+
+                  // byVersion
+                  if (version) {
+                    if (state.conceptGraph.nodes.byWordType[wT][slug].byVersion[version]) {
+                      const event_id_previous = state.conceptGraph.nodes.byWordType[wT][slug].byVersion[version];
+                      const event_id_current = event_id;
+                      const created_at_previous = state.conceptGraph.nodes.byEventID[event_id_previous].event.created_at;
+                      const created_at_current = state.conceptGraph.nodes.byEventID[event_id_current].event.created_at;
+                      if (created_at_current > created_at_previous) {
+                        state.conceptGraph.nodes.byWordType[wT][slug].byVersion[version] = event_id;
+                      }
+                    } else {
+                      state.conceptGraph.nodes.byWordType[wT][slug].byVersion[version] = event_id;
+                    }
+                  }
+                }
               }
             }
           }

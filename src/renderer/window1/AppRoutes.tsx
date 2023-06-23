@@ -64,6 +64,7 @@ import NostrSql from './apps/nostr/settings/sql';
 import NostrSettingsGrapevine from './apps/nostr/settings/grapevine';
 import NostrSettingsExtendedFollowing from './apps/nostr/settings/extendedFollowing';
 import NostrMainFeedSettings from './apps/nostr/settings/mainFeed';
+import ProfileManagement from './apps/nostr/settings/profileManagement';
 
 import GrapevineHome from './apps/grapevine';
 import GrapevineProfile from './apps/grapevine/profile';
@@ -121,12 +122,12 @@ import CuratedListsWithScoresV8 from './apps/curatedLists/listsWithScoresV8';
 import ContentCurationHome from './apps/curatedLists/contentCuration';
 import ContextualFeed from './apps/curatedLists/contentCuration/contextualFeed';
 import TopicsHome from './apps/curatedLists/contentCuration/topics';
-import TopicsSql from './apps/curatedLists/contentCuration/topics/tableOfTopicsSql';
+import TopicsRedux from './apps/curatedLists/contentCuration/topics/tableOfTopicsRedux';
 import TopicsNostrLive from './apps/curatedLists/contentCuration/topics/tableOfTopicsNostrLive';
 import CreateATopic from './apps/curatedLists/contentCuration/topics/createATopic';
 import CreateATopicRelationship from './apps/curatedLists/contentCuration/relationships/createARelationship';
 import TopicRelationshipsNostrLive from './apps/curatedLists/contentCuration/relationships/tableOfRelationshipsNostrLive';
-import TopicRelationshipsSql from './apps/curatedLists/contentCuration/relationships/tableOfRelationshipsSql';
+import TopicRelationshipsSql from './apps/curatedLists/contentCuration/relationships/tableOfRelationshipsRedux';
 import ContentCreators from './apps/curatedLists/contentCuration/contentCreators';
 import ContentCreatorsEndorsementsNostrLive from './apps/curatedLists/contentCuration/contentCreators/creatorEndorsementsNostrLive';
 import ContentCreatorsEndorsementsSql from './apps/curatedLists/contentCuration/contentCreators/creatorEndorsementsSql';
@@ -140,8 +141,9 @@ import ContentCuratorsSql from './apps/curatedLists/contentCuration/contentCurat
 import ContentCurationGraphs from './apps/curatedLists/contentCuration/graphs';
 import ContentCurationContextTreeGraph from './apps/curatedLists/contentCuration/graphs/contextTree';
 import ContentCurationGrapevineGraph from './apps/curatedLists/contentCuration/graphs/grapevine';
-
-
+import ContentCurationSettingsSql from './apps/curatedLists/contentCuration/settings/sql';
+import ContentCurationSettingsRedux from './apps/curatedLists/contentCuration/settings/redux';
+import ContentCurationSingleTopicHome from './apps/curatedLists/contentCuration/topic';
 
 import AskNostrHome from './apps/askNostr';
 import AskNostrSettings from './apps/askNostr/settings';
@@ -320,6 +322,10 @@ const AppRoutes = () => {
             <Route
               path="/NostrHome/NostrMainFeedSettings"
               element={<NostrMainFeedSettings />}
+            />
+            <Route
+              path="/NostrHome/ProfileManagement"
+              element={<ProfileManagement />}
             />
 
             <Route path="/GrapevineHome" element={<GrapevineHome />} />
@@ -535,8 +541,8 @@ const AppRoutes = () => {
               element={<TopicsNostrLive />}
             />
             <Route
-              path="/CuratedListsHome/TopicsSql"
-              element={<TopicsSql />}
+              path="/CuratedListsHome/TopicsRedux"
+              element={<TopicsRedux />}
             />
             <Route
               path="/CuratedListsHome/CreateATopic"
@@ -600,6 +606,19 @@ const AppRoutes = () => {
               path="/CuratedListsHome/ContentCurationGrapevineGraph"
               element={<ContentCurationGrapevineGraph />}
             />
+            <Route
+              path="/CuratedListsHome/ContentCurationSettingsSql"
+              element={<ContentCurationSettingsSql />}
+            />
+            <Route
+              path="/CuratedListsHome/ContentCurationSettingsRedux"
+              element={<ContentCurationSettingsRedux />}
+            />
+            <Route
+              path="/CuratedListsHome/ContentCurationSingleTopicHome"
+              element={<ContentCurationSingleTopicHome />}
+            />
+
 
             <Route
               path="/AskNostrHome"

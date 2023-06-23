@@ -35,6 +35,8 @@ const store = configureStore({
     curatedLists: curatedListsReducer,
     curatedListsSettings: curatedListsSettingsReducer,
     eBooks: eBooksReducer,
+    channels: channelsReducer,
+    channelsSettings: channelsSettingsReducer,
   }
 });
 export default store;

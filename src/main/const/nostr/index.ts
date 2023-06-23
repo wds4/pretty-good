@@ -10,6 +10,7 @@ export let createCuratedListInstancesTableCommand = '';
 export let createRatingsOfCuratedListInstancesTableCommand = '';
 export let createEndorsementsOfCuratorsTableCommand = '';
 export let createMyConceptGraphChannelsTableCommand = '';
+export let createProfileBackupsTableCommand = '';
 
 // duplication from renderer/window1/const - may deprecate the lists here in favor of the one over there
 export const aDefaultRelayUrls: string[] = [
@@ -45,6 +46,16 @@ export const oDefaultDevModes = {
   devMode9: false, // reserved
   devMode10: false, // reserved
 };
+
+createProfileBackupsTableCommand += 'id INTEGER PRIMARY KEY, ';
+createProfileBackupsTableCommand += 'pubkey TEXT NULL, ';
+createProfileBackupsTableCommand += 'type3_id TEXT NULL, ';
+createProfileBackupsTableCommand += 'type1_id TEXT NULL, ';
+createProfileBackupsTableCommand += 'type3_event TEXT NULL, ';
+createProfileBackupsTableCommand += 'type1_event TEXT NULL, ';
+createProfileBackupsTableCommand += 't3id_t1id TEXT NULL, ';
+createProfileBackupsTableCommand += 'whenBackedUp INTEGER NULL, ';
+createProfileBackupsTableCommand += 'UNIQUE(t3id_t1id) ';
 
 /*
 myConceptGraph_channels

@@ -79,6 +79,34 @@ const LeftNavbar2 = () => {
           graphs
         </NavLink>
 
+        <hr />
+
+        <div
+          style={{ fontSize: '12px', marginTop: '3px', marginBottom: '3px' }}
+        >
+          Settings
+        </div>
+
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? 'leftNav2Button leftNav2ButtonActive' : 'leftNav2Button'
+          }
+          end
+          to="/CuratedListsHome/ContentCurationSettingsRedux"
+        >
+          redux
+        </NavLink>
+
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? 'leftNav2Button leftNav2ButtonActive' : 'leftNav2Button'
+          }
+          end
+          to="/CuratedListsHome/ContentCurationSettingsSql"
+        >
+          sql
+        </NavLink>
+
       </div>
     </>
   );

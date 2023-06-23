@@ -52,6 +52,7 @@ import './css/nostr/youTubeEmbed.css';
 import 'react-tabs/style/react-tabs.css';
 import './css/curatedLists/index.css';
 import './css/curatedLists/endorsements.css';
+import './css/curatedLists/acceptVsReject.css';
 import './css/eBooks/index.css';
 
 // an inelegant way to initialize the redux store

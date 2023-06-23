@@ -155,8 +155,12 @@ db.serialize(() => {
   // db.run('DROP TABLE IF EXISTS ratingsOfCuratedListInstances');
   // db.run('DROP TABLE IF EXISTS endorsementsOfCurators');
   // db.run('DROP TABLE IF EXISTS myConceptGraph_channels');
+  // db.run('DROP TABLE IF EXISTS profileBackups');
   /*
   db.run(
+    `CREATE TABLE IF NOT EXISTS profileBackups (${createProfileBackupsTableCommand})`
+  );
+   db.run(
     `CREATE TABLE IF NOT EXISTS myConceptGraph_channels (${createMyConceptGraphChannelsTableCommand})`
   );
   */

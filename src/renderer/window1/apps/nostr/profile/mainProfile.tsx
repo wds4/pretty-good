@@ -15,6 +15,7 @@ import FollowCounts from 'renderer/window1/apps/nostr/components/followCounts';
 import UserGrapevinePanel from 'renderer/window1/apps/nostr/profile/userGrapevinePanel';
 import RelaysCurationBox from './relaysGrapevine';
 import CuratedListBox from './curatedListBox';
+import CuratedChannelsBox from './curatedChannelsBox';
 import TechDetailsForNostrNerds from './techDetailsForNostrNerds';
 import {
   addCuratedListEventToSql,
@@ -312,6 +313,10 @@ const MainProfile = ({pubkey}) => {
               <div className={grapevineProfileControlPanelClassName}>
                 <div style={{marginLeft: '5px'}}>
                   <CuratedListBox
+                    pubkey={pubkey}
+                    userData={userData}
+                  />
+                  <CuratedChannelsBox
                     pubkey={pubkey}
                     userData={userData}
                   />

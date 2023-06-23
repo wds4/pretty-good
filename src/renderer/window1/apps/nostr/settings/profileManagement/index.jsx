@@ -1,19 +1,24 @@
 import React from 'react';
-import Masthead from 'renderer/window1/mastheads/curatedListsMasthead';
+import Masthead from 'renderer/window1/mastheads/nostrMasthead';
 import LeftNavbar1 from 'renderer/window1/navbars/leftNavbar1/universalNavbar';
-import LeftNavbar2 from 'renderer/window1/navbars/leftNavbar2/curatedLists/contentCuration/topics';
-import { updateMainColWidth, updateMastheadCenter } from 'renderer/window1/lib/pg/ui';
-import TableOfRelatinshipsSql from './tableOfRelatinshipsSql';
+import LeftNavbar2 from 'renderer/window1/navbars/leftNavbar2/nostr/settings';
+import {
+  updateMainColWidth,
+  updateMastheadCenter,
+} from 'renderer/window1/lib/pg/ui';
+import ProfileManagement from './profileManagement';
 
-export default class ContentCurationTopics extends React.Component {
+export default class ProfileManagementSettings extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      aMyProfilesData: [],
+    };
   }
 
   async componentDidMount() {
     updateMainColWidth();
-    const mastheadDescriptor = 'Topic Relationships';
+    const mastheadDescriptor = 'Profile Management';
     updateMastheadCenter(mastheadDescriptor);
   }
 
@@ -27,7 +32,7 @@ export default class ContentCurationTopics extends React.Component {
         <div id="mainCol">
           <Masthead />
           <div id="mainPanel">
-            <TableOfRelatinshipsSql />
+            <ProfileManagement />
           </div>
         </div>
       </>

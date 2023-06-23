@@ -21,7 +21,7 @@ export const grapevineNostrUserTrustRatingTemplate = {
     ratingTemplateData: {
       ratingTemplateName: 'grapevine nostr user trust',
       ratingTemplateIPNS: null,
-      ratingTemplateWordSlug: 'grapevineNostrUserTrus',
+      ratingTemplateWordSlug: 'grapevineNostrUserTrust',
       ratingTemplateTitle: "Grapevine Nostr User Trust",
     },
     raterData: {

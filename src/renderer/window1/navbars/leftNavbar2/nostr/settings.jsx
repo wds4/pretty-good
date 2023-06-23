@@ -39,6 +39,18 @@ const LeftNavbar2 = () => {
           my profiles
         </NavLink>
 
+        <NavLink
+          className={({ isActive }) =>
+            isActive
+              ? 'leftNav2Button leftNav2ButtonActive'
+              : 'leftNav2Button'
+          }
+          end
+          to="/NostrHome/ProfileManagement"
+        >
+          profile management
+        </NavLink>
+
         <div className={devElemClass}>
           <NavLink
             className={({ isActive }) =>

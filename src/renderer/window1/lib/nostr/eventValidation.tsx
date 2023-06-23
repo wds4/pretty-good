@@ -9,6 +9,9 @@ export const doesEventValidate = (event) => {
   let ok = false;
   let veryOk = false;
   if (isValidObj(event)) {
+    if (!event.id) { return false }
+    if (!event.pubkey) { return false }
+    if (!event.sig) { return false }
     ok = validateEvent(event);
     veryOk = verifySignature(event);
   }

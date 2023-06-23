@@ -29,9 +29,9 @@ const Instance = ({parentConceptPropertyPath,event}) => {
               <NavLink
                 style={{textDecoration: 'none'}}
                 onClick={() => {
-                  dispatch(updateCuratedListInstanceFocus(event.id));
+                  // dispatch(updateCuratedListInstanceFocus(event.id));
                 }}
-                end to="/CuratedListsHome/CuratedListSpecificInstance"
+                end to="/CuratedListsHome/ContentCurationSingleTopicHome"
               >
                 {instance_name}
               </NavLink>

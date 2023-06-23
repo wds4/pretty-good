@@ -108,3 +108,15 @@
   border: 1px solid grey;
   padding: 5px;
 }
+.profileManagementFaqContainer {
+  margin-top:20px;
+  margin-left:20px;
+}
+.profileManagementFaqTitle {
+  font-size:22px;
+}
+.profileManagementFaqText {
+  font-size:14px;
+  color:grey;
+  margin-top:2px;
+}
