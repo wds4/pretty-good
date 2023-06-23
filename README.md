@@ -61,7 +61,7 @@ Forthcoming features include:
 
 ## Developer mode
 
-There is a mode that allows you to explore the structures of various JSON files according to nostr and dcosl protocols. In the case of dcosl, links to relevant DIPs are provided. To activate this feature, go to Pretty Good settings and toggle `show developer details for nostr nerds` to ON.
+Under settings, users can activate a mode that allows you to explore the structures of various JSON files according to nostr and dcosl protocols. In the case of dcosl, links to relevant DIPs are provided. To activate this feature, go to Pretty Good settings and toggle `show developer details for nostr nerds` to ON.
 
 ## Known issues
 
