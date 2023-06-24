@@ -13,11 +13,11 @@ As of late June 2023, I am in the process of using the basic tools of Curated Li
 
 tl;dr: My goal is for Curated Lists to prove that genuinely decentralized curation of knowledge is possible <i>in theory</i>, and for the Channels app to prove <i>utility</i>. Once those two points have been (hopefully) demonstrated convincingly, the next step will be to make an implementation that is sleek, snazzy, bug free, with good UX.
 
-# App overviews
+# overviews of specific apps
 
-#### [Pretty Good Nostr](appDescriptions/pgnostr)
+## [Pretty Good Nostr](appDescriptions/pgnostr)
 
-#### [Curated Lists: decentralized web of trust](appDescriptions/curatedLists)
+## [Curated Lists: decentralized web of trust](appDescriptions/curatedLists)
 
 This app is an implementation of the [DCoSL](https://github.com/wds4/DCoSL) protocol (decentralized curation of simple lists; a work in progress). I propose that the ability to curate a simple list in a truly decentralized fashion - no tokens or blockchains, no email or phone number verifications - should be considered not only the <i>atomic unit</i> but also the <i>fundamental building block</i> of the decentralized web. If we can curate <i>simple lists</i>, then the ability to curate <i>data structures of arbitrary complexity</i> will very quickly fall into place. See [DCoSL](https://github.com/wds4/DCoSL) for a more in depth discussion.
 
