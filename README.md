@@ -17,11 +17,17 @@ tl;dr: My goal is for Curated Lists to prove that genuinely decentralized curati
 
 ## [Pretty Good Nostr](appDescriptions/pgnostr)
 
-Standard nostr client.
+Standard nostr client. Functional, but somewhat buugy with poor UI.
 
 ## [Curated Lists: decentralized web of trust](appDescriptions/curatedLists)
 
+Proof of concept that DCoSL works in theory. Functional, but buggy with poor UI.
+
 - [Curated Lists Example: Curation of a list of nostr clients](appDescriptions/curatedLists/exampleListCuration.md)
+
+## [Channels](appDescriptions/channels)
+
+An attempto to demonstrate the utility of DCoSL by using it to crowdsource content curation. Not yet complete.
 
 ## Known issues
 
