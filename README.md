@@ -17,6 +17,8 @@ tl;dr: My goal is for Curated Lists to prove that genuinely decentralized curati
 
 ## [Pretty Good Nostr](appDescriptions/pgnostr)
 
+Standard nostr client.
+
 ## [Curated Lists: decentralized web of trust](appDescriptions/curatedLists)
 
 - [Curated Lists Example: Curation of a list of nostr clients](appDescriptions/curatedLists/exampleListCuration.md)
