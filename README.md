@@ -15,32 +15,6 @@ tl;dr: My goal is for Curated Lists to prove that genuinely decentralized curati
 
 ## [Pretty Good Nostr](appDescriptions/pgnostr)
 
-Basic [nostr](https://github.com/nostr-protocol/nostr) functionality is currently available. (List of supported [NIPs](https://github.com/nostr-protocol/nips) is coming soon.) Features include:
-- create new profiles
-- import profiles (do so with caution -- backup your profile first!)
-- edit profiles
-- manage multiple profiles
-- main feed
-- following and "firehose" options for the main feed
-- post new note
-- reply to notes
-- find new users by pubkey
-- look at user profiles
-- send / receive direct messages
-- manage relays
-
-Features not available on most other clients:
-- See a list of relays used by your follows list, organized by frequency of usage (demonstrates [DIP-01](https://github.com/wds4/DCoSL/blob/main/dips/coreProtocol/01.md) but not [DIP-02](https://github.com/wds4/DCoSL/blob/main/dips/coreProtocol/02.md), because follow != trust to pick relays)
-- easy switch between multiple accounts
-- basic keyword search of your follow list
-
-standard features not yet implemented in PGA:
-- zaps
-- likes, reposts, reactions
-- notifications
-- mentions (NIP-27)
-- probably some other commonly used features
-
 ## Curated Lists: decentralized web of trust
 
 This app is an implementation of the [DCoSL](https://github.com/wds4/DCoSL) protocol (decentralized curation of simple lists; a work in progress). I propose that the ability to curate a simple list in a truly decentralized fashion - no tokens or blockchains, no email or phone number verifications - should be considered not only the <i>atomic unit</i> but also the <i>fundamental building block</i> of the decentralized web. If we can curate <i>simple lists</i>, then the ability to curate <i>data structures of arbitrary complexity</i> will very quickly fall into place. See [DCoSL](https://github.com/wds4/DCoSL) for a more in depth discussion.
