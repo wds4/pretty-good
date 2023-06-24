@@ -27,11 +27,7 @@ Proof of concept that DCoSL works in theory. Functional, but buggy with poor UI.
 
 ## [Channels](appDescriptions/channels)
 
-An attempto to demonstrate the utility of DCoSL by using it to crowdsource content curation. Not yet complete.
-
-## Known issues
-
-Importing private key for a profile should be done with caution. There is a risk of introducing errors into your profile, including loss of following list and/or relays list. Best to back these up first! See this [issue](https://github.com/wds4/pretty-good/issues/4) for details.
+An attempt to demonstrate the utility of DCoSL by using it to crowdsource content curation. Not yet complete.
 
 # Download and install Pretty Good 
 
