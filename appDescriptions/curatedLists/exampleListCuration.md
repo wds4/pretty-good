@@ -9,7 +9,7 @@ In this example, a list of nostr clients has been created and curated. The resul
   <img src="../../.erb/img/nostrClientsCurationImg2.png" width="49%" display="inline-block" />
 </span>
 
-Note that, in accordance with [DIP-01](https://github.com/wds4/DCoSL/blob/main/dips/coreProtocol/01.md), the resuls of curation depend upon the choice of seed user. From the perspective of wds4, scammy client is rejected from the list, with several legit clients accepted onto the list and several others awaiting curation by the grapevine. From the percpective of the joker, scammy client is accepted onto the list, with many legit clients being rejected. 
+Note that, in accordance with [DIP-01](https://github.com/wds4/DCoSL/blob/main/dips/coreProtocol/01.md), the resuls of curation depend upon the choice of seed user. From the perspective of wds4, scammy client is rejected from the list, with several legit clients accepted onto the list and several others awaiting curation by the grapevine. From the percpective of the joker, scammy fake client is the only one accepted onto the list, with one legit client even being rejected. 
 
 How does wds4 know that joker is a bad actor? The panels below show how this determination is made.
 
