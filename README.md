@@ -33,11 +33,11 @@ An attempto to demonstrate the utility of DCoSL by using it to crowdsource conte
 
 Importing private key for a profile should be done with caution. There is a risk of introducing errors into your profile, including loss of following list and/or relays list. Best to back these up first! See this [issue](https://github.com/wds4/pretty-good/issues/4) for details.
 
-## Download and install Pretty Good 
+# Download and install Pretty Good 
 
-The latest releases will be made available [here](https://github.com/wds4/pretty-good/releases).
+### latest releases will be made available [here](https://github.com/wds4/pretty-good/releases).
 
-## Download and install Pretty Good in development
+### development
 
 If you're a developer and/or comfortable with the command line, first check to made sure you have node and node package manager installed on your machine. If you're not sure, use commands: `node --version` and `npm --version` to check, and install them if necessary.
 
