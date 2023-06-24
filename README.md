@@ -21,10 +21,6 @@ tl;dr: My goal is for Curated Lists to prove that genuinely decentralized curati
 
 - [Curated Lists Example: Curation of a list of nostr clients](appDescriptions/curatedLists/exampleListCuration.md)
 
-## Developer mode
-
-Under settings, users can activate a mode that allows you to explore the structures of various JSON files according to nostr and dcosl protocols. In the case of dcosl, links to relevant DIPs are provided. To activate this feature, go to Pretty Good settings and toggle `show developer details for nostr nerds` to ON.
-
 ## Known issues
 
 Importing private key for a profile should be done with caution. There is a risk of introducing errors into your profile, including loss of following list and/or relays list. Best to back these up first! See this [issue](https://github.com/wds4/pretty-good/issues/4) for details.
