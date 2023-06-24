@@ -1,0 +1,2 @@
+pretty good nostr
+=====
