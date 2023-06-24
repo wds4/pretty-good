@@ -64,13 +64,13 @@ Forthcoming features include:
 In this example, a list of nostr clients has been created and curated. The results of curation are shown below, first from the perspective of the user "joker" (created by me to illustrate a bad actor), then from the perspective of the user "wds4."
 
 <span style="display:inline-block" >
-  <img src=".erb/img/nostrClientsCurationImg1.png" width="40%" display="inline-block" />
+  <img src=".erb/img/nostrClientsCurationImg1.png" width="49%" display="inline-block" />
 </span>
 <span style="display:inline-block" >
-  <img src=".erb/img/nostrClientsCurationImg2.png" width="40%" display="inline-block" />
+  <img src=".erb/img/nostrClientsCurationImg2.png" width="49%" display="inline-block" />
 </span>
 
-
+Note that, in accordance with [DIP-01](https://github.com/wds4/DCoSL/blob/main/dips/coreProtocol/01.md), the resuls of curation depend upon the choice of seed user.
 
 ## Developer mode
 
