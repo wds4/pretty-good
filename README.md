@@ -63,8 +63,14 @@ Forthcoming features include:
 
 In this example, a list of nostr clients has been created and curated. The results of curation are shown below, first from the perspective of the user "joker" (created by me to illustrate a bad actor), then from the perspective of the user "wds4."
 
-<img src=".erb/img/nostrClientsCurationImg1.png" width="48%" />
-<img src=".erb/img/nostrClientsCurationImg2.png" width="48%" />
+<span style="display:inline-block" >
+  <img src=".erb/img/nostrClientsCurationImg1.png" width="40%" display="inline-block" />
+</span>
+<span style="display:inline-block" >
+  <img src=".erb/img/nostrClientsCurationImg2.png" width="40%" display="inline-block" />
+</span>
+
+
 
 ## Developer mode
 
