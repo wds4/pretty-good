@@ -15,7 +15,7 @@ How does wds4 know that joker is a bad actor? How are the lists sorted? The pane
 
 A common practice would be to rely upon "scraped data," such as a follows list, coupled with the inference that following a profile equals trusting that profile. Such inferences are frequently (or even usually) wrong, which is why DCoSL adopts [DIP-02](https://github.com/wds4/DCoSL/blob/main/dips/coreProtocol/02.md) which explicitly rejects the use of scraped data in favor of explicit statements. In this example, there are two types of explicit statements: 1) endorsements (or rejection) of users as curators of this list, and 2) endorsements (or rejection) of list items (nostr clients) as belonging (or not belonging) to the list.
 
-The below two panels illustrate curation of the list of nostr clients from the perspective of the user "tonyStark," set as the seed user. Circles represent users, with circle radius being proportional to the amoount of <i>influence</i> that user carries on the curation of the list being depicted. 
+The below two panels illustrate curation of the list of nostr clients from the perspective of the user "tonyStark," set as the seed user. Circles represent users, with circle radius being proportional to the amoount of <i>influence</i> that user carries on the curation of the list in question. 
 
 <span style="display:inline-block" >
   <img src="../../.erb/img/listCuration1.png" width="49%" display="inline-block" />
