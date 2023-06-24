@@ -10,10 +10,10 @@ Curated Lists allows any user to create a new list, add an item to any list, end
 In this example, a list of nostr clients has been created and curated. The results of curation are shown below, first from the perspective of the user "joker" (created by me to illustrate a bad actor), then from the perspective of the user "wds4."
 
 <span style="display:inline-block" >
-  <img src=".erb/img/nostrClientsCurationImg1.png" width="49%" display="inline-block" />
+  <img src="../../.erb/img/nostrClientsCurationImg1.png" width="49%" display="inline-block" />
 </span>
 <span style="display:inline-block" >
-  <img src=".erb/img/nostrClientsCurationImg2.png" width="49%" display="inline-block" />
+  <img src="../../.erb/img/nostrClientsCurationImg2.png" width="49%" display="inline-block" />
 </span>
 
 Note that, in accordance with [DIP-01](https://github.com/wds4/DCoSL/blob/main/dips/coreProtocol/01.md), the resuls of curation depend upon the choice of seed user.
@@ -23,8 +23,8 @@ This example serves to illustrate [DIP-02](https://github.com/wds4/DCoSL/blob/ma
 The below two panels illustrate curation of the list of nostr clients from the perspective of the user "tonyStark," set as the seed user. Circles represent users, with circle radius being proportional to the amoount of <i>influence</i> that user carries on the curation of the list being depicted. 
 
 <span style="display:inline-block" >
-  <img src=".erb/img/listCuration1.png" width="49%" display="inline-block" />
+  <img src="../../.erb/img/listCuration1.png" width="49%" display="inline-block" />
 </span>
 <span style="display:inline-block" >
-  <img src=".erb/img/listCuration2.png" width="49%" display="inline-block" />
+  <img src="../../.erb/img/listCuration2.png" width="49%" display="inline-block" />
 </span>
