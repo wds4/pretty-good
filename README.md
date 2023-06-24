@@ -72,6 +72,15 @@ In this example, a list of nostr clients has been created and curated. The resul
 
 Note that, in accordance with [DIP-01](https://github.com/wds4/DCoSL/blob/main/dips/coreProtocol/01.md), the resuls of curation depend upon the choice of seed user.
 
+This example serves to illustrate [DIP-02](https://github.com/wds4/DCoSL/blob/main/dips/coreProtocol/02.md). A common practice would be to rely upon "scraped data," such as a follows list, coupled with the inference that following a profile equals trusting that profile. This inference is frequently wrong, which is why DCoSL rejects the use of scraped data. In this example, list curation is based entirely on explicit endorsements of users as curators of this list plus explicit endorsements of list items (nostr clients) as belonging or not belonging to the list.
+
+<span style="display:inline-block" >
+  <img src=".erb/img/listCuration1" width="49%" display="inline-block" />
+</span>
+<span style="display:inline-block" >
+  <img src=".erb/img/listCuration2" width="49%" display="inline-block" />
+</span>
+
 ## Developer mode
 
 Under settings, users can activate a mode that allows you to explore the structures of various JSON files according to nostr and dcosl protocols. In the case of dcosl, links to relevant DIPs are provided. To activate this feature, go to Pretty Good settings and toggle `show developer details for nostr nerds` to ON.
