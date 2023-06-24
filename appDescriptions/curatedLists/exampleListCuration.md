@@ -1,6 +1,6 @@
 ## Curated Lists Example: Curation of a list of nostr clients
 
-In this example, a list of nostr clients has been created and curated. Seed user selector picks whose grapevine is being used for the curation. Results are shown below from the perspectives of two different users: 
+In this example, a list of nostr clients has been created and curated. The "seed user" selector picks whose grapevine is being used for the curation. Results are shown below from the perspectives of two different users: 
 - wds4, a regular user
 - joker4, a putative bad actor promoting a scam client created with nefarious intent
 
