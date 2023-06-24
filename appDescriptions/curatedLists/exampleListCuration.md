@@ -13,7 +13,7 @@ In this example, a list of nostr clients has been created and curated. The "seed
 
 Note that, in accordance with [DIP-01](https://github.com/wds4/DCoSL/blob/main/dips/coreProtocol/01.md), the results of curation depend upon the choice of seed user. LEFT PANEL: From the perspective of wds4, "scammy fake client" is rejected from the list, with several legit clients accepted onto the list and several others awaiting curation by the grapevine. RIGHT PANEL: From the percpective of the joker, "scammy fake client" is the only one accepted onto the list, with one legit client having been rejected. 
 
-How does wds4 know that joker is a bad actor? How are the lists sorted? The panels below show how this determination is made.
+Why do they see different results? How does wds4 know that joker is a bad actor? How are the lists sorted? The panels below illustrate how these determinations are made.
 
 A common practice would be to rely upon "scraped data," such as a follows list, coupled with the inference that following a profile equals trusting that profile. Such inferences are frequently (or even usually) wrong, which is why DCoSL adopts [DIP-02](https://github.com/wds4/DCoSL/blob/main/dips/coreProtocol/02.md) which explicitly rejects the use of scraped data in favor of explicit statements. In this example, there are two types of explicit statements: 1) endorsements (or rejection) of users as curators of this list, and 2) endorsements (or rejection) of list items (nostr clients) as belonging (or not belonging) to the list.
 
