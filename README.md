@@ -15,7 +15,7 @@ tl;dr: My goal is for Curated Lists to prove that genuinely decentralized curati
 
 ## [Pretty Good Nostr](appDescriptions/pgnostr): app overview
 
-## Curated Lists: decentralized web of trust
+## [Curated Lists: decentralized web of trust](appDescriptions/curatedLists) app overview
 
 This app is an implementation of the [DCoSL](https://github.com/wds4/DCoSL) protocol (decentralized curation of simple lists; a work in progress). I propose that the ability to curate a simple list in a truly decentralized fashion - no tokens or blockchains, no email or phone number verifications - should be considered not only the <i>atomic unit</i> but also the <i>fundamental building block</i> of the decentralized web. If we can curate <i>simple lists</i>, then the ability to curate <i>data structures of arbitrary complexity</i> will very quickly fall into place. See [DCoSL](https://github.com/wds4/DCoSL) for a more in depth discussion.
 
