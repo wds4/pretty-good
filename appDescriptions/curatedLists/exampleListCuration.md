@@ -1,6 +1,6 @@
 ## Curated Lists Example: Curation of a list of nostr clients
 
-In this example, a list of nostr clients has been created and curated. The results of curation are shown below, first from the perspective of the user "joker" (created by me to illustrate a bad actor), then from the perspective of the user "wds4."
+In this example, a list of nostr clients has been created and curated. The results of curation are shown below, first from the perspective of "joker4" (a putative bad actor promoting a scam client created with nefarious intent), then from the perspective of "wds4."
 
 <span style="display:inline-block" >
   <img src="../../.erb/img/nostrClientsCurationImg1.png" width="49%" display="inline-block" />
