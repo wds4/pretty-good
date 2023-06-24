@@ -26,3 +26,7 @@ standard features not yet implemented in PGA:
 - notifications
 - mentions (NIP-27)
 - probably some other commonly used features
+
+## Known issues
+
+Importing private key for a profile should be done with caution. There is a risk of introducing errors into your profile, including loss of following list and/or relays list. Best to back these up first! See this [issue](https://github.com/wds4/pretty-good/issues/4) for details.
