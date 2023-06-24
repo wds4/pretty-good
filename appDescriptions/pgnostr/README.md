@@ -1,4 +1,4 @@
-pretty good nostr
+Pretty Good Nostr
 =====
 
 Basic [nostr](https://github.com/nostr-protocol/nostr) functionality is currently available. (List of supported [NIPs](https://github.com/nostr-protocol/nips) is coming soon.) Features include:
