@@ -24,4 +24,4 @@ The below two panels illustrate curation of the list of nostr clients from the p
   <img src="../../.erb/img/listCuration2.png" width="49%" display="inline-block" />
 </span>
 
-LEFT PANEL: A score for each item is calculated. Scores of items are shown in the table and also depicted in the graph using the vertical scale. RIGHT PANEL: There are a number of factors that can be adjusted by the user which influence how scores are calculated.
+LEFT PANEL: A score for each item is calculated. Scores of items are shown in the table and also depicted in the graph using the vertical scale. RIGHT PANEL: The default scores of unvetted users are being adjusted in the Control Panel.
