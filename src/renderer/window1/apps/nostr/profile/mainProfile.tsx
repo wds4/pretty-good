@@ -72,7 +72,7 @@ const EndorsementListener = ({pubkey}) => {
       if (t0 && (typeof t0 == "object") && (t0.length > 1)) { t0 = t0[1]; }
 
       if ( (kind == 39901) && (g0 == "grapevine-testnet-901") ) {
-        console.log("qwerty grapevine testnet")
+        // console.log("qwerty grapevine testnet")
         // endorsements of items
         dispatch(addRatingOfCuratedListInstance(event));
         // endorsements of users

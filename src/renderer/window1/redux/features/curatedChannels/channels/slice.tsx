@@ -118,7 +118,11 @@ export const channelsSlice = createSlice({
     },
     grapevine: { // for words of wordType: rating
       byRatingTemplateSlug: {
-
+        nostrCuratedListInstanceGenericRating: { byRaterUniversalID: {},byRateeUniversalID: {} },
+        nostrCuratedListsCuratorEndorsement: { byRaterUniversalID: {},byRateeUniversalID: {} },
+        nostrChannelTopicsCuratorEndorsement: { byRaterUniversalID: {},byRateeUniversalID: {} },
+        nostrChannelTopicContentCreatorEndorsement: { byRaterUniversalID: {},byRateeUniversalID: {} },
+        nostrChannelTopicsTreeStructureCuratorEndorsement: { byRaterUniversalID: {},byRateeUniversalID: {} }
       }
     }
   },
@@ -191,7 +195,7 @@ export const channelsSlice = createSlice({
                   ////// ADD RATINGS TO state.grapevine ////////
                   if (wT == "rating") {
                     const ratingTemplateSlug = oWord.ratingData.ratingTemplateData.ratingTemplateSlug;
-
+                    console.log("qwerty_"+ratingTemplateSlug)
                     const raterType = oWord.ratingData.raterData.raterType;
                     let raterUniversalID = "";
                     if (raterType=="nostrProfile") {
@@ -203,6 +207,10 @@ export const channelsSlice = createSlice({
                     if (rateeType=="nostrCuratedListInstance") {
                       rateeUniversalID = oWord.ratingData.rateeData.nostrCuratedListInstanceData.eventID;
                     }
+                    if (rateeType=="nostrProfile") {
+                      rateeUniversalID = oWord.ratingData.rateeData.nostrProfileData.pubkey;
+                    }
+
                     if (rateeType=="relationship") {
                       rateeUniversalID = oWord.ratingData.rateeData.relationshipData.eventID;
                     }

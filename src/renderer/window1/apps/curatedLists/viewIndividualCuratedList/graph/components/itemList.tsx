@@ -56,7 +56,7 @@ const ItemList = ({ aInstanceCompScoreData }) => {
         </NavLink>{' '}
          to this list.
       </div>
-      <div style={{ textAlign: 'left', marginRight: '20px', marginLeft: '20px' }}>
+      <div style={{ fontSize: '22px', textAlign: 'left', marginRight: '20px', marginLeft: '20px' }}>
         <div className="itemsInfoBox" style={{border: '2px solid green'}}>
           <div style={{ color: 'grey', margin: '5px' }}>
             ACCEPTED items:

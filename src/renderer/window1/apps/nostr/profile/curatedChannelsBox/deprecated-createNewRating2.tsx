@@ -6,154 +6,90 @@ import {
   getPublicKey,
   signEvent,
 } from 'nostr-tools';
+import oRating from './const/nostrChannelTopicsCuratorEndorsement';
 
-const ratingTemplateSlug = 'nostrCuratedListsCuratorEndorsement';
-const ratingTemplateTitle = 'Nostr Curated Lists Curator Endorsement';
-/*
-// RATING OF A SPECIFIC INSTANCE
-const contextDAGSlug = 'genericContext'; // future: slug or eventID of user-created ratingTemplate e.g. "easeOfUse" for btc wallets
-const ratingTemplateUniqueID = `${curatedListFocusID}-${contextDAGSlug}`;
-const uniqueID = `${myPubkey}-${curatedListInstanceFocusID}-${ratingTemplateUniqueID}`;
-
-const aTag0 = ['g', 'grapevine-testnet-901'];
-const aTag1 = ['d', uniqueID]; // d tag for Parametrized Replaceable Event
-const aTag2 = ['r', ratingTemplateUniqueID]; // every [g: grapevine] should have an r tag with an indicator of the ratingTemplate
-const aTag3 = ['e', curatedListInstanceFocusID]; // the ratee, by event id
-const aTag4 = ['l', curatedListFocusID]; // the parent concept / list, by id
-const aTag5 = ['m', contextDAGSlug];
-
-const event: NostrEvent = {
-  content: sWord,
-  kind: 33901,
-  tags: aTags,
-  created_at: dateToUnix(),
-  pubkey: getPublicKey(myPrivkey),
-};
-
-LISTENER:
-renderer/window1/apps/curatedLists/viewIndividualCuratedList/allRatings
-const { events } = useNostrEvents({
-  filter: {
-    since: 0,
-    kinds: [33901],
-    '#g': ['grapevine-testnet-901'],
-    '#l': [parentConceptNostrEventID],
-  },
-});
-*/
+const ratingTemplateSlug = 'nostrChannelTopicsCuratorEndorsement';
+const ratingTemplateTitle = 'Nostr Channel Topics Curator Endorsement';
 
 const createRatingWord = (
   which,
   myNostrProfile,
   curatedListFocusID,
-  aListData,
   pubkeyFocusID,
   userData
 ) => {
+  let oWord = oRating;
+
   let rsR = 0;
   let defaultConfidence = 80;
   if (which == 'up') {
     rsR = 100;
+    if (thumbsUpCurrentState == "endorsed") {
+      rsR = null;
+    }
   }
   if (which == 'down') {
     rsR = 0;
+    if (thumbsDownCurrentState == "endorsed") {
+      rsR = null;
+    }
   }
   if (which == 'abstain') {
     rsR = 100;
     defaultConfidence = 0;
   }
-  // console.log("aListData top: "+JSON.stringify(aListData))
-  let oListSqlData = {};
-  let oLSD = false;
-  for (let x = 0; x < aListData.length; x++) {
-    const oListSqlDataNext = aListData[x];
-    if (curatedListFocusID == oListSqlDataNext.event_id) {
-      oListSqlData = JSON.parse(JSON.stringify(oListSqlDataNext));
-      // console.log("oListSqlData C: "+JSON.stringify(oListSqlData))
-      oLSD = true;
-    }
+
+  // edit oWord to create the rating
+  const myPubkey = myNostrProfile.pubkey_hex;
+  const myName = myNostrProfile.name;
+  const myDisplay_name = myNostrProfile.display_name;
+  oWord.ratingData.raterData.nostrProfileData.pubkey = myPubkey;
+  oWord.ratingData.raterData.nostrProfileData.name = myName;
+  oWord.ratingData.raterData.nostrProfileData.display_name = myDisplay_name;
+
+  // PROFILE BEING RATED
+  const profileName = userData?.name;
+  const profileDisplayName = userData?.display_name;
+  oWord.ratingData.rateeData.nostrProfileData.pubkey = pubkeyFocusID;
+  oWord.ratingData.rateeData.nostrProfileData.name = profileName;
+  oWord.ratingData.rateeData.nostrProfileData.display_name = profileDisplayName;
+
+  // set the rating
+  oWord.ratingData.ratingFieldsetData.nostrChannelTopicsCuratorEndorsementFieldsetData.regularSliderRating = rsR;
+
+  // obtain the selected topic
+  let topicSlug = "";
+  let topicName = "";
+  let topicEventID = "";
+  const et = document.getElementById("contentCuratorTopicSelector")
+  if (et) {
+    topicSlug = et.selectedOptions[0].dataset.topicslug;
+    topicName = et.selectedOptions[0].dataset.topicname;
+    topicEventID = et.selectedOptions[0].dataset.topiceventid;
   }
+  oRating.ratingData.ratingFieldsetData.nostrChannelTopicsCuratorEndorsementFieldsetData.contextData.nostrTopicData.slug = topicSlug;
+  oRating.ratingData.ratingFieldsetData.nostrChannelTopicsCuratorEndorsementFieldsetData.contextData.nostrTopicData.name = topicName;
+  oRating.ratingData.ratingFieldsetData.nostrChannelTopicsCuratorEndorsementFieldsetData.contextData.nostrTopicData.eventID = topicEventID;
 
-  if (oLSD) {
-    // console.log("oListSqlData B: "+JSON.stringify(oListSqlData))
-    // LIST
-    const list_event_id = oListSqlData?.event_id;
-    const oListEvent = JSON.parse(oListSqlData.event);
-    const oListWord = JSON.parse(oListEvent.content);
-    const { propertyPath } = oListWord.nostrCuratedListData;
-    const listNameSingular = oListWord.nostrCuratedListData.name.singular;
-    const listSlugSingular = oListWord.nostrCuratedListData.slug.singular;
+  // referenceData
+  oRating.ratingData.ratingFieldsetData.nostrChannelTopicsCuratorEndorsementFieldsetData.referenceData.nostrProfileData.pubkey = myPubkey;
+  oRating.ratingData.ratingFieldsetData.nostrChannelTopicsCuratorEndorsementFieldsetData.referenceData.nostrProfileData.name = myName;
+  oRating.ratingData.ratingFieldsetData.nostrChannelTopicsCuratorEndorsementFieldsetData.referenceData.nostrProfileData.display_name = myDisplay_name;
 
-    // PROFILE BEING RATED
-    const profileName = userData?.name;
-    const profileDisplayName = userData?.display_name;
+  // wordSlug
+  // ratingOf_relationship-e26dd9_thumbsup_by_prettyGoodAppsSteward-1-82fa
+  let wordSlug = "rating_asTopicContentCurator_";
+  wordSlug += "_onTopic_"+topicSlug;
+  wordSlug += "_of_"+profileName+"-"+pubkeyFocusID.substr(-4);
+  wordSlug += "_thumbs"+which;
+  wordSlug += "_by_"+myName+"-"+myPubkey.substr(-4);
+  oWord.wordData.slug = wordSlug;
 
-    const oWord = {
-      ratingData: {
-        raterData: {
-          raterType: 'nostrProfile',
-          nostrProfileData: {
-            pubkey: myNostrProfile.pubkey_hex,
-            name: myNostrProfile.name,
-            display_name: myNostrProfile.display_name,
-          },
-        },
-        rateeData: {
-          rateeType: 'nostrProfile',
-          nostrProfileData: {
-            pubkey: pubkeyFocusID,
-            name: profileName,
-            display_name: profileDisplayName,
-          },
-        },
-        ratingTemplateData: {
-          ratingTemplateSlug,
-          ratingTemplateTitle,
-        },
-        ratingFieldsetData: {
-          ratingFieldsetSlugs: [
-            'nostrCuratedListsCuratorEndorsementFieldset',
-            'confidenceFieldset',
-          ],
-          confidenceFieldsetData: {
-            confidence: defaultConfidence,
-          },
-          nostrCuratedListsCuratorEndorsementFieldsetData: {
-            regularSliderRating: rsR,
-            referenceRegularSliderRating: 100,
-            referenceData: {
-              referenceEntityType: 'nostrProfile',
-              nostrProfileData: {
-                pubkey: myNostrProfile.pubkey_hex,
-                name: myNostrProfile.name,
-                display_name: myNostrProfile.display_name,
-              },
-            },
-            contextData: {
-              transitivity: true,
-              contextDAG: {
-                slug: 'genericRating',
-              },
-              nostrParentCuratedListData: {
-                eventID: list_event_id,
-                slug: {
-                  singular: listSlugSingular,
-                },
-                name: {
-                  singular: listNameSingular,
-                },
-              },
-            },
-          },
-        },
-      },
-    };
-    const e1 = document.getElementById('newConceptRawFileField');
-    e1.value = JSON.stringify(oWord, null, 4);
-  }
+  const e1 = document.getElementById('newConceptRawFileField2');
+  e1.value = JSON.stringify(oWord, null, 4);
 };
 
-const CreateNewRating = ({ aListData, userData }) => {
+const CreateNewRating = ({ userData }) => {
   const { devMode3 } = useSelector((state) => state.myNostrProfile.devModes);
   let devElemClass = 'devElemHide';
   if (devMode3) {
@@ -171,21 +107,30 @@ const CreateNewRating = ({ aListData, userData }) => {
   const { publish } = useNostr();
 
   const submitEvent = () => {
-    const sEvent = document.getElementById('newConceptEventField').value;
+    const sEvent = document.getElementById('newConceptEventFiel2').value;
     const oEvent = JSON.parse(sEvent);
     console.log(`oEvent: ${JSON.stringify(oEvent)}`);
     publish(oEvent);
   };
 
   const createEvent = () => {
-    const e1 = document.getElementById('newConceptRawFileField');
-    const e2 = document.getElementById('newConceptEventField');
+    const e1 = document.getElementById('newConceptRawFileField2');
+    const e2 = document.getElementById('newConceptEventFiel2');
 
-    const contextDAGSlug = 'genericContext'; // future: slug or eventID of user-created ratingTemplate e.g. "easeOfUse" for btc wallets
+    // obtain the selected topic; use topicSlug as the contextDAGSlug
+    let topicSlug = "";
+    const et = document.getElementById("contentCuratorTopicSelector")
+    if (et) {
+      topicSlug = et.selectedOptions[0].dataset.topicslug;
+    }
+    if (!topicSlug) {
+      topicSlug = "allTopics";
+    }
+    const contextDAGSlug = topicSlug;
     const ratingTemplateUniqueID = `${curatedListFocusID}-${ratingTemplateSlug}-${contextDAGSlug}`;
     const uniqueID = `${myPubkey}-${pubkeyFocusID}-${curatedListFocusID}-${ratingTemplateSlug}-${contextDAGSlug}`;
 
-    const kind0 = 39901;
+    const kind0 = 39902;
     const aTag0 = ['g', 'grapevine-testnet-901'];
     const aTag1 = ['d', uniqueID]; // d tag for Parametrized Replaceable Event
     // if regularSliderRating is null or undefined, it effectively means no rating
@@ -234,7 +179,6 @@ const CreateNewRating = ({ aListData, userData }) => {
       which,
       myNostrProfile,
       curatedListFocusID,
-      aListData,
       pubkeyFocusID,
       userData
     );
@@ -253,7 +197,6 @@ const CreateNewRating = ({ aListData, userData }) => {
       which,
       myNostrProfile,
       curatedListFocusID,
-      aListData,
       pubkeyFocusID,
       userData
     );
@@ -264,11 +207,62 @@ const CreateNewRating = ({ aListData, userData }) => {
   let thumbsDownButtonClass = 'endorseThumbsDownButton';
   let thumbsUpCurrentState = 'notEndorsed';
   let thumbsDownCurrentState = 'notEndorsed';
-  let myCurrentRating = "You have not rated this user.";
-  const z = document.getElementById("myCurrentRatingContainer");
+  let myCurrentRating = "You have not rated this user on this topic.";
+  const z = document.getElementById("myCurrentRatingContainer2");
   if (z) {
     z.style.color = "grey";
   }
+
+  // lookup whether this user is already rated by me
+  const oRatingTemplateData = useSelector((state) => state.channels.grapevine.byRatingTemplateSlug.nostrChannelTopicsCuratorEndorsement);
+  const oByEventID = useSelector((state) => state.channels.conceptGraph.nodes.byEventID);
+  let ratingEventID = "";
+  if (oRatingTemplateData.byRaterUniversalID[myPubkey]
+    && oRatingTemplateData.byRaterUniversalID[myPubkey].byRateeUniversalID[pubkeyFocusID]
+    ) {
+      ratingEventID = oRatingTemplateData.byRaterUniversalID[myPubkey].byRateeUniversalID[pubkeyFocusID].ratingEventID;
+      console.log("qwerty__ratingEventID: "+ratingEventID)
+    }
+  if (ratingEventID) {
+    const oPreviousRating = oByEventID[ratingEventID].word;
+    console.log("oPreviousRating: "+JSON.stringify(oPreviousRating,null,4))
+    if (oPreviousRating.ratingData.ratingFieldsetData.nostrChannelTopicsCuratorEndorsementFieldsetData) {
+      const regularSliderRating = oPreviousRating.ratingData.ratingFieldsetData.nostrChannelTopicsCuratorEndorsementFieldsetData.regularSliderRating;
+      const previousTopicSlug = oPreviousRating.ratingData.ratingFieldsetData.nostrChannelTopicsCuratorEndorsementFieldsetData.contextData.nostrTopicData.slug;
+      console.log("qwerty__regularSliderRating: "+regularSliderRating)
+      let topicSlug = "";
+      const et = document.getElementById("contentCuratorTopicSelector")
+      if (et) {
+        topicSlug = et.selectedOptions[0].dataset.topicslug;
+      }
+      if (!topicSlug) {
+        topicSlug = "allTopics";
+      }
+      if (previousTopicSlug == topicSlug) {
+        if (regularSliderRating==100) {
+          // I have rated this user thumbs up
+          thumbsUpCurrentState = 'endorsed';
+          thumbsUpButtonClass = 'unendorseThumbsUpButton';
+          myCurrentRating = "👍 You have ENDORSED this user.";
+          const z = document.getElementById("myCurrentRatingContainer1");
+          if (z) {
+            z.style.color = "green";
+          }
+        }
+        if (regularSliderRating==0) {
+          // I have rated this user thumbs down
+          thumbsDownCurrentState = 'endorsed';
+          thumbsDownButtonClass = 'unendorseThumbsDownButton';
+          myCurrentRating = "👎 You have BLOCKED this user.";
+          const z = document.getElementById("myCurrentRatingContainer1");
+          if (z) {
+            z.style.color = "red";
+          }
+        }
+      }
+    }
+  }
+  /*
   // lookup whether this user is already rated by me
   const curatedLists = useSelector((state) => state.curatedLists.curatedLists);
   if (curatedLists.hasOwnProperty(curatedListFocusID)) {
@@ -278,7 +272,7 @@ const CreateNewRating = ({ aListData, userData }) => {
         thumbsUpCurrentState = 'endorsed';
         thumbsUpButtonClass = 'unendorseThumbsUpButton';
         myCurrentRating = "👍 You have ENDORSED this user.";
-        const z = document.getElementById("myCurrentRatingContainer");
+        const z = document.getElementById("myCurrentRatingContainer2");
         if (z) {
           z.style.color = "green";
         }
@@ -288,16 +282,19 @@ const CreateNewRating = ({ aListData, userData }) => {
         thumbsDownCurrentState = 'endorsed';
         thumbsDownButtonClass = 'unendorseThumbsDownButton';
         myCurrentRating = "👎 You have BLOCKED this user.";
-        const z = document.getElementById("myCurrentRatingContainer");
+        const z = document.getElementById("myCurrentRatingContainer2");
         if (z) {
           z.style.color = "red";
         }
       }
     }
   }
+  */
+
   const toggleViewDetails = () => {
-    const e = document.getElementById('technicalDetailsForNostrDevsContainerA');
+    const e = document.getElementById('technicalDetailsForNostrDevsContainer2');
     const currentState = e.style.display;
+    // console.log(`toggleViewDetails; currentState: ${currentState}`);
     if (currentState == 'none') {
       e.style.display = 'block';
     }
@@ -308,7 +305,6 @@ const CreateNewRating = ({ aListData, userData }) => {
 
   return (
     <>
-    <div style={{display: 'none', fontSize:'10px'}}>{curatedListFocusID}<br/>{JSON.stringify(curatedLists[curatedListFocusID],null,4)}</div>
       <button
         type="button"
         value={thumbsUpCurrentState}
@@ -324,7 +320,7 @@ const CreateNewRating = ({ aListData, userData }) => {
         className={thumbsDownButtonClass}
       />
 
-      {' '}<div style={{display:'inline-block',color:'grey'}} id="myCurrentRatingContainer">{myCurrentRating}</div>
+      {' '}<div style={{display:'inline-block',color:'grey'}} id="myCurrentRatingContainer2">{myCurrentRating}</div>
       <div className={devElemClass}>
         <div>
           <span style={{ fontSize: '10px' }}>
@@ -339,7 +335,7 @@ const CreateNewRating = ({ aListData, userData }) => {
           </button>
         </div>
         <div
-            id="technicalDetailsForNostrDevsContainerA"
+            id="technicalDetailsForNostrDevsContainer2"
             style={{ display: 'none' }}
           >
           <div>
@@ -361,7 +357,7 @@ const CreateNewRating = ({ aListData, userData }) => {
           <div style={{ display: 'inline-block', width: '45%' }}>
           <div style={{textAlign: 'center', fontSize:'10px'}}>word (concept graph)</div>
             <textarea
-              id="newConceptRawFileField"
+              id="newConceptRawFileField2"
               style={{
                 display: 'inline-block',
                 height: '400px',
@@ -373,7 +369,7 @@ const CreateNewRating = ({ aListData, userData }) => {
           <div style={{ display: 'inline-block', width: '45%' }}>
             <div style={{textAlign: 'center', fontSize:'10px'}}>word submitted as an event (a nostr note)</div>
             <textarea
-              id="newConceptEventField"
+              id="newConceptEventFiel2"
               style={{
                 display: 'inline-block',
                 height: '400px',

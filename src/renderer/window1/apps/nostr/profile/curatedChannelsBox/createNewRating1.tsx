@@ -6,9 +6,10 @@ import {
   getPublicKey,
   signEvent,
 } from 'nostr-tools';
+import oRating from './const/nostrChannelTopicsTreeStructureCuratorEndorsement';
 
-const ratingTemplateSlug = 'nostrCuratedListsCuratorEndorsement';
-const ratingTemplateTitle = 'Nostr Curated Lists Curator Endorsement';
+const ratingTemplateSlug = 'nostrChannelTopicsTreeStructureCuratorEndorsement';
+const ratingTemplateTitle = 'Nostr Channel Topics Tree Structure Curator Endorsement';
 
 const createRatingWord = (
   which,
@@ -17,98 +18,60 @@ const createRatingWord = (
   pubkeyFocusID,
   userData
 ) => {
+  let oWord = oRating;
+
   let rsR = 0;
   let defaultConfidence = 80;
   if (which == 'up') {
     rsR = 100;
+    if (thumbsUpCurrentState == "endorsed") {
+      rsR = null;
+    }
   }
   if (which == 'down') {
     rsR = 0;
+    if (thumbsDownCurrentState == "endorsed") {
+      rsR = null;
+    }
   }
   if (which == 'abstain') {
     rsR = 100;
     defaultConfidence = 0;
   }
-  let oListSqlData = {};
-  let oLSD = false;
 
-  if (oLSD) {
-    // console.log("oListSqlData B: "+JSON.stringify(oListSqlData))
-    // LIST
-    const list_event_id = oListSqlData?.event_id;
-    const oListEvent = JSON.parse(oListSqlData.event);
-    const oListWord = JSON.parse(oListEvent.content);
-    const { propertyPath } = oListWord.nostrCuratedListData;
-    const listNameSingular = oListWord.nostrCuratedListData.name.singular;
-    const listSlugSingular = oListWord.nostrCuratedListData.slug.singular;
+  // edit oWord to create the rating
+  const myPubkey = myNostrProfile.pubkey_hex;
+  const myName = myNostrProfile.name;
+  const myDisplay_name = myNostrProfile.display_name;
+  oWord.ratingData.raterData.nostrProfileData.pubkey = myPubkey;
+  oWord.ratingData.raterData.nostrProfileData.name = myName;
+  oWord.ratingData.raterData.nostrProfileData.display_name = myDisplay_name;
 
-    // PROFILE BEING RATED
-    const profileName = userData?.name;
-    const profileDisplayName = userData?.display_name;
+  // PROFILE BEING RATED
+  const profileName = userData?.name;
+  const profileDisplayName = userData?.display_name;
+  oWord.ratingData.rateeData.nostrProfileData.pubkey = pubkeyFocusID;
+  oWord.ratingData.rateeData.nostrProfileData.name = profileName;
+  oWord.ratingData.rateeData.nostrProfileData.display_name = profileDisplayName;
 
-    const oWord = {
-      ratingData: {
-        raterData: {
-          raterType: 'nostrProfile',
-          nostrProfileData: {
-            pubkey: myNostrProfile.pubkey_hex,
-            name: myNostrProfile.name,
-            display_name: myNostrProfile.display_name,
-          },
-        },
-        rateeData: {
-          rateeType: 'nostrProfile',
-          nostrProfileData: {
-            pubkey: pubkeyFocusID,
-            name: profileName,
-            display_name: profileDisplayName,
-          },
-        },
-        ratingTemplateData: {
-          ratingTemplateSlug,
-          ratingTemplateTitle,
-        },
-        ratingFieldsetData: {
-          ratingFieldsetSlugs: [
-            'nostrCuratedListsCuratorEndorsementFieldset',
-            'confidenceFieldset',
-          ],
-          confidenceFieldsetData: {
-            confidence: defaultConfidence,
-          },
-          nostrCuratedListsCuratorEndorsementFieldsetData: {
-            regularSliderRating: rsR,
-            referenceRegularSliderRating: 100,
-            referenceData: {
-              referenceEntityType: 'nostrProfile',
-              nostrProfileData: {
-                pubkey: myNostrProfile.pubkey_hex,
-                name: myNostrProfile.name,
-                display_name: myNostrProfile.display_name,
-              },
-            },
-            contextData: {
-              transitivity: true,
-              contextDAG: {
-                slug: 'genericRating',
-              },
-              nostrParentCuratedListData: {
-                eventID: list_event_id,
-                slug: {
-                  singular: listSlugSingular,
-                },
-                name: {
-                  singular: listNameSingular,
-                },
-              },
-            },
-          },
-        },
-      },
-    };
-    const e1 = document.getElementById('newConceptRawFileField');
-    e1.value = JSON.stringify(oWord, null, 4);
-  }
+  // set the rating
+  oWord.ratingData.ratingFieldsetData.nostrChannelTopicsTreeStructureCuratorEndorsementFieldset.regularSliderRating = rsR;
+
+  // referenceData
+  oRating.ratingData.ratingFieldsetData.nostrChannelTopicsTreeStructureCuratorEndorsementFieldset.referenceData.nostrProfileData.pubkey = myPubkey;
+  oRating.ratingData.ratingFieldsetData.nostrChannelTopicsTreeStructureCuratorEndorsementFieldset.referenceData.nostrProfileData.name = myName;
+  oRating.ratingData.ratingFieldsetData.nostrChannelTopicsTreeStructureCuratorEndorsementFieldset.referenceData.nostrProfileData.display_name = myDisplay_name;
+
+  // wordSlug
+  // ratingOf_relationship-e26dd9_thumbsup_by_prettyGoodAppsSteward-1-82fa
+  let wordSlug = "rating_asTopicsTreeCurator_of_";
+  wordSlug += profileName+"-"+pubkeyFocusID.substr(-4);
+  wordSlug += "_thumbs"+which;
+  wordSlug += "_by_"+myName+"-"+myPubkey.substr(-4);
+  oWord.wordData.slug = wordSlug;
+
+  const e1 = document.getElementById('newConceptRawFileField1');
+  e1.value = JSON.stringify(oWord, null, 4);
 };
 
 const CreateNewRating = ({ userData }) => {
@@ -129,15 +92,15 @@ const CreateNewRating = ({ userData }) => {
   const { publish } = useNostr();
 
   const submitEvent = () => {
-    const sEvent = document.getElementById('newConceptEventField').value;
+    const sEvent = document.getElementById('newConceptEventField1').value;
     const oEvent = JSON.parse(sEvent);
     console.log(`oEvent: ${JSON.stringify(oEvent)}`);
-    // publish(oEvent);
+    publish(oEvent);
   };
 
   const createEvent = () => {
-    const e1 = document.getElementById('newConceptRawFileField');
-    const e2 = document.getElementById('newConceptEventField');
+    const e1 = document.getElementById('newConceptRawFileField1');
+    const e2 = document.getElementById('newConceptEventField1');
 
     const contextDAGSlug = 'genericContext'; // future: slug or eventID of user-created ratingTemplate e.g. "easeOfUse" for btc wallets
     const ratingTemplateUniqueID = `${curatedListFocusID}-${ratingTemplateSlug}-${contextDAGSlug}`;
@@ -221,10 +184,53 @@ const CreateNewRating = ({ userData }) => {
   let thumbsUpCurrentState = 'notEndorsed';
   let thumbsDownCurrentState = 'notEndorsed';
   let myCurrentRating = "You have not rated this user.";
-  const z = document.getElementById("myCurrentRatingContainer");
+  const z = document.getElementById("myCurrentRatingContainer1");
   if (z) {
     z.style.color = "grey";
   }
+
+
+
+  // lookup whether this user is already rated by me
+  const oRatingTemplateData = useSelector((state) => state.channels.grapevine.byRatingTemplateSlug.nostrChannelTopicsTreeStructureCuratorEndorsement);
+  const oByEventID = useSelector((state) => state.channels.conceptGraph.nodes.byEventID);
+  let ratingEventID = "";
+  if (oRatingTemplateData.byRaterUniversalID[myPubkey]
+    && oRatingTemplateData.byRaterUniversalID[myPubkey].byRateeUniversalID[pubkeyFocusID]
+    ) {
+      ratingEventID = oRatingTemplateData.byRaterUniversalID[myPubkey].byRateeUniversalID[pubkeyFocusID].ratingEventID;
+      console.log("qwerty__ratingEventID: "+ratingEventID)
+    }
+  if (ratingEventID) {
+    const oPreviousRating = oByEventID[ratingEventID].word;
+    console.log("oPreviousRating: "+JSON.stringify(oPreviousRating,null,4))
+    if (oPreviousRating.ratingData.ratingFieldsetData.nostrChannelTopicsTreeStructureCuratorEndorsementFieldset) {
+      const regularSliderRating = oPreviousRating.ratingData.ratingFieldsetData.nostrChannelTopicsTreeStructureCuratorEndorsementFieldset.regularSliderRating;
+      console.log("qwerty__regularSliderRating: "+regularSliderRating)
+      if (regularSliderRating==100) {
+        // I have rated this user thumbs up
+        thumbsUpCurrentState = 'endorsed';
+        thumbsUpButtonClass = 'unendorseThumbsUpButton';
+        myCurrentRating = "👍 You have ENDORSED this user.";
+        const z = document.getElementById("myCurrentRatingContainer1");
+        if (z) {
+          z.style.color = "green";
+        }
+      }
+      if (regularSliderRating==0) {
+        // I have rated this user thumbs down
+        thumbsDownCurrentState = 'endorsed';
+        thumbsDownButtonClass = 'unendorseThumbsDownButton';
+        myCurrentRating = "👎 You have BLOCKED this user.";
+        const z = document.getElementById("myCurrentRatingContainer1");
+        if (z) {
+          z.style.color = "red";
+        }
+      }
+    }
+  }
+
+  /*
   // lookup whether this user is already rated by me
   const curatedLists = useSelector((state) => state.curatedLists.curatedLists);
   if (curatedLists.hasOwnProperty(curatedListFocusID)) {
@@ -234,7 +240,7 @@ const CreateNewRating = ({ userData }) => {
         thumbsUpCurrentState = 'endorsed';
         thumbsUpButtonClass = 'unendorseThumbsUpButton';
         myCurrentRating = "👍 You have ENDORSED this user.";
-        const z = document.getElementById("myCurrentRatingContainer");
+        const z = document.getElementById("myCurrentRatingContainer1");
         if (z) {
           z.style.color = "green";
         }
@@ -244,15 +250,17 @@ const CreateNewRating = ({ userData }) => {
         thumbsDownCurrentState = 'endorsed';
         thumbsDownButtonClass = 'unendorseThumbsDownButton';
         myCurrentRating = "👎 You have BLOCKED this user.";
-        const z = document.getElementById("myCurrentRatingContainer");
+        const z = document.getElementById("myCurrentRatingContainer1");
         if (z) {
           z.style.color = "red";
         }
       }
     }
   }
+  */
+
   const toggleViewDetails = () => {
-    const e = document.getElementById('technicalDetailsForNostrDevsContainer');
+    const e = document.getElementById('technicalDetailsForNostrDevsContainer1');
     const currentState = e.style.display;
     // console.log(`toggleViewDetails; currentState: ${currentState}`);
     if (currentState == 'none') {
@@ -265,7 +273,6 @@ const CreateNewRating = ({ userData }) => {
 
   return (
     <>
-    <div style={{display: 'none', fontSize:'10px'}}>{curatedListFocusID}<br/>{JSON.stringify(curatedLists[curatedListFocusID],null,4)}</div>
       <button
         type="button"
         value={thumbsUpCurrentState}
@@ -281,7 +288,7 @@ const CreateNewRating = ({ userData }) => {
         className={thumbsDownButtonClass}
       />
 
-      {' '}<div style={{display:'inline-block',color:'grey'}} id="myCurrentRatingContainer">{myCurrentRating}</div>
+      {' '}<div style={{display:'inline-block',color:'grey'}} id="myCurrentRatingContainer1">{myCurrentRating}</div>
       <div className={devElemClass}>
         <div>
           <span style={{ fontSize: '10px' }}>
@@ -296,7 +303,7 @@ const CreateNewRating = ({ userData }) => {
           </button>
         </div>
         <div
-            id="technicalDetailsForNostrDevsContainer"
+            id="technicalDetailsForNostrDevsContainer1"
             style={{ display: 'none' }}
           >
           <div>
@@ -318,7 +325,7 @@ const CreateNewRating = ({ userData }) => {
           <div style={{ display: 'inline-block', width: '45%' }}>
           <div style={{textAlign: 'center', fontSize:'10px'}}>word (concept graph)</div>
             <textarea
-              id="newConceptRawFileField"
+              id="newConceptRawFileField1"
               style={{
                 display: 'inline-block',
                 height: '400px',
@@ -330,7 +337,7 @@ const CreateNewRating = ({ userData }) => {
           <div style={{ display: 'inline-block', width: '45%' }}>
             <div style={{textAlign: 'center', fontSize:'10px'}}>word submitted as an event (a nostr note)</div>
             <textarea
-              id="newConceptEventField"
+              id="newConceptEventField1"
               style={{
                 display: 'inline-block',
                 height: '400px',
