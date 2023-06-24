@@ -61,6 +61,8 @@ Forthcoming features include:
 
 ### Curated Lists Example: Curation of a list of nostr clients
 
+See [here](curatedListsWalkthrough.md) for snapshots.
+
 In this example, a list of nostr clients has been created and curated. The results of curation are shown below, first from the perspective of the user "joker" (created by me to illustrate a bad actor), then from the perspective of the user "wds4."
 
 <span style="display:inline-block" >
