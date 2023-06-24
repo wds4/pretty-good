@@ -13,7 +13,7 @@ As of late June 2023, I am in the process of using the basic tools of Curated Li
 
 tl;dr: My goal is for Curated Lists to prove that genuinely decentralized curation of knowledge is possible <i>in theory</i>, and for the Channels app to prove <i>utility</i>. Once those two points have been (hopefully) demonstrated convincingly, the next step will be to make an implementation that is sleek, snazzy, bug free, with good UX.
 
-## [Pretty Good Nostr](appDescriptions/pgnostr)
+## [Pretty Good Nostr](appDescriptions/pgnostr): app overview
 
 ## Curated Lists: decentralized web of trust
 
