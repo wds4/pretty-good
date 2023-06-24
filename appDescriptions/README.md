@@ -3,8 +3,8 @@ app descriptions
 
 This is a description of the apps you will find in Pretty Good Apps. (work in progress)
 
-### [Curated Lists](curatedLists.md)
+### [Curated Lists](curatedLists)
 
-### [Pretty Good Nostr (pgnostr)](pgnostr.md)
+### [Pretty Good Nostr (pgnostr)](pgnostr)
 
-### [Channels](channels.md)
+### [Channels](channels)
