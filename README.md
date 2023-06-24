@@ -72,13 +72,15 @@ In this example, a list of nostr clients has been created and curated. The resul
 
 Note that, in accordance with [DIP-01](https://github.com/wds4/DCoSL/blob/main/dips/coreProtocol/01.md), the resuls of curation depend upon the choice of seed user.
 
-This example serves to illustrate [DIP-02](https://github.com/wds4/DCoSL/blob/main/dips/coreProtocol/02.md). A common practice would be to rely upon "scraped data," such as a follows list, coupled with the inference that following a profile equals trusting that profile. This inference is frequently wrong, which is why DCoSL rejects the use of scraped data. In this example, list curation is based entirely on explicit endorsements of users as curators of this list plus explicit endorsements of list items (nostr clients) as belonging or not belonging to the list.
+This example serves to illustrate [DIP-02](https://github.com/wds4/DCoSL/blob/main/dips/coreProtocol/02.md). A common practice would be to rely upon "scraped data," such as a follows list, coupled with the inference that following a profile equals trusting that profile. Such inferencesare frequently wrong, which is why DCoSL rejects the use of scraped data. In this example, following DIP-02, list curation is based entirely on explicit endorsements (or rejection) of users as curators of this list plus explicit endorsements (or rejection) of list items (nostr clients) as belonging (or not belonging) to the list.
+
+The below two panels illustrate curation of the list of nostr clients from the perspective of the user "tonyStark," set as the seed user. Circles represent users, with circle radius being proportional to the amoount of <i>influence</i> that user carries on the curation of the list being depicted. 
 
 <span style="display:inline-block" >
-  <img src=".erb/img/listCuration1" width="49%" display="inline-block" />
+  <img src=".erb/img/listCuration1.png" width="49%" display="inline-block" />
 </span>
 <span style="display:inline-block" >
-  <img src=".erb/img/listCuration2" width="49%" display="inline-block" />
+  <img src=".erb/img/listCuration2.png" width="49%" display="inline-block" />
 </span>
 
 ## Developer mode
