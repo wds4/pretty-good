@@ -59,6 +59,12 @@ Forthcoming features include:
 - the ability for Alice to publish a note saying, in effect: Here is a List of XYZ items, as curated by MY (Alice's) web of trust. This will have interesting applications from a privacy perspective: she will be able to transmit useful information to the wider community that has been gathered by psuedonymous accounts known only to her, in a manner that shields those accounts from being identified.
 - the ability to endorse or reject a user as a trusted curator of <i>any</i> list (all contexts). This will be used to calculate a generic (non-contextual) influence score which can then be used as a default influence score if no contextual information about that user is available. If context-specific attestations are available, the default generic score gets overridden.
 
+### Curated Lists Example: Curation of a list of nostr clients
+
+In this example, a list of nostr clients has been created and curated. The results of curation are shown below, first from the perspective of user 1, then from the perspective of user 2.
+
+<img src=".erb/img/nostrClientsCurationImg1.png" width="50%" />
+
 ## Developer mode
 
 Under settings, users can activate a mode that allows you to explore the structures of various JSON files according to nostr and dcosl protocols. In the case of dcosl, links to relevant DIPs are provided. To activate this feature, go to Pretty Good settings and toggle `show developer details for nostr nerds` to ON.
