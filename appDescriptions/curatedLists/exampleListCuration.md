@@ -3,7 +3,7 @@
 In this example, a list of nostr clients has been submitted by an anonymous user and curated by your grapevine. (Anyone can submit a new list, so you can imagine this to be any list you want.) In addition to submission of the list itself, there are three categories of nostr notes that are relevant to this list:
 - list item submission. Anyone can contribute an item to any list.
 - curator endorsement. Anyone can endorse any other user (thumbs up or down) as a curator of this list.
-- list item endorsement. Anyone can endorse any submitted list item (thumbs up or down) as an item that belongs on this list.
+- list item endorsement. Anyone can endorse any submitted list item (thumbs up or down) as an item that belongs (or doesn't) to this list.
 
 From the above endorsements, each submitted list item is partitioned into the ACCEPTED, the REJECTED or the PENDING (not enough info yet) category. But if Alice and Bob don't "trust" the same people to curate this list, they may not see the same results!
 
