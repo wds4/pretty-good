@@ -1,5 +1,7 @@
 ## Curated Lists example: decentralized curation of a list of nostr clients
 
+The point of this example is to illustrate the genuinely decentralized nature of the dcosl protocol.
+
 In this example, a list of nostr clients has been submitted by an anonymous user and curated by your grapevine. (Anyone can submit a new list, so you can imagine this to be any list you want.) In addition to submission of the list itself, there are three categories of nostr notes that are relevant to this list:
 - list item submission. Anyone can contribute an item to any list.
 - curator endorsement. Anyone can endorse any other user (thumbs up or down) as a curator of this list.
