@@ -5,7 +5,7 @@ In this example, a list of nostr clients has been created and curated. In additi
 - curator endorsement. Anyone can endorse any other user (thumbs up or down) as a curator of this list.
 - list item endorsement. Anyone can endorse any submitted list item (thumbs up or down) as an item that belongs on this list.
 
-From the above endorsements, each submitted list item is either ACCEPTED, REJECTED or PENDING as belonging to the list. 
+From the above endorsements, each submitted list item is either ACCEPTED, REJECTED or PENDING (not enougn info) as belonging to the list. 
 
 In the panels below, the "seed user" selector determines whose perspective is being depicted (whose grapevine is being used for the curation). Results are shown below from the perspectives of two different users: 
 - wds4, a regular user
