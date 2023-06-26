@@ -1,9 +1,7 @@
 Curated Lists
 =====
 
-Curated Lists is built as a proof of concept for all of the [core principles and goals](https://github.com/wds4/DCoSL/tree/main/dips/coreProtocol) of the [DCoSL](https://github.com/wds4/DCoSL) protocol, with the exception of DIP-infiity; most notably DIPs 01 and 02.
-
-I propose that the ability to curate a simple list in a truly decentralized fashion - no tokens or blockchains, no email or phone number verifications - should be considered not only the <i>atomic unit</i> but also the <i>fundamental building block</i> of the decentralized web. If we can curate <i>simple lists</i>, then the ability to curate <i>data structures of arbitrary complexity</i> will very quickly fall into place. See [DCoSL](https://github.com/wds4/DCoSL) for a more in depth discussion.
+Curated Lists is built as a proof of concept for all of the [core principles and goals](https://github.com/wds4/DCoSL/tree/main/dips/coreProtocol) of the [DCoSL](https://github.com/wds4/DCoSL) protocol, with the exception of DIP-infiity; most notably DIPs 01 and 02. I propose that the ability to curate a simple list in a truly decentralized fashion - no tokens or blockchains, no email or phone number verifications - should be considered not only the <i>atomic unit</i> but also the <i>fundamental building block</i> of the decentralized web. If we can curate <i>simple lists</i>, then the ability to curate <i>data structures of arbitrary complexity</i> will very quickly fall into place. See [DCoSL](https://github.com/wds4/DCoSL) for a more in depth discussion.
 
 In this app, anyone can:
 - create a new list
