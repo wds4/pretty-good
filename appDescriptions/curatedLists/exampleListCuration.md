@@ -22,6 +22,8 @@ Note that, in accordance with [DIP-01](https://github.com/wds4/DCoSL/blob/main/d
 
 LEFT PANEL: From the perspective of wds4, "scammy fake client" is rejected from the list, with several legit clients accepted onto the list and several others awaiting curation by the grapevine. RIGHT PANEL: From the perspective of the joker, "scammy fake client" is the only one accepted onto the list, with one legit client having been rejected. 
 
-Why do they see different results? How does wds4 know that joker4 is a bad actor? How are the lists sorted? Users do not have to dig into the details if they don't want to. Like an automobile, you don't have to know how it works to use it. The take home message for this page is simply that different users do not <i>necessarily</i> see the same results. But for users who are even a little bit curious about how it works under the hood, they will be able to dig in all they want. See [this page](exampleListCurationGrapevine.md) for an overview of how list items are accepted and rejected.
+Why do they see different results? How does wds4 know that joker4 is a bad actor? How are the lists sorted? Users do not have to dig into the details if they don't want to. Like an automobile, you don't have to know how it works to use it. The take home message for this page is simply that different users do not <i>necessarily</i> see the same results. Ultimately, no one is in charge of this process other than YOU. In this way, there is no single point of failure.
+
+But for users who are even a little bit curious about how it works under the hood, they will be able to dig in all they want. See [this page](exampleListCurationGrapevine.md) for an overview of how list items are accepted and rejected.
 
 
