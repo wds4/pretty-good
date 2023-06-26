@@ -5,7 +5,7 @@ In this example, a list of nostr clients has been submitted by an anonymous user
 - curator endorsement. Anyone can endorse any other user (thumbs up or down) as a curator of this list.
 - list item endorsement. Anyone can endorse any submitted list item (thumbs up or down) as an item that belongs (or doesn't) to this list.
 
-From the above endorsements, each submitted list item is partitioned into the ACCEPTED, the REJECTED or the PENDING (not enough info yet) category. But if Alice and Bob don't "trust" the same people to curate this list, they may not see the same results!
+From the above data, each submitted list item is partitioned into the ACCEPTED, the REJECTED or the PENDING (not enough info yet) category. But if Alice and Bob don't "trust" the same people to curate this list, they may not see the same results!
 
 In the panels below, the "seed user" selector determines whose perspective is being depicted (whose grapevine is being used for the curation). Results are shown below from the perspectives of two different users: 
 - wds4, a regular user
