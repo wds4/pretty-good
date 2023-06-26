@@ -1,6 +1,11 @@
 ## Curated Lists Example: Curation of a list of nostr clients
 
-In this example, a list of nostr clients has been created and curated. The "seed user" selector determines whose perspective is being depicted (whose grapevine is being used for the curation). Results are shown below from the perspectives of two different users: 
+In this example, a list of nostr clients has been created and curated. In addition to submission of the list itself, there are three categories of nostr notes that go into this list:
+- list item submission. Anyone can contribute an item to this list.
+- curator endorsement. Anyone can endorse any other user (thumbs up or down) as a curator of this list.
+- list item endorsement. Anyone can endorse any submitted list item (thunbs up or down) as an item that belongs on this list.
+
+In the panels below, the "seed user" selector determines whose perspective is being depicted (whose grapevine is being used for the curation). Results are shown below from the perspectives of two different users: 
 - wds4, a regular user
 - joker4, a putative bad actor promoting a scam client created with nefarious intent
 
