@@ -1,6 +1,15 @@
-## Curated Lists Example: Curation of a list of nostr clients
+## Curated Lists example: decentralized curation of a list of nostr clients
 
-In this example, a list of nostr clients has been created and curated. The "seed user" selector determines whose perspective is being depicted (whose grapevine is being used for the curation). Results are shown below from the perspectives of two different users: 
+The point of this example is to illustrate the genuinely decentralized nature of the [dcosl protocol](https://github.com/wds4/dcosl), which is capable of curating lists without putting any single entity in charge of the curation.
+
+In this example, a list of nostr clients has been submitted by an anonymous user and curated by your grapevine. (Anyone can submit a new list, so you can imagine this to be any list you want.) In addition to submission of the list itself, there are three categories of nostr notes that are relevant to this list:
+- list item submission. Anyone can contribute an item to any list.
+- curator endorsement. Anyone can endorse any other user (thumbs up or down) as a curator of this list.
+- list item endorsement. Anyone can endorse any submitted list item (thumbs up or down) as an item that belongs (or doesn't) to this list.
+
+From the above data, each submitted list item is partitioned into the ACCEPTED, the REJECTED or the PENDING (not enough info yet) category. But if Alice and Bob don't "trust" the same people to curate this list, they may not see the same results!
+
+In the panels below, the "seed user" selector determines whose perspective is being depicted (whose grapevine is being used for the curation). Results are shown below from the perspectives of two different users: 
 - wds4, a regular user
 - joker4, a putative bad actor promoting a scam client created with nefarious intent
 
@@ -15,20 +24,8 @@ Note that, in accordance with [DIP-01](https://github.com/wds4/DCoSL/blob/main/d
 
 LEFT PANEL: From the perspective of wds4, "scammy fake client" is rejected from the list, with several legit clients accepted onto the list and several others awaiting curation by the grapevine. RIGHT PANEL: From the perspective of the joker, "scammy fake client" is the only one accepted onto the list, with one legit client having been rejected. 
 
-Why do they see different results? How does wds4 know that joker is a bad actor? How are the lists sorted? The panels below illustrate how these determinations are made.
+Why do they see different results? How are the lists sorted? How does wds4 know that joker4 is a bad actor? Short answer: wds4 endorses someone who endorses someone who rejects joker4 as curator for this list. Perhaps multiple such paths exist from wds4 to joker4. So it is not too hard to understand, intuitively, that wds4 the regular user and joker4 the bad actor would see different results. Users do not have to dig into the calculational details if they don't want to. Like an automobile, you don't have to know the details of how it works to use it. The take home message for this page is simply that different users do not <i>necessarily</i> see the same results. (Although it is postulated by the doctrine of [loose consensus](https://github.com/wds4/DCoSL/blob/main/glossary/looseConsensus.md) that oftentimes they will see the same results, in the absence of some controversy or irreconcilable reason for disagreement, like that one is a bad actor and the other is not.) Ultimately, you are at the apex of the decision making tree; no one is ultimately in charge of this process other than YOU. In this way, and for this reason, <i>there can be no single point of failure</i>. It is truly decentralized.
 
-A common practice would be to rely upon "scraped data," such as a follows list, coupled with the inference that following a profile equals trusting that profile. Such inferences are frequently (or even usually) wrong, which is why DCoSL adopts [DIP-02](https://github.com/wds4/DCoSL/blob/main/dips/coreProtocol/02.md) which explicitly rejects the use of scraped data in favor of explicit statements. In this example, there are two types of explicit statements: 1) endorsements (or rejection) of users as curators of this list, and 2) endorsements (or rejection) of list items (nostr clients) as belonging (or not belonging) to the list.
+But for users who are even a little bit curious about how it works under the hood, or who doubt the conclusion of the previous paragraph, they will be able to dig in all they want. See [this page](exampleListCurationGrapevine.md) for an overview of how list items are accepted and rejected.
 
-The below two panels illustrate curation of the list of nostr clients from the perspective of the user "tonyStark," set as the seed user. Circles represent users, with circle radius being proportional to the amoount of <i>influence</i> that user carries on the curation of the list in question. The diamonds indicate list items. Arrows represent endorsements from user to user or user to list item, with the thickness of the arrow indicating whether the endorsement is favorable / acceptance (thick) or unfavorable / rejection (thin). The opacity of circles, arrows, and diamonds indicates the degree of certainty your grapevine has in the relevant average score, so that a score calculated using a higher number of ratings from trusted users will grab your attention more than one calculated from a small number of ratings from relatively untrusted users.
-
-<span style="display:inline-block" >
-  <img src="../../.erb/img/listCuration1.png" width="49%" display="inline-block" />
-</span>
-<span style="display:inline-block" >
-  <img src="../../.erb/img/listCuration2.png" width="49%" display="inline-block" />
-</span>
-
-LEFT PANEL: Average scores for each item (diamonds) are shown in the table and also depicted in the graph using the vertical scale. In place of the "number of ratings," which is what you might see on a site like Amazon, here you see the "input" which is a sum of the influence of each user who provided a rating for that item. RIGHT PANEL: The default scores of unvetted users are being adjusted in the Control Panel. Note that "joker3", an accomplice of "joker4", has some influence on the right panel but zero influence (zero radius) on the left panel. This is the result of adjustments in the default user scores. By increasing the defaults, the unvetted user joker3 has managed to slightly increase the score of "scammy fake client" from 0 to about 0.2. In any given setting, user defaults could be set to 0 if bad actors are presumed to be aplenty, or to some positive number if bad actors are presumed scarce. 
-
-If you want to delve into the precise details of the various calculations, a panel is made available in the app to do that. (Will add screenshots later.)
 
