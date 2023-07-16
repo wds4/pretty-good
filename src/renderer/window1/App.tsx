@@ -54,6 +54,7 @@ import './css/curatedLists/index.css';
 import './css/curatedLists/endorsements.css';
 import './css/curatedLists/acceptVsReject.css';
 import './css/eBooks/index.css';
+import './css/contentCuration/index.css';
 
 // an inelegant way to initialize the redux store
 const InitReduxStore = ({

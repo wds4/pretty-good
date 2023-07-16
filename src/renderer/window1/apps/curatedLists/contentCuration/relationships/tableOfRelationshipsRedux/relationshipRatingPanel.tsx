@@ -7,6 +7,7 @@ import {
   signEvent,
 } from 'nostr-tools';
 import { NavLink } from 'react-router-dom';
+import oRating from 'renderer/window1/apps/curatedLists/contentCuration/const/nostrChannelTopicsRelationshipInstanceEndorsement';
 import TechDetailsForNostrNerds1 from './techDetailsForNostrNerds1';
 
 const createRatingWord = (
@@ -56,6 +57,24 @@ const createRatingWord = (
   let wordSlug = "ratingOf_relationship"+ "-"+instance_event_id.substr(-6);
   wordSlug += "_thumbs"+which;
   wordSlug += "_by_"+myNostrProfile.name+"-"+myNostrProfile.pubkey_hex.substr(-4);
+
+  oRating.wordData.slug = wordSlug;
+
+  oRating.ratingData.raterData.nostrProfileData.pubkey = myNostrProfile.pubkey_hex;
+  oRating.ratingData.raterData.nostrProfileData.name = myNostrProfile.name;
+  oRating.ratingData.raterData.nostrProfileData.display_name = myNostrProfile.display_name;
+
+  oRating.ratingData.rateeData.nostrChannelTopicRelationshipData.eventID = instance_event_id;
+  oRating.ratingData.rateeData.nostrChannelTopicRelationshipData.slug = relationshipWordSlug;
+
+  oRating.ratingData.ratingFieldsetData.nostrChannelTopicsRelationshipInstanceEndorsementFieldsetData.regularSliderRating = rsR;
+
+  /*
+  // redundant, since this is added to the oRating skeleton
+  oRating.ratingData.ratingFieldsetData.nostrChannelTopicsRelationshipInstanceEndorsementFieldsetData.contextData.nostrParentCuratedListData.eventID = relationship_event_id;
+  oRating.ratingData.ratingFieldsetData.nostrChannelTopicsRelationshipInstanceEndorsementFieldsetData.contextData.nostrParentCuratedListData.slug.singular = listSlugSingular;
+  oRating.ratingData.ratingFieldsetData.nostrChannelTopicsRelationshipInstanceEndorsementFieldsetData.contextData.nostrParentCuratedListData.name.singular = listNameSingular;
+  */
 
   const oWord = {
     wordData: {
@@ -113,7 +132,7 @@ const createRatingWord = (
   };
   const e1 = document.getElementById('newConceptRawFileField_'+instance_event_id);
   if (e1) {
-    e1.innerHTML = JSON.stringify(oWord, null, 4);
+    e1.innerHTML = JSON.stringify(oRating, null, 4);
   }
 };
 
@@ -138,13 +157,14 @@ const RelationshipRatingPanel = ({oWord, event, event_id, oNostrNodesByEventID})
   let myCurrentRating = "I have not rated";
 
   // lookup whether this item is already rated by me
-  const oRatings = useSelector((state) => state.channels.grapevine.byRatingTemplateSlug?.nostrCuratedListInstanceGenericRating);
+  // const oRatings = useSelector((state) => state.channels.grapevine.byRatingTemplateSlug?.nostrCuratedListInstanceGenericRating);
+  const oRatings = useSelector((state) => state.channels.grapevine.byRatingTemplateSlug?.nostrChannelTopicsRelationshipInstanceEndorsement);
   if (oRatings) {
     if (oRatings.byRaterUniversalID[myPubkey]) {
       if (oRatings.byRaterUniversalID[myPubkey].byRateeUniversalID[event_id]) {
         const ratingEventID = oRatings.byRaterUniversalID[myPubkey].byRateeUniversalID[event_id].ratingEventID;
         const oRatingWord = oNostrNodesByEventID[ratingEventID].word;
-        const rating = oRatingWord.ratingData.ratingFieldsetData.nostrCuratedListInstanceRatingFieldsetData.regularSliderRating;
+        const rating = oRatingWord.ratingData.ratingFieldsetData.nostrChannelTopicsRelationshipInstanceEndorsementFieldsetData.regularSliderRating;
         if (rating==100) {
           // I have rated this item thumbs up
           thumbsUpCurrentState = 'endorsed';

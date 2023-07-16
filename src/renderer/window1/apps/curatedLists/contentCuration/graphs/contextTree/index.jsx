@@ -5,7 +5,7 @@ import LeftNavbar2 from 'renderer/window1/navbars/leftNavbar2/curatedLists/conte
 import { updateMainColWidth, updateMastheadCenter } from 'renderer/window1/lib/pg/ui';
 import ContextTree from './contextTree';
 
-export default class ContentCurationTopics extends React.Component {
+export default class ContextTreeMain extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};

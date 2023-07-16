@@ -1,0 +1,19 @@
+.channelsHeaderContainer {
+  border:1px dashed grey;
+}
+.channelsGraphContainer {
+  border:1px dashed grey;
+  display:inline-block;
+  width:50%;
+  height:600px;
+}
+.channelsControlPanelsContainer {
+  border:1px dashed grey;
+  display:inline-block;
+  width:50%;
+  height:600px;
+}
+.channelsShowCalculationsContainer {
+  border:1px dashed grey;
+  height:300px;
+}

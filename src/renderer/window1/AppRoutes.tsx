@@ -144,6 +144,10 @@ import ContentCurationGrapevineGraph from './apps/curatedLists/contentCuration/g
 import ContentCurationSettingsSql from './apps/curatedLists/contentCuration/settings/sql';
 import ContentCurationSettingsRedux from './apps/curatedLists/contentCuration/settings/redux';
 import ContentCurationSingleTopicHome from './apps/curatedLists/contentCuration/topic';
+import ContentCurationShowCurations from './apps/curatedLists/contentCuration/showCurations';
+import ContentCurationShowCurationsOfRels from './apps/curatedLists/contentCuration/showCurations/curationOfRelationships';
+import ContentCurationShowCurationsOfTopics from './apps/curatedLists/contentCuration/showCurations/curationOfTopics';
+import ContentCurationShowCurationsOfTopicsContent from './apps/curatedLists/contentCuration/showCurations/curationOfTopicsContent';
 
 import AskNostrHome from './apps/askNostr';
 import AskNostrSettings from './apps/askNostr/settings';
@@ -618,7 +622,22 @@ const AppRoutes = () => {
               path="/CuratedListsHome/ContentCurationSingleTopicHome"
               element={<ContentCurationSingleTopicHome />}
             />
-
+            <Route
+              path="/CuratedListsHome/ContentCurationShowCurations"
+              element={<ContentCurationShowCurations />}
+            />
+            <Route
+              path="/CuratedListsHome/ContentCurationShowCurationsOfRels"
+              element={<ContentCurationShowCurationsOfRels />}
+            />
+            <Route
+              path="/CuratedListsHome/ContentCurationShowCurationsOfTopics"
+              element={<ContentCurationShowCurationsOfTopics />}
+            />
+            <Route
+              path="/CuratedListsHome/ContentCurationShowCurationsOfTopicsContent"
+              element={<ContentCurationShowCurationsOfTopicsContent />}
+            />
 
             <Route
               path="/AskNostrHome"

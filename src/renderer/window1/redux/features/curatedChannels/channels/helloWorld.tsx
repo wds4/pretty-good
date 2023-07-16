@@ -1,32 +1,39 @@
 import { useSelector } from 'react-redux';
+import TechDetailsforNostrNerdsA from './techDetailsForNostrNerdsA';
+import TechDetailsforNostrNerdsB from './techDetailsForNostrNerdsB';
+import TechDetailsforNostrNerdsC from './techDetailsForNostrNerdsC';
+import TechDetailsforNostrNerdsD from './techDetailsForNostrNerdsD';
+import TechDetailsforNostrNerdsE from './techDetailsForNostrNerdsE';
+import TechDetailsforNostrNerdsE1 from './techDetailsForNostrNerdsE1';
 
-export const CuratedChannelsHelloWorld = () => {
+const CuratedChannelsHelloWorld = () => {
   const oChannels = useSelector((state) => state.channels);
+  const oConceptGraph = oChannels.conceptGraph;
+  const oGrapevine = oChannels.grapevine;
 
   return (
     <>
       <div className="h4">Curated Channels Hello World (Redux)</div>
-      <div>number of nodes: {oChannels.aThreadedTapestryEventIDs.length}</div>
-      {oChannels.aThreadedTapestryEventIDs.map((event_id)=>{
-        if (oChannels.conceptGraph.nodes.byEventID[event_id]) {
-          const oEvent = oChannels.conceptGraph.nodes.byEventID[event_id]?.event;
-          const oWord = oChannels.conceptGraph.nodes.byEventID[event_id]?.word;
-          const wordSlug = oWord.wordData.slug;
-          return (
-            <>
-              <div style={{marginLeft: '20px'}}>{wordSlug}</div>
-              <div style={{display:'none'}}>{JSON.stringify(oWord,null,4)}</div>
-            </>
-          )
-        } else { return <></> }
-
-      })}
-      <div className="reduxStoreOverviewContainer">
-        <div style={{ fontSize: '12px' }}>
-          {JSON.stringify(oChannels, null, 4)}
-        </div>
-      </div>
+      <TechDetailsforNostrNerdsA oChannels={oChannels} />
+      <TechDetailsforNostrNerdsD oChannels={oChannels} />
+      <TechDetailsforNostrNerdsC oConceptGraph={oConceptGraph} />
+      <TechDetailsforNostrNerdsB oGrapevine={oGrapevine} />
+      <TechDetailsforNostrNerdsE oGrapevine={oGrapevine} />
+      <hr />
+      <TechDetailsforNostrNerdsE1 oChannels={oChannels} oGrapevine={oGrapevine} ratingTemplateSlug="nostrChannelTopicsInstanceEndorsement" />
+      <TechDetailsforNostrNerdsE1 oChannels={oChannels} oGrapevine={oGrapevine} ratingTemplateSlug="nostrChannelTopicsCuratorEndorsement" />
+      <TechDetailsforNostrNerdsE1 oChannels={oChannels} oGrapevine={oGrapevine} ratingTemplateSlug="nostrChannelTopicContentCreatorEndorsement" />
+      <TechDetailsforNostrNerdsE1 oChannels={oChannels} oGrapevine={oGrapevine} ratingTemplateSlug="nostrChannelTopicsTreeStructureCuratorEndorsement" />
+      <TechDetailsforNostrNerdsE1 oChannels={oChannels} oGrapevine={oGrapevine} ratingTemplateSlug="nostrChannelTopicsRelationshipInstanceEndorsement" />
+      <hr />
+      <div>might be deprecating  nostrCuratedListInstanceGenericRating and nostrCuratedListsCuratorEndorsement (at least for use with Channels)</div>
+      <TechDetailsforNostrNerdsE1 oChannels={oChannels} oGrapevine={oGrapevine} ratingTemplateSlug="nostrCuratedListInstanceGenericRating" />
+      <TechDetailsforNostrNerdsE1 oChannels={oChannels} oGrapevine={oGrapevine} ratingTemplateSlug="nostrCuratedListsCuratorEndorsement" />
+      <hr />
+      <div>deprecating nostrChannelTopicsRelationshipCuratorEndorsement</div>
+      <TechDetailsforNostrNerdsE1 oChannels={oChannels} oGrapevine={oGrapevine} ratingTemplateSlug="nostrChannelTopicsRelationshipCuratorEndorsement" />
     </>
   );
 };
 
+export default CuratedChannelsHelloWorld;

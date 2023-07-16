@@ -79,6 +79,16 @@ const LeftNavbar2 = () => {
           graphs
         </NavLink>
 
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? 'leftNav2Button leftNav2ButtonActive' : 'leftNav2Button'
+          }
+          end
+          to="/CuratedListsHome/ContentCurationShowCurations"
+        >
+          show curations
+        </NavLink>
+
         <hr />
 
         <div

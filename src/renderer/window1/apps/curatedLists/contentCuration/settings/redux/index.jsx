@@ -6,7 +6,7 @@ import {
   updateMainColWidth,
   updateMastheadCenter,
 } from 'renderer/window1/lib/pg/ui';
-import { CuratedChannelsHelloWorld } from 'renderer/window1/redux/features/curatedChannels/channels/helloWorld';
+import CuratedChannelsHelloWorld from 'renderer/window1/redux/features/curatedChannels/channels/helloWorld';
 
 export default class ConceptGraphSettings extends React.Component {
   constructor(props) {

@@ -6,7 +6,7 @@ import {
   getPublicKey,
   signEvent,
 } from 'nostr-tools';
-import oRating from './const/nostrChannelTopicsTreeStructureCuratorEndorsement';
+import oRating from '../../../curatedLists/contentCuration/const/nostrChannelTopicsTreeStructureCuratorEndorsement';
 
 const ratingTemplateSlug = 'nostrChannelTopicsTreeStructureCuratorEndorsement';
 const ratingTemplateTitle = 'Nostr Channel Topics Tree Structure Curator Endorsement';
@@ -16,7 +16,9 @@ const createRatingWord = (
   myNostrProfile,
   curatedListFocusID,
   pubkeyFocusID,
-  userData
+  userData,
+  thumbsUpCurrentState,
+  thumbsDownCurrentState
 ) => {
   let oWord = oRating;
 
@@ -143,42 +145,6 @@ const CreateNewRating = ({ userData }) => {
     e2.value = JSON.stringify(event, null, 4);
   };
 
-  const createThumbsUpEvent = (currentState) => {
-    let which = 'up';
-    if (currentState == "notEndorsed") {
-      which = 'up';
-    }
-    if (currentState == "endorsed") {
-      which = "abstain";
-    }
-    createRatingWord(
-      which,
-      myNostrProfile,
-      curatedListFocusID,
-      pubkeyFocusID,
-      userData
-    );
-    createEvent();
-    submitEvent();
-  };
-  const creatThumbsDownEvent = (currentState) => {
-    let which = 'down';
-    if (currentState == "notEndorsed") {
-      which = 'down';
-    }
-    if (currentState == "endorsed") {
-      which = "abstain";
-    }
-    createRatingWord(
-      which,
-      myNostrProfile,
-      curatedListFocusID,
-      pubkeyFocusID,
-      userData
-    );
-    createEvent();
-    submitEvent();
-  };
   let thumbsUpButtonClass = 'endorseThumbsUpButton';
   let thumbsDownButtonClass = 'endorseThumbsDownButton';
   let thumbsUpCurrentState = 'notEndorsed';
@@ -188,8 +154,6 @@ const CreateNewRating = ({ userData }) => {
   if (z) {
     z.style.color = "grey";
   }
-
-
 
   // lookup whether this user is already rated by me
   const oRatingTemplateData = useSelector((state) => state.channels.grapevine.byRatingTemplateSlug.nostrChannelTopicsTreeStructureCuratorEndorsement);
@@ -229,6 +193,47 @@ const CreateNewRating = ({ userData }) => {
       }
     }
   }
+
+  const createThumbsUpEvent = (currentState) => {
+    let which = 'up';
+    if (currentState == "notEndorsed") {
+      which = 'up';
+    }
+    if (currentState == "endorsed") {
+      which = "abstain";
+    }
+    createRatingWord(
+      which,
+      myNostrProfile,
+      curatedListFocusID,
+      pubkeyFocusID,
+      userData,
+      thumbsUpCurrentState,
+      thumbsDownCurrentState
+    );
+    createEvent();
+    submitEvent();
+  };
+  const creatThumbsDownEvent = (currentState) => {
+    let which = 'down';
+    if (currentState == "notEndorsed") {
+      which = 'down';
+    }
+    if (currentState == "endorsed") {
+      which = "abstain";
+    }
+    createRatingWord(
+      which,
+      myNostrProfile,
+      curatedListFocusID,
+      pubkeyFocusID,
+      userData,
+      thumbsUpCurrentState,
+      thumbsDownCurrentState
+    );
+    createEvent();
+    submitEvent();
+  };
 
   /*
   // lookup whether this user is already rated by me

@@ -1,6 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { setCurrentPage } from 'renderer/window1/redux/features/prettyGood/settings/slice';
-
 import GrapevineVisualization from './grapevineVisualization';
 
 const QueryReduxForListFocus = () => {

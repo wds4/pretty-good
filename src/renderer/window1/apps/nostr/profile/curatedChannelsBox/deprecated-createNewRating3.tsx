@@ -6,7 +6,7 @@ import {
   getPublicKey,
   signEvent,
 } from 'nostr-tools';
-import oRating from './const/nostrChannelTopicContentCreatorEndorsement';
+import oRating from '../../../curatedLists/contentCuration/const/nostrChannelTopicContentCreatorEndorsement';
 import TopicSelector from './topicSelector';
 
 const ratingTemplateSlug = 'nostrChannelTopicContentCreatorEndorsement';
