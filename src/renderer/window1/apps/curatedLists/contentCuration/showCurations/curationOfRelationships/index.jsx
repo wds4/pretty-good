@@ -3,7 +3,7 @@ import Masthead from 'renderer/window1/mastheads/curatedListsMasthead';
 import LeftNavbar1 from 'renderer/window1/navbars/leftNavbar1/universalNavbar';
 import LeftNavbar2 from 'renderer/window1/navbars/leftNavbar2/curatedLists/contentCuration/showCurations';
 import { updateMainColWidth, updateMastheadCenter } from 'renderer/window1/lib/pg/ui';
-import CurationOfRelationships from './curationOfRelationships';
+import CurationOfRelationshipsRedux from './curationOfRelationshipsRedux';
 
 export default class CurationOfRelationshipsMain extends React.Component {
   constructor(props) {
@@ -27,7 +27,7 @@ export default class CurationOfRelationshipsMain extends React.Component {
         <div id="mainCol">
           <Masthead />
           <div id="mainPanel">
-            <CurationOfRelationships />
+            <CurationOfRelationshipsRedux />
           </div>
         </div>
       </>

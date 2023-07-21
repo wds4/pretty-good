@@ -17,6 +17,9 @@ export const prettyGoodGlobalStateSlice = createSlice({
     curatedListInstanceFocus: null,
     // a08175d65051c08b83600abf6f5c18efd455114b4863c65959c92b13ee52f87c is Darth Vader, tester profile
     curatedListProfileFocus: "a08175d65051c08b83600abf6f5c18efd455114b4863c65959c92b13ee52f87c", // the pubkey of the user I am viewing for purposes of leaving new ratings
+    curatedChannelsTopicFocus: null, // event ID of topic
+    curatedChannelsRelationshipFocus: null, // event ID of relationship
+    curatedChannelsContentFocus: null, // event ID of piece of content (or pubkey of the user? perhaps could be either, depending on the content type?)
     activeChannel: 'testnet1', // mainnet | mainnet1 | mainnet2, etc | testnet | testnet1 | testnet2, etc
     channels: {
       // kind:
@@ -73,6 +76,15 @@ export const prettyGoodGlobalStateSlice = createSlice({
     updateCuratedListProfileFocus: (state, action) => {
       state.curatedListProfileFocus = action.payload;
     },
+    updateCuratedChannelsTopicFocus: (state, action) => {
+      state.curatedChannelsTopicFocus = action.payload;
+    },
+    updateCuratedChannelsRelationshipFocus: (state, action) => {
+      state.curatedChannelsRelationshipFocus = action.payload;
+    },
+    updateCuratedChannelsContentFocus: (state, action) => {
+      state.curatedChannelsContentFocus = action.payload;
+    },
   }
 })
 
@@ -89,6 +101,9 @@ export const {
   updateCuratedListFocus,
   updateCuratedListInstanceFocus,
   updateCuratedListProfileFocus,
+  updateCuratedChannelsTopicFocus,
+  updateCuratedChannelsRelationshipFocus,
+  updateCuratedChannelsContentFocus,
 } = prettyGoodGlobalStateSlice.actions;
 
 export default prettyGoodGlobalStateSlice.reducer;

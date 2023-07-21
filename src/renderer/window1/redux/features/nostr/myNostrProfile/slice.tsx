@@ -17,6 +17,7 @@ import {
   getPublicKey,
   signEvent,
 } from 'nostr-tools';
+import CurationOfRelationships from 'renderer/window1/apps/curatedLists/contentCuration/showCurations/curationOfRelationships/curationOfRelationshipsX';
 
 const initialState = {
   // booleans
@@ -57,7 +58,15 @@ const initialState = {
   relays: oDefaultRelayUrls,
   devModes: oDefaultDevModes,
   relaysFromMyFollowingList: {}, // maintain list of relays scraped from my following list; an example of basic DCoSL
-
+  curatedChannelsData: {
+    topics: [], // array of ACCEPTED topics, by event ID
+    relationships: [], // array of ACCEPTED topic to topic CurationOfRelationships, by event ID
+    contentByTopic: {
+      /*
+      <topic universally unique ID>: [] // array of ACCEPTED pubkeys for that topic
+      */
+    }
+  },
   /*
   endorseAsNostCuratedListCurator: {
     <eventID of curated list>: {
@@ -447,6 +456,14 @@ export const myProfileSlice = createSlice({
     },
     ///////////////////////////
 
+    // uncategorized / mics
+    updateCuratedChannelsTopics: (state, action) => {
+      state.curatedChannelsData.topics = action.payload; // an array of event IDs
+    },
+    updateCuratedChannelsRelationships: (state, action) => {
+      state.curatedChannelsData.relationships = action.payload; // an array of event IDs
+    },
+
   },
 });
 
@@ -505,6 +522,9 @@ export const {
   updateDevMode4,
   updateDevMode5,
   updateDevMode6,
+
+  updateCuratedChannelsTopics,
+  updateCuratedChannelsRelationships,
 } = myProfileSlice.actions;
 
 export default myProfileSlice.reducer;

@@ -24,6 +24,7 @@ export const controlPanelSettingsSlice = createSlice({
     entityTypeForShowingCalculations: "nostrProfile", // options: nostrProfile, curatedListInstance
     nostrProfileDisplaySize: 'influence', // influence, average, or nothing
     curatedListInstanceYAxis: 'average', // influence, average, or nothing
+    contentTopic: null, // event ID of the topic for which content is being selected
   },
   reducers: {
     updateControlPanelSettings: (state, action) => {
@@ -81,6 +82,9 @@ export const controlPanelSettingsSlice = createSlice({
     updateCuratedListInstanceYAxis: (state, action) => {
       state.curatedListInstanceYAxis = action.payload;
     },
+    updateContentTopic: (state, action) => {
+      state.contentTopic = action.payload; // should be event ID of topic
+    },
   },
 });
 
@@ -103,6 +107,7 @@ export const {
   updateEntityTypeForShowingCalculations,
   updateNostrProfileDisplaySize,
   updateCuratedListInstanceYAxis,
+  updateContentTopic,
 } = controlPanelSettingsSlice.actions;
 
 export default controlPanelSettingsSlice.reducer;

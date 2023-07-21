@@ -3,6 +3,7 @@ import Masthead from 'renderer/window1/mastheads/curatedListsMasthead';
 import LeftNavbar1 from 'renderer/window1/navbars/leftNavbar1/universalNavbar';
 import LeftNavbar2 from 'renderer/window1/navbars/leftNavbar2/curatedLists/contentCuration/topic';
 import { updateMainColWidth, updateMastheadCenter } from 'renderer/window1/lib/pg/ui';
+import TopicOverview from './topicOverview';
 
 export default class ContentCurationTopic extends React.Component {
   constructor(props) {
@@ -27,6 +28,7 @@ export default class ContentCurationTopic extends React.Component {
           <Masthead />
           <div id="mainPanel">
             <div className="h4">Channel Topic</div>
+            <TopicOverview />
           </div>
         </div>
       </>

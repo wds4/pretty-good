@@ -50,6 +50,17 @@ const LeftNavbar2 = () => {
         >
           Topic
         </div>
+
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? 'leftNav2Button leftNav2ButtonActive' : 'leftNav2Button'
+          }
+          end
+          to="/CuratedListsHome/ContentCurationSingleTopicHome"
+        >
+          home
+        </NavLink>
+
       </div>
     </>
   );

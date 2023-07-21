@@ -35,7 +35,7 @@ const TopicSelector = ({pubkeyFocusID, userData, selectorID}) => {
             slug = oWord.nostrTopicData?.slug;
             name = oWord.nostrTopicData?.name;
           }
-          const successMessageContainerElem = `successMessageContainer_${event_id}`;
+          // const successMessageContainerElem = `successMessageContainer_${event_id}`;
           return (
             <>
               <option

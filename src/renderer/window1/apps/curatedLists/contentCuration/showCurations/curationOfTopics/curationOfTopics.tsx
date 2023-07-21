@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { asyncSql } from 'renderer/window1/lib/pg/asyncSql';
 import { DataSet, Network } from 'vis-network/standalone/esm/vis-network';
 import * as VisStyleConstants from 'renderer/window1/lib/visjs/visjs-style';
