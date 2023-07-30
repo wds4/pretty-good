@@ -16,11 +16,13 @@ const UserPanel = () => {
   let className={};
   className.about = "profilePageBarTab";
   className.posts = "profilePageBarTab";
+  className.lists = "profilePageBarTab";
   className.grapevine = "profilePageBarTab";
   className.ratings = "profilePageBarTab";
   className.scores = "profilePageBarTab";
   if (nostrProfilePanelSelector=="about") {className.about += " profilePageBarTabSelected";}
   if (nostrProfilePanelSelector=="posts") {className.posts += " profilePageBarTabSelected";}
+  if (nostrProfilePanelSelector=="lists") {className.lists += " profilePageBarTabSelected";}
   if (nostrProfilePanelSelector=="grapevine") {className.grapevine += " profilePageBarTabSelected";}
   if (nostrProfilePanelSelector=="ratings") {className.ratings += " profilePageBarTabSelected";}
   if (nostrProfilePanelSelector=="scores") {className.scores += " profilePageBarTabSelected";}
@@ -42,6 +44,12 @@ const UserPanel = () => {
             onClick={() => selectPanel(("posts"))}
           >
             <center>Posts</center>
+          </div>
+          <div
+            className={className.lists}
+            onClick={() => selectPanel(("lists"))}
+          >
+            <center>Lists</center>
           </div>
           <div
             className={className.grapevine}

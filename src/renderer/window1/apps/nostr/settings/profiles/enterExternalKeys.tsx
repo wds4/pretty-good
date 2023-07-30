@@ -135,6 +135,10 @@ export default function EnterExternalKeys() {
         going to risk it, I strongly suggest you backup your profile first!
         See this <a href="https://github.com/wds4/pretty-good/issues/4">issue</a>{' '}
         for a discussion of this bug.
+        <br /><br />
+        I highly recommend that you backup your profile before entering it here.
+        One service that allows you to do this is{' '}
+        <a href="https://nostryfied.online" target="_blank">Nostryfied</a>.
       </div>
       <div style={{}}>
         <br />

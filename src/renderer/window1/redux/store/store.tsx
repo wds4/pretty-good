@@ -13,6 +13,8 @@ import controlPanelSettingsReducer from '../features/grapevine/controlPanelSetti
 import compositeTrustScoresReducer from '../features/grapevine/compositeTrustScores/slice';
 import curatedListsReducer from '../features/curatedLists/lists/slice';
 import curatedListsSettingsReducer from '../features/curatedLists/settings/slice';
+import nip51Reducer from '../features/nip51/lists/slice';
+import nip51SettingsReducer from '../features/nip51/settings/slice';
 import eBooksReducer from '../features/eBooks/slice';
 
 import channelsReducer from '../features/curatedChannels/channels/slice';
@@ -34,6 +36,8 @@ const store = configureStore({
     compositeTrustScores: compositeTrustScoresReducer,
     curatedLists: curatedListsReducer,
     curatedListsSettings: curatedListsSettingsReducer,
+    nip51: nip51Reducer,
+    nip51Settings: nip51SettingsReducer,
     eBooks: eBooksReducer,
     channels: channelsReducer,
     channelsSettings: channelsSettingsReducer,

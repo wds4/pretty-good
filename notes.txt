@@ -152,3 +152,9 @@ const event: NostrEvent = {
   content: '',
   pubkey: myPubkey,
 };
+
+/////////// search event tags
+// Get the array of c tags
+const aTags_c = event.tags.filter(([k, v]) => k === 'c' && v && v !== '');
+// Get the first c tag
+const c0 = event.tags.filter(([k, v]) => k === 'c' && v && v !== '')[0];

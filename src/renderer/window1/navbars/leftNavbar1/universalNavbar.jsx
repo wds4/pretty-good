@@ -49,6 +49,9 @@ const UniversalLeftNavbar1 = () => {
     case 'askNostr':
       leftNavPanelClass += ' leftNavPanelAskNostr';
       break;
+    case 'nip51':
+      leftNavPanelClass += ' leftNavPanelNip51';
+      break;
     default:
     // no change
   }
@@ -96,7 +99,21 @@ const UniversalLeftNavbar1 = () => {
             <div style={{ fontSize: '32px' }}>📃</div>
             <div style={{ fontSize: '12px' }}>Curated Lists</div>
           </NavLink>
+        </div>
 
+        <div className={devElemClass1}>
+          <NavLink
+            className={({ isActive }) =>
+              isActive ? 'leftNavButton leftNavButtonActive' : 'leftNavButton'
+            }
+            onClick={() => {
+              dispatch(updateCurrentApp('nip51'));
+            }}
+            to="/NIP51Home"
+          >
+            <div style={{ fontSize: '32px' }}>📃</div>
+            <div style={{ fontSize: '12px' }}>NIP-51 Lists</div>
+          </NavLink>
         </div>
 
         <div className={devElemClass2}>

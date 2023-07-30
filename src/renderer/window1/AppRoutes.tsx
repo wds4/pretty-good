@@ -16,6 +16,12 @@ Previously these landing pages were used for startup functions
 import { useNostr } from 'nostr-react';
 import LandingPage from './landingPage';
 
+import NIP51Home from './apps/nip51';
+import NIP51Lists from './apps/nip51/lists';
+import NIP51List from './apps/nip51/list';
+import NIP51ListAuthors from './apps/nip51/listAuthors';
+import NIP51MakeNewList from './apps/nip51/makeNewList';
+
 import PrettyGoodHome from './apps/prettyGood';
 import PrettyGoodAbout from './apps/prettyGood/about';
 import ThreadedTapestry from './apps/prettyGood/about/threadedTapestry';
@@ -34,8 +40,8 @@ import VisjsHelloWorldMultiGraph from './apps/prettyGood/settings/helloWorld/vis
 import DataTablesHelloWorld from './apps/prettyGood/settings/helloWorld/dataTables';
 import ReactDataTableComponentHelloWorld from './apps/prettyGood/settings/helloWorld/reactDataTableComponent';
 
-// import PrettyGoodAppsLandingPage from './apps/nostr/landingPage'; // if want start page to be nostr main feed
-import PrettyGoodAppsLandingPage from './apps/curatedLists/listsWithScoresV8'; // if want start page to be cuarated list summary page
+import PrettyGoodAppsLandingPage from './apps/nostr/landingPage'; // if want start page to be nostr main feed
+// import PrettyGoodAppsLandingPage from './apps/curatedLists/listsWithScoresV8'; // if want start page to be cuarated list summary page
 import CuratedListsLandingPage from './apps/curatedLists/listsWithScoresV8';
 
 // import NostrHome from './apps/nostr'
@@ -183,6 +189,24 @@ const AppRoutes = () => {
         <Router>
           <Routes>
             <Route path="/" element={<PrettyGoodAppsLandingPage />} />
+
+            <Route path="/NIP51Home" element={<NIP51Home />} />
+            <Route
+              path="/NIP51Home/NIP51Lists"
+              element={<NIP51Lists />}
+            />
+            <Route
+              path="/NIP51Home/NIP51List"
+              element={<NIP51List />}
+            />
+            <Route
+              path="/NIP51Home/NIP51ListAuthors"
+              element={<NIP51ListAuthors />}
+            />
+            <Route
+              path="/NIP51Home/NIP51MakeNewList"
+              element={<NIP51MakeNewList />}
+            />
 
             <Route path="/PrettyGoodHome" element={<PrettyGoodHome />} />
             <Route

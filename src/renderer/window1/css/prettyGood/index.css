@@ -130,3 +130,52 @@
   padding-top: 0px;
   padding-bottom: 0px;
 }
+
+/*
+Lists, NIP-51
+*/
+.listsGroupContainer {
+  margin-top: 20px;
+}
+.listsGroupTitleContainer {
+  margin-left: 10px;
+  position: relative;
+}
+.listsGroupTitleParentheses {
+  color: grey;
+  margin-left: 5px;
+}
+.listsGroupToggleButton {
+  border: 0px;
+  width: 30px;
+  font-size: 24px;
+}
+.listsContainer {
+  margin-left: 30px;
+  max-height: 700px;
+  min-height: 20px;
+  overflow: scroll;
+}
+.numItemsNip51OuterContainer {
+  position: absolute;
+  right: 10px;
+  top: 0px;
+}
+.numItemsNip51Container {
+  margin-right:5px;
+}
+
+/*
+selectors
+*/
+.customSelectorContainerStyle1 {
+  position: relative;
+  font-family: Arial;
+  display: inline-block;
+}
+.customSelectorContainerStyle1 select {
+  font-size: 16px;
+  padding: 3px;
+  border: 1px solid grey;
+  border-radius: 3px;
+}

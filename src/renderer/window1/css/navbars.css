@@ -41,6 +41,9 @@ MAIN PANEL
 .leftNavPanelEBooks {
   background-color: #616A6B;
 }
+.leftNavPanelNip51 {
+  background-color: #616A6B;
+}
 
 /******************************
 LEFT NAV 1 BUTTONS
@@ -108,6 +111,9 @@ MAIN PANEL
 }
 .leftNav2PanelEBooks {
   background-color: #929f8083;
+}
+.leftNav2PanelNip51 {
+  background-color: #B8BFF1;
 }
 
 /******************************

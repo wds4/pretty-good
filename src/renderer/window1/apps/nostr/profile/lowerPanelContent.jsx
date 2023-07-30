@@ -4,6 +4,7 @@ import Grapevine from './panels/grapevine';
 import Posts from './panels/posts';
 import Ratings from './panels/ratings';
 import Scores from './panels/scores';
+import Lists from './panels/lists';
 
 const LowerPanelContent = ({ pubkey, lowerPanelId }) => {
   switch (lowerPanelId) {
@@ -39,6 +40,13 @@ const LowerPanelContent = ({ pubkey, lowerPanelId }) => {
       return (
         <>
           <Scores pubkey={pubkey} />
+        </>
+      );
+      break;
+    case 'lists':
+      return (
+        <>
+          <Lists pubkey={pubkey} />
         </>
       );
       break;

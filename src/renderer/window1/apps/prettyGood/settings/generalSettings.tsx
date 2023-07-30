@@ -43,7 +43,7 @@ const GeneralSettings = () => {
   return (
     <>
       <div className="grapevineSettingsItemContainer">
-        <div className="grapevineSettingsTitle">toggle Curated Lists</div>
+        <div className="grapevineSettingsTitle">toggle Curated Lists and NIP-51 Lists</div>
         <div className="grapevineSettingsTopRight">devMode1</div>
         <div className="grapevineSettingsItemMainToggleCol">
           <ToggleSwitch
@@ -55,7 +55,7 @@ const GeneralSettings = () => {
           />
         </div>
         <div className="grapevineSettingsDescription">
-          access the Curated Lists app
+          access the Curated Lists and NIP-51 Lists apps
         </div>
       </div>
 

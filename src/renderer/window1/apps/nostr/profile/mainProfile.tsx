@@ -321,8 +321,7 @@ const MainProfile = ({pubkey}) => {
                     userData={userData}
                   />
                 </div>
-                <div style={{display:'none'}}><RelaysCurationBox pubkey={pubkey} /></div>
-                <div style={{display:'none'}}><UserGrapevinePanel /></div>
+
               </div>
             </div>
           </div>
@@ -336,3 +335,9 @@ const MainProfile = ({pubkey}) => {
   );
 };
 export default MainProfile;
+
+/*
+// used to go below lnurl
+<div style={{display:'none'}}><RelaysCurationBox pubkey={pubkey} /></div>
+<div style={{display:'none'}}><UserGrapevinePanel /></div>
+*/

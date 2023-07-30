@@ -11,7 +11,7 @@ const UserGrapevinePanel = ({}) => {
     (state) => state.nostrGrapevineTrustRatingPresets.presets
   );
   const oRatingPreset = presets[ratingPreset];
-  console.log(`oRatingPreset: ${JSON.stringify(oRatingPreset, null, 3)}`);
+  // console.log(`oRatingPreset: ${JSON.stringify(oRatingPreset, null, 3)}`);
 
   const nostrGrapevineSettings = useSelector(
     (state) => state.nostrSettings.nostrGrapevineSettings
