@@ -10,7 +10,7 @@ import { noProfilePicUrl } from 'renderer/window1/const';
 import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
 import FollowButton from 'renderer/window1/apps/nostr/components/followButton';
 
-const NostrMiniProfile = ({ pubkey, searchStringForAuthors, searchStringForLists, whichFollowsSubset, aMyFollowing, oNip51 }) => {
+const NostrMiniProfile = ({ pubkey }) => {
   const dispatch = useDispatch();
   const nostrProfiles = useSelector(
     (state) => state.nostrProfiles.nostrProfiles
@@ -57,62 +57,8 @@ const NostrMiniProfile = ({ pubkey, searchStringForAuthors, searchStringForLists
   }
   //////////////////////////////////////
 
-  let displayByAuthorString="block";
-  if (searchStringForAuthors) {
-    const npub = nip19.npubEncode(pubkey);
-    displayByAuthorString = "none";
-    if (name && name.includes(searchStringForAuthors)) {
-      displayByAuthorString = "block";
-    }
-    if (displayName && displayName.includes(searchStringForAuthors)) {
-      displayByAuthorString = "block";
-    }
-    if (about && about.includes(searchStringForAuthors)) {
-      displayByAuthorString = "block";
-    }
-    if (pubkey && pubkey.includes(searchStringForAuthors)) {
-      displayByAuthorString = "block";
-    }
-    if (npub && npub.includes(searchStringForAuthors)) {
-      displayByAuthorString = "block";
-    }
-  }
-
-  let displayByListString="block";
-  if (searchStringForLists) {
-    displayByListString = "none";
-    const aListIDs = oNip51.byAuthor[pubkey].aEventIDs;
-    for (let x=0; x<aListIDs.length; x++) {
-      const listID = aListIDs[x];
-      const event = oNip51.lists[listID]?.event;
-      const aTags_d = event.tags.filter(([k, v]) => k === 'd' && v && v !== '');
-      let title = "";
-      if (aTags_d.length > 0) {
-        title = aTags_d[0][1];
-        console.log("qwerty title: "+title)
-      }
-      if (title && title.includes(searchStringForLists)) {
-        displayByListString = "block";
-      }
-    }
-
-  }
-
   let display="block";
-  if (displayByAuthorString == "none") { display="none"; }
-  if (displayByListString == "none") { display="none"; }
 
-  let amIFollowing = false;
-  if (aMyFollowing.includes(pubkey)) {
-    amIFollowing = true;
-  }
-
-  if ( (whichFollowsSubset==1) && (!amIFollowing) ) {
-    display = "none";
-  }
-  if ( (whichFollowsSubset==2) && (amIFollowing) ) {
-    display = "none";
-  }
   return (
     <>
       <div className="authorMiniProfileContainer" style={{display}}>

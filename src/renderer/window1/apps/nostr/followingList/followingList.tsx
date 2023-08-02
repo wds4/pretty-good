@@ -128,7 +128,7 @@ export default function FollowingList() {
                 onChange={handleChange}
               ></textarea>
             </div>
-            {aFollowing.map((oPk) => {
+            {[...aFollowing].reverse().map((oPk) => {
               if (oPk[0] == 'p') {
                 const pk = oPk[1];
                 return (

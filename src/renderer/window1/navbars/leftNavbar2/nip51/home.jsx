@@ -40,6 +40,36 @@ export default class LeftNavbar2 extends React.PureComponent {
           >
             Make New List
           </NavLink>
+
+          <hr />
+
+          <NavLink
+            className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
+            end to="/NIP51Home/NIP51Kind10000Lists"
+          >
+            Kind 10000 Lists
+          </NavLink>
+
+          <NavLink
+            className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
+            end to="/NIP51Home/NIP51Kind10001Lists"
+          >
+            Kind 10001 Lists
+          </NavLink>
+
+          <NavLink
+            className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
+            end to="/NIP51Home/NIP51Kind30000Lists"
+          >
+            Kind 30000 Lists
+          </NavLink>
+
+          <NavLink
+            className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
+            end to="/NIP51Home/NIP51Kind30001Lists"
+          >
+            Kind 30001 Lists
+          </NavLink>
         </div>
       </>
     );

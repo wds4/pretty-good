@@ -5,8 +5,6 @@ const ProfileManagement = () => {
     <>
       <div className="h2">Profile Management</div>
 
-      <div className="h4">work in progress</div>
-
       <div className="profileManagementFaqContainer">
         <div className="profileManagementFaqTitle">Multiple profiles</div>
         <div className="profileManagementFaqText">
@@ -48,19 +46,26 @@ const ProfileManagement = () => {
       </div>
 
       <div className="profileManagementFaqContainer">
-        <div className="profileManagementFaqTitle">Profile backups</div>
+        <div className="profileManagementFaqTitle">
+          Profile backups and cloning
+        </div>
+        <div
+          className="profileManagementFaqText"
+          style={{ marginBottom: '10px' }}
+        >
+          Because Pretty Good Apps is experimental software, we recommend the
+          use of a backup tool such as{' '}
+          <a href="https://nostryfied.online" target="_blank" rel="noreferrer">
+            Nostrified
+          </a>{' '}
+          prior to importing your profile to this app.
+        </div>
+
         <div className="profileManagementFaqText">
-          Pretty Good Apps provides a tool to backup and restore profiles. In
-          addition, it allows you to clone profiles, which may be useful for
-          setting up one or more shadow profiles.
-        </div>
-        <div className="profileManagementFaqText" style={{ marginTop: '10px' }}>
-          To backup a profile:
-          <li>go to ---</li>
-        </div>
-        <div className="profileManagementFaqText" style={{ marginTop: '10px' }}>
-          To clone or restore a profile:
-          <li>go to --</li>
+          We are considering implementation of a tool to make it easy for you to
+          clone a profile. This could be useful for setting up a shadow profile
+          in Pretty Good Apps. Let us know if this is something you would like
+          to see!
         </div>
       </div>
     </>

@@ -6,7 +6,7 @@ import GlobalFeedFetchPostsInBackground from './globalFeedFetchPostsInBackground
 import GlobalFeedDisplayFromRedux from './globalFeedDisplayFromRedux';
 import GlobalFeedShowLiveEvents from './globalFeedShowLiveEvents';
 
-const GlobalFeed = ({ aFollowing, aExtendedFollowing }) => {
+const GlobalFeed = ({ aFollowing, aExtendedFollowing, aNostrDevs, aFedWatchers }) => {
   const dispatch = useDispatch();
   dispatch(updateNostrActiveThreadFocus(""));
 
@@ -37,6 +37,14 @@ const GlobalFeed = ({ aFollowing, aExtendedFollowing }) => {
   switch (mainNostrFeedFilter) {
     case 'following':
       filter.authors = aFollowing;
+      // filter.since = currentTime - 6 * 60 * 60; // 12 * 60 * 60 = fetch messages as old as two days
+      break;
+    case 'channelNostrDevelopment':
+      filter.authors = aNostrDevs;
+      // filter.since = currentTime - 6 * 60 * 60; // 12 * 60 * 60 = fetch messages as old as two days
+      break;
+    case 'channelFedWatch':
+      filter.authors = aFedWatchers;
       // filter.since = currentTime - 6 * 60 * 60; // 12 * 60 * 60 = fetch messages as old as two days
       break;
     case 'eFollowing':

@@ -44,7 +44,7 @@ export default function FollowingList() {
           onChange={handleChange}
         ></textarea>
       </div>
-      {aFollowing.map((pk) => {
+      {[... aFollowing].reverse().map((pk) => {
         return (
           <>
             <MiniProfile

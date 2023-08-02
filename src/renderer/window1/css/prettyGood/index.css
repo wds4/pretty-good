@@ -164,6 +164,15 @@ Lists, NIP-51
 .numItemsNip51Container {
   margin-right:5px;
 }
+.newListTitleTextareaNip51 {
+  font-size:26px;
+  border: 2px solid purple;
+  border-radius: 5px;
+  width: 97%;
+  height: 30px;
+  padding: 5px;
+  font-family: Arial;
+}
 
 /*
 selectors
@@ -174,8 +183,9 @@ selectors
   display: inline-block;
 }
 .customSelectorContainerStyle1 select {
-  font-size: 16px;
+
   padding: 3px;
   border: 1px solid grey;
   border-radius: 3px;
 }
+

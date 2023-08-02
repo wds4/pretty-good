@@ -21,6 +21,10 @@ import NIP51Lists from './apps/nip51/lists';
 import NIP51List from './apps/nip51/list';
 import NIP51ListAuthors from './apps/nip51/listAuthors';
 import NIP51MakeNewList from './apps/nip51/makeNewList';
+import NIP51Kind10000Lists from './apps/nip51/kind10000Lists';
+import NIP51Kind10001Lists from './apps/nip51/kind10001Lists';
+import NIP51Kind30000Lists from './apps/nip51/kind30000Lists';
+import NIP51Kind30001Lists from './apps/nip51/kind30001Lists';
 
 import PrettyGoodHome from './apps/prettyGood';
 import PrettyGoodAbout from './apps/prettyGood/about';
@@ -71,6 +75,7 @@ import NostrSettingsGrapevine from './apps/nostr/settings/grapevine';
 import NostrSettingsExtendedFollowing from './apps/nostr/settings/extendedFollowing';
 import NostrMainFeedSettings from './apps/nostr/settings/mainFeed';
 import ProfileManagement from './apps/nostr/settings/profileManagement';
+import ChannelManagement from './apps/nostr/settings/channelManagement';
 
 import GrapevineHome from './apps/grapevine';
 import GrapevineProfile from './apps/grapevine/profile';
@@ -206,6 +211,22 @@ const AppRoutes = () => {
             <Route
               path="/NIP51Home/NIP51MakeNewList"
               element={<NIP51MakeNewList />}
+            />
+            <Route
+              path="/NIP51Home/NIP51Kind10000Lists"
+              element={<NIP51Kind10000Lists />}
+            />
+            <Route
+              path="/NIP51Home/NIP51Kind10001Lists"
+              element={<NIP51Kind10001Lists />}
+            />
+            <Route
+              path="/NIP51Home/NIP51Kind30000Lists"
+              element={<NIP51Kind30000Lists />}
+            />
+            <Route
+              path="/NIP51Home/NIP51Kind30001Lists"
+              element={<NIP51Kind30001Lists />}
             />
 
             <Route path="/PrettyGoodHome" element={<PrettyGoodHome />} />
@@ -354,6 +375,10 @@ const AppRoutes = () => {
             <Route
               path="/NostrHome/ProfileManagement"
               element={<ProfileManagement />}
+            />
+            <Route
+              path="/NostrHome/ChannelManagement"
+              element={<ChannelManagement />}
             />
 
             <Route path="/GrapevineHome" element={<GrapevineHome />} />
