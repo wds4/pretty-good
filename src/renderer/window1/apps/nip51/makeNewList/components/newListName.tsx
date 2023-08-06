@@ -1,4 +1,10 @@
-const NewListName = ({ newListKind, updateListName, v }) => {
+const NewListName = ({ newListKind, setNewListName }) => {
+  const updateNewListName = () => {
+    const e = document.getElementById('newListTitle');
+    if (e) {
+      setNewListName(e.value);
+    }
+  }
   if (newListKind == '0') {
     return (
       <>
@@ -12,7 +18,8 @@ const NewListName = ({ newListKind, updateListName, v }) => {
       </>
     );
   }
-  if (v == '10000') {
+  if (newListKind == '10000') {
+    setNewListName('mute');
     return (
       <>
         <textarea
@@ -25,7 +32,8 @@ const NewListName = ({ newListKind, updateListName, v }) => {
       </>
     );
   }
-  if (v == '10001') {
+  if (newListKind == '10001') {
+    setNewListName('pin');
     return (
       <>
         <textarea
@@ -43,7 +51,7 @@ const NewListName = ({ newListKind, updateListName, v }) => {
       <div>
         <textarea
           className="newListTitleTextareaNip51"
-          onChange={updateListName()}
+          onChange={updateNewListName}
           id="newListTitle"
           placeholder="give your new list a name"
           style={{ backgroundColor: '#FFFFFF' }}

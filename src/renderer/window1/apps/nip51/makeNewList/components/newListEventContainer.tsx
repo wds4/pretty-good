@@ -31,12 +31,17 @@ const NewListEventContainer = ({aItems, newListKind, newListName}) => {
     }
     if (type == "nevent") {
       const id = JSON.parse(aItem[2]).id;
-      const aTab = ["p",id];
+      const aTab = ["e",id];
       aTags.push(aTab);
     }
     if (type == "note") {
       const id = aItem[2];
-      const aTab = ["p",id];
+      const aTab = ["e",id];
+      aTags.push(aTab);
+    }
+    if (type == "plainText") {
+      const plainTextInput = aItem[0];
+      const aTab = ["t",plainTextInput];
       aTags.push(aTab);
     }
   }

@@ -61,8 +61,8 @@ const NostrMiniProfile = ({ pubkey }) => {
 
   return (
     <>
-      <div className="authorMiniProfileContainer" style={{display}}>
-        <div className="singleUserContainer" style={{textAlign:"left"}}>
+      <div className="authorMiniProfileContainer" style={{display, backgroundColor: "#EFEFEF"}}>
+        <div className="singleUserContainer" style={{textAlign:"left", backgroundColor: "#EFEFEF"}}>
           <NavLink
             onClick={() => {
               dispatch(updateNostrProfileFocus(pubkey));
@@ -73,9 +73,9 @@ const NostrMiniProfile = ({ pubkey }) => {
             <div className="userListSmallAvatarContainer">
               <img src={avatarUrl} className="userListSmallAvatarBox" />
             </div>
-            <div className="singleUserMainBodyContainer">
-              <div className="eventNameAndTimeContainer">
-                <div className="eventNameContainer">
+            <div className="singleUserMainBodyContainer" style={{height: "100%", backgroundColor: "#EFEFEF"}}>
+              <div className="eventNameAndTimeContainer" style={{height: "100%", fontSize: "22px", backgroundColor: "#EFEFEF"}}>
+                <div className="eventNameContainer" >
                   <span style={{ color: 'black' }}>{displayName}</span>
                   <span style={{ color: 'grey', marginLeft: '10px' }}>
                     {name}
@@ -85,7 +85,6 @@ const NostrMiniProfile = ({ pubkey }) => {
                   ... {pubkey.slice(-6)}
                 </div>
               </div>
-              <div className="eventContentContainer">{about}</div>
             </div>
           </NavLink>
           <div className="singleUserFollowButtonContainer">

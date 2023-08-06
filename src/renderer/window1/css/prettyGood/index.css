@@ -168,8 +168,9 @@ Lists, NIP-51
   font-size:26px;
   border: 2px solid purple;
   border-radius: 5px;
-  width: 97%;
-  height: 30px;
+  width: 100%;
+  box-sizing: border-box;
+  height: 50px;
   padding: 5px;
   font-family: Arial;
 }
@@ -189,3 +190,12 @@ selectors
   border-radius: 3px;
 }
 
+/*
+nip51
+*/
+.nip51Button {
+  background-color: white;
+}
+.nip51Button:hover {
+  background-color: yellow;
+}

@@ -4,12 +4,12 @@ const PublicOrPrivateSelector = () => {
       <select
         id="publicOrPrivateSelector"
         style={{
-          width: '20%',
+          width: '100%',
+          height: '50px',
           fontSize: '26px',
           padding: '3px',
           border: '2px solid purple',
           borderRadius: '5px',
-          marginLeft: "10px"
         }}
       >
         <option>public</option>

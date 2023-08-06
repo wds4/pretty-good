@@ -1,10 +1,12 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import Masthead from 'renderer/window1/mastheads/nip51Masthead';
 import LeftNavbar1 from 'renderer/window1/navbars/leftNavbar1/universalNavbar';
 import LeftNavbar2 from 'renderer/window1/navbars/leftNavbar2/nip51/home';
-import { updateMainColWidth, updateMastheadCenter } from 'renderer/window1/lib/pg/ui';
-import MakeNewList from './makeNewList';
+import {
+  updateMainColWidth,
+  updateMastheadCenter,
+} from 'renderer/window1/lib/pg/ui';
+import State from './state';
 
 export default class MakeNewListMain extends React.Component {
   constructor(props) {
@@ -28,7 +30,7 @@ export default class MakeNewListMain extends React.Component {
         <div id="mainCol">
           <Masthead />
           <div id="mainPanel">
-            <MakeNewList />
+            <State />
           </div>
         </div>
       </>

@@ -1,13 +1,18 @@
-const PublishButton = ({postList}) => {
+const PublishButton = ({}) => {
   return (
     <>
       <button
         type="button"
-        onClick={postList}
-        className="doSomethingButton"
-        style={{fontSize: "26px"}}
+        className="nip51Button"
+        style={{
+          fontSize: "26px",
+          border:"1px solid green",
+          borderRadius: "5px",
+          color: "green",
+          height: "50px",
+        }}
       >
-        Publish your list!
+        Publish
       </button>
     </>
   )

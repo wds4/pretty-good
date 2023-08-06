@@ -3,11 +3,17 @@ const StartOverButton = ({startOver}) => {
     <>
       <button
         type="button"
+        className="nip51Button"
         onClick={startOver}
-        className="doSomethingButton"
-        style={{fontSize: "26px"}}
+        style={{
+          fontSize: "26px",
+          border: "1px solid red",
+          borderRadius: "5px",
+          width: '50px',
+          height: '50px',
+        }}
       >
-        Start over
+        ❌
       </button>
     </>
   )

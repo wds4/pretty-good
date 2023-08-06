@@ -1,17 +1,12 @@
-import { nip19 } from 'nostr-tools';
-
-const NewItemIdentifier = ({
+const NewItemPlainText = ({
   processNewItemText,
   setIsNewItemValid,
   setNewItemText,
   newListKind,
 }) => {
-  let placeholderText = 'NIP-19 identifier for an event: nevent, note';
-  if (newListKind == 10000 || newListKind == 30000) {
-    placeholderText = 'NIP-19 identifier for a person: npub, nprofile';
-  }
+  const placeholderText = 'enter your plain text item';
   const updateNewItemText = () => {
-    const e = document.getElementById('listItemTextarea');
+    const e = document.getElementById('listItemPlainTextTextarea');
     if (e) {
       const item = e.value;
       processNewItemText(item);
@@ -20,7 +15,7 @@ const NewItemIdentifier = ({
   return (
     <>
       <textarea
-        id="listItemTextarea"
+        id="listItemPlainTextTextarea"
         style={{
           height: '46px',
           padding: '5px',
@@ -29,7 +24,7 @@ const NewItemIdentifier = ({
           boxSizing: 'border-box',
           border: '2px solid purple',
           borderRadius: '5px',
-          fontSize: '14px',
+          fontSize: '24px',
           fontFamily: 'Arial',
         }}
         onChange={updateNewItemText}
@@ -39,7 +34,7 @@ const NewItemIdentifier = ({
         data-isitemvalid=""
       />
     </>
-  );
-};
+  )
+}
 
-export default NewItemIdentifier;
+export default NewItemPlainText;
