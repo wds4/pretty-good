@@ -9,6 +9,7 @@ import {
 import { secsToTime } from 'renderer/window1/lib/pg';
 import YoutubeEmbed, { extractVideoID, extractVideoUrl } from 'renderer/window1/apps/nostr/components/post/youTubeEmbed';
 import ImageEmbed, { extractImageUrl } from 'renderer/window1/apps/nostr/components/post/imageEmbed';
+import MiniProfile from './miniProfile';
 
 const ReplyingTo = ({ event }) => {
   const aaETags = event.tags.filter(([k, v]) => k === 'e' && v && v !== '');
@@ -124,32 +125,86 @@ const Post = ({ event, index }) => {
 
   return (
     <>
-      <div className="eventContainer">
-        <NavLink
-          onClick={() => {
-            dispatch(updateNostrProfileFocus(event.pubkey));
-          }}
-          to={{
-            pathname: '/NostrHome/NostrViewProfile',
-            state: { pubkey: event.pubkey },
-          }}
-        >
-          <div className="smallAvatarContainer">
-            <img src={avatarUrl} className="smallAvatarBox_show" />
-          </div>
-        </NavLink>
-        <div className="eventMainBodyContainer">
-          <div className="eventNameAndTimeContainer">
-            <div className="eventNameContainer">
-              <span className={nameClass} style={{ marginRight: '10px' }}>
-                {displayName}
+      <div
+        style={{
+          textAlign: 'left',
+          boxSizing: 'border-box',
+          border: '1px solid black',
+          borderRadius: '5px',
+          backgroundColor: '#EFEFEF',
+        }}
+      >
+        <div>
+          <NavLink
+            onClick={() => {
+              dispatch(updateNostrProfileFocus(event.pubkey));
+            }}
+            to={{
+              pathname: '/NostrHome/NostrViewProfile',
+              state: { pubkey: event.pubkey },
+            }}
+          >
+            <div
+              style={{
+                display: 'inline-block',
+                position: 'relative',
+                width: '50px',
+                height: '50px',
+              }}
+            >
+              <img
+                src={avatarUrl}
+                alt=""
+                style={{
+                  display: 'inline-block',
+                  backgroundColor: 'white',
+                  border: '1px solid black',
+                  borderRadius: '250px',
+                  width: '75%',
+                  height: '75%',
+                  margin: '0',
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                }}
+              />
+            </div>
+            <div
+              style={{
+                height: '100%',
+                backgroundColor: '#EFEFEF',
+                display: 'inline-block',
+                width: 'calc(86% - 70px)',
+                borderRadius: '5px',
+                marginLeft: '5px',
+                padding: '2px',
+                fontSize: '16px',
+              }}
+            >
+              <div
+                style={{
+                  display: 'inline-block',
+                  color: 'black',
+                  marginRight: '10px',
+                  marginTop: '2px',
+                  maxWidth: '80%',
+                  overflow: 'auto',
+                  paddingLeft: '3px',
+                }}
+              >
+                <span style={{ color: 'black' }}>{displayName}</span>
                 <span style={{ color: 'grey', marginLeft: '10px' }}>
                   {name}
                 </span>
-              </span>
+                <div style={{fontSize: '12px', marginTop: '2px'}} >{displayTime} ago</div>
+              </div>
+
             </div>
-            <div className="eventTimeContainer">{displayTime}</div>
-          </div>
+          </NavLink>
+        </div>
+        <div style={{backgroundColor: 'white'}}>
+
           <ReplyingTo event={event} />
           <NavLink
             onClick={() => {
@@ -172,6 +227,73 @@ const Post = ({ event, index }) => {
         </div>
       </div>
     </>
-  );
+  )
+
+
 };
 export default Post;
+
+
+/*
+return (
+    <>
+      <div
+        style={{
+          textAlign: 'left',
+          boxSizing: 'border-box',
+          border: '1px solid black',
+          borderRadius: '5px',
+          backgroundColor: '#EFEFEF',
+        }}
+      >
+        <NavLink
+          onClick={() => {
+            dispatch(updateNostrProfileFocus(event.pubkey));
+          }}
+          to={{
+            pathname: '/NostrHome/NostrViewProfile',
+            state: { pubkey: event.pubkey },
+          }}
+        >
+          <div className="smallAvatarContainer">
+            <img src={avatarUrl} className="smallAvatarBox_show" />
+          </div>
+        </NavLink>
+
+        <div className="eventMainBodyContainer">
+          <div className="eventNameAndTimeContainer">
+            <div className="eventNameContainer">
+              <span className={nameClass} style={{ marginRight: '10px' }}>
+                {displayName}
+                <span style={{ color: 'grey', marginLeft: '10px' }}>
+                  {name}
+                </span>
+              </span>
+            </div>
+            <div className="eventTimeContainer">{displayTime}</div>
+          </div>
+          <ReplyingTo event={event} />
+
+          <NavLink
+            onClick={() => {
+              dispatch(updateNostrPostFocusEvent(event));
+              dispatch(updateNostrActiveThreadFocus(event));
+            }}
+            to={{
+              pathname: '/NostrHome/NostrThread',
+              state: { event },
+            }}
+            className="eventContentContainer"
+          >
+            {contentMinusVideoAndImageUrls}
+            <YoutubeEmbed
+              embedId={embedId2}
+              extractedVideoUrl={extractedVideoUrl}
+            />
+            <ImageEmbed extractImageUrl={extractedImageUrl} />
+          </NavLink>
+        </div>
+      </div>
+    </>
+  );
+*/

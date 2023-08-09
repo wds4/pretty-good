@@ -2,19 +2,17 @@ import { nip19 } from 'nostr-tools';
 
 const NewItemIdentifier = ({
   processNewItemText,
-  setIsNewItemValid,
-  setNewItemText,
   newListKind,
 }) => {
-  let placeholderText = 'NIP-19 identifier for an event: nevent, note';
+  let placeholderText = "enter the NIP-19 identifier for a person (should start with 'npub' or 'nprofile') OR for a nostr note (should start with 'nevent' or 'note')";
   if (newListKind == 10000 || newListKind == 30000) {
-    placeholderText = 'NIP-19 identifier for a person: npub, nprofile';
+    placeholderText = "enter the NIP-19 identifier for a person (should start with 'npub' or 'nprofile')";
   }
   const updateNewItemText = () => {
     const e = document.getElementById('listItemTextarea');
     if (e) {
-      const item = e.value;
-      processNewItemText(item);
+      const searchText = e.value;
+      processNewItemText(searchText);
     }
   };
   return (

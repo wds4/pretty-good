@@ -14,7 +14,7 @@ export default class ListsHome extends React.Component {
 
   async componentDidMount() {
     updateMainColWidth();
-    const mastheadDescriptor = 'NIP 51 Lists: View Lists';
+    const mastheadDescriptor = 'NIP 51 Lists: Load Lists';
     updateMastheadCenter(mastheadDescriptor);
   }
 

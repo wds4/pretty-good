@@ -10,7 +10,7 @@ import { noProfilePicUrl } from 'renderer/window1/const';
 import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
 import FollowButton from 'renderer/window1/apps/nostr/components/followButton';
 
-const NostrMiniProfile = ({ pubkey }) => {
+const MiniProfile = ({ pubkey }) => {
   const dispatch = useDispatch();
   const nostrProfiles = useSelector(
     (state) => state.nostrProfiles.nostrProfiles
@@ -35,6 +35,7 @@ const NostrMiniProfile = ({ pubkey }) => {
     }
   }
 
+  /*
   /// // STEP 3 ///// Query network for updated profile information and if found, use that instead, and update redux
   const { events } = useNostrEvents({
     filter: {
@@ -55,44 +56,106 @@ const NostrMiniProfile = ({ pubkey }) => {
     about = content.about;
     avatarUrl = content.picture;
   }
-  //////////////////////////////////////
-
-  let display="block";
+  /// ///////////////////////////////////
+  */
 
   return (
     <>
-      <div className="authorMiniProfileContainer" style={{display, backgroundColor: "#EFEFEF"}}>
-        <div className="singleUserContainer" style={{textAlign:"left", backgroundColor: "#EFEFEF"}}>
-          <NavLink
-            onClick={() => {
-              dispatch(updateNostrProfileFocus(pubkey));
+      <div
+        style={{
+          textAlign: 'left',
+          boxSizing: 'border-box',
+          height: '50px',
+          border: '1px solid black',
+          borderRadius: '5px',
+          backgroundColor: '#EFEFEF',
+        }}
+      >
+        <NavLink
+          onClick={() => {
+            dispatch(updateNostrProfileFocus(pubkey));
+          }}
+          to="/NostrHome/NostrViewProfile"
+          style={{ textDecoration: 'none' }}
+        >
+          <div
+            style={{
+              display: 'inline-block',
+              position: 'relative',
+              width: '50px',
+              height: '50px',
             }}
-            to="/NostrHome/NostrViewProfile"
-            className="goToUserProfileButton"
           >
-            <div className="userListSmallAvatarContainer">
-              <img src={avatarUrl} className="userListSmallAvatarBox" />
-            </div>
-            <div className="singleUserMainBodyContainer" style={{height: "100%", backgroundColor: "#EFEFEF"}}>
-              <div className="eventNameAndTimeContainer" style={{height: "100%", fontSize: "22px", backgroundColor: "#EFEFEF"}}>
-                <div className="eventNameContainer" >
-                  <span style={{ color: 'black' }}>{displayName}</span>
-                  <span style={{ color: 'grey', marginLeft: '10px' }}>
-                    {name}
-                  </span>
-                </div>
-                <div className="eventTimeContainer" style={{ color: 'grey' }}>
-                  ... {pubkey.slice(-6)}
-                </div>
-              </div>
-            </div>
-          </NavLink>
-          <div className="singleUserFollowButtonContainer">
-            <FollowButton pubkey={pubkey} />
+            <img
+              src={avatarUrl}
+              alt=""
+              style={{
+                display: 'inline-block',
+                backgroundColor: 'white',
+                border: '1px solid black',
+                borderRadius: '250px',
+                width: '75%',
+                height: '75%',
+                margin: '0',
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+              }}
+            />
           </div>
+
+          <div
+            style={{
+              height: '100%',
+              backgroundColor: '#EFEFEF',
+              display: 'inline-block',
+              width: 'calc(86% - 70px)',
+              borderRadius: '5px',
+              marginLeft: '5px',
+              padding: '2px',
+              fontSize: '22px',
+            }}
+          >
+            <div
+              style={{
+                display: 'inline-block',
+                color: 'black',
+                marginRight: '10px',
+                marginTop: '8px',
+                maxWidth: '80%',
+                overflow: 'auto',
+                paddingLeft: '3px',
+              }}
+            >
+              <span style={{ color: 'black' }}>{displayName}</span>
+              <span style={{ color: 'grey', marginLeft: '10px' }}>
+                {name}
+              </span>
+            </div>
+            <div
+              style={{
+                color: 'grey',
+                display: 'inline-block',
+                float: 'right',
+                marginTop: '8px',
+              }}
+            >
+              ... {pubkey.slice(-6)}
+            </div>
+          </div>
+        </NavLink>
+        <div
+          style={{
+            position: 'absolute',
+            right: '5px',
+            top: '5px',
+          }}
+        >
+          <FollowButton pubkey={pubkey} />
         </div>
       </div>
     </>
   );
 };
-export default NostrMiniProfile;
+export default MiniProfile;

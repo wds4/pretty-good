@@ -58,11 +58,40 @@ const NewListEventContainer = ({aItems, newListKind, newListName}) => {
   event.sig = signEvent(event, myPrivkey);
 
   const event_ = JSON.parse(JSON.stringify(event));
-  // };
+
+  const oWord = {};
+  oWord.wordData = {};
+  oWord.wordData.wordTypes=[ "word", "list" ];
+  oWord.listData = {};
+  oWord.listData.name = newListName;
+
   return (
     <>
       <div id="newPostTextareaContainer" style={{ marginTop: '50px' }}>
-        <textarea id="newNoteTextarea" value={JSON.stringify(event_,null,4)} className="newPostTextarea" />
+        <textarea
+          id="newWordTextarea"
+          value={JSON.stringify(oWord,null,4)}
+          style={{
+            boxSizing: 'border-box',
+            width: '100%',
+            height: '200px',
+            border: '2px solid purple',
+            borderRadius: '5px',
+            padding: '10px',
+          }}
+        />
+        <textarea
+          id="newNoteTextarea"
+          value={JSON.stringify(event_,null,4)}
+          style={{
+            boxSizing: 'border-box',
+            width: '100%',
+            height: '200px',
+            border: '2px solid purple',
+            borderRadius: '5px',
+            padding: '10px',
+          }}
+        />
       </div>
     </>
   )

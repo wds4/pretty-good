@@ -12,12 +12,14 @@ const PageLayout = ({
   addItem,
   startNewList,
   resetNewItemInput,
+  removeSingleItem,
 
   setNewListName,
   setIsNewItemValid,
   setNewItemGroup,
   setNewItemText,
   setNewListKind,
+  setExistingListSearchTerm,
 
   newListKind,
   newListName,
@@ -26,6 +28,7 @@ const PageLayout = ({
   newItemType,
   newItemData,
   isNewItemValid,
+  isNewItemAlreadyOnList,
   whichStep,
   aItems,
 }) => {
@@ -126,6 +129,7 @@ const PageLayout = ({
               setIsNewItemValid={setIsNewItemValid}
               setNewItemGroup={setNewItemGroup}
               setNewItemText={setNewItemText}
+              setExistingListSearchTerm={setExistingListSearchTerm}
               newListKind={newListKind}
               whichStep={whichStep}
               startOver={startOver}
@@ -134,6 +138,7 @@ const PageLayout = ({
               newItemType={newItemType}
               newItemData={newItemData}
               isNewItemValid={isNewItemValid}
+              isNewItemAlreadyOnList={isNewItemAlreadyOnList}
             />
           </div>
 
@@ -144,11 +149,15 @@ const PageLayout = ({
                 width: '80%',
               }}
             >
-              <ShowItemsPanel aItems={aItems} newListKind={newListKind} />
+              <ShowItemsPanel
+                removeSingleItem={removeSingleItem}
+                aItems={aItems}
+                newListKind={newListKind}
+              />
             </div>
           </center>
 
-          <div style={{ display: 'none' }}>
+          <div style={{ display: 'block' }}>
             <NewListEventContainer
               aItems={aItems}
               newListKind={newListKind}

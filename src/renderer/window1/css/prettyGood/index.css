@@ -184,7 +184,6 @@ selectors
   display: inline-block;
 }
 .customSelectorContainerStyle1 select {
-
   padding: 3px;
   border: 1px solid grey;
   border-radius: 3px;
@@ -198,4 +197,27 @@ nip51
 }
 .nip51Button:hover {
   background-color: yellow;
+}
+.singleListOverviewContainer:hover {
+  background-color: yellow;
+}
+.nip51KindSelectorInactive {
+  font-size:12px;
+  display:inline-block;
+  border:1px solid black;
+  border-radius:3px;
+  padding:4px;
+  margin:4px;
+  background-color:#DFDFDF;
+  color:black;
+}
+.nip51KindSelectorActive {
+  font-size:12px;
+  display:inline-block;
+  border:1px solid black;
+  border-radius:3px;
+  padding:4px;
+  margin:4px;
+  background-color:green;
+  color:white;
 }

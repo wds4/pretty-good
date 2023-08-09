@@ -1,6 +1,6 @@
 import ShowSingleItem from '../showSingleItem';
 
-const ShowItemsPanel = ({ aItems, newListKind }) => {
+const ShowItemsPanel = ({ removeSingleItem, aItems, newListKind }) => {
   if (aItems.length == 0) { return <></>; }
   let items = "items";
   if (aItems.length == 1) { items = "item"; }
@@ -17,10 +17,10 @@ const ShowItemsPanel = ({ aItems, newListKind }) => {
         >
           {aItems.length} {items}:
         </div>
-        {aItems.map((item) => {
+        {aItems.map((item, itemNumber) => {
           return (
             <>
-              <ShowSingleItem item={item} kind={newListKind} showDeleteButton={showDeleteButton} />
+              <ShowSingleItem removeSingleItem={removeSingleItem} itemNumber={itemNumber} item={item} kind={newListKind} showDeleteButton={showDeleteButton} />
             </>
           );
         })}

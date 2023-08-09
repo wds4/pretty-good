@@ -2,7 +2,9 @@ import AddItemButton from '../components/addItemButton';
 import NewItemIdentifier from '../components/newItemIdentifier';
 import NewItemPlainText from '../components/newItemPlainText';
 import ItemTypeSelector from '../components/itemTypeSelector';
+import AnotherListSelector from '../components/anotherListSelector';
 import ShowSingleItem from '../showSingleItem';
+import ImportListTextareas from '../../components/importListTextareas';
 
 const Title = ({ aItems }) => {
   if (aItems.length == 0) {
@@ -25,15 +27,14 @@ const NewItemTextarea = ({
   newListKind,
   newItemGroup,
   setNewItemText,
+  setExistingListSearchTerm,
 }) => {
   if (newItemGroup == 'nip19identifier') {
     return (
       <>
         <NewItemIdentifier
           processNewItemText={processNewItemText}
-          setIsNewItemValid={setIsNewItemValid}
           newListKind={newListKind}
-          setNewItemText={setNewItemText}
         />
       </>
     );
@@ -43,12 +44,19 @@ const NewItemTextarea = ({
       <>
         <NewItemPlainText
           processNewItemText={processNewItemText}
-          setIsNewItemValid={setIsNewItemValid}
-          newListKind={newListKind}
-          setNewItemText={setNewItemText}
         />
       </>
     );
+  }
+  if (newItemGroup == "anotherList") {
+    return (
+      <>
+        <AnotherListSelector
+          processNewItemText={processNewItemText}
+          newListKind={newListKind}
+        />
+      </>
+    )
   }
   return <></>;
 };
@@ -64,11 +72,13 @@ const AddItemPanel = ({
   startOver,
   setNewItemGroup,
   setNewItemText,
+  setExistingListSearchTerm,
   newItemGroup,
   newItemText,
   newItemType,
   newItemData,
   isNewItemValid,
+  isNewItemAlreadyOnList,
 }) => {
   if (whichStep == 0) {
     return <></>;
@@ -106,7 +116,7 @@ const AddItemPanel = ({
         >
           <div
             style={{
-              width: '150px',
+              width: '175px',
               flexGrow: '1',
             }}
           >
@@ -128,6 +138,19 @@ const AddItemPanel = ({
               newListKind={newListKind}
               newItemGroup={newItemGroup}
               setNewItemText={setNewItemText}
+              setExistingListSearchTerm={setExistingListSearchTerm}
+            />
+          </div>
+          <div
+            style={{
+              minWidth: '200px',
+              flexGrow: '999',
+            }}
+          >
+            <ImportListTextareas
+              processNewItemText={processNewItemText}
+              newListKind={newListKind}
+              newItemGroup={newItemGroup}
             />
           </div>
           <div
@@ -141,6 +164,7 @@ const AddItemPanel = ({
               newItemGroup={newItemGroup}
               newItemText={newItemText}
               addItem={addItem}
+              isNewItemAlreadyOnList={isNewItemAlreadyOnList}
             />
           </div>
         </div>
@@ -150,7 +174,8 @@ const AddItemPanel = ({
             marginTop: "10px",
           }}
         >
-          <ShowSingleItem item={aItem} kind={newListKind} showDeleteButton={showDeleteButton} />
+          <IsNewItemAlreadyOnList isNewItemAlreadyOnList={isNewItemAlreadyOnList} />
+          <ShowSingleItem isNewItemAlreadyOnList={isNewItemAlreadyOnList} item={aItem} kind={newListKind} showDeleteButton={showDeleteButton} />
         </div>
         <div
           id="itemInputFieldErrorBox"
@@ -166,15 +191,20 @@ const AddItemPanel = ({
 };
 export default AddItemPanel;
 
-/*
-, using{' '}
-<a
-  href="https://github.com/nostr-protocol/nips/blob/master/19.md"
-  target="_blank"
-  style={{ textDecoration: 'none' }}
-  rel="noreferrer"
->
-  NIP-19
-</a>{' '}
-identifiers
-*/
+const IsNewItemAlreadyOnList = ({isNewItemAlreadyOnList}) => {
+  if (isNewItemAlreadyOnList == "no") { return <></>; }
+  return (
+    <div
+      style={{
+        border: '1px solid grey',
+        borderRadius: '5px',
+        boxSizing: 'border-box',
+        width: '100%',
+        height: '50px',
+        padding: '10px',
+        fontSize: '18px',
+        marginBottom: '5px',
+      }}
+    >This item is already on the list!</div>
+  )
+}

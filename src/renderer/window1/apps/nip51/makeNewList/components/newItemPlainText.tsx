@@ -1,15 +1,12 @@
 const NewItemPlainText = ({
   processNewItemText,
-  setIsNewItemValid,
-  setNewItemText,
-  newListKind,
 }) => {
   const placeholderText = 'enter your plain text item';
   const updateNewItemText = () => {
     const e = document.getElementById('listItemPlainTextTextarea');
     if (e) {
-      const item = e.value;
-      processNewItemText(item);
+      const searchText = e.value;
+      processNewItemText(searchText);
     }
   };
   return (

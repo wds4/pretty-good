@@ -15,13 +15,16 @@ const Lists = () => {
   );
   const title = "Nostr Devs";
 
-  const aListEventIDs = oNip51.aListEventIDs
+  const { aListEventIDs, aKind30000, aKind30001 } = oNip51
   return (
     <>
       <div>
         <div>number of aListEventIDs: {aListEventIDs.length}</div>
-        <Kind10000Lists />
-        <Kind10001Lists />
+        <div>number of aKind30000: {aKind30000.length}</div>
+        <div>number of aKind30001: {aKind30001.length}</div>
+        <hr />
+        <div>kind10000Lists: disabled</div>
+        <div>kind10001Lists: disabled</div>
         <Kind30000Lists title={title} />
         <Kind30001Lists title={title} />
       </div>
@@ -32,6 +35,11 @@ const Lists = () => {
   );
 };
 export default Lists;
+
+/*
+<Kind10000Lists />
+<Kind10001Lists />
+*/
 
 /*
 <AllLists />

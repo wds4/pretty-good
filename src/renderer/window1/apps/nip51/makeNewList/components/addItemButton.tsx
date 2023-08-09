@@ -44,7 +44,14 @@ const ButtonInActive = () => {
   )
 }
 
-const AddItemButton = ({ isNewItemValid, newItemGroup, newItemText, addItem }) => {
+const AddItemButton = ({ isNewItemValid, newItemGroup, newItemText, addItem, isNewItemAlreadyOnList }) => {
+  if (isNewItemAlreadyOnList == 'yes') {
+    return (
+      <>
+        <ButtonInActive />
+      </>
+    );
+  }
   if (newItemGroup=="nip19identifier") {
     if (isNewItemValid != 'yes') {
       return (

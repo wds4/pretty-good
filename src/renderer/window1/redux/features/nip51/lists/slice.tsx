@@ -36,7 +36,6 @@ export const nip51Slice = createSlice({
     addList: (state, action) => {
       const event = action.payload;
       // if (doesEventValidate(event)) {
-
         const {id, kind, pubkey} = event;
         const aTags_d = event.tags.filter(([k, v]) => k === 'd' && v && v !== '');
         let listName = "";

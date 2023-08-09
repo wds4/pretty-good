@@ -22,8 +22,10 @@ const ItemTypeSelector = ({setNewItemText, resetNewItemInput, setNewItemGroup}) 
         }}
         onChange={updateItemType}
       >
-        <option value="nip19identifier">NIP-19 id</option>
+        <option value="nip19identifier">person</option>
+        <option value="nip19identifier">nostr event</option>
         <option value="plainText">plain text</option>
+        <option value="anotherList">import list</option>
       </select>
     </>
   )
