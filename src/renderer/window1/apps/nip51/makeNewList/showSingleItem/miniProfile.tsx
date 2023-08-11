@@ -8,7 +8,6 @@ import { updateNostrProfiles } from 'renderer/window1/redux/features/nostr/profi
 import { returnMostRecentEvent } from 'renderer/window1/lib/nostr';
 import { noProfilePicUrl } from 'renderer/window1/const';
 import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
-import FollowButton from 'renderer/window1/apps/nostr/components/followButton';
 
 const MiniProfile = ({ pubkey }) => {
   const dispatch = useDispatch();
@@ -145,15 +144,6 @@ const MiniProfile = ({ pubkey }) => {
             </div>
           </div>
         </NavLink>
-        <div
-          style={{
-            position: 'absolute',
-            right: '5px',
-            top: '5px',
-          }}
-        >
-          <FollowButton pubkey={pubkey} />
-        </div>
       </div>
     </>
   );

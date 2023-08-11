@@ -44,7 +44,15 @@ const ButtonInActive = () => {
   )
 }
 
-const AddItemButton = ({ isNewItemValid, newItemGroup, newItemText, addItem, isNewItemAlreadyOnList }) => {
+const AddItemButton = ({
+  isNewItemValid,
+  newItemGroup,
+  newItemText,
+  addItem,
+  isNewItemAlreadyOnList,
+  existingListRetrievalMethod,
+  existingListName,
+}) => {
   if (isNewItemAlreadyOnList == 'yes') {
     return (
       <>
@@ -52,7 +60,7 @@ const AddItemButton = ({ isNewItemValid, newItemGroup, newItemText, addItem, isN
       </>
     );
   }
-  if (newItemGroup=="nip19identifier") {
+  if (newItemGroup.includes("nip19identifier")) {
     if (isNewItemValid != 'yes') {
       return (
         <>
@@ -80,7 +88,28 @@ const AddItemButton = ({ isNewItemValid, newItemGroup, newItemText, addItem, isN
       </>
     )
   }
-  return <></>;
+  if (newItemGroup.includes("anotherList")) {
+    if (existingListRetrievalMethod=="") {
+      return <></>;
+    }
+    if (existingListRetrievalMethod=="authorAndListName") {
+      if (existingListName && isNewItemValid == 'yes') {
+        return (
+          <>
+            <ButtonActive addItem={addItem} />
+          </>
+        )
+      }
 
+    }
+    if (existingListRetrievalMethod=="nip51identifier") {
+
+    }
+  }
+  return (
+    <>
+      <ButtonInActive />
+    </>
+  );
 };
 export default AddItemButton;

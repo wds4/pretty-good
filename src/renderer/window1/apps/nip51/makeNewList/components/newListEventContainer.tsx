@@ -44,6 +44,13 @@ const NewListEventContainer = ({aItems, newListKind, newListName}) => {
       const aTab = ["t",plainTextInput];
       aTags.push(aTab);
     }
+    if (type == "anotherList") {
+      const existingListName = aItem[2];
+      const existingListAuthorPubkey = aItem[3];
+      const foo = "30001:"+existingListAuthorPubkey+":"+existingListName;
+      const aTab = ["a",foo];
+      aTags.push(aTab);
+    }
   }
 
   const event: NostrEvent = {

@@ -1,5 +1,35 @@
 import { nip19 } from 'nostr-tools';
-import PageLayout from './pageLayout';
+import PageLayout from '../pageLayout';
+
+const checkForItemDuplication = (aItems, data, type) => {
+  let itemDuplication = false;
+  for (let x=0;x<aItems.length;x++) {
+    const aItem = aItems[x];
+    const itemType = aItem[1];
+    if ((itemType == "nevent") && (type == "note")) {
+      if (JSON.parse(aItem[2]).id == data) {
+        itemDuplication = true;
+      }
+    }
+    if ((itemType == "note") && (type == "nevent")) {
+      if (aItem[2] == data.id) {
+        itemDuplication = true;
+      }
+    }
+    if ((itemType == "nprofile") && (type == "npub")) {
+      if (JSON.parse(aItem[2]).pubkey == data) {
+        itemDuplication = true;
+      }
+    }
+    if ((itemType == "npub") && (type == "nprofile")) {
+      if (aItem[2] == data.pubkey) {
+        itemDuplication = true;
+      }
+    }
+    // if itemType == type, then the duplication would have been caught in earlier step, bc newItemText would be a duplicate
+  }
+  return itemDuplication;
+}
 
 const MakeNewListFunctions = ({
   setNewListKind,
@@ -10,7 +40,9 @@ const MakeNewListFunctions = ({
   setNewItemData,
   setNewItemDataType,
   setNewItemHex,
-  setExistingListSearchTerm,
+  setExistingListName,
+  setExistingListAuthorPubkey,
+  setExistingListRetrievalMethod,
   setIsNewItemValid,
   setIsNewItemAlreadyOnList,
   setWhichStep,
@@ -24,7 +56,9 @@ const MakeNewListFunctions = ({
   newItemData,
   newItemDataType,
   newItemHex,
-  existingListSearchTerm,
+  existingListName,
+  existingListAuthorPubkey,
+  existingListRetrievalMethod,
   isNewItemValid,
   isNewItemAlreadyOnList,
   whichStep,
@@ -38,12 +72,51 @@ const MakeNewListFunctions = ({
     setNewItemDataType('');
     setNewItemData('');
     setNewItemHex('');
+    setExistingListRetrievalMethod('');
+    setExistingListName('');
   }
 
   const processNewItemText_anotherList = (inputText) => {
-    console.log("processNewItemText_anotherList; inputText: "+inputText)
+    console.log("qwerty processNewItemText_anotherList; inputText: "+inputText+"; existingListRetrievalMethod: "+existingListRetrievalMethod)
     // first, search existing lists and look for matches
+    let inputTextDuplication = false;
+    // TO DO: check for duplicates
+
     // Then show all matches in the preview field
+    if (!inputTextDuplication) {
+      try {
+        const { type, data } = nip19.decode(inputText);
+        console.log("qwerty processNewItemText_anotherList; type: "+type)
+        const itemDuplication = checkForItemDuplication(aItems, data, type);
+        console.log("qwerty processNewItemText_anotherList; itemDuplication: "+itemDuplication)
+        if (itemDuplication) {
+          resetNewItemInput();
+          setIsNewItemAlreadyOnList('yes');
+
+        }
+        if (!itemDuplication) {
+          setNewItemType(type);
+          if (existingListRetrievalMethod=="authorAndListName") { // type should be npub or nprofile
+            if (type == 'npub') {
+              setIsNewItemValid('yes');
+              setExistingListAuthorPubkey(data);
+            }
+            if (type == 'nprofile') {
+              setIsNewItemValid('yes');
+              setExistingListAuthorPubkey(data.pubkey);
+            }
+          }
+          if (existingListRetrievalMethod=="nip51identifier") { // type should be nevent, note, or naddr
+            if (type == 'nevent') {
+              setIsNewItemValid('yes');
+            }
+          }
+        }
+      } catch (error) {
+        setIsNewItemValid('no');
+        setExistingListAuthorPubkey('');
+      }
+    }
   }
 
   const processNewItemText_nip19identifier_or_plainText = (inputText) => {
@@ -62,32 +135,7 @@ const MakeNewListFunctions = ({
       try {
         const { type, data } = nip19.decode(inputText);
         // iterate through existing items to make sure the current one is not a duplicate
-        let itemDuplication = false;
-        for (let x=0;x<aItems.length;x++) {
-          const aItem = aItems[x];
-          const itemType = aItem[1];
-          if ((itemType == "nevent") && (type == "note")) {
-            if (JSON.parse(aItem[2]).id == data) {
-              itemDuplication = true;
-            }
-          }
-          if ((itemType == "note") && (type == "nevent")) {
-            if (aItem[2] == data.id) {
-              itemDuplication = true;
-            }
-          }
-          if ((itemType == "nprofile") && (type == "npub")) {
-            if (JSON.parse(aItem[2]).pubkey == data) {
-              itemDuplication = true;
-            }
-          }
-          if ((itemType == "npub") && (type == "nprofile")) {
-            if (aItem[2] == data.pubkey) {
-              itemDuplication = true;
-            }
-          }
-          // if itemType == type, then the duplication would have been caught in earlier step, bc newItemText would be a duplicate
-        }
+        const itemDuplication = checkForItemDuplication(aItems, data, type);
         if (itemDuplication) {
           resetNewItemInput();
           setIsNewItemAlreadyOnList('yes');
@@ -165,118 +213,36 @@ const MakeNewListFunctions = ({
     }
     if (inputText) {
       setNewItemText(inputText);
-      if ((newItemGroup == "nip19identifier") || (newItemGroup == "plainText")) {
+      if ((newItemGroup.includes("nip19identifier")) || (newItemGroup == "plainText")) {
         processNewItemText_nip19identifier_or_plainText(inputText);
       }
       if (newItemGroup == "anotherList") {
-        processNewItemText_anotherList(inputText)
+        processNewItemText_anotherList(inputText);
       }
-
-      /*
-      let inputTextDuplication = false;
-      setIsNewItemAlreadyOnList('no');
-      for (let x=0;x<aItems.length;x++) {
-        const aItem = aItems[x];
-        const itemText = aItem[0];
-        if (inputText == itemText) {
-          inputTextDuplication = true;
-          resetNewItemInput();
-          setIsNewItemAlreadyOnList('yes');
-        }
-      }
-      if (!inputTextDuplication) {
-        try {
-          const { type, data } = nip19.decode(inputText);
-          // iterate through existing items to make sure the current one is not a duplicate
-          let itemDuplication = false;
-          for (let x=0;x<aItems.length;x++) {
-            const aItem = aItems[x];
-            const itemType = aItem[1];
-            if ((itemType == "nevent") && (type == "note")) {
-              if (JSON.parse(aItem[2]).id == data) {
-                itemDuplication = true;
-              }
-            }
-            if ((itemType == "note") && (type == "nevent")) {
-              if (aItem[2] == data.id) {
-                itemDuplication = true;
-              }
-            }
-            if ((itemType == "nprofile") && (type == "npub")) {
-              if (JSON.parse(aItem[2]).pubkey == data) {
-                itemDuplication = true;
-              }
-            }
-            if ((itemType == "npub") && (type == "nprofile")) {
-              if (aItem[2] == data.pubkey) {
-                itemDuplication = true;
-              }
-            }
-            // if itemType == type, then the duplication would have been caught in earlier step, bc newItemText would be a duplicate
-          }
-          if (itemDuplication) {
-            resetNewItemInput();
-            setIsNewItemAlreadyOnList('yes');
-          }
-          if (!itemDuplication) {
-            setNewItemType(type);
-            if (type == 'nevent') {
-              setNewItemData(JSON.stringify(data));
-              setNewItemHex(data.id);
-              setNewItemDataType(typeof data);
-              if (newListKind == 10000 || newListKind == 30000) {
-                setIsNewItemValid('no');
-              }
-              if (newListKind == 10001 || newListKind == 30001) {
-                setIsNewItemValid('yes');
-              }
-            }
-            if (type == 'note') {
-              setNewItemData(data);
-              setNewItemHex(data);
-              setNewItemDataType(typeof data);
-              if (newListKind == 10000 || newListKind == 30000) {
-                setIsNewItemValid('no');
-              }
-              if (newListKind == 10001 || newListKind == 30001) {
-                setIsNewItemValid('yes');
-              }
-            }
-            if (type == 'npub') {
-              setNewItemData(data);
-              setNewItemHex(data);
-              setNewItemDataType(typeof data);
-              if (newListKind == 10000 || newListKind == 30000) {
-                setIsNewItemValid('yes');
-              }
-              if (newListKind == 10001 || newListKind == 30001) {
-                setIsNewItemValid('no');
-              }
-            }
-            if (type == 'nprofile') {
-              setNewItemData(JSON.stringify(data));
-              setNewItemHex(data.pubkey);
-              setNewItemDataType(typeof data);
-              if (newListKind == 10000 || newListKind == 30000) {
-                setIsNewItemValid('yes');
-              }
-              if (newListKind == 10001 || newListKind == 30001) {
-                setIsNewItemValid('no');
-              }
-            }
-          }
-        } catch (error) {
-          resetNewItemInput();
-        }
-      }
-      */
-
-
     }
   }
 
   const addItem = () => {
-    if (newItemGroup=="nip19identifier") {
+    if (newItemGroup=="anotherList") {
+      if (isNewItemValid == 'yes') {
+        if (existingListRetrievalMethod=="authorAndListName") {
+          const aNewItem = [
+            newItemText,
+            'anotherList',
+            existingListName,
+            existingListAuthorPubkey,
+          ];
+          setAItems(aItems.concat([aNewItem]));
+          // reset new list item input field and analysis
+          resetNewItemInput();
+          setNewItemText('');
+          setIsNewItemAlreadyOnList('no');
+          // TO DO: set new list name and author text fields to blank
+
+        }
+      }
+    }
+    if (newItemGroup.includes("nip19identifier")) {
       if (isNewItemValid == 'yes') {
         if (newItemData) {
           const aNewItem = [newItemText, newItemType, newItemData];
@@ -355,6 +321,8 @@ const MakeNewListFunctions = ({
     setIsNewItemValid('no');
     setWhichStep(0);
     setAItems([]);
+    setExistingListName('');
+    setExistingListAuthorPubkey('');
   };
 
   const startNewList = () => {
@@ -388,7 +356,8 @@ const MakeNewListFunctions = ({
         setNewItemGroup={setNewItemGroup}
         setNewItemText={setNewItemText}
         setNewListKind={setNewListKind}
-        setExistingListSearchTerm={setExistingListSearchTerm}
+        setExistingListName={setExistingListName}
+        setExistingListRetrievalMethod={setExistingListRetrievalMethod}
 
         newListKind={newListKind}
         newListName={newListName}
@@ -398,6 +367,9 @@ const MakeNewListFunctions = ({
         newItemData={newItemData}
         isNewItemValid={isNewItemValid}
         isNewItemAlreadyOnList={isNewItemAlreadyOnList}
+        existingListRetrievalMethod={existingListRetrievalMethod}
+        existingListName={existingListName}
+        existingListAuthorPubkey={existingListAuthorPubkey}
         whichStep={whichStep}
         aItems={aItems}
       />

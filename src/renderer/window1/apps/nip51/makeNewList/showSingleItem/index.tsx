@@ -2,7 +2,7 @@ import { useNostrEvents } from 'nostr-react';
 import Post from './post';
 import MiniProfile from './miniProfile';
 
-const ShowSingleProfile = ({ item, kind }) => {
+const ShowSingleProfile = ({ item }) => {
   const thisItemType = item[1];
   let pubkey = '';
   if (thisItemType == 'npub') {
@@ -18,7 +18,7 @@ const ShowSingleProfile = ({ item, kind }) => {
   );
 };
 
-const ShowSingleNote = ({ item, kind }) => {
+const ShowSingleNote = ({ item }) => {
   const thisItemType = item[1];
   let id = 'foo';
   if (item[2]) {
@@ -112,6 +112,29 @@ const PlainTextItem = ({item, removeSingleItem, itemNumber, showDeleteButton}) =
   );
 }
 
+/*
+const DeleteButtonContainer = ({
+  removeSingleItem,
+  itemNumber,
+  showDeleteButton,
+}) => {
+  if (!showDeleteButton) { return <></> }
+  if (showDeleteButton) {
+    return (
+      <>
+        <div style={{ flexGrow: '1' }}>
+          <DeleteButton
+            removeSingleItem={removeSingleItem}
+            itemNumber={itemNumber}
+            showDeleteButton={showDeleteButton}
+          />
+        </div>
+      </>
+    )
+  }
+}
+*/
+
 const SingleNoteItem = ({item, kind, removeSingleItem, itemNumber, showDeleteButton}) => {
   if (!showDeleteButton) {
     return (
@@ -188,9 +211,101 @@ const SingleProfileItem = ({item, kind, removeSingleItem, itemNumber, showDelete
   }
 }
 
-const AnotherListItem = ({}) => {
+const ListAuthor = ({
+  isNewItemValid,
+  isNewItemAlreadyOnList,
+  existingListAuthorPubkey,
+}) => {
+  if (isNewItemValid=="no") return ( <><div style={{padding: '5px'}}>list author</div></> )
+  if (isNewItemAlreadyOnList=="yes") return ( <><div style={{padding: '5px'}}>list author</div></> )
   return (
     <>
+      <MiniProfile pubkey={existingListAuthorPubkey} />
+    </>
+  )
+}
+
+const AnotherListItem = ({
+  existingListRetrievalMethod,
+  existingListName,
+  isNewItemValid,
+  isNewItemAlreadyOnList,
+  existingListAuthorPubkey,
+  removeSingleItem,
+  itemNumber,
+  showDeleteButton,
+}) => {
+  if (existingListRetrievalMethod=="") return <></>;
+  if (existingListRetrievalMethod=="authorAndListName") {
+
+  }
+  if (existingListRetrievalMethod=="nip51identifier") {
+
+  }
+  let listName="list name";
+  let listNameColor="grey";
+  if (existingListName) {
+    listName = existingListName;
+  }
+  return (
+    <>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          gap: '10px',
+          marginBottom: '10px',
+        }}
+      >
+        <div style={{ flexGrow: '999' }}>
+          <div
+            style={{
+              textAlign: 'left',
+              border: '1px solid grey',
+              borderRadius: '5px',
+              height: '50px',
+              marginBottom: '10px',
+            }}
+          >
+            <div
+              style={{
+                display: 'inline-block',
+                width: '40%',
+                height: '100%',
+                backgroundColor: '#DFDFDF',
+                fontSize: '26px',
+                padding: '5px',
+                color: listNameColor,
+              }}
+            >
+              {listName}
+            </div>
+            <div
+              style={{
+                display: 'inline-block',
+                width: '60%',
+                height: '100%',
+                fontSize: '26px',
+                color: 'grey',
+              }}
+            >
+              <ListAuthor
+                isNewItemValid={isNewItemValid}
+                isNewItemAlreadyOnList={isNewItemAlreadyOnList}
+                existingListAuthorPubkey={existingListAuthorPubkey}
+              />
+            </div>
+          </div>
+        </div>
+        <div style={{ flexGrow: '1' }}>
+          <DeleteButton
+            removeSingleItem={removeSingleItem}
+            itemNumber={itemNumber}
+            showDeleteButton={showDeleteButton}
+          />
+        </div>
+      </div>
     </>
   )
 }
@@ -202,10 +317,16 @@ const ShowSingleItem = ({
   item,
   kind,
   showDeleteButton,
+  newItemGroup,
+  existingListRetrievalMethod,
+  existingListName,
+  isNewItemValid,
+  existingListAuthorPubkey,
 }) => {
   if (isNewItemAlreadyOnList == 'yes') {
     return <></>;
   }
+
   if (item == '') {
     return <></>;
   }
@@ -214,6 +335,23 @@ const ShowSingleItem = ({
   }
 
   const thisItemType = item[1];
+
+  if (thisItemType=="anotherList") {
+    return (
+      <>
+        <AnotherListItem
+          existingListRetrievalMethod={existingListRetrievalMethod}
+          existingListName={item[2]}
+          isNewItemValid={isNewItemValid}
+          isNewItemAlreadyOnList={isNewItemAlreadyOnList}
+          existingListAuthorPubkey={item[3]}
+          removeSingleItem={removeSingleItem}
+          itemNumber={itemNumber}
+          showDeleteButton={showDeleteButton}
+        />
+      </>
+    )
+  }
 
   if (thisItemType == 'naddr') {
     return (
@@ -267,7 +405,10 @@ const ShowSingleItem = ({
   }
   return (
     <>
-      <div>error</div>
+      <div>
+        <div>newItemGroup: {newItemGroup}</div>
+        error
+      </div>
     </>
   );
 };

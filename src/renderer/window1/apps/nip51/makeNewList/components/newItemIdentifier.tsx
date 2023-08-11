@@ -3,10 +3,17 @@ import { nip19 } from 'nostr-tools';
 const NewItemIdentifier = ({
   processNewItemText,
   newListKind,
+  newItemGroup,
 }) => {
-  let placeholderText = "enter the NIP-19 identifier for a person (should start with 'npub' or 'nprofile') OR for a nostr note (should start with 'nevent' or 'note')";
+  let placeholderText = "enter the NIP-19 identifier for a person (should start with 'npub' or 'nprofile')";
   if (newListKind == 10000 || newListKind == 30000) {
     placeholderText = "enter the NIP-19 identifier for a person (should start with 'npub' or 'nprofile')";
+  }
+  if (newItemGroup.includes("person")) {
+    placeholderText = "enter the NIP-19 identifier for a person (should start with 'npub' or 'nprofile')";
+  }
+  if (newItemGroup.includes("nostrNote")) {
+    placeholderText = "enter the NIP-19 identifier for a nostr note (should start with 'nevent' or 'note')";
   }
   const updateNewItemText = () => {
     const e = document.getElementById('listItemTextarea');

@@ -2,24 +2,58 @@ import AddItemButton from '../components/addItemButton';
 import NewItemIdentifier from '../components/newItemIdentifier';
 import NewItemPlainText from '../components/newItemPlainText';
 import ItemTypeSelector from '../components/itemTypeSelector';
-import AnotherListSelector from '../components/anotherListSelector';
+import AnotherListIdentificationMethodSelector from '../components/anotherListIdentificationMethodSelector';
 import ShowSingleItem from '../showSingleItem';
-import ImportListTextareas from '../../components/importListTextareas';
+import ImportListTextareas from '../components/importListTextareas';
+import ImportListSpecifyListname from '../components/importListSpecifyListname';
+import ExistingListTypeSelector from '../components/existingListTypeSelector';
 
 const Title = ({ aItems }) => {
   if (aItems.length == 0) {
     return (
       <>
-        <div style={{textAlign: "left"}}>add the first item</div>
+        <div style={{textAlign: "left"}}>add the first item, or import items from another list</div>
       </>
     );
   }
   return (
     <>
-      <div style={{textAlign: "left"}}>add another item</div>
+      <div style={{textAlign: "left"}}>add another item, or import items from another list</div>
     </>
   );
 };
+
+const NewItemTextareaContainer = ({
+  processNewItemText,
+  setIsNewItemValid,
+  newListKind,
+  newItemGroup,
+  setNewItemText,
+  setExistingListName,
+  setExistingListRetrievalMethod,
+}) => {
+  if (newItemGroup === 'anotherList') { return <></>; }
+  return (
+    <>
+      <div
+        style={{
+          minWidth: '200px',
+          flexGrow: '999',
+        }}
+      >
+        <NewItemTextarea
+          processNewItemText={processNewItemText}
+          setIsNewItemValid={setIsNewItemValid}
+          newListKind={newListKind}
+          newItemGroup={newItemGroup}
+          setNewItemText={setNewItemText}
+          setExistingListName={setExistingListName}
+          setExistingListRetrievalMethod={setExistingListRetrievalMethod}
+        />
+      </div>
+    </>
+  )
+}
 
 const NewItemTextarea = ({
   processNewItemText,
@@ -27,14 +61,16 @@ const NewItemTextarea = ({
   newListKind,
   newItemGroup,
   setNewItemText,
-  setExistingListSearchTerm,
+  setExistingListName,
+  setExistingListRetrievalMethod,
 }) => {
-  if (newItemGroup == 'nip19identifier') {
+  if (newItemGroup.includes("nip19identifier")) {
     return (
       <>
         <NewItemIdentifier
           processNewItemText={processNewItemText}
           newListKind={newListKind}
+          newItemGroup={newItemGroup}
         />
       </>
     );
@@ -48,18 +84,104 @@ const NewItemTextarea = ({
       </>
     );
   }
-  if (newItemGroup == "anotherList") {
-    return (
-      <>
-        <AnotherListSelector
+  return <></>;
+};
+
+const ImportListNip19TextareaContainer = ({
+  processNewItemText,
+  newListKind,
+  newItemGroup,
+  existingListRetrievalMethod,
+}) => {
+  if (newItemGroup != "anotherList") return ( <></> )
+  return (
+    <>
+      <div
+        style={{
+          minWidth: '200px',
+          flexGrow: '999',
+        }}
+      >
+        <ImportListTextareas
           processNewItemText={processNewItemText}
           newListKind={newListKind}
+          newItemGroup={newItemGroup}
+          existingListRetrievalMethod={existingListRetrievalMethod}
         />
+      </div>
+    </>
+  )
+}
+
+const ImportListSpecifyListnameContainer = ({
+  existingListRetrievalMethod,
+  setExistingListName,
+}) => {
+  if (existingListRetrievalMethod != "authorAndListName") { return <></> }
+  return (
+    <>
+      <div
+        style={{
+          width: '100%',
+          flexGrow: '999',
+        }}
+      >
+        <ImportListSpecifyListname
+          setExistingListName={setExistingListName}
+        />
+      </div>
+    </>
+  )
+}
+
+const ExistingListTypeSelectorContainer = ({
+  newItemGroup,
+  existingListRetrievalMethod
+}) => {
+  if (newItemGroup=="anotherList" && existingListRetrievalMethod=="authorAndListName") {
+    return (
+      <>
+        <div
+          style={{
+            width: '300px',
+            flexGrow: '1',
+          }}
+        >
+          <ExistingListTypeSelector
+          />
+        </div>
       </>
     )
   }
   return <></>;
-};
+}
+
+const AnotherListIdentificationMethodSelectorContainer = ({
+  processNewItemText,
+  newListKind,
+  setExistingListRetrievalMethod,
+  newItemGroup,
+}) => {
+  if (newItemGroup == "anotherList") {
+    return (
+      <>
+        <div
+          style={{
+            minWidth: '50%',
+            flexGrow: '999',
+          }}
+        >
+          <AnotherListIdentificationMethodSelector
+            processNewItemText={processNewItemText}
+            newListKind={newListKind}
+            setExistingListRetrievalMethod={setExistingListRetrievalMethod}
+          />
+        </div>
+      </>
+    )
+  }
+  return <></>;
+}
 
 const AddItemPanel = ({
   processNewItemText,
@@ -72,13 +194,17 @@ const AddItemPanel = ({
   startOver,
   setNewItemGroup,
   setNewItemText,
-  setExistingListSearchTerm,
+  setExistingListName,
+  setExistingListRetrievalMethod,
   newItemGroup,
   newItemText,
   newItemType,
   newItemData,
   isNewItemValid,
   isNewItemAlreadyOnList,
+  existingListRetrievalMethod,
+  existingListName,
+  existingListAuthorPubkey,
 }) => {
   if (whichStep == 0) {
     return <></>;
@@ -87,7 +213,10 @@ const AddItemPanel = ({
   if (newItemGroup=="plainText") {
     aItem = [newItemText, newItemGroup];
   }
-  if ( (newItemGroup=="nip19identifier") && (isNewItemValid == "yes") ) {
+  if (newItemGroup=="anotherList") {
+    aItem = [newItemText, newItemGroup, existingListName, existingListAuthorPubkey];
+  }
+  if ( (newItemGroup.includes("nip19identifier")) && (isNewItemValid == "yes") ) {
     if (newItemData) {
       aItem = [newItemText, newItemType, newItemData];
     }
@@ -124,35 +253,39 @@ const AddItemPanel = ({
               setNewItemText={setNewItemText}
               setNewItemGroup={setNewItemGroup}
               resetNewItemInput={resetNewItemInput}
-            />
-          </div>
-          <div
-            style={{
-              minWidth: '200px',
-              flexGrow: '999',
-            }}
-          >
-            <NewItemTextarea
-              processNewItemText={processNewItemText}
-              setIsNewItemValid={setIsNewItemValid}
               newListKind={newListKind}
-              newItemGroup={newItemGroup}
-              setNewItemText={setNewItemText}
-              setExistingListSearchTerm={setExistingListSearchTerm}
             />
           </div>
-          <div
-            style={{
-              minWidth: '200px',
-              flexGrow: '999',
-            }}
-          >
-            <ImportListTextareas
-              processNewItemText={processNewItemText}
-              newListKind={newListKind}
-              newItemGroup={newItemGroup}
-            />
-          </div>
+          <AnotherListIdentificationMethodSelectorContainer
+            processNewItemText={processNewItemText}
+            newListKind={newListKind}
+            setExistingListRetrievalMethod={setExistingListRetrievalMethod}
+            newItemGroup={newItemGroup}
+          />
+          <ImportListSpecifyListnameContainer
+            existingListRetrievalMethod={existingListRetrievalMethod}
+            setExistingListName={setExistingListName}
+          />
+          <ImportListNip19TextareaContainer
+            processNewItemText={processNewItemText}
+            newListKind={newListKind}
+            newItemGroup={newItemGroup}
+            existingListRetrievalMethod={existingListRetrievalMethod}
+          />
+          <ExistingListTypeSelectorContainer
+            newItemGroup={newItemGroup}
+            existingListRetrievalMethod={existingListRetrievalMethod}
+          />
+          <NewItemTextareaContainer
+            processNewItemText={processNewItemText}
+            setIsNewItemValid={setIsNewItemValid}
+            newListKind={newListKind}
+            newItemGroup={newItemGroup}
+            setNewItemText={setNewItemText}
+            setExistingListName={setExistingListName}
+            setExistingListRetrievalMethod={setExistingListRetrievalMethod}
+          />
+
           <div
             style={{
               width: '50px',
@@ -165,9 +298,12 @@ const AddItemPanel = ({
               newItemText={newItemText}
               addItem={addItem}
               isNewItemAlreadyOnList={isNewItemAlreadyOnList}
+              existingListRetrievalMethod={existingListRetrievalMethod}
+              existingListName={existingListName}
             />
           </div>
         </div>
+
         <div
           style={{
             width: '100%',
@@ -175,7 +311,17 @@ const AddItemPanel = ({
           }}
         >
           <IsNewItemAlreadyOnList isNewItemAlreadyOnList={isNewItemAlreadyOnList} />
-          <ShowSingleItem isNewItemAlreadyOnList={isNewItemAlreadyOnList} item={aItem} kind={newListKind} showDeleteButton={showDeleteButton} />
+          <ShowSingleItem
+            isNewItemAlreadyOnList={isNewItemAlreadyOnList}
+            item={aItem}
+            kind={newListKind}
+            showDeleteButton={showDeleteButton}
+            newItemGroup={newItemGroup}
+            existingListRetrievalMethod={existingListRetrievalMethod}
+            existingListName={existingListName}
+            isNewItemValid={isNewItemValid}
+            existingListAuthorPubkey={existingListAuthorPubkey}
+          />
         </div>
         <div
           id="itemInputFieldErrorBox"

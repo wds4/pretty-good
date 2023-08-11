@@ -1,7 +1,7 @@
 const NewItemPlainText = ({
   processNewItemText,
 }) => {
-  const placeholderText = 'enter your plain text item';
+  const placeholderText = 'enter your tag (plain text item)';
   const updateNewItemText = () => {
     const e = document.getElementById('listItemPlainTextTextarea');
     if (e) {

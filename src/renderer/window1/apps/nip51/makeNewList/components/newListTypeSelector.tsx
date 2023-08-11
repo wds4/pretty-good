@@ -35,11 +35,11 @@ const NewListTypeSelector = ({newListKind, setNewListKind, setNewListName}) => {
         onChange={updateNewListKind}
       >
         <option value="0">Select List Type</option>
-        <option value="10000" style={{display:"none"}}>Mute List: kind 10000</option>
-        <option value="10001" style={{display:"none"}}>Pin List: kind 10001</option>
+        <option value="10000" style={{display: 'none'}}>Mute List: kind 10000</option>
+        <option value="10001" style={{display: 'none'}}>Pin List: kind 10001</option>
         <option value="30001">General Purpose</option>
         <option value="30000">People-only</option>
-        <option value="9901" style={{display:"none"}} >Crowdsourced List: kind 9901</option>
+        <option value="9901" style={{display: 'none'}}>General Purpose</option>
       </select>
     </>
   )

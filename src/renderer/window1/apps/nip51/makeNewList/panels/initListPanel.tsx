@@ -2,6 +2,23 @@ import NewListName from '../components/newListName';
 import NewListTypeSelector from '../components/newListTypeSelector';
 import LockListNameButton from '../components/lockListNameButton';
 import PublicOrPrivateSelector from '../components/publicOrPrivateSelector';
+import WhoManagesSelector from '../components/whoManagesSelector';
+
+const WhoManagesSelectorContainer = () => {
+  return (
+    <>
+      <div
+        style={{
+          width: '400px',
+          flexGrow: '1',
+        }}
+      >
+        <WhoManagesSelector
+        />
+      </div>
+    </>
+  )
+}
 
 const LLNButton = ({newListKind, newListName, whichStep, startNewList}) => {
   if (newListKind==0) { return <></>; }
@@ -75,7 +92,7 @@ const InitListPanel = ({
       >
         <div
           style={{
-            minWidth: '200px',
+            width: '200px',
             flexGrow: '999',
           }}
         >
@@ -85,6 +102,7 @@ const InitListPanel = ({
             newListKind={newListKind}
           />
         </div>
+        <WhoManagesSelectorContainer />
         <div
           style={{
             width: '150px',

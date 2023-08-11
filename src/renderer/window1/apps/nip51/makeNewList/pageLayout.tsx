@@ -19,7 +19,8 @@ const PageLayout = ({
   setNewItemGroup,
   setNewItemText,
   setNewListKind,
-  setExistingListSearchTerm,
+  setExistingListName,
+  setExistingListRetrievalMethod,
 
   newListKind,
   newListName,
@@ -29,6 +30,9 @@ const PageLayout = ({
   newItemData,
   isNewItemValid,
   isNewItemAlreadyOnList,
+  existingListRetrievalMethod,
+  existingListName,
+  existingListAuthorPubkey,
   whichStep,
   aItems,
 }) => {
@@ -100,21 +104,6 @@ const PageLayout = ({
           </div>
 
           <div
-            className="buttonsPanel"
-            style={{
-              width: '100%',
-              display: 'none',
-            }}
-          >
-            <ButtonsPanel
-              startOver={startOver}
-              aItems={aItems}
-              whichStep={whichStep}
-              newListKind={newListKind}
-            />
-          </div>
-
-          <div
             className="addItemsPanel"
             style={{
               width: '100%',
@@ -129,7 +118,8 @@ const PageLayout = ({
               setIsNewItemValid={setIsNewItemValid}
               setNewItemGroup={setNewItemGroup}
               setNewItemText={setNewItemText}
-              setExistingListSearchTerm={setExistingListSearchTerm}
+              setExistingListName={setExistingListName}
+              setExistingListRetrievalMethod={setExistingListRetrievalMethod}
               newListKind={newListKind}
               whichStep={whichStep}
               startOver={startOver}
@@ -139,6 +129,9 @@ const PageLayout = ({
               newItemData={newItemData}
               isNewItemValid={isNewItemValid}
               isNewItemAlreadyOnList={isNewItemAlreadyOnList}
+              existingListRetrievalMethod={existingListRetrievalMethod}
+              existingListName={existingListName}
+              existingListAuthorPubkey={existingListAuthorPubkey}
             />
           </div>
 
