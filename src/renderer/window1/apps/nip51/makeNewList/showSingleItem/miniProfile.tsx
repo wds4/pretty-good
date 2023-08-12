@@ -65,7 +65,6 @@ const MiniProfile = ({ pubkey }) => {
           textAlign: 'left',
           boxSizing: 'border-box',
           height: '50px',
-          border: '1px solid black',
           borderRadius: '5px',
           backgroundColor: '#EFEFEF',
         }}
@@ -109,39 +108,17 @@ const MiniProfile = ({ pubkey }) => {
               height: '100%',
               backgroundColor: '#EFEFEF',
               display: 'inline-block',
-              width: 'calc(86% - 70px)',
+              width: 'calc(100% - 60px)',
               borderRadius: '5px',
               marginLeft: '5px',
-              padding: '2px',
+              paddingTop: '8px',
               fontSize: '22px',
             }}
           >
-            <div
-              style={{
-                display: 'inline-block',
-                color: 'black',
-                marginRight: '10px',
-                marginTop: '8px',
-                maxWidth: '80%',
-                overflow: 'auto',
-                paddingLeft: '3px',
-              }}
-            >
-              <span style={{ color: 'black' }}>{displayName}</span>
-              <span style={{ color: 'grey', marginLeft: '10px' }}>
-                {name}
-              </span>
-            </div>
-            <div
-              style={{
-                color: 'grey',
-                display: 'inline-block',
-                float: 'right',
-                marginTop: '8px',
-              }}
-            >
-              ... {pubkey.slice(-6)}
-            </div>
+            <span style={{ color: 'black' }}>{displayName}</span>
+            <span style={{ color: 'grey', marginLeft: '10px' }}>
+              {name}
+            </span>
           </div>
         </NavLink>
       </div>

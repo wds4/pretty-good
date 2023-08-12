@@ -1,35 +1,13 @@
 import { NavLink } from 'react-router-dom';
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import BlankAvatar from 'renderer/window1/assets/blankAvatar.png';
+import PlusImage from 'renderer/window1/assets/plus.png';
+import MinusImage from 'renderer/window1/assets/minus.png';
 import { updateNostrProfileFocus } from 'renderer/window1/redux/features/nostr/settings/slice';
 import { secsToTime } from 'renderer/window1/lib/pg';
 import { noProfilePicUrl } from 'renderer/window1/const';
 import TechDetailsForNostrNerds from './techDetailsForNostrNerds';
-
-const SelectListButton = ({}) => {
-  const addList = () => {};
-  return (
-    <>
-      <button
-        type="button"
-        className="nip51Button"
-        style={{
-          border: '2px solid GREEN',
-          color: 'black',
-          padding: '5px',
-          borderRadius: '5px',
-          fontSize: '22px',
-          boxSizing: 'border-box',
-          height: '50px',
-          width: '50px',
-        }}
-        onClick={addList}
-      >
-        ✔️
-      </button>
-    </>
-  );
-};
 
 const MiniProfile = ({pubkey}) => {
   const dispatch = useDispatch();
@@ -64,6 +42,9 @@ const MiniProfile = ({pubkey}) => {
           height: '50px',
           borderRadius: '5px',
           marginLeft: '20px',
+          display: 'inline-block',
+          width: '400px',
+          float: 'right',
         }}
       >
         <NavLink
@@ -134,6 +115,96 @@ const MiniProfile = ({pubkey}) => {
   )
 }
 
+const ToggleListInfo = ({lowerPanelState, setLowerPanelState}) => {
+  let toggleButtonImage = PlusImage;
+  if (lowerPanelState=='open') {
+    toggleButtonImage = MinusImage;
+  }
+  if (lowerPanelState=='closed') {
+    toggleButtonImage = PlusImage;
+  }
+  const updateLowerPanelState = () => {
+    console.log("updateLowerPanelState")
+    if (lowerPanelState=='open') {
+      setLowerPanelState('closed');
+    }
+    if (lowerPanelState=='closed') {
+      setLowerPanelState('open');
+    }
+  }
+  return (
+    <>
+      <div
+        style={{
+          display: 'inline-block',
+          position: 'relative',
+          width: '50px',
+          height: '50px',
+        }}
+        onClick={updateLowerPanelState}
+      >
+        <img
+          src={toggleButtonImage}
+          alt=""
+          style={{
+            display: 'inline-block',
+            backgroundColor: 'white',
+            border: '1px solid black',
+            borderRadius: '250px',
+            width: '75%',
+            height: '75%',
+            margin: '0',
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+          }}
+        />
+      </div>
+    </>
+  )
+}
+
+const ListName = ({listName}) => {
+  return (
+    <>
+      <div style={{display: 'inline-block', fontSize: '26px', marginLeft: '20px',marginTop: '10px'}}>{listName}</div>
+    </>
+  )
+}
+
+const LowerPanel = ({
+  kind,
+  listName,
+  pk_author,
+  displayTime,
+  listType,
+  aTags_a,
+  aTags_e,
+  aTags_p,
+  aTags_t,
+  searchStringForLists,
+  eventid,
+  lowerPanelState,
+}) => {
+  if (lowerPanelState == 'closed') return <></>;
+  return (
+    <>
+      <div
+        style={{
+          color: 'grey',
+          padding: '10px',
+        }}
+      >
+        <div style={{display: 'inline-block'}}>
+          {aTags_a.length + aTags_e.length + aTags_p.length + aTags_t.length} items
+        </div>
+        <div style={{display: 'inline-block', float: 'right'}}>{displayTime} ago</div>
+      </div>
+    </>
+  )
+}
+
 const SingleListOverview = ({
   kind,
   listName,
@@ -147,6 +218,7 @@ const SingleListOverview = ({
   searchStringForLists,
   eventid,
 }) => {
+  const [lowerPanelState, setLowerPanelState] = useState('closed');
   return (
     <>
       <div
@@ -159,7 +231,6 @@ const SingleListOverview = ({
         data-numstrings={aTags_t.length}
         data-eventid={eventid}
         style={{
-          border: '1px solid black',
           borderRadius: '5px',
           textAlign: 'left',
           padding: '5px',
@@ -167,38 +238,33 @@ const SingleListOverview = ({
         }}
       >
         <div
-          style={{
-            display: 'inline-block',
-            width: '60%',
-          }}
+        style={{
+          border: '1px dashed grey',
+          borderRadius: '5px',
+        }}
         >
-          <div
-            style={{
-              fontSize: '22px',
-            }}
-          >
-            {listName}
-          </div>
-          <div><MiniProfile pubkey={pk_author} /></div>
-        </div>
-        <div
-          style={{
-            display: 'inline-block',
-            width: '40%',
-            textAlign: 'right',
-            color: 'grey',
-          }}
-        >
-          <div style={{}}>{listType}</div>
-          <div>{displayTime} ago</div>
           <div>
-            {aTags_a.length + aTags_e.length + aTags_p.length + aTags_t.length} (
-            {aTags_a.length} lists,
-            {aTags_e.length} notes,
-            {aTags_p.length} people,
-            {aTags_t.length} text
-            )
+            <ToggleListInfo
+              lowerPanelState={lowerPanelState}
+              setLowerPanelState={setLowerPanelState}
+            />
+            <ListName listName={listName} />
+            <MiniProfile pubkey={pk_author} />
           </div>
+          <LowerPanel
+            kind={kind}
+            listName={listName}
+            pk_author={pk_author}
+            displayTime={displayTime}
+            listType={listType}
+            aTags_a={aTags_a}
+            aTags_e={aTags_e}
+            aTags_p={aTags_p}
+            aTags_t={aTags_t}
+            searchStringForLists={searchStringForLists}
+            eventid={eventid}
+            lowerPanelState={lowerPanelState}
+          />
         </div>
       </div>
     </>
@@ -327,14 +393,6 @@ const SingleListOverviewWrapper = ({
             searchStringForLists={searchStringForLists}
             eventid={event.id}
           />
-        </div>
-        <div
-          style={{
-            width: '50px',
-            flexGrow: '1',
-          }}
-        >
-          <SelectListButton />
         </div>
       </div>
       <div style={{ textAlign: 'left' }}>

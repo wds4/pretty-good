@@ -4,7 +4,7 @@ import {
   type Event as NostrEvent,
   getEventHash,
   getPublicKey,
-  signEvent,
+  getSignature,
   nip04,
 } from 'nostr-tools';
 
@@ -53,7 +53,7 @@ export default function SendDirectMessage() {
     };
 
     event.id = getEventHash(event);
-    event.sig = signEvent(event, myPrivkey);
+    event.sig = getSignature(event, myPrivkey);
 
     publish(event);
     e1.value = '';

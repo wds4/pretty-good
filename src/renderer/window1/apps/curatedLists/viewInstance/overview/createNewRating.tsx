@@ -4,7 +4,7 @@ import {
   type Event as NostrEvent,
   getEventHash,
   getPublicKey,
-  signEvent,
+  getSignature,
 } from 'nostr-tools';
 import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
 import {
@@ -280,7 +280,7 @@ const CreateNewRating = ({
     };
 
     event.id = getEventHash(event);
-    event.sig = signEvent(event, myPrivkey);
+    event.sig = getSignature(event, myPrivkey);
 
     e2.value = JSON.stringify(event, null, 4);
   };

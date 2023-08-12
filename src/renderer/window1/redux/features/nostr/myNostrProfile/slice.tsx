@@ -15,7 +15,7 @@ import {
   type Event as NostrEvent,
   getEventHash,
   getPublicKey,
-  signEvent,
+  getSignature,
 } from 'nostr-tools';
 import CurationOfRelationships from 'renderer/window1/apps/curatedLists/contentCuration/showCurations/curationOfRelationships/curationOfRelationshipsX';
 
@@ -613,7 +613,7 @@ export const updateNostrRelaysForActiveUserInReduxAndNostr =
     };
 
     event.id = getEventHash(event);
-    event.sig = signEvent(event, myPrivkey);
+    event.sig = getSignature(event, myPrivkey);
 
     console.log(`updateFollowingAndRelaysListsInNostr; event: ${JSON.stringify(event)}`);
 

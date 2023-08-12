@@ -109,61 +109,27 @@ const ViewLists = ({}) => {
     setSearchStringForLists(event.target.value);
   }
 
-  const naddrTest = "naddr1qqzkjurnw4ksz9thwden5te0wfjkccte9ehx7um5wghx7un8qgs2d90kkcq3nk2jry62dyf50k0h36rhpdtd594my40w9pkal876jxgrqsqqqa28pccpzu";
-  const { type, length, value, data } = nip19.decode(naddrTest);
-
-  const oNaddrTest1 = {
-    "identifier": "ipsum",
-    "pubkey": "a695f6b60119d9521934a691347d9f78e8770b56da16bb255ee286ddf9fda919",
-    "kind": 30023,
-    "relays": [
-        "wss://relay.nostr.org"
-    ]
-  }
-
-  const foo1 = nip19.naddrEncode(oNaddrTest1);
-
-  const oNaddrTest2 = {
-    "identifier": "ipsum",
-    "pubkey": "a695f6b60119d9521934a691347d9f78e8770b56da16bb255ee286ddf9fda919",
-    "kind": 30023,
-    "relays": [
-        "wss://relay.nostr.org"
-    ],
-    "pk": "blahblah"
-  }
-
-  const foo2 = nip19.naddrEncode(oNaddrTest2);
-
   return (
     <>
-      <div>
-        <div className="h3" style={{marginBottom:"20px"}}>NIP-51 Lists ({aListEventIDs.length} lists)</div>
-        <div style={{height: "200px", overflow: "scroll"}}>
-          <div>foo1: {foo1}</div>
-          <div>foo2: {foo2}</div>
-          <div>type: {type}</div>
-          <div>length: {length}</div>
-          <div>value: {length}</div>
-          <div>data: {JSON.stringify(data,null,4)}</div>
+      <div >
+        <div className="h3" style={{marginBottom:"20px"}}>Nostr Lists</div>
+        <div style={{display: "none", height: "200px", overflow: "scroll"}}>
           <div id="oKindsForATagsContainer">
             oKindsForATags
           </div>
         </div>
 
-        <div>searchStringForLists: {searchStringForLists}</div>
-
         <div style={{textAlign: 'left',marginBottom: '5px'}}>
-          <div style={{color: 'grey', marginBottom: '2px'}}>Search by list title</div>
           <textarea
-            style={{width: '99%'}}
+            style={{width: '95%', fontSize: '26px', height: '30px', padding: '10px' }}
             id="listSearchTextfield"
             onChange={updateSearchStringForLists}
+            placeholder='Search by list title'
           ></textarea>
         </div>
 
         <div
-          style={{}}
+          style={{display: 'none'}}
         >
           List categories:
           <ShowKindButton
@@ -220,9 +186,8 @@ const ViewLists = ({}) => {
             setShowTags={setShowTagsT}
             countNumberOfListsShown={countNumberOfListsShown}
           />
-          <br/>
-          <div>Showing <span id="fooElement">?</span> lists</div>
         </div>
+        <div style={{color: 'grey',marginBottom: '5px'}}>Showing <span id="fooElement">?</span> lists</div>
         <div
           style={{
             border: '1px solid black',

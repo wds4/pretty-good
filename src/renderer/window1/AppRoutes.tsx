@@ -44,6 +44,7 @@ import VisjsHelloWorld from './apps/prettyGood/settings/helloWorld/visjs';
 import VisjsHelloWorldMultiGraph from './apps/prettyGood/settings/helloWorld/visjsMultiGraph';
 import DataTablesHelloWorld from './apps/prettyGood/settings/helloWorld/dataTables';
 import ReactDataTableComponentHelloWorld from './apps/prettyGood/settings/helloWorld/reactDataTableComponent';
+import ExploreNostrNotesByKind from './apps/prettyGood/settings/helloWorld/exploreNotesByKind.tsx';
 
 import PrettyGoodAppsLandingPage from './apps/nostr/landingPage'; // if want start page to be nostr main feed
 // import PrettyGoodAppsLandingPage from './apps/curatedLists/listsWithScoresV8'; // if want start page to be cuarated list summary page
@@ -298,6 +299,10 @@ const AppRoutes = () => {
             <Route
               path="/PrettyGoodHome/ReactDataTableComponentHelloWorld"
               element={<ReactDataTableComponentHelloWorld />}
+            />
+            <Route
+              path="/PrettyGoodHome/ExploreNostrNotesByKind"
+              element={<ExploreNostrNotesByKind />}
             />
 
             <Route path="/NostrHome" element={<NostrHome />} />

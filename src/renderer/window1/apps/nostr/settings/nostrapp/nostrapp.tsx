@@ -5,7 +5,7 @@ import {
   type Event as NostrEvent,
   getEventHash,
   getPublicKey,
-  signEvent,
+  getSignature,
 } from 'nostr-tools';
 import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
 import { secsToTime, isValidObjString } from 'renderer/window1/lib/pg';
@@ -61,7 +61,7 @@ const CreatePrettyGoodApps = () => {
   };
   event.id = getEventHash(event);
 
-  event.sig = signEvent(event, myPrivkey);
+  event.sig = getSignature(event, myPrivkey);
 
   // const event_ = JSON.parse(JSON.stringify(event));
   // console.log("onChangeMessage; event_: "+JSON.stringify(event_))

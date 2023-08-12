@@ -198,9 +198,6 @@ nip51
 .nip51Button:hover {
   background-color: yellow;
 }
-.singleListOverviewContainer:hover {
-  background-color: yellow;
-}
 .nip51KindSelectorInactive {
   font-size:12px;
   display:inline-block;

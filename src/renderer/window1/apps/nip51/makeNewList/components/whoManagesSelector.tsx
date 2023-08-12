@@ -12,9 +12,9 @@ const WhoManagesSelector = () => {
           borderRadius: '5px',
         }}
       >
-        <option>select who manages this list</option>
-        <option>self-managed</option>
-        <option>your web of trust</option>
+        <option>Select who manages this list</option>
+        <option>I do</option>
+        <option>my web of trust</option>
       </select>
     </>
   )

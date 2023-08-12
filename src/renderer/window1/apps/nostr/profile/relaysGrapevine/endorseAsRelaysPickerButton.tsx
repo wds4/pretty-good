@@ -8,7 +8,7 @@ import {
   type Event as NostrEvent,
   getEventHash,
   getPublicKey,
-  signEvent,
+  getSignature,
 } from 'nostr-tools';
 import { Tooltip } from 'react-tooltip';
 import { tooltipContent } from 'renderer/window1/const/tooltipContent';
@@ -62,7 +62,7 @@ const EndorseAsRelaysPickerButton = ({ pubkey }) => {
     };
 
     event.id = getEventHash(event);
-    event.sig = signEvent(event, myPrivkey);
+    event.sig = getSignature(event, myPrivkey);
 
     console.log(
       `updateFollowingAndRelaysListsInNostr; event: ${JSON.stringify(event)}`

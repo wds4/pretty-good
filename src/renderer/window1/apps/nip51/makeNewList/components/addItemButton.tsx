@@ -100,10 +100,15 @@ const AddItemButton = ({
           </>
         )
       }
-
     }
     if (existingListRetrievalMethod=="nip51identifier") {
-
+      if (existingListName && isNewItemValid == 'yes') {
+        return (
+          <>
+            <ButtonActive addItem={addItem} />
+          </>
+        )
+      }
     }
   }
   return (

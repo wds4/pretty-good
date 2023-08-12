@@ -40,6 +40,7 @@ const MakeNewListFunctions = ({
   setNewItemData,
   setNewItemDataType,
   setNewItemHex,
+  setExistingListKind,
   setExistingListName,
   setExistingListAuthorPubkey,
   setExistingListRetrievalMethod,
@@ -56,6 +57,7 @@ const MakeNewListFunctions = ({
   newItemData,
   newItemDataType,
   newItemHex,
+  existingListKind,
   existingListName,
   existingListAuthorPubkey,
   existingListRetrievalMethod,
@@ -72,19 +74,34 @@ const MakeNewListFunctions = ({
     setNewItemDataType('');
     setNewItemData('');
     setNewItemHex('');
-    setExistingListRetrievalMethod('');
     setExistingListName('');
+    setExistingListKind('');
+    setExistingListAuthorPubkey('');
+    const e = document.getElementById("anotherListSearchTermTextarea");
+    if (e) { e.value = '' }
   }
 
   const processNewItemText_anotherList = (inputText) => {
     console.log("qwerty processNewItemText_anotherList; inputText: "+inputText+"; existingListRetrievalMethod: "+existingListRetrievalMethod)
     // first, search existing lists and look for matches
     let inputTextDuplication = false;
+    setIsNewItemAlreadyOnList('no');
     // TO DO: check for duplicates
+    for (let x=0;x<aItems.length;x++) {
+      const aItem = aItems[x];
+      const itemText = aItem[0];
+      if (inputText == itemText) {
+        inputTextDuplication = true;
+        resetNewItemInput();
+        setIsNewItemAlreadyOnList('yes');
+      }
+    }
 
     // Then show all matches in the preview field
     if (!inputTextDuplication) {
       try {
+        const oNip19Foo = nip19.decode(inputText);
+        console.log("qwerty processNewItemText_anotherList; oNip19Foo: "+JSON.stringify(oNip19Foo))
         const { type, data } = nip19.decode(inputText);
         console.log("qwerty processNewItemText_anotherList; type: "+type)
         const itemDuplication = checkForItemDuplication(aItems, data, type);
@@ -107,14 +124,20 @@ const MakeNewListFunctions = ({
             }
           }
           if (existingListRetrievalMethod=="nip51identifier") { // type should be nevent, note, or naddr
-            if (type == 'nevent') {
+            if (type == 'naddr') {
               setIsNewItemValid('yes');
+              setNewItemData(JSON.stringify(data));
+              setExistingListName(data.identifier);
+              setExistingListAuthorPubkey(data.pubkey);
+              setExistingListKind(data.kind);
             }
           }
         }
       } catch (error) {
+        console.log("qwerty error: "+JSON.stringify(error))
         setIsNewItemValid('no');
         setExistingListAuthorPubkey('');
+        setExistingListKind('');
       }
     }
   }
@@ -209,7 +232,7 @@ const MakeNewListFunctions = ({
     if (!inputText) {
       resetNewItemInput();
       setNewItemText('');
-      setIsNewItemAlreadyOnList('no')
+      setIsNewItemAlreadyOnList('no');
     }
     if (inputText) {
       setNewItemText(inputText);
@@ -221,24 +244,22 @@ const MakeNewListFunctions = ({
       }
     }
   }
-
   const addItem = () => {
     if (newItemGroup=="anotherList") {
       if (isNewItemValid == 'yes') {
-        if (existingListRetrievalMethod=="authorAndListName") {
+        if (existingListRetrievalMethod=="authorAndListName" || existingListRetrievalMethod=="nip51identifier") {
           const aNewItem = [
             newItemText,
             'anotherList',
             existingListName,
             existingListAuthorPubkey,
+            existingListKind,
           ];
           setAItems(aItems.concat([aNewItem]));
           // reset new list item input field and analysis
           resetNewItemInput();
           setNewItemText('');
           setIsNewItemAlreadyOnList('no');
-          // TO DO: set new list name and author text fields to blank
-
         }
       }
     }

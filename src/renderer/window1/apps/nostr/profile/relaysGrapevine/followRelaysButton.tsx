@@ -8,7 +8,7 @@ import {
   type Event as NostrEvent,
   getEventHash,
   getPublicKey,
-  signEvent,
+  getSignature,
 } from 'nostr-tools';
 import { Tooltip } from 'react-tooltip';
 import { tooltipContent } from 'renderer/window1/const/tooltipContent';

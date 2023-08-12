@@ -27,7 +27,7 @@ const AnotherListIdentificationMethodSelector = ({
         onChange={updateExistingListRetrievalMethod}
       >
         <option value="">select how to specify the import list</option>
-        <option value="authorAndListName">list name & author/curator</option>
+        <option value="authorAndListName">list name, author/curator, & event kind</option>
         <option value="nip51identifier">NIP-51 id (nevent, note, or naddr)</option>
       </select>
     </>

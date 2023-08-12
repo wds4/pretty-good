@@ -5,7 +5,7 @@ import {
   type Event as NostrEvent,
   getEventHash,
   getPublicKey,
-  signEvent,
+  getSignature,
 } from 'nostr-tools';
 
 const NewListEventContainer = ({aItems, newListKind, newListName}) => {
@@ -47,24 +47,29 @@ const NewListEventContainer = ({aItems, newListKind, newListName}) => {
     if (type == "anotherList") {
       const existingListName = aItem[2];
       const existingListAuthorPubkey = aItem[3];
-      const foo = "30001:"+existingListAuthorPubkey+":"+existingListName;
+      const existingListKind = aItem[4];
+      const foo = existingListKind+":"+existingListAuthorPubkey+":"+existingListName;
       const aTab = ["a",foo];
       aTags.push(aTab);
     }
   }
 
-  const event: NostrEvent = {
-    content: '',
-    kind: newListKind,
-    tags: aTags,
-    created_at: dateToUnix(),
-    pubkey: getPublicKey(myPrivkey),
-  };
+  let event_ = {};
+  const newListKindInt = parseInt(newListKind);
+  if (newListKindInt > 0) {
+    const event: NostrEvent = {
+      content: '',
+      kind: newListKindInt,
+      tags: aTags,
+      created_at: dateToUnix(),
+      pubkey: getPublicKey(myPrivkey),
+    };
 
-  event.id = getEventHash(event);
-  event.sig = signEvent(event, myPrivkey);
+    event.id = getEventHash(event);
+    event.sig = getSignature(event, myPrivkey);
 
-  const event_ = JSON.parse(JSON.stringify(event));
+    event_ = JSON.parse(JSON.stringify(event));
+  }
 
   const oWord = {};
   oWord.wordData = {};

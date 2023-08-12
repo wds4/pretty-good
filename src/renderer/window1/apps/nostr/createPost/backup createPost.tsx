@@ -4,7 +4,7 @@ import {
   type Event as NostrEvent,
   getEventHash,
   getPublicKey,
-  signEvent,
+  getSignature,
 } from 'nostr-tools';
 import TechDetailsForNostrNerds from '../components/post/techDetailsForNostrNerds';
 // <TechDetailsForNostrNerds event={event} />
@@ -51,7 +51,7 @@ export default function CreatePost() {
     };
 
     event.id = getEventHash(event);
-    event.sig = signEvent(event, myPrivkey);
+    event.sig = getSignature(event, myPrivkey);
 
 
     publish(event);

@@ -216,8 +216,8 @@ const ListAuthor = ({
   isNewItemAlreadyOnList,
   existingListAuthorPubkey,
 }) => {
-  if (isNewItemValid=="no") return ( <><div style={{padding: '5px'}}>list author</div></> )
-  if (isNewItemAlreadyOnList=="yes") return ( <><div style={{padding: '5px'}}>list author</div></> )
+  if (isNewItemValid=="no") return ( <></> )
+  if (isNewItemAlreadyOnList=="yes") return ( <></> )
   return (
     <>
       <MiniProfile pubkey={existingListAuthorPubkey} />
@@ -242,13 +242,15 @@ const AnotherListItem = ({
   if (existingListRetrievalMethod=="nip51identifier") {
 
   }
-  let listName="list name";
-  let listNameColor="grey";
+  let listName="";
   if (existingListName) {
     listName = existingListName;
   }
   return (
     <>
+      <div style={{textAlign: 'left', padding: '3px'}}>
+        import all items from this list:
+      </div>
       <div
         style={{
           display: 'flex',
@@ -258,6 +260,7 @@ const AnotherListItem = ({
           marginBottom: '10px',
         }}
       >
+
         <div style={{ flexGrow: '999' }}>
           <div
             style={{
@@ -271,12 +274,10 @@ const AnotherListItem = ({
             <div
               style={{
                 display: 'inline-block',
-                width: '40%',
+                width: '50%',
                 height: '100%',
-                backgroundColor: '#DFDFDF',
                 fontSize: '26px',
                 padding: '5px',
-                color: listNameColor,
               }}
             >
               {listName}
@@ -284,7 +285,7 @@ const AnotherListItem = ({
             <div
               style={{
                 display: 'inline-block',
-                width: '60%',
+                width: '50%',
                 height: '100%',
                 fontSize: '26px',
                 color: 'grey',

@@ -5,7 +5,7 @@ import {
   type Event as NostrEvent,
   getEventHash,
   getPublicKey,
-  signEvent,
+  getSignature,
 } from 'nostr-tools';
 
 const ComposeRatingAndEvent = ({ ratingPreset }) => {
@@ -76,7 +76,7 @@ const ComposeRatingAndEvent = ({ ratingPreset }) => {
   */
 
   event.id = getEventHash(event);
-  event.sig = signEvent(event, myPrivkey);
+  event.sig = getSignature(event, myPrivkey);
 
   return (
     <>

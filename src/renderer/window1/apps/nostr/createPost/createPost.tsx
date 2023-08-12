@@ -5,7 +5,7 @@ import {
   type Event as NostrEvent,
   getEventHash,
   getPublicKey,
-  signEvent,
+  getSignature,
 } from 'nostr-tools';
 import { clientTag } from 'renderer/window1/const';
 import TechDetailsForNostrNerds from './techDetailsForNostrNerds';
@@ -51,7 +51,7 @@ export default function CreatePost() {
     };
 
     event.id = getEventHash(event);
-    event.sig = signEvent(event, myPrivkey);
+    event.sig = getSignature(event, myPrivkey);
 
     event_ = JSON.parse(JSON.stringify(event));
     // console.log("onChangeMessage; event_: "+JSON.stringify(event_))

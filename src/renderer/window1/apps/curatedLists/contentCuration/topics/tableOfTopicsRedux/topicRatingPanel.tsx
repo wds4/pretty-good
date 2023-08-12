@@ -4,7 +4,7 @@ import {
   type Event as NostrEvent,
   getEventHash,
   getPublicKey,
-  signEvent,
+  getSignature,
 } from 'nostr-tools';
 import { NavLink } from 'react-router-dom';
 import oRating from 'renderer/window1/apps/curatedLists/contentCuration/const/nostrChannelTopicsInstanceEndorsement';
@@ -219,7 +219,7 @@ const TopicRatingPanel = ({oWord, event, event_id, oNostrNodesByEventID}) => {
     };
 
     event.id = getEventHash(event);
-    event.sig = signEvent(event, myPrivkey);
+    event.sig = getSignature(event, myPrivkey);
 
     e2.value = JSON.stringify(event, null, 4);
   };

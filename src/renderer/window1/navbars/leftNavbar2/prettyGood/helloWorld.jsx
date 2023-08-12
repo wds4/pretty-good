@@ -52,6 +52,13 @@ export default class LeftNavbar2 extends React.PureComponent {
             React Data Table Component
           </NavLink>
 
+          <NavLink
+            className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
+            end to="/PrettyGoodHome/ExploreNostrNotesByKind"
+          >
+            Explore Nostr Notes by Kind
+          </NavLink>
+
         </div>
       </>
     );

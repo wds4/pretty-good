@@ -4,7 +4,7 @@ import {
   type Event as NostrEvent,
   getEventHash,
   getPublicKey,
-  signEvent,
+  getSignature,
 } from 'nostr-tools';
 
 const ratingTemplateSlug = 'nostrCuratedListsCuratorEndorsement';
@@ -217,7 +217,7 @@ const CreateNewRating = ({ aListData, userData }) => {
     };
 
     event.id = getEventHash(event);
-    event.sig = signEvent(event, myPrivkey);
+    event.sig = getSignature(event, myPrivkey);
 
     e2.value = JSON.stringify(event, null, 4);
   };

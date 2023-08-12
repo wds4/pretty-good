@@ -5,7 +5,7 @@ import {
   type Event as NostrEvent,
   getEventHash,
   getPublicKey,
-  signEvent,
+  getSignature,
 } from 'nostr-tools';
 import { convertNameToSlug } from 'renderer/window1/lib/conceptGraph';
 import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
@@ -230,7 +230,7 @@ const CreateARelationship = () => {
 
     console.log("event: "+JSON.stringify(event,null,4));
     event.id = getEventHash(event);
-    event.sig = signEvent(event, myPrivkey);
+    event.sig = getSignature(event, myPrivkey);
 
     setOEvent(event);
 

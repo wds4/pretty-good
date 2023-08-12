@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useNostr, dateToUnix, useNostrEvents, useProfile } from 'nostr-react';
-import { type Event as NostrEvent, getEventHash, signEvent } from 'nostr-tools';
+import { type Event as NostrEvent, getEventHash, getSignature } from 'nostr-tools';
 import {
   updateName,
   updateDisplayName,
@@ -107,7 +107,7 @@ function PublishProfile() {
       pubkey: myPubkey,
     };
     event.id = getEventHash(event);
-    event.sig = signEvent(event, myPrivkey);
+    event.sig = getSignature(event, myPrivkey);
 
     console.log(`sProfileInfo: ${sProfileInfo}; broadcast: ${broadcast}`);
     console.log(`event: ${JSON.stringify(event, null, 4)}`);

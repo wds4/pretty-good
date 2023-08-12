@@ -150,7 +150,7 @@ const PageLayout = ({
             </div>
           </center>
 
-          <div style={{ display: 'block' }}>
+          <div style={{ display: 'none' }}>
             <NewListEventContainer
               aItems={aItems}
               newListKind={newListKind}

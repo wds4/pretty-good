@@ -4,7 +4,7 @@ import {
   type Event as NostrEvent,
   getEventHash,
   getPublicKey,
-  signEvent,
+  getSignature,
 } from 'nostr-tools';
 import { endorseMyRelayList } from 'renderer/window1/apps/grapevine/attestationTemplates/endorseMyRelayList';
 
@@ -71,7 +71,7 @@ const EndorseRelayMessage = () => {
     };
 
     event.id = getEventHash(event);
-    event.sig = signEvent(event, myPrivkey);
+    event.sig = getSignature(event, myPrivkey);
 
     // publish(event);
     /*

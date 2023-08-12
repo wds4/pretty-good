@@ -119,7 +119,7 @@
     "marked": "^4.3.0",
     "marked-react": "^1.3.2",
     "nostr-react": "github:aussedatlo/nostr-react#dev/reconnect",
-    "nostr-tools": "^1.6.0",
+    "nostr-tools": "^1.14.0",
     "react": "^18.2.0",
     "react-animate-height": "^3.1.0",
     "react-data-table-component": "^7.5.3",

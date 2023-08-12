@@ -89,7 +89,6 @@ const NostrMiniProfile = ({ pubkey, searchStringForAuthors, searchStringForLists
       let title = "";
       if (aTags_d.length > 0) {
         title = aTags_d[0][1];
-        console.log("qwerty title: "+title)
       }
       if (title && title.includes(searchStringForLists)) {
         displayByListString = "block";
