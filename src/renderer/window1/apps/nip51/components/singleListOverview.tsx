@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
+import { nip19 } from 'nostr-tools';
 import { useSelector, useDispatch } from 'react-redux';
 import BlankAvatar from 'renderer/window1/assets/blankAvatar.png';
 import PlusImage from 'renderer/window1/assets/plus.png';
@@ -7,9 +8,11 @@ import MinusImage from 'renderer/window1/assets/minus.png';
 import { updateNostrProfileFocus } from 'renderer/window1/redux/features/nostr/settings/slice';
 import { secsToTime } from 'renderer/window1/lib/pg';
 import { noProfilePicUrl } from 'renderer/window1/const';
+import { Tooltip } from 'react-tooltip';
 import TechDetailsForNostrNerds from './techDetailsForNostrNerds';
 
-const MiniProfile = ({pubkey}) => {
+
+const MiniProfile = ({ pubkey }) => {
   const dispatch = useDispatch();
   const nostrProfiles = useSelector(
     (state) => state.nostrProfiles.nostrProfiles
@@ -19,7 +22,7 @@ const MiniProfile = ({pubkey}) => {
   let avatarUrl = noProfilePicUrl;
   let name = '';
   let displayName = '';
-  let about = '';
+  const about = '';
 
   /// // STEP 2 ///// If already present in redux store, replace with that
   let profileContent = {};
@@ -85,7 +88,7 @@ const MiniProfile = ({pubkey}) => {
             style={{
               height: '100%',
               display: 'inline-block',
-              width: 'calc(86% - 70px)',
+              width: 'calc(100% - 60px)',
               borderRadius: '5px',
               marginLeft: '5px',
               padding: '2px',
@@ -104,34 +107,32 @@ const MiniProfile = ({pubkey}) => {
               }}
             >
               <span style={{ color: 'black' }}>{displayName}</span>
-              <span style={{ color: 'grey', marginLeft: '10px' }}>
-                {name}
-              </span>
+              <span style={{ color: 'grey', marginLeft: '10px' }}>{name}</span>
             </div>
           </div>
         </NavLink>
       </div>
     </>
-  )
-}
+  );
+};
 
-const ToggleListInfo = ({lowerPanelState, setLowerPanelState}) => {
+const ToggleListInfo = ({ lowerPanelState, setLowerPanelState }) => {
   let toggleButtonImage = PlusImage;
-  if (lowerPanelState=='open') {
+  if (lowerPanelState == 'open') {
     toggleButtonImage = MinusImage;
   }
-  if (lowerPanelState=='closed') {
+  if (lowerPanelState == 'closed') {
     toggleButtonImage = PlusImage;
   }
   const updateLowerPanelState = () => {
-    console.log("updateLowerPanelState")
-    if (lowerPanelState=='open') {
+    console.log('updateLowerPanelState');
+    if (lowerPanelState == 'open') {
       setLowerPanelState('closed');
     }
-    if (lowerPanelState=='closed') {
+    if (lowerPanelState == 'closed') {
       setLowerPanelState('open');
     }
-  }
+  };
   return (
     <>
       <div
@@ -151,8 +152,8 @@ const ToggleListInfo = ({lowerPanelState, setLowerPanelState}) => {
             backgroundColor: 'white',
             border: '1px solid black',
             borderRadius: '250px',
-            width: '75%',
-            height: '75%',
+            width: '50%',
+            height: '50%',
             margin: '0',
             position: 'absolute',
             top: '50%',
@@ -162,16 +163,25 @@ const ToggleListInfo = ({lowerPanelState, setLowerPanelState}) => {
         />
       </div>
     </>
-  )
-}
+  );
+};
 
-const ListName = ({listName}) => {
+const ListName = ({ listName }) => {
   return (
     <>
-      <div style={{display: 'inline-block', fontSize: '26px', marginLeft: '20px',marginTop: '10px'}}>{listName}</div>
+      <div
+        style={{
+          display: 'inline-block',
+          fontSize: '26px',
+          marginLeft: '20px',
+          marginTop: '10px',
+        }}
+      >
+        {listName}
+      </div>
     </>
-  )
-}
+  );
+};
 
 const LowerPanel = ({
   kind,
@@ -196,16 +206,20 @@ const LowerPanel = ({
           padding: '10px',
         }}
       >
-        <div style={{display: 'inline-block'}}>
-          {aTags_a.length + aTags_e.length + aTags_p.length + aTags_t.length} items
+        <div style={{ display: 'inline-block' }}>
+          {aTags_a.length + aTags_e.length + aTags_p.length + aTags_t.length}{' '}
+          items
         </div>
-        <div style={{display: 'inline-block', float: 'right'}}>{displayTime} ago</div>
+        <div style={{ display: 'inline-block', float: 'right' }}>
+          {displayTime} ago
+        </div>
       </div>
     </>
-  )
-}
+  );
+};
 
 const SingleListOverview = ({
+  event,
   kind,
   listName,
   pk_author,
@@ -224,49 +238,129 @@ const SingleListOverview = ({
       <div
         className="singleListOverviewContainer"
         data-listkind={kind}
-        data-numitems={aTags_a.length + aTags_e.length + aTags_p.length + aTags_t.length}
+        data-numitems={
+          aTags_a.length + aTags_e.length + aTags_p.length + aTags_t.length
+        }
         data-numlists={aTags_a.length}
         data-numevents={aTags_e.length}
         data-numpeople={aTags_p.length}
         data-numstrings={aTags_t.length}
         data-eventid={eventid}
         style={{
+          border: '1px dashed grey',
           borderRadius: '5px',
           textAlign: 'left',
           padding: '5px',
           marginBottom: '5px',
+          overflow: 'visible',
         }}
       >
-        <div
-        style={{
-          border: '1px dashed grey',
-          borderRadius: '5px',
-        }}
-        >
-          <div>
-            <ToggleListInfo
-              lowerPanelState={lowerPanelState}
-              setLowerPanelState={setLowerPanelState}
-            />
-            <ListName listName={listName} />
-            <MiniProfile pubkey={pk_author} />
-          </div>
-          <LowerPanel
-            kind={kind}
-            listName={listName}
-            pk_author={pk_author}
-            displayTime={displayTime}
-            listType={listType}
-            aTags_a={aTags_a}
-            aTags_e={aTags_e}
-            aTags_p={aTags_p}
-            aTags_t={aTags_t}
-            searchStringForLists={searchStringForLists}
-            eventid={eventid}
+        <div>
+          <ToggleListInfo
             lowerPanelState={lowerPanelState}
+            setLowerPanelState={setLowerPanelState}
           />
+          <ListName listName={listName} />
+          <SingleListInfoBox listName={listName} event={event} />
+          <MiniProfile pubkey={pk_author} />
         </div>
+        <LowerPanel
+          kind={kind}
+          listName={listName}
+          pk_author={pk_author}
+          displayTime={displayTime}
+          listType={listType}
+          aTags_a={aTags_a}
+          aTags_e={aTags_e}
+          aTags_p={aTags_p}
+          aTags_t={aTags_t}
+          searchStringForLists={searchStringForLists}
+          eventid={eventid}
+          lowerPanelState={lowerPanelState}
+        />
       </div>
+    </>
+  );
+};
+
+const SingleListInfoBox = ({
+  listName,
+  event
+}) => {
+  const noteID = nip19.noteEncode(event.id);
+  const naddr = nip19.naddrEncode({
+    pubkey: event.pubkey,
+    kind: event.kind,
+    identifier: listName,
+    relays: [],
+  });
+  const npub = nip19.npubEncode(event.pubkey);
+
+  const oFooo = nip19.decode(naddr);
+
+  const copyNaddr = () => {
+    navigator.clipboard.writeText(naddr);
+    // Alert the copied text
+    alert("Copied the text: " + naddr);
+  }
+  const copyNoteID = () => {
+    navigator.clipboard.writeText(noteID);
+    // Alert the copied text
+    alert("Copied the text: " + noteID);
+  }
+  const copyUserNpub = () => {
+    navigator.clipboard.writeText(npub);
+    // Alert the copied text
+    alert("Copied the text: " + npub);
+  }
+
+  let tooltipHTML = "<div  ";
+  tooltipHTML += " style=color:red;padding:5px;font-size:14px;text-align:center; ";
+  tooltipHTML += ' >';
+  tooltipHTML += "<div class=tooltipButton id=tooltipButtonC_"+event.id+" >copy note naddr</div>";
+  tooltipHTML += "<div class=tooltipButton id=tooltipButtonA_"+event.id+" >copy note id</div>";
+  tooltipHTML += "<div class=tooltipButton id=tooltipButtonB_"+event.id+" >copy user npub</div>";
+  tooltipHTML += "</div>";
+
+  const establishListeners = () => {
+    const e1 = document.getElementById("tooltipButtonA_"+event.id);
+    const e2 = document.getElementById("tooltipButtonB_"+event.id);
+    const e3 = document.getElementById("tooltipButtonC_"+event.id);
+    if (e1) {
+      e1.onclick = copyNoteID;
+    }
+    if (e2) {
+      e2.onclick = copyUserNpub;
+    }
+    if (e3) {
+      e3.onclick = copyNaddr;
+    }
+  }
+
+  const anchorSelect="#moreInfoSelector_"+event.id;
+  const aId = "moreInfoSelector_"+event.id;
+
+  return (
+    <>
+      <Tooltip
+        anchorSelect={anchorSelect}
+        html={tooltipHTML}
+        clickable
+        className="reactTooltip"
+        place="left"
+      />
+      <a
+        style={{
+          width: '30px',
+          height: '30px',
+          textAlign: 'center',
+          float: 'right',
+        }}
+        id={aId}
+        onMouseLeave={establishListeners}
+      >
+        ⋯
+      </a>
     </>
   );
 };
@@ -381,6 +475,7 @@ const SingleListOverviewWrapper = ({
           }}
         >
           <SingleListOverview
+            event={event}
             kind={kind}
             listName={listName}
             pk_author={pk_author}

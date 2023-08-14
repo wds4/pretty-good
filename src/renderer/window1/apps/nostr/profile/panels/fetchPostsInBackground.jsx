@@ -18,10 +18,10 @@ const FetchPostsInBackground = ({since}) => {
   const filter = {
     authors: [pubkey],
     since: 0,
-    kinds: [1],
+    kinds: [1, 6, 30023],
   };
 
-  filter.since = since;
+  // filter.since = since;
 
   const { events } = useNostrEvents({
     filter: filter,

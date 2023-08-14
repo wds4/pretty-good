@@ -191,8 +191,8 @@ const ViewLists = ({}) => {
         <div
           style={{
             border: '1px solid black',
-            maxHeight: '400px',
-            overflow: 'scroll',
+            maxHeight: '600px',
+            overflowY: 'scroll',
             padding: '5px',
           }}
         >

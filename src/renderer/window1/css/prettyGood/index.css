@@ -218,3 +218,19 @@ nip51
   background-color:green;
   color:white;
 }
+.tooltipNodeIdElement:hover {
+  color: gold;
+}
+.tooltipNodeIdElementParent:hover {
+  color: gold;
+}
+.tooltipNodeIdElementParent:hover .tooltipNodeIdElementChild {
+  color: green;
+}
+.tooltipButton {
+  color: red;
+  padding: 4px;
+}
+.tooltipButton:hover {
+  background-color: yellow;
+}

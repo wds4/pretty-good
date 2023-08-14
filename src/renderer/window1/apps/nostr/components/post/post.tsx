@@ -13,6 +13,7 @@ import ImageEmbed, { extractImageUrl } from './imageEmbed';
 import ActionButtons from './actionButtons';
 import TechDetailsForNostrNerds from './techDetailsForNostrNerds';
 import ReplyToPost from './replyToPost';
+import MoreInfoTooltip from './moreInfoTooltip';
 
 const ReplyingTo = ({ event }) => {
   const aaETags = event.tags.filter(([k, v]) => k === 'e' && v && v !== '');
@@ -47,11 +48,58 @@ const ReplyingTo = ({ event }) => {
   return <></>;
 };
 
-const Post = ({ event, index }) => {
+const RepostBar = ({event}) => {
+  const k = event.kind;
+  const pk = event.pubkey;
+
+  const nostrProfiles = useSelector(
+    (state) => state.nostrProfiles.nostrProfiles
+  );
+  let name = "";
+  let displayName = "";
+  if (nostrProfiles.hasOwnProperty(event.pubkey)) {
+    const profileContent = JSON.parse(nostrProfiles[event.pubkey].content);
+    name = `@${profileContent.name}`;
+    displayName = profileContent.display_name;
+  }
+
+  const childEvent = event?.content;
+  if (!childEvent) {
+    return (
+      <>
+        <div style={{backgroundColor: 'red', padding: '5px', marginBottom: '10px'}}>
+          <div>{pk} reposted: (empty content field, should fetch note using the provided event id)</div>
+        </div>
+      </>
+    )
+  }
+  const oChildEvent = JSON.parse(childEvent);
+  if (k==6) {
+    return (
+      <>
+        <div style={{marginBottom: '10px'}}>
+          <div style={{color: 'grey', paddingTop: '10px', paddingBottom: '10px', paddingLeft: '5px'}}>
+            <span style={{color: 'black'}}>{displayName}</span> {name} reposted:
+          </div>
+          <TechDetailsForNostrNerds
+            extractedImageUrl=""
+            extractedVideoUrl=""
+            event={event}
+          />
+          <Post event={oChildEvent} />
+        </div>
+      </>
+    )
+  }
+  return <></>
+}
+
+const Post = ({ event }) => {
   const nostrProfiles = useSelector(
     (state) => state.nostrProfiles.nostrProfiles
   );
   const dispatch = useDispatch();
+
 
   const displayTime = secsToTime(event.created_at);
   const rawContent = event.content;
@@ -74,6 +122,7 @@ const Post = ({ event, index }) => {
       ''
     );
   }
+
 
   // plan to make steps 1, 2, and maybe 3 into single function; 1 and 2 are sync, 3 would have to be async
   /// // STEP 1 ///// Load default profile info
@@ -126,8 +175,17 @@ const Post = ({ event, index }) => {
   }
   */
 
+  // Repost
+  if (event.kind == 6) {
+    return (
+      <>
+        <RepostBar event={event} />
+      </>
+    )
+  }
   return (
     <>
+
       <div className="eventContainer">
         <NavLink
           onClick={() => {
@@ -152,7 +210,12 @@ const Post = ({ event, index }) => {
                 </span>
               </span>
             </div>
-            <div className="eventTimeContainer">{displayTime}</div>
+            <div style={{float:'right',marginRight:'10px'}}>
+              <MoreInfoTooltip event={event} />
+            </div>
+            <div className="eventTimeContainer">
+             |{'    '}{displayTime} ago
+            </div>
           </div>
           <ReplyingTo event={event} />
           <NavLink

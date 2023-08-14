@@ -5,6 +5,8 @@ import {
   updateNostrActiveThreadFocus,
 } from 'renderer/window1/redux/features/nostr/settings/slice';
 import { useNostrEvents } from 'nostr-react';
+import RepostButton from './repostButton';
+import ReactionButton from './reactionButton';
 
 const CountReplies = ({event}) => {
   const parentEventID = event.id;
@@ -46,6 +48,12 @@ const ActionButtons = ({ event }) => {
             &#x1F4AC;
             <CountReplies event={event} />
           </NavLink>
+        </span>
+        <span className="singleActionButtonContainer">
+          <RepostButton parentEvent={event} />
+        </span>
+        <span className="singleActionButtonContainer">
+          <ReactionButton parentEvent={event} />
         </span>
       </div>
     </>

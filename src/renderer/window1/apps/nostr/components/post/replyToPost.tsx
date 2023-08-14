@@ -46,7 +46,6 @@ const ReplyToPost = ({ parentEvent }) => {
       content: message,
       kind: 1,
       tags: [replyTag1, replyTag2],
-      // tags: [replyTag1, replyTag2, clientTag],
       created_at: dateToUnix(),
       pubkey: getPublicKey(myPrivkey),
     };
@@ -55,7 +54,6 @@ const ReplyToPost = ({ parentEvent }) => {
     event.sig = getSignature(event, myPrivkey);
 
     event_ = JSON.parse(JSON.stringify(event));
-    // console.log("onChangeMessage; event_: "+JSON.stringify(event_))
     setNote(event_)
   }
 
@@ -65,7 +63,6 @@ const ReplyToPost = ({ parentEvent }) => {
       if (e1) {
         e1.value = '';
       }
-
       if (e2) {
         e2.innerHTML = 'Your message has been submitted to the nostr network!';
       }
@@ -74,7 +71,6 @@ const ReplyToPost = ({ parentEvent }) => {
         e2.innerHTML = 'submission failed';
       }
     }
-
   };
 
   if (focus == parentEventID) {

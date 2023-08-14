@@ -38,9 +38,10 @@ An attempt to demonstrate the utility of DCoSL by using it to crowdsource conten
 - [ ] [NIP-06: Basic key derivation from mnemonic seed phrase](https://github.com/nostr-protocol/nips/blob/master/06.md)<br>
 - [ ] [NIP-08: Handling Mentions](https://github.com/nostr-protocol/nips/blob/master/08.md)<br>
 - [ ] [NIP-10: Conventions for clients' use of `e` and `p` tags in text events](https://github.com/nostr-protocol/nips/blob/master/10.md)<br>
+- [x] [NIP-18: Reposts](https://github.com/nostr-protocol/nips/blob/master/18.md)<br>
 - [ ] [NIP-19: bech32-encoded entities](https://github.com/nostr-protocol/nips/blob/master/19.md)<br>
 - [ ] [NIP-21: `nostr:` URL scheme](https://github.com/nostr-protocol/nips/blob/master/21.md)<br>
-- [ ] [NIP-25: Reactions](https://github.com/nostr-protocol/nips/blob/master/25.md)<br>
+- [x] [NIP-25: Reactions](https://github.com/nostr-protocol/nips/blob/master/25.md)<br>
 - [x] [NIP-32: Labeling](https://github.com/nostr-protocol/nips/blob/master/32.md)<br>
 - [x] [NIP-33: Parameterized Replaceable Events](https://github.com/nostr-protocol/nips/blob/master/33.md)<br>
 - [ ] [NIP-51: Lists](https://github.com/nostr-protocol/nips/blob/master/51.md)<br>

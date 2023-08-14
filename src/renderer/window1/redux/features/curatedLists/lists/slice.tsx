@@ -732,7 +732,7 @@ export const curatedListsSlice = createSlice({
             if (t0 && (typeof t0 == "object") && (t0.length > 1)) { t0 = t0[1]; }
 
             if (g0 == "grapevine-testnet-901") {
-              console.log("qwerty g0=grapevine-testnet; event: "+JSON.stringify(event,null,4))
+              // console.log("qwerty g0=grapevine-testnet; event: "+JSON.stringify(event,null,4))
             }
 
             // c0 and g0 will not be needed if 9901, 33901 are reserved for these purposes;

@@ -28,7 +28,7 @@ const GlobalFeed = ({ aFollowing, aExtendedFollowing, aNostrDevs, aFedWatchers }
   const now = useRef(new Date()); // Make sure current time isn't re-rendered
   const currentTime = dateToUnix(now.current);
   const filter = {
-    kinds: [1],
+    kinds: [1,6,30023],
   };
   if (nostrMainFeedFilterSettings.hasOwnProperty(mainNostrFeedFilter)) {
     const { days, hours, minutes } = nostrMainFeedFilterSettings[mainNostrFeedFilter];
