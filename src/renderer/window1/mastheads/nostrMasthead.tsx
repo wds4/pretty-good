@@ -7,6 +7,8 @@ import {
   updateCurrentApp,
 } from 'renderer/window1/redux/features/prettyGood/settings/slice';
 import ToggleNostrGrapevineSwitch from 'renderer/window1/components/grToggleSwitchT2';
+import { Tooltip } from 'react-tooltip';
+import PurpleNostrich from 'renderer/window1/assets/nostr_logo_prpl.svg';
 import { noProfilePicUrl } from '../const';
 import RelaysStatus from './relaysStatus';
 
@@ -41,17 +43,33 @@ export default function Masthead() {
   return (
     <>
       <div className="mastheadContainer">
+        <Tooltip
+          anchorSelect="#satsCoffee"
+          html="<div style=font-size:18px; >icon courtesy of sats.coffee!</div>"
+          clickable
+          className="reactTooltip"
+          place="right"
+        />
         <div className="mastheadLeftContainer">
           <BackButton />
-          <div
-            style={{
-              fontSize: '48px',
-              display: 'inline-block',
-              marginLeft: '10px',
-            }}
-          >
-            🪶
-          </div>
+          <a id="satsCoffee" >
+            <div
+              style={{
+                fontSize: '48px',
+                display: 'inline-block',
+                marginLeft: '10px',
+              }}
+            >
+              <img
+                src={PurpleNostrich}
+                alt=""
+                style={{
+                  display: 'inline-block',
+                  width: '50px',
+                }}
+              />
+            </div>
+          </a>
         </div>
 
         <div id="mastheadCenterContainer" className="mastheadCenterContainer">

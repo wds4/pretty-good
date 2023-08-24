@@ -19,20 +19,22 @@ const TechDetailsForNostrNerds = ({ event, extractedVideoUrl, extractedImageUrl 
     }
   };
 
-  const aaETags = event.tags.filter(
-    ([k, v]) => k === 'e' && v && v !== ''
-  );
   const aETags = [];
-  for (let x=0;x<aaETags.length;x++) {
-    aETags.push(aaETags[x][1]);
-  }
-
-  const aaPTags = event.tags.filter(
-    ([k, v]) => k === 'p' && v && v !== ''
-  );
   const aPTags = [];
-  for (let x=0;x<aaPTags.length;x++) {
-    aPTags.push(aaPTags[x][1]);
+
+  if (event && event.tags) {
+    const aaETags = event.tags.filter(
+      ([k, v]) => k === 'e' && v && v !== ''
+    );
+    for (let x=0;x<aaETags.length;x++) {
+      aETags.push(aaETags[x][1]);
+    }
+    const aaPTags = event.tags.filter(
+      ([k, v]) => k === 'p' && v && v !== ''
+    );
+    for (let x=0;x<aaPTags.length;x++) {
+      aPTags.push(aaPTags[x][1]);
+    }
   }
 
   return (

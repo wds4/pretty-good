@@ -12,34 +12,36 @@ import ImageEmbed, { extractImageUrl } from 'renderer/window1/apps/nostr/compone
 import MiniProfile from './miniProfile';
 
 const ReplyingTo = ({ event }) => {
-  const aaETags = event.tags.filter(([k, v]) => k === 'e' && v && v !== '');
-  const aETags = [];
-  let replyID = '';
-  for (let x = 0; x < aaETags.length; x++) {
-    aETags.push(aaETags[x][1]);
-    if (aaETags[x].length > 3) {
-      const marker = aaETags[x][3];
-      if (marker == 'reply') {
-        replyID = aaETags[x][1];
-      }
-      if (marker == 'root') {
-      }
-      if (marker == 'mention') {
+  if (event && event.tags) {
+    const aaETags = event.tags.filter(([k, v]) => k === 'e' && v && v !== '');
+    const aETags = [];
+    let replyID = '';
+    for (let x = 0; x < aaETags.length; x++) {
+      aETags.push(aaETags[x][1]);
+      if (aaETags[x].length > 3) {
+        const marker = aaETags[x][3];
+        if (marker == 'reply') {
+          replyID = aaETags[x][1];
+        }
+        if (marker == 'root') {
+        }
+        if (marker == 'mention') {
+        }
       }
     }
-  }
-  if (aETags.length > 0) {
-    if (!replyID) {
-      replyID = aETags[0];
+    if (aETags.length > 0) {
+      if (!replyID) {
+        replyID = aETags[0];
+      }
+      return (
+        <>
+          <div className="eventReplyingToContainer">
+            <span style={{ color: 'grey' }}>replying to: </span>
+            <span>{replyID}</span>
+          </div>
+        </>
+      );
     }
-    return (
-      <>
-        <div className="eventReplyingToContainer">
-          <span style={{ color: 'grey' }}>replying to: </span>
-          <span>{replyID}</span>
-        </div>
-      </>
-    );
   }
   return <></>;
 };

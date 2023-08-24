@@ -21,6 +21,8 @@ const NostrMiniProfile = ({ pubkey, searchString }) => {
   let name = '';
   let displayName = '';
   let about = '';
+  let lud06 = '';
+  let lud16 = '';
 
   /// // STEP 2 ///// If already present in redux store, replace with that
   let profileContent = {};
@@ -33,6 +35,8 @@ const NostrMiniProfile = ({ pubkey, searchString }) => {
     } else {
       avatarUrl = BlankAvatar;
     }
+    lud06 = profileContent?.lud06;
+    lud16 = profileContent?.lud16;
   }
 
   /// // STEP 3 ///// Query network for updated profile information and if found, use that instead, and update redux
@@ -102,6 +106,8 @@ const NostrMiniProfile = ({ pubkey, searchString }) => {
                 </div>
               </div>
               <div className="eventContentContainer">{about}</div>
+              <div>{lud06}</div>
+              <div>{lud16}</div>
             </div>
           </NavLink>
           <div className="singleUserFollowButtonContainer">

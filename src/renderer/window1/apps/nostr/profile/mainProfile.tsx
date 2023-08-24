@@ -1,181 +1,44 @@
+import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { useNostrEvents, useProfile } from 'nostr-react';
-import { nip19 } from 'nostr-tools';
-import { updateNostrProfiles } from 'renderer/window1/redux/features/nostr/profiles/slice';
-import { returnMostRecentEvent } from 'renderer/window1/lib/nostr';
+import { useSelector } from 'react-redux';
+import { useProfile, dateToUnix } from 'nostr-react';
+import {
+  type Event as NostrEvent,
+  getEventHash,
+  getPublicKey,
+  getSignature,
+} from 'nostr-tools';
 import { noProfilePicUrl } from 'renderer/window1/const';
 import BlankAvatar from 'renderer/window1/assets/blankAvatar.png';
-import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
 import FollowButton from 'renderer/window1/apps/nostr/components/followButton';
 // import FollowRelaysButton from 'renderer/window1/apps/nostr/profile/relaysGrapevine/followRelaysButton';
 // import EndorseAsRelaysPickerButton from 'renderer/window1/apps/nostr/profile/relaysGrapevine/endorseAsRelaysPickerButton';
 // import EndorseAsRelaysPickerHunterButton from 'renderer/window1/apps/nostr/profile/relaysGrapevine/endorseAsRelaysPickerHunterButton';
 import FollowCounts from 'renderer/window1/apps/nostr/components/followCounts';
-import UserGrapevinePanel from 'renderer/window1/apps/nostr/profile/userGrapevinePanel';
-import RelaysCurationBox from './relaysGrapevine';
+// import UserGrapevinePanel from 'renderer/window1/apps/nostr/profile/userGrapevinePanel';
+// import RelaysCurationBox from './relaysGrapevine';
+import { asyncLnurlDecode } from 'renderer/window1/lib/pg/asyncLnurlDecode';
+import SelectListener from './mainPageListeners/selectListener';
 import CuratedListBox from './curatedListBox';
 import CuratedChannelsBox from './curatedChannelsBox';
-import TechDetailsForNostrNerds from './techDetailsForNostrNerds';
-import {
-  addCuratedListEventToSql,
-  addInstanceEventToSql,
-  addRatingOfCuratedListInstanceEventToSql,
-  addEndorsementOfListCuratorEventToSql,
-} from 'renderer/window1/lib/pg/sql';
-import {
-  addCuratedList,
-  addCuratedListInstance,
-  addRatingOfCuratedListInstance,
-  addCuratorEndorsement,
-  addThreadedTapestryEvent,
-} from 'renderer/window1/redux/features/curatedLists/lists/slice';
-
-const EndorsementListener = ({pubkey}) => {
-  const dispatch = useDispatch();
-  const myNostrProfile = useSelector((state) => state.myNostrProfile);
-  const myPubkey = myNostrProfile.pubkey_hex;
-  // set up filter
-  const kind1 = 39901; // grapevine
-  const filter = {
-    since: 0,
-    kinds: [kind1],
-    authors: [myPubkey],
-  };
-  const { events } = useNostrEvents({
-    filter,
-  });
-
-  events.forEach(async (event, item) => {
-    if (doesEventValidate(event)) {
-      const kind = event.kind;
-      let c0 = event.tags.filter(([k, v]) => k === 'c' && v && v !== '')[0];
-      let d0 = event.tags.filter(([k, v]) => k === 'd' && v && v !== '')[0];
-      let e0 = event.tags.filter(([k, v]) => k === 'e' && v && v !== '')[0];
-      let g0 = event.tags.filter(([k, v]) => k === 'g' && v && v !== '')[0];
-      let l0 = event.tags.filter(([k, v]) => k === 'l' && v && v !== '')[0];
-      let m0 = event.tags.filter(([k, v]) => k === 'm' && v && v !== '')[0];
-      let p0 = event.tags.filter(([k, v]) => k === 'p' && v && v !== '')[0];
-      let r0 = event.tags.filter(([k, v]) => k === 'r' && v && v !== '')[0];
-      let s0 = event.tags.filter(([k, v]) => k === 's' && v && v !== '')[0];
-      let t0 = event.tags.filter(([k, v]) => k === 't' && v && v !== '')[0];
-
-      if (c0 && (typeof c0 == "object") && (c0.length > 1)) { c0 = c0[1]; }
-      if (d0 && (typeof d0 == "object") && (d0.length > 1)) { d0 = d0[1]; }
-      if (e0 && (typeof e0 == "object") && (e0.length > 1)) { e0 = e0[1]; }
-      if (g0 && (typeof g0 == "object") && (g0.length > 1)) { g0 = g0[1]; }
-      if (l0 && (typeof l0 == "object") && (l0.length > 1)) { l0 = l0[1]; }
-      if (m0 && (typeof m0 == "object") && (m0.length > 1)) { m0 = m0[1]; }
-      if (p0 && (typeof p0 == "object") && (p0.length > 1)) { p0 = p0[1]; }
-      if (r0 && (typeof r0 == "object") && (r0.length > 1)) { r0 = r0[1]; }
-      if (s0 && (typeof s0 == "object") && (s0.length > 1)) { s0 = s0[1]; }
-      if (t0 && (typeof t0 == "object") && (t0.length > 1)) { t0 = t0[1]; }
-
-      if ( (kind == 39901) && (g0 == "grapevine-testnet-901") ) {
-        // console.log("qwerty grapevine testnet")
-        // endorsements of items
-        dispatch(addRatingOfCuratedListInstance(event));
-        // endorsements of users
-        dispatch(addCuratorEndorsement(event));
-
-        if (l0) {
-          // console.log("qwerty endorsement of item")
-          const parentConceptNostrEventID = l0;
-          const oWord = JSON.parse(event.content);
-          if (oWord) {
-            if (oWord.hasOwnProperty("ratingData")) {
-              if (oWord.ratingData.hasOwnProperty("ratingFieldsetData")) {
-                // endorsements of items
-                if (oWord.ratingData.ratingFieldsetData.hasOwnProperty("nostrCuratedListInstanceRatingFieldsetData")) {
-                  const parentConceptSlug = oWord.ratingData.ratingFieldsetData.nostrCuratedListInstanceRatingFieldsetData.contextData.nostrParentCuratedListData.slug.singular;
-                  if ( (parentConceptSlug) && (parentConceptNostrEventID) ) {
-                    addRatingOfCuratedListInstanceEventToSql(event,parentConceptSlug,parentConceptNostrEventID);
-                  }
-                }
-                // endorsements of users
-                if (oWord.ratingData.ratingFieldsetData.hasOwnProperty("nostrCuratedListsCuratorEndorsementFieldsetData")) {
-                  const parentConceptSlug = oWord.ratingData.ratingFieldsetData.nostrCuratedListsCuratorEndorsementFieldsetData.contextData.nostrParentCuratedListData.slug.singular;
-                  if ( (parentConceptSlug) && (parentConceptNostrEventID) ) {
-                    addEndorsementOfListCuratorEventToSql(event,parentConceptSlug,parentConceptNostrEventID);
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  })
-  return (
-    <>
-      <div style={{display:'none'}}>listen for endorsement updates; number of events:</div>
-    </>
-  )
-}
-
-const ThisUserProfileListener = ({pubkey}) => {
-  const dispatch = useDispatch();
-  ///// STEP 3 ///// Query network for updated profile information and if found, use that instead, and update redux
-  const { events } = useNostrEvents({
-    filter: {
-      authors: [pubkey],
-      since: 0,
-      kinds: [0],
-    },
-  });
-
-  const event = returnMostRecentEvent(events);
-  if (event && doesEventValidate(event)) {
-    dispatch(updateNostrProfiles(event));
-    /*
-    event_ = JSON.parse(JSON.stringify(event));
-    content = JSON.parse(event.content);
-    event_.content = content;
-    name = content.name;
-    displayName = content.display_name;
-    website = content.website;
-    about = content.about;
-    profilePicUrl = content.picture;
-    lnurl = content?.lud06;
-    if (lnurl) {
-      zapButtonClassName = 'zapButton';
-    }
-    */
-  }
-  return (
-    <>
-      <div style={{display:'none'}}>listen for profile updates (follows) (might be redundant bc of userData?)</div>
-    </>
-  )
-}
-
-// This selects whether to listen to the nostr network for updates:
-// 1. to the user profile being viewed (ThisUserProfileListener), versus:
-// 2. updates to endorsements by me (EndorsementListener)
-// (Too many listeners seem to interfere with each other  ... )
-const SelectListener = ({pubkey}) => {
-  const isNostrGrapevineOn = useSelector((state) => state.nostrSettings.nostrGrapevineSettings.active);
-  if (!isNostrGrapevineOn) {
-    return (
-      <>
-        <ThisUserProfileListener pubkey={pubkey} />
-      </>
-    )
-  }
-  return (
-    <>
-      <EndorsementListener pubkey={pubkey} />
-    </>
-  )
-}
+import TechDetailsForNostrNerds2 from './techDetailsForNostrNerds2';
 
 const MainProfile = ({pubkey}) => {
+  const myNostrProfile = useSelector((state) => state.myNostrProfile);
+  const myPrivkey = myNostrProfile.privkey;
+
+  let aMyRelays = [];
+  const relays = useSelector((state) => state.nostrSettings.nostrRelays);
+  if (relays) {
+    aMyRelays = Object.keys(relays);
+  }
+  aMyRelays.unshift("relays");
+
   const nostrProfiles = useSelector(
     (state) => state.nostrProfiles.nostrProfiles
   );
   const isNostrGrapevineOn = useSelector((state) => state.nostrSettings.nostrGrapevineSettings.active);
   // const title = isNostrGrapevineOn ? 'ON' : 'OFF';
-
 
   const grapevineProfileControlPanelClassName = isNostrGrapevineOn
     ? "grapevineProfileControlPanel"
@@ -193,6 +56,11 @@ const MainProfile = ({pubkey}) => {
   let website = '';
   let about = '';
 
+  let lnurl = 'LUNRL';
+  let lud16 = '';
+  let content = {};
+  let zapButtonClassName = 'block_hide';
+
   let event_ = {};
   /// // STEP 2 ///// If already present in redux store, replace with that
   // userDataCustom will replace userData from useProfile
@@ -209,6 +77,14 @@ const MainProfile = ({pubkey}) => {
       profilePicUrl = BlankAvatar;
     }
     bannerPicUrl = userDataCustom?.banner;
+    if (userDataCustom?.lud06) {
+      lnurl = userDataCustom?.lud06;
+      zapButtonClassName = 'zapButton';
+    }
+    if (userDataCustom?.lud16) {
+      lud16 = userDataCustom?.lud16;
+      zapButtonClassName = 'zapButton';
+    }
   }
 
   // TODO: deprecate userData, useProfile.
@@ -221,30 +97,21 @@ const MainProfile = ({pubkey}) => {
     pubkey,
   });
 
-  let lnurl = 'LUNRL';
-  let content = {};
-  let zapButtonClassName = 'block_hide';
-
   // if endorsement buttons are on, then endorsements listeners need to be on,
   // so it's necessary (or at least beneficial) to turn off all other listeners
-  let eventsX = [];
-  let eventX = {};
-  let event_X = {};
 
-  // if (!isNostrGrapevineOn) {
-
-  // }
-  const toggleLnurl = () => {
-    let e = document.getElementById("lud06Container");
-    e.style.display = 'inline-block';
+  const toggleLnurl = async () => {
+    let e = document.getElementById("lnurlContainer");
+    if (e) {
+      const currentState = e.style.display;
+      if (currentState == 'inline-block') {
+        e.style.display = 'none';
+      }
+      if (currentState == 'none') {
+        e.style.display = 'inline-block';
+      }
+    }
   }
-  /*
-  // userData2 is created to replace userData which
-  const userData2 = {
-    name: name,
-    display_name: displayName,
-  }
-  */
   return (
     <>
       <SelectListener pubkey={pubkey} />
@@ -303,10 +170,9 @@ const MainProfile = ({pubkey}) => {
               <div style={{ display: followButtonDisplay, marginLeft: '10px' }}>
                 <FollowButton pubkey={pubkey} />
               </div>
-              <br />
-              <div id='lud06Container' style={{display:'none',marginLeft:'10px',fontSize:'12px',padding:'2px',border:'1px solid grey',width:'70%'}}>
-                {lnurl}
-              </div>
+            </div>
+            <div id='lnurlContainer' style={{display:'none',marginLeft:'10px',fontSize:'12px',padding:'2px',border:'1px solid grey',width:'70%'}}>
+              {lud16}{'    '}{lnurl}
             </div>
 
             <div>
@@ -330,7 +196,7 @@ const MainProfile = ({pubkey}) => {
           <img src={bannerPicUrl} style={{width: '100%', zIndex: 15}} alt="" />
         </div>
       </div>
-      <TechDetailsForNostrNerds events={eventsX} event={eventX} event_={event_X} />
+      <TechDetailsForNostrNerds2 userDataCustom={userDataCustom} />
     </>
   );
 };

@@ -37,7 +37,6 @@ export default function Masthead() {
   if (devMode2) {
     devElemClass2 = 'devElemShowInline';
   }
-
   return (
     <>
       <div className="mastheadContainer">

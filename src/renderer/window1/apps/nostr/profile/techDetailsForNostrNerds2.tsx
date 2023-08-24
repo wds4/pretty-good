@@ -1,13 +1,12 @@
 import { useSelector } from 'react-redux';
 
-const TechDetailsForNostrNerds = ({ events, event, event_ }) => {
+const TechDetailsForNostrNerds = ({ userDataCustom }) => {
   const { devMode3 } = useSelector((state) => state.myNostrProfile.devModes);
   let devElemClass = 'devElemHide';
   if (devMode3) {
     devElemClass = 'devElemShow';
   }
-  const event_id = event.id;
-  const elem_id = "technicalDetailsForNostrDevsContainer_"+event_id;
+  const elem_id = "technicalDetailsForNostrDevsContainer_";
   const toggleViewDetails = () => {
     const e = document.getElementById(elem_id);
     const currentState = e.style.display;
@@ -33,14 +32,15 @@ const TechDetailsForNostrNerds = ({ events, event, event_ }) => {
           >
             🤓
           </button>
+          <span>data on this user in redux store:</span>
         </div>
         <div
           id={elem_id}
           style={{ display: 'none', fontSize: '12px', border: '1px dashed grey', padding: '3px' }}
         >
           <pre>
-            <div>number events received: {events.length}</div>
-            {JSON.stringify(event_, null, 4)}
+            <div>userDataCustom = JSON.parse(nostrProfiles[pubkey].content):</div>
+            {JSON.stringify(userDataCustom, null, 4)}
           </pre>
         </div>
       </div>

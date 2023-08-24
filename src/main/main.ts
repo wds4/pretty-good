@@ -14,6 +14,8 @@ import { app, BrowserWindow, shell, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import sqlite from 'sqlite3';
+import lnurl from 'lnurl';
+import lightningPayReq from 'bolt11';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 import webpackPaths from '../../.erb/configs/webpack.paths';
@@ -38,6 +40,74 @@ const sqlite3 = sqlite.verbose();
 const win1 = true;
 const win2 = false;
 const win3 = false;
+
+
+try{
+  const fooDecodedLnurl = lnurl.decode("lnurl1dp68gurn8ghj7um9wfmxjcm99e3k7mf0v9cxj0m385ekvcenxc6r2c35xvukxefcv5mkvv34x5ekzd3ev56nyd3hxqurzepexejxxepnxscrvwfnv9nxzcn9xq6xyefhvgcxxcmyxymnserxfq5fns");
+  // const fooDecodedLnurl = lnurl.decode("blah");
+  console.log("!!!!!!!!!!!!!!!!!!!!!!! fooDecodedLnurl: "+fooDecodedLnurl)
+} catch (error) {
+  console.log("!!!!!!!!!!!!!!!!!!!!!!! fooDecodedLnurl error: "+error)
+}
+
+
+ipcMain.on('asynchronous-lnurlDecode-command', async (event, data) => {
+  const nonce = data[1];
+  const inputLnurl = data[0];
+  try {
+    const decoded = lnurl.decode(inputLnurl);
+    event.reply(`asynchronous-lnurlDecode-reply-${nonce}`, decoded);
+  } catch (error) {
+    event.reply(`asynchronous-lnurlDecode-reply-${nonce}`, error);
+  }
+});
+
+// everything involving lightningPayReq is likely to be deprecated
+ipcMain.on('asynchronous-lightningPayReq-command', async (event, data) => {
+  const oPaymentRequestData = data[0];
+  const nonce = data[1];
+
+  const satoshis = oPaymentRequestData.sats;
+  const description = oPaymentRequestData.description;
+  const recipient = oPaymentRequestData.recipient;
+  const privateKeyHex = oPaymentRequestData.privateKeyHex;
+
+  // original
+  // const purpose_commit_hash_data = "3925b6f67e2c340036ed12093dd44e0368df1b6ea26c53dbe4811f58fd5db8c1";
+  // const payment_hash_data = "0001020304050607080900010203040506070809000102030405060708090102";
+
+  // darth mctesty, 2000 millisats,
+  const purpose_commit_hash_data = "48212266bbef8e3e6568bb764452f278e0f3f4bdc0e33ccedbae02fecc5582a1";
+  const payment_hash_data = "8938f9ea64f1c39e755065e0e82d3a8ef0782c7878ce48c5322fc8b9c82bb7b3";
+
+  const oEncoded = lightningPayReq.encode({
+    coinType: 'bitcoin',
+    satoshis,
+    tags: [
+      {
+        tagName: 'purpose_commit_hash',
+        data: purpose_commit_hash_data,
+      },
+      {
+        tagName: 'payment_hash',
+        data: payment_hash_data,
+      },
+      {
+        tagName: 'expire_time',
+        data: 80,
+      },
+      {
+        tagName: 'description',
+        data: description,
+      },
+    ],
+  })
+  // const privateKeyHex = 'e126f68f7eafcc8b74f54d269fe206be715000f94dac067d1c04a8ca3b2db734'
+  const signed = lightningPayReq.sign(oEncoded, privateKeyHex);
+
+  event.reply(`asynchronous-lightningPayReq-reply-${nonce}`, signed);
+});
+
 
 class AppUpdater {
   constructor() {

@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateCurrentApp } from 'renderer/window1/redux/features/prettyGood/settings/slice';
+import PurpleNostrich from 'renderer/window1/assets/nostr_logo_prpl.svg';
 
 const UniversalLeftNavbar1 = () => {
   const dispatch = useDispatch();
@@ -82,7 +83,16 @@ const UniversalLeftNavbar1 = () => {
           }}
           to="/NostrHome/NostrMainFeed"
         >
-          <div style={{ fontSize: '32px' }}>🪶</div>
+          <div style={{ fontSize: '32px' }}>
+            <img
+              src={PurpleNostrich}
+              alt=""
+              style={{
+                display: 'inline-block',
+                width: '30px',
+              }}
+            />
+          </div>
           <div style={{ fontSize: '12px' }}>pgnostr</div>
         </NavLink>
 

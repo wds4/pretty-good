@@ -176,6 +176,7 @@
 }
 .actionButtonAlreadyActivated {
   background-color: #CFCFCF;
+  border: 1px solid blue;
   border-radius: 5px;
   padding: 3px;
 }

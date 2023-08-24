@@ -81,7 +81,6 @@ const RepostButton = ({parentEvent}) => {
     return (
       <>
         <span
-          style={{border: '1px solid red'}}
           className="actionButtonAlreadyActivated"
         >
           🔄

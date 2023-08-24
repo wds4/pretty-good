@@ -21,9 +21,9 @@ export const reloadMyNostrProfileFromSqlToRedux = async () => {};
 export const returnMostRecentEvent = (events) => {
   try {
     // this gets the oldest:
-    events.sort((b,a) => parseFloat(b.created_at) - parseFloat(a.created_at)); // 1674498966
+    // events.sort((b,a) => parseFloat(b.created_at) - parseFloat(a.created_at)); // 1674498966
     // to get the newest:
-    // events.sort((a, b) => parseFloat(b.created_at) - parseFloat(a.created_at)); // 1674867581
+    events.sort((a, b) => parseFloat(b.created_at) - parseFloat(a.created_at)); // 1674867581
     if (doesEventValidate(events[0])) {
       return events[0];
     }

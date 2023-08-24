@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNostrEvents } from 'nostr-react';
+import { useSelector } from 'react-redux';
 
 const NostrFilter = ({ kind, run }) => {
   if (run == 0) {
@@ -9,12 +10,17 @@ const NostrFilter = ({ kind, run }) => {
       </>
     );
   }
+
+  const myNostrProfile = useSelector((state) => state.myNostrProfile);
+  const myPubkey = myNostrProfile.pubkey_hex;
   const filter = {
     kinds: [kind],
+    authors: [myPubkey],
   };
   const { events } = useNostrEvents({
     filter,
   });
+
   return (
     <>
       <div>

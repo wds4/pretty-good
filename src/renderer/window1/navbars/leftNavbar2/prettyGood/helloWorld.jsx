@@ -59,6 +59,13 @@ export default class LeftNavbar2 extends React.PureComponent {
             Explore Nostr Notes by Kind
           </NavLink>
 
+          <NavLink
+            className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
+            end to="/PrettyGoodHome/HTTPGetRequests"
+          >
+            HTTP Get Requests
+          </NavLink>
+
         </div>
       </>
     );

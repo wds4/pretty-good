@@ -34,20 +34,18 @@ const MoreInfoTooltip = ({event}) => {
   const anchorSelect="#moreInfoSelector_"+event.id;
   const aId = "moreInfoSelector_"+event.id;
   return (
-    <>
-      <Tooltip
-        anchorSelect={anchorSelect}
-        html={tooltipHTML}
-        clickable
-        className="reactTooltip"
-        place="left"
-      />
-      <a
+    <><Tooltip
+    anchorSelect={anchorSelect}
+    html={tooltipHTML}
+    clickable
+    className="reactTooltip"
+    place="left"
+  /><a
         id={aId}
-        style={{display:'inline-block', fontSize: '22px',height: '100%'}}
+        style={{display:'inline-block', fontSize: '22px',height: '15px'}}
         onMouseLeave={establishListeners}
       >
-        ⋯
+        ...
       </a>
     </>
   )
