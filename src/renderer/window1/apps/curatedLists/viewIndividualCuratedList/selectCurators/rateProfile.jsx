@@ -41,7 +41,11 @@ const RateProfile = ({curatedListFocusID, oListData, curatedListProfileFocusID, 
           className="goToUserProfileButton"
         >
           <div className="userListSmallAvatarContainer">
-            <img src={avatarUrl} className="userListSmallAvatarBox" />
+            <img
+              src={avatarUrl}
+              onError={(event) => (event.target.src = noProfilePicUrl)}
+              className="userListSmallAvatarBox"
+            />
           </div>
         </NavLink>
         <div style={{display:"inline-block",marginLeft:"10px"}}>

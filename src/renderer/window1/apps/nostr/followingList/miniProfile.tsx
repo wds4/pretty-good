@@ -99,7 +99,7 @@ const NostrMiniProfile = ({ pubkey, searchString, whichFollowsSubset, aMyFollowi
             className="goToUserProfileButton"
           >
             <div className="userListSmallAvatarContainer">
-              <img src={avatarUrl} className="userListSmallAvatarBox" />
+              <img src={avatarUrl} onError={(event) => (event.target.src = noProfilePicUrl)} className="userListSmallAvatarBox" />
             </div>
             <div className="singleUserMainBodyContainer">
               <div className="eventNameAndTimeContainer">

@@ -95,3 +95,14 @@ div.h4 {
 .block_hide {
   display:none;
 }
+.listsLoaderHeaderElem {
+  display: inline-block;
+  background-color: white;
+  padding: 3px;
+  font-size: 12px;
+  margin-left: 20px;
+}
+.questionMarkInfoBox:hover {
+  background-color: orange;
+  color: white;
+}

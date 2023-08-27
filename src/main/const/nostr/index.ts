@@ -11,6 +11,7 @@ export let createRatingsOfCuratedListInstancesTableCommand = '';
 export let createEndorsementsOfCuratorsTableCommand = '';
 export let createMyConceptGraphChannelsTableCommand = '';
 export let createProfileBackupsTableCommand = '';
+export let createNip51ListsTableCommand = '';
 
 // duplication from renderer/window1/const - may deprecate the lists here in favor of the one over there
 export const aDefaultRelayUrls: string[] = [
@@ -46,6 +47,16 @@ export const oDefaultDevModes = {
   devMode9: false, // reserved
   devMode10: false, // reserved
 };
+
+createNip51ListsTableCommand += 'id INTEGER PRIMARY KEY, ';
+createNip51ListsTableCommand += 'event TEXT NULL, ';
+createNip51ListsTableCommand += 'event_id TEXT NULL, ';
+createNip51ListsTableCommand += 'uniqueID TEXT NULL, '; // for kind: 30001 (30000 ? others ?), uniqueID = pubkey + "_" + listName; else, uniqueID = event_id
+createNip51ListsTableCommand += 'listName TEXT NULL, ';
+createNip51ListsTableCommand += 'kind INTEGER NULL, ';
+createNip51ListsTableCommand += 'pubkey TEXT NULL, ';
+createNip51ListsTableCommand += 'created_at INTEGER NULL, ';
+createNip51ListsTableCommand += 'UNIQUE(uniqueID,event_id) ';
 
 createProfileBackupsTableCommand += 'id INTEGER PRIMARY KEY, ';
 createProfileBackupsTableCommand += 'pubkey TEXT NULL, ';

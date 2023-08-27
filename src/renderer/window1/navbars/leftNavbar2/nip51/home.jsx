@@ -77,6 +77,16 @@ export default class LeftNavbar2 extends React.PureComponent {
           >
             Kind 30001 Lists
           </NavLink>
+
+          <hr />
+
+          <NavLink
+            className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
+            end to="/NIP51Home/NIP32Explorer"
+          >
+            NIP 32 Explorer
+          </NavLink>
+
         </div>
       </>
     );

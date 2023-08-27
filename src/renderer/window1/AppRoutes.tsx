@@ -16,10 +16,11 @@ Previously these landing pages were used for startup functions
 import { useNostr } from 'nostr-react';
 import LandingPage from './landingPage';
 
-import NIP51Home from './apps/nip51';
+import NIP51Home from './apps/nip51/landingPage';
 import NIP51ViewLists from './apps/nip51/viewLists';
 import NIP51LoadLists from './apps/nip51/loadLists';
 import NIP51List from './apps/nip51/list';
+import NIP32Explorer from './apps/nip51/nip32Explorer';
 import NIP51ListAuthors from './apps/nip51/listAuthors';
 import NIP51MakeNewList from './apps/nip51/makeNewList';
 import NIP51Kind10000Lists from './apps/nip51/kind10000Lists';
@@ -210,6 +211,10 @@ const AppRoutes = () => {
             <Route
               path="/NIP51Home/NIP51List"
               element={<NIP51List />}
+            />
+            <Route
+              path="/NIP51Home/NIP32Explorer"
+              element={<NIP32Explorer />}
             />
             <Route
               path="/NIP51Home/NIP51ListAuthors"

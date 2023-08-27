@@ -23,6 +23,25 @@ let mergeRelayAutoUpdateRecsContent = '';
 mergeRelayAutoUpdateRecsContent += 'merge recommended relays with my official nostr relays list as broadcast to the network.';
 mergeRelayAutoUpdateRecsContent += '<br/>(If no, then just listen to relays without broadcasting them.)';
 
+let listsContent = {};
+listsContent.kind10000 = "Mute Lists: NIP-51 kind 10000";
+listsContent.kind10000 += "<br/><br/>Items on these lists are people (pubkeys).";
+listsContent.kind10001 = "Pin Lists: NIP-51 kind 10001";
+listsContent.kind10001 += "<br/><br/>Items on these lists are nostr notes.";
+listsContent.kind30000 = "People Lists: NIP-51 kind 30000";
+listsContent.kind30000 += "<br/><br/>Items on these lists are people (pubkeys).";
+listsContent.kind30000 += "<br/><br/>People lists can be used to generate a content feed,";
+listsContent.kind30000 += "<br/>similar to a follows list.";
+listsContent.kind30001 = "Bookmark Lists: NIP-51 kind 30001";
+listsContent.kind30001 += "<br/><br/>Items on these lists are nostr notes.";
+listsContent.kind30001 += "<br/><br/>Items from other lists can also be imported.";
+listsContent.kind30001 += "<br/>Imported lists are identified by the list name + author";
+listsContent.kind30001 += "<br/>(naddr) of the imported list.";
+listsContent.dcosl = "DCoSL: experimental protocol";
+listsContent.dcosl += "<br/><br/>You can use DCoSL to delegate list curation to your web of trust.";
+listsContent.channels = "Channels (experimental)";
+listsContent.channels += "<br/><br/>Channels allows you to create a nostr content feed from a list of People.";
+
 export const tooltipContent = {
   sampleContent: 'Hello World!',
   purpose: 'Purpose:<br />What will these ratings be used for?',
@@ -52,5 +71,6 @@ export const tooltipContent = {
   scoreSelector: 'which score to view in the graph',
   purposeSelector: 'To what purpose will these ratings and score calculations be put?',
   testnetSelector: 'Currently only testnet is available.',
+  lists: listsContent,
 };
 

@@ -5,12 +5,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import BlankAvatar from 'renderer/window1/assets/blankAvatar.png';
 import PlusImage from 'renderer/window1/assets/plus.png';
 import MinusImage from 'renderer/window1/assets/minus.png';
-import { updateNostrProfileFocus } from 'renderer/window1/redux/features/nostr/settings/slice';
+import {
+  updateNostrProfileFocus,
+  updateNaddrListFocus,
+  updateNip51ListFocusEventId,
+} from 'renderer/window1/redux/features/nostr/settings/slice';
 import { secsToTime } from 'renderer/window1/lib/pg';
 import { noProfilePicUrl } from 'renderer/window1/const';
 import { Tooltip } from 'react-tooltip';
 import TechDetailsForNostrNerds from './techDetailsForNostrNerds';
-
 
 const MiniProfile = ({ pubkey }) => {
   const dispatch = useDispatch();
@@ -67,7 +70,7 @@ const MiniProfile = ({ pubkey }) => {
           >
             <img
               src={avatarUrl}
-              alt=""
+              onError={(event) => (event.target.src = noProfilePicUrl)}
               style={{
                 display: 'inline-block',
                 backgroundColor: 'white',
@@ -166,19 +169,35 @@ const ToggleListInfo = ({ lowerPanelState, setLowerPanelState }) => {
   );
 };
 
-const ListName = ({ listName }) => {
+const ListName = ({ listName, event }) => {
+  const naddr = nip19.naddrEncode({
+    pubkey: event.pubkey,
+    kind: event.kind,
+    identifier: listName,
+    relays: [],
+  });
+  const dispatch = useDispatch();
   return (
     <>
-      <div
-        style={{
-          display: 'inline-block',
-          fontSize: '26px',
-          marginLeft: '20px',
-          marginTop: '10px',
+      <NavLink
+        onClick={() => {
+          dispatch(updateNaddrListFocus(naddr));
+          dispatch(updateNip51ListFocusEventId(event.id));
         }}
+        to="/NIP51Home/NIP51List"
+        style={{ textDecoration: 'none' }}
       >
-        {listName}
-      </div>
+        <div
+          style={{
+            display: 'inline-block',
+            fontSize: '26px',
+            marginLeft: '20px',
+            marginTop: '10px',
+          }}
+        >
+          {listName}
+        </div>
+      </NavLink>
     </>
   );
 };
@@ -260,7 +279,7 @@ const SingleListOverview = ({
             lowerPanelState={lowerPanelState}
             setLowerPanelState={setLowerPanelState}
           />
-          <ListName listName={listName} />
+          <ListName listName={listName} event={event} />
           <SingleListInfoBox listName={listName} event={event} />
           <MiniProfile pubkey={pk_author} />
         </div>
@@ -295,8 +314,6 @@ const SingleListInfoBox = ({
     relays: [],
   });
   const npub = nip19.npubEncode(event.pubkey);
-
-  const oFooo = nip19.decode(naddr);
 
   const copyNaddr = () => {
     navigator.clipboard.writeText(naddr);
@@ -351,7 +368,7 @@ const SingleListInfoBox = ({
       />
       <a
         style={{
-          width: '30px',
+
           height: '30px',
           textAlign: 'center',
           float: 'right',
@@ -359,7 +376,7 @@ const SingleListInfoBox = ({
         id={aId}
         onMouseLeave={establishListeners}
       >
-        ⋯
+        ○ ○ ○
       </a>
     </>
   );

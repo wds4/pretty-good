@@ -1,9 +1,17 @@
+import { NavLink } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { nip19 } from 'nostr-tools';
 import { useNostrEvents } from 'nostr-react';
+import {
+  updateNaddrListFocus,
+  updateNip51ListFocusEventId,
+} from 'renderer/window1/redux/features/nostr/settings/slice';
 import { secsToTime } from 'renderer/window1/lib/pg';
 import TechDetailsForNostrNerds from './techDetailsForNostrNerds';
 import MiniProfile from './miniProfile';
 
 const List = ({event}) => {
+  const dispatch = useDispatch();
   const displayTime = secsToTime(event.created_at);
   let title = "-- unknown --";
   let itemType = "-- foo -- ";
@@ -47,7 +55,12 @@ const List = ({event}) => {
       elem_button.innerHTML = "+"
     }
   };
-
+  const naddr = nip19.naddrEncode({
+    pubkey: event.pubkey,
+    kind: event.kind,
+    identifier: title,
+    relays: [],
+  });
   return (
     <>
       <div style={{border:"1px solid black",borderRadius:"5px",padding:"5px",margin:"5px"}}>
@@ -61,7 +74,24 @@ const List = ({event}) => {
           >
             +
           </button>
-          <span>{title}</span>
+          <NavLink
+            onClick={() => {
+              dispatch(updateNaddrListFocus(naddr));
+              dispatch(updateNip51ListFocusEventId(event.id));
+            }}
+            to="/NIP51Home/NIP51List"
+            style={{ textDecoration: 'none' }}
+          >
+            <div
+              style={{
+                display: 'inline-block',
+                marginLeft: '20px',
+                marginTop: '5px',
+              }}
+            >
+              <span>{title}</span>
+            </div>
+          </NavLink>
           <div className="numItemsNip51OuterContainer">
             <span style={{color:"grey",marginRight:"20px"}}>{displayTime}</span>
             <div style={{display:"inline-block", width:"100px",marginRight:"20px",textAlign:"right"}}>

@@ -125,7 +125,6 @@ const Post = ({ event }) => {
     );
   }
 
-
   // plan to make steps 1, 2, and maybe 3 into single function; 1 and 2 are sync, 3 would have to be async
   /// // STEP 1 ///// Load default profile info
   let avatarUrl = noProfilePicUrl;
@@ -147,7 +146,8 @@ const Post = ({ event }) => {
       avatarUrl = noProfilePicUrl;
     }
   }
-
+  if (!avatarUrl) { avatarUrl = noProfilePicUrl; }
+  // avatarUrl = noProfilePicUrl;
   /*
   // Ought to create a stack of profiles and fetch them one or only a few at a time;
   // store info in redux store and in sql
@@ -199,11 +199,15 @@ const Post = ({ event }) => {
           }}
         >
           <div className="smallAvatarContainer">
-            <img src={avatarUrl} className="smallAvatarBox_show" />
+            <img
+              src={avatarUrl}
+              onError={(event) => (event.target.src = noProfilePicUrl)}
+              className="smallAvatarBox_show"
+            />
           </div>
         </NavLink>
         <div className="eventMainBodyContainer">
-          <div className="eventNameAndTimeContainer">
+          <div className="eventNameAndTimeContainer" >
             <div className="eventNameContainer">
               <span className={nameClass} style={{ marginRight: '10px' }}>
                 {displayName}
@@ -212,9 +216,10 @@ const Post = ({ event }) => {
                 </span>
               </span>
             </div>
-            <div style={{float:'right',marginRight:'10px',height: '15px'}}>
+            <div style={{float:'right', marginRight:'10px', height: '100%', overflow: 'auto'}}>
               <MoreInfoTooltip event={event} />
             </div>
+
             <div className="eventTimeContainer">
              |{'    '}{displayTime} ago
             </div>
@@ -253,3 +258,7 @@ const Post = ({ event }) => {
   );
 };
 export default Post;
+
+/*
+
+*/

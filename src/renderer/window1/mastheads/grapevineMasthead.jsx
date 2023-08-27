@@ -101,7 +101,7 @@ export default function Masthead() {
                 position: 'relative',
               }}
             >
-              <img src={avatarUrl} className="myProfileAvatarImgSmall" alt="" />
+              <img src={avatarUrl} onError={(event) => (event.target.src = noProfilePicUrl)} className="myProfileAvatarImgSmall" alt="" />
             </div>
           </NavLink>
           <NavLink

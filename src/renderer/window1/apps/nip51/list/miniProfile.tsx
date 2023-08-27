@@ -1,13 +1,8 @@
 import { NavLink } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { useNostrEvents } from 'nostr-react';
-import { nip19 } from 'nostr-tools';
+import { useDispatch, useSelector } from 'react-redux';
 import BlankAvatar from 'renderer/window1/assets/blankAvatar.png';
 import { updateNostrProfileFocus } from 'renderer/window1/redux/features/nostr/settings/slice';
-import { updateNostrProfiles } from 'renderer/window1/redux/features/nostr/profiles/slice';
-import { returnMostRecentEvent } from 'renderer/window1/lib/nostr';
 import { noProfilePicUrl } from 'renderer/window1/const';
-import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
 
 const MiniProfile = ({ pubkey }) => {
   const dispatch = useDispatch();
@@ -19,7 +14,7 @@ const MiniProfile = ({ pubkey }) => {
   let avatarUrl = noProfilePicUrl;
   let name = '';
   let displayName = '';
-  let about = '';
+  const about = '';
 
   /// // STEP 2 ///// If already present in redux store, replace with that
   let profileContent = {};
@@ -33,31 +28,6 @@ const MiniProfile = ({ pubkey }) => {
       avatarUrl = BlankAvatar;
     }
   }
-
-  /*
-  /// // STEP 3 ///// Query network for updated profile information and if found, use that instead, and update redux
-  const { events } = useNostrEvents({
-    filter: {
-      authors: [pubkey],
-      since: 0, // all new events from now
-      kinds: [0],
-    },
-  });
-  let event_ = {};
-  const event = returnMostRecentEvent(events);
-  if (event && doesEventValidate(event)) {
-    dispatch(updateNostrProfiles(event));
-    event_ = JSON.parse(JSON.stringify(event));
-    const content = JSON.parse(event.content);
-    event_.content = content;
-    name = `@${content.name}`;
-    displayName = content.display_name;
-    about = content.about;
-    avatarUrl = content.picture;
-  }
-  /// ///////////////////////////////////
-  */
-
   return (
     <>
       <div
@@ -66,9 +36,12 @@ const MiniProfile = ({ pubkey }) => {
           boxSizing: 'border-box',
           height: '50px',
           borderRadius: '5px',
-          backgroundColor: '#EFEFEF',
+          display: 'inline-block',
+          marginTop: '10px',
+          width: '100%',
         }}
       >
+        <span style={{fontSize: '18px', color: 'grey'}}>curated by: </span>
         <NavLink
           onClick={() => {
             dispatch(updateNostrProfileFocus(pubkey));
@@ -106,19 +79,27 @@ const MiniProfile = ({ pubkey }) => {
           <div
             style={{
               height: '100%',
-              backgroundColor: '#EFEFEF',
               display: 'inline-block',
-              width: 'calc(100% - 60px)',
               borderRadius: '5px',
               marginLeft: '5px',
-              paddingTop: '8px',
-              fontSize: '22px',
+              padding: '2px',
+              fontSize: '18px',
             }}
           >
-            <span style={{ color: 'black' }}>{displayName}</span>
-            <span style={{ color: 'grey', marginLeft: '10px' }}>
-              {name}
-            </span>
+            <div
+              style={{
+                display: 'inline-block',
+                color: 'black',
+                marginRight: '10px',
+                marginTop: '8px',
+
+                overflow: 'auto',
+                paddingLeft: '3px',
+              }}
+            >
+              <span style={{ color: 'black' }}>{displayName}</span>
+              <span style={{ color: 'grey', marginLeft: '10px' }}>{name}</span>
+            </div>
           </div>
         </NavLink>
       </div>

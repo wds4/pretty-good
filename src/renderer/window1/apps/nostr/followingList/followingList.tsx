@@ -94,7 +94,7 @@ export default function FollowingList() {
             >
               <div className="h4" style={{marginBottom:"10px",fontSize:"28px"}}>
                 <div className="userListSmallAvatarContainer">
-                  <img alt="" src={avatarUrl} className="userListSmallAvatarBox" />
+                  <img src={avatarUrl} onError={(event) => (event.target.src = noProfilePicUrl)} className="userListSmallAvatarBox" />
                 </div>
                 <span style={{color:"grey",marginLeft:"10px",marginRight:"5px"}}>@{name}'s following list</span>
               </div>

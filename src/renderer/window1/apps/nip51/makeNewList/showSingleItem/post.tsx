@@ -46,7 +46,7 @@ const ReplyingTo = ({ event }) => {
   return <></>;
 };
 
-const Post = ({ event, index }) => {
+const Post = ({ event }) => {
   const nostrProfiles = useSelector(
     (state) => state.nostrProfiles.nostrProfiles
   );
@@ -156,7 +156,7 @@ const Post = ({ event, index }) => {
             >
               <img
                 src={avatarUrl}
-                alt=""
+                onError={(event) => (event.target.src = noProfilePicUrl)}
                 style={{
                   display: 'inline-block',
                   backgroundColor: 'white',

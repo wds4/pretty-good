@@ -42,12 +42,15 @@ const MoreInfoTooltip = ({event}) => {
     place="left"
   /><a
         id={aId}
-        style={{display:'inline-block', fontSize: '22px',height: '15px'}}
+        style={{ boxSizing: 'border-box', display:'inline-block', height: '100%'}}
         onMouseLeave={establishListeners}
       >
-        ...
-      </a>
-    </>
+        ○ ○ ○
+      </a></>
   )
 }
 export default MoreInfoTooltip;
+
+/*
+
+      */

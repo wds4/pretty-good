@@ -21,6 +21,8 @@ export const nostrSettingsSlice = createSlice({
   initialState: {
     mainNostrFeedFilter: iMNFF,
     mainNostrFeedOrderAlgo: iMNFOA,
+    naddrListFocus: 'init naddrListFocus', // naddr NIP-19 id of the list in focus
+    nip51ListFocusEventId: 'init nip51 list event id', // event id of the (nip 51; maybe also use this for dcosl list?) list in focus
     nostrProfileFocus: 'initial nostrProfileFocus', // pubkey
     nostrProfilePanelSelector: 'about', // 'about' | 'posts' | 'grapevine' | 'ratings' | 'scores'
     nostrProfiles_movedToOtherStore: {}, // profile pubkey as id
@@ -157,6 +159,14 @@ export const nostrSettingsSlice = createSlice({
       console.log(`updateNostrProfileFocus; action.payload: ${action.payload}`);
       state.nostrProfileFocus = action.payload;
     },
+    updateNaddrListFocus: (state, action) => {
+      console.log(`updateNaddrListFocus; action.payload: ${action.payload}`);
+      state.naddrListFocus = action.payload;
+    },
+    updateNip51ListFocusEventId: (state, action) => {
+      console.log(`updateNip51ListFocusEventId; action.payload: ${action.payload}`);
+      state.nip51ListFocusEventId = action.payload;
+    },
     updateNostrPostFocusEvent: (state, action) => {
       state.nostrPostFocusEvent = action.payload;
     },
@@ -255,6 +265,8 @@ export const {
   updateMainNostrFeedOrderAlgo,
   updateNostrProfiles_movedToOtherStore,
   updateNostrProfileFocus,
+  updateNaddrListFocus,
+  updateNip51ListFocusEventId,
   updateNostrEvents,
   updateNostrPostFocusEvent,
   addToNostrBackButtonStack,

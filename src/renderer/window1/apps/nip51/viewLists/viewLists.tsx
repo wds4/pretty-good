@@ -129,9 +129,9 @@ const ViewLists = ({}) => {
         </div>
 
         <div
-          style={{display: 'none'}}
+          style={{display: 'block'}}
         >
-          List categories:
+          Show only lists from these categories:
           <ShowKindButton
             kind="10000"
             showKind = {showKind10000}
@@ -161,7 +161,7 @@ const ViewLists = ({}) => {
             countNumberOfListsShown={countNumberOfListsShown}
           />
           <br/>
-          show lists with these types of items:
+          Show all lists with any of these types of items:
           <ShowTagsButton
             tagsType="a"
             showTags = {showTagsA}

@@ -124,8 +124,11 @@ const MainProfile = ({pubkey}) => {
                 className="myProfileAvatarContainer"
               />
               <picture>
-                <source srcset={profilePicUrl} className="myProfileAvatarImg" type="image/webp" />
-                <img src={noProfilePicUrl} className="myProfileAvatarImg" />
+                <img
+                  src={profilePicUrl}
+                  onError={(event) => (event.target.src = noProfilePicUrl)}
+                  className="myProfileAvatarImg"
+                />
               </picture>
             </div>
             <div id="largeAvatarContainer" className="largeAvatarContainer" style={{height:'300px'}}>

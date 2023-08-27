@@ -222,7 +222,7 @@ export default function AllCurrentProfiles({
                     <img
                       src={avatarUrl}
                       className="myProfileAvatarImgSmall"
-                      alt=""
+                      onError={(event) => (event.target.src = noProfilePicUrl)}
                     />
                   </div>
                   <div style={{ display: 'inline-block', marginLeft: '10px' }}>

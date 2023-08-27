@@ -102,42 +102,46 @@ const StepB = ({lud16, decodedLnurl, parentEvent}) => {
   const [posts, setPosts] = useState([]);
   const [callback, setCallback] = useState("");
 
-  console.log("qwerty StepB");
+  // console.log("qwerty StepB");
 
   // const url = 'https://jsonplaceholder.typicode.com/posts';
   // const url = 'https://livingroomofsatoshi.com/api/v1/lnurl/payreq/4c4f2f51-fd0e-4c4c-92fe-e9eab8052a25?amount=10000&nostr={"kind":9734,"content":"Zap!","tags":[["relays","wss://nostr-pub.wellorder.net","wss://nostr-relay.untethr.me","wss://relay.damus.io","wss://nostr-relay.wlvs.space","wss://nostr.fmt.wiz.biz","wss://nostr.oxtr.dev","ws://monad.jb55.com:8080","wss://nostr.zebedee.cloud"],["p","a08175d65051c08b83600abf6f5c18efd455114b4863c65959c92b13ee52f87c"],["e","e924e1feb6502cff7b1405d0230d77223d68861a9f48b0556ad8289fdc9c6433"]],"pubkey":"a08175d65051c08b83600abf6f5c18efd455114b4863c65959c92b13ee52f87c","created_at":1692243319,"id":"899aa91da86ad0b1de9f262ef2859c6b65d738b9cf54ae7c95b45e03d8113721","sig":"16361812c99826514daea6e1b6bf985400e90f2ab52540a44bbb76f43af8a9eb92bef49fe87d5e469b496b568b2ae93af1a073861eb5e4bb0be77f9466b860ac"}&lnurl=LNURL1DP68GURN8GHJ7AMPD3KX2AR0VEEKZAR0WD5XJTNRDAKJ7TNHV4KXCTTTDEHHWM30D3H82UNVWQHH2MN4WDJKGANFDAKXZWPKY4NTAH';
   // const url = "https://api.zebedee.io/v0/request-static-charges/23e96a94-dfc6-48ba-ad4a-5d769451ff60";
-  if (lud16) {
-    console.log("qwerty StepB a");
-    const aFoo = lud16.split("@");
-    const fetchFromUrl = "https://"+aFoo[1]+"/.well-known/lnurlp/"+aFoo[0];
-    useEffect(() => {
-      fetch(fetchFromUrl)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("qwerty StepB lud16: "+data);
-        setPosts(data);
-        setCallback(data.callback)
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-    }, []);
-  } else {
-    console.log("qwerty StepB b");
-    useEffect(() => {
-      fetch(decodedLnurl)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("qwerty StepB: "+data);
-        setPosts(data);
-        setCallback(data.callback)
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-    }, []);
-  }
+  try {
+    if (lud16) {
+      // console.log("qwerty StepB a");
+      const aFoo = lud16.split("@");
+      const fetchFromUrl = "https://"+aFoo[1]+"/.well-known/lnurlp/"+aFoo[0];
+      if (fetchFromUrl.length > 0) {
+        useEffect(() => {
+          fetch(fetchFromUrl)
+          .then((res) => res.json())
+          .then((data) => {
+            // console.log("qwerty StepB lud16: "+data);
+            setPosts(data);
+            setCallback(data.callback)
+          })
+          .catch((err) => {
+            console.log(err.message);
+          });
+        }, []);
+      }
+    } else {
+      // console.log("qwerty StepB b");
+      useEffect(() => {
+        fetch(decodedLnurl)
+        .then((res) => res.json())
+        .then((data) => {
+          // console.log("qwerty StepB: "+data);
+          setPosts(data);
+          setCallback(data.callback)
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+      }, []);
+    }
+  } catch (error) { console.log(error.message) }
 
   if (callback == "") {
     return <><div>awaiting first response ... </div></>;
@@ -158,7 +162,7 @@ const StepD = ({secondUrl, parentEvent}) => {
     fetch(secondUrl)
     .then((res) => res.json())
     .then((data) => {
-      console.log("qwerty StepD: "+data);
+      // console.log("qwerty StepD: "+data);
       setPosts(data);
       setLnbcString(data.pr);
       // setCallback(data.callback)
@@ -200,9 +204,15 @@ export class StepA extends React.Component {
 
   async componentDidMount() {
     if (this.props.lnurl) {
-      const decodedLnurl = await asyncLnurlDecode(this.props.lnurl)
-      this.setState({decodedLnurl: decodedLnurl})
-      console.log("qwerty this.setState decodedLnurl")
+      try {
+        const decodedLnurl = await asyncLnurlDecode(this.props.lnurl)
+        // console.log("qwerty this.setState decodedLnurl A; typeof decodedLnurl: "+typeof decodedLnurl)
+        // console.log("qwerty this.setState decodedLnurl A; decodedLnurl: "+JSON.stringify(decodedLnurl,null,4))
+        if (typeof decodedLnurl == "string") {
+          this.setState({decodedLnurl: decodedLnurl})
+          // console.log("qwerty this.setState decodedLnurl B")
+        }
+      } catch (err) { console.log(err.message) }
     }
   }
   // if (this.state.decodedLnurl == "") { return <>blank decodedLnurl</> }
@@ -265,7 +275,7 @@ const StepC = ({ parentEvent, callback }) => {
 
     const event: NostrEvent = {
       kind: 9734,
-      content: 'Zap!',
+      content: "You've just been zapped from the Pretty Good desktop client!",
       tags: [aMyRelays, aAmount, aLnurl, aPubkey, aEvent],
       pubkey: getPublicKey(myPrivkey),
       created_at: dateToUnix(),

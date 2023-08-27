@@ -32,6 +32,7 @@ import {
   createCuratedListInstancesTableCommand,
   createEndorsementsOfCuratorsTableCommand,
   createMyConceptGraphChannelsTableCommand,
+  createNip51ListsTableCommand,
   aDefaultRelayUrls,
 } from './const/nostr';
 
@@ -226,6 +227,7 @@ db.serialize(() => {
   // db.run('DROP TABLE IF EXISTS endorsementsOfCurators');
   // db.run('DROP TABLE IF EXISTS myConceptGraph_channels');
   // db.run('DROP TABLE IF EXISTS profileBackups');
+  // db.run('DROP TABLE IF EXISTS nip51Lists');
   /*
   db.run(
     `CREATE TABLE IF NOT EXISTS profileBackups (${createProfileBackupsTableCommand})`
@@ -234,6 +236,9 @@ db.serialize(() => {
     `CREATE TABLE IF NOT EXISTS myConceptGraph_channels (${createMyConceptGraphChannelsTableCommand})`
   );
   */
+  db.run(
+    `CREATE TABLE IF NOT EXISTS nip51Lists (${createNip51ListsTableCommand})`
+  );
   db.run(
     `CREATE TABLE IF NOT EXISTS endorsementsOfCurators (${createEndorsementsOfCuratorsTableCommand})`
   );

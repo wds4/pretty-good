@@ -35,6 +35,7 @@ const NostrMiniProfile = ({ pubkey, searchStringForAuthors, searchStringForLists
     }
   }
 
+  /*
   /// // STEP 3 ///// Query network for updated profile information and if found, use that instead, and update redux
   const { events } = useNostrEvents({
     filter: {
@@ -56,6 +57,7 @@ const NostrMiniProfile = ({ pubkey, searchStringForAuthors, searchStringForLists
     avatarUrl = content.picture;
   }
   //////////////////////////////////////
+  */
 
   let displayByAuthorString="block";
   if (searchStringForAuthors) {
@@ -94,7 +96,6 @@ const NostrMiniProfile = ({ pubkey, searchStringForAuthors, searchStringForLists
         displayByListString = "block";
       }
     }
-
   }
 
   let display="block";
@@ -124,7 +125,7 @@ const NostrMiniProfile = ({ pubkey, searchStringForAuthors, searchStringForLists
             className="goToUserProfileButton"
           >
             <div className="userListSmallAvatarContainer">
-              <img src={avatarUrl} className="userListSmallAvatarBox" />
+              <img src={avatarUrl} onError={(event) => (event.target.src = noProfilePicUrl)} className="userListSmallAvatarBox" />
             </div>
             <div className="singleUserMainBodyContainer">
               <div className="eventNameAndTimeContainer">
@@ -138,7 +139,6 @@ const NostrMiniProfile = ({ pubkey, searchStringForAuthors, searchStringForLists
                   ... {pubkey.slice(-6)}
                 </div>
               </div>
-              <div className="eventContentContainer">{about}</div>
             </div>
           </NavLink>
           <div className="singleUserFollowButtonContainer">

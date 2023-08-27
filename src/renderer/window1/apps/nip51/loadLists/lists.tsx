@@ -1,5 +1,4 @@
-import { useNostrEvents } from 'nostr-react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
 import AllLists from "./allLists";
 import Kind10000Lists from './kind10000Lists';
@@ -15,21 +14,18 @@ const Lists = () => {
   );
   const title = "Nostr Devs";
 
-  const { aListEventIDs, aKind30000, aKind30001 } = oNip51
+  const { aListEventIDs, aKind10000, aKind10001, aKind30000, aKind30001 } = oNip51
   return (
     <>
       <div>
-        <div>number of aListEventIDs: {aListEventIDs.length}</div>
-        <div>number of aKind30000: {aKind30000.length}</div>
-        <div>number of aKind30001: {aKind30001.length}</div>
+        <div className="listsLoaderHeaderElem" >number of lists: {aListEventIDs.length}</div>
+        <div className="listsLoaderHeaderElem">people: {aKind30000.length}</div>
+        <div className="listsLoaderHeaderElem">general purpose: {aKind30001.length}</div>
+        <div className="listsLoaderHeaderElem">mute: {aKind10000.length} (disabled)</div>
+        <div className="listsLoaderHeaderElem">pin: {aKind10001.length} (disabled)</div>
         <hr />
-        <div>kind10000Lists: disabled</div>
-        <div>kind10001Lists: disabled</div>
         <Kind30000Lists title={title} />
         <Kind30001Lists title={title} />
-      </div>
-      <div>
-        <textarea id="titleField" />
       </div>
     </>
   );

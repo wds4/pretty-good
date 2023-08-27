@@ -92,7 +92,7 @@ export default function RelaysList() {
       >
         <div className="h4" style={{ marginBottom: '10px', fontSize: '28px' }}>
           <div className="userListSmallAvatarContainer">
-            <img src={avatarUrl} className="userListSmallAvatarBox" />
+            <img src={avatarUrl} onError={(event) => (event.target.src = noProfilePicUrl)} className="userListSmallAvatarBox" />
           </div>
           <span
             style={{

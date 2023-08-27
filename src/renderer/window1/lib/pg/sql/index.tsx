@@ -3,6 +3,30 @@ import { oDefaultRelayUrls } from 'renderer/window1/const';
 import { asyncSql, asyncSqlParameterized } from '../asyncSql';
 import { generateNewNostrKeys } from '../../nostr';
 
+export const addNip51ListToSql = async (event) => {
+  const aTags_d = event.tags.filter(([k, v]) => k === 'd' && v && v !== '');
+  let listName = "";
+  if (aTags_d.length > 0) {
+    listName = aTags_d[0][1];
+  }
+
+  let uniqueID = event.id;
+  if (event.kind == 30001) {
+    uniqueID = event.pubkey + "_" + listName; // need to make this
+  }
+
+  // insert if not already present
+  let sql1 = ` INSERT OR IGNORE INTO nip51Lists `;
+  sql1 += ` (event_id, kind, uniqueID, pubkey, listName, created_at, event) `;
+  sql1 + ` VALUES('${event.id}', '${event.kind}', '${uniqueID}', '${event.pubkey}', '${listName}', '${event.created_at}', '${JSON.stringify(
+    event
+  )}' ) `;
+  console.log("sql1: "+sql1)
+  // const res1 = await asyncSql(sql1);
+
+  // TODO: update if already present and if newer
+}
+
 export const updateListCurationNoteInSql = async (event, slug) => {
   const pk = event.pubkey;
   const uniqueID = `${pk}-${slug}`;

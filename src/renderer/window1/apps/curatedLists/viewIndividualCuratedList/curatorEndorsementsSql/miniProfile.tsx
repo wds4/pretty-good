@@ -69,7 +69,7 @@ const NostrMiniProfile = ({ pubkey }) => {
           style={{width: '100%'}}
         >
           <div className="userListSmallAvatarContainer">
-            <img src={avatarUrl} className="userListSmallAvatarBox" />
+            <img src={avatarUrl} onError={(event) => (event.target.src = noProfilePicUrl)} className="userListSmallAvatarBox" />
           </div>
           <div className="singleUserMainBodyContainer" style={{padding: '4px', width: 'calc(100% - 150px)'}}>
             <div className="eventNameAndTimeContainer">
