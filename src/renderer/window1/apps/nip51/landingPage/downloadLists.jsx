@@ -1,7 +1,9 @@
 import { useNostrEvents } from 'nostr-react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addList } from 'renderer/window1/redux/features/nip51/lists/slice';
-import { addNip51ListToSqlAndReduxStore } from 'renderer/window1/redux/features/nip51/lists/slice';
+import {
+  addList,
+  addNip51ListToSqlAndReduxStore,
+} from 'renderer/window1/redux/features/nip51/lists/slice';
 
 const ActiveDownload = ({kind, title}) => {
   const dispatch = useDispatch();
@@ -26,7 +28,10 @@ const ActiveDownload = ({kind, title}) => {
     const event = events[x];
     if (!aListEventIDs.includes(event.id)) {
       // dispatch(addList(event));
-      addNip51ListToSqlAndReduxStore(event);
+      // console.log("qwerty; NOT LOADED aListEventIDs.length: "+aListEventIDs.length)
+      dispatch(addNip51ListToSqlAndReduxStore(event));
+    } else {
+      // console.log("qwerty; ALREADY LOADED aListEventIDs.length: "+aListEventIDs.length)
     }
   }
 

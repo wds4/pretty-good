@@ -42,16 +42,6 @@ const win1 = true;
 const win2 = false;
 const win3 = false;
 
-
-try{
-  const fooDecodedLnurl = lnurl.decode("lnurl1dp68gurn8ghj7um9wfmxjcm99e3k7mf0v9cxj0m385ekvcenxc6r2c35xvukxefcv5mkvv34x5ekzd3ev56nyd3hxqurzepexejxxepnxscrvwfnv9nxzcn9xq6xyefhvgcxxcmyxymnserxfq5fns");
-  // const fooDecodedLnurl = lnurl.decode("blah");
-  console.log("!!!!!!!!!!!!!!!!!!!!!!! fooDecodedLnurl: "+fooDecodedLnurl)
-} catch (error) {
-  console.log("!!!!!!!!!!!!!!!!!!!!!!! fooDecodedLnurl error: "+error)
-}
-
-
 ipcMain.on('asynchronous-lnurlDecode-command', async (event, data) => {
   const nonce = data[1];
   const inputLnurl = data[0];

@@ -54,6 +54,13 @@ export default class LeftNavbar2 extends React.PureComponent {
 
           <NavLink
             className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
+            end to="/PrettyGoodHome/AgGridTableHelloWorld"
+          >
+            Ag Grid Table
+          </NavLink>
+
+          <NavLink
+            className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
             end to="/PrettyGoodHome/ExploreNostrNotesByKind"
           >
             Explore Nostr Notes by Kind
@@ -66,6 +73,28 @@ export default class LeftNavbar2 extends React.PureComponent {
             HTTP Get Requests
           </NavLink>
 
+          < hr />
+
+          <NavLink
+            className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
+            end to="/PrettyGoodHome/Sandbox1"
+          >
+            Sandbox 1
+          </NavLink>
+
+          <NavLink
+            className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
+            end to="/PrettyGoodHome/Sandbox2"
+          >
+            Sandbox 2
+          </NavLink>
+
+          <NavLink
+            className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
+            end to="/PrettyGoodHome/Sandbox3"
+          >
+            Sandbox 3
+          </NavLink>
         </div>
       </>
     );

@@ -13,8 +13,6 @@ export default class DataTables extends React.Component {
     };
   }
 
-
-
   async componentDidMount() {
     // const conceptDataSet = [];
     // makeThisPageTable(conceptDataSet);

@@ -18,11 +18,11 @@ export const addNip51ListToSql = async (event) => {
   // insert if not already present
   let sql1 = ` INSERT OR IGNORE INTO nip51Lists `;
   sql1 += ` (event_id, kind, uniqueID, pubkey, listName, created_at, event) `;
-  sql1 + ` VALUES('${event.id}', '${event.kind}', '${uniqueID}', '${event.pubkey}', '${listName}', '${event.created_at}', '${JSON.stringify(
+  sql1 += ` VALUES('${event.id}', '${event.kind}', '${uniqueID}', '${event.pubkey}', '${listName}', '${event.created_at}', '${JSON.stringify(
     event
   )}' ) `;
-  console.log("sql1: "+sql1)
-  // const res1 = await asyncSql(sql1);
+  // console.log("sql1: "+sql1)
+  const res1 = await asyncSql(sql1);
 
   // TODO: update if already present and if newer
 }

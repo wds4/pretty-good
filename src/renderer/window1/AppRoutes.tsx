@@ -18,6 +18,7 @@ import LandingPage from './landingPage';
 
 import NIP51Home from './apps/nip51/landingPage';
 import NIP51ViewLists from './apps/nip51/viewLists';
+import NIP51TableOfLists from './apps/nip51/tableOfLists';
 import NIP51LoadLists from './apps/nip51/loadLists';
 import NIP51List from './apps/nip51/list';
 import NIP32Explorer from './apps/nip51/nip32Explorer';
@@ -45,8 +46,13 @@ import VisjsHelloWorld from './apps/prettyGood/settings/helloWorld/visjs';
 import VisjsHelloWorldMultiGraph from './apps/prettyGood/settings/helloWorld/visjsMultiGraph';
 import DataTablesHelloWorld from './apps/prettyGood/settings/helloWorld/dataTables';
 import ReactDataTableComponentHelloWorld from './apps/prettyGood/settings/helloWorld/reactDataTableComponent';
+import AgGridTableHelloWorld from './apps/prettyGood/settings/helloWorld/agGridTable';
 import ExploreNostrNotesByKind from './apps/prettyGood/settings/helloWorld/exploreNotesByKind.tsx';
 import HTTPGetRequests from './apps/prettyGood/settings/helloWorld/getRequests';
+
+import Sandbox1 from './apps/prettyGood/settings/helloWorld/sandbox1';
+import Sandbox2 from './apps/prettyGood/settings/helloWorld/sandbox2';
+import Sandbox3 from './apps/prettyGood/settings/helloWorld/sandbox3';
 
 import PrettyGoodAppsLandingPage from './apps/nostr/landingPage'; // if want start page to be nostr main feed
 // import PrettyGoodAppsLandingPage from './apps/curatedLists/listsWithScoresV8'; // if want start page to be cuarated list summary page
@@ -197,7 +203,7 @@ const AppRoutes = () => {
       <fieldset id="app">
         <Router>
           <Routes>
-            <Route path="/" element={<PrettyGoodAppsLandingPage />} />
+            <Route path="/" element={<NIP51Home />} />
 
             <Route path="/NIP51Home" element={<NIP51Home />} />
             <Route
@@ -207,6 +213,10 @@ const AppRoutes = () => {
             <Route
               path="/NIP51Home/NIP51ViewLists"
               element={<NIP51ViewLists />}
+            />
+            <Route
+              path="/NIP51Home/NIP51TableOfLists"
+              element={<NIP51TableOfLists />}
             />
             <Route
               path="/NIP51Home/NIP51List"
@@ -307,12 +317,29 @@ const AppRoutes = () => {
               element={<ReactDataTableComponentHelloWorld />}
             />
             <Route
+              path="/PrettyGoodHome/AgGridTableHelloWorld"
+              element={<AgGridTableHelloWorld />}
+            />
+            <Route
               path="/PrettyGoodHome/ExploreNostrNotesByKind"
               element={<ExploreNostrNotesByKind />}
             />
             <Route
               path="/PrettyGoodHome/HTTPGetRequests"
               element={<HTTPGetRequests />}
+            />
+
+            <Route
+              path="/PrettyGoodHome/Sandbox1"
+              element={<Sandbox1 />}
+            />
+            <Route
+              path="/PrettyGoodHome/Sandbox2"
+              element={<Sandbox2 />}
+            />
+            <Route
+              path="/PrettyGoodHome/Sandbox3"
+              element={<Sandbox3 />}
             />
 
             <Route path="/NostrHome" element={<NostrHome />} />

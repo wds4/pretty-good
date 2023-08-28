@@ -112,6 +112,8 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.1",
+    "ag-grid-community": "^30.1.0",
+    "ag-grid-react": "^30.1.0",
     "datatables.net-bs": "^1.13.4",
     "electron-debug": "^3.2.0",
     "electron-log": "^4.4.8",

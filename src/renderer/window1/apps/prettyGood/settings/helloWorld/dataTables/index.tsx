@@ -13,7 +13,9 @@ jQuery.DataTable = require('datatables.net');
 let foo = true;
 
 const makeThisPageTable = async () => {
+  console.log("makeThisPageTable; foo: "+foo);
   if (foo) {
+    foo = false;
     const conceptDataSet = [];
     let aNextPattern1 = ['', 'a1', 'b1', 'c1', 'd1'];
     conceptDataSet.push(aNextPattern1);
@@ -38,7 +40,6 @@ const makeThisPageTable = async () => {
       dom: '<"pull-left"f><"pull-right"l>tip',
     });
   }
-  foo = false;
 };
 
 export default class DataTablesHelloWorld extends React.Component {
@@ -48,12 +49,14 @@ export default class DataTablesHelloWorld extends React.Component {
   }
 
   async componentDidMount() {
+    foo = true;
     updateMainColWidth();
     const mastheadDescriptor = 'DataTables: Hello World';
     updateMastheadCenter(mastheadDescriptor);
     await timeout(500);
+    console.log("makeThisPageTable");
     await makeThisPageTable();
-    foo = true;
+
     /*
     foo = true;
     if (foo) {

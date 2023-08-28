@@ -25,7 +25,6 @@ const MiniProfile = ({ pubkey }) => {
   let avatarUrl = noProfilePicUrl;
   let name = '';
   let displayName = '';
-  const about = '';
 
   /// // STEP 2 ///// If already present in redux store, replace with that
   let profileContent = {};
