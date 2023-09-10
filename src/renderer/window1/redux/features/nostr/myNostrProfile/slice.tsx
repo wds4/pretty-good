@@ -25,6 +25,7 @@ const initialState = {
   multiClientAccess: true, // whether this profile will be managed from multiple clients or not; if yes, updates are autoimported from the network
   relaysAutoUpdate: false,
   relaysAutoMerge: false,
+  autoImportNip51: true, // whether or not to auto-import (recursively) naddr lists in nip51 app, on the view single list page
 
   // strings
   pubkey_hex: undefined,
@@ -180,6 +181,7 @@ export const myProfileSlice = createSlice({
       state.multiClientAccess = oMyProfileData?.multiClientAccess;
       state.relaysAutoUpdate = oMyProfileData?.relaysAutoUpdate;
       state.relaysAutoMerge = oMyProfileData?.relaysAutoMerge;
+      state.autoImportNip51 = oMyProfileData?.autoImportNip51;
 
       // arrays of pubkeys
       if (oMyProfileData?.followers) { state.followers = JSON.parse(oMyProfileData?.followers); }
@@ -454,6 +456,10 @@ export const myProfileSlice = createSlice({
       state.devModes.devMode6 = action.payload;
       const res = updateMyFullNostrProfileInSql(state);
     },
+    updateAutoImportNip51: (state, action) => {
+      state.autoImportNip51 = action.payload;
+      const res = updateMyFullNostrProfileInSql(state);
+    },
     ///////////////////////////
 
     // uncategorized / mics
@@ -522,6 +528,8 @@ export const {
   updateDevMode4,
   updateDevMode5,
   updateDevMode6,
+
+  updateAutoImportNip51,
 
   updateCuratedChannelsTopics,
   updateCuratedChannelsRelationships,

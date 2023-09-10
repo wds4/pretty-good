@@ -67,6 +67,24 @@ const AllAppSettingsNav = () => {
           </NavLink>
         </div>
 
+        <div className={devElemClass1}>
+          <NavLink
+            className={({ isActive }) =>
+              isActive
+                ? 'mastheadNavButton mastheadNavButtonActive'
+                : 'mastheadNavButton'
+            }
+            end
+            onClick={() => {
+              dispatch(updateCurrentApp('nip51'));
+            }}
+            to="/NIP51Home/NIP51Settings"
+          >
+            <div style={{ fontSize: '20px' }}>⚙️</div>
+            <div style={{ fontSize: '8px' }}>NIP 51 Lists</div>
+          </NavLink>
+        </div>
+
         <div className={devElemClass}>
           <NavLink
             className={({ isActive }) =>

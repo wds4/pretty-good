@@ -4,13 +4,15 @@ import { useSelector } from 'react-redux';
 import { Tooltip } from 'react-tooltip';
 import { tooltipContent } from 'renderer/window1/const/tooltipContent';
 import DownloadLists from './downloadLists';
+import TopPanel from '../components/topPanel';
+import Nip51ListenerByType from './nip51ListenerByType';
 
-const QuestionMark = ({content}) => {
+const QuestionMark = ({ content }) => {
   let html = '<div style=font-size:24px; >';
   html += tooltipContent.lists[content];
   html += '</div>';
-  const id = 'questionMarkInfoBox_'+content;
-  const anchorSelect = '#questionMarkInfoBox_'+content;
+  const id = `questionMarkInfoBox_${content}`;
+  const anchorSelect = `#questionMarkInfoBox_${content}`;
   return (
     <>
       <Tooltip
@@ -42,15 +44,15 @@ const QuestionMark = ({content}) => {
   );
 };
 
-const DeleteButton = ({kind}) => {
+const DeleteButton = ({ kind }) => {
   let html = '<div style=font-size:24px; >';
-  html += "delete data from local database";
-  html += "</div>";
+  html += 'delete data from local database';
+  html += '</div>';
   const processDeletion = () => {
-    console.log("processDeletion; kind: "+kind)
-  }
-  const id = "deleteButton_"+kind;
-  const anchorSelect = "#deleteButton_"+kind;
+    console.log(`processDeletion; kind: ${kind}`);
+  };
+  const id = `deleteButton_${kind}`;
+  const anchorSelect = `#deleteButton_${kind}`;
   return (
     <>
       <Tooltip
@@ -60,21 +62,32 @@ const DeleteButton = ({kind}) => {
         className="reactTooltip"
         place="bottom"
       />
-      <a id={id} >
-        <div style={{display: 'inline-block', border: '1px solid black', padding: '2px', fontSize: '10px', margin: 'auto', marginLeft: '5px'}} type="button" onClick={() => processDeletion()} >
+      <a id={id}>
+        <div
+          style={{
+            display: 'inline-block',
+            border: '1px solid black',
+            padding: '2px',
+            fontSize: '10px',
+            margin: 'auto',
+            marginLeft: '5px',
+          }}
+          type="button"
+          onClick={() => processDeletion()}
+        >
           clear
         </div>
       </a>
     </>
   );
-}
+};
 
 const DownloadController = ({ downloading, setDownloading, kind }) => {
   let html = '<div style=font-size:24px; >';
-  html += "Download & update lists from your nostr relays.";
-  html += "</div>";
-  const id = "downloadController_"+kind;
-  const anchorSelect = "#downloadController_"+kind;
+  html += 'Download & update lists from your nostr relays.';
+  html += '</div>';
+  const id = `downloadController_${kind}`;
+  const anchorSelect = `#downloadController_${kind}`;
   if (downloading == 'no') {
     return (
       <>
@@ -85,8 +98,12 @@ const DownloadController = ({ downloading, setDownloading, kind }) => {
           className="reactTooltip"
           place="bottom"
         />
-        <a id={id} >
-          <button type="button" onClick={() => setDownloading('yes')} style={{}}>
+        <a id={id}>
+          <button
+            type="button"
+            onClick={() => setDownloading('yes')}
+            style={{}}
+          >
             download / update
           </button>
         </a>
@@ -102,12 +119,69 @@ const DownloadController = ({ downloading, setDownloading, kind }) => {
   );
 };
 
-const NumberInDatabase = ({aKind, kind}) => {
+/*
+const DownloadControllerTopPanel = ({ downloading, setDownloading, kind }) => {
   let html = '<div style=font-size:24px; >';
-  html += "number of lists in local database";
-  html += "</div>";
-  const id = "numInDatabase_"+kind;
-  const anchorSelect = "#numInDatabase_"+kind;
+  html += 'Download & update lists from your nostr relays.';
+  html += '</div>';
+  const id = `downloadController_${kind}`;
+  const anchorSelect = `#downloadController_${kind}`;
+  if (downloading == 'no') {
+    return (
+      <>
+        <Tooltip
+          anchorSelect={anchorSelect}
+          html={html}
+          clickable
+          className="reactTooltip"
+          place="bottom"
+        />
+        <a id={id}>
+          <div
+            style={{
+              display: 'inline-block',
+              border: '1px solid black',
+              padding: '2px',
+              fontSize: '10px',
+              margin: 'auto',
+              marginLeft: '5px',
+            }}
+            type="button"
+            onClick={() => setDownloading('yes')}
+          >
+            download / update
+          </div>
+        </a>
+      </>
+    );
+  }
+  return (
+    <>
+      <div
+        style={{
+          display: 'inline-block',
+          border: '1px solid black',
+          padding: '2px',
+          fontSize: '10px',
+          margin: 'auto',
+          marginLeft: '5px',
+        }}
+        type="button"
+        onClick={() => setDownloading('no')}
+      >
+        stop
+      </div>
+    </>
+  );
+};
+*/
+
+const NumberInDatabase = ({ aKind, kind }) => {
+  let html = '<div style=font-size:24px; >';
+  html += 'number of lists of this type in the local database';
+  html += '</div>';
+  const id = `numInDatabase_${kind}`;
+  const anchorSelect = `#numInDatabase_${kind}`;
   return (
     <>
       <Tooltip
@@ -122,8 +196,8 @@ const NumberInDatabase = ({aKind, kind}) => {
       </a>
       <DeleteButton kind={kind} />
     </>
-  )
-}
+  );
+};
 
 const ListsLandingPage = () => {
   const [downloading10000, setDownloading10000] = useState('no');
@@ -140,8 +214,9 @@ const ListsLandingPage = () => {
     oNip51;
   return (
     <>
+      <TopPanel />
       <div className="h2" style={{ marginTop: '10px' }}>
-        Pretty Good Nostr Lists Explorer
+        Pretty Good Lists: Settings
       </div>
       <center>
         <div
@@ -154,7 +229,7 @@ const ListsLandingPage = () => {
         >
           <div style={{ marginBottom: '20px' }}>
             <span>
-              <QuestionMark content='kind30001' />
+              <QuestionMark content="kind30001" />
             </span>{' '}
             <NavLink
               onClick={() => {
@@ -166,19 +241,35 @@ const ListsLandingPage = () => {
               Bookmarks
             </NavLink>{' '}
             <NumberInDatabase aKind={aKind30001} kind="30001" />
-            <span style={{ display: 'inline-block', width: '150px', height: '50px', float: 'right', textAlign: 'left' }}>
+            <span
+              style={{
+                display: 'inline-block',
+                width: '150px',
+                height: '50px',
+                float: 'right',
+                textAlign: 'left',
+              }}
+            >
               <DownloadController
                 downloading={downloading30001}
                 setDownloading={setDownloading30001}
                 kind="30001"
               />
-              <div style={{display: 'inline-block', paddingLeft: '5px', paddingTop: '12px'}}><DownloadLists kind="30001" downloading={downloading30001} /></div>
+              <div
+                style={{
+                  display: 'inline-block',
+                  paddingLeft: '5px',
+                  paddingTop: '12px',
+                }}
+              >
+                <DownloadLists kind="30001" downloading={downloading30001} />
+              </div>
             </span>
           </div>
 
           <div style={{ marginBottom: '20px' }}>
             <span>
-              <QuestionMark content='kind30000' />
+              <QuestionMark content="kind30000" />
             </span>{' '}
             <NavLink
               onClick={() => {
@@ -190,19 +281,35 @@ const ListsLandingPage = () => {
               People
             </NavLink>{' '}
             <NumberInDatabase aKind={aKind30000} kind="30000" />
-            <span style={{ display: 'inline-block', width: '150px', height: '50px', float: 'right', textAlign: 'left' }}>
+            <span
+              style={{
+                display: 'inline-block',
+                width: '150px',
+                height: '50px',
+                float: 'right',
+                textAlign: 'left',
+              }}
+            >
               <DownloadController
                 downloading={downloading30000}
                 setDownloading={setDownloading30000}
                 kind="30000"
               />
-              <div style={{display: 'inline-block', paddingLeft: '5px', paddingTop: '12px'}}><DownloadLists kind="30000" downloading={downloading30000} /></div>
+              <div
+                style={{
+                  display: 'inline-block',
+                  paddingLeft: '5px',
+                  paddingTop: '12px',
+                }}
+              >
+                <DownloadLists kind="30000" downloading={downloading30000} />
+              </div>
             </span>
           </div>
 
           <div style={{ marginBottom: '20px' }}>
             <span>
-              <QuestionMark content='kind10000' />
+              <QuestionMark content="kind10000" />
             </span>{' '}
             <NavLink
               onClick={() => {
@@ -214,19 +321,35 @@ const ListsLandingPage = () => {
               Mute
             </NavLink>{' '}
             <NumberInDatabase aKind={aKind10000} kind="10000" />
-            <span style={{ display: 'inline-block', width: '150px', height: '50px', float: 'right', textAlign: 'left' }}>
+            <span
+              style={{
+                display: 'inline-block',
+                width: '150px',
+                height: '50px',
+                float: 'right',
+                textAlign: 'left',
+              }}
+            >
               <DownloadController
                 downloading={downloading10000}
                 setDownloading={setDownloading10000}
                 kind="10000"
               />
-              <div style={{display: 'inline-block', paddingLeft: '5px', paddingTop: '12px'}}><DownloadLists kind="10000" downloading={downloading10000} /></div>
+              <div
+                style={{
+                  display: 'inline-block',
+                  paddingLeft: '5px',
+                  paddingTop: '12px',
+                }}
+              >
+                <DownloadLists kind="10000" downloading={downloading10000} />
+              </div>
             </span>
           </div>
 
           <div style={{ marginBottom: '20px' }}>
             <span>
-              <QuestionMark content='kind10001' />
+              <QuestionMark content="kind10001" />
             </span>{' '}
             <NavLink
               onClick={() => {
@@ -238,19 +361,35 @@ const ListsLandingPage = () => {
               Pin
             </NavLink>{' '}
             <NumberInDatabase aKind={aKind10001} kind="10001" />
-            <span style={{ display: 'inline-block', width: '150px', height: '50px', float: 'right', textAlign: 'left' }}>
+            <span
+              style={{
+                display: 'inline-block',
+                width: '150px',
+                height: '50px',
+                float: 'right',
+                textAlign: 'left',
+              }}
+            >
               <DownloadController
                 downloading={downloading10001}
                 setDownloading={setDownloading10001}
                 kind="10001"
               />
-              <div style={{display: 'inline-block', paddingLeft: '5px', paddingTop: '12px'}}><DownloadLists kind="10001" downloading={downloading10001} /></div>
+              <div
+                style={{
+                  display: 'inline-block',
+                  paddingLeft: '5px',
+                  paddingTop: '12px',
+                }}
+              >
+                <DownloadLists kind="10001" downloading={downloading10001} />
+              </div>
             </span>
           </div>
 
           <div style={{ marginBottom: '20px' }}>
             <span>
-              <QuestionMark content='dcosl' />
+              <QuestionMark content="dcosl" />
             </span>{' '}
             <NavLink
               onClick={() => {
@@ -266,7 +405,7 @@ const ListsLandingPage = () => {
 
           <div style={{ marginBottom: '20px' }}>
             <span>
-              <QuestionMark content='channels' />
+              <QuestionMark content="channels" />
             </span>{' '}
             <NavLink
               onClick={() => {

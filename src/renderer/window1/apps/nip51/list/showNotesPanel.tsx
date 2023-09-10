@@ -1,7 +1,7 @@
 import { useNostrEvents } from 'nostr-react';
 import Post from '../makeNewList/showSingleItem/post';
 
-const ShowNotesPanel = ({ notesPanelState, aTags_e }) => {
+const ShowNotesPanel = ({ notesPanelState, aTags_e, editListState }) => {
   if (notesPanelState == 'open') {
     return (
       <>

@@ -17,7 +17,7 @@ export default class AgGridTableMain extends React.Component {
   async componentDidMount() {
     updateMainColWidth();
     const mastheadDescriptor = 'Sandbox 1';
-    updateMastheadCenter(mastheadDescriptor);
+    // updateMastheadCenter(mastheadDescriptor);
   }
 
   render() {

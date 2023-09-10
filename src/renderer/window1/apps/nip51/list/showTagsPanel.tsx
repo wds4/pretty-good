@@ -1,4 +1,4 @@
-const ShowTagsPanel = ({ tagsPanelState, aTags_t }) => {
+const ShowTagsPanel = ({ tagsPanelState, aTags_t, editListState }) => {
   if (tagsPanelState == 'open') {
     return (
       <>

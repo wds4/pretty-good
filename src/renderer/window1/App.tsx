@@ -7,6 +7,7 @@ import { initNostrDirectMessages } from 'renderer/window1/redux/features/nostr/d
 import { initMyActiveNostrProfile } from 'renderer/window1/redux/features/nostr/myNostrProfile/slice';
 import { initNostrTestnetListCurationRatings } from 'renderer/window1/redux/features/grapevine/listCuration/slice';
 import { initCompositeTrustScores } from 'renderer/window1/redux/features/grapevine/compositeTrustScores/slice';
+import { initNip51Lists } from 'renderer/window1/redux/features/nip51/lists/slice';
 import {
   initCuratedLists,
   initCuratedListInstances,
@@ -68,6 +69,7 @@ const InitReduxStore = ({
   aCuratedListInstancesData,
   aRatingsOfCuratedListInstancesData,
   aEndorsementsOfCuratorsData,
+  aNip51ListsData,
 }) => {
   const dispatch = useDispatch();
 
@@ -95,6 +97,7 @@ const InitReduxStore = ({
     initRatingsOfCuratedListInstances(aRatingsOfCuratedListInstancesData)
   );
   dispatch(initEndorsementsOfCurators(aEndorsementsOfCuratorsData));
+  dispatch(initNip51Lists(aNip51ListsData));
   return <></>;
 };
 
@@ -131,6 +134,7 @@ export default class App extends React.Component {
               aEndorsementsOfCuratorsData={
                 this.props.aEndorsementsOfCuratorsData
               }
+              aNip51ListsData={this.props.aNip51ListsData}
             />
             <AppNostr />
           </Provider>

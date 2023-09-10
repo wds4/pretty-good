@@ -15,7 +15,7 @@ import { noProfilePicUrl } from '../const';
 export default function Masthead() {
   const myNostrProfile = useSelector((state) => state.myNostrProfile);
   const dispatch = useDispatch();
-  dispatch(updateCurrentApp('curatedLists'));
+  dispatch(updateCurrentApp('nip51'));
   const currentPage = useSelector((state) => state.prettyGoodGlobalState.currentPage);
   let avatarUrl = noProfilePicUrl;
   if (myNostrProfile.picture_url) {
@@ -103,8 +103,8 @@ export default function Masthead() {
                 : 'mastheadNavButton'
             }
             end
-            onClick={() => dispatch(setCurrentPage('curatedListsSettings'))}
-            to="/CuratedListsHome/CuratedListsSettings"
+            onClick={() => dispatch(setCurrentPage('nip51Settings'))}
+            to="/NIP51Home/NIP51Settings"
           >
             <div style={{ fontSize: '20px' }}>⚙️</div>
             <div style={{ fontSize: '10px' }}>settings</div>

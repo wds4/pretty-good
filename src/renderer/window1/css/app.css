@@ -1,3 +1,13 @@
+/*
+30 Aug 2023
+strange bug discovered
+If in body (below), set display: flex
+(which gets inherited to div#root)
+And if I import ag-grid-enterprise on ANY page,
+then on ANY page that uses an ag-grid , div#root offsetWidth is only HALF of what it should be,
+even if I set style.width to its correct width (in ui.tsx). This does NOT happen on any other page.
+ANd it does NOT happen if I don't use ag-grid-enterprise.
+*/
 body {
     margin: 0;
     font-family: 'Arial Rounded MT Bold';
@@ -6,7 +16,6 @@ body {
     height: 100%;
     width:100%;
     overflow-y: hidden;
-    display: flex;
     justify-content: center;
     align-items: center;
 }

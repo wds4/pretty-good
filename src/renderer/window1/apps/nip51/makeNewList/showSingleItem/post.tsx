@@ -206,7 +206,6 @@ const Post = ({ event }) => {
           </NavLink>
         </div>
         <div style={{backgroundColor: 'white'}}>
-
           <ReplyingTo event={event} />
           <NavLink
             onClick={() => {

@@ -15,6 +15,20 @@ export const addNip51ListToSql = async (event) => {
     uniqueID = event.pubkey + "_" + listName; // need to make this
   }
 
+
+  // delete if previous version already exists
+  // do this for these two kinds only?
+  // if ((event.kind == 30000) || (event.kind == 30001)) {
+    let sql2 = '';
+    sql2 += ' DELETE FROM nip51Lists ';
+    sql2 += ` WHERE (kind = '${event.kind}' `;
+    sql2 += ` AND uniqueID = '${uniqueID}' `;
+    sql2 += ` AND listName = '${listName}' `;
+    sql2 += ` AND pubkey = '${event.pubkey}') `;
+    const res2 = await asyncSql(sql2);
+  // }
+
+
   // insert if not already present
   let sql1 = ` INSERT OR IGNORE INTO nip51Lists `;
   sql1 += ` (event_id, kind, uniqueID, pubkey, listName, created_at, event) `;
@@ -450,6 +464,7 @@ export const updateMyFullNostrProfileInSql = async (oMyNostrProfileInfo) => {
     endorseAsRelaysPickerHunter,
     endorseAsNostCuratedListCurator,
     devModes,
+    autoImportNip51,
   } = oMyNostrProfileInfo;
   const currentTime = dateToUnix(new Date());
 
@@ -475,6 +490,7 @@ export const updateMyFullNostrProfileInSql = async (oMyNostrProfileInfo) => {
   sql += ` , relays = '${JSON.stringify(relays)}' `;
   sql += ` , lastUpdate = ${currentTime} `;
   sql += ` , multiClientAccess = ${multiClientAccess} `;
+  sql += ` , autoImportNip51 = ${autoImportNip51} `;
   sql += ` , relaysAutoUpdate = ${relaysAutoUpdate} `;
   sql += ` , relaysAutoMerge = ${relaysAutoMerge} `;
   sql += ` , endorseAsNostCuratedListCurator = '${JSON.stringify(

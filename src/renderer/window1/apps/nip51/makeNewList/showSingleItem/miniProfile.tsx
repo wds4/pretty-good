@@ -1,7 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNostrEvents } from 'nostr-react';
-import { nip19 } from 'nostr-tools';
 import BlankAvatar from 'renderer/window1/assets/blankAvatar.png';
 import { updateNostrProfileFocus } from 'renderer/window1/redux/features/nostr/settings/slice';
 import { updateNostrProfiles } from 'renderer/window1/redux/features/nostr/profiles/slice';
@@ -9,7 +8,7 @@ import { returnMostRecentEvent } from 'renderer/window1/lib/nostr';
 import { noProfilePicUrl } from 'renderer/window1/const';
 import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
 
-const MiniProfile = ({ pubkey }) => {
+const MiniProfileInDatabase = ({ pubkey }) => {
   const dispatch = useDispatch();
   const nostrProfiles = useSelector(
     (state) => state.nostrProfiles.nostrProfiles
@@ -34,30 +33,6 @@ const MiniProfile = ({ pubkey }) => {
     }
   }
 
-  /*
-  /// // STEP 3 ///// Query network for updated profile information and if found, use that instead, and update redux
-  const { events } = useNostrEvents({
-    filter: {
-      authors: [pubkey],
-      since: 0,
-      kinds: [0],
-    },
-  });
-  let event_ = {};
-  const event = returnMostRecentEvent(events);
-  if (event && doesEventValidate(event)) {
-    dispatch(updateNostrProfiles(event));
-    event_ = JSON.parse(JSON.stringify(event));
-    const content = JSON.parse(event.content);
-    event_.content = content;
-    name = `@${content.name}`;
-    displayName = content.display_name;
-    about = content.about;
-    avatarUrl = content.picture;
-  }
-  /// ///////////////////////////////////
-  */
-
   return (
     <>
       <div
@@ -66,7 +41,7 @@ const MiniProfile = ({ pubkey }) => {
           boxSizing: 'border-box',
           height: '50px',
           borderRadius: '5px',
-          backgroundColor: '#EFEFEF',
+          // backgroundColor: '#EFEFEF',
         }}
       >
         <NavLink
@@ -106,7 +81,7 @@ const MiniProfile = ({ pubkey }) => {
           <div
             style={{
               height: '100%',
-              backgroundColor: '#EFEFEF',
+              // backgroundColor: '#EFEFEF',
               display: 'inline-block',
               width: 'calc(100% - 60px)',
               borderRadius: '5px',
@@ -124,5 +99,39 @@ const MiniProfile = ({ pubkey }) => {
       </div>
     </>
   );
+};
+
+const MiniProfileNotInDatabase = ({pubkey}) => {
+  const dispatch = useDispatch();
+  const { events } = useNostrEvents({
+    filter: {
+      authors: [pubkey],
+      since: 0,
+      kinds: [0],
+    },
+  });
+  const event = returnMostRecentEvent(events);
+  if (event && doesEventValidate(event)) {
+    dispatch(updateNostrProfiles(event));
+  }
+  return (
+    <>
+      <div>cannot find profile: {pubkey}</div>
+    </>
+  )
+}
+
+const MiniProfile = ({ pubkey }) => {
+  const nostrProfiles = useSelector(
+    (state) => state.nostrProfiles.nostrProfiles
+  );
+  if (nostrProfiles[pubkey]) {
+    return (
+      <MiniProfileInDatabase pubkey={pubkey} />
+    )
+  }
+  return (
+    <MiniProfileNotInDatabase pubkey={pubkey} />
+  )
 };
 export default MiniProfile;

@@ -1,15 +1,18 @@
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNostrEvents } from 'nostr-react';
 import BlankAvatar from 'renderer/window1/assets/blankAvatar.png';
+import { returnMostRecentEvent } from 'renderer/window1/lib/nostr';
 import { updateNostrProfileFocus } from 'renderer/window1/redux/features/nostr/settings/slice';
+import { updateNostrProfiles } from 'renderer/window1/redux/features/nostr/profiles/slice';
 import { noProfilePicUrl } from 'renderer/window1/const';
+import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
 
-const MiniProfile = ({ pubkey }) => {
+const MiniProfileInDatabase = ({pubkey}) => {
   const dispatch = useDispatch();
   const nostrProfiles = useSelector(
     (state) => state.nostrProfiles.nostrProfiles
   );
-
   /// // STEP 1 ///// First load default profile info
   let avatarUrl = noProfilePicUrl;
   let name = '';
@@ -105,5 +108,39 @@ const MiniProfile = ({ pubkey }) => {
       </div>
     </>
   );
+}
+
+const MiniProfileNotInDatabase = ({pubkey}) => {
+  const dispatch = useDispatch();
+  const { events } = useNostrEvents({
+    filter: {
+      authors: [pubkey],
+      since: 0,
+      kinds: [0],
+    },
+  });
+  const event = returnMostRecentEvent(events);
+  if (event && doesEventValidate(event)) {
+    dispatch(updateNostrProfiles(event));
+  }
+  return (
+    <>
+      <div>cannot find profile: {pubkey}</div>
+    </>
+  )
+}
+
+const MiniProfile = ({ pubkey }) => {
+  const nostrProfiles = useSelector(
+    (state) => state.nostrProfiles.nostrProfiles
+  );
+  if (nostrProfiles[pubkey]) {
+    return (
+      <MiniProfileInDatabase pubkey={pubkey} />
+    )
+  }
+  return (
+    <MiniProfileNotInDatabase pubkey={pubkey} />
+  )
 };
 export default MiniProfile;

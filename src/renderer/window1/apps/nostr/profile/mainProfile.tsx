@@ -115,9 +115,9 @@ const MainProfile = ({pubkey}) => {
   return (
     <>
       <SelectListener pubkey={pubkey} />
-      <div style={{position: 'relative', height:'560px'}}>
+      <div style={{position: 'relative', }}>
         <div className="mainUserProfileBox myProfileBox" style={{position: 'relative'}}>
-          <div className="mainUserProfileLeftColumnContainer" style={{position:'relative', height:'550px'}}>
+          <div className="mainUserProfileLeftColumnContainer" style={{position:'relative', height: '500px', }}>
             <div id="largeAvatarContainer" className="largeAvatarContainer" style={{position: 'absolute', top: '175px', zIndex: 100}}>
               <div
                 id="myProfileAvatarContainer"

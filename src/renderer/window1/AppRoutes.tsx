@@ -17,6 +17,7 @@ import { useNostr } from 'nostr-react';
 import LandingPage from './landingPage';
 
 import NIP51Home from './apps/nip51/landingPage';
+import NIP51Settings from './apps/nip51/settings';
 import NIP51ViewLists from './apps/nip51/viewLists';
 import NIP51TableOfLists from './apps/nip51/tableOfLists';
 import NIP51LoadLists from './apps/nip51/loadLists';
@@ -206,6 +207,10 @@ const AppRoutes = () => {
             <Route path="/" element={<NIP51Home />} />
 
             <Route path="/NIP51Home" element={<NIP51Home />} />
+            <Route
+              path="/NIP51Home/NIP51Settings"
+              element={<NIP51Settings />}
+            />
             <Route
               path="/NIP51Home/NIP51LoadLists"
               element={<NIP51LoadLists />}

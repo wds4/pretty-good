@@ -44,6 +44,7 @@ export const nostrNotesSlice = createSlice({
     },
     addNote: (state, action) => {
       const event = action.payload;
+      console.log("qwerty addNote")
       if (doesEventValidate(event)) {
         const { id } = event;
         const pk_author = event.pubkey;

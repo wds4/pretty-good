@@ -225,6 +225,7 @@ createMyProfileTableCommand += 'relays TEXT NULL, ';
 createMyProfileTableCommand += 'multiClientAccess BOOLEAN true, ';
 createMyProfileTableCommand += 'relaysAutoUpdate BOOLEAN false, ';
 createMyProfileTableCommand += 'relaysAutoMerge BOOLEAN false, ';
+createMyProfileTableCommand += 'autoImportNip51 BOOLEAN true, ';
 createMyProfileTableCommand += 'lastUpdate INTEGER NULL, ';
 createMyProfileTableCommand += 'followingListLastUpdate INTEGER NULL, ';
 createMyProfileTableCommand += 'relaysListLastUpdate INTEGER NULL, ';

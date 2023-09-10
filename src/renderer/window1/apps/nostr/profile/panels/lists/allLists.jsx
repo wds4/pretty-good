@@ -5,7 +5,7 @@ import { secsToTime } from 'renderer/window1/lib/pg';
 import { doesEventValidate } from 'renderer/window1/lib/nostr/eventValidation';
 import List from './list';
 import TechDetailsForNostrNerds1 from './techDetailsForNostrNerds1';
-import { addList } from 'renderer/window1/redux/features/nip51/lists/slice';
+import { addNip51ListToSqlAndReduxStore } from 'renderer/window1/redux/features/nip51/lists/slice';
 
 const AllLists = ({pubkey}) => {
   const dispatch = useDispatch();
@@ -26,7 +26,8 @@ const AllLists = ({pubkey}) => {
   for (let x=0; x < events.length; x++) {
     const event = events[x];
     if (!aListEventIDs.includes(event.id)) {
-      dispatch(addList(event));
+      // dispatch(addList(event));
+      dispatch(addNip51ListToSqlAndReduxStore(event));
     }
   }
 

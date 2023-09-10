@@ -1,6 +1,38 @@
+import { useState } from 'react';
 import MiniProfile from '../makeNewList/showSingleItem/miniProfile'; // for items on the list
+import DeleteButton from './deleteButton';
 
-const ShowPeoplePanel = ({ peoplePanelState, aTags_p }) => {
+const SinglePersonPanel = ({pubkey, editListState}) => {
+  const [deleteThisItem, setDeleteThisItem] = useState(false);
+  let border = '1px solid grey';
+  let backgroundColor = '#EFEFEF';
+  if (deleteThisItem) {
+    border = '1px solid red';
+    backgroundColor = '#CFCFCF';
+  }
+  return (
+    <div style={{
+      display: 'flex',
+      gap: '5px',
+    }}
+    >
+      <div
+        style={{
+          flexGrow: '999',
+          border,
+          borderRadius: '5px',
+          marginBottom: '10px',
+          backgroundColor,
+        }}
+      >
+        <MiniProfile pubkey={pubkey} />
+      </div>
+      <DeleteButton editListState={editListState} deleteThisItem={deleteThisItem} setDeleteThisItem={setDeleteThisItem} />
+    </div>
+  )
+}
+
+const ShowPeoplePanel = ({ peoplePanelState, aTags_p, editListState }) => {
   if (peoplePanelState == 'open') {
     return (
       <>
@@ -8,15 +40,7 @@ const ShowPeoplePanel = ({ peoplePanelState, aTags_p }) => {
           {aTags_p.map((oPubkey) => {
             return (
               <>
-                <div
-                  style={{
-                    border: '1px solid grey',
-                    borderRadius: '5px',
-                    marginBottom: '10px',
-                  }}
-                >
-                  <MiniProfile pubkey={oPubkey[1]} />
-                </div>
+                <SinglePersonPanel pubkey={oPubkey[1]} editListState={editListState} />
               </>
             );
           })}

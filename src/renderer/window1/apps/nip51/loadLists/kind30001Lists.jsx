@@ -1,6 +1,9 @@
 import { useNostrEvents } from 'nostr-react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addList } from 'renderer/window1/redux/features/nip51/lists/slice';
+import {
+  addList,
+  addNip51ListToSqlAndReduxStore,
+} from 'renderer/window1/redux/features/nip51/lists/slice';
 
 const Kind30001Lists = ({title}) => {
   const dispatch = useDispatch();
@@ -16,10 +19,12 @@ const Kind30001Lists = ({title}) => {
     filter,
   });
 
+  console.log("qwerty Kind30001Lists events.length: "+events.length)
   for (let x=0; x<events.length; x++) {
     const event = events[x];
     if (!aListEventIDs.includes(event.id)) {
-      dispatch(addList(event));
+      // dispatch(addList(event));
+      dispatch(addNip51ListToSqlAndReduxStore(event));
     }
   }
 

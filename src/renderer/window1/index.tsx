@@ -61,6 +61,16 @@ const startApp = async () => {
   }
   */
 
+  const sql4_a = ' SELECT autoImportNip51 FROM myNostrProfile LIMIT 1 ';
+  const isColPresent4 = await asyncSql(sql4_a);
+  if (isColPresent4) {
+    console.log("isColPresent4 autoImportNip51 is truthy")
+  } else {
+    const sql4_b = ' ALTER TABLE myNostrProfile ADD autoImportNip51 BOOLEAN true ';
+    console.log("isColPresent4 autoImportNip51 is NOT truthy; sql4_b: "+sql4_b)
+    const fooB = await asyncSql(sql4_b);
+  }
+
   // LOAD myNostrProfiles - loads all of my profiles; currently I do not load all of them into redux so this query may be unnecessary
   const sql0 = 'SELECT * FROM myNostrProfile ';
   let aMyNostrProfilesData = await asyncSql(sql0);
@@ -108,8 +118,12 @@ const startApp = async () => {
   const sql9 = 'SELECT * from endorsementsOfCurators ';
   const aEndorsementsOfCuratorsData = await asyncSql(sql9);
 
+  // LOAD endorsementsOfCurators
+  const sql10 = 'SELECT * from nip51Lists ';
+  const aNip51ListsData = await asyncSql(sql10);
+
   /*
-  // TABLES (as of 10 May 2023)
+  // TABLES (as of 29 Aug 2023)
   0 nostrProfiles (sql2)
   1 followingNetwork
   2 myNostrProfile (sql1)
@@ -121,6 +135,7 @@ const startApp = async () => {
   8 curatedListInstances (sql7)
   9 ratingsOfCuratedListInstances (sql8)
   10 endorsementsOfCurators (sql9)
+  11. nip51Lists (sql10)
   */
 
   const container = document.getElementById('root')!;
@@ -137,6 +152,7 @@ const startApp = async () => {
       aCuratedListInstancesData={aCuratedListInstancesData}
       aRatingsOfCuratedListInstancesData={aRatingsOfCuratedListInstancesData}
       aEndorsementsOfCuratorsData={aEndorsementsOfCuratorsData}
+      aNip51ListsData={aNip51ListsData}
     />
   );
 };
