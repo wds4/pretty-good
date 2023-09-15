@@ -23,6 +23,8 @@ import TopPanel from '../components/topPanel';
 import ClickableStatusBarComponent from './clickableStatusBarComponent';
 import CountStatusBarComponent from './countStatusBarComponent';
 import { processEventIntoTableEntry } from './processEventIntoTableEntry';
+import CustomAgGridTooltip from './tooltips/customAgGridTooltip';
+import List from '../list/list';
 
 const createTableData = (aListEventIDs, nostrProfiles, oNip51Lists) => {
   const aTableData = [];
@@ -95,6 +97,12 @@ const TableOfLists = () => {
   };
   */
 
+  const [showListBelowTable, setShowListBelowTable] = useState(false);
+
+  const setShowListBelowTableTrue = () => {
+    setShowListBelowTable(true);
+  }
+
   const columnDefs = useMemo(
     () => [
       {
@@ -110,6 +118,8 @@ const TableOfLists = () => {
           if (valA == valB) return 0;
           return (valA > valB) ? 1 : -1;
         },
+        tooltipField: 'listName',
+        tooltipComponentParams: { setShowListBelowTableTrue:setShowListBelowTableTrue, color: '#ececec' },
       },
       {
         field: 'author',
@@ -123,8 +133,17 @@ const TableOfLists = () => {
           if (valA == valB) return 0;
           return (valA > valB) ? 1 : -1;
         },
+        tooltipField: 'author',
+        tooltipComponentParams: { color: '#ececec' },
       },
       { field: 'kind', minWidth: 130, flex: 1 },
+      {
+        field: 'channel',
+        headerName: 'Channel',
+        minWidth: 150,
+        flex: 10,
+        tooltipField: 'channel',
+      },
       { field: 'curation', minWidth: 150, flex: 1 },
       {
         field: 'items',
@@ -137,6 +156,7 @@ const TableOfLists = () => {
         },
         minWidth: 90,
         flex: 1,
+        tooltipField: 'items',
       },
       {
         field: 'imports',
@@ -174,6 +194,7 @@ const TableOfLists = () => {
       filter: true,
       resizable: true,
       flex: 10,
+      tooltipComponent: CustomAgGridTooltip,
     }),
     []
   );
@@ -208,6 +229,34 @@ const TableOfLists = () => {
     [rowData]
   );
 
+  /*
+  const addEventToTable = () => {
+    setTimeout(() => {
+      const { aTableData, aAuthorPubkeysInTable } = createTableData(aListEventIDs, nostrProfiles, oNip51Lists);
+      console.log("addEventToTable; aTableData length: "+aTableData.length)
+      setRowData(aTableData);
+    }, 20000);
+  }
+  */
+
+  /*
+  useEffect(() => {
+    console.log("qwerty aListEventIDs has been updated")
+    addEventToTable();
+  }, aListEventIDs);
+
+  useEffect(() => {
+    setTimeout(() => {
+      console.log("qwerty aListEventIDs: "+aListEventIDs.length)
+    }, 1000);
+  });
+  */
+
+  // Example of consuming Grid Event
+  const cellClickedListener = useCallback( event => {
+    console.log('cellClicked', event);
+  }, []);
+
   const statusBar = useMemo(() => {
     return {
       statusPanels: [
@@ -240,6 +289,13 @@ const TableOfLists = () => {
     setRowData(aTableData);
   }
 
+  const refreshTable = async () => {
+    setTimeout(function () {
+      console.log("refreshTable");
+      updateTableFromRedux();
+    }, 5000);
+  }
+
   return (
     <>
       <TopPanel />
@@ -258,17 +314,32 @@ const TableOfLists = () => {
           statusBar={statusBar}
           onGridReady={onGridReady}
           immutableData={true}
+          onCellClicked={cellClickedListener}
+          tooltipShowDelay={0}
+          tooltipHideDelay={20000}
+          tooltipInteraction={true}
         />
       </div>
-      <div style={{fontSize: '14px', backgroundColor: '#EFEFEF', padding: '15px', border: '1px solid grey'}}>
+      <div style={{display: 'none', fontSize: '14px', backgroundColor: '#EFEFEF', padding: '15px', border: '1px solid grey'}}>
         Table contains: {aTableData.length} lists (excluding lists with either no name or no public items (including no imported lists)) & {aAuthorPubkeysInTable.length} authors
       </div>
       <button
-          type="button"
-          onClick={updateTableFromRedux}
-        >update redux store to table
+        style={{display:'none'}}
+        type="button"
+        onClick={updateTableFromRedux}
+      >update redux store to table
       </button>
+      <ListElem showListBelowTable={showListBelowTable} refreshTable={refreshTable} />
     </>
   );
 };
 export default TableOfLists;
+
+const ListElem = ({showListBelowTable, refreshTable}) => {
+  if (showListBelowTable) {
+    return (
+      <List refreshTable={refreshTable} />
+    )
+  }
+  return <></>;
+}

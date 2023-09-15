@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNostrEvents } from 'nostr-react';
 import { nip19 } from 'nostr-tools';
@@ -8,6 +9,7 @@ import {
 } from 'renderer/window1/redux/features/nostr/settings/slice';
 import { addNip51ListToSqlAndReduxStore } from 'renderer/window1/redux/features/nip51/lists/slice';
 import MiniProfile from './miniProfile';
+import DeleteButton from './deleteButton';
 
 const ShowItemsPanel = ({ event }) => {
   const aTags_a = event.tags.filter(([k, v]) => k === 'a' && v && v !== '');
@@ -40,7 +42,6 @@ const ShowList = ({event, listName}) => {
         style={{
           border: '1px solid grey',
           borderRadius: '5px',
-          marginBottom: '10px',
           padding: '10px',
         }}
       >
@@ -70,7 +71,7 @@ const ShowList = ({event, listName}) => {
       </div>
     </>
   );
-};
+}
 
 const ShowSingleListNotInDatabase = ({ aListData }) => {
   const dispatch = useDispatch();
@@ -102,7 +103,9 @@ const ShowSingleListNotInDatabase = ({ aListData }) => {
   );
 };
 
-const ShowSingleListAlreadyInDatabase = ({ aListData }) => {
+const ShowSingleListAlreadyInDatabase = ({
+  aListData,
+}) => {
   const kind = aListData[0];
   const pubkey = aListData[1];
   const listName = aListData[2];
@@ -118,19 +121,105 @@ const ShowSingleListAlreadyInDatabase = ({ aListData }) => {
   );
 };
 
-const ShowSingleList = ({ aListData }) => {
+const ShowSingleList = ({
+  aListData,
+  aTagsToDeleteA,
+  editListState,
+  removeThisItemFromDeleteListA,
+  addThisItemToDeleteListA,
+}) => {
   const kind = aListData[0];
   const pubkey = aListData[1];
   const listName = aListData[2];
   const sNaddr = `${kind}:${pubkey}:${listName}`;
   const oNaddrLookup = useSelector((state) => state.nip51.naddrLookup);
   if (oNaddrLookup[sNaddr]) {
-    return <ShowSingleListAlreadyInDatabase aListData={aListData} />;
+    return (
+      <>
+        <ShowSingleListAlreadyInDatabase
+          aListData={aListData}
+        />
+      </>
+    )
   }
   return <ShowSingleListNotInDatabase aListData={aListData} />;
 };
 
-const ShowListsPanel = ({ listsPanelState, aTags_a, editListState }) => {
+const ShowSingleListPre = ({
+  aListData,
+  aTagsToDeleteA,
+  editListState,
+  removeThisItemFromDeleteListA,
+  addThisItemToDeleteListA,
+}) => {
+  const kind = aListData[0];
+  const pubkey = aListData[1];
+  const listName = aListData[2];
+  const sNaddr = `${kind}:${pubkey}:${listName}`;
+
+  let initState = false;
+  if (aTagsToDeleteA.includes(sNaddr)) {
+    initState = true;
+  }
+  const [deleteThisItem, setDeleteThisItem] = useState(initState);
+  let border = '1px solid grey';
+  let backgroundColor = '#EFEFEF';
+  if (editListState && deleteThisItem) {
+    border = '1px solid red';
+    backgroundColor = '#CFCFCF';
+  }
+
+  const removeItemFromDeleteList = () => {
+    removeThisItemFromDeleteListA(sNaddr);
+  }
+  const addItemToDeleteList = () => {
+    addThisItemToDeleteListA(sNaddr);
+  }
+  return (
+    <>
+      <div style={{
+        display: 'flex',
+        gap: '5px',
+      }}
+      >
+        <div
+          style={{
+            flexGrow: '999',
+            border,
+            borderRadius: '5px',
+            marginBottom: '10px',
+            backgroundColor,
+          }}
+        >
+          <ShowSingleList
+            aListData={aListData}
+            aTagsToDeleteA={aTagsToDeleteA}
+            editListState={editListState}
+            removeThisItemFromDeleteListA={removeThisItemFromDeleteListA}
+            addThisItemToDeleteListA={addThisItemToDeleteListA}
+          />
+        </div>
+        <DeleteButton
+          editListState={editListState}
+          deleteThisItem={deleteThisItem}
+          setDeleteThisItem={setDeleteThisItem}
+          removeItemFromDeleteList={removeItemFromDeleteList}
+          addItemToDeleteList={addItemToDeleteList}
+        />
+      </div>
+    </>
+  )
+};
+
+const ShowListsPanel = ({
+  listsPanelState,
+  aTags_a,
+  aTagsToDeleteA,
+  editListState,
+  removeThisItemFromDeleteListA,
+  addThisItemToDeleteListA,
+  oTagUpdates,
+}) => {
   // if listsPanelState is closed, the lists will still be rendered, just not displayed,
   // the purpose being that imported lists will be downloaded placed into the local database
   // if they are not already present
@@ -145,10 +234,33 @@ const ShowListsPanel = ({ listsPanelState, aTags_a, editListState }) => {
           const aListData = oList[1].split(':');
           return (
             <>
-              <ShowSingleList aListData={aListData} />
+              <ShowSingleListPre
+                aListData={aListData}
+                aTagsToDeleteA={aTagsToDeleteA}
+                editListState={editListState}
+                removeThisItemFromDeleteListA={removeThisItemFromDeleteListA}
+                addThisItemToDeleteListA={addThisItemToDeleteListA}
+              />
             </>
           );
         })}
+        <div style={{border: '2px solid green', borderRadius: '5px', padding: '5px', backgroundColor: 'white'}}>
+          <center style={{color: 'green'}}>added items</center>
+          {oTagUpdates.aTagsToAddA.map((aTag) => {
+          const aListData = aTag[1].split(':');
+          return (
+            <>
+              <ShowSingleListPre
+                aListData={aListData}
+                aTagsToDeleteA={aTagsToDeleteA}
+                editListState={editListState}
+                removeThisItemFromDeleteListA={removeThisItemFromDeleteListA}
+                addThisItemToDeleteListA={addThisItemToDeleteListA}
+              />
+            </>
+          );
+        })}
+        </div>
       </div>
     </>
   );

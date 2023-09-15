@@ -64,6 +64,7 @@ export const processEventIntoTableEntry = (event, nostrProfiles) => {
     listName: oListNameData,
     author: oAuthorData,
     kind: kindName,
+    channel: 'no',
     curation: 'author',
     items: parseInt(numItemsDirect),
     imports: parseInt(numImportedLists),

@@ -30,8 +30,9 @@ const QuestionMarkTopPanel = ({ content }) => {
         place="bottom"
       />
       <a id={id}>
-        <div style={{ display: 'inline-block' }}>{listType}</div>
+        <div style={{ display: 'inline-block', fontSize: '14px' }}>{listType}</div>
       </a>
+
     </>
   );
 };

@@ -28,7 +28,7 @@ export default class ListMain extends React.Component {
         <div id="mainCol">
           <Masthead />
           <div id="mainPanel">
-            <List />
+            <List refreshTable={()=>{}} />
           </div>
         </div>
       </>

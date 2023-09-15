@@ -1,10 +1,21 @@
-const DeleteButton = ({editListState, deleteThisItem, setDeleteThisItem}) => {
+const DeleteButton = ({
+  editListState,
+  deleteThisItem,
+  setDeleteThisItem,
+  removeItemFromDeleteList,
+  addItemToDeleteList,
+}) => {
   if (!editListState) {
     return <></>;
   }
   const updateDeleteThisItem = () => {
-    console.log("deleteThisItem")
-    if (deleteThisItem) { setDeleteThisItem(false); } else { setDeleteThisItem(true); }
+    if (deleteThisItem) {
+      setDeleteThisItem(false);
+      removeItemFromDeleteList();
+    } else {
+      setDeleteThisItem(true);
+      addItemToDeleteList();
+    }
   };
   return (
     <>

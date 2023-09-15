@@ -16,7 +16,7 @@ const NumberInDatabaseTopPanel = ({ aKind, kind }) => {
         place="bottom"
       />
       <a id={id}>
-        <div style={{ display: 'inline-block' }}>({aKind.length})</div>
+        <div style={{ display: 'inline-block' }}>{aKind.length}</div>
       </a>
     </>
   );

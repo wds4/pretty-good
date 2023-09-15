@@ -1,4 +1,16 @@
-const ButtonActive = ({addItem}) => {
+const ButtonActive = ({
+  confirmAddItemToList,
+  oTagUpdates,
+  aTagsToAddA,
+  aTagsToAddE,
+  aTagsToAddP,
+  aTagsToAddT,
+  updateNip19IdField,
+}) => {
+  const processButtonClick = () => {
+    confirmAddItemToList(oTagUpdates, aTagsToAddA, aTagsToAddE, aTagsToAddP, aTagsToAddT);
+    updateNip19IdField();
+  }
   return (
     <>
       <button
@@ -14,7 +26,7 @@ const ButtonActive = ({addItem}) => {
           height: '50px',
           width: '50px',
         }}
-        onClick={addItem}
+        onClick={processButtonClick}
       >
         ✔️
       </button>
@@ -45,21 +57,27 @@ const ButtonInActive = () => {
 }
 
 const AddItemButton = ({
-  addItem
+  isNip19IdValid,
+  confirmAddItemToList,
+  oTagUpdates,
+  aTagsToAddA,
+  aTagsToAddE,
+  aTagsToAddP,
+  aTagsToAddT,
+  updateNip19IdField,
 }) => {
-  const isNewItemAlreadyOnList = "no";
-  const isNewItemValid = "yes";
-  if (isNewItemAlreadyOnList == 'yes') {
+  if (isNip19IdValid) {
     return (
       <>
-        <ButtonInActive />
-      </>
-    );
-  }
-  if (isNewItemValid == 'yes') {
-    return (
-      <>
-        <ButtonActive addItem={addItem} />
+        <ButtonActive
+          confirmAddItemToList={confirmAddItemToList}
+          oTagUpdates={oTagUpdates}
+          aTagsToAddA={aTagsToAddA}
+          aTagsToAddE={aTagsToAddE}
+          aTagsToAddP={aTagsToAddP}
+          aTagsToAddT={aTagsToAddT}
+          updateNip19IdField={updateNip19IdField}
+        />
       </>
     );
   }

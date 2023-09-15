@@ -127,14 +127,14 @@ export const nip51Slice = createSlice({
         if (listName) {
           // remove id from redux if this is an update of a preexisting list
           if (state.naddrLookup[naddrString]) {
-            /*
+
             const oldEventID = state.naddrLookup[naddrString];
             // remove oldEventID from state.lists
             delete state.lists[oldEventID];
-
             // remove oldEventID from arrays: aListEventIDs, etc
             const index1 = state.aListEventIDs.indexOf(oldEventID);
             state.aListEventIDs.splice(index1, 1);
+            /*
             if (kind == 10000) {
               const index2 = state.aKind10000.indexOf(oldEventID);
               state.aKind10000.splice(index2, 1);

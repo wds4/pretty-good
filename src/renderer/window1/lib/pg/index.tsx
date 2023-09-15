@@ -113,6 +113,7 @@ export const secsToTimeAgo = (secs: number) => {
   return displayTime;
 };
 
+// aNew = addStringToArrayUniquely(str,aOld)
 export const addStringToArrayUniquely = (str, aIn) => {
   const aOut = [];
   // remove duplicates

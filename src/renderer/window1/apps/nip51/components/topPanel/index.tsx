@@ -22,39 +22,42 @@ const TopPanel = () => {
       >
 
         <div style={{ flex: 1, minWidth: '100px', textAlign: 'center', color: 'orange' }}>
-          {aAuthors.length} Authors
+          <div>{aAuthors.length}</div>
+          <div>Authors</div>
         </div>
 
         <div style={{ flex: 1, minWidth: '100px', textAlign: 'center', color: 'orange' }}>
-          {aListEventIDs.length} Lists:
+          <div>{aListEventIDs.length}</div>
+          <div>Lists:</div>
         </div>
 
         <div style={{ flex: 1, minWidth: '100px', textAlign: 'center' }}>
-          <span>
-            <QuestionMarkTopPanel content="kind30001" />
-          </span>{' '}
           <NumberInDatabaseTopPanel aKind={aKind30001} kind="30001" />
+          <div>
+            <QuestionMarkTopPanel content="kind30001" />
+          </div>
         </div>
 
         <div style={{ flex: 1, minWidth: '100px', textAlign: 'center' }}>
-          <span>
-            <QuestionMarkTopPanel content="kind30000" />
-          </span>{' '}
           <NumberInDatabaseTopPanel aKind={aKind30000} kind="30000" />
+          <div>
+            <QuestionMarkTopPanel content="kind30000" />
+          </div>
         </div>
 
         <div style={{ flex: 1, minWidth: '100px', textAlign: 'center' }}>
-          <span>
-            <QuestionMarkTopPanel content="kind10000" />
-          </span>{' '}
           <NumberInDatabaseTopPanel aKind={aKind10000} kind="10000" />
+          <div>
+            <QuestionMarkTopPanel content="kind10000" />
+          </div>
         </div>
 
         <div style={{ flex: 1, minWidth: '100px', textAlign: 'center' }}>
-          <span>
-            <QuestionMarkTopPanel content="kind10001" />
-          </span>{' '}
           <NumberInDatabaseTopPanel aKind={aKind10001} kind="10001" />
+          <div>
+            <QuestionMarkTopPanel content="kind10001" />
+          </div>
+
         </div>
 
         <div style={{ flex: 1, minWidth: '100px', textAlign: 'center' }}>
