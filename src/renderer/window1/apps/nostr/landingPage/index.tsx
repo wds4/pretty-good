@@ -21,7 +21,7 @@ export default class NostrLandingPage extends React.Component {
     updateMastheadCenter(mastheadDescriptor);
 
     // e.click() doesn't work (in production) without an await here - don't know why
-    await timeout(10);
+    await timeout(1000);
     const e = document.getElementById('mainFeedButton');
     if (e) {
       e.click();
@@ -45,6 +45,7 @@ export default class NostrLandingPage extends React.Component {
                 nostr main feed
               </div>
             </NavLink>
+            <div>Updating pubkey list for Channels ...</div>
             <ChannelManagement />
           </div>
         </div>
