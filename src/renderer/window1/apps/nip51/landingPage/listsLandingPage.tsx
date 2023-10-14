@@ -376,7 +376,8 @@ const DownloadContainer = () => {
           By default, lists entitled 'Nostr Devs' and 'imported Nostr Devs' are
           downloaded at startup for use with some of the feature demos. Lists
           authored by individual users are downloaded automatically in the Lists
-          section of the user profile page.
+          section of the user profile page. You can clear the local database in the
+          NIP-51 Settings page.
         </div>
       </div>
     </>

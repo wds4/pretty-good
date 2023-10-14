@@ -102,12 +102,12 @@ const UniversalLeftNavbar1 = () => {
               isActive ? 'leftNavButton leftNavButtonActive' : 'leftNavButton'
             }
             onClick={() => {
-              dispatch(updateCurrentApp('curatedLists'));
+              dispatch(updateCurrentApp('nip51'));
             }}
-            to="/CuratedListsHome/CuratedListsWithScoresV8"
+            to="/NIP51Home"
           >
             <div style={{ fontSize: '32px' }}>📃</div>
-            <div style={{ fontSize: '12px' }}>Curated Lists</div>
+            <div style={{ fontSize: '12px' }}>NIP-51 Lists</div>
           </NavLink>
         </div>
 
@@ -117,12 +117,12 @@ const UniversalLeftNavbar1 = () => {
               isActive ? 'leftNavButton leftNavButtonActive' : 'leftNavButton'
             }
             onClick={() => {
-              dispatch(updateCurrentApp('nip51'));
+              dispatch(updateCurrentApp('curatedLists'));
             }}
-            to="/NIP51Home"
+            to="/CuratedListsHome/CuratedListsWithScoresV8"
           >
             <div style={{ fontSize: '32px' }}>📃</div>
-            <div style={{ fontSize: '12px' }}>NIP-51 Lists</div>
+            <div style={{ fontSize: '12px' }}>Curated Lists</div>
           </NavLink>
         </div>
 

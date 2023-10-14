@@ -46,7 +46,9 @@ export default class NostrLandingPage extends React.Component {
               </div>
             </NavLink>
             <div>Updating pubkey list for Channels ...</div>
-            <ChannelManagement />
+            <div style={{display: 'none'}}>
+              <ChannelManagement />
+            </div>
           </div>
         </div>
       </>

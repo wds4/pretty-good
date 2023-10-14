@@ -9,8 +9,8 @@
 .agTableSmallAvatarContainer {
     display:inline-block;
     position:relative;
-    width:30px;
-    height:30px;
+    width:35px;
+    height:35px;
 }
 .userListSmallAvatarContainer {
   display:inline-block;
@@ -23,8 +23,8 @@
   	background-color:white;
   	border:1px solid black;
   	border-radius:250px;
-  	width:95%;
-  	height:95%;
+  	width:94%;
+  	height:94%;
   	margin: 0;
   	position: absolute;
   	top: 50%;
