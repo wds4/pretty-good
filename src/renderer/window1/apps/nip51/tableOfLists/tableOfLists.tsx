@@ -348,16 +348,13 @@ const TableOfLists = () => {
         Table contains: {aTableData.length} lists (excluding lists with either no name or no public items (including no imported lists)) & {aAuthorPubkeysInTable.length} authors
       </div>
 
-      <div style={{margin: '20px', fontSize: '18px'}}>
-        Access filter and sort features in the headings to each column.
-        For example: sort all lists with 'nostr devs' in the List Name.
-      </div>
-
-      <div style={{margin: '20px', fontSize: '18px'}}>
+      <div style={{margin: '20px', fontSize: '16px', color: 'grey'}}>
         The <i># List Imports</i> column indicates the number of lists that are imported by any
         given list using nostr's <i>a</i> tag. You can navigate to that list's page and
-        toggle the 'process list imports' button to see list items populated.
-        You can try it with my 'imported Nostr Devs' list.
+        toggle the 'import items' button to see list items populated.
+        To see this in action, use the table's filtering or sorting features
+        to find lists with more than zero list imports, then navigate to that list's page.
+        Or select my 'imported Nostr Devs' list.
       </div>
 
       <button

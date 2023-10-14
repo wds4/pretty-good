@@ -6,6 +6,7 @@ import {
   updateNaddrListFocus,
   updateNip51ListFocusEventId,
 } from '../../../redux/features/nostr/settings/slice';
+// import PopulateChannelListener from '../settings/channelManagement/populateChannelListener';
 
 const MainFeedTypeSelector = ({aFollowing, aExtendedFollowing, aNostrDevs, aFedWatchers}) => {
   const devMode2 = useSelector((state) => state.myNostrProfile.devModes.devMode2);

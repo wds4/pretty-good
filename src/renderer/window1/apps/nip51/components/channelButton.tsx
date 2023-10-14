@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   removeFromChannelsByAddrList,
@@ -19,8 +20,8 @@ const ChannelButton = ({ naddr, aTags_p }) => {
   let buttonClass = 'addToChannelsButton';
   let currentState = 'notFollowing';
 
+  const aPubkeys = [];
   const fooFxn = () => {
-    const aPubkeys = [];
     for (let x=0;x<aTags_p.length;x++) {
       const pk = aTags_p[x][1];
       aPubkeys.push(pk);
@@ -28,6 +29,13 @@ const ChannelButton = ({ naddr, aTags_p }) => {
     // console.log("populateChannelByAddrList; aPubkeys: "+JSON.stringify(aPubkeys));
     // dispatch(populateChannelByAddrList({naddr,aPubkeys}));
   }
+
+  /*
+  useEffect(() => {
+    console.log("populateChannelByAddrList; aPubkeys: "+JSON.stringify(aPubkeys));
+    dispatch(populateChannelByAddrList({naddr,aPubkeys}));
+  }, aPubkeys);
+  */
 
   if (aListsByNaddr.includes(naddr)) {
     // I am already using this list as a channel

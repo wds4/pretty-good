@@ -133,7 +133,7 @@ export const nip51Slice = createSlice({
         // add to state.naddrLookup
         const naddrString = kind+":"+pubkey+":"+listName;
 
-        /*
+/*
         // this block of code currently causes the app to freeze up while downloading lists (after a while) and on main feed page
         // not sure what causes the freeze
         if (listName) {
@@ -174,7 +174,7 @@ export const nip51Slice = createSlice({
             // no need to remove from state.byAuthor[pubkey].byListName because it will be overwritten
           }
         }
-        */
+*/
 
         state.naddrLookup[naddrString] = id;
         // if (!state.aListEventIDs.includes(id)) {

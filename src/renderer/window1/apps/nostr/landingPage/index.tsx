@@ -5,6 +5,7 @@ import Masthead from 'renderer/window1/mastheads/nostrMasthead';
 import LeftNavbar1 from 'renderer/window1/navbars/leftNavbar1/universalNavbar';
 import LeftNavbar2 from '../../../navbars/leftNavbar2/emptyNavbar';
 import { updateMainColWidth, updateMastheadCenter } from '../../../lib/pg/ui';
+import ChannelManagement from '../settings/channelManagement/channelManagement';
 
 export default class NostrLandingPage extends React.Component {
   constructor(props) {
@@ -44,6 +45,7 @@ export default class NostrLandingPage extends React.Component {
                 nostr main feed
               </div>
             </NavLink>
+            <ChannelManagement />
           </div>
         </div>
       </>
