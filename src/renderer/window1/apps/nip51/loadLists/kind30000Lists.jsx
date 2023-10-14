@@ -11,10 +11,13 @@ const Kind30000Lists = ({title}) => {
     (state) => state.nip51
   );
 
+  const title1 = "Nostr Devs";
+  const title2 = "imported Nostr Devs";
+
   const filter = {
     kinds: [30000],
     since: 0,
-    "#d": [ title ],
+    "#d": [ title1, title2 ],
   };
   const { events } = useNostrEvents({
     filter,
@@ -23,8 +26,8 @@ const Kind30000Lists = ({title}) => {
   for (let x=0; x<events.length; x++) {
     const event = events[x];
     if (!aListEventIDs.includes(event.id)) {
-      // dispatch(addList(event));
-      dispatch(addNip51ListToSqlAndReduxStore(event));
+      dispatch(addList(event));
+      // dispatch(addNip51ListToSqlAndReduxStore(event));
     }
   }
 

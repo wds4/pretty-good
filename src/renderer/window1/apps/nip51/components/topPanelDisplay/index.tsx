@@ -3,7 +3,7 @@ import QuestionMarkTopPanel from './questionMarkTopPanel';
 import NumberInDatabaseTopPanel from './numberInDatabaseTopPanel';
 import Nip51Listener from './nip51Listener';
 
-const TopPanel = () => {
+const TopPanelDisplay = () => {
   const oNip51 = useSelector((state) => state.nip51);
   const { byAuthor, aListEventIDs, aKind10000, aKind10001, aKind30000, aKind30001 } = oNip51;
   const aAuthors = Object.keys(byAuthor);
@@ -20,6 +20,7 @@ const TopPanel = () => {
           backgroundColor: 'black',
         }}
       >
+
         <div style={{ flex: 1, minWidth: '100px', textAlign: 'center', color: 'orange' }}>
           <div>{aAuthors.length}</div>
           <div>Authors</div>
@@ -56,18 +57,12 @@ const TopPanel = () => {
           <div>
             <QuestionMarkTopPanel content="kind10001" />
           </div>
-
         </div>
-
-        <div style={{ flex: 1, minWidth: '100px', textAlign: 'center' }}>
-          <Nip51Listener />
-        </div>
-
       </div>
     </>
   )
 }
-export default TopPanel;
+export default TopPanelDisplay;
 
 /*
 <div style={{ flex: 1, minWidth: '100px', textAlign: 'center' }}>

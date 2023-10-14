@@ -71,6 +71,16 @@ const startApp = async () => {
     const fooB = await asyncSql(sql4_b);
   }
 
+  const sql5_a = ' SELECT curatedChannelsData FROM myNostrProfile LIMIT 1 ';
+  const isColPresent5 = await asyncSql(sql5_a);
+  if (isColPresent5) {
+    console.log("isColPresent5 curatedChannelsData is truthy")
+  } else {
+    const sql5_b = ' ALTER TABLE myNostrProfile ADD curatedChannelsData BOOLEAN true ';
+    console.log("isColPresent5 curatedChannelsData is NOT truthy; sql5_b: "+sql5_b)
+    const fooB = await asyncSql(sql5_b);
+  }
+
   // LOAD myNostrProfiles - loads all of my profiles; currently I do not load all of them into redux so this query may be unnecessary
   const sql0 = 'SELECT * FROM myNostrProfile ';
   let aMyNostrProfilesData = await asyncSql(sql0);

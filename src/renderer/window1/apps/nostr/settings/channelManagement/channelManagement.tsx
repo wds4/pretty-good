@@ -1,6 +1,27 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { nip19 } from 'nostr-tools';
+import PopulateChannelListener from './populateChannelListener';
+import { useRef } from 'react';
 
 const ChannelManagement = () => {
+
+  /*
+  const { listsByNaddr } = useSelector(
+    (state) => state.myNostrProfile.curatedChannelsData
+  );
+  const aListsByNaddr = Object.keys(listsByNaddr);
+
+  const curatedChannelsData = useSelector(
+    (state) => state.myNostrProfile.curatedChannelsData
+  );
+  */
+
+  const aListsByNaddr = useSelector(
+    (state) => state.myNostrProfile.curatedChannelsData.aListsByNaddr
+  );
+
+  const aListsByNaddrUR = useRef(aListsByNaddr);
+
   return (
     <>
       <div className="h2">Channel Management</div>
@@ -48,8 +69,21 @@ const ChannelManagement = () => {
           <li>Organize Channels into a hierarchy</li>
         </div>
       </div>
+      <div>
+        <div>aListsByNaddr: {JSON.stringify(aListsByNaddr,null,4)}</div>
+        <div>aListsByNaddrUR: {JSON.stringify(aListsByNaddrUR,null,4)}</div>
+        {aListsByNaddrUR.current.map((naddr)=>{
+          const { type, data } = nip19.decode(naddr);
+          if (type=="naddr") {
+            return (
+              <>
+                <PopulateChannelListener naddr={naddr} />
+              </>
+            );
+          }
+        })}
+      </div>
     </>
-  );
-};
-
+  )
+}
 export default ChannelManagement;

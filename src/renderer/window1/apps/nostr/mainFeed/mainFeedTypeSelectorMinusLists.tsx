@@ -1,11 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { nip19 } from 'nostr-tools';
-import {
-  updateMainNostrFeedFilter,
-  updateNaddrListFocus,
-  updateNip51ListFocusEventId,
-} from '../../../redux/features/nostr/settings/slice';
+import { updateMainNostrFeedFilter } from '../../../redux/features/nostr/settings/slice';
 
 const MainFeedTypeSelector = ({aFollowing, aExtendedFollowing, aNostrDevs, aFedWatchers}) => {
   const devMode2 = useSelector((state) => state.myNostrProfile.devModes.devMode2);
@@ -21,11 +17,6 @@ const MainFeedTypeSelector = ({aFollowing, aExtendedFollowing, aNostrDevs, aFedW
   const mainNostrFeedFilter = useSelector(
     (state) => state.nostrSettings.mainNostrFeedFilter
   );
-
-  const { listsByNaddr } = useSelector(
-    (state) => state.myNostrProfile.curatedChannelsData
-  );
-  const aListsByNaddr = Object.keys(listsByNaddr);
 
   /*
   const myNostrProfile = useSelector((state) => state.myNostrProfile);
@@ -59,6 +50,7 @@ const MainFeedTypeSelector = ({aFollowing, aExtendedFollowing, aNostrDevs, aFedW
     aFedWatchers.push(data)
   }
   */
+
 
   let followingSelected = false;
   let eFollowingSelected = false;
@@ -119,22 +111,6 @@ const MainFeedTypeSelector = ({aFollowing, aExtendedFollowing, aNostrDevs, aFedW
     channelFedWatchClassName = 'block_hide';
   }
   let channelsData = {};
-  for (let x=0; x<aListsByNaddr.length;x++) {
-    const nextNaddr = aListsByNaddr[x];
-    channelsData[nextNaddr] = {};
-    channelsData[nextNaddr].className = 'block_hide';
-    channelsData[nextNaddr].selected = false;
-    if (mainNostrFeedFilter==nextNaddr) {
-      channelsData[nextNaddr].className = 'block_show';
-      channelsData[nextNaddr].selected = true;
-    }
-  }
-
-  const oNaddrLookup = useSelector(
-    (state) => state.nip51.naddrLookup
-  );
-
-  // console.log("qwerty oNaddrLookup: "+JSON.stringify(oNaddrLookup,null,4))
 
   return (
     <>
@@ -183,38 +159,6 @@ const MainFeedTypeSelector = ({aFollowing, aExtendedFollowing, aNostrDevs, aFedW
           >
             Fed Watchers: {aFedWatchers.length} profiles
           </NavLink>
-          {aListsByNaddr.map((naddr)=>{
-            const { type, data } = nip19.decode(naddr);
-            // console.log("qwerty data: "+JSON.stringify(data,null,4));
-            let eventID = "";
-            if (data.pubkey) {
-              const foo = data.kind + ":" + data.pubkey + ":" + data.identifier;
-              eventID = oNaddrLookup[foo];
-            }
-            // console.log("qwerty_ naddr: "+naddr);
-            // console.log("qwerty_ eventID: "+eventID);
-            if (type=="naddr") {
-              const listName = data.identifier;
-              return (
-                <>
-                  <NavLink
-                    // to="/NostrHome/ChannelManagement"
-                    to="/NIP51Home/NIP51List"
-                    onClick={() => {
-                      dispatch(updateNaddrListFocus(naddr));
-                      dispatch(updateNip51ListFocusEventId(eventID));
-                    }}
-                    id="landingPageButton"
-                    className={channelsData[naddr].className}
-                    style={{textDecoration:"none"}}
-                  >
-                    {listName}: {listsByNaddr[naddr].length} profiles
-                  </NavLink>
-                </>
-              )
-            }
-            return <></>;
-          })}
         </div>
 
         <select
@@ -231,20 +175,12 @@ const MainFeedTypeSelector = ({aFollowing, aExtendedFollowing, aNostrDevs, aFedW
           <option value="firehose" selected={firehoseSelected}>
             firehose
           </option>
-          {aListsByNaddr.map((naddr)=>{
-            const { type, data } = nip19.decode(naddr);
-            if (type=="naddr") {
-              const listName = data.identifier;
-              return (
-                <>
-                  <option value={naddr} selected={channelsData[naddr].selected}>
-                    * {listName} {listsByNaddr[naddr].length}
-                  </option>
-                </>
-              )
-            }
-            return <></>;
-          })}
+          <option value="channelNostrDevelopment" selected={channelNostrDevelopmentSelected}>
+            Channel: Nostr Development
+          </option>
+          <option value="channelFedWatch" selected={channelFedWatchSelected}>
+            Channel: Fed Watch
+          </option>
           <option value="grapevine" selected={grapevineSelected} hidden={hideOption} >
             grapevine (testnet)
           </option>
@@ -254,12 +190,3 @@ const MainFeedTypeSelector = ({aFollowing, aExtendedFollowing, aNostrDevs, aFedW
   );
 };
 export default MainFeedTypeSelector;
-
-/*
-<option value="channelNostrDevelopment" selected={channelNostrDevelopmentSelected}>
-  Channel: Nostr Development
-</option>
-<option value="channelFedWatch" selected={channelFedWatchSelected}>
-  Channel: Fed Watch
-</option>
-*/

@@ -465,6 +465,7 @@ export const updateMyFullNostrProfileInSql = async (oMyNostrProfileInfo) => {
     endorseAsNostCuratedListCurator,
     devModes,
     autoImportNip51,
+    curatedChannelsData,
   } = oMyNostrProfileInfo;
   const currentTime = dateToUnix(new Date());
 
@@ -495,6 +496,9 @@ export const updateMyFullNostrProfileInSql = async (oMyNostrProfileInfo) => {
   sql += ` , relaysAutoMerge = ${relaysAutoMerge} `;
   sql += ` , endorseAsNostCuratedListCurator = '${JSON.stringify(
     endorseAsNostCuratedListCurator
+  )}' `;
+  sql += ` , curatedChannelsData = '${JSON.stringify(
+    curatedChannelsData
   )}' `;
   sql += ` , devModes = '${JSON.stringify(devModes)}' `;
   sql += ` WHERE pubkey = '${pubkey_hex}' `;

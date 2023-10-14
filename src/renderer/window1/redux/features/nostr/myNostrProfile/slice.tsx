@@ -8,7 +8,11 @@ import {
   updateMyFullNostrProfileInSql,
 } from 'renderer/window1/lib/pg/sql';
 import { noProfilePicUrl, noBannerPicUrl } from 'renderer/window1/const';
-import { oDefaultRelayUrls, oDefaultDevModes } from 'main/const/nostr';
+import {
+  oDefaultRelayUrls,
+  oDefaultDevModes,
+  oDefaultCuratedChannelsData,
+} from 'main/const/nostr';
 import { dateToUnix } from 'nostr-react';
 import {
   nip19,
@@ -59,15 +63,7 @@ const initialState = {
   relays: oDefaultRelayUrls,
   devModes: oDefaultDevModes,
   relaysFromMyFollowingList: {}, // maintain list of relays scraped from my following list; an example of basic DCoSL
-  curatedChannelsData: {
-    topics: [], // array of ACCEPTED topics, by event ID
-    relationships: [], // array of ACCEPTED topic to topic CurationOfRelationships, by event ID
-    contentByTopic: {
-      /*
-      <topic universally unique ID>: [] // array of ACCEPTED pubkeys for that topic
-      */
-    }
-  },
+  curatedChannelsData: oDefaultCuratedChannelsData,
   /*
   endorseAsNostCuratedListCurator: {
     <eventID of curated list>: {
@@ -161,7 +157,7 @@ export const myProfileSlice = createSlice({
     },
     initMyActiveNostrProfile: (state, action) => {
       const oMyProfileData = action.payload;
-      // console.log("initMyActiveNostrProfile; oMyProfileData: "+JSON.stringify(oMyProfileData))
+      console.log("initMyActiveNostrProfile; oMyProfileData: "+JSON.stringify(oMyProfileData,null,4))
       state.name = oMyProfileData?.name;
       // console.log("initMyActiveNostrProfile; oMyProfileData?.name: "+oMyProfileData?.name)
       state.display_name = oMyProfileData?.display_name;
@@ -207,6 +203,7 @@ export const myProfileSlice = createSlice({
 
       // objects
       state.relaysFromMyFollowingList = {};
+
       if (oMyProfileData?.devModes) {
         state.devModes = JSON.parse(oMyProfileData?.devModes)
         // console.log("qwerty A state.devModes: "+JSON.stringify(state.devModes))
@@ -214,6 +211,7 @@ export const myProfileSlice = createSlice({
         state.devModes = oDefaultDevModes;
         // console.log("qwerty B state.devModes: "+JSON.stringify(state.devModes))
       }
+
       if (oMyProfileData?.relays) {
         state.relays = JSON.parse(oMyProfileData?.relays)
       } else {
@@ -221,6 +219,17 @@ export const myProfileSlice = createSlice({
       }
       if ( oMyProfileData?.relays === null || oMyProfileData?.relays === undefined) {
         // state.relays = {};
+      }
+
+      if (oMyProfileData?.curatedChannelsData) {
+        state.curatedChannelsData = JSON.parse(oMyProfileData?.curatedChannelsData)
+        if (!state.curatedChannelsData.aListsByNaddr) {
+          state.curatedChannelsData.aListsByNaddr = [];
+        }
+        // console.log("qwerty A state.curatedChannelsData: "+JSON.stringify(state.curatedChannelsData))
+      } else {
+        state.curatedChannelsData = oDefaultCuratedChannelsData;
+        // console.log("qwerty B state.curatedChannelsData: "+JSON.stringify(state.curatedChannelsData))
       }
 
     },
@@ -462,14 +471,39 @@ export const myProfileSlice = createSlice({
     },
     ///////////////////////////
 
-    // uncategorized / mics
+    // MANAGE CURATED CHANNELS
     updateCuratedChannelsTopics: (state, action) => {
       state.curatedChannelsData.topics = action.payload; // an array of event IDs
     },
     updateCuratedChannelsRelationships: (state, action) => {
       state.curatedChannelsData.relationships = action.payload; // an array of event IDs
     },
-
+    removeFromChannelsByAddrList: (state, action) => {
+      const naddr = action.payload;
+      delete state.curatedChannelsData.listsByNaddr[naddr];
+      const res = updateMyFullNostrProfileInSql(state);
+    },
+    addToChannelsByAddrList: (state, action) => {
+      const naddr = action.payload;
+      if (!state.curatedChannelsData.listsByNaddr[naddr]) {
+        state.curatedChannelsData.listsByNaddr[naddr] = [];
+      }
+      console.log("addToChannelsByAddrList; naddr: "+naddr)
+      if (!state.curatedChannelsData.aListsByNaddr) {
+        state.curatedChannelsData.aListsByNaddr = [];
+      }
+      if (!state.curatedChannelsData.aListsByNaddr.includes(naddr)) {
+        state.curatedChannelsData.aListsByNaddr.push(naddr);
+      }
+      // TODO: populate array with pubkeys
+      const res = updateMyFullNostrProfileInSql(state);
+    },
+    populateChannelByAddrList: (state, action) => {
+      const { naddr, aPubkeys } = action.payload;
+      // console.log("qwerty populateChannelByAddrList; naddr: "+naddr+"; aPubkeys: "+JSON.stringify(aPubkeys,null,4))
+      state.curatedChannelsData.listsByNaddr[naddr] = aPubkeys;
+      const res = updateMyFullNostrProfileInSql(state);
+    },
   },
 });
 
@@ -533,6 +567,10 @@ export const {
 
   updateCuratedChannelsTopics,
   updateCuratedChannelsRelationships,
+  removeFromChannelsByAddrList,
+  addToChannelsByAddrList,
+  populateChannelByAddrList,
+
 } = myProfileSlice.actions;
 
 export default myProfileSlice.reducer;

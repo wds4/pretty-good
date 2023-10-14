@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useNostrEvents } from 'nostr-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addNip51ListToSqlAndReduxStore } from 'renderer/window1/redux/features/nip51/lists/slice';
-import LoadLists from '../../loadLists/lists';
 
 const DownloadingCurrentlyOffButton = ({setDownloading}) => {
   return (
@@ -12,7 +11,7 @@ const DownloadingCurrentlyOffButton = ({setDownloading}) => {
         onClick={() => setDownloading('yes')}
         style={{}}
       >
-        download
+        download / update
       </button>
     </>
   )
@@ -30,13 +29,11 @@ const DownloadingCurrentlyOnButton = ({setDownloading}) => {
     (state) => state.nip51
   );
 
-  const title1 = "Nostr Devs";
-  const title2 = "imported Nostr Devs";
+  //
 
   const filter = {
-    kinds: [30001, 30000, 10001, 10000],
+    kinds: [10000, 10001, 30000, 30001],
     since: 0,
-    // "#d": [ title1, title2 ],
   };
   const { events } = useNostrEvents({
     filter,

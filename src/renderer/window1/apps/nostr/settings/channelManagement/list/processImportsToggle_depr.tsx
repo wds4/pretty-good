@@ -17,7 +17,7 @@ const ProcessImportsToggle = ({aTags_a}) => {
     <>
       <div style={{ display: 'inline-block' }}>
         <div style={{display: 'inline-block', color: 'grey', fontSize: '14px', marginLeft: '5px', textAlign: 'right'}}>
-          import items from<br/>other lists
+          process list imports<br/>(recursively)
         </div>
         <div style={{display: 'inline-block', marginLeft: '5px'}}>
           <ToggleSwitch

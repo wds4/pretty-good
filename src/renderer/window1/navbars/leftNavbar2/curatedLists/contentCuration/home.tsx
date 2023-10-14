@@ -2,11 +2,21 @@ import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const LeftNavbar2 = () => {
-  const devMode2 = useSelector(
-    (state) => state.myNostrProfile.devModes.devMode2
+  const { devMode1, devMode2 } = useSelector(
+    (state) => state.myNostrProfile.devModes
   );
-  let devElemClass = "devElemHide";
-  if (devMode2) { devElemClass = "devElemShow"; }
+
+  // devMode1: toggle curatedLists
+  let devElemClass1 = 'devElemHide';
+  if (devMode1) {
+    devElemClass1 = 'devElemShow';
+  }
+
+  // devMode2: toggle conceptGraph, grapevine, eBooks
+  let devElemClass2 = 'devElemHide';
+  if (devMode2) {
+    devElemClass2 = 'devElemShow';
+  }
 
   return (
     <>

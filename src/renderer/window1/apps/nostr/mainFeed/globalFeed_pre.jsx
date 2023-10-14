@@ -6,6 +6,7 @@ import {
 } from 'renderer/window1/redux/features/prettyGood/settings/slice';
 import { addList } from 'renderer/window1/redux/features/nip51/lists/slice';
 import MainFeedTypeSelector from './mainFeedTypeSelector';
+// import MainFeedTypeSelector from './mainFeedTypeSelectorMinusLists';
 import WelcomeBox from './welcomeBox';
 import GlobalFeed from './globalFeed';
 import SourceToggleSwitch from './components/sourceToggleSwitch';

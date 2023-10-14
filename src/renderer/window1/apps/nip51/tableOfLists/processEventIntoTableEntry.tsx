@@ -1,8 +1,15 @@
 import { noProfilePicUrl } from 'renderer/window1/const';
+import { nip19 } from 'nostr-tools';
+import { useSelector } from 'react-redux';
 
 export const foo = () => {};
 
 export const processEventIntoTableEntry = (event, nostrProfiles) => {
+  const { listsByNaddr } = useSelector(
+    (state) => state.myNostrProfile.curatedChannelsData
+  );
+  const aListsByNaddr = Object.keys(listsByNaddr);
+
   const { pubkey } = event;
   /// // STEP 1 ///// First load default profile info
   let avatarUrl = noProfilePicUrl;
@@ -53,6 +60,21 @@ export const processEventIntoTableEntry = (event, nostrProfiles) => {
     created_at: parseInt(event.created_at),
   }
 
+  const naddr = nip19.naddrEncode({
+    pubkey: event.pubkey,
+    kind: event.kind,
+    identifier: listName,
+    relays: [],
+  });
+
+  let isChannel = 'no';
+  if (aListsByNaddr.includes(naddr)) {
+    isChannel = 'yes';
+  }
+  const oChannelData = {
+    isChannel,
+  }
+
   let kindName = event.kind;
   if (event.kind == 10000) { kindName = 'People (Mute)'; }
   if (event.kind == 10001) { kindName = 'Bookmarks (Pin)'; }
@@ -64,7 +86,7 @@ export const processEventIntoTableEntry = (event, nostrProfiles) => {
     listName: oListNameData,
     author: oAuthorData,
     kind: kindName,
-    channel: 'no',
+    channel: oChannelData,
     curation: 'author',
     items: parseInt(numItemsDirect),
     imports: parseInt(numImportedLists),

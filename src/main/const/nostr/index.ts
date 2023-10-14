@@ -48,6 +48,24 @@ export const oDefaultDevModes = {
   devMode10: false, // reserved
 };
 
+export const oDefaultCuratedChannelsData = {
+  topics: [], // array of ACCEPTED topics, by event ID
+  relationships: [], // array of ACCEPTED topic to topic CurationOfRelationships, by event ID
+  contentByTopic: {
+    /*
+    <topic universally unique ID>: [] // array of ACCEPTED pubkeys for that topic
+    */
+  },
+  listsByNaddr: {
+    naddr1qqfkjmtsdae8getyyp8x7um5wgsygetkwvpzpef89h53f0fsza2ugwdc3e54nfpun5nxfqclpy79r6w8nxsk5yp0qvzqqqr4xytgjynw: [], // Nostr Devs
+    naddr1qqxyvetyyptkzarrdpjhyuczyrjjwt0fzj7nq964csum3rnftxjre8fxvjp37zfu285u0xdpdggz7qcyqqq82vqwghgcw: [], // Fed Watchers
+    /*
+    <naddr id>: [] // array of pubkeys in hex format
+    */
+  },
+  aListsByNaddr: ["naddr1qqfkjmtsdae8getyyp8x7um5wgsygetkwvpzpef89h53f0fsza2ugwdc3e54nfpun5nxfqclpy79r6w8nxsk5yp0qvzqqqr4xytgjynw", "naddr1qqxyvetyyptkzarrdpjhyuczyrjjwt0fzj7nq964csum3rnftxjre8fxvjp37zfu285u0xdpdggz7qcyqqq82vqwghgcw"],
+}
+
 createNip51ListsTableCommand += 'id INTEGER PRIMARY KEY, ';
 createNip51ListsTableCommand += 'event TEXT NULL, ';
 createNip51ListsTableCommand += 'event_id TEXT NULL, ';
@@ -231,6 +249,7 @@ createMyProfileTableCommand += 'followingListLastUpdate INTEGER NULL, ';
 createMyProfileTableCommand += 'relaysListLastUpdate INTEGER NULL, ';
 createMyProfileTableCommand += 'endorseAsNostCuratedListCurator TEXT NULL, ';
 createMyProfileTableCommand += 'devModes TEXT NULL, ';
+createMyProfileTableCommand += 'curatedChannelsData TEXT NULL, ';
 createMyProfileTableCommand += 'UNIQUE(pubkey, privkey) ';
 
 createMyFollowingNetworkTableCommand += 'id INTEGER PRIMARY KEY, ';

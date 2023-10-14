@@ -1,13 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { nip19 } from 'nostr-tools';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNostrEvents, useNostr, dateToUnix } from 'nostr-react';
-import {
-  type Event as NostrEvent,
-  getEventHash,
-  getPublicKey,
-  getSignature,
-} from 'nostr-tools';
+import { useNostrEvents } from 'nostr-react';
 import { secsToTime } from 'renderer/window1/lib/pg';
 import { addNip51ListToSqlAndReduxStore } from 'renderer/window1/redux/features/nip51/lists/slice';
 import { updateNip51ListFocusEventId } from 'renderer/window1/redux/features/nostr/settings/slice';
@@ -18,23 +12,10 @@ import ShowPeoplePanel from './showPeoplePanel';
 import ShowTagsPanel from './showTagsPanel';
 import ShowListsPanel from './showListsPanel';
 import { populateListItemArrays } from './populateListItemArrays';
-import ProcessImportsToggle from './processImportsToggle';
-import EditButtonToggle from './editButtonToggle';
-import AddItemToThisList from './addItemToThisList';
-import PublishUpdatedListPanel from './publishUpdatedListPanel';
+// import AddItemToThisList from './addItemToThisList';
+// import PublishUpdatedListPanel from './publishUpdatedListPanel';
 import ToggleRawListEvent from './toggleRawListEvent';
-import ChannelButton from '../components/channelButton';
 
-const TopControlPanel = ({aTags_a, author_pk, editListState, setEditListState}) => {
-  return (
-    <>
-      <div style={{textAlign: 'right'}}>
-        <ProcessImportsToggle aTags_a={aTags_a} />
-        <EditButtonToggle author_pk={author_pk} editListState={editListState} setEditListState={setEditListState} />
-      </div>
-    </>
-  )
-}
 const ListNotInDatabase = () => {
   const dispatch = useDispatch();
   const { naddrListFocus, nip51ListFocusEventId } = useSelector(
@@ -60,7 +41,7 @@ const ListNotInDatabase = () => {
   )
 }
 
-const ListInDatabase = ({refreshTable}) => {
+const ListInDatabase = ({nip51ListFocusEventId}) => {
   const [editListState, setEditListState] = useState(false);
   const [notesPanelState, setNotesPanelState] = useState('closed');
   const [peoplePanelState, setPeoplePanelState] = useState('closed');
@@ -87,9 +68,6 @@ const ListInDatabase = ({refreshTable}) => {
   const [aTagsToDeleteP, setATagsToDeleteP] = useState([]);
   const [aTagsToDeleteT, setATagsToDeleteT] = useState([]);
 
-  const { nip51ListFocusEventId } = useSelector(
-    (state) => state.nostrSettings
-  );
   const oNip51Lists = useSelector((state) => state.nip51.lists);
   const { event } = oNip51Lists[nip51ListFocusEventId];
 
@@ -98,6 +76,8 @@ const ListInDatabase = ({refreshTable}) => {
   return (
     <>
       <ListInDatabaseB
+        nip51ListFocusEventId={nip51ListFocusEventId}
+
         editListState={editListState}
         setEditListState={setEditListState}
         notesPanelState={notesPanelState}
@@ -132,14 +112,14 @@ const ListInDatabase = ({refreshTable}) => {
 
         updatedEvent={updatedEvent}
         setUpdatedEvent={setUpdatedEvent}
-
-        refreshTable={refreshTable}
       />
     </>
   );
 }
 
 const ListInDatabaseB = ({
+  nip51ListFocusEventId,
+
   editListState,
   setEditListState,
   notesPanelState,
@@ -174,18 +154,13 @@ const ListInDatabaseB = ({
 
   updatedEvent,
   setUpdatedEvent,
-
-  refreshTable,
 }) => {
-  const { nip51ListFocusEventId } = useSelector(
-    (state) => state.nostrSettings
-  );
   const oNip51Lists = useSelector((state) => state.nip51.lists);
   const { event } = oNip51Lists[nip51ListFocusEventId];
 
-  const myNostrProfile = useSelector((state) => state.myNostrProfile);
-  const myPrivkey = myNostrProfile.privkey;
-  const { autoImportNip51 } = myNostrProfile;
+  // const myNostrProfile = useSelector((state) => state.myNostrProfile);
+  // const myPrivkey = myNostrProfile.privkey;
+  const autoImportNip51 = true;
   const oNaddrLookup = useSelector(
     (state) => state.nip51.naddrLookup
   );
@@ -201,6 +176,7 @@ const ListInDatabaseB = ({
 
   const { aTags_a, aTags_e, aTags_p, aTags_t } = populateListItemArrays(event, autoImportNip51, oNaddrLookup, oNip51Lists);
 
+  /*
   const resetAllUpdates = () => {
     setATagsToAddA([]);
     setATagsToAddE([]);
@@ -212,6 +188,7 @@ const ListInDatabaseB = ({
     setATagsToDeleteP([]);
     setATagsToDeleteT([]);
   }
+
   const confirmAddItemToList = (
     oTagUpdates,
     aTagsToAddA,
@@ -513,6 +490,7 @@ const ListInDatabaseB = ({
       recalculateUpdatedListEventAfterDeletion("t", newArray);
     }
   }
+  */
 
   let listType = '';
   if (kind == 10000) {
@@ -599,16 +577,9 @@ const ListInDatabaseB = ({
     identifier: listName,
     relays: [],
   });
+
   return (
     <>
-      <div style={{marginTop: '20px'}}>
-        <TopControlPanel
-          aTags_a={aTags_a}
-          author_pk={event.pubkey}
-          editListState={editListState}
-          setEditListState={setEditListState}
-        />
-      </div>
       <center>
         <div
           style={{
@@ -633,32 +604,16 @@ const ListInDatabaseB = ({
               }}
             >
               <div style={{marginBottom: '5px'}}>{listType} ({kind})</div>
-              <div>
-                <ChannelButton naddr={naddr} aTags_p={aTags_p} />
-              </div>
             </div>
           </div>
           <MiniProfile pubkey={event.pubkey} />
-          <AddItemToThisList
-            confirmAddItemToList={confirmAddItemToList}
-            oTagUpdates={oTagUpdates}
-            aTagsToAddA={aTagsToAddA}
-            aTagsToAddE={aTagsToAddE}
-            aTagsToAddP={aTagsToAddP}
-            aTagsToAddT={aTagsToAddT}
-            addItemToThisList={addItemToThisList}
-            editListState={editListState}
-            updatedEvent={updatedEvent}
-            resetAllUpdates={resetAllUpdates}
-            refreshTable={refreshTable}
-          />
         </div>
 
         <div style={{display: 'none', width: '700px', textAlign: 'left'}}>
           <ToggleRawListEvent event={event} />
         </div>
 
-        <div style={{ width: '600px', textAlign: 'left', marginBottom: '350px' }}>
+        <div style={{ width: '600px', textAlign: 'left', marginBottom: '20px' }}>
           <div
             style={{
               color: 'grey',
@@ -701,89 +656,7 @@ const ListInDatabaseB = ({
                 <ShowPeoplePanel
                   peoplePanelState={peoplePanelState}
                   aTags_p={aTags_p}
-                  aTagsToDeleteP={aTagsToDeleteP}
-                  editListState={editListState}
-                  removeThisItemFromDeleteListP={removeThisItemFromDeleteListP}
-                  addThisItemToDeleteListP={addThisItemToDeleteListP}
-                  oTagUpdates={oTagUpdates}
-                />
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <ToggleShowItems
-              showItemsState={notesPanelState}
-              setShowItemsState={setNotesPanelState}
-            />
-            <div
-              style={{
-                display: 'inline-block',
-                fontSize: '24px',
-                color: 'grey',
-                marginTop: '10px'
-              }}
-            >
-              bookmarks (
-                {aTags_e.length}
-                <span style={{color: 'green'}}>{importedBookmarksText}</span>
-                <span style={{color: 'red'}}>{deletedBookmarksText}</span>
-                )
-            </div>
-            <div >
-              <div
-                style={{
-                  width: 'calc(100% - 50px)',
-                  float: 'right',
-                }}
-              >
-                <ShowNotesPanel
-                  notesPanelState={notesPanelState}
-                  aTags_e={aTags_e}
-                  aTagsToDeleteE={aTagsToDeleteE}
-                  editListState={editListState}
-                  removeThisItemFromDeleteListE={removeThisItemFromDeleteListE}
-                  addThisItemToDeleteListE={addThisItemToDeleteListE}
-                  oTagUpdates={oTagUpdates}
-                />
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <ToggleShowItems
-              showItemsState={tagsPanelState}
-              setShowItemsState={setTagsPanelState}
-            />
-            <div
-              style={{
-                display: 'inline-block',
-                fontSize: '24px',
-                color: 'grey',
-                marginTop: '10px'
-              }}
-            >
-              tags (
-                {aTags_t.length}
-                <span style={{color: 'green'}}>{importedTagsText}</span>
-                <span style={{color: 'red'}}>{deletedTagsText}</span>
-                )
-            </div>
-            <div >
-              <div
-                style={{
-                  width: 'calc(100% - 50px)',
-                  float: 'right',
-                }}
-              >
-                <ShowTagsPanel
-                  tagsPanelState={tagsPanelState}
-                  aTags_t={aTags_t}
-                  aTagsToDeleteT={aTagsToDeleteT}
-                  editListState={editListState}
-                  removeThisItemFromDeleteListT={removeThisItemFromDeleteListT}
-                  addThisItemToDeleteListT={addThisItemToDeleteListT}
-                  oTagUpdates={oTagUpdates}
+                  naddr={naddr}
                 />
               </div>
             </div>
@@ -818,20 +691,10 @@ const ListInDatabaseB = ({
                 <ShowListsPanel
                   listsPanelState={listsPanelState}
                   aTags_a={aTags_a}
-                  aTagsToDeleteA={aTagsToDeleteA}
-                  editListState={editListState}
-                  removeThisItemFromDeleteListA={removeThisItemFromDeleteListA}
-                  addThisItemToDeleteListA={addThisItemToDeleteListA}
-                  oTagUpdates={oTagUpdates}
                 />
               </div>
             </div>
           </div>
-          <PublishUpdatedListPanel
-            event={event}
-            updatedEvent={updatedEvent}
-            editListState={editListState}
-          />
         </div>
       </center>
     </>
@@ -871,21 +734,21 @@ const CheckForUpdatedList = ({oCurrentEvent}) => {
   return <></>;
 }
 
-const List = ({refreshTable}) => {
-  const { naddrListFocus, nip51ListFocusEventId } = useSelector(
-    (state) => state.nostrSettings
-  );
+const List = ({nip51ListFocusEventId}) => {
   const oNip51Lists = useSelector((state) => state.nip51.lists);
   if ( (!nip51ListFocusEventId) || (!oNip51Lists[nip51ListFocusEventId]) ) {
     return (
-      <ListNotInDatabase />
+      <>
+        <div>nip51ListFocusEventId: {nip51ListFocusEventId}</div>
+        <ListNotInDatabase />
+      </>
     )
   }
   const oCurrentEvent = oNip51Lists[nip51ListFocusEventId].event;
   return (
     <>
       <CheckForUpdatedList oCurrentEvent={oCurrentEvent} />
-      <ListInDatabase refreshTable={refreshTable} />
+      <ListInDatabase nip51ListFocusEventId={nip51ListFocusEventId} />
     </>
 
   )

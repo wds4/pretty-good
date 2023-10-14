@@ -17,7 +17,7 @@ export default class TableOfListsMain extends React.Component {
 
   async componentDidMount() {
     updateMainColWidth();
-    const mastheadDescriptor = 'NIP 51 Lists: Table';
+    const mastheadDescriptor = 'Pretty Good Lists';
     updateMastheadCenter(mastheadDescriptor);
     const setShowListBelowTable = () => {
       this.setState({showListBelowTable: true})

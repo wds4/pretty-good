@@ -18,6 +18,7 @@ import 'ag-grid-community/styles/ag-theme-alpine.css';
 import MiniProfileCell from './miniProfileCell';
 import ListNameCell from './listNameCell';
 import CreatedAtCell from './createdAtCell';
+import ChannelCell from './channelCell';
 import Nip51Listener from './nip51Listener';
 import TopPanel from '../components/topPanel';
 import ClickableStatusBarComponent from './clickableStatusBarComponent';
@@ -123,6 +124,7 @@ const TableOfLists = () => {
       },
       {
         field: 'author',
+        headerName: 'Author',
         minWidth: 150,
         flex: 10,
         cellRenderer: MiniProfileCell,
@@ -137,14 +139,24 @@ const TableOfLists = () => {
         tooltipComponentParams: { color: '#ececec' },
       },
       { field: 'kind', minWidth: 130, flex: 1 },
+      /*
       {
         field: 'channel',
         headerName: 'Channel',
         minWidth: 150,
         flex: 10,
+        cellRenderer: ChannelCell,
+        comparator: (valueA, valueB) => {
+          const valA = valueA.isChannel;
+          const valB = valueB.isChannel;
+          if (valA == valB) return 0;
+          return (valA > valB) ? 1 : -1;
+        },
         tooltipField: 'channel',
+        tooltipComponentParams: { color: '#ececec' },
       },
       { field: 'curation', minWidth: 150, flex: 1 },
+      */
       {
         field: 'items',
         headerName: '# Items',
@@ -296,13 +308,25 @@ const TableOfLists = () => {
     }, 5000);
   }
 
+  const { devMode2 } = useSelector(
+    (state) => state.myNostrProfile.devModes
+  );
+
+  // devMode2: toggle alpha / beta mode
+  let devElemClass2 = 'devElemHide';
+  if (devMode2) {
+    devElemClass2 = 'devElemShow';
+  }
+
+  /*
+  <TopPanel />
+  <div className={devElemClass2} >
+    <AddDataPanel addEventToTable={addEventToTable} />
+  </div>
+  */
+
   return (
     <>
-      <TopPanel />
-      <div className="h2" style={{ marginBottom: '10px' }}>
-        Pretty Good Lists
-      </div>
-      <AddDataPanel addEventToTable={addEventToTable} />
       <div className="ag-theme-alpine" style={{ height: 400, width: "100%" }}>
         <AgGridReact
           getRowNodeId={getRowNodeId}
@@ -323,6 +347,19 @@ const TableOfLists = () => {
       <div style={{display: 'none', fontSize: '14px', backgroundColor: '#EFEFEF', padding: '15px', border: '1px solid grey'}}>
         Table contains: {aTableData.length} lists (excluding lists with either no name or no public items (including no imported lists)) & {aAuthorPubkeysInTable.length} authors
       </div>
+
+      <div style={{margin: '20px', fontSize: '18px'}}>
+        Access filter and sort features in the headings to each column.
+        For example: sort all lists with 'nostr devs' in the List Name.
+      </div>
+
+      <div style={{margin: '20px', fontSize: '18px'}}>
+        The <i># List Imports</i> column indicates the number of lists that are imported by any
+        given list using nostr's <i>a</i> tag. You can navigate to that list's page and
+        toggle the 'process list imports' button to see list items populated.
+        You can try it with my 'imported Nostr Devs' list.
+      </div>
+
       <button
         style={{display:'none'}}
         type="button"

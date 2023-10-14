@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { useNostrEvents } from 'nostr-react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -5,11 +6,24 @@ import {
   addNip51ListToSqlAndReduxStore,
 } from 'renderer/window1/redux/features/nip51/lists/slice';
 
+async function asyncForEach(array, callback) {
+  for (let index = 0; index < array.length; index++) {
+    await callback(array[index], index, array);
+  }
+}
+
 const ActiveDownload = ({kind, title}) => {
   const dispatch = useDispatch();
+
+
   const { aListEventIDs } = useSelector(
     (state) => state.nip51
   );
+  const aListEventIDs_reference = JSON.parse(JSON.stringify(aListEventIDs));
+
+
+  // console.log("aListEventIDs_reference: "+typeof aListEventIDs_reference)
+  // console.log("aListEventIDs_reference_: "+JSON.stringify(aListEventIDs_reference))
 
   let filter = {
     kinds: [parseInt(kind)],
@@ -24,6 +38,7 @@ const ActiveDownload = ({kind, title}) => {
     filter,
   });
 
+  /*
   for (let x=0; x<events.length; x++) {
     const event = events[x];
     if (!aListEventIDs.includes(event.id)) {
@@ -31,6 +46,19 @@ const ActiveDownload = ({kind, title}) => {
       dispatch(addNip51ListToSqlAndReduxStore(event));
     }
   }
+  */
+
+  asyncForEach(events, async (event) => {
+    /*
+    if (!aListEventIDs.includes(event.id)) {
+      dispatch(addNip51ListToSqlAndReduxStore(event));
+    }
+    */
+    if (!aListEventIDs_reference.includes(event.id)) {
+      dispatch(addNip51ListToSqlAndReduxStore(event));
+      aListEventIDs_reference.push(event.id);
+    }
+  });
 
   return (
     <>

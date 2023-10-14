@@ -29,6 +29,8 @@ export default class GrapevineSettings extends React.Component {
     this.setState({aNip51ListsData});
   }
 
+  //
+
   render() {
     return (
       <>

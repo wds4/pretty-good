@@ -7,13 +7,10 @@ import Kind30000Lists from './kind30000Lists';
 import Kind30001Lists from './kind30001Lists';
 import { addList } from 'renderer/window1/redux/features/nip51/lists/slice';
 
-const Lists = () => {
-  // const dispatch = useDispatch();
+const ShowCurrentListsNumbers = () => {
   const oNip51 = useSelector(
     (state) => state.nip51
   );
-  const title = "Nostr Devs";
-
   const { aListEventIDs, aKind10000, aKind10001, aKind30000, aKind30001 } = oNip51
   return (
     <>
@@ -23,7 +20,17 @@ const Lists = () => {
         <div className="listsLoaderHeaderElem">general purpose: {aKind30001.length}</div>
         <div className="listsLoaderHeaderElem">mute: {aKind10000.length} (disabled)</div>
         <div className="listsLoaderHeaderElem">pin: {aKind10001.length} (disabled)</div>
-        <hr />
+      </div>
+    </>
+  )
+}
+
+const Lists = () => {
+  const title = "imported Nostr Devs";
+  return (
+    <>
+      <div>
+        <div>loading lists (People or Bookmark) with title: 'Nostr Devs' or 'imported Nostr Devs'</div>
         <Kind30000Lists title={title} />
         <Kind30001Lists title={title} />
       </div>

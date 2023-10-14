@@ -43,7 +43,16 @@ const oInitialState = {
 }
 export const nip51Slice = createSlice({
   name: 'nip51',
-  initialState: oInitialState,
+  initialState: {
+    aListEventIDs: [],
+    aKind10000: [],
+    aKind10001: [],
+    aKind30000: [],
+    aKind30001: [],
+    lists: {},
+    byAuthor: {},
+    naddrLookup: {},
+  },
   reducers: {
     clearAllNip51Lists: (state, action) => {
       // const foo = action.payload;
@@ -124,17 +133,25 @@ export const nip51Slice = createSlice({
         // add to state.naddrLookup
         const naddrString = kind+":"+pubkey+":"+listName;
 
+        /*
+        // this block of code currently causes the app to freeze up while downloading lists (after a while) and on main feed page
+        // not sure what causes the freeze
         if (listName) {
           // remove id from redux if this is an update of a preexisting list
           if (state.naddrLookup[naddrString]) {
 
             const oldEventID = state.naddrLookup[naddrString];
             // remove oldEventID from state.lists
-            delete state.lists[oldEventID];
+            if (oldEventID) {
+              delete state.lists[oldEventID];
+            }
+
             // remove oldEventID from arrays: aListEventIDs, etc
             const index1 = state.aListEventIDs.indexOf(oldEventID);
-            state.aListEventIDs.splice(index1, 1);
-            /*
+            if (index1) {
+              state.aListEventIDs.splice(index1, 1);
+            }
+
             if (kind == 10000) {
               const index2 = state.aKind10000.indexOf(oldEventID);
               state.aKind10000.splice(index2, 1);
@@ -155,9 +172,9 @@ export const nip51Slice = createSlice({
             const index3 = state.byAuthor[pubkey].aEventIDs.indexOf(oldEventID);
             state.byAuthor[pubkey].aEventIDs.splice(index3, 1);
             // no need to remove from state.byAuthor[pubkey].byListName because it will be overwritten
-            */
           }
         }
+        */
 
         state.naddrLookup[naddrString] = id;
         // if (!state.aListEventIDs.includes(id)) {
@@ -188,6 +205,8 @@ export const nip51Slice = createSlice({
         if (listName) {
           state.byAuthor[pubkey].byListName[listName] = id;
         }
+
+        addNip51ListToSql(event); // moved this from below
         // }
         // }
       }
@@ -212,6 +231,6 @@ export const addNip51ListToSqlAndReduxStore = (event) => async (dispatch) => {
     }
     // console.log(`addNip51ListToSqlAndReduxStore; id: ${id}`);
     dispatch(addList(event));
-    addNip51ListToSql(event);
+    // addNip51ListToSql(event);
   }
 };

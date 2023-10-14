@@ -158,3 +158,39 @@ endorseAsRelaysPickerHunter
   margin-top:10px;
   font-size:14px;
 }
+
+/*
+add / remove from channels button
+*/
+.addToChannelsButton {
+  border:1px solid black;
+  border-radius:15px;
+  font-size:12px;
+  display:inline-block;
+  padding:4px 20px 4px 20px;
+  margin:4px;
+  background-color:black;
+  color:white;
+}
+.addToChannelsButton:before {
+  content:"Set as Channel"
+}
+.removeFromChannelsButton {
+  border:1px solid black;
+  border-radius:15px;
+  font-size:12px;
+  display:inline-block;
+  padding:4px 14px 4px 14px;
+  margin:4px;
+  background-color:white;
+  color:black;
+}
+.removeFromChannelsButton:before {
+  content:"Remove from Channels"
+}
+.addToChannelsButton:hover {
+  background-color:yellow;
+}
+.removeFromChannelsButton:hover {
+  background-color:#DFDFDF;
+}

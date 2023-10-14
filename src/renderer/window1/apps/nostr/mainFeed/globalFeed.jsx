@@ -65,6 +65,16 @@ const GlobalFeed = ({ aFollowing, aExtendedFollowing, aNostrDevs, aFedWatchers }
       filter.since = currentTime - 30 * 60;
       break;
   }
+  const { listsByNaddr } = useSelector(
+    (state) => state.myNostrProfile.curatedChannelsData
+  );
+  const aListsByNaddr = Object.keys(listsByNaddr);
+  for (let x=0; x<aListsByNaddr.length;x++) {
+    const nextNaddr = aListsByNaddr[x];
+    if (mainNostrFeedFilter==nextNaddr) {
+      filter.authors = listsByNaddr[nextNaddr];
+    }
+  }
   //
   if (viewEventsLoadStoredData) {
     // show notes from redux
@@ -83,7 +93,11 @@ const GlobalFeed = ({ aFollowing, aExtendedFollowing, aNostrDevs, aFedWatchers }
   }
   // if extendedFollowing or firehose, show notes as they arrive
   if (!viewEventsLoadStoredData) {
-    return <GlobalFeedShowLiveEvents filter={filter} />;
+    return (
+      <>
+        <GlobalFeedShowLiveEvents filter={filter} />
+      </>
+    )
   }
 };
 

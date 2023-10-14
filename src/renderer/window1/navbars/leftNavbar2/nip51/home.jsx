@@ -1,60 +1,87 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-export default class LeftNavbar2 extends React.PureComponent {
-  render() {
-    return (
-      <>
-        <div className="leftNav2Panel leftNav2PanelNip51">
-          <NavLink
-            className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
-            end to="/NIP51Home"
-          >
-            home
-          </NavLink>
+const LeftNavbar2 = () => {
+  const { devMode1, devMode2 } = useSelector(
+    (state) => state.myNostrProfile.devModes
+  );
 
+  // devMode1: toggle curatedLists
+  let devElemClass1 = 'devElemHide';
+  if (devMode1) {
+    devElemClass1 = 'devElemShow';
+  }
+
+  // devMode2: toggle alpha / beta mode
+  let devElemClass2 = 'devElemHide';
+  if (devMode2) {
+    devElemClass2 = 'devElemShow';
+  }
+
+  return (
+    <>
+      <div className="leftNav2Panel leftNav2PanelNip51">
+        <NavLink
+          className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
+          end to="/NIP51Home"
+        >
+          home
+        </NavLink>
+
+        <div className={devElemClass2} >
           <NavLink
             className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
             end to="/NIP51Home/NIP51LoadLists"
           >
             Load Lists
           </NavLink>
+        </div>
 
+        <div className={devElemClass2} >
           <NavLink
             className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
             end to="/NIP51Home/NIP51ViewLists"
           >
             View Lists
           </NavLink>
+        </div>
 
-          <NavLink
-            className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
-            end to="/NIP51Home/NIP51TableOfLists"
-          >
-            Table: Lists
-          </NavLink>
+        <NavLink
+          className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
+          end to="/NIP51Home/NIP51TableOfLists"
+        >
+          Table: Lists
+        </NavLink>
 
+        <div className={devElemClass2} >
           <NavLink
             className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
             end to="/NIP51Home/NIP51ListAuthors"
           >
             Authors
           </NavLink>
+        </div>
 
+        <div className={devElemClass2} >
           <NavLink
             className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
             end to="/NIP51Home/NIP51List"
           >
             View List
           </NavLink>
+        </div>
 
+        <div className={devElemClass2} >
           <NavLink
             className={({ isActive }) => isActive ? "leftNav2Button leftNav2ButtonActive" : "leftNav2Button" }
             end to="/NIP51Home/NIP51MakeNewList"
           >
             Make New List
           </NavLink>
+        </div>
 
+        <div className={devElemClass2} >
           <hr />
 
           <NavLink
@@ -84,7 +111,9 @@ export default class LeftNavbar2 extends React.PureComponent {
           >
             Kind 30001 Lists
           </NavLink>
+        </div>
 
+        <div className={devElemClass2} >
           <hr />
 
           <NavLink
@@ -93,9 +122,11 @@ export default class LeftNavbar2 extends React.PureComponent {
           >
             NIP 32 Explorer
           </NavLink>
-
         </div>
-      </>
-    );
-  }
-}
+
+      </div>
+    </>
+  );
+};
+
+export default LeftNavbar2;
