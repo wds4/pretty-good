@@ -386,13 +386,13 @@ const DownloadContainer = () => {
 
 const ChannelsInfo = () => {
   let html = '<div style=font-size:20px; >';
-  html += 'A Channel is a nostr feed generated from a list of people,<br/>';
-  html += 'in which the list is <i>managed and updated in real time by your web of trust</i>.';
+  html += 'A Channel is a nostr feed generated from a People list that imports items from other lists.<br/>';
+  html += 'In this way, the list is <i>managed and updated in real time by those whom you entrust to do so</i>.';
   html += '<br/><br/>';
   html += 'Currently this is achieved through the magic of NIP-51 and the "a" tag, <br/>';
-  html += 'which allows lists to import items from other lists.';
+  html += 'which points to other lists from which items are imported.';
   html += '<br/><br/>';
-  html += 'The goal of future work is to increase the sophistication of list curation by your WoT.';
+  html += 'The goal of future work (DCoSL) is to increase the sophistication of list curation by your WoT.';
   html += '</div>';
   const id = `questionMarkInfoBox_channels`;
   const anchorSelect = `#questionMarkInfoBox_channels`;
