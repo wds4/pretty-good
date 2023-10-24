@@ -7,19 +7,22 @@ import { generateNewNostrKeys } from './lib/nostr';
 const startApp = async () => {
   // need to remove relaysAutoMerge from nostrProfiles
 
-  /*
-  const sql0_a = ' SELECT devModes FROM myNostrProfile LIMIT 1 ';
-  const isColPresent0 = await asyncSql(sql0_a);
-  if (isColPresent0) {
-    console.log("isColPresent0 devModes is truthy")
-  } else {
-    const sql0_b = ' ALTER TABLE myNostrProfile ADD devModes STRING null ';
-    console.log("isColPresent0 devModes is NOT truthy; sql0_b: "+sql0_b)
-    const fooB = await asyncSql(sql0_b);
-  }
-  */
+  ////////////////////////////////////////////////////////////////
+  // START: ADDING COLUMNS TO TABLES THAT WERE NOT PRESENT IN PRIOR RELEASES
+  // THIS IS NOT NEEDED FOR USERS INSTALLING THIS FOR THE FIRST TIME;
+  // ONLY NEEDED FOR PREEXISITNG USERS TO UPDATE THEIR SQL TABLES
+  // (so technically these new cols would be breaking changes without this fix)
 
-  /*
+  const sql00_a = ' SELECT devModes FROM myNostrProfile LIMIT 1 ';
+  const isColPresent = await asyncSql(sql00_a);
+  if (isColPresent) {
+    console.log("isColPresent devModes is truthy")
+  } else {
+    const sql00_b = ' ALTER TABLE myNostrProfile ADD devModes STRING null ';
+    console.log("isColPresent devModes is NOT truthy; sql00_b: "+sql00_b)
+    const fooB = await asyncSql(sql00_b);
+  }
+
   const sql0_a = ' SELECT relaysAutoMerge FROM myNostrProfile LIMIT 1 ';
   const isColPresent0 = await asyncSql(sql0_a);
   if (isColPresent0) {
@@ -59,7 +62,6 @@ const startApp = async () => {
     console.log("isColPresent3 endorseAsNostCuratedListCurator is NOT truthy; sql3_b: "+sql3_b)
     const fooB = await asyncSql(sql3_b);
   }
-  */
 
   const sql4_a = ' SELECT autoImportNip51 FROM myNostrProfile LIMIT 1 ';
   const isColPresent4 = await asyncSql(sql4_a);
@@ -80,6 +82,10 @@ const startApp = async () => {
     console.log("isColPresent5 curatedChannelsData is NOT truthy; sql5_b: "+sql5_b)
     const fooB = await asyncSql(sql5_b);
   }
+
+  // END ADDING COLUMNS TO TABLES
+  ////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////
 
   // LOAD myNostrProfiles - loads all of my profiles; currently I do not load all of them into redux so this query may be unnecessary
   const sql0 = 'SELECT * FROM myNostrProfile ';
