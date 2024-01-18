@@ -53,8 +53,11 @@ Landing Page, right column
 ## List Curation Results
 
 <span style="display:inline-block" >
-  <img src="../../.erb/img/listCurationResults_items.png" width="30%" display="inline-block" />
+  <img src="../../.erb/img/listCurationResults_items.png" width="50%" display="inline-block" />
 </span>
+
+<br/>
+
 <span style="display:inline-block" >
   <img src="../../.erb/img/listCurationResults_itemScores.png" width="30%" display="inline-block" />
 </span>
