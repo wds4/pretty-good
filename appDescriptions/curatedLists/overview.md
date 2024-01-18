@@ -101,7 +101,7 @@ Sybil Mitigation
 
 Sybil Mitigation: defense
 
-<div>
+<div style="vertical-align:top;" >
   <span style="display:inline-block" >
     <img src="../../.erb/img/listCurationControlPanel_sybilMitigation_defense_mod1.png" width="30%" display="inline-block" />
   </span>
