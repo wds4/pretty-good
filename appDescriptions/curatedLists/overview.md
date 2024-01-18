@@ -118,12 +118,16 @@ Control Panel: Sybil Mitigation: Defense
     src="../../.erb/img/listCurationControlPanel_sybilMitigation_defense_mod1.png"
   />
 
-  <span style="vertical-align:top;border:1px solid blue" >
-    <img src="../../.erb/img/listCurationControlPanel_sybilMitigation_defense_mod2.png" width="30%" display="inline-block" />
-  </span>
+  <img
+    align="top"
+    width="30%"
+    src="../../.erb/img/listCurationControlPanel_sybilMitigation_defense_mod2.png"
+  />
 
-  <span style="display:inline-block" >
-    <img src="../../.erb/img/listCurationControlPanel_sybilMitigation_defense_mod3.png" width="30%" display="inline-block" />
-  </span>
+  <img
+    align="top"
+    width="30%"
+    src="../../.erb/img/listCurationControlPanel_sybilMitigation_defense_mod3.png"
+  />
 </div>
 
