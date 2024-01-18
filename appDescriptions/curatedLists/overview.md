@@ -116,7 +116,6 @@ Control Panel: Sybil Mitigation: Defense
     <img 
       align="top"
       width="30%"
-      display="inline-block"
       src="../../.erb/img/listCurationControlPanel_sybilMitigation_defense_mod1.png"
     />
   </span>
@@ -125,7 +124,6 @@ Control Panel: Sybil Mitigation: Defense
     <img
       align="top"
       width="30%"
-      display="inline-block"
       src="../../.erb/img/listCurationControlPanel_sybilMitigation_defense_mod2.png"
     />
   </span>
@@ -134,7 +132,6 @@ Control Panel: Sybil Mitigation: Defense
     <img
       align="top"
       width="30%"
-      display="inline-block"
       src="../../.erb/img/listCurationControlPanel_sybilMitigation_defense_mod3.png"
     />
   </span>
