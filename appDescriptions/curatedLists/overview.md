@@ -34,9 +34,17 @@ Landing Page, right column
   <img src="../../.erb/img/createInstance.png" height="300px" display="inline-block" />
 </span>
 
-## Endorse an item
+## Endorse or Block an item
+
+<span style="display:inline-block" >
+  <img src="../../.erb/img/endorseOrBlockAnItem.png" width="90%" display="inline-block" />
+</span>
 
 ## Endorse a curator 
+
+<span style="display:inline-block" >
+  <img src="../../.erb/img/endorseOrBlockACurator.png" width="90%" display="inline-block" />
+</span>
 
 ## List Curation Overview
 
@@ -67,7 +75,7 @@ Landing Page, right column
 
 ## List Curation Control Panel
 
-Users and Items
+Control Panel: Users and Items
 
 <div>
   <span style="display:inline-block" >
@@ -79,7 +87,7 @@ Users and Items
   </span>
 </div>
 
-Display
+Control Panel: Display
 
 <div>
   <span style="display:inline-block" >
@@ -87,7 +95,7 @@ Display
   </span>
 </div>
 
-Sybil Mitigation
+Control Panel: Sybil Mitigation: Overview and Rigor
 
 <div>
   <span style="display:inline-block" >
@@ -99,7 +107,7 @@ Sybil Mitigation
   </span>
 </div>
 
-Sybil Mitigation: defense
+Control Panel: Sybil Mitigation: Defense
 
 <div style="vertical-align:top;" >
   <span style="display:inline-block" >
