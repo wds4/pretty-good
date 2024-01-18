@@ -1,5 +1,7 @@
 # Curated Lists
 
+See how a typical list -- the list of Nostr Clients -- is created, how items are added to the list, how the list is curated by your web of trust, and how the results are calculated and displayed.
+
 ## Landing Page
 
 <span style="display:inline-block" >
@@ -34,13 +36,13 @@ Landing Page, right column
   <img src="../../.erb/img/createInstance.png" height="300px" display="inline-block" />
 </span>
 
-## Endorse or Block an item
+## Endorse or Block an item for a given list
 
 <span style="display:inline-block" >
   <img src="../../.erb/img/endorseOrBlockAnItem.png" width="90%" display="inline-block" />
 </span>
 
-## Endorse a curator 
+## Endorse or Block a user to be a trusted curator for a given list
 
 <span style="display:inline-block" >
   <img src="../../.erb/img/endorseOrBlockACurator.png" width="90%" display="inline-block" />
@@ -110,8 +112,8 @@ Control Panel: Sybil Mitigation: Overview and Rigor
 Control Panel: Sybil Mitigation: Defense
 
 <div style="vertical-align:top;" >
-  <span style="display:inline-block" >
-    <img src="../../.erb/img/listCurationControlPanel_sybilMitigation_defense_mod1.png" width="30%" display="inline-block" />
+  <span style="vertical-align:top;" >
+    <img style="vertical-align:top;" src="../../.erb/img/listCurationControlPanel_sybilMitigation_defense_mod1.png" width="30%" display="inline-block" />
   </span>
 
   <span style="display:inline-block" >
