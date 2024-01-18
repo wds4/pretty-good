@@ -77,3 +77,13 @@ Landing Page, right column
   </span>
 </div>
 
+<div>
+  <span style="display:inline-block" >
+    <img src="../../.erb/img/listCurationControlPanel_display.png" width="49%" display="inline-block" />
+  </span>
+
+  <span style="display:inline-block" >
+    <img src="../../.erb/img/listCurationControlPanel_sybilMitigation_overview.png" width="49%" display="inline-block" />
+  </span>
+</div>
+
