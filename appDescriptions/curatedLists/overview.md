@@ -61,3 +61,16 @@ Landing Page, right column
 <span style="display:inline-block" >
   <img src="../../.erb/img/listCurationResults_curatorScores.png" width="30%" display="inline-block" />
 </span>
+
+## List Curation Control Panel
+
+<div>
+  <span style="display:inline-block" >
+    <img src="../../.erb/img/listCurationControlPanel_users.png" width="49%" display="inline-block" />
+  </span>
+
+  <span style="display:inline-block" >
+    <img src="../../.erb/img/listCurationControlPanel_items.png" width="49%" display="inline-block" />
+  </span>
+</div>
+
