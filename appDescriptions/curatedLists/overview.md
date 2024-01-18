@@ -2,6 +2,10 @@
 
 ## Landing Page
 
+<span style="display:inline-block" >
+  <img src="../../.erb/img/curatedListsMainPage.png" height="300px" display="inline-block" />
+</span>
+
 ## View lists
 
 ## View items on a list
