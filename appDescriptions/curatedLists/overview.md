@@ -113,6 +113,8 @@ Control Panel: Sybil Mitigation: Defense
 
 <div style="border:1px solid red;" >
   <img 
+    align="top"
+    vertical-align="top"
     style="verticalAlign:top;width:30%;border:1px solid blue"
     src="../../.erb/img/listCurationControlPanel_sybilMitigation_defense_mod1.png"
     display="inline-block"
