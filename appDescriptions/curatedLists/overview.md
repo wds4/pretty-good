@@ -77,13 +77,39 @@ Landing Page, right column
   </span>
 </div>
 
+Display
+
 <div>
   <span style="display:inline-block" >
     <img src="../../.erb/img/listCurationControlPanel_display.png" width="49%" display="inline-block" />
   </span>
+</div>
 
+Sybil Mitigation
+
+<div>
   <span style="display:inline-block" >
     <img src="../../.erb/img/listCurationControlPanel_sybilMitigation_overview.png" width="49%" display="inline-block" />
+  </span>
+
+  <span style="display:inline-block" >
+    <img src="../../.erb/img/listCurationControlPanel_sybilMitigation_rigor.png" width="49%" display="inline-block" />
+  </span>
+</div>
+
+Sybil Mitigation: defense
+
+<div>
+  <span style="display:inline-block" >
+    <img src="../../.erb/img/listCurationControlPanel_sybilMitigation_defense_mod1.png" width="30%" display="inline-block" />
+  </span>
+
+  <span style="display:inline-block" >
+    <img src="../../.erb/img/listCurationControlPanel_sybilMitigation_defense_mod2.png" width="30%" display="inline-block" />
+  </span>
+
+  <span style="display:inline-block" >
+    <img src="../../.erb/img/listCurationControlPanel_sybilMitigation_defense_mod3.png" width="30%" display="inline-block" />
   </span>
 </div>
 
