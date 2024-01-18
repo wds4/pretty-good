@@ -67,6 +67,8 @@ Landing Page, right column
 
 ## List Curation Control Panel
 
+Users and Items
+
 <div>
   <span style="display:inline-block" >
     <img src="../../.erb/img/listCurationControlPanel_users.png" width="49%" display="inline-block" />
