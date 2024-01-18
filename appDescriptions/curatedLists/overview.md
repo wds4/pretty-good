@@ -1,5 +1,7 @@
 # Curated Lists
 
+[Pretty Good Apps desktop client](https://github.com/wds4/pretty-good), [v0.2.1-alpha](https://github.com/wds4/pretty-good/releases/tag/v0.2.1-alpha)
+
 See how a typical list -- the list of Nostr Clients -- is created, how items are added to the list, how the list is curated by your web of trust, and how the results are calculated and displayed.
 
 ## Landing Page
