@@ -38,4 +38,26 @@ Landing Page, right column
 
 ## Endorse a curator 
 
-## View the web of trust
+## List Curation Overview
+
+<span style="display:inline-block" >
+  <img src="../../.erb/img/listCurationMainPageWds4.png" height="300px" display="inline-block" />
+</span>
+
+## List Curation: web of trust
+
+<span style="display:inline-block" >
+  <img src="../../.erb/img/listCurationWds4WoT.png" height="300px" display="inline-block" />
+</span>
+
+## List Curation Results
+
+<span style="display:inline-block" >
+  <img src="../../.erb/img/listCurationResults_items.png" width="30%" display="inline-block" />
+</span>
+<span style="display:inline-block" >
+  <img src="../../.erb/img/listCurationResults_itemScores.png" width="30%" display="inline-block" />
+</span>
+<span style="display:inline-block" >
+  <img src="../../.erb/img/listCurationResults_curatorScores.png" width="30%" display="inline-block" />
+</span>
