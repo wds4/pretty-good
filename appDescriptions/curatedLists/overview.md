@@ -6,6 +6,10 @@
 
 ## View items on a list
 
+<span style="display:inline-block" >
+  <img src="../../.erb/img/nostrClientsCurationImg2.png" width="49%" display="inline-block" />
+</span>
+
 ## Create a new list
 
 ## Add an item to a list
