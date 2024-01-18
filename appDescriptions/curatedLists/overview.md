@@ -111,14 +111,14 @@ Control Panel: Sybil Mitigation: Overview and Rigor
 
 Control Panel: Sybil Mitigation: Defense
 
-<div style="vertical-align:top;" >
+<div style="border:1px solid red;" >
   <img 
-    style="vertical-align:top;width:30%;"
+    style="vertical-align:top;width:30%;border:1px solid blue"
     src="../../.erb/img/listCurationControlPanel_sybilMitigation_defense_mod1.png"
     display="inline-block"
   />
 
-  <span style="display:inline-block" >
+  <span style="vertical-align:top;border:1px solid blue" >
     <img src="../../.erb/img/listCurationControlPanel_sybilMitigation_defense_mod2.png" width="30%" display="inline-block" />
   </span>
 
