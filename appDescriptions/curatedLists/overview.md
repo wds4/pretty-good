@@ -112,9 +112,11 @@ Control Panel: Sybil Mitigation: Overview and Rigor
 Control Panel: Sybil Mitigation: Defense
 
 <div style="vertical-align:top;" >
-  <span style="vertical-align:top;" >
-    <img style="vertical-align:top;" src="../../.erb/img/listCurationControlPanel_sybilMitigation_defense_mod1.png" width="30%" display="inline-block" />
-  </span>
+  <img 
+    style="vertical-align:top;width:30%;"
+    src="../../.erb/img/listCurationControlPanel_sybilMitigation_defense_mod1.png"
+    display="inline-block"
+  />
 
   <span style="display:inline-block" >
     <img src="../../.erb/img/listCurationControlPanel_sybilMitigation_defense_mod2.png" width="30%" display="inline-block" />
