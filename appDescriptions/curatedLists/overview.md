@@ -32,6 +32,8 @@ Landing Page, right column
   <img src="../../.erb/img/createNewList.png" height="300px" display="inline-block" />
 </span>
 
+Once a new list is created, it is stored in nost as shown [here](https://github.com/wds4/pretty-good/blob/main/appDescriptions/curatedLists/v021Overview/singleListDetails.md)
+
 ## Add an item to a list
 
 <span style="display:inline-block" >
