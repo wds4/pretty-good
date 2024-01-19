@@ -28,8 +28,6 @@ Curated Lists main page, right column
 
 ## Create a new list
 
-Each new list needs a name (singular and plural form) and a description. 
-
 <span style="display:inline-block" >
   <img src="../../.erb/img/createNewList.png" width="100%" display="inline-block" />
 </span>
@@ -42,7 +40,7 @@ Once a new list is created, it is stored in nostr as a kind 9901 event. See the 
   <img src="../../.erb/img/createInstance.png" width="100%" display="inline-block" />
 </span>
 
-Once a new list item (also called a list "instance") is created, it is stored in nostr as a kind 9901 event, which is a Regular Event and is not editable or replaceable. See the [item overview page](https://github.com/wds4/pretty-good/blob/main/appDescriptions/curatedLists/v021Overview/singleListItemDetails.md) for technical details.
+Once a new list item (also called a list "instance") is created, it is stored in nostr as a kind 9901 event. See the [item overview page](https://github.com/wds4/pretty-good/blob/main/appDescriptions/curatedLists/v021Overview/singleListItemDetails.md) for technical details.
 
 ## Endorse or Block an item for a given list
 
