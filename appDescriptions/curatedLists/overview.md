@@ -16,7 +16,7 @@ See how a typical list -- the list of Nostr Clients -- is created, how items are
 
 ## View all existing Curated Lists
 
-Landing Page, left column
+Curated Lists main page, left column
 
 <span style="display:inline-block" >
   <img src="../../.erb/img/viewLists.png" height="300px" display="inline-block" />
@@ -24,7 +24,7 @@ Landing Page, left column
 
 ## View all items on the selected list
 
-Landing Page, right column 
+Curated Lists main page, right column 
 
 <span style="display:inline-block" >
   <img src="../../.erb/img/nostrClientsCurationImg2.png" height="300px" display="inline-block" />
