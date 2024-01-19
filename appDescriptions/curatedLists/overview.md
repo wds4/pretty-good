@@ -44,13 +44,13 @@ Once a new list item (also called a list "instance") is created, it is stored in
 
 ## Endorse or Block an item for a given list
 
-To rate an item as belonging (or not) on the list, go to the List Item information page (below) and toggle the Endorse / Unendorse (thumbs up) or Block / Unblock (thumbs down) buttons under "rate this item."
+See buttons under "rate this item" (below).
 
 <span style="display:inline-block" >
   <img src="../../.erb/img/endorseOrBlockAnItem.png" width="100%" display="inline-block" />
 </span>
 
-Ratings are encoded according to the [DCoSL protocol]() and stored in nostr as a kind 39901 event, which are replaceable. An example of a rating which endorses Damus as belonging to the list of nostr clients can be found [here](https://github.com/wds4/pretty-good/blob/main/appDescriptions/curatedLists/v021Overview/rateItem.md).
+Ratings are encoded according to the [DCoSL protocol]() and stored in nostr as a kind 39901 event. See [item rating overview page](https://github.com/wds4/pretty-good/blob/main/appDescriptions/curatedLists/v021Overview/rateItem.md) for technical details.
 
 ## Endorse or Block a user as curator for a given list
 
