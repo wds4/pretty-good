@@ -1,6 +1,6 @@
 Go back to [overview of curated lists page](https://github.com/wds4/pretty-good/blob/main/appDescriptions/curatedLists/overview.md)
 
-# Ratings of Users as Curators are encoded and broadcast to nostr
+# Curator Ratings
 
 All ratings of curators of a selected list can be viewed on either of the Endorsements of Curators pages: one page for all those actively downloadable on nostr; one page for all those that are stored locally in the PGA sqlite3 database.
 
@@ -11,7 +11,7 @@ All ratings of curators of a selected list can be viewed on either of the Endors
   />
 </span>
 
-# Rate curator: example
+## Rate curator: example
 
 <span style="display:inline-block" >
   <img
