@@ -34,7 +34,7 @@ Each new list needs a name (singular and plural form) and a description.
   <img src="../../.erb/img/createNewList.png" height="300px" display="inline-block" />
 </span>
 
-Once a new list is created, it is stored in nostr as a kind 9901 event, which is a Regular Event and is not editable or replaceable. Info about the list (including how it is structured as JSON and stored in nostr) can be reviewed in the [list overview page](https://github.com/wds4/pretty-good/blob/main/appDescriptions/curatedLists/v021Overview/singleListDetails.md)
+Once a new list is created, it is stored in nostr as a kind 9901 event. Info about the list (including how it is structured as JSON and stored in nostr) can be reviewed in the [list overview page](https://github.com/wds4/pretty-good/blob/main/appDescriptions/curatedLists/v021Overview/singleListDetails.md)
 
 ## Add an item to a list
 
