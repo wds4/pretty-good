@@ -68,6 +68,8 @@ Ratings are encoded according to the [DCoSL protocol]() and stored in nostr as a
 
 ## List Curation: web of trust
 
+For any given list, items are either approved or rejected by your grapevine. See the [calculations overview page](https://github.com/wds4/pretty-good/blob/main/appDescriptions/curatedLists/v021Overview/calculationsOverview.md) to see how the calculations are done.
+
 <span style="display:inline-block" >
   <img src="../../.erb/img/listCurationWds4WoT.png" height="300px" display="inline-block" />
 </span>
