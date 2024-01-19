@@ -2,7 +2,7 @@ Go back to [overview of curated lists page](https://github.com/wds4/pretty-good/
 
 # How are calculations performed?
 
-For each list, the app determines which items are ACCEPTED, which are REJECTED, and which are PENDING.
+For each list, your web of trust determines which items are ACCEPTED, which are REJECTED, and which are PENDING.
 
 # Screenshots
 
