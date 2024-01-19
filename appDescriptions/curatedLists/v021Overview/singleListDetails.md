@@ -1,6 +1,6 @@
 # Nostr Clients
 
-When a new list is created, it is stored in nostr as shown below.
+When a new list is created, it is stored in nostr as a kind 9901 event as shown below.
 
 ### General info about the list of Nostr Clients
 
