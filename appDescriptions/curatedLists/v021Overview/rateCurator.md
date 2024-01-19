@@ -6,7 +6,7 @@ All ratings of curators of a selected list can be viewed on either of the Endors
 
 <span style="display:inline-block" >
   <img
-    width="80%"
+    width="100%"
     src="../../../.erb/img/ratingsOfCurators.png"
   />
 </span>
@@ -15,7 +15,7 @@ All ratings of curators of a selected list can be viewed on either of the Endors
 
 <span style="display:inline-block" >
   <img
-    width="80%"
+    width="100%"
     src="../../../.erb/img/ratingOfCurator_word.png"
   />
 </span>
@@ -24,7 +24,7 @@ The above JSON is wrapped and broadcast as a kind 39901 event (Parameterized Rep
 
 <span style="display:inline-block" >
   <img
-    width="80%"
+    width="100%"
     src="../../../.erb/img/ratingOfCurator_event.png"
   />
 </span>
