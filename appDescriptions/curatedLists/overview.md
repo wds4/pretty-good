@@ -15,7 +15,7 @@ We will be using the list of *Nostr Clients* for illustration purposes.
 Curated Lists main page, left column
 
 <span style="display:inline-block" >
-  <img src="../../.erb/img/viewLists.png" width="50%" display="inline-block" />
+  <img src="../../.erb/img/viewLists.png" width="100%" display="inline-block" />
 </span>
 
 ## View all items on the selected list
@@ -25,7 +25,7 @@ Curated Lists main page, right column
 Your web of trust decides which items are ACCEPTED, which are REJECTED, and which are still pending review.
 
 <span style="display:inline-block" >
-  <img src="../../.erb/img/nostrClientsCurationImg2.png" width="50%" display="inline-block" />
+  <img src="../../.erb/img/nostrClientsCurationImg2.png" width="100%" display="inline-block" />
 </span>
 
 ## Create a new list
