@@ -56,7 +56,7 @@ To rate an item as belonging (or not) on the list, go to the List Item informati
   <img src="../../.erb/img/endorseOrBlockAnItem.png" width="90%" display="inline-block" />
 </span>
 
-Ratings are encoded according to the [DCoSL protocol]() and stored in nostr as a kind 39901 event, which are replaceable. An example of a rating which endorses Damus as belonging to the list of nostr clients can be found [here](https://github.com/wds4/pretty-good/blob/main/appDescriptions/curatedLists/v021Overview/rateItem.md)
+Ratings are encoded according to the [DCoSL protocol]() and stored in nostr as a kind 39901 event, which are replaceable. An example of a rating which endorses Damus as belonging to the list of nostr clients can be found [here](https://github.com/wds4/pretty-good/blob/main/appDescriptions/curatedLists/v021Overview/rateItem.md).
 
 ## Endorse or Block a user as curator for a given list
 
