@@ -80,6 +80,10 @@ For any given list, items are either approved or rejected by your grapevine. See
   <img src="../../.erb/img/listCurationWds4WoT.png" width="100%" display="inline-block" />
 </span>
 
+- Circles represent users. Size of circle = how much influence that user has on curation of this list.
+- Arrows represent ratings of users (blue arrows) or of list items (green arrows). Thick arrows = accept; thin = reject.
+- Diamonds represent items on the list. Vertical position reflects that item's average score.
+
 ## List Curation Results
 
 <span style="display:inline-block" >
@@ -90,14 +94,14 @@ For any given list, items are either approved or rejected by your grapevine. See
   <span style="display:inline-block" >
     <img
       align="top"
-      width="49%"
+      width="48%"
       src="../../.erb/img/listCurationResults_itemScores.png"
     />
   </span>
   <span style="display:inline-block" >
     <img
       align="top"
-      width="49%"
+      width="48%"
       src="../../.erb/img/listCurationResults_curatorScores.png"
     />
   </span>
