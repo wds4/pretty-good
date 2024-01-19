@@ -46,9 +46,7 @@ Once a new list item (also called a list "instance") is created, it is stored in
 
 ## Rate items
 
-The item rating systems aloows users to attest that item X belongs or does not belong on list Y.
-
-See buttons under "rate this item" (below).
+The item rating systems allows users to attest that item X belongs or does not belong on list Y.
 
 <span style="display:inline-block" >
   <img src="../../.erb/img/endorseOrBlockAnItem.png" width="100%" display="inline-block" />
