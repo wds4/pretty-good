@@ -42,7 +42,9 @@ Once a new list is created, it is stored in nostr as a kind 9901 event. See the 
 
 Once a new list item (also called a list "instance") is created, it is stored in nostr as a kind 9901 event. See the [item overview page](https://github.com/wds4/pretty-good/blob/main/appDescriptions/curatedLists/v021Overview/singleListItemDetails.md) for technical details.
 
-## Endorse or Block an item for a given list
+## Rate items
+
+The item rating systems aloows users to attest that item X belongs or does not belong on list Y.
 
 See buttons under "rate this item" (below).
 
@@ -52,7 +54,9 @@ See buttons under "rate this item" (below).
 
 Ratings are encoded according to the [DCoSL protocol]() and stored in nostr as a kind 39901 event. See [item rating overview page](https://github.com/wds4/pretty-good/blob/main/appDescriptions/curatedLists/v021Overview/rateItem.md) for technical details.
 
-## Endorse or Block a user as curator for a given list
+## Rate curators
+
+The curator rating systems allows users to attest that Alice should or should not be trusted to curate a specific list X. (Future plans include the ability to attest that Alice should or should not be trusted to curate lists *in general*, not limited to a specific list.)
 
 To rate a user as a curator of the list, go to the View Profile information page (below), select the curated list of interest under "Endorse as Curator for this Nostr List," and toggle the Endorse / Unendorse (thumbs up) or Block / Unblock (thumbs down) buttons. To view these actions, the square Grapevine button (top right) will have to be toggled ON.
 
