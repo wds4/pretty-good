@@ -2,7 +2,7 @@ Go back to [overview of curated lists page](https://github.com/wds4/pretty-good/
 
 # How are calculations performed?
 
-The goal is to determine which items are accepted, which are rejected, and which are pending.
+For each list, the app determines which items are ACCEPTED, which are REJECTED, and which are PENDING.
 
 ### Inputs
 
