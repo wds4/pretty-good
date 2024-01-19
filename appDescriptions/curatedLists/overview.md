@@ -64,7 +64,7 @@ To rate a user as a curator of the list, go to the View Profile information page
   <img src="../../.erb/img/endorseOrBlockACurator.png" width="100%" display="inline-block" />
 </span>
 
-Ratings are encoded according to the [DCoSL protocol]() and stored in nostr as a kind 39901 event, which are replaceable. An example of a rating which endorses Darth McTesty as a trusted curator of the list of nostr clients can be found [here](https://github.com/wds4/pretty-good/blob/main/appDescriptions/curatedLists/v021Overview/rateCurator.md)
+Ratings are encoded according to the [DCoSL protocol](https://github.com/wds4/DCoSL) and stored in nostr as a kind 39901 event. See [this page](https://github.com/wds4/pretty-good/blob/main/appDescriptions/curatedLists/v021Overview/rateCurator.md) for technical details.
 
 ## List Curation Overview
 
