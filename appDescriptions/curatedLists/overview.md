@@ -1,16 +1,16 @@
-# Curated Lists
+# Overview of the Curated Lists app from Pretty Good Apps desktop client
 
-Screenshot overview of the [Pretty Good Apps desktop client](https://github.com/wds4/pretty-good), [v0.2.1-alpha](https://github.com/wds4/pretty-good/releases/tag/v0.2.1-alpha)
+Screenshots are taken from the [Pretty Good Apps desktop client](https://github.com/wds4/pretty-good), [v0.2.1-alpha](https://github.com/wds4/pretty-good/releases/tag/v0.2.1-alpha)
 
 See how a typical list -- the list of Nostr Clients -- is created, how items are added to the list, how the list is curated by your web of trust, and how the results are calculated and displayed.
 
-## Landing Page
+## Curated Lists main page
 
 <span style="display:inline-block" >
   <img src="../../.erb/img/curatedListsMainPage2.png" width="80%" display="inline-block" />
 </span>
 
-## View lists
+## View all existing Curated Lists
 
 Landing Page, left column
 
@@ -18,7 +18,7 @@ Landing Page, left column
   <img src="../../.erb/img/viewLists.png" height="300px" display="inline-block" />
 </span>
 
-## View items on a list
+## View all items on the selected list
 
 Landing Page, right column 
 
@@ -28,17 +28,21 @@ Landing Page, right column
 
 ## Create a new list
 
+Each new list needs a name (singular and plural form) and a description. 
+
 <span style="display:inline-block" >
   <img src="../../.erb/img/createNewList.png" height="300px" display="inline-block" />
 </span>
 
-Once a new list is created, it is stored in nostr as a kind 9901 event. Info about the list can be reviewed in the [list overview page](https://github.com/wds4/pretty-good/blob/main/appDescriptions/curatedLists/v021Overview/singleListDetails.md)
+Once a new list is created, it is stored in nostr as a kind 9901 event, which is a Regular Event and is not editable or replaceable. Info about the list can be reviewed in the [list overview page](https://github.com/wds4/pretty-good/blob/main/appDescriptions/curatedLists/v021Overview/singleListDetails.md)
 
 ## Add an item to a list
 
 <span style="display:inline-block" >
   <img src="../../.erb/img/createInstance.png" height="300px" display="inline-block" />
 </span>
+
+Once a new list item (also called a list "instance") is created, it is stored in nostr as a kind 9901 event, which is a Regular Event and is not editable or replaceable. Info about the list can be reviewed in the [list overview page](https://github.com/wds4/pretty-good/blob/main/appDescriptions/curatedLists/v021Overview/singleListItemDetails.md)
 
 ## Endorse or Block an item for a given list
 
