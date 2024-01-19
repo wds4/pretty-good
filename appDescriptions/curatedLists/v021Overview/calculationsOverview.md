@@ -6,6 +6,8 @@ For each list, your web of trust determines which items are ACCEPTED, which are 
 
 # Screenshots
 
+The PGA desktop app lets you review the raw data and all calculations.
+
 ## Curator score
 
 - determines how much influence any given user has over the items on this list, as well as the scores of other curators
