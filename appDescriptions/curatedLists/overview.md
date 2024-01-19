@@ -1,4 +1,4 @@
-# Overview of the Curated Lists app from Pretty Good Apps desktop client
+# Overview of Curated Lists on nostr
 
 This page displays screenshots from the [Pretty Good Apps desktop client](https://github.com/wds4/pretty-good), [v0.2.1-alpha](https://github.com/wds4/pretty-good/releases/tag/v0.2.1-alpha) to show how lists are curated by your web of trust using the [DCoSL protocol](https://github.com/wds4/DCoSL).
 
