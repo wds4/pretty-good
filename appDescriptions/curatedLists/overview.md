@@ -19,7 +19,7 @@ See how a typical list -- the list of Nostr Clients -- is created, how items are
 Curated Lists main page, left column
 
 <span style="display:inline-block" >
-  <img src="../../.erb/img/viewLists.png" height="300px" display="inline-block" />
+  <img src="../../.erb/img/viewLists.png" width="50%" display="inline-block" />
 </span>
 
 ## View all items on the selected list
@@ -27,7 +27,7 @@ Curated Lists main page, left column
 Curated Lists main page, right column 
 
 <span style="display:inline-block" >
-  <img src="../../.erb/img/nostrClientsCurationImg2.png" height="300px" display="inline-block" />
+  <img src="../../.erb/img/nostrClientsCurationImg2.png" width="50%" display="inline-block" />
 </span>
 
 ## Create a new list
