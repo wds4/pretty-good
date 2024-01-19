@@ -31,7 +31,7 @@ Curated Lists main page, right column
 Each new list needs a name (singular and plural form) and a description. 
 
 <span style="display:inline-block" >
-  <img src="../../.erb/img/createNewList.png" height="300px" display="inline-block" />
+  <img src="../../.erb/img/createNewList.png" width="95%" display="inline-block" />
 </span>
 
 Once a new list is created, it is stored in nostr as a kind 9901 event. See the [list overview page](https://github.com/wds4/pretty-good/blob/main/appDescriptions/curatedLists/v021Overview/singleListDetails.md) for technical details.
