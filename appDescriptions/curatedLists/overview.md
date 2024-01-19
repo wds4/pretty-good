@@ -22,6 +22,8 @@ Curated Lists main page, left column
 
 Curated Lists main page, right column 
 
+Your web of trust decides which items are ACCEPTED, which are REJECTED, and which are still pending review.
+
 <span style="display:inline-block" >
   <img src="../../.erb/img/nostrClientsCurationImg2.png" width="50%" display="inline-block" />
 </span>
