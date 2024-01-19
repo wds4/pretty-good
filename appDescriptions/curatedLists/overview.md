@@ -56,13 +56,13 @@ Ratings are encoded according to the [DCoSL protocol]() and stored in nostr as a
 
 ## Rate curators
 
-The curator rating systems allows users to attest that Alice should or should not be trusted to curate a specific list X. (Future plans include the ability to attest that Alice should or should not be trusted to curate lists *in general*, not limited to a specific list.)
-
-To rate a user as a curator of the list, go to the View Profile information page (below), select the curated list of interest under "Endorse as Curator for this Nostr List," and toggle the Endorse / Unendorse (thumbs up) or Block / Unblock (thumbs down) buttons. To view these actions, the square Grapevine button (top right) will have to be toggled ON.
+The curator rating systems allows users to attest that Alice should or should not be trusted to curate a specific list X.
 
 <span style="display:inline-block" >
   <img src="../../.erb/img/endorseOrBlockACurator.png" width="100%" display="inline-block" />
 </span>
+
+To access the ratings buttons, make sure the square Grapevine button (top right) is toggled ON.
 
 Ratings are encoded according to the [DCoSL protocol](https://github.com/wds4/DCoSL) and stored in nostr as a kind 39901 event. See [this page](https://github.com/wds4/pretty-good/blob/main/appDescriptions/curatedLists/v021Overview/rateCurator.md) for technical details.
 
