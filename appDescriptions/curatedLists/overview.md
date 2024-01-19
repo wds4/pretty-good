@@ -4,6 +4,10 @@ Screenshots are taken from the [Pretty Good Apps desktop client](https://github.
 
 See how a typical list -- the list of Nostr Clients -- is created, how items are added to the list, how the list is curated by your web of trust, and how the results are calculated and displayed.
 
+- Anyone can create a new list.
+- Anyone can add an item to any list.
+- For each list, your web of trust determines which items are ACCEPTED to the list, which are REJECTED, and which items remain PENDING.
+
 ## Curated Lists main page
 
 <span style="display:inline-block" >
@@ -62,13 +66,13 @@ Ratings are encoded according to the [DCoSL protocol]() and stored in nostr as a
 
 ## List Curation Overview
 
+For any given list, items are either approved or rejected by your grapevine. See the [calculations overview page](https://github.com/wds4/pretty-good/blob/main/appDescriptions/curatedLists/v021Overview/calculationsOverview.md) to see how the calculations are done.
+
 <span style="display:inline-block" >
   <img src="../../.erb/img/listCurationMainPageWds4.png" height="300px" display="inline-block" />
 </span>
 
 ## List Curation: web of trust
-
-For any given list, items are either approved or rejected by your grapevine. See the [calculations overview page](https://github.com/wds4/pretty-good/blob/main/appDescriptions/curatedLists/v021Overview/calculationsOverview.md) to see how the calculations are done.
 
 <span style="display:inline-block" >
   <img src="../../.erb/img/listCurationWds4WoT.png" height="300px" display="inline-block" />
