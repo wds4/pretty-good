@@ -7,7 +7,7 @@ We will be using the list of *Nostr Clients* for illustration purposes.
 ## Curated Lists main page
 
 <span style="display:inline-block" >
-  <img src="../../.erb/img/curatedListsMainPage2.png" width="95%" display="inline-block" />
+  <img src="../../.erb/img/curatedListsMainPage2.png" width="100%" display="inline-block" />
 </span>
 
 ## View all existing Curated Lists
@@ -39,7 +39,7 @@ Once a new list is created, it is stored in nostr as a kind 9901 event. See the 
 ## Add an item to a list
 
 <span style="display:inline-block" >
-  <img src="../../.erb/img/createInstance.png" height="300px" display="inline-block" />
+  <img src="../../.erb/img/createInstance.png" width="100%" display="inline-block" />
 </span>
 
 Once a new list item (also called a list "instance") is created, it is stored in nostr as a kind 9901 event, which is a Regular Event and is not editable or replaceable. See the [item overview page](https://github.com/wds4/pretty-good/blob/main/appDescriptions/curatedLists/v021Overview/singleListItemDetails.md) for technical details.
@@ -49,7 +49,7 @@ Once a new list item (also called a list "instance") is created, it is stored in
 To rate an item as belonging (or not) on the list, go to the List Item information page (below) and toggle the Endorse / Unendorse (thumbs up) or Block / Unblock (thumbs down) buttons under "rate this item."
 
 <span style="display:inline-block" >
-  <img src="../../.erb/img/endorseOrBlockAnItem.png" width="95%" display="inline-block" />
+  <img src="../../.erb/img/endorseOrBlockAnItem.png" width="100%" display="inline-block" />
 </span>
 
 Ratings are encoded according to the [DCoSL protocol]() and stored in nostr as a kind 39901 event, which are replaceable. An example of a rating which endorses Damus as belonging to the list of nostr clients can be found [here](https://github.com/wds4/pretty-good/blob/main/appDescriptions/curatedLists/v021Overview/rateItem.md).
@@ -59,7 +59,7 @@ Ratings are encoded according to the [DCoSL protocol]() and stored in nostr as a
 To rate a user as a curator of the list, go to the View Profile information page (below), select the curated list of interest under "Endorse as Curator for this Nostr List," and toggle the Endorse / Unendorse (thumbs up) or Block / Unblock (thumbs down) buttons. To view these actions, the square Grapevine button (top right) will have to be toggled ON.
 
 <span style="display:inline-block" >
-  <img src="../../.erb/img/endorseOrBlockACurator.png" width="95%" display="inline-block" />
+  <img src="../../.erb/img/endorseOrBlockACurator.png" width="100%" display="inline-block" />
 </span>
 
 Ratings are encoded according to the [DCoSL protocol]() and stored in nostr as a kind 39901 event, which are replaceable. An example of a rating which endorses Darth McTesty as a trusted curator of the list of nostr clients can be found [here](https://github.com/wds4/pretty-good/blob/main/appDescriptions/curatedLists/v021Overview/rateCurator.md)
@@ -69,19 +69,19 @@ Ratings are encoded according to the [DCoSL protocol]() and stored in nostr as a
 For any given list, items are either approved or rejected by your grapevine. See the [calculations overview page](https://github.com/wds4/pretty-good/blob/main/appDescriptions/curatedLists/v021Overview/calculationsOverview.md) to see how the calculations are done.
 
 <span style="display:inline-block" >
-  <img src="../../.erb/img/listCurationMainPageWds4.png" height="300px" display="inline-block" />
+  <img src="../../.erb/img/listCurationMainPageWds4.png" width="100%" display="inline-block" />
 </span>
 
 ## List Curation: web of trust
 
 <span style="display:inline-block" >
-  <img src="../../.erb/img/listCurationWds4WoT.png" height="300px" display="inline-block" />
+  <img src="../../.erb/img/listCurationWds4WoT.png" width="100%" display="inline-block" />
 </span>
 
 ## List Curation Results
 
 <span style="display:inline-block" >
-  <img src="../../.erb/img/listCurationResults_items.png" width="50%" display="inline-block" />
+  <img src="../../.erb/img/listCurationResults_items.png" width="80%" display="inline-block" />
 </span>
 
 <div>
