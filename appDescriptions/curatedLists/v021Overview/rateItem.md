@@ -2,7 +2,7 @@ Go back to [overview of curated lists page](https://github.com/wds4/pretty-good/
 
 # Ratings of Items
 
-All ratings of items of a selected list can be viewed on either of the Ratings of List Items pages: one page for ratings actively downloadable on nostr; one page for all ratings that are stored locally in the PGA sqlite3 database.
+View all item ratings for the selected list.
 
 <span style="display:inline-block" >
   <img
