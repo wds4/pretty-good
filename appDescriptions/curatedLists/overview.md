@@ -109,6 +109,8 @@ For any given list, items are either approved or rejected by your grapevine. See
 
 ## List Curation Control Panel
 
+Users have tremendous control over how the data is processed. Why? To deal with sybil attacks and bad actors. Most settings range between two extremes: "more permissive" versus "more stringent." The default settings will work in most cases. But in the case of sybil attacks, users may want to learn about these various settings and make adjustments accordingly.
+
 Control Panel: Users and Items
 
 <div>
