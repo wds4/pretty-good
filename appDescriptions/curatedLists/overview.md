@@ -11,7 +11,7 @@ See how a typical list -- the list of Nostr Clients -- is created, how items are
 ## Curated Lists main page
 
 <span style="display:inline-block" >
-  <img src="../../.erb/img/curatedListsMainPage2.png" width="80%" display="inline-block" />
+  <img src="../../.erb/img/curatedListsMainPage2.png" width="95%" display="inline-block" />
 </span>
 
 ## View all existing Curated Lists
