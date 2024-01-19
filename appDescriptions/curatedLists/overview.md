@@ -123,11 +123,19 @@ Control Panel: Sybil Mitigation: Overview and Rigor
 
 <div>
   <span style="display:inline-block" >
-    <img src="../../.erb/img/listCurationControlPanel_sybilMitigation_overview.png" width="49%" display="inline-block" />
+    <img
+      align="top"
+      width="49%"
+      src="../../.erb/img/listCurationControlPanel_sybilMitigation_overview.png"
+    />
   </span>
 
   <span style="display:inline-block" >
-    <img src="../../.erb/img/listCurationControlPanel_sybilMitigation_rigor.png" width="49%" display="inline-block" />
+    <img
+      align="top"
+      width="49%"
+      src="../../.erb/img/listCurationControlPanel_sybilMitigation_rigor.png"
+    />
   </span>
 </div>
 
