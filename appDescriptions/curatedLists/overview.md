@@ -50,11 +50,15 @@ Once a new list item (also called a list "instance") is created, it is stored in
   <img src="../../.erb/img/endorseOrBlockAnItem.png" width="90%" display="inline-block" />
 </span>
 
-## Endorse or Block a user to be a trusted curator for a given list
+Ratings are encoded according to the [DCoSL protocol]() and stored in nostr as a kind 39901 event, which are replaceable. An example of a rating which endorses Damus as belonging to the list of nostr clients can be found [here](https://github.com/wds4/pretty-good/blob/main/appDescriptions/curatedLists/v021Overview/rateItem.md)
+
+## Endorse or Block a user as curator for a given list
 
 <span style="display:inline-block" >
   <img src="../../.erb/img/endorseOrBlockACurator.png" width="90%" display="inline-block" />
 </span>
+
+Ratings are encoded according to the [DCoSL protocol]() and stored in nostr as a kind 39901 event, which are replaceable. An example of a rating which endorses abc as a trusted curator of the list of nostr clients can be found [here](https://github.com/wds4/pretty-good/blob/main/appDescriptions/curatedLists/v021Overview/rateCurator.md)
 
 ## List Curation Overview
 
