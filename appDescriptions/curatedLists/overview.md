@@ -81,21 +81,21 @@ For any given list, items are either approved or rejected by your grapevine. See
 ## List Curation Results
 
 <span style="display:inline-block" >
-  <img src="../../.erb/img/listCurationResults_items.png" width="80%" display="inline-block" />
+  <img src="../../.erb/img/listCurationResults_items.png" width="100%" display="inline-block" />
 </span>
 
 <div>
   <span style="display:inline-block" >
     <img
       align="top"
-      width="30%"
+      width="50%"
       src="../../.erb/img/listCurationResults_itemScores.png"
     />
   </span>
   <span style="display:inline-block" >
     <img
       align="top"
-      width="30%"
+      width="50%"
       src="../../.erb/img/listCurationResults_curatorScores.png"
     />
   </span>
