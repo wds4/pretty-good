@@ -49,7 +49,7 @@ Once a new list item (also called a list "instance") is created, it is stored in
 To rate an item as belonging (or not) on the list, go to the List Item information page (below) and toggle the Endorse / Unendorse (thumbs up) or Block / Unblock (thumbs down) buttons under "rate this item."
 
 <span style="display:inline-block" >
-  <img src="../../.erb/img/endorseOrBlockAnItem.png" width="90%" display="inline-block" />
+  <img src="../../.erb/img/endorseOrBlockAnItem.png" width="95%" display="inline-block" />
 </span>
 
 Ratings are encoded according to the [DCoSL protocol]() and stored in nostr as a kind 39901 event, which are replaceable. An example of a rating which endorses Damus as belonging to the list of nostr clients can be found [here](https://github.com/wds4/pretty-good/blob/main/appDescriptions/curatedLists/v021Overview/rateItem.md).
@@ -59,7 +59,7 @@ Ratings are encoded according to the [DCoSL protocol]() and stored in nostr as a
 To rate a user as a curator of the list, go to the View Profile information page (below), select the curated list of interest under "Endorse as Curator for this Nostr List," and toggle the Endorse / Unendorse (thumbs up) or Block / Unblock (thumbs down) buttons. To view these actions, the square Grapevine button (top right) will have to be toggled ON.
 
 <span style="display:inline-block" >
-  <img src="../../.erb/img/endorseOrBlockACurator.png" width="90%" display="inline-block" />
+  <img src="../../.erb/img/endorseOrBlockACurator.png" width="95%" display="inline-block" />
 </span>
 
 Ratings are encoded according to the [DCoSL protocol]() and stored in nostr as a kind 39901 event, which are replaceable. An example of a rating which endorses Darth McTesty as a trusted curator of the list of nostr clients can be found [here](https://github.com/wds4/pretty-good/blob/main/appDescriptions/curatedLists/v021Overview/rateCurator.md)
