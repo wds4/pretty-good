@@ -88,14 +88,14 @@ For any given list, items are either approved or rejected by your grapevine. See
   <span style="display:inline-block" >
     <img
       align="top"
-      width="50%"
+      width="49%"
       src="../../.erb/img/listCurationResults_itemScores.png"
     />
   </span>
   <span style="display:inline-block" >
     <img
       align="top"
-      width="50%"
+      width="49%"
       src="../../.erb/img/listCurationResults_curatorScores.png"
     />
   </span>
