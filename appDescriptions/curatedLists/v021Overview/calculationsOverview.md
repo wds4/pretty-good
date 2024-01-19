@@ -14,7 +14,7 @@ The PGA desktop app lets you review the raw data and all calculations.
 
 <span style="display:inline-block" >
   <img
-    width="80%"
+    width="100%"
     src="../../../.erb/img/calculationsOverview_joker1.png"
   />
 </span>
@@ -25,7 +25,7 @@ The PGA desktop app lets you review the raw data and all calculations.
 
 <span style="display:inline-block" >
   <img
-    width="80%"
+    width="100%"
     src="../../../.erb/img/calculationsOverview_damus.png"
   />
 </span>
@@ -54,7 +54,9 @@ The most important control panel settings are:
 - Average scores are calculated as *weighted* averages.
 - The weight for each rating is determined primarily by the *influence* of the rater. A rating by a user with zero trust is therefore given zero weight, i.e. it is ignored.
 - Each user has an influence score that is contextual, i.e. in the context of a specific list.
-- A user's influence score is used for both purposes: for picking list items and for picking list curators. 
+- A user's influence score is used for both purposes: for picking list items and for picking list curators.
+- For each user and list score, there is an associated *confidence* parameter that depends on the number of ratings that go into that calculation and on the weight of each of those ratings. Confidence is a number that ranges from 0 to 100%.
+- A user's influence is determined not only by that user's average trust score, but also by the *confidence* in that user's trust score.
 
 ## Script
 
