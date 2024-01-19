@@ -13,6 +13,8 @@ All ratings of curators of a selected list can be viewed on either of the Endors
 
 ## Rate curator: example
 
+Ratings are encoded as JSON according to the [DCoSL protocol](https://github.com/wds4/DCoSL).
+
 <span style="display:inline-block" >
   <img
     width="100%"
