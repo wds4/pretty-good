@@ -5,7 +5,7 @@ All ratings of items of a selected list can be viewed, either all actively obser
 <span style="display:inline-block" >
   <img
     width="80%"
-    src="../../.erb/img/ratingsOfItems.png"
+    src="../../../.erb/img/ratingsOfItems.png"
   />
 </span>
 
@@ -14,14 +14,14 @@ All ratings of items of a selected list can be viewed, either all actively obser
 <span style="display:inline-block" >
   <img
     width="80%"
-    src="../../.erb/img/ratingsOfItem_word.png"
+    src="../../../.erb/img/ratingsOfItem_word.png"
   />
 </span>
 
 <span style="display:inline-block" >
   <img
     width="80%"
-    src="../../.erb/img/ratingsOfItem_event.png"
+    src="../../../.erb/img/ratingsOfItem_event.png"
   />
 </span>
 
