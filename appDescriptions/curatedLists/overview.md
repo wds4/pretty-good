@@ -88,14 +88,22 @@ For any given list, items are either approved or rejected by your grapevine. See
   <img src="../../.erb/img/listCurationResults_items.png" width="50%" display="inline-block" />
 </span>
 
-<br/>
-
-<span style="display:inline-block" >
-  <img src="../../.erb/img/listCurationResults_itemScores.png" width="30%" display="inline-block" />
-</span>
-<span style="display:inline-block" >
-  <img src="../../.erb/img/listCurationResults_curatorScores.png" width="30%" display="inline-block" />
-</span>
+<div>
+  <span style="display:inline-block" >
+    <img
+      align="top"
+      width="30%"
+      src="../../.erb/img/listCurationResults_itemScores.png"
+    />
+  </span>
+  <span style="display:inline-block" >
+    <img
+      align="top"
+      width="30%"
+      src="../../.erb/img/listCurationResults_curatorScores.png"
+    />
+  </span>
+</div>
 
 ## List Curation Control Panel
 
@@ -103,11 +111,19 @@ Control Panel: Users and Items
 
 <div>
   <span style="display:inline-block" >
-    <img src="../../.erb/img/listCurationControlPanel_users.png" width="49%" display="inline-block" />
+    <img
+      align="top"
+      width="49%"
+      src="../../.erb/img/listCurationControlPanel_users.png"
+    />
   </span>
 
   <span style="display:inline-block" >
-    <img src="../../.erb/img/listCurationControlPanel_items.png" width="49%" display="inline-block" />
+    <img
+      align="top"
+      width="49%"
+      src="../../.erb/img/listCurationControlPanel_items.png"
+    />
   </span>
 </div>
 
