@@ -50,7 +50,7 @@ Once a new list item (also called a list "instance") is created, it is stored in
 
 ## Endorse or Block an item for a given list
 
-To rate an item as belonging (or not) on the list, go to the List Item information page (below) and toggle the Endorse / Unendorse (thumbs up) or Block / Unblock (thumbs down) buttons at the bottom.
+To rate an item as belonging (or not) on the list, go to the List Item information page (below) and toggle the Endorse / Unendorse (thumbs up) or Block / Unblock (thumbs down) buttons under "rate this item."
 
 <span style="display:inline-block" >
   <img src="../../.erb/img/endorseOrBlockAnItem.png" width="90%" display="inline-block" />
