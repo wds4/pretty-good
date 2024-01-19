@@ -34,6 +34,11 @@ The PGA desktop app lets you review the raw data and all calculations.
 
 See the [overview page](https://github.com/wds4/pretty-good/blob/main/appDescriptions/curatedLists/overview.md) (scroll to the bottom) for an overview of the control panel settings.
 
+The most important control panel settings are:
+- Seed user. YOU are the center of YOUR web of trust. The seed user allows us to switch perspective from one user to another.
+- default user trust score and list item score. If a user or item has not been rated by anyone, the default scores kick in.
+- attenuation factor. How much do you really want to trust a user who is some very large number of hops away from you in your web of trust? The attenuation factor is a number between 0 and 1 that adjusts how much *weight* you give to each curator trust rating. Setting AF closer to 1 is more permissive; closer to 0 is more stringent.
+
 # How is the data processed?
 
 ## Inputs
@@ -43,15 +48,25 @@ See the [overview page](https://github.com/wds4/pretty-good/blob/main/appDescrip
 - ratings of users
 - control panel settings
 
-Calculations for each list are performed separately.
-
-Step 1: calculate curator scores.
-Step 2: calculate item scores.
-Step 3: distribute items into accepted, rejected, and pending bins based on their scores
-
 ## Basic principles
 
+- For each list like the list of *Nostr Clients*, there are in fact two associated lists: the list of items and the list of curators.
 - Average scores are calculated as *weighted* averages.
+- The weight for each rating is determined primarily by the *influence* of the rater. A rating by a user with zero trust is therefore given zero weight, i.e. it is ignored.
+- Each user has an influence score that is contextual, i.e. in the context of a specific list.
+- A user's influence score is used for both purposes: for picking list items and for picking list curators. 
+
+## Script
+
+There is a script that runs continuously in the background, which iterates through the following steps:
+
+Step 1: calculate curator scores.
+
+Step 2: calculate item scores.
+
+Step 3: distribute items into accepted, rejected, and pending bins based on their scores
+
+You can adjust the various control panel settings and observe the changes in the web of trust in real time.
 
 ## Not yet implemented in the v0.2.1-alpha release: trust score hierarchy
 
