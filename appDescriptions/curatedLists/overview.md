@@ -1,13 +1,13 @@
 # Curated Lists
 
-[Pretty Good Apps desktop client](https://github.com/wds4/pretty-good), [v0.2.1-alpha](https://github.com/wds4/pretty-good/releases/tag/v0.2.1-alpha)
+Screenshot overview of the [Pretty Good Apps desktop client](https://github.com/wds4/pretty-good), [v0.2.1-alpha](https://github.com/wds4/pretty-good/releases/tag/v0.2.1-alpha)
 
 See how a typical list -- the list of Nostr Clients -- is created, how items are added to the list, how the list is curated by your web of trust, and how the results are calculated and displayed.
 
 ## Landing Page
 
 <span style="display:inline-block" >
-  <img src="../../.erb/img/curatedListsMainPage.png" height="300px" display="inline-block" />
+  <img src="../../.erb/img/curatedListsMainPage2.png" width="80%" display="inline-block" />
 </span>
 
 ## View lists
@@ -32,7 +32,7 @@ Landing Page, right column
   <img src="../../.erb/img/createNewList.png" height="300px" display="inline-block" />
 </span>
 
-Once a new list is created, it is stored in nostr as a kind 9901 event as shown [here](https://github.com/wds4/pretty-good/blob/main/appDescriptions/curatedLists/v021Overview/singleListDetails.md)
+Once a new list is created, it is stored in nostr as a kind 9901 event. Info about the list can be reviewed in the [list overview page](https://github.com/wds4/pretty-good/blob/main/appDescriptions/curatedLists/v021Overview/singleListDetails.md)
 
 ## Add an item to a list
 
