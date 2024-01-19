@@ -6,7 +6,7 @@ All ratings of items of a selected list can be viewed on either of the Ratings o
 
 <span style="display:inline-block" >
   <img
-    width="80%"
+    width="100%"
     src="../../../.erb/img/ratingsOfItems.png"
   />
 </span>
@@ -15,7 +15,7 @@ All ratings of items of a selected list can be viewed on either of the Ratings o
 
 <span style="display:inline-block" >
   <img
-    width="80%"
+    width="100%"
     src="../../../.erb/img/ratingOfItem_word.png"
   />
 </span>
@@ -26,7 +26,7 @@ Several tags are employed to increase the efficiency of finding ratings of a des
 
 <span style="display:inline-block" >
   <img
-    width="80%"
+    width="100%"
     src="../../../.erb/img/ratingOfItem_event.png"
   />
 </span>
