@@ -1,6 +1,6 @@
 # Overview of the Curated Lists app from Pretty Good Apps desktop client
 
-Screenshots are taken from the [Pretty Good Apps desktop client](https://github.com/wds4/pretty-good), [v0.2.1-alpha](https://github.com/wds4/pretty-good/releases/tag/v0.2.1-alpha)
+This page takes screenshots from the [Pretty Good Apps desktop client](https://github.com/wds4/pretty-good), [v0.2.1-alpha](https://github.com/wds4/pretty-good/releases/tag/v0.2.1-alpha) to show how lists are curated by your web of trust using the [DCoSL protocol](https://github.com/wds4/DCoSL).
 
 See how a typical list -- the list of Nostr Clients -- is created, how items are added to the list, how the list is curated by your web of trust, and how the results are calculated and displayed.
 
