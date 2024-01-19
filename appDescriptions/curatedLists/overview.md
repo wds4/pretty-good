@@ -2,11 +2,7 @@
 
 This page displays screenshots from the [Pretty Good Apps desktop client](https://github.com/wds4/pretty-good), [v0.2.1-alpha](https://github.com/wds4/pretty-good/releases/tag/v0.2.1-alpha) to show how lists are curated by your web of trust using the [DCoSL protocol](https://github.com/wds4/DCoSL).
 
-See how a typical list -- the list of Nostr Clients -- is created, how items are added to the list, how the list is curated by your web of trust, and how the results are calculated and displayed.
-
-- Anyone can create a new list.
-- Anyone can add an item to any list.
-- For each list, your web of trust determines which items are ACCEPTED to the list, which are REJECTED, and which items remain PENDING.
+We will be using the list of *Nostr Clients* for illustration purposes.
 
 ## Curated Lists main page
 
