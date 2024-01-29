@@ -16,7 +16,19 @@ Each rating is also associated with a "confidence" score, which is a number betw
 
 ## Calculations of curator trust scores
 
-For each user, an average score is calculated, which will be a number between 0 and 100. The average score is a weighted average, calculated from every trust rating. The weight of each score is equal to the trust score of the rater, multiplied by the confidence score of the rating (set to 0.8 for all ratings for now), and multiplied by the attenuation factor, which is a user-controlled parameter between 0 and 1. For each score, a variable called *input* is defined as the sum of all of these individual weights, and in theory ranges from 0 to infinity. This nmuber is mapped to a score called "certainty" which is a number between 0% and 100%. The user's *influence* is defined as the product of the *average rating* and the *certainty* in the average rating. In this manner, an "influencer" with a stupendously large number of endorsements will have only a MARGINALLY higher influence than someone with a small number of endorsements. The equation to convert *input* into *certainty* is controlled by a parameter called *rigor* in the control panel.
+The goal is to calculate, for each user, a quantity called *influence* which is used to determine that user's weight. Each list is its own independent "context"
+
+For each user, an *average score* is first calculated, which will be a number between 0 and 100. The average score is a weighted average, calculated from every trust rating. The weight of each rating is equal to the *influence* of the rater, multiplied by the confidence score of the rating (set to 0.8 for all ratings for now), and multiplied by the *attenuation factor*, which is a user-controlled parameter between 0 and 1. 
+
+For each average score, a variable called *input* is defined as the sum of all of these individual weights. In theory, the input ranges from 0 to infinity. This number is mapped to a score called *certainty* which is a number between 0% and 100%. 
+
+The user's *influence* is defined as the product of the *average rating* and the *certainty* in the average rating. In this manner, an "influencer" with a stupendously large number of endorsements will have only a MARGINALLY higher influence than someone with a small number of endorsements. The equation to convert *input* into *certainty* is controlled by a parameter called *rigor* in the control panel.
+
+Summary:
+- *average score*: a weighted average
+- *input*: the sum of the weights of all the ratings that make up the average score
+- *certainty*: a number between 0 and 100%, calculated from *input*; a certainty of 100% would require infinite input.
+- *influence* = average * certainty
 
 ## Calculations of list item scores
 
