@@ -18,7 +18,7 @@ Each rating is also associated with a "confidence" score, which is a number betw
 
 The goal is to calculate, for each user, a quantity called *influence* which is used to determine that user's weight. Each list is its own independent "context"
 
-For each user, an *average score* is first calculated, which will be a number between 0 and 100. The average score is a weighted average, calculated from every trust rating. The weight of each rating is equal to the *influence* of the rater, multiplied by the confidence score of the rating (set to 0.8 for all ratings for now), and multiplied by the *attenuation factor*, which is a user-controlled parameter between 0 and 1. The default trust score is treated as its own rating that is applied to ALL users. The default trust score has a confidence that can be adjusted from 0% to 100%, independently of the default 80% confidence rating.
+For each user, an *average score* is first calculated, which will be a number between 0 and 100. The average score is a weighted average, calculated from every trust rating. The weight of each rating is equal to the *influence* of the rater, multiplied by the confidence score of the rating (set to 0.8 for all ratings for now), and multiplied by the *attenuation factor*, which is a user-controlled parameter between 0 and 1. The default trust score is treated as its own rating that is applied to ALL users. The default trust score has a confidence that can be adjusted from 0% to 100%, independently of the default 80% confidence rating for regular ratings. 
 
 For each average score, a variable called *input* is defined as the sum of all of these individual weights. In theory, the input ranges from 0 to infinity. This number is mapped to a score called *certainty* which is a number between 0% and 100%. The equation to convert *input* into *certainty* is an exponential, the decay of which is controlled by a parameter called *rigor* controlled by the user in the control panel.
 
@@ -33,6 +33,8 @@ Summary:
 - *influence* = average * certainty
 
 ## Calculations of list item scores
+
+Similarly to the above.
 
 # Screenshots
 
