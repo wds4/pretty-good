@@ -4,6 +4,22 @@ Go back to [overview of curated lists page](https://github.com/wds4/pretty-good/
 
 For each list, your web of trust determines which items are ACCEPTED, which are REJECTED, and which are PENDING.
 
+# Ratings
+
+There are two types of ratings: ratings of list items and ratings of curators. Each rating is either an endorsement / "thumbs up" score of 100 or a rejection / block  / "thumbs down" score of 0. Future iterations of WoT will show the user a slider and can be any rating between 0 and 100 (or higher -- see below), But for now, to keep things simple, the user sees only a binary option.
+
+A score of 0 is interpreted as a recommendation to give zero weight to the ratee. A score of 100 is defined as a recommendation to give weight to the ratee equal to the weight of the rater. In theory, the score can be higher than 100, if the rater recommends to give the ratee MORE weight than the rater, which would be appropriate if, say, someone is rating Einstein in a physics-related context. This introduces the opportunity for abuse which is addressed through the introduction of an optional attenuation factor that automatically kicks in for ridiculously high ratings.
+
+Each rating is also associated with a "confidence" score, which is a number between 0 % and 100 %. To keep things simple, this option is hidden, and the default score is set to 80%.
+
+# Calculations
+
+## Calculations of curator trust scores
+
+For each user, an average score is calculated, which will be a number between 0 and 100. The average score is a weighted average, calculated from every trust rating. The weight of each score is equal to the trust score of the rater, multiplied by the confidence score of the rating (set to 0.8 for all ratings for now), and multiplied by the attenuation factor, which is a user-controlled parameter between 0 and 1. For each score, a variable called *input* is defined as the sum of all of these individual weights, and in theory ranges from 0 to infinity. This nmuber is mapped to a score called "certainty" which is a number between 0% and 100%. The user's *influence* is defined as the product of the *average rating* and the *certainty* in the average rating. In this manner, an "influencer" with a stupendously large number of endorsements will have only a MARGINALLY higher influence than someone with a small number of endorsements. The equation to convert *input* into *certainty* is controlled by a parameter in the control panel. 
+
+## Calculations of list item scores
+
 # Screenshots
 
 The PGA desktop app lets you review the raw data and all calculations.
